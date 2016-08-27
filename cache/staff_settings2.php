@@ -1,0 +1,10 @@
+<?php
+/**
+
+This file created on Jul 26 2016 10:59:20.
+.
+Site Config staff mod by pdq/U-232.
+
+**/
+$INSTALLER09['staff']['allowed'] = array('Mindless' => 1,'System' => 1,'RikT' => 1,'stoner' => 1,'BunkerBengt' => 1,'RussIT' => 1,'pdq' => 1,'elephant' => 1,'djz' => 1,'putyn' => 1,'kid' => 1,'VOLKERMORD' => 1,'Rich' => 1,'autotron' => 1,'EsSeX' => 1,'MAST3R' => 1,'swizzles' => 1,'mistero' => 1,'Islander' => 1,'johnpolf' => 1,'007adam' => 1,'EorLingas' => 1,'gram' => 1,'zokii1983' => 1,'Hatchet' => 1,'d6bmg' => 1,'GrImReApeR' => 1,'redworm' => 1,'pucca' => 1,'master' => 1,'AMB' => 1,'Diablo999' => 1,'dolby' => 1,'CodeMonkey' => 1,'groovy' => 1,'AronT' => 1,'Steckel' => 1,'Screamerzoid' => 1,'BigBudz' => 1,'tyson' => 1,'cm27' => 1,'nicky' => 1,'kiran474' => 1,'iseeyoucopy' => 1,'Bigjoos' => 1,'Pyro' => 1,'dubailive' => 1,'johnake' => 1,'egghead0' => 1,'dididave' => 1,'xamalis' => 1,'MrRep' => 1,'Sparky66' => 1,'RogueSurfer' => 1,'JackBlack' => 1,'luca' => 1,'Madcotto' => 1,'Bjw' => 1,'ajkula' => 1,'sinner' => 1,'diax10' => 1,'HeARtLeSs' => 1,'zaigon' => 1,'TheRev' => 1,'Yupy' => 1,'System84' => 1,'TheHippy' => 1,'Sir_snuggles' => 1,'Gballs' => 1,'Trasque' => 1,'snuggles' => 1,'tspaul' => 1,'stonebreath' => 1,'Mikey' => 1,'ShadoW69' => 1,'kraftykarper' => 1,'nellyk2k' => 1,'conyum' => 1,'rickandmary' => 1,'InUrMoUtH' => 1,'THoRN ' => 1,'deek' => 1,'darkmaster' => 1,'chevyman78' => 1,'Stillapunk' => 1,'wayne1900' => 1,'georgee' => 1,'smoky28' => 1,'tundracanine' => 1,'whocares' => 1,'Hyperion' => 1,'Wilba' => 1,'Soft' => 1,'Potsky' => 1,'son' => 1,'Psykmicke' => 1,'Joeroberts' => 1,'Wizkid08' => 1,'MrReds' => 1,'Gatekeeper' => 1,'jonnyboy' => 1,'rocknrolla' => 1,'DaRK' => 1,'ss207823-banned' => 1,'danieldk' => 1,'Morpheus' => 1,'bhast2' => 1,'CoFix' => 1,'Laffin' => 1,'Annihilators' => 1);
+?>

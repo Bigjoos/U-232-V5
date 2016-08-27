@@ -1,0 +1,541 @@
+/**
+ /-------------------------------------------------------------------------\
+|   https://github.com/Bigjoos/ -------------------------------------------|
+|--------------------------------------------------------------------------|
+|   Licence Info: GPL  ----------------------------------------------------|
+|--------------------------------------------------------------------------|
+|   Copyright (C) 2010 U-232 V4	-------------------------------------------|
+|--------------------------------------------------------------------------|
+|   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon. --|
+|--------------------------------------------------------------------------|
+|   Project Leaders: Mindless, Autotron, whocares, son.--------------------|
+ \------------------------------------------------------------------------/
+*/
+body {
+  margin-right: auto;
+  margin-left: auto;
+  padding-top:45px;
+}
+.starter-template {padding: 40px 15px;text-align: center;}
+.shout-table {width: 100%;max-width: 100%;margin-bottom: 3px;overflow: hidden;border: none;height: 200px;}
+.shout-m-top{margin-top: -2px; }
+/* Torrent Module Badges */
+[class^="badge-"],
+[class*=" badge-"] {display: inline-block;width: 14px;height: 14px;margin-right: .3em;line-height: 14px;vertical-align: text-top;
+background: url(/pic/module_badges.png);background-position: 14px 14px;background-repeat: no-repeat;margin-top: 1px;}
+.module {position:relative;}
+.module .tbadge {position:absolute;right:0;top:0;z-index:1;opacity:0.65;}
+.module .tbadge-hot {background-position:0 0;}
+.module .tbadge-top {background-position:0 -50px;}
+.module .tbadge-free {background-position:0 -100px;}
+.module .tbadge-new {background-position:0 -150px;}
+.tbadge{position:absolute;top:0px;right:0px;z-index:1}
+.tbadge { background: url(/pic/module_badges.png); }
+.tbadge{position:absolute;top:0px;right:0px;z-index:1}
+.tbadge{top:-5px;right:-5px;width:50px;height:50px}
+.tbadge-hot{background-position:0 0; margin-right: -3px; margin-top: -3px;}
+.tbadge-top{background-position:0 -50px; margin-right: -3px; margin-top: -3px;}
+.tbadge-free{background-position:0 -100px; margin-right: -3px; margin-top: -3px;}
+.tbadge-new{background-position:0 -150px; margin-right: -3px; margin-top: -3px;}
+/*Torrent Module Badge end*/
+/** current site alert settings - tooltips ------------------------------------------------------------------------ */
+#sa-base_globelmessage {width: 96%;height: 12px;background: transparent;text-align: left;line-height: 12px;
+-moz-border-radius-bottomleft: 7px; -webkit-border-radius-bottomleft: 7px; border-bottom-left-radius: 7px;
+-moz-border-radius-bottomright: 7px; -webkit-border-radius-bottomright: 7px; border-bottom-right-radius: 7px;}
+#sa-gm_taps {padding-right: 10px;padding-bottom: 10px;margin-top: -10px; color : rgb(102,102,102);}
+#sa-gm_taps_left {float: right;padding-right: 10px;margin-top: -10px;}
+//ul.sa-gm_taps li {float: left; list-style: none; }
+ul.sa-gm_taps li {float:left; list-style: none; margin-left:-4%;padding-right:5%;}
+.sa-gm_taps li {padding-left: 1px; padding-right: 10px; line-height: 17px; color: #fff }
+.sa-gm_taps a, .sa-gm_taps a:visited, .sa-gm_taps a:active, .sa-gm_taps a:hover {color:#fff}
+.sa-tooltip {outline: none;cursor: context-menu; text-decoration: none;position: relative;}
+.sa-tooltip span {margin-left: -899em; position: absolute;-moz-box-shadow: 0px 0px 10px #AA0000; -webkit-box-shadow: 0px 0px 10px #EE0000;  padding: 5px;	}
+.sa-tooltip:hover span {-moz-border-radius: 5px; -webkit-border-radius: 5px;font-family: Calibri, Tahoma, Geneva, sans-serif; position: absolute; left: -1em; top: 2em; z-index: 99;margin-left: 0; width: 320px;}
+.sa-tooltip:hover em {font-family: Tahoma; font-size: 1.2em; font-weight: bold; display: block; padding: 0.2em 0 0.6em 0;}
+/** end globelmessage Settings ------------------------------------------------------------------------ */
+ /*Donations start*/
+.donate-td{background: transparent;display: block;border: 2px;}
+.donate-td1{background: grey;display: block;border: 2px;}
+.donate-table{width: 140px;height: 20px;border: 2px;display: block;}
+/*Donations end*/
+#marqueecontainer{
+position: relative; width: 99%; height: 120px; background-color: rgba(0,0,0,.09);
+overflow: hidden; border: none; padding: 2px; padding-left: 4px; text-align:left; }
+#marqueecontainer img {border-width:none;}
+/**pm_system**/
+.text-resize {min-width:200px;padding:10px;vertical-align: top;}
+.movedown { margin-top:-25%;}
+.moveup {margin-top:-6.75%;}
+@media only screen and (min-width:319px) and (max-width:479px) {
+.moveup {margin-top:10%;}
+.text-resize {width:50%;}
+.form-control {width:50%;}
+}
+@media only screen and (min-width:480px) and (max-width:599px) {
+.moveup {margin-top:10%;}
+}
+@media only screen and (min-width:600px) and (max-width:800px) {
+.moveup {margin-top:10%;}
+}
+/** Cpatcha Links Settings ------------------------------------------------------------ */
+.cimage {border: 1px solid #eee; }
+.captchaImage {margin:0 2px;}
+.captchaImages {margin: 5px auto;width:350px;text-align:center;}
+.simpleCaptchaSelected {border: 2px solid #999; border-radius: 3px; -webkit-border-radius: 3px; }
+
+@media only screen and (min-width:319px) and (max-width:479px) {
+.captchaImage {margin-left:-14%;margin-right:45px; padding-left:0px;}
+.form-control {width:100%;}
+}
+/**
+@media only screen and (min-width:480px) and (max-width:599px) {
+//.captchaImage {margin-right:60%;}
+}**/
+@media only screen and (min-width:600px) and (max-width:800px) {
+.captchaImage {margin-right:9%;margin-left:-10%;}
+}
+/** End Cpatcha Links Settings ------------------------------------------------------------ */
+
+/**login**/
+@media only screen and (min-width:319px) and (max-width:479px) {
+.adjust {margin-left:-60%;width:250%;}
+}
+@media only screen and (min-width:480px) and (max-width:599px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:600px) and (max-width:799px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:800px) and (max-width:1023px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+
+/**upload**/
+.embed-responsive1{width:600px;height:48px; border:none;}
+.para{display:none;}
+@media only screen and (min-width:319px) and (max-width:479px) {
+.embed-responsive1{width:220px;height:100px;}
+.btn-adjust {width:245px;}
+}
+
+/**userblocks**/
+.userblock{width:25%}
+
+/**userdetails-edit**/
+@media only screen and (min-width: 767px)and (max-width:1022px) {
+textarea.shrink { width:85%; }
+}
+@media only screen and (min-width: 1024px)and (max-width:1200px) {
+textarea.shrink { width:85%; }
+}
+
+/* ================= GLOBAL STYLES  ================== */
+
+body.background-1 {background-image: url(themeChanger/images/bgs/bg-1.jpg);}
+body.background-2 {background-image: url(themeChanger/images/bgs/bg-2.jpg);background-color: #ccc;background-repeat: repeat-x;background-attachment: fixed;}
+body.background-3 {background-image: url(themeChanger/images/bgs/bg-3.jpg);background-color: #d6d7d7;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-4 {background-image: url(themeChanger/images/bgs/bg-4.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-5 {background-image: url(themeChanger/images/bgs/bg-5.jpg);background-color: #161616;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-6 {background-image: url(themeChanger/images/bgs/bg-6.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-7 {background-image: url(themeChanger/images/bgs/bg-7.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-8 {background-image: url(themeChanger/images/bgs/bg-8.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-9 {background-image: url(themeChanger/images/bgs/bg-9.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-10 {background-image: url(themeChanger/images/bgs/bg-10.jpg);background-color: #cdbb95;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-11 {background-image: url(themeChanger/images/bgs/bg-11.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-12 {background-image: url(themeChanger/images/bgs/bg-12.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-13 {background-image: url(themeChanger/images/bgs/bg-13.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-14 {background-image: url(themeChanger/images/bgs/bg-14.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-15 {background-image: url(themeChanger/images/bgs/bg-15.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-16 {background-image: url(themeChanger/images/bgs/bg-15.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-17 {background-image: url(themeChanger/images/bgs/bg-15.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-18 {background-image: url(themeChanger/images/bgs/bg-15.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-19 {background-image: url(themeChanger/images/bgs/bg-2.jpg);background-color: #ccc;background-repeat: repeat-x;background-attachment: fixed;}
+body.background-20 {background-image: url(themeChanger/images/bgs/bg-3.jpg);background-color: #d6d7d7;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-21 {background-image: url(themeChanger/images/bgs/bg-4.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-22 {background-image: url(themeChanger/images/bgs/bg-5.jpg);background-color: #161616;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-23 {background-image: url(themeChanger/images/bgs/bg-6.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+body.background-24 {background-image: url(themeChanger/images/bgs/bg-7.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+
+.nb-1 .cb{background-image: url(themeChanger/images/bgs/navbg-1.png);}
+.nb-2 .cb {background-image: url(themeChanger/images/bgs/navbg-2.jpg);}
+.nb-3 .cb {background-image: url(themeChanger/images/bgs/navbg-3.jpg);}
+.nb-4 .cb {background-image: url(themeChanger/images/bgs/navbg-4.jpg);}
+.nb-5 .cb {background-image: url(themeChanger/images/bgs/navbg-5.jpg);}
+.nb-6 .cb {background-image: url(themeChanger/images/bgs/navbg-6.jpg);}
+.nb-7 .cb {background-image: url(themeChanger/images/bgs/navbg-7.jpg);}
+.nb-8 .cb {background-image: url(themeChanger/images/bgs/navbg-8.jpg);}
+.nb-9 .cb {background-image: url(themeChanger/images/bgs/navbg-9.jpg);}
+.nb-10 .cb {background-image: url(themeChanger/images/bgs/navbg-10.jpg);}
+.nb-11 .cb {background-image: url(themeChanger/images/bgs/navbg-11.jpg);}
+.nb-12 .cb {background-image: url(themeChanger/images/bgs/navbg-12.jpg);}
+.nb-13 .cb {background-image: url(themeChanger/images/bgs/navbg-13.jpg);}
+.nb-14 .cb {background-image: url(themeChanger/images/bgs/navbg-14.jpg);}
+.nb-15 .cb {background-image: url(themeChanger/images/bgs/navbg-15.jpg);}
+.nb-16 .cb {background-image: url(themeChanger/images/bgs/navbg-16.jpg);}
+
+.skin-1 .banners  {
+	background-image: url(themeChanger/images/banner.png);
+	width:auto;
+	height:200px;
+	//background-size:100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	//background-attachment: fixed;
+	//background-repeat: repeat-x;
+}
+
+.skin-2 .banners {
+	background-image: url(themeChanger/images/banner2.png);
+	width:auto;
+	height:200px;
+        background-size:100%;
+	background-position: center;
+	background-repeat: no-repeat;
+   }
+
+
+.skin-3 .banners {
+	background-image: url(themeChanger/images/banner3.png);
+	background-size:100%;
+	background-position: center;
+	background-repeat: no-repeat;
+	width:auto;
+	height:200px;
+}
+
+nav ul, ul {
+    list-style:none;
+}
+.bootpanel-1 .panel-body  	{background-image: url(themeChanger/images/bgs/bg-1.jpg);}
+.bootpanel-2 .panel-body      {background-image: url(themeChanger/images/bgs/bg-2.jpg);background-color: #ccc;background-repeat: repeat-x;background-attachment: fixed;}	
+.bootpanel-3 .panel-body     {background-image: url(themeChanger/images/bgs/bg-3.jpg);background-color: #d6d7d7;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-4 .panel-body {background-image: url(themeChanger/images/bgs/bg-4.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-5 .panel-body {background-image: url(themeChanger/images/bgs/bg-5.jpg);background-color: #161616;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-6 .panel-body {background-image: url(themeChanger/images/bgs/bg-6.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-7 .panel-body {background-image: url(themeChanger/images/bgs/bg-7.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-8 .panel-body {background-image: url(themeChanger/images/bgs/bg-8.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-9 .panel-body {background-image: url(themeChanger/images/bgs/bg-9.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-10 .panel-body {background-image: url(themeChanger/images/bgs/bg-10.jpg);background-color: #cdbb95;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-11 .panel-body {background-image: url(themeChanger/images/bgs/bg-11.jpg);background-color: #0c0c0c;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-12 .panel-body {background-image: url(themeChanger/images/bgs/bg-12.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-13 .panel-body {background-image: url(themeChanger/images/bgs/bg-13.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-14 .panel-body {background-image: url(themeChanger/images/bgs/bg-14.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-15 .panel-body {background-image: url(themeChanger/images/bgs/bg-15.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+.bootpanel-16 .panel-body {background-image: url(themeChanger/images/bgs/bg-16.jpg);background-color: #000103;background-position: center top;background-attachment: fixed;background-repeat: no-repeat;}
+
+.listgrp-1 .list-group-item 	{background-image: url(themeChanger/images/bgs/bg-1.jpg);}
+.listgrp-2 .list-group-item      {background-image: url(themeChanger/images/bgs/bg-2.jpg);}	
+.listgrp-3 .list-group-item     {background-image: url(themeChanger/images/bgs/bg-3.jpg);}
+.listgrp-4 .list-group-item {background-image: url(themeChanger/images/bgs/bg-4.jpg);}
+.listgrp-5 .list-group-item {background-image: url(themeChanger/images/bgs/bg-5.jpg);}
+.listgrp-6 .list-group-item {background-image: url(themeChanger/images/bgs/bg-6.jpg);}
+.listgrp-7 .list-group-item {background-image: url(themeChanger/images/bgs/bg-7.jpg);}
+.listgrp-8 .list-group-item {background-image: url(themeChanger/images/bgs/bg-8.jpg);}
+.listgrp-9 .list-group-item {background-image: url(themeChanger/images/bgs/bg-9.jpg);}
+.listgrp-10 .list-group-item {background-image: url(themeChanger/images/bgs/bg-10.jpg);}
+.listgrp-11 .list-group-item {background-image: url(themeChanger/images/bgs/bg-11.jpg);}
+.listgrp-12 .list-group-item {background-image: url(themeChanger/images/bgs/bg-12.jpg);}
+.listgrp-13 .list-group-item {background-image: url(themeChanger/images/bgs/bg-13.jpg);}
+.listgrp-14 .list-group-item {background-image: url(themeChanger/images/bgs/bg-14.jpg);}
+.listgrp-15 .list-group-item {background-image: url(themeChanger/images/bgs/bg-15.jpg);}
+.listgrp-16 .list-group-item {background-image: url(themeChanger/images/bgs/bg-16.jpg);}
+
+.panelhead-1 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-1.png);}
+.panelhead-2 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-2.jpg);}
+.panelhead-3 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-3.jpg);}
+.panelhead-4 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-4.jpg);}
+.panelhead-5 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-5.jpg);}
+.panelhead-6 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-6.jpg);}
+.panelhead-7 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-7.jpg);}
+.panelhead-8 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-8.jpg);}
+.panelhead-9 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-9.jpg);}
+.panelhead-10 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-10.jpg);}
+.panelhead-11 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-11.jpg);}
+.panelhead-12 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-12.jpg);}
+.panelhead-13 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-13.jpg);}
+.panelhead-14 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-14.jpg);}
+.panelhead-15 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-15.jpg);}
+.panelhead-16 .panel-heading {background-image: url(themeChanger/images/bgs/navbg-16.jpg);}
+
+.btable-1 .table {background-image: url(themeChanger/images/bgs/bg-1.png);}
+.btable-2 .table  {background-image: url(themeChanger/images/bgs/bg-2.jpg);}
+.btable-3 .table   {background-image: url(themeChanger/images/bgs/bg-3.jpg);}
+.btable-4 .table {background-image: url(themeChanger/images/bgs/bg-4.jpg);}
+.btable-5 .table {background-image: url(themeChanger/images/bgs/bg-5.jpg);}
+.btable-6 .table {background-image: url(themeChanger/images/bgs/bg-6.jpg);}
+.btable-7 .table {background-image: url(themeChanger/images/bgs/bg-7.jpg);}
+.btable-8 .table {background-image: url(themeChanger/images/bgs/bg-8.jpg);}
+.btable-9 .table {background-image: url(themeChanger/images/bgs/bg-9.jpg);}
+.btable-10 .table {background-image: url(themeChanger/images/bgs/bg-10.jpg);}
+.btable-11 .table {background-image: url(themeChanger/images/bgs/bg-11.jpg);}
+.btable-12 .table {background-image: url(themeChanger/images/bgs/bg-12.jpg);}
+.btable-13 .table {background-image: url(themeChanger/images/bgs/bg-13.jpg);}
+.btable-14 .table {background-image: url(themeChanger/images/bgs/bg-14.jpg);}
+.btable-15 .table {background-image: url(themeChanger/images/bgs/bg-15.jpg);}
+.btable-16 .table {background-image: url(themeChanger/images/bgs/bg-16.jpg);}
+
+.btr-1 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-1.png);}
+.btr-2  .table > tbody > tr {background-image: url(themeChanger/images/bgs/bg-2.jpg);}
+.btr-3 .table > tbody > tr   {background-image: url(themeChanger/images/bgs/bg-3.jpg);}
+.btr-4 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-4.jpg);}
+.btr-5 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-5.jpg);}
+.btr-6 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-6.jpg);}
+.btr-7 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-7.jpg);}
+.btr-8 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-8.jpg);}
+.btr-9 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-9.jpg);}
+.btr-10 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-10.jpg);}
+.btr-11 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-11.jpg);}
+.btr-12 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-12.jpg);}
+.btr-13 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-13.jpg);}
+.btr-14 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-14.jpg);}
+.btr-15 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-15.jpg);}
+.btr-16 .table > tbody > tr  {background-image: url(themeChanger/images/bgs/bg-16.jpg);}
+
+.buttonS-1 .btn-primary{ color: #ffffff;background-color: rgb(97,104,108);border-color: rgb(97,104,108;)}
+.buttonS-2 .btn-primary{
+background: rgb(76,76,76); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(76,76,76,1) 0%, rgba(89,89,89,1) 12%, rgba(102,102,102,1) 25%, rgba(71,71,71,1) 39%, rgba(44,44,44,1) 50%, rgba(0,0,0,1) 51%, rgba(17,17,17,1) 60%, rgba(43,43,43,1) 76%, rgba(28,28,28,1) 91%, rgba(19,19,19,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 12%,rgba(102,102,102,1) 25%,rgba(71,71,71,1) 39%,rgba(44,44,44,1) 50%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c4c4c', endColorstr='#131313',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-3 .btn-primary{
+background: rgb(208,228,247); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(208,228,247,1) 0%, rgba(115,177,231,1) 24%, rgba(10,119,213,1) 50%, rgba(83,159,225,1) 79%, rgba(135,188,234,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(10,119,213,1) 50%,rgba(83,159,225,1) 79%,rgba(135,188,234,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(208,228,247,1) 0%,rgba(115,177,231,1) 24%,rgba(10,119,213,1) 50%,rgba(83,159,225,1) 79%,rgba(135,188,234,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+.buttonS-4 .btn-primary  {
+background: rgb(180,227,145); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(180,227,145,1) 0%, rgba(97,196,25,1) 50%, rgba(180,227,145,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(180,227,145,1) 0%,rgba(97,196,25,1) 50%,rgba(180,227,145,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(180,227,145,1) 0%,rgba(97,196,25,1) 50%,rgba(180,227,145,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#b4e391',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-5 .btn-primary  {
+background: rgb(246,230,180); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(246,230,180,1) 0%, rgba(237,144,23,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(246,230,180,1) 0%,rgba(237,144,23,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(246,230,180,1) 0%,rgba(237,144,23,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f6e6b4', endColorstr='#ed9017',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-6 .btn-primary  {
+background: rgb(255,168,76); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(255,168,76,1) 0%, rgba(255,123,13,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(255,168,76,1) 0%,rgba(255,123,13,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(255,168,76,1) 0%,rgba(255,123,13,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffa84c', endColorstr='#ff7b0d',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-7 .btn-primary  {
+background: rgb(243,226,199); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(243,226,199,1) 0%, rgba(193,158,103,1) 50%, rgba(182,141,76,1) 51%, rgba(233,212,179,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(243,226,199,1) 0%,rgba(193,158,103,1) 50%,rgba(182,141,76,1) 51%,rgba(233,212,179,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(243,226,199,1) 0%,rgba(193,158,103,1) 50%,rgba(182,141,76,1) 51%,rgba(233,212,179,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f3e2c7', endColorstr='#e9d4b3',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-8 .btn-primary  {
+background: rgb(240,183,161); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(240,183,161,1) 0%, rgba(140,51,16,1) 50%, rgba(117,34,1,1) 51%, rgba(191,110,78,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 50%,rgba(117,34,1,1) 51%,rgba(191,110,78,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(240,183,161,1) 0%,rgba(140,51,16,1) 50%,rgba(117,34,1,1) 51%,rgba(191,110,78,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0b7a1', endColorstr='#bf6e4e',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-9 .btn-primary  {
+background: rgb(216,224,222); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(216,224,222,1) 0%, rgba(174,191,188,1) 22%, rgba(153,175,171,1) 33%, rgba(142,166,162,1) 50%, rgba(130,157,152,1) 67%, rgba(78,92,90,1) 82%, rgba(14,14,14,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(216,224,222,1) 0%,rgba(174,191,188,1) 22%,rgba(153,175,171,1) 33%,rgba(142,166,162,1) 50%,rgba(130,157,152,1) 67%,rgba(78,92,90,1) 82%,rgba(14,14,14,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(216,224,222,1) 0%,rgba(174,191,188,1) 22%,rgba(153,175,171,1) 33%,rgba(142,166,162,1) 50%,rgba(130,157,152,1) 67%,rgba(78,92,90,1) 82%,rgba(14,14,14,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d8e0de', endColorstr='#0e0e0e',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-10 .btn-primary  {
+background: rgb(183,222,237); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(183,222,237,1) 0%, rgba(113,206,239,1) 50%, rgba(33,180,226,1) 51%, rgba(183,222,237,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(183,222,237,1) 0%,rgba(113,206,239,1) 50%,rgba(33,180,226,1) 51%,rgba(183,222,237,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(183,222,237,1) 0%,rgba(113,206,239,1) 50%,rgba(33,180,226,1) 51%,rgba(183,222,237,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-11 .btn-primary  {
+background: rgb(180,221,180); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(180,221,180,1) 0%, rgba(131,199,131,1) 17%, rgba(82,177,82,1) 33%, rgba(0,138,0,1) 67%, rgba(0,87,0,1) 83%, rgba(0,36,0,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(180,221,180,1) 0%,rgba(131,199,131,1) 17%,rgba(82,177,82,1) 33%,rgba(0,138,0,1) 67%,rgba(0,87,0,1) 83%,rgba(0,36,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4ddb4', endColorstr='#002400',GradientType=0 ); /* IE6-9 */
+}
+.buttonS-12 .btn-primary  {
+background: rgb(226,226,226); /* Old browsers */
+background: -moz-linear-gradient(top, rgba(226,226,226,1) 0%, rgba(219,219,219,1) 50%, rgba(209,209,209,1) 51%, rgba(254,254,254,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 ); /* IE6-9 */
+}
+
+
+body.text-1 {font-family: Arial; font-size:14px;}
+body.text-2 {font-family: Tahoma;}
+body.text-3 {font-family: Verdana;}
+body.text-4 {font-family: Calibri;}
+
+p {
+	margin:0 0 1.5em 0;
+	padding: 0;
+	line-height:1.5em;
+}
+/* Floating & Alignment --> End */
+
+/* ================= LAYOUT  ================== */
+
+
+/*--------------------------------*/
+/*  GENERAL STRUCTURE             */
+/*--------------------------------*/
+/* ================= RESET  ================== */
+
+html, body, div, span, p, ul, li,
+footer, nav, navbar {
+    border:0;
+    outline:0;
+    font-size:100%;
+    
+    background:transparent;
+}
+
+footer,nav,navbar,section {
+    display:block;
+}
+
+
+
+input, select {vertical-align:middle;
+	border:solid 1px #0C0C0C;
+	margin-top: 4px;
+	margin-bottom:4px;
+	padding:4px;
+	background:#999;
+	color:#FFFFFF;
+	   -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5) inset; /* FF3.5+ */
+	-webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5) inset; /* Saf3.0+, Chrome */
+	        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.5) inset; /* Opera 10.5, IE9, Chrome 10+ */
+	-moz-border-radius:4px;
+	-webkit-border-radius:4px;
+	border-radius:4px;
+	-webkit-transition: all 300ms ease-out;
+	-moz-transition: all 300ms ease-out;
+	-o-transition: all 300 ease-out;
+	transition: all 300ms ease-out;}
+.inputbox:hover {
+background-color:#181818;
+-webkit-transition: all 300ms ease-in;
+-moz-transition: all 300ms ease-in;
+-o-transition: all 300ms ease-in;
+transition: all 300ms ease-in;
+}
+
+//Scroll Torrents//
+.carousel-container {
+        width: 100%;
+        overflow: hidden;
+}
+#icarousel {
+    width: 490px;
+    height: 225px;
+    position: relative;
+    margin-left: 42.25%;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -o-perspective: 1000px;
+    -ms-perspective: 1000px;
+    perspective: 1000px;
+} 
+#icarousel div.slide {
+    #border-radius: 4px;
+    #border: 5px #000 solid;
+    width: 200px;
+    height: 350px;
+}
+#icarousel div.slide.current {
+margin-left: -145px;
+}
+
+/* The Navigation buttons in the Slider */
+a.iCarouselNav {
+    display: block;
+    position: absolute;
+    top: 100px;
+    width: 43px;
+    height: 43px;
+    background: url(/pic/arrows.png) no-repeat;
+    z-index: 1000;
+    text-indent: -9999px;
+}
+a#iCarouselPrev {
+    left: -50px;
+    background-position: left top;
+}
+ 
+a#iCarouselPrev:hover {
+    background-position: left bottom;
+}
+ 
+a#iCarouselNext {
+    right: 290px;
+    background-position: right top;
+}
+ 
+a#iCarouselNext:hover {
+    background-position: right bottom;
+}
+ 
+/* The Preloader in the Slider */
+#iCarousel-preloader {
+    position: absolute;
+    z-index: 1000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: #000 1px solid;
+    border-color: rgba(0,0,0,0.6);
+    padding: 1px;
+    width: 150px;
+    height: 3px;
+}
+#iCarousel-preloader div {
+    float: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: 3px;
+    background: #000;
+    background: rgba(0,0,0,0.6);
+    width: 0px;
+}
+#icarousel > div > a > img.tester{width:150px;height:200px;}
+/* The timer in the Slider */
+#iCarousel-timer {
+        position: absolute;
+        z-index: 1000;
+        border-radius: 5px;
+        cursor: pointer;
+}
+ 
+#iCarousel-timer div {
+        border-radius: 3px;
+}
+/* ================= pager start  ================== */
+td.pager {display: inline-block;padding: 5px 14px;background-color:  #2b2b2b;border-color: #1e1e1e;border-radius: 5px;}
+td.highlight {display: inline-block;padding: 5px 14px;background-color: #171717;border-color: #000000; border-radius: 5px;}
+td.pagebr {border: 0px; padding: 1px;}
+/* ================= pager end  ================== */
+/*	/-------------------------------------------------------------------------------------------\
+	| Information About This File --------------------------------------------------------------|
+	|-------------------------------------------------------------------------------------------|
+	| This file is part of installer09 sourcecode. Show us some respect for the free time that	|
+	| went into making this source code, please leave all credit in PLACE. ---------------------|
+	| By removing ANY credit from these files you will not get any help from our support forum.	|
+	|-------------------------------------------------------------------------------------------|
+	| Thanks for using this sourcecode.	--------------------------------------------------------|
+	\-------------------------------------------------------------------------------------------/ */

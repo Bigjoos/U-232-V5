@@ -1,0 +1,140 @@
+/**
+ /-------------------------------------------------------------------------\
+|   https://github.com/Bigjoos/ -------------------------------------------|
+|--------------------------------------------------------------------------|
+|   Licence Info: GPL  ----------------------------------------------------|
+|--------------------------------------------------------------------------|
+|   Copyright (C) 2010 U-232 V4	-------------------------------------------|
+|--------------------------------------------------------------------------|
+|   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon. --|
+|--------------------------------------------------------------------------|
+|   Project Leaders: Mindless, Autotron, whocares, son.--------------------|
+ \------------------------------------------------------------------------/
+*/
+/*body {padding-top: 50px;}*/
+.starter-template {padding: 40px 15px;text-align: center;}
+.shout-table {width: 100%;max-width: 100%;margin-bottom: 3px;overflow: hidden;border: none;height: 200px;}
+.shout-m-top{margin-top: -2px; }
+/* Torrent Module Badges */
+[class^="badge-"],
+[class*=" badge-"] {display: inline-block;width: 14px;height: 14px;margin-right: .3em;line-height: 14px;vertical-align: text-top;
+background: url(/pic/module_badges.png);background-position: 14px 14px;background-repeat: no-repeat;margin-top: 1px;}
+.module {position:relative;}
+.module .tbadge {position:absolute;right:0;top:0;z-index:1;}
+.module .tbadge-hot {background-position:0 0;}
+.module .tbadge-top {background-position:0 -50px;}
+.module .tbadge-free {background-position:0 -100px;}
+.module .tbadge-new {background-position:0 -150px;}
+.tbadge{position:absolute;top:0px;right:0px;z-index:1}
+.tbadge { background: url(/pic/module_badges.png); }
+.tbadge{position:absolute;top:0px;right:0px;z-index:1}
+.tbadge{top:-5px;right:-5px;width:50px;height:50px}
+.tbadge-hot{background-position:0 0; margin-right: -3px; margin-top: -3px;}
+.tbadge-top{background-position:0 -50px; margin-right: -3px; margin-top: -3px;}
+.tbadge-free{background-position:0 -100px; margin-right: -3px; margin-top: -3px;}
+.tbadge-new{background-position:0 -150px; margin-right: -3px; margin-top: -3px;}
+/*Torrent Module Badge end*/
+/** current site alert settings - tooltips ------------------------------------------------------------------------ */
+#sa-base_globelmessage {width: 96%;height: 12px;background: transparent;text-align: left;line-height: 12px;
+-moz-border-radius-bottomleft: 7px; -webkit-border-radius-bottomleft: 7px; border-bottom-left-radius: 7px;
+-moz-border-radius-bottomright: 7px; -webkit-border-radius-bottomright: 7px; border-bottom-right-radius: 7px;}
+#sa-gm_taps {padding-right: 10px;padding-bottom: 10px;margin-top: -10px; color : rgb(102,102,102);}
+#sa-gm_taps_left {float: right;padding-right: 10px;margin-top: -10px;}
+ul.sa-gm_taps li {float: left; list-style: none; }
+.sa-gm_taps li {padding-left: 1px; padding-right: 10px; line-height: 17px; color: #fff }
+.sa-gm_taps a, .sa-gm_taps a:visited, .sa-gm_taps a:active, .sa-gm_taps a:hover {color:#fff}
+.sa-tooltip {outline: none;cursor: context-menu; text-decoration: none;position: relative;}
+.sa-tooltip span {margin-left: -899em; position: absolute;-moz-box-shadow: 0px 0px 10px #AA0000; -webkit-box-shadow: 0px 0px 10px #EE0000;  padding: 5px;	}
+.sa-tooltip:hover span {-moz-border-radius: 5px; -webkit-border-radius: 5px;font-family: Calibri, Tahoma, Geneva, sans-serif; position: absolute; left: -1em; top: 2em; z-index: 99;margin-left: 0; width: 320px;}
+.sa-tooltip:hover em {font-family: Tahoma; font-size: 1.2em; font-weight: bold; display: block; padding: 0.2em 0 0.6em 0;}
+/** end globelmessage Settings ------------------------------------------------------------------------ */
+ /*Donations start*/
+.donate-td{background: transparent;display: block;border: 2px;}
+.donate-td1{background: grey;display: block;border: 2px;}
+.donate-table{width: 140px;height: 20px;border: 2px;display: block;}
+/*Donations end*/
+#marqueecontainer{
+position: relative; width: 99%; height: 120px; background-color: rgba(0,0,0,.09);
+overflow: hidden; border: none; padding: 2px; padding-left: 4px; text-align:left; }
+#marqueecontainer img {border-width:none;}
+/**pm_system**/
+.text-resize {min-width:200px;padding:10px;vertical-align: top;}
+.movedown { margin-top:-25%;}
+.moveup {margin-top:-6.75%;}
+@media only screen and (min-width:319px) and (max-width:479px) {
+.moveup {margin-top:10%;}
+.text-resize {width:50%;}
+.form-control {width:50%;}
+}
+@media only screen and (min-width:480px) and (max-width:599px) {
+.moveup {margin-top:10%;}
+}
+@media only screen and (min-width:600px) and (max-width:800px) {
+.moveup {margin-top:10%;}
+}
+/** Cpatcha Links Settings ------------------------------------------------------------ */
+.cimage {border: 1px solid #eee; }
+.captchaImage {margin:0 2px;}
+.captchaImages {margin: 5px auto;width:350px;text-align:center;}
+.simpleCaptchaSelected {border: 2px solid #999; border-radius: 3px; -webkit-border-radius: 3px; }
+
+@media only screen and (min-width:319px) and (max-width:479px) {
+.captchaImage {margin-left:-14%;margin-right:45px; padding-left:0px;}
+.form-control {width:100%;}
+}
+/**
+@media only screen and (min-width:480px) and (max-width:599px) {
+//.captchaImage {margin-right:60%;}
+}**/
+@media only screen and (min-width:600px) and (max-width:800px) {
+.captchaImage {margin-right:9%;margin-left:-10%;}
+}
+/** End Cpatcha Links Settings ------------------------------------------------------------ */
+
+/**login**/
+@media only screen and (min-width:319px) and (max-width:479px) {
+.adjust {margin-left:-60%;width:250%;}
+}
+@media only screen and (min-width:480px) and (max-width:599px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:600px) and (max-width:799px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:800px) and (max-width:1023px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+
+/**upload**/
+.embed-responsive1{width:600px;height:48px; border:none;}
+.para{display:none;}
+@media only screen and (min-width:319px) and (max-width:479px) {
+.embed-responsive1{width:220px;height:100px;}
+.btn-adjust {width:245px;}
+}
+
+/**userblocks**/
+.userblock{width:25%}
+
+/**userdetails-edit**/
+@media only screen and (min-width: 767px)and (max-width:1022px) {
+textarea.shrink { width:85%; }
+}
+@media only screen and (min-width: 1024px)and (max-width:1200px) {
+textarea.shrink { width:85%; }
+}
+
+/* ================= pager start  ================== */
+td.pager {display: inline-block;padding: 5px 14px;background-color:  #2b2b2b;border-color: #1e1e1e;border-radius: 5px;}
+td.highlight {display: inline-block;padding: 5px 14px;background-color: #171717;border-color: #000000; border-radius: 5px;}
+td.pagebr {border: 0px; padding: 1px;}
+/* ================= pager end  ================== */
+/*	/-------------------------------------------------------------------------------------------\
+	| Information About This File --------------------------------------------------------------|
+	|-------------------------------------------------------------------------------------------|
+	| This file is part of installer09 sourcecode. Show us some respect for the free time that	|
+	| went into making this source code, please leave all credit in PLACE. ---------------------|
+	| By removing ANY credit from these files you will not get any help from our support forum.	|
+	|-------------------------------------------------------------------------------------------|
+	| Thanks for using this sourcecode.	--------------------------------------------------------|
+	\-------------------------------------------------------------------------------------------/ */

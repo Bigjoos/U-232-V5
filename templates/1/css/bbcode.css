@@ -1,0 +1,17 @@
+.bb_holder{border:1px solid #222;border-collapse:collapse;background:#808080}
+.em_holder td,.em_holder td:hover,.em_holder{border:1px solid #333333;border-collapse:separate}
+.em_holder td:hover{background:#ddd;border:1px solid #2B60DE}
+.bb_holder textarea,.bb_holder textarea:hover,.bb_holder textarea:focus{background:#CCC;border:1px solid #333333;padding:2px;font-size:12px}
+.bb_holder textarea:hover,.bb_holder textarea:focus{background:#FFF8C6}
+.bb_icon,.bb_icon:hover{background:#ddd;border:1px solid #222;-moz-border-radius:3px;-webkit-border-radius:3px;padding:1px;min-width:18px;cursor:pointer;margin-bottom:4px}
+.bb_icon:hover{border:1px solid #2B60DE}
+.color_pick td{padding:0;margin:0;width:10px;height:10px;cursor:pointer}
+.color_pick{background:#ddd;border-collapse:separate;position:absolute}
+.color_pick,.color_pick td{border:1px solid #333333}
+.size1{font-size:8px}
+.size2{font-size:12px}
+.size3{font-size:16px}
+.size4{font-size:20px}
+.size5{font-size:24px}
+.size6{font-size:28px}
+.size7{font-size:32px}

@@ -1,0 +1,80 @@
+.rating_load { background:url(../pic/ratingload.gif) no-repeat right; width:100px; height:16px;}
+.star-rating,
+.star-rating a:hover,
+.star-rating a:active,
+.star-rating .current-rating{
+	background: url(../pic/star.png) left -1000px repeat-x;
+	margin:0;
+	font-size:0;
+}
+.star-rating{
+	position:relative;
+	width:80px;
+	height:16px;
+	overflow:hidden;
+	list-style:none;
+	margin:0;
+	float:none;
+	padding:0;
+	
+	background-position: left top;
+}
+.star-rating li{
+	display: inline;
+}
+.star-rating a, 
+.star-rating .current-rating{
+	position:absolute;
+	top:0;
+	left:0;
+	text-indent:-1000em;
+	height:16px;
+	padding:0;
+	float:none;
+	line-height:16px;
+	outline:none;
+	overflow:hidden;
+	border: none;
+}
+.star-rating a:hover{
+	background-position: left bottom;
+	float:none;
+	cursor:pointer;
+	padding:0px;
+}
+.star-rating a.one-star{
+	width:20%;
+	float:none;
+	padding:0px;
+	z-index:6;
+}
+.star-rating a.two-stars{
+	width:40%;
+	float:none;
+	padding:0px;
+	z-index:5;
+}
+.star-rating a.three-stars{
+	width:60%;
+	float:none;
+	padding:0px;
+	z-index:4;
+}
+.star-rating a.four-stars{
+	width:80%;
+	float:none;
+	padding:0px;
+	z-index:3;
+}
+.star-rating a.five-stars{
+	width:100%;
+	float:none;
+	padding:0px;
+	z-index:2;
+}
+.star-rating .current-rating{
+	z-index:1;
+	float:none;
+	padding:0px;
+	background-position: left center;
+}	

@@ -1,0 +1,4 @@
+* html .dash .digit { /* IE6 */margin:10px 0 0 7px;}
+* html .dash_title  {right:0px;}
+*:first-child+html #email_field {	/* IE7 */height:28px;padding:10px 0 0 0;margin:2px 0 0 0;}
+*:first-child+html .dash_title{right:0px;}

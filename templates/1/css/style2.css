@@ -1,0 +1,364 @@
+/* -------------------------------------------------------------------
+// markItUp!
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markItUp .boldbutton a{background-image:url(../pic/bbcode/bold.png);}
+.markItUp .italicbutton a{background-image:url(../pic/bbcode/italic.png); } 
+.markItUp .underlinebutton a{background-image:url(../pic/bbcode/underline.png); } 
+.markItUp .strikebutton a{background-image:url(../pic/bbcode/stroke.png); } 
+.markItUp .strokebutton a{background-image:url(../pic/bbcode/stroke.png); } 
+.markItUp .align_left a	{background-image:url(../pic/bbcode/text_align_left.png); } 
+.markItUp .align_center a{background-image:url(../pic/bbcode/text_align_center.png); } 
+.markItUp .align_right a{background-image:url(../pic/bbcode/text_align_right.png); } 
+.markItUp .align_justify a{background-image:url(../pic/bbcode/text_align_justify.png); } 
+.markItUp .blockquotebutton a{background-image:url(../pic/bbcode/blockquote.png); } 
+.markItUp .audiobutton a{background-image:url(../pic/bbcode/audio.png); } 
+.markItUp .picture a{background-image:url(../pic/bbcode/image.png); } 
+.markItUp .linkbutton a{background-image:url(../pic/bbcode/link.png); } 
+.markItUp .fontsbutton a{background-image:url(../pic/bbcode/fonts.png); } 
+.markItUp .list_bullet a{background-image:url(../pic/bbcode/list-bullet.png); } 
+.markItUp .list_numeric a{background-image:url(../pic/bbcode/list-numeric.png); } 
+.markItUp .list_item a{background-image:url(../pic/bbcode/list-item.png); } 
+.markItUp .Horizontal_line a{background-image:url(../pic/bbcode/hr.png); } 
+.markItUp .quotebutton a{background-image:url(../pic/bbcode/quotes.png); } 
+.markItUp .codebutton a{background-image:url(../pic/bbcode/code.png); } 
+.markItUp .clean a{background-image:url(../pic/bbcode/clean.png); } 
+.markItUp .preview a{background-image:url(../pic/bbcode/preview.png); } 
+.markItUp .colorwheelbutton a{background-image:url(../pic/bbcode/color_wheel.png); } 
+.markItUp .Youtube a{background-image:url(../pic/bbcode/youtube.png); } 
+.markItUp .spoilerbutton a{background-image:url(../pic/bbcode/spoiler.png); } 
+.markItUp .marqueebutton a{background-image:url(../pic/bbcode/marquee.png); } 
+.markItUp .emailbutton a{background-image:url(../pic/bbcode/email.png); } 
+.markItUp .sizebutton a{background-image:url(../pic/bbcode/size.png); } 
+.markItUp .size_7 a{font-size: xx-large;height:40px;width: 130px; } 
+.markItUp .size_6 a{font-size: x-large;height:40px;width: 130px; } 
+.markItUp .size_5 a{font-size: large;height:30px;width: 130px; } 
+.markItUp .size_4 a{font-size: medium;height:25px;width: 130px; } 
+.markItUp .size_3 a{font-size: small;height:20px;width: 130px; } 
+.markItUp .size_2 a{font-size: x-small;height:15px;width: 130px; } 
+.markItUp .fontbutton a	{background-image:url(../pic/bbcode/fonts.png); } 
+.markItUp .font_Arial a	{font-family: "Arial"; } 
+.markItUp .font_Arial_Black a{font-family: "Arial Black"; } 
+.markItUp .font_Comic_Sans_MS a{font-family: "Comic Sans MS"; } 
+.markItUp .font_Courier_New a{font-family: "Courier New"; } 
+.markItUp .font_Georgia a{font-family: "Georgia"; } 
+.markItUp .font_Impact a{font-family: "Impact"; } 
+.markItUp .font_Times_New_Roman a{font-family: "Times New Roman"; } 
+.markItUp .font_Trebuchet_MS a{font-family: "Trebuchet MS"; } 
+.markItUp .font_Verdana a{font-family: "Verdana"; } 
+.markItUp .font_Courier a{font-family: "Courier"; } 
+.markItUp .font_Helvetica a{font-family: "Helvetica"; } 
+.markItUp .font_Times a	{font-family: "Times"; } 
+.markItUp .font_Andale_Mono a{font-family: "Andale Mono"; } 
+.markItUp .font_Bitstream_Vera_Sans a{font-family: "Bitstream Vera Sans"; } 
+.markItUp .font_Mono a{	font-family: Mono; } 
+.markItUp .palette a {background-image:url(../pic/bbcode/colors.png); } 	
+.markItUp .palette ul {width:306px;padding:0px;} 	
+.markItUp .palette  li {border:1px solid black;width:15px;height:10px;overflow:hidden;padding:0px; margin:0px;float:left;} 	
+.markItUp .palette ul a {width:10px;	height:10px; 	} 	
+.markItUp .palette ul a:hover {background-color:none; 	} 	
+.markItUp .palette .col1-1 a {background:#330000;} 	
+.markItUp .palette .col1-2 a {background:#333300;} 	
+.markItUp .palette .col1-3 a {background:#336600;} 	
+.markItUp .palette .col1-4 a {background:#339900;} 	
+.markItUp .palette .col1-5 a {background:#33CC00;} 	
+.markItUp .palette .col1-6 a {background:#33FF00;} 	
+.markItUp .palette .col1-7 a {background:#66FF00;} 	
+.markItUp .palette .col1-8 a {background:#66CC00;} 	
+.markItUp .palette .col1-9 a {background:#669900;} 	
+.markItUp .palette .col1-10 a {background:#666600;} 	
+.markItUp .palette .col1-11 a { background:#663300;} 	
+.markItUp .palette .col1-12 a { background:#660000;} 	
+.markItUp .palette .col1-13 a { background:#FF0000;} 	
+.markItUp .palette .col1-14 a { background:#FF3300;} 	
+.markItUp .palette .col1-15 a { background:#FF6600;} 	
+.markItUp .palette .col1-16 a { background:#FF9900;} 	
+.markItUp .palette .col1-17 a { background:#FFCC00;} 	
+.markItUp .palette .col1-18 a { background:#FFFF00;} 	
+.markItUp .palette .col2-1 a { background:#330033;} 	
+.markItUp .palette .col2-2 a { background:#333333;} 	
+.markItUp .palette .col2-3 a { background:#336633;} 	
+.markItUp .palette .col2-4 a { background:#339933;} 	
+.markItUp .palette .col2-5 a { background:#33CC33;} 	
+.markItUp .palette .col2-6 a { background:#33FF33;} 	
+.markItUp .palette .col2-7 a { background:#66FF33;} 	
+.markItUp .palette .col2-8 a { background:#66CC33;} 	
+.markItUp .palette .col2-9 a { background:#669933;} 	
+.markItUp .palette .col2-10 a { background:#666633;} 	
+.markItUp .palette .col2-11 a { background:#663333;} 	
+.markItUp .palette .col2-12 a { background:#660033;} 	
+.markItUp .palette .col2-13 a { background:#FF0033;} 	
+.markItUp .palette .col2-14 a { background:#FF3333;} 	
+.markItUp .palette .col2-15 a { background:#FF6633;} 	
+.markItUp .palette .col2-16 a { background:#FF9933;} 	
+.markItUp .palette .col2-17 a { background:#FFCC33;} 	
+.markItUp .palette .col2-18 a { background:#FFFF33;} 	
+.markItUp .palette .col3-1 a { background:#330066;} 	
+.markItUp .palette .col3-2 a { background:#333366;} 	
+.markItUp .palette .col3-3 a { background:#336666;} 	
+.markItUp .palette .col3-4 a { background:#339966;} 	
+.markItUp .palette .col3-5 a { background:#33CC66;} 	
+.markItUp .palette .col3-6 a { background:#33FF66;} 	
+.markItUp .palette .col3-7 a { background:#66FF66;} 	
+.markItUp .palette .col3-8 a { background:#66CC66;} 	
+.markItUp .palette .col3-9 a { background:#669966;} 	
+.markItUp .palette .col3-10 a { background:#666666;} 	
+.markItUp .palette .col3-11 a { background:#663366;} 	
+.markItUp .palette .col3-12 a { background:#660066;} 	
+.markItUp .palette .col3-13 a { background:#FF0066;} 	
+.markItUp .palette .col3-14 a { background:#FF3366;} 	
+.markItUp .palette .col3-15 a { background:#FF6666;} 	
+.markItUp .palette .col3-16 a { background:#FF9966;} 	
+.markItUp .palette .col3-17 a { background:#FFCC66;} 	
+.markItUp .palette .col3-18 a { background:#FFFF66;} 	
+.markItUp .palette .col4-1 a { background:#330099;} 	
+.markItUp .palette .col4-2 a { background:#333399;} 	
+.markItUp .palette .col4-3 a { background:#336699;} 	
+.markItUp .palette .col4-4 a { background:#339999;} 	
+.markItUp .palette .col4-5 a { background:#33CC99;} 	
+.markItUp .palette .col4-6 a { background:#33FF99;} 	
+.markItUp .palette .col4-7 a { background:#66FF99;} 	
+.markItUp .palette .col4-8 a { background:#66CC99;} 	
+.markItUp .palette .col4-9 a { background:#669999;} 	
+.markItUp .palette .col4-10 a { background:#666699;} 	
+.markItUp .palette .col4-11 a { background:#663399;} 	
+.markItUp .palette .col4-12 a { background:#660099;} 	
+.markItUp .palette .col4-13 a { background:#FF0099;} 	
+.markItUp .palette .col4-14 a { background:#FF3399;} 	
+.markItUp .palette .col4-15 a { background:#FF6699;} 	
+.markItUp .palette .col4-16 a { background:#FF9999;} 	
+.markItUp .palette .col4-17 a { background:#FFCC99;} 	
+.markItUp .palette .col4-18 a { background:#FFFF99;} 	
+.markItUp .palette .col5-1 a { background:#3300CC;} 	
+.markItUp .palette .col5-2 a { background:#3333CC;} 	
+.markItUp .palette .col5-3 a { background:#3366CC;} 	
+.markItUp .palette .col5-4 a { background:#3399CC;} 	
+.markItUp .palette .col5-5 a { background:#33CCCC;} 	
+.markItUp .palette .col5-6 a { background:#33FFCC;} 	
+.markItUp .palette .col5-7 a { background:#66FFCC;} 	
+.markItUp .palette .col5-8 a { background:#66CCCC;} 	
+.markItUp .palette .col5-9 a { background:#6699CC;} 	
+.markItUp .palette .col5-10 a { background:#6666CC;} 	
+.markItUp .palette .col5-11 a { background:#6633CC;} 	
+.markItUp .palette .col5-12 a { background:#6600CC;} 	
+.markItUp .palette .col5-13 a { background:#FF00CC;} 	
+.markItUp .palette .col5-14 a { background:#FF33CC;} 	
+.markItUp .palette .col5-15 a { background:#FF66CC;} 	
+.markItUp .palette .col5-16 a { background:#FF99CC;} 	
+.markItUp .palette .col5-17 a { background:#FFCCCC;} 	
+.markItUp .palette .col5-18 a { background:#FFFFCC;} 	
+.markItUp .palette .col6-1 a { background:#3300FF;} 	
+.markItUp .palette .col6-2 a { background:#3333FF;} 	
+.markItUp .palette .col6-3 a { background:#3366FF;} 	
+.markItUp .palette .col6-4 a { background:#3399FF;} 	
+.markItUp .palette .col6-5 a { background:#33CCFF;} 	
+.markItUp .palette .col6-6 a { background:#33FFFF;} 	
+.markItUp .palette .col6-7 a { background:#66FFFF;} 	
+.markItUp .palette .col6-8 a { background:#66CCFF;} 	
+.markItUp .palette .col6-9 a { background:#6699FF;} 	
+.markItUp .palette .col6-10 a { background:#6666FF;} 	
+.markItUp .palette .col6-11 a { background:#6633FF;} 	
+.markItUp .palette .col6-12 a { background:#6600FF;} 	
+.markItUp .palette .col6-13 a { background:#FF00FF;} 	
+.markItUp .palette .col6-14 a { background:#FF33FF;} 	
+.markItUp .palette .col6-15 a { background:#FF66FF;} 	
+.markItUp .palette .col6-16 a { background:#FF99FF;} 	
+.markItUp .palette .col6-17 a { background:#FFCCFF;} 	
+.markItUp .palette .col6-18 a { background:#FFFFFF;} 	
+.markItUp .palette .col7-1 a { background:#0000FF;} 	
+.markItUp .palette .col7-2 a { background:#0033FF;} 	
+.markItUp .palette .col7-3 a { background:#0066FF;} 	
+.markItUp .palette .col7-4 a { background:#0099FF;} 	
+.markItUp .palette .col7-5 a { background:#00CCFF;} 	
+.markItUp .palette .col7-6 a { background:#00FFFF;} 	
+.markItUp .palette .col7-7 a { background:#99FFFF;} 	
+.markItUp .palette .col7-8 a { background:#99CCFF;} 	
+.markItUp .palette .col7-9 a { background:#9999FF;} 	
+.markItUp .palette .col7-10 a { background:#9966FF;} 	
+.markItUp .palette .col7-11 a { background:#9933FF;} 	
+.markItUp .palette .col7-12 a { background:#9900FF;} 	
+.markItUp .palette .col7-13 a { background:#CC00FF;} 	
+.markItUp .palette .col7-14 a { background:#CC33FF;} 	
+.markItUp .palette .col7-15 a { background:#CC66FF;} 	
+.markItUp .palette .col7-16 a { background:#CC99FF;} 	
+.markItUp .palette .col7-17 a { background:#CCCCFF;} 	
+.markItUp .palette .col7-18 a { background:#CCFFFF;} 	
+.markItUp .palette .col8-1 a { background:#0000CC;} 	
+.markItUp .palette .col8-2 a { background:#0033CC;} 	
+.markItUp .palette .col8-3 a { background:#0066CC;} 	
+.markItUp .palette .col8-4 a { background:#0099CC;} 	
+.markItUp .palette .col8-5 a { background:#00CCCC;} 	
+.markItUp .palette .col8-6 a { background:#00FFCC;} 	
+.markItUp .palette .col8-7 a { background:#99FFCC;} 	
+.markItUp .palette .col8-8 a { background:#99CCCC;} 	
+.markItUp .palette .col8-9 a { background:#9999CC;} 	
+.markItUp .palette .col8-10 a { background:#9966CC;} 	
+.markItUp .palette .col8-11 a { background:#9933CC;} 	
+.markItUp .palette .col8-12 a { background:#9900CC;} 	
+.markItUp .palette .col8-13 a { background:#CC00CC;} 	
+.markItUp .palette .col8-14 a { background:#CC33CC;} 	
+.markItUp .palette .col8-15 a { background:#CC66CC;} 	
+.markItUp .palette .col8-16 a { background:#CC99CC;} 	
+.markItUp .palette .col8-17 a { background:#CCCCCC;} 	
+.markItUp .palette .col8-18 a { background:#CCFFCC;} 	
+.markItUp .palette .col9-1 a {background:#000099;} 	
+.markItUp .palette .col9-2 a {background:#003399;} 	
+.markItUp .palette .col9-3 a {background:#006699;} 	
+.markItUp .palette .col9-4 a {background:#009999;} 	
+.markItUp .palette .col9-5 a {background:#00CC99;} 	
+.markItUp .palette .col9-6 a {background:#00FF99;} 	
+.markItUp .palette .col9-7 a {background:#99FF99;} 	
+.markItUp .palette .col9-8 a {background:#99CC99;} 	
+.markItUp .palette .col9-9 a {background:#999999;} 	
+.markItUp .palette .col9-10 a {background:#996699;} 	
+.markItUp .palette .col9-11 a {background:#993399;} 	
+.markItUp .palette .col9-12 a {background:#990099;} 	
+.markItUp .palette .col9-13 a {background:#CC0099;} 	
+.markItUp .palette .col9-14 a {background:#CC3399;} 	
+.markItUp .palette .col9-15 a {background:#CC6699;} 	
+.markItUp .palette .col9-16 a {background:#CC9999;} 	
+.markItUp .palette .col9-17 a {background:#CCCC99;} 	
+.markItUp .palette .col9-18 a {background:#CCFF99;} 	
+.markItUp .palette .col10-1 a {background:#000066;} 	
+.markItUp .palette .col10-2 a {background:#003366;} 	
+.markItUp .palette .col10-3 a {background:#006666;} 	
+.markItUp .palette .col10-4 a {background:#009966;} 	
+.markItUp .palette .col10-5 a {background:#00CC66;} 	
+.markItUp .palette .col10-6 a {background:#00FF66;} 	
+.markItUp .palette .col10-7 a {background:#99FF66;} 	
+.markItUp .palette .col10-8 a {background:#99CC66;} 	
+.markItUp .palette .col10-9 a {background:#999966;} 	
+.markItUp .palette .col10-10 a {background:#996666;} 	
+.markItUp .palette .col10-11 a {background:#993366;} 	
+.markItUp .palette .col10-12 a {background:#990066;} 	
+.markItUp .palette .col10-13 a {background:#CC0066;} 	
+.markItUp .palette .col10-14 a {background:#CC3366;} 	
+.markItUp .palette .col10-15 a {background:#CC6666;} 	
+.markItUp .palette .col10-16 a {background:#CC9966;} 	
+.markItUp .palette .col10-17 a {background:#CCCC66;} 	
+.markItUp .palette .col10-18 a {background:#CCFF66;} 	
+.markItUp .palette .col11-1 a {background:#000033;} 	
+.markItUp .palette .col11-2 a {background:#003333;} 	
+.markItUp .palette .col11-3 a {background:#006633;} 	
+.markItUp .palette .col11-4 a {background:#009933;} 	
+.markItUp .palette .col11-5 a {background:#00CC33;} 	
+.markItUp .palette .col11-6 a {background:#00FF33;} 	
+.markItUp .palette .col11-7 a {background:#99FF33;} 	
+.markItUp .palette .col11-8 a {background:#99CC33;} 	
+.markItUp .palette .col11-9 a {background:#999933;} 	
+.markItUp .palette .col11-10 a {background:#996633;} 	
+.markItUp .palette .col11-11 a {background:#993333;} 	
+.markItUp .palette .col11-12 a {background:#990033;} 	
+.markItUp .palette .col11-13 a {background:#CC0033;} 	
+.markItUp .palette .col11-14 a {background:#CC3333;} 	
+.markItUp .palette .col11-15 a {background:#CC6633;} 	
+.markItUp .palette .col11-16 a {background:#CC9933;} 	
+.markItUp .palette .col11-17 a {background:#CCCC33;} 	
+.markItUp .palette .col11-18 a {background:#CCFF33;} 	
+.markItUp .palette .col12-1 a {background:#000000;} 	
+.markItUp .palette .col12-2 a {background:#003300;} 	
+.markItUp .palette .col12-3 a {background:#006600;} 	
+.markItUp .palette .col12-4 a {background:#009900;} 	
+.markItUp .palette .col12-5 a {background:#00CC00;} 	
+.markItUp .palette .col12-6 a {background:#00FF00;} 	
+.markItUp .palette .col12-7 a {background:#99FF00;} 	
+.markItUp .palette .col12-8 a {background:#99CC00;} 	
+.markItUp .palette .col12-9 a {background:#999900;} 	
+.markItUp .palette .col12-10 a {background:#996600;} 	
+.markItUp .palette .col12-11 a {background:#993300;} 	
+.markItUp .palette .col12-12 a {background:#990000;} 	
+.markItUp .palette .col12-13 a {background:#CC0000;} 	
+.markItUp .palette .col12-14 a {background:#CC3300;} 	
+.markItUp .palette .col12-15 a {background:#CC6600;} 	
+.markItUp .palette .col12-16 a {background:#CC9900;} 	
+.markItUp .palette .col12-17 a {background:#CCCC00;} 	
+.markItUp .palette .col12-18 a {background:#CCFF00;} 	
+.markItUp .palette .col13-1 a {background:#000000;} 	
+.markItUp .palette .col13-2 a {background:#111111;} 	
+.markItUp .palette .col13-3 a {background:#222222;} 	
+.markItUp .palette .col13-4 a {background:#333333;} 	
+.markItUp .palette .col13-5 a {background:#444444;} 	
+.markItUp .palette .col13-6 a {background:#555555;} 	
+.markItUp .palette .col13-7 a {background:#666666;} 	
+.markItUp .palette .col13-8 a {background:#777777;} 	
+.markItUp .palette .col13-9 a {background:#888888;} 	
+.markItUp .palette .col13-10 a {background:#999999;} 	
+.markItUp .palette .col13-11 a {background:#AAAAAA;} 	
+.markItUp .palette .col13-12 a {background:#BBBBBB;} 	
+.markItUp .palette .col13-13 a {background:#CCCCCC;} 	
+.markItUp .palette .col13-14 a {background:#DDDDDD;} 	
+.markItUp .palette .col13-15 a {background:#EEEEEE;} 	
+.markItUp .palette .col13-16 a {background:#FFFFFF;}
+/* -------------------------------------------------------------------
+// markItUp! Universal MarkUp Engine, JQuery plugin
+// By Jay Salvat - http://markitup.jaysalvat.com/
+// ------------------------------------------------------------------*/
+.markItUp *{	margin:0px;padding:0px;outline:none;} 
+.markItUp a:link, .markItUp a:visited {color:#000;text-decoration:none;} 
+.markItUp {width:700px;margin:5px 0 5px 0;border:5px solid #F5F5F5;} 
+.markItUpContainer{background-color:#ffffff;border:1px solid #3C769D;padding:5px 5px 5px 5px;} 
+.markItUpEditor{font:12px 'Courier New', Courier, monospace;padding:5px 5px 5px 35px;border:3px solid #3C769D;width:643px;height:320px;background:url(bbcode/markitup/skins/markitup/images/bg-editor.png) no-repeat;clear:both;line-height:18px;overflow:auto;} 
+.markItUpPreviewFrame{overflow:auto;background-color:transparent;border:1px solid #3C769D;width:99.9%;height:300px;margin:5px 0;} 
+.markItUpFooter {width:100%;	cursor:n-resize;} 
+.markItUpResizeHandle {overflow:hidden;width:22px;height:5px;margin-left:auto;margin-right:auto;background-image:url(../pic/bbcode/handle.png);cursor:n-resize;} 
+/***************************************************************************************/ /* first row of buttons */ 
+.markItUpHeader ul li{list-style:none;float:left;	position:relative;} 
+.markItUpHeader ul li ul{display:none;} 
+.markItUpHeader ul li:hover > ul{display:block;}
+.markItUpHeader ul .markItUpDropMenu { 	background:transparent url(../pic/bbcode/menu.png) no-repeat 115% 50%; 	margin-right:5px; } 
+.markItUpHeader ul .markItUpDropMenu li { 	margin-right:0px; } 
+.markItUpHeader ul .markItUpSeparator { 	margin:0 10px; 	width:1px; 	height:16px; 	overflow:hidden; 	background-color:#CCC; } 
+.markItUpHeader ul ul .markItUpSeparator { 	width:auto; height:1px; 	margin:0px; } /* next rows of buttons */ 
+.markItUpHeader ul ul { 	display:none; 	position:absolute; 	top:18px; left:0px;	 	background:#F5F5F5; 	border:1px solid #3C769D; 	height:inherit; } 
+.markItUpHeader ul ul li { 	float:none; 	border-bottom:1px solid #3C769D; } 
+.markItUpHeader ul ul .markItUpDropMenu { 	background:#F5F5F5 url(../pic/bbcode/submenu.png) no-repeat 100% 50%; } /* next rows of buttons */ 
+.markItUpHeader ul ul ul { 	position:absolute; 	top:-1px; left:150px; } 
+.markItUpHeader ul ul ul li { 	float:none; } 
+.markItUpHeader ul a { 	display:block; 	width:16px; height:16px; 	text-indent:-10000px; 	background-repeat:no-repeat; 	padding:3px; 	margin:0px; } 
+.markItUpHeader ul ul a { 	display:block; 	padding-left:0px; 	text-indent:0; 	width:120px; 	padding:5px 5px 5px 25px; 	background-position:2px 50%; } 
+.markItUpHeader ul ul a:hover  { 	color:#FFF; 	background-color:#3C769D; } 
+/***************************************************************************************/ 
+.html .markItUpEditor {background-image:url(../pic/bbcode/bg-editor-html.png); } 
+.markdown .markItUpEditor {background-image:url(../pic/bbcode/bg-editor-markdown.png); } 
+.textile .markItUpEditor {background-image:url(../pic/bbcode/bg-editor-textile.png); } 
+.bbcode .markItUpEditor {background-image:url(../pic/bbcode/bg-editor-bbcode.png); } 
+.wiki .markItUpEditor, .dotclear .markItUpEditor {background-image:url(../pic/bbcode/bg-editor-wiki.png); }
+/**Mobile MarkitUP-swizzles 1 Feb 2015 completed.Son this is global I hope<< son==this file isnt global**/
+@media only screen and (min-width:319px) and (max-width:479px) 
+{ 
+.markItUp{width:200px;} 
+.markItUpEditor{font:12px 'Courier New', Courier, monospace;border:3px solid #3C769D;width:175px;height:320px;background:url(bbcode/markitup/skins/markitup/images/bg-editor.png) no-repeat;clear:both;line-height:65%;overflow:auto;} 
+div.scroll {width:65px;}
+ } 
+@media only screen and (min-width:480px) and (max-width:599px) 
+{ 
+.markItUp {width:250px;} 
+.markItUpEditor{font:12px 'Courier New', Courier, monospace;border:3px solid #3C769D;width:200px;height:320px;background:url(bbcode/markitup/skins/markitup/images/bg-editor.png) no-repeat;clear:both;overflow:auto;} 
+div.scroll{width:75px;} 
+} 
+@media only screen and (min-width:600px) and (max-width:723px) 
+{ 
+.markItUp {width:250px;} 
+.markItUpEditor{font:12px 'Courier New', Courier, monospace;border:3px solid #3C769D;width:200px;height:320px;background:url(bbcode/markitup/skins/markitup/images/bg-editor.png) no-repeat;clear:both;overflow:auto;} 
+} 
+@media only screen and (min-width:724px) and (max-width:769px) 
+{ 
+.markItUp {width:250px;} 
+.markItUpEditor{font:12px 'Courier New', Courier, monospace;border:3px solid #3C769D;width:230px;height:320px;background:url(bbcode/markitup/skins/markitup/images/bg-editor.png) no-repeat;clear:both;overflow:auto;} 
+} 
+@media only screen and (min-width:770px) and (max-width:799px) 
+{ 
+.markItUp{width:300px;} 
+.markItUpEditor{font:12px 'Courier New', Courier, monospace;border:3px solid #3C769D;width:275px;height:320px;background:url(bbcode/markitup/skins/markitup/images/bg-editor.png) no-repeat;clear:both;overflow:auto;} 
+} 
+@media only screen and (min-width:800px) and (max-width:1023px) 
+{
+.markItUp{width:300px;} 
+.markItUpEditor{font:12px 'Courier New', Courier, monospace;border:3px solid #3C769D;width:275px;height:320px;background:url(bbcode/markitup/skins/markitup/images/bg-editor.png) no-repeat;clear:both;overflow:auto;} 
+} 
+@media only screen and (min-width:1024px) and (max-width:1100px) 
+{ 
+.markItUp{width:500px;} 
+.markItUpEditor{font:12px 'Courier New', Courier, monospace;border:3px solid #3C769D;width:450px;height:320px;background:url(bbcode/markitup/skins/markitup/images/bg-editor.png) no-repeat;clear:both;overflow:auto;}
+}
+div.scroll {height:360px;width:200px;overflow:auto;border:none;}

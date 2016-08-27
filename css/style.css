@@ -1,0 +1,150 @@
+/** Main sections */
+
+body { 
+	background: #e8ebec; 
+	font-family: Arial, Helvetica, sans-serif;
+	color : #ccc; 
+	margin:0;
+	padding:0;
+}
+img {
+	border:0;
+}
+#wrapper{
+	width:960px;
+	margin: 0px auto;
+	padding:0;
+}
+#logo {
+	background: url(https://u-232.servebeer.com/templates/1/css/images/logo.jpg) no-repeat center;
+	width:830px;
+	height:164px;
+	display:block;
+	margin:0px auto;
+}
+#main {
+	background: url(https://u-232.servebeer.com/templates/1/css/images/main.jpg) no-repeat center;
+	width: 847px;
+	height: 395px;
+	overflow:hidden;
+	margin: 0px auto;
+}
+
+
+
+
+/** Countdown */
+
+#countdown {
+	width:770px;
+	height:120px;
+	margin:150px 0 0 45px;
+}
+.dash {
+	width: 127px;
+	height: 125px;
+	background: transparent url(https://u-232.servebeer.com/templates/1/css/images/box.jpg) 0 0 no-repeat;
+	float: left;
+	margin-left: 20px;
+	position: relative;
+}
+
+.dash .digit {
+	font-size: 70px;
+	font-weight: bold;
+	float: left;
+	width: 45px;
+	text-align: center;
+	font-family: Arial;
+	color: #2f2e2e;
+	position: relative;
+	margin: 10px 0 0 13px;
+}
+
+.dash_title {
+	position: absolute;
+	display: block;
+	bottom: 0px;
+	text-align:center;
+	font-weight:bold;
+	width:127px;
+	font-size: 12px;
+	color: #2f2e2e;
+	
+}
+/** Bottom div, the one with the newsletter form and social icons */
+#bottom {
+	width:739px;
+	height:40px;
+	margin:67px 0 0 50px;
+}
+.bottom-text{
+	float:left;
+	width:108px;
+	height:27px;
+	color:#fff;
+	font-size:11px;
+	padding: 13px 0 0 20px;
+}
+#email_field{
+	float:left;
+	background:url(https://u-232.servebeer.com/templates/1/css/images/input.jpg) no-repeat top;
+	border:0;
+	width:191px;
+	height:38px;
+	display:block;
+	color:#fff;
+	text-align:center;
+	font-size:12px;
+	margin:0;
+	padding:0;
+}
+#newsletter {
+	float:left;
+	width:300px;
+	height:40px;
+}
+#social{
+	float:right;
+	margin: 0 0 0 180px;
+	height:40px;
+	
+}
+#social ul {
+	list-style:none;
+	width:120px;
+	height:23px;
+	padding:0;
+	margin: 10px 0 0 0;
+}
+#social ul li {
+	float:right;
+	margin: 0 5px 0 0;
+}
+#submit{
+	margin:0;
+}
+
+/** Twitter status feed */
+
+#twitstat {
+background: url(https://u-232.servebeer.com/templates/1/css/images/twitterbar.jpg) no-repeat;
+width:695px;
+height:93px;
+color:#2f2e2e;
+font-size:14px;
+padding: 0 20px 0 70px;
+margin:0px auto;
+overflow:hidden;
+}
+#twitstat a{
+color:#2f2e2e;
+font-weight:bold;
+}
+#twitstat a:hover{
+color:#005ab3;
+}
+#twitstat ul {
+list-style:none;
+padding-top:15px;
+}

@@ -1,0 +1,54 @@
+body {
+	background:#666666;
+	color:#222;
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:12px;
+}
+.avy_body td {
+	border:1px solid #333333;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+.avy_body input[type='text'], select {
+	border:1px #333333 solid;
+	background:#CCCCCC;
+	padding:3px;
+	width: 130px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+}
+.avy_body select {
+	width:138px;
+}
+fieldset {
+	border:1px solid #333333;
+	padding:3px;
+	-moz-border-radius:2px;
+	-webkit-border-radius:2px;
+}
+legend {
+	border:solid #333333;
+	border-width:1px 1px 3px 1px;
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	padding:2px 4px 2px 4px;
+	font-weight:bold;
+}
+.info {
+	font-weight:bold;
+	text-align:right
+}
+.loader {
+	background:url(../images/ajax-loader.gif) no-repeat;
+	padding-left:36px;
+	padding-top:7px;
+	color:#6960EC;
+	font-weight:bold;
+	position:absolute;
+	top:0;
+	left:0;
+	height:32px;
+}
+#colorSelector, #colorSelector2, #colorSelector3 {
+	cursor: pointer;
+}

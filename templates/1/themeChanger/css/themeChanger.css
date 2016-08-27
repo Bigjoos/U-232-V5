@@ -1,0 +1,339 @@
+/* -- Theme control panel --> Begin --Editted by swizzles 12/2015 to increase options */
+#control_panel {
+	position:absolute;
+    top:-5px;
+    left:-400px;
+    z-index: 9999;
+    padding: 16px;
+    width:400px;//200px;
+background-color: rgba(181,189,200,.95); /* Old browsers */
+background-color: -moz-linear-gradient(top, rgba(181,189,200,.95) 0%, rgba(130,140,149,.95) 36%, rgba(40,52,59,.95) 100%); /* FF3.6-15 */
+background-color: -webkit-linear-gradient(top, rgba(181,189,200,.95) 0%,rgba(130,140,149,.95) 36%,rgba(40,52,59,.95) 100%); /* Chrome10-25,Safari5.1-6 */
+background-color: linear-gradient(to bottom, rgba(181,189,200,.95) 0%,rgba(130,140,149,.95) 36%,rgba(40,52,59,.95) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=0 ); /* IE6-9 */
+border-style:solid;
+border-width:1px;
+border-color:#1f1f1f;
+    color:#1f1f1f;//#ffffff;//#3d3d3d;
+	-webkit-border-radius: 0 5px 5px 0;
+	-moz-border-radius: 0 5px 5px 0;
+	border-radius: 0 5px 5px 0;
+}
+@media screen and (max-width:1024px) 
+ {
+#control_panel{position:absolute;z-index:99999;background-color:#1f1f1f;color:#ffffff;}
+#control_panel > div > span {color:#fff;}
+
+}
+
+#control_panel > div > span {
+    display: block;margin-top:-20px;
+	margin-left: 2px;
+	color:#fff;
+	font-size: 0.917em;
+	text-transform: uppercase;
+	font-family: Arial;
+}
+
+#control_panel ul {
+    overflow: hidden;
+	padding-bottom: 5px;
+}
+
+#control_panel li {
+    float:left;
+    margin:2px;
+}
+
+#control_panel li.active {
+    border-color:#000;
+}
+
+#control_panel li a {
+    width:31px;
+    height:31px;
+    border-radius:2px;
+    -moz-border-radius:2px;
+    -webkit-border-radius:2px;
+    display:block;
+}
+
+#control_panel .restore_button_wrapper {
+	clear: both;
+	text-align:center;
+    padding:10px 0 0 0;
+}
+#control_label {
+    position:absolute;
+    right:-29px;
+    top:10px;
+    width:29px;
+    height:31px;
+    background:url('../images/theme_control_bg.png') no-repeat center center #1f1f1f;
+    border-radius:0 5px 5px 0;
+    -moz-border-radius:0 5px 5px 0;
+    -webkit-border-radius:0 5px 5px 0;
+	-webkit-transition: all .25s linear;
+	-moz-transition: all .25s linear;
+	-o-transition: all .25s linear;
+	transition: all .25s linear;
+}
+#control_label:hover {
+	-webkit-box-shadow: inset 0 0 10px #686868;
+	-moz-box-shadow: inset 0 0 10px #686868;
+	box-shadow: inset 0 0 10px #686868;
+}
+
+#control_panel #backgrounds a {
+  background-image: url('../images/patterns_sprite.png');
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 25px;
+  height: 25px;
+}
+#control_panel #nav a {
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 70px;
+  height: 20px;
+}
+#control_panel #navb a {
+  background-image: url('../images/patterns_sprite.png');
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+}
+
+#control_panel #panelhead a {
+  background-image: url('../images/patterns_sprite.png');
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+}
+#control_panel #bootpanel a {
+  background-image: url('../images/patterns_sprite.png');
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+}
+#control_panel #btable a {
+  background-image: url('../images/patterns_sprite.png');
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+}
+#control_panel #btr a {
+  background-image: url('../images/patterns_sprite.png');
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+}
+#control_panel #listgrp a {
+  background-image: url('../images/patterns_sprite.png');
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+}
+#control_panel #buttonS a {
+  background-image: url('../images/buttons_sprite.png');
+  background-repeat: no-repeat;
+  border: 1px solid #000;
+  width: 20px;
+  height: 20px;
+}
+#control_panel #backgrounds .active a {border-color: #434343;}
+#nav ul li a.skin-1 {background-image: url(../images/sbanner1.png);background-repeat: no-repeat;width: 70px;height: 20px;}
+#nav ul li a.skin-2 {background-image: url(../images/eye1.png);background-repeat: no-repeat;width: 70px;height: 20px;}
+#nav ul li a.skin-3 {background-image: url(../images/hands1.png);background-repeat: no-repeat;width: 70px;height: 20px;}
+/* Backgrounds --> Begin */
+#backgrounds .background-1 {background-position: 0 0;}
+#backgrounds .background-2 {background-position: -30px 0;}
+#backgrounds .background-3 {background-position: -60px 0;}
+#backgrounds .background-4 {background-position: -90px 0;}
+#backgrounds .background-5 {background-position: -120px 0;}
+#backgrounds .background-6 {background-position: 0 -30px;}
+#backgrounds .background-7 {background-position: -30px -30px;}
+#backgrounds .background-8 {background-position: -60px -30px;}
+#backgrounds .background-9 {background-position: -90px -30px;}
+#backgrounds .background-10 {background-position: -120px -30px;}
+#backgrounds .background-11 {background-position: 0 -60px;}
+#backgrounds .background-12 {background-position: -30px -60px;}
+#backgrounds .background-13 {background-position: -60px -60px;}
+#backgrounds .background-14 {background-position: -90px -60px;}
+#backgrounds .background-15 {background-position: -120px -60px;}
+#backgrounds .background-16 {background-position: 0 -90px;}
+#backgrounds .background-17 {background-position: -30px -90px;}
+#backgrounds .background-18 {background-position: -60px -90px;}
+#backgrounds .background-19 {background-position: -90px -90px;}
+#backgrounds .background-20 {background-position: -120px -90px;}
+#backgrounds .background-21 {background-position: 0 -120px;}
+#backgrounds .background-22 {background-position: -30px -120px;}
+#backgrounds .background-23 {background-position: -60px -120px;}
+#backgrounds .background-24 {background-position: -90px -120px;}
+#backgrounds .background-25 {background-position: -120px -120px;}
+/* Backgrounds --> End */
+#navb .nb-1 {background-position: 0 0;}
+#navb .nb-2 {background-position: -30px 0;}
+#navb .nb-3 {background-position: -60px 0;}
+#navb .nb-4 {background-position: -90px 0;}
+#navb .nb-5 {background-position: -120px 0;}
+#navb .nb-6 {background-position: 0 -30px;}
+#navb .nb-7 {background-position: -30px -30px;}
+#navb .nb-8 {background-position: -60px -30px;}
+#navb .nb-9 {background-position: -90px -30px;}
+#navb .nb-10 {background-position: -120px -30px;}
+#navb .nb-11 {background-position: 0 -60px;}
+#navb .nb-12 {background-position: -30px -60px;}
+#navb .nb-13 {background-position: -60px -60px;}
+#navb .nb-14 {background-position: -90px -60px;}
+#navb .nb-15 {background-position: -120px -60px;}
+#navb .nb-16 {background-position: 0 -90px;}
+#navb .nb-17 {background-position: -30px -90px;}
+#navb .nb-18 {background-position: -60px -90px;}
+#navb .nb-19 {background-position: -90px -90px;}
+#navb .nb-20 {background-position: -120px -90px;}
+#navb .nb-21 {background-position: 0 -120px;}
+#navb .nb-22 {background-position: -30px -120px;}
+#navb .nb-23{background-position: -60px -120px;}
+#navb .nb-24 {background-position: -90px -120px;}
+#navb .nb-25 {background-position: -120px -120px;}
+#bootpanel .bootpanel-1 {background-position: 0 0;}
+#bootpanel .bootpanel-2 {background-position: -30px 0;}
+#bootpanel .bootpanel-3 {background-position: -60px 0;}
+#bootpanel .bootpanel-4 {background-position: -90px 0;}
+#bootpanel .bootpanel-5 {background-position: -120px 0;}
+#bootpanel .bootpanel-6 {background-position: 0 -30px;}
+#bootpanel .bootpanel-7 {background-position: -30px -30px;}
+#bootpanel .bootpanel-8 {background-position: -60px -30px;}
+#bootpanel .bootpanel-9 {background-position: -90px -30px;}
+#bootpanel .bootpanel-10 {background-position: -120px -30px;}
+#bootpanel .bootpanel-11 {background-position: 0 -60px;}
+#bootpanel .bootpanel-12 {background-position: -30px -60px;}
+#bootpanel .bootpanel-13 {background-position: -60px -60px;}
+#bootpanel .bootpanel-14 {background-position: -90px -60px;}
+#bootpanel .bootpanel-15 {background-position: -120px -60px;}
+#bootpanel .bootpanel-16 {background-position: 0 -90px;}
+#panelhead .panelhead-1 {background-position: 0 0;}
+#panelhead .panelhead-2 {background-position: -30px 0;}
+#panelhead .panelhead-3 {background-position: -60px 0;}
+#panelhead .panelhead-4 {background-position: -90px 0;}
+#panelhead .panelhead-5 {background-position: -120px 0;}
+#panelhead .panelhead-6 {background-position: 0 -30px;}
+#panelhead .panelhead-7 {background-position: -30px -30px;}
+#panelhead .panelhead-8 {background-position: -60px -30px;}
+#panelhead .panelhead-9 {background-position: -90px -30px;}
+#panelhead .panelhead-10 {background-position: -120px -30px;}
+#panelhead .panelhead-11 {background-position: 0 -60px;}
+#panelhead .panelhead-12 {background-position: -30px -60px;}
+#panelhead .panelhead-13 {background-position: -60px -60px;}
+#panelhead .panelhead-14 {background-position: -90px -60px;}
+#panelhead .panelhead-15 {background-position: -120px -60px;}
+#panelhead .panelhead-16 {background-position: 0 -90px;}
+#btable .btable-1 {background-position: 0 0;}
+#btable .btable-2 {background-position: -30px 0;}
+#btable .btable-3 {background-position: -60px 0;}
+#btable .btable-4 {background-position: -90px 0;}
+#btable .btable-5 {background-position: -120px 0;}
+#btable .btable-6 {background-position: 0 -30px;}
+#btable .btable-7 {background-position: -30px -30px;}
+#btable .btable-8 {background-position: -60px -30px;}
+#btable .btable-9 {background-position: -90px -30px;}
+#btable .btable-10 {background-position: -120px -30px;}
+#btable .btable-11 {background-position: 0 -60px;}
+#btable .btable-12 {background-position: -30px -60px;}
+#btable .btable-13 {background-position: -60px -60px;}
+#btable .btable-14 {background-position: -90px -60px;}
+#btable .btable-15 {background-position: -120px -60px;}
+#btable .btable-16 {background-position: 0 -90px;}
+#btr .btr-1 {background-position: 0 0;}
+#btr .btr-2 {background-position: -30px 0;}
+#btr .btr-3 {background-position: -60px 0;}
+#btr .btr-4 {background-position: -90px 0;}
+#btr .btr-5 {background-position: -120px 0;}
+#btr .btr-6 {background-position: 0 -30px;}
+#btr .btr-7 {background-position: -30px -30px;}
+#btr .btr-8 {background-position: -60px -30px;}
+#btr .btr-9 {background-position: -90px -30px;}
+#btr .btr-10 {background-position: -120px -30px;}
+#btr .btr-11 {background-position: 0 -60px;}
+#btr .btr-12 {background-position: -30px -60px;}
+#btr .btr-13 {background-position: -60px -60px;}
+#btr .btr-14 {background-position: -90px -60px;}
+#btr .btr-15 {background-position: -120px -60px;}
+#btr .btr-16 {background-position: 0 -90px;}
+#listgrp .listgrp-1 {background-position: 0 0;}
+#listgrp .listgrp-2 {background-position: -30px 0;}
+#listgrp .listgrp-3 {background-position: -60px 0;}
+#listgrp .listgrp-4 {background-position: -90px 0;}
+#listgrp .listgrp-5 {background-position: -120px 0;}
+#listgrp .listgrp-6 {background-position: 0 -30px;}
+#listgrp .listgrp-7 {background-position: -30px -30px;}
+#listgrp .listgrp-8 {background-position: -60px -30px;}
+#listgrp .listgrp-9 {background-position: -90px -30px;}
+#listgrp .listgrp-10 {background-position: -120px -30px;}
+#listgrp .listgrp-11 {background-position: 0 -60px;}
+#listgrp .listgrp-12 {background-position: -30px -60px;}
+#listgrp .listgrp-13 {background-position: -60px -60px;}
+#listgrp .listgrp-14 {background-position: -90px -60px;}
+#listgrp .listgrp-15 {background-position: -120px -60px;}
+#listgrp .listgrp-16 {background-position: 0 -90px;}
+#buttonS .buttonS-1 {background-position: 0 0;}
+#buttonS .buttonS-2 {background-position: -30px 0;}
+#buttonS .buttonS-3 {background-position: -60px 0;}
+#buttonS .buttonS-4 {background-position:-90px 0;}
+#buttonS .buttonS-5 {background-position: -120px 0;}
+#buttonS .buttonS-6 {background-position: 0 -30px;}
+#buttonS .buttonS-7 {background-position: -30px -30px;}
+#buttonS .buttonS-8 {background-position:-60px -30px;}
+#buttonS .buttonS-9 {background-position: -90px -30px;}
+#buttonS .buttonS-10 {background-position: -120px -30px;}
+#buttonS .buttonS-11 {background-position: 0 -60px;}
+#buttonS .buttonS-12 {background-position: -30px -60px;}
+.style_block {
+	padding: 0.35em 0;	
+}
+.style_block select {
+	margin: 2px 0;
+	padding: 2px;
+	color: #000;
+	width: 178px;
+	border: 1px solid #000;
+}
+.links_color_wrapper {
+	border-bottom: 1px dotted #4C4C4C;
+	padding: 1em 0;	
+}
+.links_color_wrapper > span {
+    float:left;
+	line-height: 3em;
+}
+.links_color_wrapper .colorPicker {
+    position: relative;
+	float:right;
+    height:25px;
+    width:25px;
+	border: 1px solid #000;
+	cursor: pointer;
+}
+#samplespicker {
+	position: relative;
+}
+
+.links_color_wrapper .colorPicker:after,
+#samplespicker:after {
+	position: absolute;
+	right: -4px;
+	bottom: -4px;
+	width: 11px;
+	height: 11px;
+	overflow: hidden;
+	background: url(../images/colorpicker_select.png);
+	content: "";
+}
+

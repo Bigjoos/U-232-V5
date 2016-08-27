@@ -1,0 +1,27 @@
+* html .dash .digit { /* IE6 */
+ 	margin: 10px 0 0 7px;
+}
+* html .dash_title  {
+	right:0px;
+}
+* html #email_field  {
+	height:28px;
+	padding:10px 0 0 0;
+	margin:2px 0 0 0;
+	}
+* html #twitstat ul {
+	margin-top:15px;
+}
+*:first-child+html #twitstat ul {
+	margin-top:15px;
+}
+
+*:first-child+html #email_field {	/* IE7 */
+	height:28px;
+	padding:10px 0 0 0;
+	margin:2px 0 0 0;
+} 
+*:first-child+html .dash_title{
+	right:0px;
+
+}
