@@ -529,7 +529,7 @@ function StatusBar()
     $usrclass = $StatusBar = "";
     if ($CURUSER['override_class'] != 255) $usrclass = "&nbsp;<b>[" . get_user_class_name($CURUSER['class']) . "]</b>&nbsp;";
     else if ($CURUSER['class'] >= UC_STAFF) $usrclass = "&nbsp;<a href='".$INSTALLER09['baseurl']."/setclass.php'><b>[" . get_user_class_name($CURUSER['class']) . "]</b></a>&nbsp;";
-    $StatusBar.= "<div class='text-center'>Welcome ".format_username($CURUSER) ." ".(isset($CURUSER) && $CURUSER['class'] < UC_STAFF ? "[".get_user_class_name($CURUSER['class'])."]" : $usrclass)."&nbsp;{$lang['gl_invites']}:<a href='".$INSTALLER09['baseurl']."/invite.php'>{$CURUSER['invites']}</a>  {$lang['gl_karma']}: <a href='".$INSTALLER09['baseurl']."/mybonus.php'>{$CURUSER['seedbonus']}</a> {$lang['gl_rep']}:{$member_reputation}&nbsp;{$lang['gl_shareratio']}&nbsp;". member_ratio($CURUSER['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $CURUSER['downloaded']);
+    $StatusBar.= "<div class='text-center'>Welcome ".format_username($CURUSER) ." ".(isset($CURUSER) && $CURUSER['class'] < UC_STAFF ? "[".get_user_class_name($CURUSER['class'])."]" : $usrclass)."&nbsp;{$lang['gl_achpoints']}&nbsp;<a href='./achievementhistory.php?id={$CURUSER['id']}'>" . (int)$Achievement_Points['achpoints'] . "</a>&nbsp;{$lang['gl_karma']}: <a href='".$INSTALLER09['baseurl']."/mybonus.php'>{$CURUSER['seedbonus']}</a>&nbsp;{$lang['gl_invites']}: <a href='".$INSTALLER09['baseurl']."/invite.php'>{$CURUSER['invites']}</a>&nbsp;{$lang['gl_rep']}:{$member_reputation}&nbsp;{$lang['gl_shareratio']}&nbsp;". member_ratio($CURUSER['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $CURUSER['downloaded']);
  if ($INSTALLER09['ratio_free']) {
     $StatusBar .= "&nbsp;{$lang['gl_uploaded']}:".$upped;
     } else {

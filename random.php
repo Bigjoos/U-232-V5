@@ -36,7 +36,7 @@ if ($CURUSER['notifs']) {
 // possible to shuffle torrents within specific category, overides previous $where
 if (isset($_GET['cat'])) {
     $cat = (int)$_GET['cat'];
-    $where = 'WHERE category IN (' . $cat . ') AND visible="yes"';
+    $where = 'WHERE category IN (' . sqlesc($cat) . ') AND visible="yes"';
 }
 $cat_id = (isset($cat) ? '&cat=' . $cat : '');
 $res = sql_query('SELECT id FROM torrents ' . $where . ' ORDER BY RAND() LIMIT 1'); //dunno if adding LIMIT here would help any since dies after 1st row
