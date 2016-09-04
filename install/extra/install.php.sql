@@ -1243,7 +1243,7 @@ CREATE TABLE IF NOT EXISTS `funds` (
   `id` int(10) UNSIGNED NOT NULL,
   `cash` decimal(8,2) NOT NULL DEFAULT '0.00',
   `user` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `added` int(11) NOT NULL DEFAULT '0',
+  `added` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1946,14 +1946,14 @@ CREATE TABLE IF NOT EXISTS `referrers` (
 -- Table structure for table `releases`
 --
 
-CREATE TABLE `releases` (
+CREATE TABLE IF NOT EXISTS `releases` (
   `releasename` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `section` varchar(10) CHARACTER SET latin1 DEFAULT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nuked` int(11) DEFAULT NULL,
   `nukereason` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `nuketime` timestamp NOT NULL DEFAULT '1801-01-01 00:00:00',
-  `releasetime` timestamp NOT NULL DEFAULT '1801-01-01 00:00:00'
+  `nuketime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `releasetime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2545,7 +2545,7 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   `times_completed` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `leechers` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `seeders` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `last_action` int(11) NOT NUL DEFAULT '0',
+  `last_action` int(11) NOT NULL DEFAULT '0',
   `visible` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
   `banned` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
   `owner` int(10) UNSIGNED NOT NULL DEFAULT '0',

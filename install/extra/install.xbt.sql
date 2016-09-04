@@ -1952,8 +1952,8 @@ CREATE TABLE `releases` (
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nuked` int(11) DEFAULT NULL,
   `nukereason` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `nuketime` timestamp NOT NULL DEFAULT '1801-01-01 00:00:00',
-  `releasetime` timestamp NOT NULL DEFAULT '1801-01-01 00:00:00'
+  `nuketime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `releasetime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
