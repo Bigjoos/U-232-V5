@@ -1952,8 +1952,8 @@ CREATE TABLE `releases` (
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `nuked` int(11) DEFAULT NULL,
   `nukereason` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
-  `nuketime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `releasetime` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00'
+  `nuketime` timestamp NOT NULL DEFAULT '1801-01-01 00:00:00',
+  `releasetime` timestamp NOT NULL DEFAULT '1801-01-01 00:00:00'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2770,7 +2770,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `warn_reason` text CHARACTER SET utf8,
   `onirc` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
   `irctotal` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `birthday` date DEFAULT '0000-00-00',
+  `birthday` date DEFAULT '1801-01-01',
   `got_blocks` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
   `last_access_numb` bigint(30) NOT NULL DEFAULT '0',
   `onlinetime` bigint(30) NOT NULL DEFAULT '0',
