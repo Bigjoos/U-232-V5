@@ -450,7 +450,7 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
         elseif ($a[0] == $userid && (TIME_NOW - $a[1]) < $limit && $CURUSER['class'] < UC_STAFF) $HTMLOUT.= "<font class=\"small\" color=\"red\">$limit{$lang['shoutbox_sec_between']}<font class=\"small\">{$lang['shoutbox_sec_remaining']}(" . ($limit - (TIME_NOW - $a[1])) . ")</font></font>";
         else {
             $dailyshouts = 1;
-            sql_query("INSERT INTO shoutbox (id, userid, date, text, text_parsed, staff_shout) VALUES ('id'," . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . ", 'no')") or sqlerr(__FILE__, __LINE__);
+            sql_query("INSERT INTO shoutbox (userid, date, text, text_parsed, staff_shout) VALUES (" . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . ", 'no')") or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE usersachiev SET dailyshouts=dailyshouts+1, weeklyshouts = weeklyshouts+1, monthlyshouts = monthlyshouts+1, totalshouts = totalshouts+1 WHERE id= " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
             $mc1->delete_value('shoutbox_');
             //$mc1->delete_value('staff_shoutbox_');
