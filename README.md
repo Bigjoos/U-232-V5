@@ -149,8 +149,8 @@ Enter the following commands in a terminal. Be patient while g++ is running, it'
 - Geting sources and compiling
 
 ```bash
-svn co -r 2466 http://xbt.googlecode.com/svn/trunk/xbt/misc xbt/misc
-svn co -r 2466 http://xbt.googlecode.com/svn/trunk/xbt/Tracker xbt/Tracker
+wget https://github.com/whocares-openscene/u-232-xbt/raw/master/xbt.tar.gz
+tar xfz xbt.tar.gz
 cd xbt/Tracker
 ```
 
