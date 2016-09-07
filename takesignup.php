@@ -29,9 +29,8 @@ if (!$CURUSER) {
 }
 $lang = array_merge(load_language('global') , load_language('takesignup'));
 if (!$INSTALLER09['openreg']) stderr($lang['stderr_errorhead'], "{$lang['takesignup_invite_only']}<a href='" . $INSTALLER09['baseurl'] . "/invite_signup.php'><b>&nbsp;{$lang['takesignup_here']}</b></a>");
-$res = sql_query("SELECT COUNT(*) FROM users") or sqlerr(__FILE__, __LINE__);
-$arr = mysqli_fetch_row($res);
-if ($arr[0] >= $INSTALLER09['maxusers']) stderr($lang['takesignup_error'], $lang['takesignup_limit']);
+$ucount = get_row_count("users");
+if ($ucount >= $INSTALLER09['maxusers']) stderr($lang['takesignup_error'], $lang['takesignup_limit']);
 $newpage = new page_verify();
 $newpage->check('tesu');
 if (!mkglobal('wantusername:wantpassword:passagain:email' . ($INSTALLER09['captcha_on'] ? ":captchaSelection:" : ":") . 'submitme:passhint:hintanswer:country')) stderr($lang['takesignup_user_error'], $lang['takesignup_form_data']);
@@ -93,14 +92,14 @@ $dst_in_use = localtime(TIME_NOW + ($time_offset * 3600) , true);
 // TIMEZONE STUFF END
 $secret = mksecret();
 $wantpasshash = make_passhash($secret, md5($wantpassword));
-$editsecret = (!$arr[0] ? "" : EMAIL_CONFIRM ? make_passhash_login_key() : "");
+$editsecret = ($ucount<1 ? "" : EMAIL_CONFIRM ? make_passhash_login_key() : "");
 $wanthintanswer = md5($hintanswer);
 $user_frees = (XBT_TRACKER == true ? 0 : TIME_NOW + 14 * 86400);
 check_banned_emails($email);
 $psecret = $editsecret;
 //$emails = encrypt_email($email);
 
-$ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, birthday, country, gender, stylesheet, passhint, hintanswer, email, status, " . (!$arr[0] ? "class, " : "") . "added, last_access, time_offset, dst_in_use, free_switch) VALUES (" . implode(",", array_map("sqlesc", array(
+$ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, birthday, country, gender, stylesheet, passhint, hintanswer, email, status, " . ($ucount<1 ? "class, " : "") . "added, last_access, time_offset, dst_in_use, free_switch) VALUES (" . implode(",", array_map("sqlesc", array(
     $wantusername,
     $wantpasshash,
     $secret,
@@ -112,8 +111,8 @@ $ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, bir
     $passhint,
     $wanthintanswer,
     $email,
-    (!$arr[0] || !EMAIL_CONFIRM ? 'confirmed' : 'pending')
-))) . ", " . (!$arr[0] ? UC_SYSOP . ", " : "") . "" . TIME_NOW . "," . TIME_NOW . " , $time_offset, {$dst_in_use['tm_isdst']}, $user_frees)") or sqlerr(__FILE__, __LINE__);
+    ($ucount<1 || !EMAIL_CONFIRM ? 'confirmed' : 'pending')
+))) . ", " . ($ucount<1 ? UC_SYSOP . ", " : "") . "" . TIME_NOW . "," . TIME_NOW . " , $time_offset, {$dst_in_use['tm_isdst']}, $user_frees)") or sqlerr(__FILE__, __LINE__);
 
 $mc1->delete_value('birthdayusers');
 
@@ -127,7 +126,7 @@ $id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) 
 
 sql_query("INSERT INTO usersachiev (id, username) VALUES (" . sqlesc($id) . ", " . sqlesc($wantusername) . ")") or sqlerr(__FILE__, __LINE__);
 
-if (!$arr[0]) {
+if ($ucount<1) {
     write_staffs();
 }
 
@@ -169,9 +168,16 @@ $body = str_replace(array(
     "{$INSTALLER09['baseurl']}/confirm.php?id=$id&secret=$psecret"
 ) , $lang['takesignup_email_body']);
 
-if ($arr[0] || EMAIL_CONFIRM) 
+if ($ucount>0 && EMAIL_CONFIRM) 
 mail($email, "{$INSTALLER09['site_name']} {$lang['takesignup_confirm']}", $body, "{$lang['takesignup_from']} {$INSTALLER09['site_email']}");
 else 
 logincookie($id, $wantpasshash);
-header("Refresh: 0; url=ok.php?type=". (!$arr[0]? "sysop" : (EMAIL_CONFIRM ? "signup&email=" . urlencode($email) : "confirm")));
+
+if($ucount<1)
+$stype = 'sysop';
+elseif(EMAIL_CONFIRM)
+$stype = "signup&email=" . urlencode($email);
+else
+$stype = 'confirm';
+header("Refresh: 0; url=ok.php?type=". $stype);
 ?>

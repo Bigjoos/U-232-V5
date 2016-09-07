@@ -401,7 +401,7 @@ elseif ($action == "personal") {
     $curuser_cache['shoutboxbg'] = $shoutboxbg;
     $user_cache['shoutboxbg'] = $shoutboxbg;
 	
-    if ($CURUSER['birthday'] == '0000-00-00') {
+    if ($CURUSER['birthday'] == '0000-00-00' OR $CURUSER['birthday'] == '1801-01-01') {
         $year = isset($_POST["year"]) ? 0 + $_POST["year"] : 0;
         $month = isset($_POST["month"]) ? 0 + $_POST["month"] : 0;
         $day = isset($_POST["day"]) ? 0 + $_POST["day"] : 0;

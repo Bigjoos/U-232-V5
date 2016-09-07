@@ -1,7 +1,7 @@
 <?php
 //==09 Birthday mod
 $age = $birthday = '';
-if ($user['birthday'] != '0') {
+if ($user['birthday'] != '0000-00-00' && $user['birthday'] != '1801-01-01') {
     $current = date("Y-m-d", TIME_NOW);
     list($year2, $month2, $day2) = explode('-', $current);
     $birthday = $user["birthday"];
