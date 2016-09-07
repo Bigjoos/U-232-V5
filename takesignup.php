@@ -24,14 +24,12 @@ require_once (INCL_DIR . 'bbcode_functions.php');
 require_once (INCL_DIR . 'function_bemail.php');
 dbconn();
 global $CURUSER;
-if ($CURUSER) {
-    header("Location: {$INSTALLER09['baseurl']}/index.php");
-    exit;
+if (!$CURUSER) {
+    get_template();
 }
-get_template();
 $lang = array_merge(load_language('global') , load_language('takesignup'));
 if (!$INSTALLER09['openreg']) stderr($lang['stderr_errorhead'], "{$lang['takesignup_invite_only']}<a href='" . $INSTALLER09['baseurl'] . "/invite_signup.php'><b>&nbsp;{$lang['takesignup_here']}</b></a>");
-$res = sql_query("SELECT COUNT(id) FROM users") or sqlerr(__FILE__, __LINE__);
+$res = sql_query("SELECT COUNT(*) FROM users") or sqlerr(__FILE__, __LINE__);
 $arr = mysqli_fetch_row($res);
 if ($arr[0] >= $INSTALLER09['maxusers']) stderr($lang['takesignup_error'], $lang['takesignup_limit']);
 $newpage = new page_verify();
@@ -97,9 +95,11 @@ $secret = mksecret();
 $wantpasshash = make_passhash($secret, md5($wantpassword));
 $editsecret = (!$arr[0] ? "" : EMAIL_CONFIRM ? make_passhash_login_key() : "");
 $wanthintanswer = md5($hintanswer);
-$user_frees = (XBT_TRACKER == true ? '0' : TIME_NOW + 14 * 86400);
+$user_frees = (XBT_TRACKER == true ? 0 : TIME_NOW + 14 * 86400);
 check_banned_emails($email);
+$psecret = $editsecret;
 //$emails = encrypt_email($email);
+
 $ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, birthday, country, gender, stylesheet, passhint, hintanswer, email, status, " . (!$arr[0] ? "class, " : "") . "added, last_access, time_offset, dst_in_use, free_switch) VALUES (" . implode(",", array_map("sqlesc", array(
     $wantusername,
     $wantpasshash,
@@ -113,40 +113,50 @@ $ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, bir
     $wanthintanswer,
     $email,
     (!$arr[0] || !EMAIL_CONFIRM ? 'confirmed' : 'pending')
-))) . ", " . (!$arr[0] ? UC_SYSOP . ", " : "") . "" . TIME_NOW . "," . TIME_NOW . " , $time_offset, {$dst_in_use['tm_isdst']}, $user_frees)");
+))) . ", " . (!$arr[0] ? UC_SYSOP . ", " : "") . "" . TIME_NOW . "," . TIME_NOW . " , $time_offset, {$dst_in_use['tm_isdst']}, $user_frees)") or sqlerr(__FILE__, __LINE__);
+
 $mc1->delete_value('birthdayusers');
+
 $message = "{$lang['takesignup_welcome']} {$INSTALLER09['site_name']} {$lang['takesignup_member']} ".htmlsafechars($wantusername)."";
-if (!$arr[0]) {
-    write_staffs();
-}
+
 if (!$ret) {
     if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 1062) stderr($lang['takesignup_user_error'], $lang['takesignup_user_exists']);
 }
+
 $id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
+
 sql_query("INSERT INTO usersachiev (id, username) VALUES (" . sqlesc($id) . ", " . sqlesc($wantusername) . ")") or sqlerr(__FILE__, __LINE__);
+
+if (!$arr[0]) {
+    write_staffs();
+}
+
 //==New member pm
 $added = TIME_NOW;
 $subject = sqlesc($lang['takesignup_msg_subject']);
 $msg = sqlesc("{$lang['takesignup_hey']} " . htmlsafechars($wantusername) . "{$lang['takesignup_msg_body0']} {$INSTALLER09['site_name']} {$lang['takesignup_msg_body1']}");
 sql_query("INSERT INTO messages (sender, subject, receiver, msg, added) VALUES (0, $subject, " . sqlesc($id) . ", $msg, $added)") or sqlerr(__FILE__, __LINE__);
+
 //==End new member pm
 $latestuser_cache['id'] = (int)$id;
 $latestuser_cache['username'] = $wantusername;
-$latestuser_cache['class'] = '0';
+$latestuser_cache['class'] = 0;
 $latestuser_cache['donor'] = 'no';
-$latestuser_cache['warned'] = '0';
+$latestuser_cache['warned'] = 0;
 $latestuser_cache['enabled'] = 'yes';
-$latestuser_cache['chatpost'] = '1';
-$latestuser_cache['leechwarn'] = '0';
-$latestuser_cache['pirate'] = '0';
-$latestuser_cache['king'] = '0';
+$latestuser_cache['chatpost'] = 1;
+$latestuser_cache['leechwarn'] = 0;
+$latestuser_cache['pirate'] = 0;
+$latestuser_cache['king'] = 0;
 $mc1->cache_value('latestuser', $latestuser_cache, $INSTALLER09['expires']['latestuser']);
+
 write_log("User account " . (int)$id . " (" . htmlsafechars($wantusername) . ") was created");
-$psecret = $editsecret;
+
 if ($INSTALLER09['autoshout_on'] == 1) {
     autoshout($message);
     $mc1->delete_value('shoutbox_');
 }
+
 $body = str_replace(array(
     '<#SITENAME#>',
     '<#USEREMAIL#>',
@@ -158,7 +168,10 @@ $body = str_replace(array(
     $_SERVER['REMOTE_ADDR'],
     "{$INSTALLER09['baseurl']}/confirm.php?id=$id&secret=$psecret"
 ) , $lang['takesignup_email_body']);
-if ($arr[0] || EMAIL_CONFIRM) mail($email, "{$INSTALLER09['site_name']} {$lang['takesignup_confirm']}", $body, "{$lang['takesignup_from']} {$INSTALLER09['site_email']}");
-else logincookie($id, $wantpasshash);
-header("Refresh: 0; url=ok.php?type=" . (!$arr[0] ? "sysop" : EMAIL_CONFIRM ? ("signup&email=" . urlencode($email)) : "confirm"));
+
+if ($arr[0] || EMAIL_CONFIRM) 
+mail($email, "{$INSTALLER09['site_name']} {$lang['takesignup_confirm']}", $body, "{$lang['takesignup_from']} {$INSTALLER09['site_email']}");
+else 
+logincookie($id, $wantpasshash);
+header("Refresh: 0; url=ok.php?type=". (!$arr[0]? "sysop" : (EMAIL_CONFIRM ? "signup&email=" . urlencode($email) : "confirm")));
 ?>

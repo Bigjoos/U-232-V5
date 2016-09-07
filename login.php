@@ -20,13 +20,10 @@ require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 
 require_once (INCL_DIR . 'user_functions.php');
 require_once (CLASS_DIR . 'page_verify.php');
 dbconn();
-global $CURUSER;
-if ($CURUSER) {
-    header("Location: {$INSTALLER09['baseurl']}/index.php");
-    exit;
+if (!$CURUSER) {
+    get_template();
 }
 ini_set('session.use_trans_sid', '0');
-get_template();
 $stdfoot = '';
 if ($INSTALLER09['captcha_on'] === true)
 $stdfoot = array(

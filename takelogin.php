@@ -22,12 +22,9 @@ require_once (INCL_DIR . 'password_functions.php');
 require_once (CLASS_DIR . 'page_verify.php');
 require_once (CLASS_DIR . 'class_browser.php');
 dbconn();
-global $CURUSER;
-if ($CURUSER) {
-    header("Location: {$INSTALLER09['baseurl']}/index.php");
-    exit;
+if (!$CURUSER) {
+    get_template();
 }
-get_template();
 session_start();
 //smth putyn
 $auth_key = array(
