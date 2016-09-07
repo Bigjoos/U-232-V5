@@ -304,5 +304,6 @@ ALTER TABLE `topics` ADD `user_likes` text CHARACTER SET utf8 NOT NULL
 ALTER TABLE `users` ADD `forum_mod` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no'
 ALTER TABLE `users` ADD `forums_mod` varchar(320) CHARACTER SET utf8 DEFAULT NULL
 ALTER TABLE `users` ADD `altnick` varchar(32) COLLATE utf8_unicode_ci DEFAULT NULL
-ALTER TABLE `users` ADD  `pm_forced` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'yes'
+ALTER TABLE `users` ADD `pm_forced` enum('yes','no') CHARACTER SET utf8 COLLATE utf8_bin NOT NULL DEFAULT 'yes'
+ALTER TABLE `users` ADD `ignore_list` text CHARACTER SET utf8
 ALTER TABLE `usercomments` ADD `user_likes` text CHARACTER SET utf8 NOT NULL
