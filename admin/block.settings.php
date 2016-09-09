@@ -97,6 +97,7 @@ function get_cache_array()
         'xmas_gift_on' => 1,
         'active_poll_on' => 1,
         'movie_ofthe_week_on' => 1,
+        'requests_and_offers_on' => 1,
         'global_demotion_on' => 1,
         'global_staff_warn_on' => 1,
         'global_message_on' => 1,
@@ -106,6 +107,7 @@ function get_cache_array()
         'global_happyhour_on' => 1,
         'global_crazyhour_on' => 1,
         'global_freeleech_contribution_on' => 1,
+        'global_staff_tools_on' => 1,
         'global_bug_message_on' => 1,
         'userdetails_login_link_on' => 1,
         'userdetails_flush_on' => 1,
@@ -176,7 +178,9 @@ $HTMLOUT.= "
 	<tr><td width='60%'>{$lang['block_torrent_freak']}<br />{$lang['block_torrent_freak_set']}</td><td width='40%'><div style='width: auto;' align='right'><#torrentfreak_on#></div></td></tr>    
 	<tr><td width='60%'>{$lang['block_xmas']}<br />{$lang['block_xmas_set']}</td><td width='40%'><div style='width: auto;' align='right'><#xmas_gift_on#></div></td></tr>    
 	<tr><td width='60%'>{$lang['block_poll']}<br />{$lang['block_poll_set']}</td><td width='40%'><div style='width: auto;' align='right'><#active_poll_on#></div></td></tr>
-	<tr><td width='60%'>{$lang['block_movie']}<br />{$lang['block_movie_set']}</td><td width='40%'><div style='width: auto;' align='right'><#movie_ofthe_week_on#></div></td></tr></table>";
+	<tr><td width='60%'>{$lang['block_movie']}<br />{$lang['block_movie_set']}</td><td width='40%'><div style='width: auto;' align='right'><#movie_ofthe_week_on#></div></td></tr>
+        <tr><td width='60%'>{$lang['block_reqnoff']}<br />{$lang['block_reqnoff_set']}</td><td width='40%'><div style='width: auto;' align='right'><#requests_and_offers_on#></div></td></tr>
+</table>";
 
 	$HTMLOUT.= "<h3>{$lang['block_stdhead_settings']}</h3>";
 
@@ -190,7 +194,10 @@ $HTMLOUT.= "
 	<tr><td width='60%'>{$lang['block_happyhour']}<br />{$lang['block_happyhour_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_happyhour_on#></div></td></tr>    
 	<tr><td width='60%'>{$lang['block_crazyhour']}<br />{$lang['block_crazyhour_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_crazyhour_on#></div></td></tr>    
 	<tr><td width='60%'>{$lang['block_bug']}<br />{$lang['block_bug_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_bug_message_on#></div></td></tr>
-	<tr><td width='60%'>{$lang['block_karma_contributions']}<br />{$lang['block_karma_contributions_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_freeleech_contribution_on#></div></td></tr></table>";
+	<tr><td width='60%'>{$lang['block_karma_contributions']}<br />{$lang['block_karma_contributions_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_freeleech_contribution_on#></div></td></tr>
+        <tr><td width='60%'>{$lang['block_staff_tools']}<br />{$lang['block_staff_tools_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_staff_tools_on#></div></td></tr>
+
+</table>";
 
 	$HTMLOUT.= "<h3>{$lang['block_userdetails']}</h3>";
         

@@ -27,6 +27,7 @@ dbconn(true);
 loggedinorreturn();
 require_once(TEMPLATE_DIR.''.$CURUSER['stylesheet'].'' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'global_html_functions.php'); 
 require_once(TEMPLATE_DIR.''.$CURUSER['stylesheet'].'' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'navigation_html_functions.php'); 
+
 $stdhead = array(
     /** include css **/
     'css' => array(
@@ -40,6 +41,7 @@ $stdfoot = array(
     'shout'
     )
 );
+
 $lang = array_merge(load_language('global') , load_language('index'));
 
 $HTMLOUT = '';
@@ -96,6 +98,12 @@ $HTMLOUT .="</div>";
 	if (curuser::$blocks['index_page'] & block_index::LATEST_TORRENTS && $BLOCKS['latest_torrents_on']) {
 $HTMLOUT .="<div id='LATEST_TORRENTS'>";
     	require_once (BLOCK_DIR . 'index/latest_torrents.php');
+$HTMLOUT .="</div>";
+	}
+
+        if (curuser::$blocks['index_page'] & block_index::REQNOFF && $BLOCKS['requests_and_offers_on']) {
+$HTMLOUT .="<div id='REQUESTS_AND_OFFERS'>";
+    	require_once (BLOCK_DIR . 'index/req_n_off.php');
 $HTMLOUT .="</div>";
 	}
 
@@ -175,5 +183,6 @@ $HTMLOUT .="<div id='DONATION_PROGRESS'>";
     	require_once (BLOCK_DIR . 'index/donations.php');
 $HTMLOUT .="</div>";
 	}
+
 echo stdhead('Home', true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
 ?>

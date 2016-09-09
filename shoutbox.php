@@ -1,15 +1,20 @@
 <?php
-     /*-----------------------------------------------------------------------\
-	|   https://github.com/Bigjoos/ -------------------------------------------|
-	|--------------------------------------------------------------------------|
-	|   Licence Info: GPL  ----------------------------------------------------|
-	|--------------------------------------------------------------------------|
-	|   Copyright (C) 2010 U-232 V5	-------------------------------------------|
-	|--------------------------------------------------------------------------|
-	|   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon. --|
-	|--------------------------------------------------------------------------|
-	|   Project Leaders: Mindless, Autotron, whocares, Swizzles. --------------------------------------|
-	 \-----------------------------------------------------------------------
+/**
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                			    |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: GPL			                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5					    |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.					    |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
 +------------------------------------------------
 |   $Memcached shoutbox
 |   $Author$ Bigjoos, pdq, putyn, snuggs
@@ -437,7 +442,7 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
         if ($to_user != 0 && $to_user != $CURUSER['id']) {
             $text = $vars[2] . " - " . $vars[3];
             $text_parsed = format_comment($text);
-            sql_query("INSERT INTO shoutbox (userid, date, text, text_parsed, to_user, staff_shout) VALUES (" . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . "," . sqlesc($to_user) . ", 'no')") or sqlerr(__FILE__, __LINE__);
+            sql_query("INSERT INTO shoutbox (id, userid, date, text, text_parsed, to_user, staff_shout) VALUES (" . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . "," . sqlesc($to_user) . ", 'no')") or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE usersachiev SET dailyshouts=dailyshouts+1, weeklyshouts = weeklyshouts+1, monthlyshouts = monthlyshouts+1, totalshouts = totalshouts+1 WHERE id= " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
             $mc1->delete_value('shoutbox_');
             //$mc1->delete_value('staff_shoutbox_');

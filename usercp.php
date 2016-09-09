@@ -462,7 +462,7 @@ elseif ($action == "personal") {
     $birthday = $CURUSER["birthday"];
     $birthday = date("Y-m-d", strtotime($birthday));
     list($year1, $month1, $day1) = explode('-', $birthday);
-    if ($CURUSER['birthday'] == '0000-00-00') {
+    if ($CURUSER['birthday'] == '0000-00-00' OR $CURUSER['birthday'] == '1801-01-01') {
         $year.= "<select name=\"year\"><option value=\"0000\">--</option>\n";
         $i = "1920";
         while ($i <= (date('Y', TIME_NOW) - 13)) {

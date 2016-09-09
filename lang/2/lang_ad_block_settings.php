@@ -48,6 +48,9 @@ $lang = array(
 	'block_poll' => "Enable Poll?",
 	'block_poll_set' => "Set this option to \"Yes\" if you want to enable the Active Poll.",
 	'block_movie' => "Enable Movie of the week?",
+        'block_movie_set' => "Set this option to \"Yes\" if you want to enable the Movie of the week.",
+        'block_reqnoff' => "Enable Requests and Offers?",
+        'block_reqnoff_set' => "Set this option to \"Yes\" if you want to enable the requests and offers.",
 	///Stdhead Display Settings///
 	'block_movie_set' => "Set this option to \"Yes\" if you want to enable the movie of the week.",
 	'block_stdhead_settings' => "Stdhead Display Settings",
@@ -71,6 +74,8 @@ $lang = array(
 	'block_bug_set' => "Enable Bug message alerts in stdhead",
 	'block_karma_contributions' => "Karma Contributions",
 	'block_karma_contributions_set' => "Enable karma contribution status alert in stdhead",
+        'block_staff_tools' => "Staff tool links",
+	'block_staff_tools_set' => "Enable quick staff tools links in stdhead",
 	///Userdetails Display Settings////
 	'block_userdetails' => "Userdetails Display Settings",
 	'block_login_link' => "Quick Login Link?",
@@ -135,6 +140,8 @@ $lang = array(
 	'block_user_status_set' => "'Enable user status",
 	'block_user_comments' => "Usercomments?",
 	'block_user_comments_set' => "Enable usercomments",
+	'block_showfriends' => "Show Friends?",
+	'block_showfriends_set' => "Enable Show Friends button",
 	'block_submit' => "Submit",
 	'block_stdhead' => "Block Settings",
 	'block_yes' => "Yes &nbsp;",
