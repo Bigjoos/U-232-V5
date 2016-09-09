@@ -296,6 +296,11 @@ $htmlout .='
     $MemStat = (PHP_VERSION_ID < REQUIRED_PHP_VER ? $mc1->getStats() : $mc1->getStats()["127.0.0.1:11211"]);
     if (($MemStats = $mc1->get_value('mc_hits')) === false) {
         $MemStats =  $MemStat;
+        if ($MemStats['cmd_get'] != 0) {
+            $MemStats['Hits'] = (($MemStats['get_hits'] / $MemStats['cmd_get'] < 0.7) ? '' : number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3));
+        } else {
+            $MemStats['Hits'] = '';
+        }
         $MemStats['Hits'] = (($MemStats['get_hits'] / $MemStats['cmd_get'] < 0.7) ? '' : number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3));
         $mc1->cache_value('mc_hits', $MemStats, 10);
     }
