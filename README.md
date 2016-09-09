@@ -16,7 +16,7 @@ All Credit goes to the original code creators, and especially to any author for 
 
 The original coders of torrentbits and especially to CoLdFuSiOn for carrying on the legacy with Tbdev.
 
-XBT High-performance BitTorrent Tracker By Olaf van der Spek - <http://code.google.com/p/xbt/>
+XBT High-performance BitTorrent Tracker By Olaf van der Spek - <http://code.google.com/p/xbt/>, <https://github.com/OlafvdSpek/xbt>
 
 PimpMyLog - <http://pimpmylog.com/> - <https://github.com/potsky/PimpMyLog>
 
@@ -123,6 +123,7 @@ U-232 V5 requires the following :
 
 - <http://www.visigod.com/xbt-tracker>
 - <http://code.google.com/p/xbt/>
+- <https://github.com/OlafvdSpek/xbt>
 
 High-performance BitTorrent Tracker
 
@@ -134,14 +135,14 @@ Use the following commands to install the C++ dependencies on Debian. The g++ ve
 
 
 ```bash
-apt-get install cmake g++ libboost-dev libmysqlclient-dev make subversion zlib1g-dev
+apt-get install cmake g++ libboost-dev libmysqlclient-dev make zlib1g-dev
 ```
 - Centos/RedHat
 
 Use the following commands to install some of the C++ dependencies on CentOS, Fedora Core and Red Hat. The g++ version should be at least 4.7.
 
 ```bash
-yum install boost-devel gcc-c++ mysql-devel subversion
+yum install boost-devel gcc-c++ mysql-devel
 ```
 
 Enter the following commands in a terminal. Be patient while g++ is running, it'll take a few minutes.
