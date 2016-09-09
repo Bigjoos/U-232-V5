@@ -125,8 +125,8 @@ Mysql 5.5.50-0
 
 	Enter the following commands in a terminal. Be patient while g++ is running, it'll take a few minutes.
 
-		svn co -r 2466 http://xbt.googlecode.com/svn/trunk/xbt/misc xbt/misc
-		svn co -r 2466 http://xbt.googlecode.com/svn/trunk/xbt/Tracker xbt/Tracker
+		wget https://github.com/whocares-openscene/u-232-xbt/raw/master/xbt.tar.gz
+                tar xfz xbt.tar.gz
 		cd xbt/Tracker
 
 	Replace server.h and server.cpp and add xbt_tracker.conf from the U-232 V4 archive then run
