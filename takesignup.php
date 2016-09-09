@@ -29,7 +29,7 @@ if (!$CURUSER) {
 }
 $lang = array_merge(load_language('global') , load_language('takesignup'));
 if (!$INSTALLER09['openreg']) stderr($lang['stderr_errorhead'], "{$lang['takesignup_invite_only']}<a href='" . $INSTALLER09['baseurl'] . "/invite_signup.php'><b>&nbsp;{$lang['takesignup_here']}</b></a>");
-$res = sql_query("SELECT COUNT(*) FROM users") or sqlerr(__FILE__, __LINE__);
+$res = sql_query("SELECT COUNT(id) FROM users") or sqlerr(__FILE__, __LINE__);
 $arr = mysqli_fetch_row($res);
 if ($arr[0] >= $INSTALLER09['maxusers']) stderr($lang['takesignup_error'], $lang['takesignup_limit']);
 $newpage = new page_verify();
