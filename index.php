@@ -84,7 +84,7 @@ $HTMLOUT .="</div>";
 	}
 
 	if (curuser::$blocks['index_page'] & block_index::FORUMPOSTS && $BLOCKS['forum_posts_on']) {
-$HTMLOUT .="<div class='portlet' id='FORUMPOSTS'>";
+$HTMLOUT .="<div id='FORUMPOSTS'>";
     	require_once (BLOCK_DIR . 'index/forum_posts.php');
 $HTMLOUT .="</div>";
 	}
