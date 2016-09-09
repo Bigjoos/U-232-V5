@@ -1946,7 +1946,7 @@ CREATE TABLE IF NOT EXISTS `referrers` (
 -- Table structure for table `releases`
 --
 
-CREATE TABLE `releases` (
+CREATE TABLE IF NOT EXISTS `releases` (
   `releasename` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
   `section` varchar(10) CHARACTER SET latin1 DEFAULT NULL,
   `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -2770,7 +2770,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `warn_reason` text CHARACTER SET utf8,
   `onirc` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
   `irctotal` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `birthday` date DEFAULT '0000-00-00',
+  `birthday` date DEFAULT '1801-01-01',
   `got_blocks` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'yes',
   `last_access_numb` bigint(30) NOT NULL DEFAULT '0',
   `onlinetime` bigint(30) NOT NULL DEFAULT '0',
@@ -2869,7 +2869,7 @@ CREATE TABLE IF NOT EXISTS `usersachiev` (
 CREATE TABLE IF NOT EXISTS `user_blocks` (
   `userid` int(10) UNSIGNED NOT NULL,
   `index_page` int(10) UNSIGNED NOT NULL DEFAULT '585727',
-  `global_stdhead` int(10) UNSIGNED NOT NULL DEFAULT '1023',
+  `global_stdhead` int(10) UNSIGNED NOT NULL DEFAULT '2047',
   `userdetails_page` bigint(20) UNSIGNED NOT NULL DEFAULT '4294967295'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

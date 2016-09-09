@@ -87,6 +87,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     else $clrbits_index_page|= block_index::STAFF_SHOUT;
     if (isset($_POST['movie_ofthe_week'])) $setbits_index_page|= block_index::MOVIEOFWEEK;
     else $clrbits_index_page|= block_index::MOVIEOFWEEK;
+    if (isset($_POST['requests_and_offers'])) $setbits_index_page|= block_index::REQNOFF;
+    else $clrbits_index_page|= block_index::REQNOFF;
     //==Stdhead
     if (isset($_POST['stdhead_freeleech'])) $setbits_global_stdhead|= block_stdhead::STDHEAD_FREELEECH;
     else $clrbits_global_stdhead|= block_stdhead::STDHEAD_FREELEECH;
@@ -212,6 +214,7 @@ $checkbox_index_xmasgift = ((curuser::$blocks['index_page'] & block_index::XMAS_
 $checkbox_index_active_poll = ((curuser::$blocks['index_page'] & block_index::ACTIVE_POLL) ? ' checked="checked"' : '');
 $checkbox_index_staffshoutbox = ((curuser::$blocks['index_page'] & block_index::STAFF_SHOUT) ? ' checked="checked"' : '');
 $checkbox_index_mow = ((curuser::$blocks['index_page'] & block_index::MOVIEOFWEEK) ? ' checked="checked"' : '');
+$checkbox_index_reqnoff = ((curuser::$blocks['index_page'] & block_index::REQNOFF) ? ' checked="checked"' : '');
 //==Stdhead
 $checkbox_global_freeleech = ((curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_FREELEECH) ? ' checked="checked"' : '');
 $checkbox_global_demotion = ((curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_DEMOTION) ? ' checked="checked"' : '');
@@ -381,7 +384,12 @@ $HTMLOUT.= '<tr class="userblock"><td><b>Enable Active Users?</b></td><td>
         </tr>       
         <tr class="userblock"><td><b>Enable Movie of the week?</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="index_movie_ofthe_week" name="movie_ofthe_week" value="yes"' . $checkbox_index_mow . '><label for="index_movie_ofthe_week">
-    </label><span>Check this option if you want to enable the Mvvie of the week.</span></div>
+    </label><span>Check this option if you want to enable the Movie of the week.</span></div>
+        </td>
+        </tr>
+        <tr class="userblock"><td><b>Enable Requests and Offers?</b></td><td>
+        <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="index_requests_and_offers" name="requests_and_offers" value="yes"' . $checkbox_index_reqnoff . '><label for="index_requests_and_offers">
+    </label><span>Check this option if you want to enable the requests and offers.</span></div>
         </td>
         </tr>
     </table>         
