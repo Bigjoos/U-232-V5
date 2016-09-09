@@ -22,6 +22,7 @@ require_once (INCL_DIR . 'password_functions.php');
 require_once (CLASS_DIR . 'page_verify.php');
 require_once (CLASS_DIR . 'class_browser.php');
 dbconn();
+global $CURUSER
 if (!$CURUSER) {
     get_template();
 }

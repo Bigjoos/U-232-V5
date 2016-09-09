@@ -269,12 +269,10 @@ $htmlout .='
     require_once (BLOCK_DIR.'global/freeleech_contribution.php');
     }
     $htmlout.= "</ul></div></div><br />";
-    }
-
     if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_STAFFTOOLS && $BLOCKS['global_staff_tools_on']) {
     require_once (BLOCK_DIR.'global/staff_tools.php');
     }
-
+    }
     if ($CURUSER) {
     $htmlout.= '<div class="container"> 
     <div id="control_panel"><a href="#" id="control_label"></a></div>';}
