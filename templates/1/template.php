@@ -301,7 +301,6 @@ $htmlout .='
         } else {
             $MemStats['Hits'] = '';
         }
-        $MemStats['Hits'] = (($MemStats['get_hits'] / $MemStats['cmd_get'] < 0.7) ? '' : number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3));
         $mc1->cache_value('mc_hits', $MemStats, 10);
     }
     // load averages - pdq
