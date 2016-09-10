@@ -146,6 +146,8 @@ $INSTALLER09['expires']['ismoddin'] = 0; // 0 = infinite
 $INSTALLER09['expires']['faqs'] = 0;  // 0 = infinite
 $INSTALLER09['expires']['rules'] = 0; // 0 = infinite
 $INSTALLER09['expires']['torrent_pretime'] = 0; // 0 = infinite
+$INSTALLER09['expires']['req_limit'] = 3600; // 3600 = 1 hour
+$INSTALLER09['expires']['off_limit'] = 3600; // 3600 = 1 hour
 //== Tracker configs
 $INSTALLER09['cipher_key']['key'] = 'fsdsf@sadadjk@@@@4453qaw0qw';
 $INSTALLER09['tracker_post_key'] = 'lsdflksfda4545frwe35@kk';
@@ -230,6 +232,8 @@ $INSTALLER09['stylesheet'] = 1;
 $INSTALLER09['categorie_icon'] = 1;
 $INSTALLER09['comment_min_class'] = 4; //minim class to be checked when posting comments
 $INSTALLER09['comment_check'] = 1; //set it to 0 if you wanna allow commenting with out staff checking 
+$INSTALLER09['requests']['req_limit'] = 10;
+$INSTALLER09['offers']['off_limit'] = 10;
 //for subs & youtube mode
 $INSTALLER09['movie_cats'] = array(
     3,
