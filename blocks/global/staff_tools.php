@@ -18,7 +18,6 @@
  */
 //==Staff tools quick link - Stoner
 $htmlout .= '<div class="container"><div class="row"><div class="col-md-6">';
- $INSTALLER09['expires']['staff_check'] = 3600; //== test value
  if ($CURUSER['class'] >= UC_STAFF)
  {
  if (($mysql_data = $mc1->get_value('is_staff_' . $CURUSER['class'])) === false) {

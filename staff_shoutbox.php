@@ -440,7 +440,7 @@ if (isset($_GET['staff_sent']) && ($_GET['staff_sent'] == "yes")) {
         if ($to_user != 0 && $to_user != $CURUSER['id']) {
             $text = $vars[2] . " - " . $vars[3];
             $text_parsed = format_comment($text);
-            sql_query("INSERT INTO shoutbox (id, userid, date, text, text_parsed, to_user, staff_shout) VALUES (" . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . "," . sqlesc($to_user) . ", 'yes')") or sqlerr(__FILE__, __LINE__);
+            sql_query("INSERT INTO shoutbox (userid, date, text, text_parsed, to_user, staff_shout) VALUES (" . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . "," . sqlesc($to_user) . ", 'yes')") or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE usersachiev SET dailyshouts=dailyshouts+1, weeklyshouts = weeklyshouts+1, monthlyshouts = monthlyshouts+1, totalshouts = totalshouts+1 WHERE id= " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
             $mc1->delete_value('staff_shoutbox_');
             //$mc1->delete_value('shoutbox_');
@@ -452,7 +452,7 @@ if (isset($_GET['staff_sent']) && ($_GET['staff_sent'] == "yes")) {
         if (empty($text) || strlen($text) == 1) $HTMLOUT.= "<font class=\"small\" color=\"red\">Shout can't be empty</font>";
         elseif ($a[0] == $userid && (TIME_NOW - $a[1]) < $limit && $CURUSER['class'] < UC_STAFF) $HTMLOUT.= "<font class=\"small\" color=\"red\">$limit seconds between shouts <font class=\"small\">Seconds Remaining : (" . ($limit - (TIME_NOW - $a[1])) . ")</font></font>";
         else {
-            sql_query("INSERT INTO shoutbox (id, userid, date, text, text_parsed, staff_shout) VALUES ('id'," . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . ", 'yes')") or sqlerr(__FILE__, __LINE__);
+            sql_query("INSERT INTO shoutbox (userid, date, text, text_parsed, staff_shout) VALUES (" . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . ", 'yes')") or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE usersachiev SET dailyshouts=dailyshouts+1, weeklyshouts = weeklyshouts+1, monthlyshouts = monthlyshouts+1, totalshouts = totalshouts+1 WHERE id= " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
             $mc1->delete_value('staff_shoutbox_');
             //$mc1->delete_value('shoutbox_');
