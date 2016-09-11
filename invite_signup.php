@@ -34,7 +34,7 @@ $stdfoot = array(
     )
 );
 $lang = array_merge(load_language('global') , load_language('signup'));
-$newpage = new page_verifys();
+$newpage = new page_verify();
 $newpage->create('tkIs');
 $res = sql_query("SELECT COUNT(*) FROM users") or sqlerr(__FILE__, __LINE__);
 $arr = mysqli_fetch_row($res);

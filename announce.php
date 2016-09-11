@@ -363,9 +363,9 @@ $seeder = 'no';
             break;
 
 	default:
-            $days_3 = 86400; //== 12 hours
-            $days_14 = 86400; //== 12 hours
-            $days_over_14 = 86400; //== 12 hours
+            $days_3 = 0; //== 12 hours
+            $days_14 = 0; //== 12 hours
+            $days_over_14 = 0; //== 12 hours
         }
         switch (true) {
         case (($a['start_snatch'] - $torrent['ts']) < $INSTALLER09['torrentage1'] * 86400):
