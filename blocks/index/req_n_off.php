@@ -32,8 +32,10 @@ $HTMLOUT.="<div class='panel panel-default'>
 $requests = array();
 if (($requests = $mc1->get_value('requests_')) === false) {
     $res = sql_query("SELECT id AS request_id, request_name, category, added, filled_by_user_id FROM requests WHERE filled_by_user_id = '' ORDER BY added DESC LIMIT {$INSTALLER09['requests']['req_limit']}") or sqlerr(__FILE__, __LINE__);
+if (mysqli_num_rows($res)) {
     while ($request = mysqli_fetch_assoc($res)) $requests[] = $request;
     $mc1->cache_value('requests_', $requests, $INSTALLER09['expires']['req_limit']);
+}
 }
 if (count($requests) > 0) {
     $HTMLOUT.= "<div class='module'><div class='badge badge-top'></div>
@@ -69,8 +71,10 @@ $HTMLOUT.="<div class='panel panel-default'>
 $offers = array();
 if (($offers = $mc1->get_value('offers_')) === false) {
     $res = sql_query("SELECT id AS offer_id, offer_name, category, added, filled_torrent_id FROM offers WHERE filled_torrent_id = 0 ORDER BY added DESC LIMIT {$INSTALLER09['offers']['off_limit']}") or sqlerr(__FILE__, __LINE__);
+    if (mysqli_num_rows($res)) {
     while ($offer = mysqli_fetch_assoc($res)) $offers[] = $offer;
     $mc1->cache_value('offers_', $offers, $INSTALLER09['expires']['off_limit']);
+    }
 }
 if (count($offers) > 0) {
     $HTMLOUT.= "<div class='module'><div class='badge badge-top'></div>
