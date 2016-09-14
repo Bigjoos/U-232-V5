@@ -128,9 +128,6 @@ Mysql 5.5.50-0
 		wget https://github.com/whocares-openscene/u-232-xbt/raw/master/xbt.tar.gz
                 tar xfz xbt.tar.gz
 		cd xbt/Tracker
-
-	Replace server.h and server.cpp and add xbt_tracker.conf from the U-232 V4 archive then run
-
 		./make.sh
 
 	[remember to add your mysql connect details TO xbt_tracker.conf]
