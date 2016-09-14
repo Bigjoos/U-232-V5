@@ -122,6 +122,7 @@ function Do_show()
 // ===added delete
 function Do_Rules_Delete()
 {
+    global $mc1;
     if (!isset($_POST['fdata']) OR !is_array($_POST['fdata']))
         stderr("Error", "Bad data!");
     $id = array();
@@ -140,6 +141,7 @@ function Do_Rules_Delete()
 // ====end
 function Cat_Delete($chk = false)
 {
+    global $mc1;
     $id = isset($_GET['catid']) ? (int) $_GET['catid'] : 0;
     if (!is_valid_id($id))
         stderr("Error", "Bad ID!");
@@ -225,6 +227,7 @@ function Show_Rules_Edit()
 }
 function Do_Rules_Update()
 {
+    global $mc1;
     $time      = TIME_NOW;
     $updateset = array();
     if (!isset($_POST['fdata']) || !is_array($_POST['fdata']))
@@ -255,6 +258,7 @@ function Do_Rules_Update()
 }
 function Do_Cat_Update()
 {
+    global $mc1;
     $cat_id         = (int) $_POST['cat'];
     $min_view = sqlesc(intval($_POST['min_view']));
     if (!is_valid_id($cat_id))
@@ -273,7 +277,7 @@ function Do_Cat_Update()
 }
 function Do_Cat_Add()
 {
-    global $INSTALLER09;
+    global $INSTALLER09, $mc1;
     $htmlout = '';
     if (empty($_POST['name']) || strlen($_POST['name']) > 100)
         stderr("Error", "Field is blank or length too long!");
@@ -293,7 +297,7 @@ function Do_Cat_Add()
 }
 function Do_Rules_Add()
 {
-    global $lang;
+    global $lang, $mc1;
     $cat_id = sqlesc(intval($_POST['cat']));
     if (!is_valid_id($cat_id))
         stderr("Error", "No id");
