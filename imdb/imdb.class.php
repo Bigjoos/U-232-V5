@@ -712,17 +712,19 @@ class imdb extends movie_base {
       return false;
     }
 
-    $req = new MDB_Request($photo_url, $this);
-    $req->sendRequest();
-    if (strpos($req->getResponseHeader("Content-Type"), 'image/jpeg') === 0 ||
-            strpos($req->getResponseHeader("Content-Type"), 'image/gif') === 0 ||
-            strpos($req->getResponseHeader("Content-Type"), 'image/bmp') === 0) {
-      $fp = $req->getResponseBody();
+    $cr = curl_init($photo_url);
+    curl_setopt($cr, CURLOPT_RETURNTRANSFER, true);
+    $fp = curl_exec($cr);
+    $curlResponse = curl_getinfo ($cr);
+    curl_close($cr);
+    if (strpos($curlResponse["content_type"], 'image/jpeg') === 0 ||
+            strpos($curlResponse["content_type"], 'image/gif') === 0 ||
+            strpos($curlResponse["content_type"], 'image/bmp') === 0) {
     } else {
-      $ctype = $req->getResponseHeader("Content-Type");
+      $ctype = $curlResponse["content_type"];
       $this->debug_scalar("<BR>*photoerror* at " . __FILE__ . " line " . __LINE__ . ": " . $photo_url . ": Content Type is '$ctype'<BR>");
       if (substr($ctype, 0, 4) == 'text')
-        $this->debug_scalar("Details: <PRE>" . $req->getResponseBody() . "</PRE>\n");
+        $this->debug_scalar("Details: <PRE>" . $fp . "</PRE>\n");
       return false;
     }
     $fp2 = fopen($path, "w");
