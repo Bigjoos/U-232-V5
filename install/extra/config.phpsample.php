@@ -149,6 +149,7 @@ $INSTALLER09['expires']['torrent_pretime'] = 0; // 0 = infinite
 $INSTALLER09['expires']['req_limit'] = 3600; // 3600 = 1 hour
 $INSTALLER09['expires']['off_limit'] = 3600; // 3600 = 1 hour
 $INSTALLER09['expires']['staff_check'] = 3600; // 3600 = 1 hour
+$INSTALLER09['expires']['details_snatchlist'] = 300; // 300 = 5 min
 //== Tracker configs
 $INSTALLER09['cipher_key']['key'] = 'fsdsf@sadadjk@@@@4453qaw0qw';
 $INSTALLER09['tracker_post_key'] = 'lsdflksfda4545frwe35@kk';
