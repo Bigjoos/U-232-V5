@@ -729,7 +729,7 @@ $keys['Snatched_Count'] = $Which_Key_ID . $id;
     if (($Row_Count = $mc1->get_value($keys['Snatched_Count'])) === false) {
 $Count_Q = sql_query("SELECT COUNT($Which_ID) FROM $What_Table $What_Value AND $Which_T_ID =" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 $Row_Count = mysqli_fetch_row($Count_Q);
-$mc1->cache_value($keys['Snatched_Count'], $Row_Count, 10);  //== test val 10 secs
+$mc1->cache_value($keys['Snatched_Count'], $Row_Count, $INSTALLER09['expires']['details_snatchlist']);
 }
 $Count = $Row_Count[0];
 $perpage = 15;
@@ -739,18 +739,18 @@ $HTMLOUT.= "
 
 if (($Detail_Snatch = $mc1->get_value($What_cache . $id)) === false) {
     if (XBT_TRACKER == true) {
-     //== \\0// - verify this
+     //== \\0//
       $Main_Q = sql_query("SELECT x.*, x.uid AS su, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, owner FROM xbt_files_users AS x INNER JOIN users ON x.uid = users.id INNER JOIN torrents ON x.fid = torrents.id WHERE completedtime !=0 AND fid = " . sqlesc($id) . " ORDER BY completedtime DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
 } else {
       $Main_Q = sql_query("SELECT s.*, s.userid AS su, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, timesann, owner FROM snatched AS s INNER JOIN users ON s.userid = users.id INNER JOIN torrents ON s.torrentid = torrents.id WHERE complete_date !=0 AND torrentid = " . sqlesc($id) . " ORDER BY complete_date DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
 }
     while ($snatched_torrent = mysqli_fetch_assoc($Main_Q)) $Detail_Snatch[] = $snatched_torrent;
-    $mc1->cache_value($What_cache . $id, $Detail_Snatch, 10); //== test val 10 secs
+    $mc1->cache_value($What_cache . $id, $Detail_Snatch, $INSTALLER09['expires']['details_snatchlist']);
 }
 
 if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
     if ($Count > $perpage) $HTMLOUT.= $pager['pagertop'];
- //== \\0// - verify this
+ //== \\0//
  if (XBT_TRACKER == true) {
     $snatched_torrent = "
 <table class='table-bordered'>
@@ -758,7 +758,6 @@ if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
 <td class='colhead' align='left'>{$lang['details_snatches_username']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_uploaded']}</td>
 " . ($INSTALLER09['ratio_free'] ? "" : "<td class='colhead' align='right'>{$lang['details_snatches_downloaded']}</td>") . "
-<td class='colhead' align='right'>{$lang['details_snatches_completed']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_seedtime']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_leechtime']}</td>
 <td class='colhead' align='center'>{$lang['details_snatches_lastaction']}</td>
@@ -791,11 +790,11 @@ if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
         foreach ($Detail_Snatch as $D_S) {
           
 if (XBT_TRACKER == true) {
-           //== \\0// - verify this
+           //== \\0//
            $snatchuserxbt = (isset($D_S['username2']) ? ("<a href='userdetails.php?id=" . (int)$D_S['uid'] . "'><b>" . htmlsafechars($D_S['username2']) . "</b></a>") : "{$lang['details_snatches_unknown']}");
-           $username_xbt = (($D_S['anonymous2'] == 'yes' OR $D_S['paranoia'] >= 2) ? ($CURUSER['class'] < UC_STAFF && $D_S['uid'] != $CURUSER['id'] ? '' : $snatchuser . ' - ') . "<i>{$lang['details_snatches_anon']}</i>" : $snatchuser);
+           $username_xbt = (($D_S['anonymous2'] == 'yes' OR $D_S['paranoia'] >= 2) ? ($CURUSER['class'] < UC_STAFF && $D_S['uid'] != $CURUSER['id'] ? '' : $snatchuserxbt . ' - ') . "<i>{$lang['details_snatches_anon']}</i>" : $snatchuserxbt);
            $snatched_torrent.= "<tr>
-                                 <td align='left'><font size='2%'>{$username}</font></td>
+                                 <td align='left'><font size='2%'>{$username_xbt}</font></td>
                                  <td align='right'><font size='2%'>" . mksize($D_S["uploaded"]) . "</font></td>
   " . ($INSTALLER09['ratio_free'] ? "" : "<td align='right'><font size='2%'>" . mksize($D_S["downloaded"]) . "</font></td>") . "
                                  <td align='right'><font size='2%'>" . mkprettytime($D_S["seedtime"]) . "</font></td>
