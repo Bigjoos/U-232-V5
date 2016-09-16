@@ -285,35 +285,36 @@ if (!function_exists('health')) {
     {
         global $INSTALLER09;
         if ($leechers > 0 && $seeders > 0) $ratio = $seeders / $leechers * 100;
-        if (($leechers == 0 && $seeders == 0) || ($leechers > 0 && $seeders == 0)) return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_0.gif' alt='Torrent Dead' title='Torrent Mort' />";
-        elseif ($seeders > $leechers) return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_10.gif' alt='Torrent healthy' title='Sante' />";
+        if ($leechers == 1 && $seeders == 1) $ratio = $seeders / $leechers * 1;
+        if (($leechers == 0 && $seeders == 0) || ($leechers > 0 && $seeders == 0)) return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_0.gif' alt='Torrent Dead' title='Torrent Dead' />";
+        elseif ($seeders > $leechers) return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_10.gif' alt='Torrent health' title='Torrent health' />";
         switch ($ratio) {
         case $ratio > 0 && $ratio < 15:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_1.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_1.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 15 && $ratio < 25:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_2.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_2.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 25 && $ratio < 35:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_3.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_3.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 35 && $ratio < 45:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_4.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_4.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 45 && $ratio < 55:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_5.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_5.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 55 && $ratio < 65:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_6.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_6.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 65 && $ratio < 75:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_7.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_7.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 75 && $ratio < 85:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_8.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_8.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 85 && $ratio < 95:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_9.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_9.gif' alt='Torrent health' title='Torrent health' />";
             break;
         }
     }
