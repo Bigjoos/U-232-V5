@@ -758,11 +758,14 @@ if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
 <td class='colhead' align='left'>{$lang['details_snatches_username']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_uploaded']}</td>
 " . ($INSTALLER09['ratio_free'] ? "" : "<td class='colhead' align='right'>{$lang['details_snatches_downloaded']}</td>") . "
+<td class='colhead' align='right'>{$lang['details_snatches_ratio']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_seedtime']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_leechtime']}</td>
 <td class='colhead' align='center'>{$lang['details_snatches_lastaction']}</td>
 <td class='colhead' align='center'>{$lang['details_snatches_completedat']}</td>
 <td class='colhead' align='center'>{$lang['details_snatches_announced']}</td>
+<td class='colhead' align='center'>{$lang['details_snatches_active']}</td>
+<td class='colhead' align='right'>{$lang['details_snatches_completed']}</td>
 </tr>\n";
     } else {
     $snatched_torrent = "
@@ -791,17 +794,23 @@ if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
           
 if (XBT_TRACKER == true) {
            //== \\0//
+           $ratio = ($D_S["downloaded"] > 0 ? number_format($D_S["uploaded"] / $D_S["downloaded"], 3) : ($D_S["uploaded"] > 0 ? "Inf." : "---"));
+           $active = ($D_S['active'] == 1 ? $active = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_tick.gif' alt='Yes' title='Yes' />" : $active = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_cross.gif' alt='No' title='No' />");
+           $completed = ($D_S['completed'] >= 1 ? $completed = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_tick.gif' alt='Yes' title='Yes' />" : $completed = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_cross.gif' alt='No' title='No' />");
            $snatchuserxbt = (isset($D_S['username2']) ? ("<a href='userdetails.php?id=" . (int)$D_S['uid'] . "'><b>" . htmlsafechars($D_S['username2']) . "</b></a>") : "{$lang['details_snatches_unknown']}");
            $username_xbt = (($D_S['anonymous2'] == 'yes' OR $D_S['paranoia'] >= 2) ? ($CURUSER['class'] < UC_STAFF && $D_S['uid'] != $CURUSER['id'] ? '' : $snatchuserxbt . ' - ') . "<i>{$lang['details_snatches_anon']}</i>" : $snatchuserxbt);
            $snatched_torrent.= "<tr>
                                  <td align='left'><font size='2%'>{$username_xbt}</font></td>
                                  <td align='right'><font size='2%'>" . mksize($D_S["uploaded"]) . "</font></td>
   " . ($INSTALLER09['ratio_free'] ? "" : "<td align='right'><font size='2%'>" . mksize($D_S["downloaded"]) . "</font></td>") . "
+                                 <td align='right'><font size='2%'>" . htmlsafechars($ratio) . "</font></td>
                                  <td align='right'><font size='2%'>" . mkprettytime($D_S["seedtime"]) . "</font></td>
                                  <td align='right'><font size='2%'>" . mkprettytime($D_S["leechtime"]) . "</font></td>
                                  <td align='center'><font size='2%'>" . get_date($D_S["mtime"], '', 0, 1) . "</font></td>
                                  <td align='center'><font size='2%'>" . get_date($D_S["completedtime"], '', 0, 1) . "</font></td>
                                  <td align='center'><font size='2%'>" . (int)$D_S["announced"] . "</font></td>
+                                 <td align='center'><font size='2%'>" . $active . "</font></td>
+                                 <td align='center'><font size='2%'>" . $completed . "</font></td>
         </tr>\n";
 
 } else {
