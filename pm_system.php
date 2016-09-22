@@ -110,6 +110,14 @@ case UC_SYSOP:
     $maxbox = 500;
     $maxboxes = 40;
     break;
+case UC_MAX:
+    $maxbox = 900;
+    $maxboxes = 90;
+    break;
+default:
+    $maxbox = 100;
+    $maxboxes = 15;
+    break;
 }
 //=== get action and check to see if it's ok...
 $returnto = isset($_GET['returnto']) ? $_GET['returnto'] : '/index.php';

@@ -180,7 +180,8 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
                 }
             }
         } elseif ($category) {
-            if (!is_valid_id($category) || $cats[$category]['min_class'] >= $CURUSER['class']) stderr("{$lang['browse_error']}", "{$lang['browse_invalid_cat']}");
+            $cnum = array_search((int)$category, array_column($cats, 'id'));
+        if (!is_valid_id($category) || $cats[$cnum]['min_class'] >= $CURUSER['class']) stderr("{$lang['browse_error']}", "{$lang['browse_invalid_cat']}");
             $wherecatina[] = $category;
             $addparam.= "cat=$category&amp;";
         } else {
@@ -245,7 +246,6 @@ if (isset($cleansearchstr)) {
         elseif (preg_match('/^[A-Za-z0-9][a-zA-Z0-9()._-]+-[A-Za-z0-9_]*[A-Za-z0-9]$/iD', $searchstr)) $wherea[] = '`name` = ' . sqlesc($searchstr);
         else $wherea[] = 'MATCH (`search_text`, `filename`) AGAINST (' . sqlesc($searchstr) . ' IN BOOLEAN MODE)';
         //......
-//        $orderby = 'ORDER BY id DESC';  // Not Needed sort order is set above.
         $searcha = explode(' ', $cleansearchstr);
         //==Memcache search cloud by putyn
         searchcloud_insert($cleansearchstr);
