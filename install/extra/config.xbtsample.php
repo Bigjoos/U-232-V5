@@ -163,6 +163,8 @@ $INSTALLER09['language'] = 1;
 $INSTALLER09['bot_id'] = 2;
 $INSTALLER09['staffpanel_online'] = 1;
 $INSTALLER09['irc_autoshout_on'] = 1;
+$INSTALLER09['wait_times'] = 0;
+$INSTALLER09['max_slots'] = 0;
 $INSTALLER09['crazy_hour'] = false; //== Off for XBT
 $INSTALLER09['happy_hour'] = false; //== Off for XBT
 $INSTALLER09['mods']['slots'] = true;

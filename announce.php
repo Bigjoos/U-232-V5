@@ -98,12 +98,9 @@ if (ANN_IP_LOGGING == 1) {
         if (mysqli_num_rows($res) == 0) {
             ann_sql_query("INSERT LOW_PRIORITY INTO ips (userid, ip, lastannounce, type) VALUES (" . ann_sqlesc($userid) . ", " . ann_sqlesc($ip) . ", " . TIME_NOW . ",'announce')") or ann_sqlerr(__FILE__, __LINE__);
             $mc1->delete_value('ip_history_' . $userid);
-            //$mc1->delete_value('user::passkey:::' . $passkey);
-            
         } else {
             ann_sql_query("UPDATE LOW_PRIORITY ips SET lastannounce = " . TIME_NOW . " WHERE ip = " . ann_sqlesc($ip) . " AND userid =" . ann_sqlesc($userid)) or ann_sqlerr(__FILE__, __LINE__);
             $mc1->delete_value('ip_history_' . $userid);
-            //$mc1->delete_value('user::passkey:::' . $passkey);
             
         }
     }
@@ -216,6 +213,61 @@ $user_updateset = array();
 if (!isset($self)) {
     $valid = mysqli_fetch_row(ann_sql_query("SELECT COUNT(*) FROM peers WHERE torrent=" . ann_sqlesc($torrentid) . " AND torrent_pass=" . ann_sqlesc($torrent_pass))) or ann_sqlerr(__FILE__, __LINE__);
     if ($valid[0] >= 3 && $seeder == 'yes') err("Connection limit exceeded!");
+    if ($left > 0 && $user['class'] < UC_VIP && $INSTALLER09['wait_times'] || $INSTALLER09['max_slots']) {
+    $ratio = (($user["downloaded"] > 0) ? ($user["uploaded"] / $user["downloaded"]) : 1);
+    if ($INSTALLER09['wait_times']) {
+        $gigs = $user["uploaded"] / (1024*1024*1024);
+        $elapsed = floor((TIME_NOW - $torrent["ts"]) / 3600);
+        if ($ratio < 0.5 || $gigs < 5) $wait = 48;
+        elseif ($ratio < 0.65 || $gigs < 6.5) $wait = 24;
+        elseif ($ratio < 0.8 || $gigs < 8) $wait = 12;
+        elseif ($ratio < 0.95 || $gigs < 9.5) $wait = 6;
+        else $wait = 0;
+        if ($elapsed < $wait)
+  		    err("Not authorized (" . ($wait - $elapsed) . "h) - READ THE FAQ!");
+    }
+    if ($INSTALLER09['max_slots']) {
+        if ($ratio < 0.95) {
+        	switch (true) {
+        		case ($ratio < 0.5):
+        		$max = 2;
+        		break;
+        		case ($ratio < 0.65):
+        		$max = 3;
+        		break;
+        		case ($ratio < 0.8):
+        		$max = 5;
+        		break;
+        		case ($ratio < 0.95):
+        		$max = 10;
+        		break;
+        		default:
+        	   $max = 10;
+        	}
+         }
+         else {
+         switch ($user['class']) {
+        		case UC_USER:
+        		$max = 20;
+        		break;
+        		case UC_POWER_USER:
+        		$max = 30;
+        		break;
+        	  default:
+        	   $max = 99;
+        	}	
+         }   
+        if ($max > 0) {
+            if (($Slot_Query = $mc1->get_value('max_slots_'.$userid)) === false) {
+            $Slot_Q = sql_query("SELECT COUNT(*) AS num FROM peers WHERE userid=".sqlesc($userid)." AND seeder='no'") or ann_sqlerr(__FILE__, __LINE__);
+            $Slot_Query = mysqli_fetch_assoc($Slot_Q);
+            $mc1->cache_value('max_slots_'.$userid, $Slot_Query, $INSTALLER09['expires']['max_slots']);
+            }
+            if ($Slot_Q['num'] >= $max) 
+                err("Access denied (Torrents Limit exceeded - $max) See FAQ!");
+        }
+    }   
+}
 } else {
     $upthis = max(0, $uploaded - $self["uploaded"]);
     $downthis = max(0, $downloaded - $self["downloaded"]);
@@ -287,6 +339,7 @@ if (!isset($self)) {
         
         $RatioFreeCondition = ($INSTALLER09['ratio_free'] ? "downloaded = downloaded + 0" : "downloaded = downloaded + $downthis");
         $crazyhour_on = ($INSTALLER09['crazy_hour'] ? crazyhour_announce() : false);
+        //$freecountdown_on = freeleech_announce();
         if ($downthis > 0) {
             if (!($crazyhour_on || $isfree || $user['free_switch'] != 0 || $torrent['free'] != 0 || $torrent['vip'] != 0 || ($torrent['freeslot'] != 0))) $user_updateset[] = $RatioFreeCondition;
         }
@@ -412,7 +465,6 @@ $seeder = 'no';
     }
 } else {
     if ($user["parked"] == "yes") err("Your account is parked! (Read the FAQ)");
-    //elseif ($user["downloadpos"] == 0 || $user["downloadpos"] > 1 && $user['hnrwarn'] == 'no') err("Your downloading privileges have been disabled! (Read the rules)");
     elseif ($user['downloadpos'] != 1 || $user['hnrwarn'] == 'yes' AND $seeder != 'yes') err("Your downloading privileges have been disabled! (Read the rules)");
     ann_sql_query("INSERT LOW_PRIORITY INTO peers"
             ." (torrent, userid, peer_id, ip, port, connectable, uploaded, downloaded, "

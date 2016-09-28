@@ -43,6 +43,8 @@ define('ANN_IP_LOGGING', 1);
 $INSTALLER09['announce_interval'] = 60 * 30;
 $INSTALLER09['min_interval'] = 60 * 15;
 $INSTALLER09['connectable_check'] = 1;
+$INSTALLER09['wait_times'] = 0;
+$INSTALLER09['max_slots'] = 0;
 $INSTALLER09['ann_sql_error_log'] = 'sqlerr_logs/ann_sql_err_' . date('M_D_Y') . '.log';
 $INSTALLER09['ann_sql_log'] = 'sqlerr_logs/ann_sql_query_' . date('M_D_Y') . '.log';
 $INSTALLER09['crazy_hour'] = false; //== Off for XBT
@@ -54,6 +56,7 @@ $INSTALLER09['mysql_host'] = "#mysql_host";
 $INSTALLER09['mysql_user'] = "#mysql_user";
 $INSTALLER09['mysql_pass'] = "#mysql_pass";
 $INSTALLER09['mysql_db'] = "#mysql_db";
+$INSTALLER09['expires']['max_slots'] = 300; // 300 = 5 minutes
 $INSTALLER09['expires']['user_passkey'] = 3600 * 8; // 8 hours
 $INSTALLER09['expires']['contribution'] = 3 * 86400; // 3 * 86400 3 days
 $INSTALLER09['expires']['happyhour'] = 43200; // 43200 1/2 day

@@ -31,7 +31,18 @@ function torrenttable($res, $variant = "index")
     require_once (INCL_DIR . 'bbcode_functions.php');
     require_once (CLASS_DIR . 'class_user_options_2.php');
     $htmlout = $prevdate = $nuked = $free_slot = $freetorrent = $free_color = $slots_check = $double_slot = $private = $newgenre = $oldlink = $char = $description = $type = $sort = $row = $youtube = '';
-    $count_get = 0;
+    $count_get = $wait = 0;
+    if ($CURUSER["class"] < UC_VIP && $INSTALLER09['wait_times'] == 1)
+    {
+      $gigs = $CURUSER["uploaded"] / (1024*1024*1024);
+      $ratio = (($CURUSER["downloaded"] > 0) ? ($CURUSER["uploaded"] / $CURUSER["downloaded"]) : 0);
+      if ($ratio < 0.5 || $gigs < 5) $wait = 48;
+      elseif ($ratio < 0.65 || $gigs < 6.5) $wait = 24;
+      elseif ($ratio < 0.8 || $gigs < 8) $wait = 12;
+      elseif ($ratio < 0.95 || $gigs < 9.5) $wait = 6;
+      else $wait = 0;
+    }
+
     /** ALL FREE/DOUBLE **/
     foreach ($free as $fl) {
         switch ($fl['modifier']) {
@@ -100,6 +111,7 @@ function torrenttable($res, $variant = "index")
     $htmlout.= "<td class='text-right'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=2&amp;type={$link2}'>{$lang["torrenttable_files"]}</a></td>
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=3&amp;type={$link3}'>{$lang["torrenttable_comments"]}</a></td>
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=4&amp;type={$link4}'>{$lang["torrenttable_added"]}</a></td>
+   ".($INSTALLER09['wait_times'] == 1 ? "<td class='text-center'>{$lang["torrenttable_ttl"]}</td>" : "")."
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=5&amp;type={$link5}'>{$lang["torrenttable_size"]}</a></td>
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=6&amp;type={$link6}'>{$lang["torrenttable_snatched"]}</a></td>
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=7&amp;type={$link7}'>{$lang["torrenttable_seeders"]}</a></td>
@@ -109,7 +121,7 @@ function torrenttable($res, $variant = "index")
     $htmlout .= "<td class='text-center'>Tools</td>\n";
     }
     $htmlout.= "
-<td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=8&amp;type={$link10}'>Health</a></td></tr>\n";
+<td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=10&amp;type={$link10}'>Health</a></td></tr>\n";
     $categories = genrelist();
     foreach ($categories as $key => $value) $change[$value['id']] = array(
         'id' => $value['id'],
@@ -188,11 +200,11 @@ function torrenttable($res, $variant = "index")
             foreach ($subs_array as $k => $sid) {
             require_once (CACHE_DIR . 'subs.php');
                 foreach ($subs as $sub) {
-                    if ($sub["id"] == $sid) $Subs_ = "<img border='0' width='16px' style='padding:3px;' src='".htmlsafechars($sub["pic"])."' alt='".htmlsafechars($sub["name"])."' title='".htmlsafechars($sub["name"])."' />";
+                    if ($sub["id"] == $sid) $Subs = "<img border='0' width='16px' style='padding:3px;' src='".htmlsafechars($sub["pic"])."' alt='".htmlsafechars($sub["name"])."' title='".htmlsafechars($sub["name"])."' />";
                 }
             }
-        } else $Subs_ = "---";
-        $htmlout.= "' onmouseover=\"Tip('<b>" . CutName($dispname, 80) . "</b><br /><b>Added:&nbsp;" . get_date($row['added'], 'DATE', 0, 1) . "</b><br /><b>Size:&nbsp;" . mksize(htmlsafechars($row["size"])) . "</b><br /><b>Subtitle:&nbsp;{$Subs_}</b><br /><b>Seeders:&nbsp;" . htmlsafechars($row["seeders"]) . "</b><br /><b>Leechers:&nbsp;" . htmlsafechars($row["leechers"]) . "</b><br />$poster');\" onmouseout=\"UnTip();\"><b>" . CutName($dispname, 45) . "</b></a>&nbsp;&nbsp;<a href=\"javascript:klappe_descr('descr" . (int)$row["id"] . "');\" ><img src=\"{$INSTALLER09['pic_base_url']}plus.png\" border=\"0\" alt=\"Show torrent info in this page\" title=\"Show torrent info in this page\" /></a>&nbsp;&nbsp;$youtube&nbsp;$viponly&nbsp;$release_group&nbsp;$sticky&nbsp;" . ($row['added'] >= $CURUSER['last_browse'] ? " <img src='{$INSTALLER09['pic_base_url']}newb.png' border='0' alt='New !' title='New !' />" : "") . "&nbsp;$checked&nbsp;$freetorrent&nbsp;$free_tag&nbsp;$silver_tag<br />$free_slot&nbsp;$double_slot&nbsp;$nuked&nbsp;$newgenre&nbsp;$bump&nbsp;$smalldescr</td>\n";
+        } else $Subs = "---";
+        $htmlout.= "' onmouseover=\"Tip('<b>" . CutName($dispname, 80) . "</b><br /><b>Added:&nbsp;" . get_date($row['added'], 'DATE', 0, 1) . "</b><br /><b>Size:&nbsp;" . mksize(htmlsafechars($row["size"])) . "</b><br /><b>Subtitle:&nbsp;{$Subs}</b><br /><b>Seeders:&nbsp;" . htmlsafechars($row["seeders"]) . "</b><br /><b>Leechers:&nbsp;" . htmlsafechars($row["leechers"]) . "</b><br />$poster');\" onmouseout=\"UnTip();\"><b>" . CutName($dispname, 45) . "</b></a>&nbsp;&nbsp;<a href=\"javascript:klappe_descr('descr" . (int)$row["id"] . "');\" ><img src=\"{$INSTALLER09['pic_base_url']}plus.png\" border=\"0\" alt=\"Show torrent info in this page\" title=\"Show torrent info in this page\" /></a>&nbsp;&nbsp;$youtube&nbsp;$viponly&nbsp;$release_group&nbsp;$sticky&nbsp;" . ($row['added'] >= $CURUSER['last_browse'] ? " <img src='{$INSTALLER09['pic_base_url']}newb.png' border='0' alt='New !' title='New !' />" : "") . "&nbsp;$checked&nbsp;$freetorrent&nbsp;$free_tag&nbsp;$silver_tag<br />$free_slot&nbsp;$double_slot&nbsp;$nuked&nbsp;$newgenre&nbsp;$bump&nbsp;$smalldescr</td>\n";
         if ($variant == "mytorrents") $htmlout.= "<td class='text-center'><a href=\"download.php?torrent={$id}" . ($CURUSER['ssluse'] == 3 ? "&amp;ssl=1" : "") . "\"><img src='{$INSTALLER09['pic_base_url']}zip.gif' border='0' alt='Download This Torrent!' title='Download This Torrent!' /></a></td>\n";
         if ($variant == "mytorrents") $htmlout.= "<td class='text-center'><a href='edit.php?id=" . (int)$row['id'] . "amp;returnto=" . urlencode($_SERVER["REQUEST_URI"]) . "'>{$lang["torrenttable_edit"]}</a></td>\n";
         $htmlout.= ($variant == "index" ? "<td class='text-center'><a href=\"download.php?torrent={$id}" . ($CURUSER['ssluse'] == 3 ? "&amp;ssl=1" : "") . "\"><img src='{$INSTALLER09['pic_base_url']}zip.gif' border='0' alt='Download This Torrent!' title='Download This Torrent!' /></a></td>" : "");
@@ -243,9 +255,15 @@ function torrenttable($res, $variant = "index")
             }
         }
         $htmlout.= "<td class='text-center'><span style='white-space: nowrap;'>" . str_replace(",", "<br />", get_date($row['added'], '')) . "</span></td>\n";
+          $ttl = (28*24) - floor((TIME_NOW - $row["added"]) / 3600);
+          if ($ttl == 1) 
+                 $ttl .= "<br />".$lang["torrenttable_hour_singular"]; 
+              else 
+                 $ttl .= "<br />".$lang["torrenttable_hour_plural"];
+        $htmlout .= ($INSTALLER09['wait_times'] == 1 ? "<td class='text-center'>$ttl</td>\n" : "");
         $htmlout.= "<td class='text-center'>" . str_replace(" ", "<br />", mksize($row["size"])) . "</td>\n";
-        if ($row["times_completed"] != 1) $_s = "" . $lang["torrenttable_time_plural"] . "";
-        else $_s = "" . $lang["torrenttable_time_singular"] . "";
+        if ($row["times_completed"] != 1) $_s = "" . $lang["torrenttable_time_plural"];
+        else $_s = "" . $lang["torrenttable_time_singular"];
         $What_Script_S = (XBT_TRACKER == true ? 'snatches_xbt.php?id=' : 'snatches.php?id=' );
         $htmlout.= "<td class='text-center'><a href='$What_Script_S"."$id'>" . number_format($row["times_completed"]) . "<br />$_s</a></td>\n";
         if ($row["seeders"]) {
@@ -321,7 +339,7 @@ if (!function_exists('health')) {
 }
 $htmlout.= "<td class='text-center'><span>" . health($row["leechers"], $row["seeders"]) . "</td>";
         $htmlout.= "</tr>\n";
-        $htmlout.= "<tr id=\"kdescr" . (int)$row["id"] . "\" style=\"display:none;\"><td width=\"100%\" colspan=\"13\">" . format_comment($descr, false) . "</td></tr>\n";
+        $htmlout.= "<tr id=\"kdescr" . (int)$row["id"] . "\" style=\"display:none;\"><td width=\"100%\" colspan=\"14\">" . format_comment($descr, false) . "</td></tr>\n";
     }
     $htmlout.= "</table></div>\n";
     return $htmlout;
