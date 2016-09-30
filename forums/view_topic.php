@@ -61,12 +61,12 @@ $res = sql_query("SELECT " . ($Multi_forum['configs']['use_poll_mod'] ? 't.poll_
 $arr = mysqli_fetch_assoc($res) or stderr("Error", "Topic not found");
 ((mysqli_free_result($res) || (is_object($res) && (get_class($res) == "mysqli_result"))) ? true : false);
 ($Multi_forum['configs']['use_poll_mod'] ? $pollid = (int) $arr["poll_id"] : null);
-$t_userid = (int) $arr['t_userid'];
-$locked = ($arr['locked'] == 'yes' ? true : false);
-$subject = $arr['topic_name'];
-$sticky = ($arr['sticky'] == "yes" ? true : false);
-$forumid = (int) $arr['forum_id'];
-$forum = htmlsafechars($arr["forum_name"]);
+$t_userid  = (int) $arr['t_userid'];
+$locked    = ($arr['locked'] == 'yes' ? true : false);
+$subject   = $arr['topic_name'];
+$sticky    = ($arr['sticky'] == "yes" ? true : false);
+$forumid   = (int) $arr['forum_id'];
+$forum     = htmlsafechars($arr["forum_name"]);
 $postcount = (int) $arr['p_count'];
 if ($CURUSER["class"] < $arr["min_class_read"])
     stderr("Error", "You are not permitted to view this topic.");
@@ -74,8 +74,8 @@ if ($CURUSER["class"] < $arr["min_class_read"])
 sql_query("UPDATE topics SET views = views + 1 WHERE id=" . sqlesc($topicid)) or sqlerr(__FILE__, __LINE__);
 //------ Make page menu
 $pagemenu1 = "<div class='pagination'><span class='btn btn-default btn-xs'><i style='font-size: 14px;' class='fa fa-paperclip'></i>&nbsp;&nbsp;Pages&nbsp;</span>&nbsp;&nbsp;";
-$perpage = $Multi_forum['configs']['postsperpage'];
-$pages = ceil($postcount / $perpage);
+$perpage   = $Multi_forum['configs']['postsperpage'];
+$pages     = ceil($postcount / $perpage);
 if ($page[0] == "p") {
     $findpost = substr($page, 1);
     $res = sql_query("SELECT id FROM posts WHERE topic_id=" . sqlesc($topicid) . " ORDER BY added") or sqlerr(__FILE__, __LINE__);
@@ -95,13 +95,13 @@ else {
     else if ($page > $pages)
         $page = $pages;
 }
-$offset = ((int) $page * $perpage) - $perpage;
-$offset = ($offset < 0 ? 0 : $offset);
+$offset    = ((int) $page * $perpage) - $perpage;
+$offset    = ($offset < 0 ? 0 : $offset);
 $pagemenu2 = '';
 for ($i = 1; $i <= $pages; ++$i)
     $pagemenu2 .= ($i == $page ? " <span class='pagination'>$i</span>&nbsp;" : "<a class='pagination_page' href='{$INSTALLER09['baseurl']}/forums.php?action=viewtopic&amp;topicid=$topicid&amp;page=$i'><b>$i</b></a>");
 $pagemenu1 .= ($page == 1 ? "" : "<a class='pagination' href='{$INSTALLER09['baseurl']}/forums.php?action=viewtopic&amp;topicid=$topicid&amp;page=" . ($page - 1) . "'><i class='fa fa-angle-double-left'></i></a>");
-$pmlb = "&nbsp;&nbsp;&nbsp;";
+$pmlb      = "&nbsp;&nbsp;&nbsp;";
 $pagemenu3 = ($page == $pages ? "</div>" : "<a class='pagination' href='{$INSTALLER09['baseurl']}/forums.php?action=viewtopic&amp;topicid=$topicid&amp;page=" . ($page + 1) . "'><i class='fa fa-angle-double-right'></i></a></div>");
 //$HTMLOUT .= begin_main_frame();
 $HTMLOUT .= "<div class='navigation'>
@@ -117,10 +117,10 @@ $HTMLOUT .= "<div class='row'><div class='col-sm-12 col-sm-offset-0'>";
 if ($Multi_forum['configs']['use_poll_mod'] && is_valid_id($pollid)) {
     $res = sql_query("SELECT p.*, pa.id AS pa_id, pa.selection FROM postpolls AS p LEFT JOIN postpollanswers AS pa ON pa.pollid = p.id AND pa.userid = " . sqlesc($CURUSER['id']) . " WHERE p.id=" . sqlesc($pollid)) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($res) > 0) {
-        $arr1 = mysqli_fetch_assoc($res);
-        $userid = (int) $CURUSER['id'];
+        $arr1     = mysqli_fetch_assoc($res);
+        $userid   = (int) $CURUSER['id'];
         $question = htmlsafechars($arr1["question"]);
-        $o = array(
+        $o        = array(
             $arr1["option0"],
             $arr1["option1"],
             $arr1["option2"],
@@ -151,9 +151,9 @@ if ($Multi_forum['configs']['use_poll_mod'] && is_valid_id($pollid)) {
         $voted = (is_valid_id($arr1['pa_id']) ? true : false);
         if (($locked && $CURUSER['class'] < UC_STAFF) ? true : $voted) {
             $uservote = ($arr1["selection"] != '' ? (int) $arr1["selection"] : -1);
-            $res_v = sql_query("SELECT selection FROM postpollanswers WHERE pollid=" . sqlesc($pollid) . " AND selection < 20");
-            $tvotes = mysqli_num_rows($res_v);
-            $vs = $os = array();
+            $res_v    = sql_query("SELECT selection FROM postpollanswers WHERE pollid=" . sqlesc($pollid) . " AND selection < 20");
+            $tvotes   = mysqli_num_rows($res_v);
+            $vs       = $os = array();
             for ($i = 0; $i < 20; $i++)
                 $vs[$i] = 0;
             while ($arr_v = mysqli_fetch_row($res_v))
@@ -261,7 +261,32 @@ if ($locked && $CURUSER['class'] < UC_STAFF && !isMod($forumid, "forum")) {
         $maypost = true;
 }
 // ------ "View unread" / "Add reply" buttons
-
+//=== who is here
+sql_query('DELETE FROM now_viewing WHERE user_id =' . sqlesc($CURUSER['id']));
+sql_query('INSERT INTO now_viewing (user_id, forum_id, topic_id, added) VALUES(' . sqlesc($CURUSER['id']) . ', ' . sqlesc($forumid) . ', ' . sqlesc($topicid) . ', ' . TIME_NOW . ')');
+//=== now_viewing
+$keys['now_viewing'] = 'now_viewing_topic';
+if (($topic_users_cache = $mc1->get_value($keys['now_viewing'])) === false) {
+    $topicusers        = '';
+    $topic_users_cache = array();
+    $res = sql_query('SELECT n_v.user_id, u.id, u.username, u.class, u.donor, u.suspended, u.warned, u.enabled, u.chatpost, u.leechwarn, u.pirate, u.king, u.perms FROM now_viewing AS n_v LEFT JOIN users AS u ON n_v.user_id = u.id WHERE topic_id = ' . sqlesc($topicid)) or sqlerr(__FILE__, __LINE__);
+    $actcount = mysqli_num_rows($res);
+    while ($arr = mysqli_fetch_assoc($res)) {
+        if ($topicusers)
+            $topicusers .= ",\n";
+        $topicusers .= ($arr['perms'] & bt_options::PERMS_STEALTH ? '<i>UnKn0wn</i>' : format_username($arr));
+    }
+    $topic_users_cache['topic_users'] = $topicusers;
+    $topic_users_cache['actcount']    = $actcount;
+    $mc1->cache_value($keys['now_viewing'], $topic_users_cache, $INSTALLER09['expires']['forum_users']);
+}
+if (!$topic_users_cache['topic_users'])
+    $topic_users_cache['topic_users'] = 'There have been no active users in the last 15 minutes.';
+//$forum_users = '&nbsp;('.$forum_users_cache['actcount'].')';
+$topic_users = $topic_users_cache['topic_users'];
+if ($topic_users != '') {
+    $topic_users = 'Currently viewing this topic: ' . $topic_users;
+}
 $HTMLOUT .= "<a href='forums.php?action=viewunread' class='button new_reply_button'><span>Show New</span></a>&nbsp;";
 if ($maypost) {
     $HTMLOUT .= "<a href='forums.php?action=reply&topicid=" . $topicid . "' class='button new_reply_button'><span>New Reply</span></a>&nbsp;";
@@ -273,13 +298,12 @@ $HTMLOUT .= "<table border='0' cellspacing='0' cellpadding='5' class='tborder tf
 $HTMLOUT .= "<tr>
             <td class='thead'>
                 <div class='float_right'>
-                
-                    
                     " . (getRate($topicid, "topic")) . "
                 </div>
                 <div>
-                <span class='smalltext'><strong><a href='{$INSTALLER09['baseurl']}/subscriptions.php?topicid=$topicid&amp;subscribe=1'><b><font color='red'>Subscribe to Forum</font></b></a></strong></span>    
-                </div>
+                <span class='smalltext'><strong><a href='{$INSTALLER09['baseurl']}/subscriptions.php?topicid=$topicid&amp;subscribe=1'><b><font color='red'>Subscribe to Forum</font></b></a><br />
+                <span class='smalltext'><strong>{$topic_users}</strong></span> 
+</div>
             </td>
         </tr>";
 $HTMLOUT .= "
@@ -329,34 +353,34 @@ while ($arr = mysqli_fetch_assoc($res)) {
             }
         }
     }
-    $wht = ((!empty($likes) && count(array_unique($likes)) > 0 && in_array($CURUSER['id'], $likes)) ? 'unlike' : 'like');
+    $wht               = ((!empty($likes) && count(array_unique($likes)) > 0 && in_array($CURUSER['id'], $likes)) ? 'unlike' : 'like');
     // --------------- likes end------
-    $lpr = (int) $arr['last_post_read'];
-    $postid = (int) $arr["id"];
-    $postadd = (int) $arr['added'];
-    $posterid = (int) $arr['user_id'];
-    $posticon = ($arr["icon"] > 0 ? "<img src=\"{$INSTALLER09['pic_base_url']}post_icons/icon" . htmlsafechars($arr["icon"]) . ".gif\" style=\"padding-left:3px;\" alt=\"post icon\" title=\"post icon\" />" : "&nbsp;");
-    $added = get_date($arr['added'], 'DATE', 1, 0) . " GMT <font class='small'>(" . (get_date($arr['added'], 'LONG', 1, 0)) . ")</font>";
+    $lpr               = (int) $arr['last_post_read'];
+    $postid            = (int) $arr["id"];
+    $postadd           = (int) $arr['added'];
+    $posterid          = (int) $arr['user_id'];
+    $posticon          = ($arr["icon"] > 0 ? "<img src=\"{$INSTALLER09['pic_base_url']}post_icons/icon" . htmlsafechars($arr["icon"]) . ".gif\" style=\"padding-left:3px;\" alt=\"post icon\" title=\"post icon\" />" : "&nbsp;");
+    $added             = get_date($arr['added'], 'DATE', 1, 0) . " GMT <font class='small'>(" . (get_date($arr['added'], 'LONG', 1, 0)) . ")</font>";
     // ---- Get poster details
-    $uploaded = mksize($arr['uploaded']);
-    $downloaded = mksize($arr['downloaded']);
+    $uploaded          = mksize($arr['uploaded']);
+    $downloaded        = mksize($arr['downloaded']);
     $member_reputation = $arr['uusername'] != '' ? get_reputation($arr, 'posts', TRUE, $postid) : '';
-    $last_access = get_date($arr['last_access'], 'DATE', 1, 0);
-    $Ratio = member_ratio($arr['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $arr['downloaded']);
+    $last_access       = get_date($arr['last_access'], 'DATE', 1, 0);
+    $Ratio             = member_ratio($arr['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $arr['downloaded']);
     if (($postid > $lpr) && ($postadd > (TIME_NOW - $INSTALLER09['readpost_expiry']))) {
         $newp = "&nbsp;&nbsp;<span class='badge btn btn-danger disabled' style='color:#fff'><b></b>NEW</b></span>";
     }
-    $moodname = (isset($mood['name'][$arr['mood']]) ? htmlsafechars($mood['name'][$arr['mood']]) : 'is feeling neutral');
-    $moodpic = (isset($mood['image'][$arr['mood']]) ? htmlsafechars($mood['image'][$arr['mood']]) : 'noexpression.gif');
-    $signature = ($CURUSER['signatures'] == 'yes' ? format_comment($arr['signature']) : '');
-    $user_stuff = $arr;
+    $moodname         = (isset($mood['name'][$arr['mood']]) ? htmlsafechars($mood['name'][$arr['mood']]) : 'is feeling neutral');
+    $moodpic          = (isset($mood['image'][$arr['mood']]) ? htmlsafechars($mood['image'][$arr['mood']]) : 'noexpression.gif');
+    $signature        = ($CURUSER['signatures'] == 'yes' ? format_comment($arr['signature']) : '');
+    $user_stuff       = $arr;
     $user_stuff['id'] = (int) $arr['uid'];
-    $postername = format_username($user_stuff, true);
-    $avatar = ($CURUSER["avatars"] == "yes" ? (($arr['p_anon'] == 'yes' && $CURUSER['class'] < UC_STAFF) ? '<img style="max-width:' . $width . 'px;" src="' . $INSTALLER09['pic_base_url'] . 'anonymous_1.jpg" alt="avatar" />' : avatar_stuff($arr)) : "");
-    $title2 = (!empty($postername) ? (empty($arr['title']) ? "(" . get_user_class_name($arr['class']) . ")" : "(" . (htmlsafechars($arr['title'])) . ")") : '');
-    $title = ($arr['p_anon'] == 'yes' ? '<i>' . "Anonymous" . '</i>' : htmlsafechars($title2));
-    $class_name =  (($arr['p_anon'] == 'yes' && $CURUSER['class'] < UC_STAFF) ? "Anonymous" : get_user_class_name($arr["class"]));
-    $forumposts = (!empty($postername) ? ($arr['posts_count'] != 0 ? (int) $arr['posts_count'] : 'N/A') : 'N/A');
+    $postername       = format_username($user_stuff, true);
+    $avatar           = ($CURUSER["avatars"] == "yes" ? (($arr['p_anon'] == 'yes' && $CURUSER['class'] < UC_STAFF) ? '<img style="max-width:' . $width . 'px;" src="' . $INSTALLER09['pic_base_url'] . 'anonymous_1.jpg" alt="avatar" />' : avatar_stuff($arr)) : "");
+    $title2           = (!empty($postername) ? (empty($arr['title']) ? "(" . get_user_class_name($arr['class']) . ")" : "(" . (htmlsafechars($arr['title'])) . ")") : '');
+    $title            = ($arr['p_anon'] == 'yes' ? '<i>' . "Anonymous" . '</i>' : htmlsafechars($title2));
+    $class_name       = (($arr['p_anon'] == 'yes' && $CURUSER['class'] < UC_STAFF) ? "Anonymous" : get_user_class_name($arr["class"]));
+    $forumposts       = (!empty($postername) ? ($arr['posts_count'] != 0 ? (int) $arr['posts_count'] : 'N/A') : 'N/A');
     if ($arr["p_anon"] == "yes") {
         if ($CURUSER['class'] < UC_STAFF)
             $by = "<i>Anonymous</i>";
@@ -429,7 +453,7 @@ while ($arr = mysqli_fetch_assoc($res)) {
     }
     //$HTMLOUT .="</td><td style='border:none;'><a href='#top'><img align='right' src='{$INSTALLER09['pic_base_url']}".$Multi_forum['configs']['forum_pics']['arrow_up']."' alt='Top' /></a></td></tr></table></td></tr>";
     $highlight = (isset($_GET['highlight']) ? htmlsafechars($_GET['highlight']) : '');
-    $body = (!empty($highlight) ? highlight(htmlsafechars(trim($highlight)), format_comment($arr['body'])) : format_comment($arr['body']));
+    $body      = (!empty($highlight) ? highlight(htmlsafechars(trim($highlight)), format_comment($arr['body'])) : format_comment($arr['body']));
     if ($Multi_forum['configs']['use_attachment_mod'] && ((!empty($arr['at_filename']) && is_valid_id($arr['at_id'])) && $arr['at_postid'] == $postid)) {
         foreach ($Multi_forum['configs']['allowed_file_extensions'] as $allowed_file_extension)
             if (substr($arr['at_filename'], -3) == $allowed_file_extension)
@@ -571,4 +595,4 @@ if (!empty($uploaderror)) {
     $HTMLOUT .= "<script>alert(\"Upload Failed: {$uploaderror}\nHowever your post was successful saved!\n\nClick 'OK' to continue.\");</script>";
 }
 exit();
-?>
+?> 

@@ -1589,6 +1589,17 @@ CREATE TABLE IF NOT EXISTS `notconnectablepmlog` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `now_viewing`
+--
+
+CREATE TABLE `now_viewing` (
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `forum_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `topic_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `added` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
 -- Table structure for table `offers`
 --
 
@@ -3407,6 +3418,12 @@ ALTER TABLE `news`
 ALTER TABLE `notconnectablepmlog`
   ADD PRIMARY KEY (`id`);
 
+--
+-- Indexes for table `now_viewing`
+--
+ALTER TABLE `now_viewing`
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `forum_id` (`forum_id`);
 --
 -- Indexes for table `offers`
 --
