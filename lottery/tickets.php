@@ -75,6 +75,7 @@ if ($CURUSER['seedbonus'] < ($lottery['current_user']['could_buy'] * $lottery_co
 //check if the lottery ended if the lottery ended don't allow the user to buy more tickets or if he has already bought the max tickets
 if (time() > $lottery_config['end_date'] || $lottery_config['user_tickets'] <= $lottery['current_user']['total_tickets']) $lottery['current_user']['can_buy'] = 0;
 //print('<pre>'.print_r($lottery,1));
+$html ='';
 $html = "<div class='row'><div class='col-md-12'><h2>Lottery</h2>";
 $html.= "<ul style='text-align:left;'>
     <li>Tickets are non-refundable</li>

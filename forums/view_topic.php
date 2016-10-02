@@ -376,6 +376,7 @@ while ($arr = mysqli_fetch_assoc($res)) {
     $user_stuff       = $arr;
     $user_stuff['id'] = (int) $arr['uid'];
     $postername       = format_username($user_stuff, true);
+    $width = '75';
     $avatar           = ($CURUSER["avatars"] == "yes" ? (($arr['p_anon'] == 'yes' && $CURUSER['class'] < UC_STAFF) ? '<img style="max-width:' . $width . 'px;" src="' . $INSTALLER09['pic_base_url'] . 'anonymous_1.jpg" alt="avatar" />' : avatar_stuff($arr)) : "");
     $title2           = (!empty($postername) ? (empty($arr['title']) ? "(" . get_user_class_name($arr['class']) . ")" : "(" . (htmlsafechars($arr['title'])) . ")") : '');
     $title            = ($arr['p_anon'] == 'yes' ? '<i>' . "Anonymous" . '</i>' : htmlsafechars($title2));
