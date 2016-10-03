@@ -157,7 +157,7 @@ function add_cat()
         'new_cat_image',
         'new_cat_minclass'
     ) as $x) {
-        if (!isset($params[$x]) OR empty($params[$x])) stderr($lang['categories_error'], $lang['categories_add_error1']);
+        if (!isset($params[$x]) OR ($x != 'new_cat_minclass' AND empty($params[$x]))) stderr($lang['categories_error'], $lang['categories_add_error1']);
     }
     if (!preg_match("/^cat_[A-Za-z0-9_]+\.(?:gif|jpg|jpeg|png)$/i", $params['new_cat_image'])) {
         stderr($lang['categories_error'], $lang['categories_add_error2']);
@@ -282,7 +282,7 @@ function edit_cat()
         'cat_image',
         'edit_cat_minclass'
     ) as $x) {
-        if (!isset($params[$x]) OR empty($params[$x])) stderr($lang['categories_error'], $lang['categories_edit_error1'] . $x . '');
+        if (!isset($params[$x]) OR ($x != 'edit_cat_minclass' AND empty($params[$x]))) stderr($lang['categories_error'], $lang['categories_add_error1']);
     }
     if (!preg_match("/^cat_[A-Za-z0-9_]+\.(?:gif|jpg|jpeg|png)$/i", $params['cat_image'])) {
         stderr($lang['categories_error'], $lang['categories_edit_error2']);
