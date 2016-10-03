@@ -46,6 +46,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
     // ------ Get forum details
     $res = sql_query("SELECT f.name AS forum_name, f.min_class_read, (SELECT COUNT(id) FROM topics WHERE forum_id = f.id) AS t_count " . "FROM forums AS f " . "WHERE f.id = " . sqlesc($forumid)) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res) or stderr('Error', 'No forum with that ID!');
+    sql_query('DELETE FROM now_viewing WHERE user_id = ' . sqlesc($CURUSER['id']));
     if ($CURUSER['class'] < $arr["min_class_read"])
         stderr('Error', 'Access Denied!');
     $perpage = (empty($CURUSER['topicsperpage']) ? 20 : (int)$CURUSER['topicsperpage']);

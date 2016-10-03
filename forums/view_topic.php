@@ -282,7 +282,7 @@ if (($topic_users_cache = $mc1->get_value($keys['now_viewing'])) === false) {
 }
 if (!$topic_users_cache['topic_users'])
     $topic_users_cache['topic_users'] = 'There have been no active users in the last 15 minutes.';
-//$forum_users = '&nbsp;('.$forum_users_cache['actcount'].')';
+//$topic_users = '&nbsp;('.$topic_users_cache['actcount'].')';
 $topic_users = $topic_users_cache['topic_users'];
 if ($topic_users != '') {
     $topic_users = 'Currently viewing this topic: ' . $topic_users;
