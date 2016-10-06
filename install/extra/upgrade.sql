@@ -92,6 +92,7 @@ CREATE TABLE IF NOT EXISTS `faq_cat` (
 -- Dumping data for table `faq_cat`
 --
 
+
 INSERT INTO `faq_cat` (`id`, `name`, `shortcut`, `min_view`) VALUES
 (1, 'Site information', 'site', 0),
 (2, 'User information', 'user', 0),
@@ -102,6 +103,30 @@ INSERT INTO `faq_cat` (`id`, `name`, `shortcut`, `min_view`) VALUES
 (7, 'ISP Proxy Issue', 'isp', 0),
 (8, 'Connection Problems', 'connect', 0),
 (9, 'Can\'t Find Answer?', 'answer', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `now_viewing`
+--
+
+CREATE TABLE `now_viewing` (
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `forum_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `topic_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `added` int(11) NOT NULL DEFAULT '0'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `now_viewing`
+--
+
+--
+-- Indexes for table `now_viewing`
+--
+ALTER TABLE `now_viewing`
+  ADD PRIMARY KEY (`user_id`),
+  ADD KEY `forum_id` (`forum_id`);
 
 -- --------------------------------------------------------
 
