@@ -130,7 +130,7 @@ if (($torrents = $mc1->get_value('torrent_details_' . $id)) === false) {
         'user_likes'
     );
     $tor_fields = implode(', ', array_merge($tor_fields_ar_int, $tor_fields_ar_str));
-    $result = sql_query("SELECT " . $tor_fields . ", LENGTH(nfo) AS nfosz, IF(num_ratings < {$INSTALLER09['minvotes']}, NULL, ROUND(rating_sum / num_ratings, 1)) AS rating FROM torrents WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
+    $result = sql_query("SELECT " . $tor_fields . ", (SELECT MAX(id) FROM torrents ) as max_id, (SELECT MIN(id) FROM torrents) as min_id, LENGTH(nfo) AS nfosz, IF(num_ratings < {$INSTALLER09['minvotes']}, NULL, ROUND(rating_sum / num_ratings, 1)) AS rating FROM torrents WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $torrents = mysqli_fetch_assoc($result);
     foreach ($tor_fields_ar_int as $i) $torrents[$i] = (int)$torrents[$i];
     foreach ($tor_fields_ar_str as $i) $torrents[$i] = $torrents[$i];
@@ -293,8 +293,16 @@ if ($CURUSER['class'] >= UC_STAFF) {
     if (isset($_GET["clearchecked"]) && $_GET["clearchecked"] == 'done') $HTMLOUT.= "<div class='alert alert-success span11' align='center'><h2><a name='Success'>Successfully un-checked {$CURUSER['username']}!</a></h2></div>";
 }
 // end
+$prev_id = ($id - 1);
+         $next_id = ($id + 1);
 $s = htmlsafechars($torrents["name"], ENT_QUOTES);
 $HTMLOUT.= "<div class='container' ><div class='pull-left'><h1>$s</h1>\n";
+if($torrents["id"] != $torrents["min_id"])
+        $HTMLOUT .= "<a href='details.php?id={$prev_id}'><b>[Prev Torrent]</b></a>";
+        $HTMLOUT .= "<a href='browse.php'><b>  [Return]</b></a>";
+        if($torrents["id"] != $torrents["max_id"])
+        $HTMLOUT .= "<a href='details.php?id={$next_id}'><b>  [Next Torrent]</b></a>";
+        $HTMLOUT .= "<br />";
 $HTMLOUT.= "<h2><a href='random.php'>" . (!isset($_GET['random']) ? '[Random Any]' : '<span style="color:#3366FF;">[Random Any]</span>') . "</a></h2>";
 //Thumbs Up
 if (($thumbs = $mc1->get_value('thumbs_up_' . $id)) === false) {
