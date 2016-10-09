@@ -278,15 +278,17 @@ if (($topic_users_cache = $mc1->get_value($keys['now_viewing'])) === false) {
     }
     $topic_users_cache['topic_users'] = $topicusers;
     $topic_users_cache['actcount']    = $actcount;
-    $mc1->cache_value($keys['now_viewing'], $topic_users_cache, $INSTALLER09['expires']['forum_users']);
+    $mc1->add_value($keys['now_viewing'], $topic_users_cache, $INSTALLER09['expires']['forum_users']);
 }
+
 if (!$topic_users_cache['topic_users'])
     $topic_users_cache['topic_users'] = 'There have been no active users in the last 15 minutes.';
-//$topic_users = '&nbsp;('.$topic_users_cache['actcount'].')';
+//$forum_users = '&nbsp;('.$forum_users_cache['actcount'].')';
 $topic_users = $topic_users_cache['topic_users'];
 if ($topic_users != '') {
     $topic_users = 'Currently viewing this topic: ' . $topic_users;
 }
+
 $HTMLOUT .= "<a href='forums.php?action=viewunread' class='button new_reply_button'><span>Show New</span></a>&nbsp;";
 if ($maypost) {
     $HTMLOUT .= "<a href='forums.php?action=reply&topicid=" . $topicid . "' class='button new_reply_button'><span>New Reply</span></a>&nbsp;";
@@ -457,7 +459,7 @@ while ($arr = mysqli_fetch_assoc($res)) {
     $body      = (!empty($highlight) ? highlight(htmlsafechars(trim($highlight)), format_comment($arr['body'])) : format_comment($arr['body']));
     if ($Multi_forum['configs']['use_attachment_mod'] && ((!empty($arr['at_filename']) && is_valid_id($arr['at_id'])) && $arr['at_postid'] == $postid)) {
         foreach ($Multi_forum['configs']['allowed_file_extensions'] as $allowed_file_extension)
-            if (substr($arr['at_filename'], -3) == $allowed_file_extension)
+            if (substr($arr['at_filename'], -2) OR substr($arr['at_filename'], -3) == $allowed_file_extension)
                 $aimg = $allowed_file_extension;
         $body .= "<div style='padding:6px'>
                 <fieldset class='fieldset'>

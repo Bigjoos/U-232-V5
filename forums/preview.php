@@ -36,18 +36,16 @@ if (!defined('IN_INSTALLER09_FORUM')) {
     echo $HTMLOUT;
     exit();
 }
+$body = (isset($_POST['body']) ? htmlsafechars($_POST['body']) : '');
 $HTMLOUT .= begin_main_frame();
 $HTMLOUT .= begin_frame("Preview Post", true);
-$HTMLOUT .='<form method="post" action="preview.php">
+$HTMLOUT .='
 	<table width="80%" border="0" cellspacing="5" cellpadding="5" align="center">
 	<tr><td class="forum_head" colspan="2"><span style="font-weight: bold;">Preview</span></td></tr>
 	<tr><td width="80" valign="top" class="one">' . avatar_stuff($CURUSER) . '</td>
 	<td valign="top" align="left" class="two">' . format_comment($body) . '</td>
 	</tr></table><div align="center">
-<input type="submit" class="btn" value="Preview" />
-</div><br /><br />
-
-</form>';
+</div><br /><br />';
 $HTMLOUT .= end_frame();
 $HTMLOUT .= end_main_frame();
 echo stdhead('Preview') . $HTMLOUT . stdfoot();

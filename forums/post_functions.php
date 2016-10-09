@@ -129,7 +129,7 @@ function insert_quick_jump_menu($currentforum = 0)
     /*<![CDATA[*/
     function Preview()
     {
-    document.compose.action = './forums/preview.php'
+    document.compose.action = './forums.php?action=preview'
     document.compose.target = '_blank';
     document.compose.submit();
     return true;

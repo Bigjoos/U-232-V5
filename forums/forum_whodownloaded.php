@@ -54,6 +54,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
     <meta name='generator' content='u-232.servebeer.com' />
 	  <meta name='MSSmartTagsPreventParsing' content='TRUE' />
 		<title>Who Downloaded</title>
+    <link rel='stylesheet' href='{$INSTALLER09['baseurl']}/templates/{$CURUSER['stylesheet']}/{$CURUSER['stylesheet']}.css' type='text/css' />
     </head>
   <body>
 	<table width='100%' cellpadding='5' border='1'>

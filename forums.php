@@ -46,7 +46,7 @@ $Multi_forum['configs']['maxfilesize'] = 1024 * 1024;
 ini_set("upload_max_filesize", $Multi_forum['configs']['maxfilesize']);
 $Multi_forum['configs']['attachment_dir'] = ROOT_DIR."uploads";
 $Multi_forum['configs']['forum_width'] = '100%';
-$Multi_forum['configs']['allowed_file_extensions'] = array('rar', 'zip');
+$Multi_forum['configs']['allowed_file_extensions'] = array('rar', 'zip', 'gz');
 $Multi_forum['configs']['maxsubjectlength'] = 80;
 $Multi_forum['configs']['postsperpage'] = (empty($CURUSER['postsperpage']) ? 10 : (int)$CURUSER['postsperpage']);
 $Multi_forum['configs']['use_flood_mod'] = true;
