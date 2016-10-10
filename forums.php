@@ -31,6 +31,7 @@ require_once(INCL_DIR.'html_functions.php');
 require_once(INCL_DIR.'function_rating.php');
 dbconn(false);
 loggedinorreturn();
+flood_limit('posts');
 require_once(TEMPLATE_DIR.''.$CURUSER['stylesheet'].'' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'forums_html_functions.php');
 require_once(TEMPLATE_DIR.''.$CURUSER['stylesheet'].'' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'global_html_functions.php'); 
 require_once(TEMPLATE_DIR.''.$CURUSER['stylesheet'].'' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'navigation_html_functions.php'); 
@@ -52,7 +53,7 @@ $Multi_forum['configs']['postsperpage'] = (empty($CURUSER['postsperpage']) ? 10 
 $Multi_forum['configs']['use_flood_mod'] = true;
 $Multi_forum['configs']['minutes'] = 5;
 $Multi_forum['configs']['limit'] = 10;
-$Multi_forum['configs']['use_attachment_mod'] = false; //=== disable this feat
+$Multi_forum['configs']['use_attachment_mod'] = true; //=== disable this feat
 $Multi_forum['configs']['use_poll_mod'] = true;
 $Multi_forum['configs']['use_forum_stats_mod'] = true;
 /**

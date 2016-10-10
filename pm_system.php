@@ -25,6 +25,7 @@ require_once (CLASS_DIR . 'class_user_options.php');
 require_once (CLASS_DIR . 'class_user_options_2.php');
 dbconn(false);
 loggedinorreturn();
+flood_limit('messages');
 define('BUNNY_PM_SYSTEM', TRUE);
 /*********************************************************
 - Pm system by snuggles

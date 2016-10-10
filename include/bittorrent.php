@@ -37,6 +37,13 @@ class curuser
     public static $blocks = array();
 }
 $CURBLOCK = & curuser::$blocks;
+/*
+class curuser_mod
+{
+    public static $mod_blocks = array();
+}
+$CURMODBLOCK = & curuser_mod::$mod_blocks;
+*/
 require_once CLASS_DIR . 'class_blocks_index.php';
 require_once CLASS_DIR . 'class_blocks_stdhead.php';
 require_once CLASS_DIR . 'class_blocks_userdetails.php';
@@ -350,6 +357,7 @@ function userlogin()
             'pm_forced'
         );
         $user_fields = implode(', ', array_merge($user_fields_ar_int, $user_fields_ar_float, $user_fields_ar_str));
+        //$res = sql_query("SELECT " . $user_fields . " " . "FROM users " . "WHERE id = " . sqlesc($id) . " " . "AND enabled='yes' " . "AND status = 'confirmed'") or sqlerr(__FILE__, __LINE__);
          $res = sql_query("SELECT {$user_fields}, ann_main.subject AS curr_ann_subject, ann_main.body AS curr_ann_body " . "FROM users AS u " . "LEFT JOIN announcement_main AS ann_main " . "ON ann_main.main_id = u.curr_ann_id " . "WHERE u.id = " . sqlesc($id)." AND u.enabled='yes' AND u.status = 'confirmed'") or sqlerr(__FILE__, __LINE__);
         if (mysqli_num_rows($res) == 0) {
             $salty = md5("Th15T3xtis5add3dto66uddy6he@water..." . $row['username'] . "");
@@ -397,7 +405,7 @@ function userlogin()
             $ann_row = mysqli_fetch_assoc($result);
             $query = sqlesc($ann_row['sql_query']);
             // Ensure it only selects...
-            if (!preg_match('/\\ASELECT.+?FROM.+?WHERE.+?\\z/', $query)) die('oops');
+            if (!preg_match('/\\ASELECT.+?FROM.+?WHERE.+?\\z/', $query)) die('Oops, Query error');
             // The following line modifies the query to only return the current user
             // row if the existing query matches any attributes.
             $query .= ' AND u.id = '.sqlesc($row['id']).' LIMIT 1';
@@ -584,6 +592,23 @@ function userlogin()
         $CURBLOCK['userdetails_page'] = (int)$CURBLOCK['userdetails_page'];
         $mc1->cache_value($blocks_key, $CURBLOCK, 0);
     }
+    /*
+    // bitwise curuser mods by Bigjoos
+    $mods_blocks_key = 'mod_blocks::' . $row['id'];
+    if (($CURMODBLOCK = $mc1->get_value($mods_blocks_key)) === false) {
+        $m_sql = sql_query('SELECT * FROM mods_control WHERE userid = ' . sqlesc($row['id'])) or sqlerr(__FILE__, __LINE__);
+        if (mysqli_num_rows($m_sql) == 0) {
+            sql_query('INSERT INTO mods_control(userid) VALUES(' . sqlesc($row['id']) . ')');
+            header('Location: index.php');
+            die();
+        }
+        $CURMODBLOCK = mysqli_fetch_assoc($m_sql);
+        $CURMODBLOCK['index_page_mods'] = (int)$CURMODBLOCK['index_page_mods'];
+        $CURMODBLOCK['global_stdhead_mods'] = (int)$CURMODBLOCK['global_stdhead_mods'];
+        $CURMODBLOCK['userdetails_page_mods'] = (int)$CURMODBLOCK['userdetails_page_mods'];
+        $mc1->cache_value($mods_blocks_key, $CURMODBLOCK, 30);
+    }
+    */
     //== where is by putyn
     $where_is['username'] = htmlsafechars($row['username']);
     $whereis_array = array(
@@ -1188,7 +1213,7 @@ function flood_limit($table)
     if (!file_exists($INSTALLER09['flood_file']) || !is_array($max = unserialize(file_get_contents($INSTALLER09['flood_file'])))) return;
     if (!isset($max[$CURUSER['class']])) return;
     $tb = array(
-        'posts' => 'posts.userid',
+        'posts' => 'posts.user_id',
         'comments' => 'comments.user',
         'messages' => 'messages.sender'
     );
