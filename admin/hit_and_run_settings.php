@@ -83,7 +83,7 @@ $HTMLOUT.= "
 <!-- Set the day shits -->
 <tr><td>{$lang['hnr_settings_seed1_1']}</td><td><input type='number' name='_3day_first' min='0' max='120' step='0.5' value='" . htmlsafechars($hit_and_run_settings['_3day_first']) . "' />{$lang['hnr_settings_hours']}</td></tr>
 <tr><td>{$lang['hnr_settings_seed1_2']}</td><td><input type='number' name='_14day_first' min='0' max='120' step='0.5' value='" . htmlsafechars($hit_and_run_settings['_14day_first']) . "' />{$lang['hnr_settings_hours']}</td></tr>
-<tr><td>{$lang['hnr_settings_seed1_3']}</td><td><input type='number' name='_14day_over_first' min='0' max='120' step='0.5' value='" . htmlsafechars($hit_and_run_settings['_14day_over_first']) . "' />Hours</td></tr>
+<tr><td>{$lang['hnr_settings_seed1_3']}</td><td><input type='number' name='_14day_over_first' min='0' max='120' step='0.5' value='" . htmlsafechars($hit_and_run_settings['_14day_over_first']) . "' />{$lang['hnr_settings_hours']}</td></tr>
 
 <tr><td>{$lang['hnr_settings_seed2_1']}</td><td><input type='number' name='_3day_second' min='0' max='120' step='0.5' value='" . htmlsafechars($hit_and_run_settings['_3day_second']) . "' />{$lang['hnr_settings_hours']}</td></tr>
 <tr><td>{$lang['hnr_settings_seed2_2']}</td><td><input type='number' name='_14day_second' min='0' max='120' step='0.5' value='" . htmlsafechars($hit_and_run_settings['_14day_second']) . "' />{$lang['hnr_settings_hours']}</td></tr>
