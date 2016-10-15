@@ -115,6 +115,68 @@ function crazyhour_announce()
     } else return false;
 }
 
+function freeleech_announce() {
+   global $mc1, $INSTALLER09;  
+   if (($fl['countdown'] = $mc1->get_value('freeleech_countdown')) === false) { // pot_of_gold
+      $fl['sql'] = ann_sql_query('SELECT var, amount FROM freeleech WHERE type = "countdown"') or ann_sqlerr(__FILE__, __LINE__);
+      $fl['countdown'] = array();   
+      if (mysqli_num_rows($fl['sql']) !== 0)
+         $fl['countdown'] = mysqli_fetch_assoc($fl['sql']);
+      else {
+         $fl['countdown']['var'] = 0;
+         //$fl['countdown']['amount'] = strtotime('next Monday');  // timestamp sunday
+         $fl['countdown']['amount'] = 43200;  // timestamp test
+         ann_sql_query('UPDATE LOW_PRIORITY freeleech SET var = '.ann_sqlesc($fl['freeleech']['var']).', amount = '.ann_sqlesc($fl['countdown']['amount']).' '.
+                   'WHERE type = "countdown"') or ann_sqlerr(__FILE__, __LINE__);
+      }
+      $mc1->cache_value('freeleech_countdown', $fl['countdown'], 0);              
+   }
+
+   if (($fl['countdown']['var'] !== 0) && (TIME_NOW > ($fl['countdown']['var']))) { // end of freeleech sunday
+      if (($fc_lock = $mc1->add_value('freeleech_countdown_lock', 1, 10)) !==  false) {
+      $fl['countdown']['var'] = 0;
+      //$fl['countdown']['amount'] = strtotime('next Monday');  // timestamp sunday
+      $fl['countdown']['amount'] = 43200;  // timestamp test
+      ann_sql_query('UPDATE LOW_PRIORITY freeleech SET var = '.ann_sqlesc($fl['countdown']['var']).', amount = '.ann_sqlesc($fl['countdown']['amount']).' '.
+                  'WHERE type = "countdown"') or ann_sqlerr(__FILE__, __LINE__);
+      $mc1->begin_transaction('freeleech_countdown');
+      $mc1->update_row(false, array('var' => $fl['countdown']['var'], 'amount' => $fl['countdown']['amount']));
+      $mc1->commit_transaction(0);
+      }
+      return false;
+   }
+   elseif (TIME_NOW > ($fl['countdown']['amount'])) {
+      if ($fl['countdown']['var'] == 0) {
+         if (($cz_lock = $mc1->add_value('crazyhour_lock', 1, 10)) !== false) {
+         //$fl['countdown']['var'] = strtotime('next Monday');
+         $fl['countdown']['var'] = 43200;
+         //'.$ahead_by.'
+         //$ahead_by = readable_time(($fl['countdown']['var'] - 86400) - $fl['countdown']['amount']);
+         ann_sql_query('UPDATE LOW_PRIORITY freeleech SET var = '.ann_sqlesc($fl['countdown']['var']).' '.
+                     'WHERE type = "countdown"') or ann_sqlerr(__FILE__, __LINE__);
+
+         $mc1->begin_transaction('freeleech_countdown');
+         $mc1->update_row(false, array('var' => $fl['countdown']['var']));
+         $mc1->commit_transaction(0);
+
+         $free_message = 'It will last for xx ending on Monday 12:00 am GMT.';
+         $text         = '[color=#33CCCC][b]Freeleech Activated![/b][/color]'."\n".$free_message;
+         $text_parsed  = '<span style="color:#33CCCC;font-weight:bold;">Freeleech Activated!</span>'."\n".$free_message;
+         // log, shoutbot
+         ann_sql_query('INSERT LOW_PRIORITY INTO sitelog (added, txt) '. 
+                     'VALUES('.ann_sqlesc(TIME_NOW).', '.ann_sqlesc($text_parsed).')') or ann_sqlerr(__FILE__, __LINE__);
+
+         ann_sql_query('INSERT LOW_PRIORITY INTO shoutbox (userid, date, text, text_parsed) '.
+                     'VALUES (2, '.TIME_NOW.', '.ann_sqlesc($text).', '.ann_sqlesc($text_parsed).')') or ann_sqlerr(__FILE__, __LINE__);
+         $mc1->delete_value('shoutbox_');
+      }
+      }
+      return true;
+   }
+   else
+      return false;
+}
+
 function get_user_from_torrent_pass($torrent_pass)
 {
     global $mc1, $INSTALLER09;
@@ -368,6 +430,6 @@ function portblacklisted($port)
 }
 function ann_sqlesc($x)
 {
-    return "'" . ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x) : ((trigger_error("Error.", E_USER_ERROR)) ? "" : "")) . "'";
+    return '\'' . mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x) . '\'';
 }
 ?>
