@@ -430,6 +430,7 @@ function portblacklisted($port)
 }
 function ann_sqlesc($x)
 {
-    return '\'' . mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x) . '\'';
+    if (is_integer($x)) return (int)$x;
+    return sprintf('\'%s\'', mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x));
 }
 ?>
