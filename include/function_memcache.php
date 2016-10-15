@@ -20,7 +20,7 @@
 function remove_torrent($infohash)
 {
     global $mc1;
-    if (strlen($infohash) != 40 || !bin2hex($infohash)) return false;
+    if (strlen($infohash) != 20 || !bin2hex($infohash)) return false;
     $key = 'torrent::hash:::' . md5($infohash);
     $torrent = $mc1->get_value($key);
     if ($torrent === false) return false;
