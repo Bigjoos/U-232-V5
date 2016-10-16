@@ -37,6 +37,24 @@
 	'fm_mp_rank'    =>  "Forum rank:",
 	'fm_mp_btn'     =>  "Make forum",
 	'fm_mp_confirm' =>  "Are you sure you want to delete this forum?",
-	'fm_stdhead'    =>  "Forum Management Tools"
+	'fm_stdhead'    =>  "Forum Management Tools",
+	//additioned terms
+	'fm_mp_addfo'   =>  "Add New Forum",
+	'fm_mp_adfo'    =>  "Add!",
+	'fm_mp_over2'   =>  "Over Forum:",
+	'fm_mp_edit2'   =>  "Edited Forum:",
+	'fm_mp_confirm' =>  "Are you sure you want to delete this Forum?",
+	'fm_mp_succ'    =>  "Success",
+	'fm_mp_rdct1'   =>  "Forum was deleted! Wait till redirect...",
+	'fm_mp_rdct2'   =>  "Forum was added! Wait till redirect...",
+	'fm_mp_rdct3'   =>  "Forum was edited! Wait till redirect...",
+	'fm_mp_err1'    =>  "Err",
+	'fm_mp_err2'    =>  "Something happened! Mysql Error",
+	'fm_mp_err3'    =>  "You need to fill all the fields!",
+	'fm_mp_err4'    =>  "There are no topics, maybe you should add some!",
+	'fm_mp_warn1'   =>  "Im not sure what are you trying to do!",
+	'fm_mp_warn2'   =>  "Edit action.",
+	'fm_mp_warn3'   =>  "Fool what are you doing!?",
+	'fm_mp_warn4'   =>  "The forum your looking for does not exists!"	
 );
 ?>

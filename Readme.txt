@@ -160,7 +160,7 @@ U-232 V5
                 Install memcached and zend opcode cache before installing U-232 V5.
 
 		1. Create a directory one up from root so it resides beside it not inside it, named bucket.
-			Then inside the bucket folder make another and name it avatar.
+			Then inside the bucket folder make another and name it avatar, remember to chmod them to 777.
 			If you use your own names for those folders then you need to edit bitbucket.php and img.php defines at top of the files.
 			Then add a .htaccess and index.html files into both newly created folders.
 			Then chmod those above folders.

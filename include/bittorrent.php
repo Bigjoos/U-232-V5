@@ -889,17 +889,11 @@ function validemail($email)
 function sqlesc($x)
 {
     if (is_integer($x)) return (int)$x;
-    return sprintf('\'%s\'', ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x) : ((trigger_error("Err", E_USER_ERROR)) ? "" : "")));
+    return sprintf('\'%s\'', mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x));
 }
 function sqlwildcardesc($x)
 {
-    return str_replace(array(
-        "%",
-        "_"
-    ) , array(
-        "\\%",
-        "\\_"
-    ) , ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x) : ((trigger_error("", E_USER_ERROR)) ? "" : "")));
+    return str_replace(array('%', '_'), array('\\%', '\\_'), mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x));
 }
 function httperr($code = 404)
 {
