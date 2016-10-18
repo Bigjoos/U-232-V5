@@ -211,6 +211,16 @@ $lang = array(
     'forum_sub_cr'    =>  "Create",
     'forum_sub_in'    =>  "SubForum in:",
     'forum_sub_desc'    =>  "Description:",
-    'forum_sub_ads'    =>  "Add!"
+    'forum_sub_ads'    =>  "Add!",
+    //ADDITIONED TERMS FORUM.PHP
+    'forum_pg_inf1'    =>  "Information",
+    'forum_pg_inf2'    =>  "The forums are currently offline for maintainance work",
+    'forum_pg_warn1'    =>  "Warning",
+    'forum_pg_warn2'    =>  "Forums are currently in maintainance mode",
+    'forum_pg_srch'    =>  "Search Forums",
+    'forum_pg_new'    =>  "New Posts",
+    'forum_pg_24h'    =>  "Today's Posts [last 24h]",
+    'forum_pg_mark'    =>  "Mark all as read",
+    'forum_pg_deary'    =>  "Deary me \0/"
 );
 ?>
