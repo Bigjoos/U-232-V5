@@ -323,7 +323,7 @@ ALTER TABLE `forums` ADD `place` int(10) NOT NULL DEFAULT '-1'
 ALTER TABLE `over_forums` ADD `forum_id` tinyint(3) UNSIGNED NOT NULL DEFAULT '1'
 ALTER TABLE `posts` ADD `user_likes` text CHARACTER SET utf8 NOT NULL
 ALTER TABLE `torrents` ADD `user_likes` text CHARACTER SET utf8 NOT NULL
-ALTER TABLE `shoutbox` ADD `autoshout` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL
+ALTER TABLE `shoutbox` ADD `autoshout` ENUM('yes', 'no') NOT NULL DEFAULT 'no'
 INSERT INTO `site_config` (`name`, `value`) VALUES ('bonus_per_reseed', '10');
 ALTER TABLE `topics` ADD `user_likes` text CHARACTER SET utf8 NOT NULL
 ALTER TABLE `users` ADD `forum_mod` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no'
