@@ -217,13 +217,13 @@ CREATE TABLE IF NOT EXISTS `announcement_process` (
 -- Table structure for table `attachmentdownloads`
 --
 
-CREATE TABLE IF NOT EXISTS `attachmentdownloads` (
+CREATE TABLE `attachmentdownloads` (
   `id` int(10) UNSIGNED NOT NULL,
-  `fileid` int(10) NOT NULL DEFAULT '0',
+  `file_id` int(10) NOT NULL DEFAULT '0',
   `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
-  `userid` int(10) NOT NULL DEFAULT '0',
+  `user_id` int(10) NOT NULL DEFAULT '0',
   `date` int(11) NOT NULL DEFAULT '0',
-  `downloads` int(10) UNSIGNED NOT NULL
+  `times_downloaded` int(10) UNSIGNED NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -232,16 +232,16 @@ CREATE TABLE IF NOT EXISTS `attachmentdownloads` (
 -- Table structure for table `attachments`
 --
 
-CREATE TABLE IF NOT EXISTS `attachments` (
+CREATE TABLE `attachments` (
   `id` int(10) UNSIGNED NOT NULL,
-  `topicid` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `postid` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `filename` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `topic_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `post_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `file_name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `size` bigint(20) UNSIGNED NOT NULL DEFAULT '0',
-  `owner` int(10) UNSIGNED NOT NULL DEFAULT '0',
-  `downloads` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `user_id` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `times_downloaded` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `added` int(11) NOT NULL DEFAULT '0',
-  `type` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+  `extension` varchar(100) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -3100,15 +3100,15 @@ ALTER TABLE `announcement_process`
 --
 ALTER TABLE `attachmentdownloads`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fileid_userid` (`fileid`,`userid`);
+  ADD KEY `fileid_userid` (`file_id`,`user_id`);
 
 --
 -- Indexes for table `attachments`
 --
 ALTER TABLE `attachments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `topicid` (`topicid`),
-  ADD KEY `postid` (`postid`);
+  ADD KEY `topicid` (`topic_id`),
+  ADD KEY `postid` (`post_id`);
 
 --
 -- Indexes for table `avps`

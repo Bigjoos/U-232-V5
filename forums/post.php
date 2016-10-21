@@ -199,7 +199,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
         $tgtfile = $Multi_forum['configs']['attachment_dir']."/".$fname;
         $pp = pathinfo($fname = $file['name']);
         $error = htmlsafechars($file['error']);
-        $type = htmlsafechars($file['type']);
+        $type = htmlsafechars($file['extension']);
 
         $uploaderror = '';
 
@@ -232,7 +232,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
             $uploaderror = "There was an error while uploading the file.";
 
         if (empty($uploaderror)) {
-            sql_query("INSERT INTO attachments (topicid, postid, filename, size, owner, added, type) VALUES (".sqlesc($topicid).",".sqlesc($postid).", ".sqlesc($fname).", ".sqlesc($size).", ".sqlesc($userid).", ".TIME_NOW.", ".sqlesc($type).")") or sqlerr(__FILE__, __LINE__);
+            sql_query("INSERT INTO attachments (topic_id, post_id, file_name, size, user_id, added, extension) VALUES (".sqlesc($topicid).",".sqlesc($postid).", ".sqlesc($fname).", ".sqlesc($size).", ".sqlesc($userid).", ".TIME_NOW.", ".sqlesc($type).")") or sqlerr(__FILE__, __LINE__);
         move_uploaded_file($tmpname, $tgtfile);
         }
     }
