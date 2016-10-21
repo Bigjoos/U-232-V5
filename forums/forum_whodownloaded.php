@@ -40,10 +40,10 @@ if (!defined('IN_INSTALLER09_FORUM')) {
 	$fileid = (int)$_GET['fileid'];
 	if (!is_valid_id($fileid))
 		die('Invalid ID!');
-	$res = sql_query("SELECT fileid, at.filename, userid, username, atdl.downloads, date, at.downloads AS dl ".
+	$res = sql_query("SELECT file_id, at.file_name, at.user_id, username, atdl.times_downloaded, date, at.times_downloaded AS dl ".
 					   "FROM attachmentdownloads AS atdl ".
-					   "LEFT JOIN attachments AS at ON at.id=atdl.fileid ".
-					   "WHERE fileid = ".sqlesc($fileid).($CURUSER['class'] < UC_STAFF ? " AND owner=".sqlesc($CURUSER['id']) : '')) or sqlerr(__FILE__, __LINE__);
+					   "LEFT JOIN attachments AS at ON at.id=atdl.file_id ".
+					   "WHERE file_id = ".sqlesc($fileid).($CURUSER['class'] < UC_STAFF ? " AND user_id=".sqlesc($CURUSER['id']) : '')) or sqlerr(__FILE__, __LINE__);
 	if (mysqli_num_rows($res) == 0)
 	die("<h2 align='center'>Nothing found!</h2>");
 	else
@@ -68,12 +68,12 @@ if (!defined('IN_INSTALLER09_FORUM')) {
 	while ($arr = mysqli_fetch_assoc($res))
 	{
 	$HTMLOUT .="<tr align='center'>".
-				 "<td>".htmlsafechars($arr['filename'])."</td>".
-				 "<td><a class='pointer' onclick=\"opener.location=('/userdetails.php?id=".(int)$arr['userid']."'); self.close();\">".htmlsafechars($arr['username'])."</a></td>".
-				 "<td>".(int)$arr['downloads']."</td>".
+				 "<td>".htmlsafechars($arr['file_name'])."</td>".
+				 "<td><a class='pointer' onclick=\"opener.location=('/userdetails.php?id=".(int)$arr['user_id']."'); self.close();\">".htmlsafechars($arr['username'])."</a></td>".
+				 "<td>".(int)$arr['times_downloaded']."</td>".
 				 "<td>".get_date($arr['date'], 'DATE',1,0)." (".get_date($arr['date'], 'DATE',1,0).")</td>".
 				 "</tr>";
-	  $dls += (int)$arr['downloads'];
+	  $dls += (int)$arr['times_downloaded'];
 		}
 		$HTMLOUT .="<tr><td colspan='4'><b>Total Downloads:</b><b>".number_format($dls)."</b></td></tr></table></body></html>";
 	}

@@ -1,3 +1,36 @@
+CREATE TABLE `attachmentdownloads` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `file_id` int(10) NOT NULL DEFAULT '0',
+  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `user_id` int(10) NOT NULL DEFAULT '0',
+  `date` int(11) NOT NULL DEFAULT '0',
+  `times_downloaded` int(10) UNSIGNED NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+--
+-- Indexes for table `attachmentdownloads`
+--
+ALTER TABLE `attachmentdownloads`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fileid_userid` (`file_id`,`user_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+--
+-- AUTO_INCREMENT for table `attachmentdownloads`
+--
+ALTER TABLE `attachmentdownloads`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `attachments` ADD `topic_id` int(10) UNSIGNED NOT NULL DEFAULT '0'
+
+ALTER TABLE `attachments` ADD `extension2` varchar(100) COLLATE utf8_unicode_ci NOT NULL
+
+UPDATE attachments_orig SET extension2='application/zip' WHERE extension='zip'
+
+UPDATE attachments_orig SET extension2='application/rar' WHERE extension='rar'
+
+-- Then delete extension column, then rename extension2 to extension
 -- --------------------------------------------------------
 
 --
@@ -76,6 +109,16 @@ INSERT INTO `faq` (`id`, `type`, `title`, `text`) VALUES
 (58, 9, 'What if I can\'t find the answer to my problem here?', 'Post in the <a class=\'altlink\' href=\'./forums.php\'>Forums</a>, by all means. You\'ll find they are usually a friendly and helpful place, provided you follow a few basic guidelines:\r\n<ul>\r\n<li>Make sure your problem is not really in this FAQ. There\'s no point in posting just to be sent back here.</li>\r\n<li>Before posting read the sticky topics (the ones at the top). Many times new information that still hasn\'t been incorporated in the FAQ can be found there.</li>\r\n<li>Help us in helping you. Do not just say \'it doesn\'t work!\'. Provide details so that we don\'t have to guess or waste time asking. What client do you use? What\'s your OS? What\'s your network setup? What\'s the exact error message you get, if any? What are the torrents you are having problems with? The more you tell the easier it will be for us, and the more probable your post will get a reply.</li>\r\n<li>And needless to say: be polite. Demanding help rarely works, asking for it usually does  the trick.</li>');
 
 -- --------------------------------------------------------
+--
+-- Indexes for table `faq`
+--
+ALTER TABLE `faq`
+  ADD PRIMARY KEY (`id`);
+--
+-- AUTO_INCREMENT for table `faq`
+--
+ALTER TABLE `faq`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- Table structure for table `faq_cat`
@@ -104,6 +147,17 @@ INSERT INTO `faq_cat` (`id`, `name`, `shortcut`, `min_view`) VALUES
 (8, 'Connection Problems', 'connect', 0),
 (9, 'Can\'t Find Answer?', 'answer', 0);
 
+--
+-- Indexes for table `faq_cat`
+--
+ALTER TABLE `faq_cat`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `shortcut` (`shortcut`);
+--
+-- AUTO_INCREMENT for table `faq_cat`
+--
+ALTER TABLE `faq_cat`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 -- --------------------------------------------------------
 
 --
@@ -139,7 +193,18 @@ CREATE TABLE IF NOT EXISTS `postpollanswers` (
   `userid` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `selection` tinyint(3) UNSIGNED NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+--
+-- Indexes for table `postpollanswers`
+--
+ALTER TABLE `postpollanswers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `pollid` (`pollid`);
 
+--
+-- AUTO_INCREMENT for table `postpollanswers`
+--
+ALTER TABLE `postpollanswers`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 -- --------------------------------------------------------
 
 --
@@ -172,7 +237,16 @@ CREATE TABLE IF NOT EXISTS `postpolls` (
   `option19` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `sort` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no'
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
+--
+-- Indexes for table `postpolls`
+--
+ALTER TABLE `postpolls`
+  ADD PRIMARY KEY (`id`);
+--
+-- AUTO_INCREMENT for table `postpolls`
+--
+ALTER TABLE `postpolls`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 -- --------------------------------------------------------
 --
 -- Table structure for table `releases`
@@ -210,7 +284,16 @@ INSERT INTO `rules` (`id`, `type`, `title`, `text`) VALUES
 (3, 3, 'Uploaders Rules', 'All uploaders are subject to follow the below rules in order to be a part of the  uploader team. We realize that it\'s quite a list, and for new uploaders, it might seem a bit overwhelming, but as you spend time here, they\'ll become second hat.\r\n\r\nTo apply to become a site uploader use the uploaders application form, contact staff to get the link.\r\n\r\nTorrents that do not follow the rules below will be deleted.  If you have any questions about the below rules, please feel free to PM them and I will clarify as best I can.\r\n\r\nWelcome to the team and happy uploading!\r\n\r\n<ul>\r\n<li>All Uploaders must upload a minimum of 3 unique torrents each week to retain their Uploader status.</li>\r\n<li>Failure to comply will result in a demotion, and a minimum of a 2 week blackout period where they will not be able to return to the Uploader team.</li>  \r\n<li>If, after the 2 weeks, the Uploader can prove they will be active, they will be reinstated.</li>  \r\n<li>A second instance of inactivity will be cause for permanent removal from the Uploader team.</li>\r\n<li>Extenuating circumstances will be considered if it is the cause of inactivity.  If you are going to be away, please let a staff member know so that your account is not affected.</li>\r\n<li>All torrents must be rarred, no matter what the size or type.  The ONLY exception to this is MP3s.</li>\r\n</ul>'),
 (4, 5, 'Free leech rules', '<ul>\r\n<li>From time to time we will have freeleech for 48hours. This means that when you download from site it will not count against your download ratio.</li>\r\n<li>Whatever you seed back will add to your upload ratio.</li>\r\n<li>This is a good opportunity for members with ratio\'s below 1.0 to bring them back into line</li>\r\n<li>Anyone who hit and runs on a freeleech torrent will receive a mandatory 2 week warning. You must seed all torrents downloaded to 100% or for a minimum of 48 hours this is for free leech torrents only.</li>\r\n</ul>\r\n\r\n'),
 (5, 4, 'Downloading rules', '<ul>\r\n<li>No comments on torrents you are not about to download.</li>\r\n<li>Once download is complete, remember to seed for as long as possible or for a minimum of 36 hours or a ratio of 1:1</li>\r\n<li>Low ratios will be given the three strike warning from staff and can lead to a total ban.</li>\r\n</ul>');
-
+--
+-- Indexes for table `rules`
+--
+ALTER TABLE `rules`
+  ADD PRIMARY KEY (`id`);
+--
+-- AUTO_INCREMENT for table `rules`
+--
+ALTER TABLE `rules`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 -- --------------------------------------------------------
 
 --
@@ -234,7 +317,18 @@ INSERT INTO `rules_cat` (`id`, `name`, `shortcut`, `min_view`) VALUES
 (3, 'Uploaders Rules', 'uploaders', 3),
 (4, 'Downloading rules', 'downloading', 0),
 (5, 'Free leech rules', 'freeleech', 0);
+--
+-- Indexes for table `rules_cat`
+--
+ALTER TABLE `rules_cat`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `shortcut` (`shortcut`);
 
+--
+-- AUTO_INCREMENT for table `rules_cat`
+--
+ALTER TABLE `rules_cat`
+  MODIFY `id` int(3) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 -- --------------------------------------------------------
 
 /* drop staffpanel table and replace with this */
