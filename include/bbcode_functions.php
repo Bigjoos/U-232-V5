@@ -93,7 +93,7 @@ function _strlastpos($haystack, $needle, $offset = 0)
     return ($endPos >= 0) ? $endPos : false;
 }
 function validate_imgs($s){
-    $start = "http://";
+    $start = "(http|https)://";
     $end = "+\.(?:jpe?g|png|gif)";
     preg_match_all("!" . $start . "(.*)" . $end . "!Ui", $s, $result);
     $array = $result[0];
@@ -166,7 +166,7 @@ function islocal($link)
         $title = trim($link[2]);
         if (false !== stristr($link[2], '[img]')) {
             $flag = true;
-            $title = preg_replace("/\[img](http:\/\/[^\s'\"<>]+(\.(jpg|gif|png)))\[\/img\]/i", "<img src=\"\\1\" alt=\"\" border=\"0\" />", $title);
+            $title = preg_replace("/\[img]((http|https):\/\/[^\s'\"<>]+(\.(jpg|gif|png)))\[\/img\]/i", "<img src=\"\\1\" alt=\"\" border=\"0\" />", $title);
         }
     } elseif (false !== stristr($link[0], '[url]')) $url = $title = trim($link[1]);
     else $url = $title = trim($link[2]);
