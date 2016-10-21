@@ -413,6 +413,7 @@ INSERT INTO `staffpanel` (`id`, `page_name`, `file_name`, `description`, `type`,
 
 /* end staffpanel update */
 
+ALTER TABLE `categories` ADD  `min_class` int(2) NOT NULL DEFAULT '0'
 ALTER TABLE `forums` ADD `place` int(10) NOT NULL DEFAULT '-1'
 ALTER TABLE `over_forums` ADD `forum_id` tinyint(3) UNSIGNED NOT NULL DEFAULT '1'
 ALTER TABLE `posts` ADD `user_likes` text CHARACTER SET utf8 NOT NULL
