@@ -199,7 +199,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
         $tgtfile = $Multi_forum['configs']['attachment_dir']."/".$fname;
         $pp = pathinfo($fname = $file['name']);
         $error = htmlsafechars($file['error']);
-        $type = htmlsafechars($file['extension']);
+        $type = htmlsafechars($file['type']);
 
         $uploaderror = '';
 
