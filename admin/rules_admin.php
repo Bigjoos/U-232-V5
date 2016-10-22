@@ -35,10 +35,11 @@ require_once(INCL_DIR . 'password_functions.php');
 require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
+$mc1->delete_value('rules__');
 
 $lang = array_merge($lang, load_language('ad_rules'));
 
-$params         = array_merge($_GET, $_POST);
+$params = array_merge($_GET, $_POST);
 $params['mode'] = isset($params['mode']) ? htmlsafechars($params['mode']) : '';
 switch ($params['mode']) {
     case 'cat_new':
@@ -122,6 +123,7 @@ function Do_show()
 // ===added delete
 function Do_Rules_Delete()
 {
+    global $mc1;
     if (!isset($_POST['fdata']) OR !is_array($_POST['fdata']))
         stderr("Error", "Bad data!");
     $id = array();
@@ -133,13 +135,14 @@ function Do_Rules_Delete()
     if (!count($id))
         stderr("Error", "No rules selected!");
     sql_query("DELETE FROM rules WHERE id IN( " . implode(',', $id) . " )") or sqlerr(__FILE__, __LINE__);
-    $mc1 -> delete_value('rules__');
+    $mc1->delete_value('rules__');
     header("Refresh: 3; url=staffpanel.php?tool=rules_admin");
     stderr("Info", "Rules successfully Deleted! Please wait while you are redirected.");
 }
 // ====end
 function Cat_Delete($chk = false)
 {
+    global $mc1;
     $id = isset($_GET['catid']) ? (int) $_GET['catid'] : 0;
     if (!is_valid_id($id))
         stderr("Error", "Bad ID!");
@@ -150,14 +153,14 @@ or <a href='staffpanel.php?tool=rules_admin'><span style='font-weight: bold; col
     }
     sql_query("DELETE FROM rules WHERE type = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     sql_query("DELETE FROM rules_cat WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-    $mc1 -> delete_value('rules__');
+    $mc1->delete_value('rules__');
     header("Refresh: 3; url=staffpanel.php?tool=rules_admin");
     stderr("Info", "Rules category deleted successfully! Please wait while you are redirected.");
 }
 function Show_Cat_Edit_Form()
 {
     global $lang, $CURUSER;
-    $htmlout  = '';
+    $htmlout = '';
     $maxclass = intval($CURUSER['class']);
     if (!isset($_GET['catid']) || empty($_GET['catid']) || !is_valid_id($_GET['catid']))
         $htmlout .= Do_Error("Error", "No Section selected");
@@ -165,7 +168,7 @@ function Show_Cat_Edit_Form()
     $sql = sql_query("SELECT * FROM rules_cat WHERE id = " . sqlesc($cat_id)) or sqlerr(__FILE__, __LINE__);
     if (!mysqli_num_rows($sql))
         stderr("SQL Error", "Nothing doing here!");
-    $htmlout .="<table class='table table-bordered table-striped'>
+    $htmlout .= "<table class='table table-bordered table-striped'>
                 <tr>
                 <td class='colhead'>Name</td>
                 <td class='colhead'>Shortcut</td>
@@ -177,9 +180,10 @@ function Show_Cat_Edit_Form()
         <input type='hidden' name='cat' value='" . intval($row['id']) . "' />
         <tr><td><input type='text' value='" . htmlsafechars($row['name']) . "' name='name' style='width:380px;' /></td>
         <td><input type='text' value='" . htmlsafechars($row['shortcut']) . "' name='shortcut' style='width:380px;' /></td>
+
         <td><select name='min_view'>";
         for ($i = 0; $i <= $maxclass; ++$i) {
-            $htmlout .= '<option value="' . $i . '">' . get_user_class_name($i) . '</option>';
+            $htmlout .= '<option value="' . $i . '"'.($row['min_view'] == $i ? " selected='selected'" : "").'">' . get_user_class_name($i) . '</option>';
         }
         $htmlout .= "</select></td>
         <td colspan='4'><input type='submit' name='submit' value='Edit' class='button' /></td>
@@ -192,7 +196,7 @@ function Show_Cat_Edit_Form()
 function Show_Rules_Edit()
 {
     global $lang, $CURUSER;
-    $htmlout  = '';
+    $htmlout = '';
     $maxclass = $CURUSER['class'];
     if (!isset($_GET['catid']) || empty($_GET['catid']) || !is_valid_id($_GET['catid']))
         stderr("Error", "No Section selected");
@@ -225,7 +229,8 @@ function Show_Rules_Edit()
 }
 function Do_Rules_Update()
 {
-    $time      = TIME_NOW;
+    global $mc1;
+    $time = TIME_NOW;
     $updateset = array();
     if (!isset($_POST['fdata']) || !is_array($_POST['fdata']))
         stderr("Error", "Don't leave any fields blank");
@@ -236,26 +241,27 @@ function Do_Rules_Update()
                 'title',
                 'text'
             ) as $x) {
-                isset($v[$x]) AND !empty($v[$x]) ? $holder .= "{$x} = " . sqlesc(strip_tags($v[$x])) . ", " : stderr('Error', "{$x} is empty");
+                isset($v[$x]) AND !empty($v[$x]) ? $holder .= "{$x} = " . sqlesc($v[$x]) . ", " : stderr('Error', "{$x} is empty");
             }
             $holder = substr($holder, 0, -1);
-            $holder = rtrim($holder,',');
+            $holder = rtrim($holder, ',');
             $updateset[] = "UPDATE rules SET {$holder} WHERE id = " . sqlesc(intval($v['rules_id']));
         }
     }
-
+    
     foreach ($updateset as $x) {
         sql_query($x) or sqlerr(__FILE__, __LINE__);
     }
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
-    stderr("SQL Error", "Update failed");
+        stderr("SQL Error", "Update failed");
     header("Refresh: 3; url=staffpanel.php?tool=rules_admin");
-    $mc1 -> delete_value('rules__');
+    $mc1->delete_value('rules__');
     stderr("Info", "Updated successfully! Please wait while you are redirected.");
 }
 function Do_Cat_Update()
 {
-    $cat_id         = (int) $_POST['cat'];
+    global $mc1;
+    $cat_id = (int) $_POST['cat'];
     $min_view = sqlesc(intval($_POST['min_view']));
     if (!is_valid_id($cat_id))
         stderr("Error", "No values");
@@ -263,56 +269,56 @@ function Do_Cat_Update()
         stderr("Error", "No value or value too big");
     if (empty($_POST['shortcut']) || (strlen($_POST['shortcut']) > 100))
         stderr("Error", "No value or value too big");
-    $sql = "UPDATE rules_cat SET name = " . sqlesc(strip_tags($_POST['name'])) . ", shortcut = " . sqlesc(strip_tags($_POST['shortcut'])) . ", min_view=$min_view WHERE id=" . sqlesc($cat_id);
+    $sql = "UPDATE rules_cat SET name = " . sqlesc(strip_tags($_POST['name'])) . ", shortcut = " . sqlesc($_POST['shortcut']) . ", min_view=$min_view WHERE id=" . sqlesc($cat_id);
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
         stderr("Warning", "Could not carry out that request");
     header("Refresh: 3; url=staffpanel.php?tool=rules_admin");
-    $mc1 -> delete_value('rules__');
+    $mc1->delete_value('rules__');
     stderr("Info", "Updated successfully! Please wait while you are redirected.");
 }
 function Do_Cat_Add()
 {
-    global $INSTALLER09;
+    global $INSTALLER09, $mc1;
     $htmlout = '';
     if (empty($_POST['name']) || strlen($_POST['name']) > 100)
         stderr("Error", "Field is blank or length too long!");
     if (empty($_POST['shortcut']) || strlen($_POST['shortcut']) > 100)
         stderr("Error", "Field is blank or length too long!");
-    $cat_name       = sqlesc(strip_tags($_POST['name']));
-    $cat_scut       = sqlesc(strip_tags($_POST['shortcut']));
+    $cat_name = sqlesc(strip_tags($_POST['name']));
+    $cat_scut = sqlesc(strip_tags($_POST['shortcut']));
     $min_view = sqlesc(strip_tags($_POST['min_view']));
-    $sql            = "INSERT INTO rules_cat (name, shortcut, min_view) VALUES ($cat_name, $cat_scut, $min_view)";
+    $sql = "INSERT INTO rules_cat (name, shortcut, min_view) VALUES ($cat_name, $cat_scut, $min_view)";
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
         stderr("Warning", "Couldn't forefill that request");
-    $mc1 -> delete_value('rules__');
+    $mc1->delete_value('rules__');
     $htmlout .= New_Cat_Form(1);
     echo stdhead("Add New Title") . $htmlout . stdfoot();
     exit();
 }
 function Do_Rules_Add()
 {
-    global $lang;
+    global $lang, $mc1;
     $cat_id = sqlesc(intval($_POST['cat']));
     if (!is_valid_id($cat_id))
         stderr("Error", "No id");
     if (empty($_POST['title']) || empty($_POST['text']) || strlen($_POST['title']) > 100)
         stderr("Error", "Field is blank or length too long! <a href='staffpanel.php?tool=rules_admin'>Go Back</a>");
     $title = sqlesc(strip_tags($_POST['title']));
-    $text    = sqlesc(strip_tags($_POST['text']));
-    $sql     = "INSERT INTO rules (type, title, text) VALUES ($cat_id, $title, $text)";
+    $text = sqlesc($_POST['text']);
+    $sql = "INSERT INTO rules (type, title, text) VALUES ($cat_id, $title, $text)";
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
         stderr("Warning", "Couldn't forefill that request");
-    $mc1 -> delete_value('rules__');
+    $mc1->delete_value('rules__');
     New_Rules_Form(1);
     exit();
 }
 function New_Cat_Form()
 {
     global $CURUSER, $lang;
-    $htmlout  = '';
+    $htmlout = '';
     $maxclass = $CURUSER['class'];
     $htmlout .= "<h2>Add A New Title</h2>
 <form class='form-inline' name='inputform' method='post' action='staffpanel.php?tool=rules_admin'>
@@ -350,7 +356,7 @@ function New_Rules_Form()
 <select class='form-control' name='cat'>
 <option value=''>--Select--</option>";
     while ($v = mysqli_fetch_assoc($sql)) {
-        $htmlout .= "<option value='".intval($v['id'])."'>".htmlsafechars($v['name'])."</option>";
+        $htmlout .= "<option value='" . intval($v['id']) . "'>" . htmlsafechars($v['name']) . "</option>";
     }
     $htmlout .= "</select><br /><br />
 <textarea name='text' rows='15' cols='20' class='textbox' style='width:650px;'>

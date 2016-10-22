@@ -130,7 +130,7 @@ if (($torrents = $mc1->get_value('torrent_details_' . $id)) === false) {
         'user_likes'
     );
     $tor_fields = implode(', ', array_merge($tor_fields_ar_int, $tor_fields_ar_str));
-    $result = sql_query("SELECT " . $tor_fields . ", LENGTH(nfo) AS nfosz, IF(num_ratings < {$INSTALLER09['minvotes']}, NULL, ROUND(rating_sum / num_ratings, 1)) AS rating FROM torrents WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
+    $result = sql_query("SELECT " . $tor_fields . ", (SELECT MAX(id) FROM torrents ) as max_id, (SELECT MIN(id) FROM torrents) as min_id, LENGTH(nfo) AS nfosz, IF(num_ratings < {$INSTALLER09['minvotes']}, NULL, ROUND(rating_sum / num_ratings, 1)) AS rating FROM torrents WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $torrents = mysqli_fetch_assoc($result);
     foreach ($tor_fields_ar_int as $i) $torrents[$i] = (int)$torrents[$i];
     foreach ($tor_fields_ar_str as $i) $torrents[$i] = $torrents[$i];
@@ -293,8 +293,16 @@ if ($CURUSER['class'] >= UC_STAFF) {
     if (isset($_GET["clearchecked"]) && $_GET["clearchecked"] == 'done') $HTMLOUT.= "<div class='alert alert-success span11' align='center'><h2><a name='Success'>Successfully un-checked {$CURUSER['username']}!</a></h2></div>";
 }
 // end
+$prev_id = ($id - 1);
+         $next_id = ($id + 1);
 $s = htmlsafechars($torrents["name"], ENT_QUOTES);
 $HTMLOUT.= "<div class='container' ><div class='pull-left'><h1>$s</h1>\n";
+if($torrents["id"] != $torrents["min_id"])
+        $HTMLOUT .= "<a href='details.php?id={$prev_id}'><b>[Prev Torrent]</b></a>";
+        $HTMLOUT .= "<a href='browse.php'><b>  [Return]</b></a>";
+        if($torrents["id"] != $torrents["max_id"])
+        $HTMLOUT .= "<a href='details.php?id={$next_id}'><b>  [Next Torrent]</b></a>";
+        $HTMLOUT .= "<br />";
 $HTMLOUT.= "<h2><a href='random.php'>" . (!isset($_GET['random']) ? '[Random Any]' : '<span style="color:#3366FF;">[Random Any]</span>') . "</a></h2>";
 //Thumbs Up
 if (($thumbs = $mc1->get_value('thumbs_up_' . $id)) === false) {
@@ -729,7 +737,7 @@ $keys['Snatched_Count'] = $Which_Key_ID . $id;
     if (($Row_Count = $mc1->get_value($keys['Snatched_Count'])) === false) {
 $Count_Q = sql_query("SELECT COUNT($Which_ID) FROM $What_Table $What_Value AND $Which_T_ID =" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 $Row_Count = mysqli_fetch_row($Count_Q);
-$mc1->cache_value($keys['Snatched_Count'], $Row_Count, 10);  //== test val 10 secs
+$mc1->cache_value($keys['Snatched_Count'], $Row_Count, $INSTALLER09['expires']['details_snatchlist']);
 }
 $Count = $Row_Count[0];
 $perpage = 15;
@@ -739,18 +747,18 @@ $HTMLOUT.= "
 
 if (($Detail_Snatch = $mc1->get_value($What_cache . $id)) === false) {
     if (XBT_TRACKER == true) {
-     //== \\0// - verify this
+     //== \\0//
       $Main_Q = sql_query("SELECT x.*, x.uid AS su, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, owner FROM xbt_files_users AS x INNER JOIN users ON x.uid = users.id INNER JOIN torrents ON x.fid = torrents.id WHERE completedtime !=0 AND fid = " . sqlesc($id) . " ORDER BY completedtime DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
 } else {
       $Main_Q = sql_query("SELECT s.*, s.userid AS su, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, timesann, owner FROM snatched AS s INNER JOIN users ON s.userid = users.id INNER JOIN torrents ON s.torrentid = torrents.id WHERE complete_date !=0 AND torrentid = " . sqlesc($id) . " ORDER BY complete_date DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
 }
     while ($snatched_torrent = mysqli_fetch_assoc($Main_Q)) $Detail_Snatch[] = $snatched_torrent;
-    $mc1->cache_value($What_cache . $id, $Detail_Snatch, 10); //== test val 10 secs
+    $mc1->cache_value($What_cache . $id, $Detail_Snatch, $INSTALLER09['expires']['details_snatchlist']);
 }
 
 if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
     if ($Count > $perpage) $HTMLOUT.= $pager['pagertop'];
- //== \\0// - verify this
+ //== \\0//
  if (XBT_TRACKER == true) {
     $snatched_torrent = "
 <table class='table-bordered'>
@@ -758,12 +766,14 @@ if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
 <td class='colhead' align='left'>{$lang['details_snatches_username']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_uploaded']}</td>
 " . ($INSTALLER09['ratio_free'] ? "" : "<td class='colhead' align='right'>{$lang['details_snatches_downloaded']}</td>") . "
-<td class='colhead' align='right'>{$lang['details_snatches_completed']}</td>
+<td class='colhead' align='right'>{$lang['details_snatches_ratio']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_seedtime']}</td>
 <td class='colhead' align='right'>{$lang['details_snatches_leechtime']}</td>
 <td class='colhead' align='center'>{$lang['details_snatches_lastaction']}</td>
 <td class='colhead' align='center'>{$lang['details_snatches_completedat']}</td>
 <td class='colhead' align='center'>{$lang['details_snatches_announced']}</td>
+<td class='colhead' align='center'>{$lang['details_snatches_active']}</td>
+<td class='colhead' align='right'>{$lang['details_snatches_completed']}</td>
 </tr>\n";
     } else {
     $snatched_torrent = "
@@ -791,18 +801,24 @@ if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
         foreach ($Detail_Snatch as $D_S) {
           
 if (XBT_TRACKER == true) {
-           //== \\0// - verify this
+           //== \\0//
+           $ratio = ($D_S["downloaded"] > 0 ? number_format($D_S["uploaded"] / $D_S["downloaded"], 3) : ($D_S["uploaded"] > 0 ? "Inf." : "---"));
+           $active = ($D_S['active'] == 1 ? $active = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_tick.gif' alt='Yes' title='Yes' />" : $active = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_cross.gif' alt='No' title='No' />");
+           $completed = ($D_S['completed'] >= 1 ? $completed = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_tick.gif' alt='Yes' title='Yes' />" : $completed = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_cross.gif' alt='No' title='No' />");
            $snatchuserxbt = (isset($D_S['username2']) ? ("<a href='userdetails.php?id=" . (int)$D_S['uid'] . "'><b>" . htmlsafechars($D_S['username2']) . "</b></a>") : "{$lang['details_snatches_unknown']}");
-           $username_xbt = (($D_S['anonymous2'] == 'yes' OR $D_S['paranoia'] >= 2) ? ($CURUSER['class'] < UC_STAFF && $D_S['uid'] != $CURUSER['id'] ? '' : $snatchuser . ' - ') . "<i>{$lang['details_snatches_anon']}</i>" : $snatchuser);
+           $username_xbt = (($D_S['anonymous2'] == 'yes' OR $D_S['paranoia'] >= 2) ? ($CURUSER['class'] < UC_STAFF && $D_S['uid'] != $CURUSER['id'] ? '' : $snatchuserxbt . ' - ') . "<i>{$lang['details_snatches_anon']}</i>" : $snatchuserxbt);
            $snatched_torrent.= "<tr>
-                                 <td align='left'><font size='2%'>{$username}</font></td>
+                                 <td align='left'><font size='2%'>{$username_xbt}</font></td>
                                  <td align='right'><font size='2%'>" . mksize($D_S["uploaded"]) . "</font></td>
   " . ($INSTALLER09['ratio_free'] ? "" : "<td align='right'><font size='2%'>" . mksize($D_S["downloaded"]) . "</font></td>") . "
+                                 <td align='right'><font size='2%'>" . htmlsafechars($ratio) . "</font></td>
                                  <td align='right'><font size='2%'>" . mkprettytime($D_S["seedtime"]) . "</font></td>
                                  <td align='right'><font size='2%'>" . mkprettytime($D_S["leechtime"]) . "</font></td>
                                  <td align='center'><font size='2%'>" . get_date($D_S["mtime"], '', 0, 1) . "</font></td>
                                  <td align='center'><font size='2%'>" . get_date($D_S["completedtime"], '', 0, 1) . "</font></td>
                                  <td align='center'><font size='2%'>" . (int)$D_S["announced"] . "</font></td>
+                                 <td align='center'><font size='2%'>" . $active . "</font></td>
+                                 <td align='center'><font size='2%'>" . $completed . "</font></td>
         </tr>\n";
 
 } else {

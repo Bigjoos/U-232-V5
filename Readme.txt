@@ -89,7 +89,7 @@ PHP7-IGBINARY
 PHP7-JSON
 PHP7-MEMCACHED
 PHP7-MSGPACK
-PHP7-MYCRYPT
+PHP7-MCRYPT
 PHP7-MYSQL/MYSQLI
 PHP7-MBSTRING
 PHP7-GD
@@ -128,9 +128,6 @@ Mysql 5.5.50-0
 		wget https://github.com/whocares-openscene/u-232-xbt/raw/master/xbt.tar.gz
                 tar xfz xbt.tar.gz
 		cd xbt/Tracker
-
-	Replace server.h and server.cpp and add xbt_tracker.conf from the U-232 V4 archive then run
-
 		./make.sh
 
 	[remember to add your mysql connect details TO xbt_tracker.conf]
@@ -163,7 +160,7 @@ U-232 V5
                 Install memcached and zend opcode cache before installing U-232 V5.
 
 		1. Create a directory one up from root so it resides beside it not inside it, named bucket.
-			Then inside the bucket folder make another and name it avatar.
+			Then inside the bucket folder make another and name it avatar, remember to chmod them to 777.
 			If you use your own names for those folders then you need to edit bitbucket.php and img.php defines at top of the files.
 			Then add a .htaccess and index.html files into both newly created folders.
 			Then chmod those above folders.

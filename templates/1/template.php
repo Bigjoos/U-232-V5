@@ -269,7 +269,7 @@ $htmlout .='
     require_once (BLOCK_DIR.'global/freeleech_contribution.php');
     }
     $htmlout.= "</ul></div></div><br />";
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_STAFFTOOLS && $BLOCKS['global_staff_tools_on']) {
+    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_STAFFTOOLS && $BLOCKS['global_staff_tools_on'] && $CURUSER['class'] >= UC_STAFF) {
     require_once (BLOCK_DIR.'global/staff_tools.php');
     }
     }
@@ -296,7 +296,11 @@ $htmlout .='
     $MemStat = (PHP_VERSION_ID < REQUIRED_PHP_VER ? $mc1->getStats() : $mc1->getStats()["127.0.0.1:11211"]);
     if (($MemStats = $mc1->get_value('mc_hits')) === false) {
         $MemStats =  $MemStat;
-        $MemStats['Hits'] = (($MemStats['get_hits'] / $MemStats['cmd_get'] < 0.7) ? '' : number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3));
+        if ($MemStats['cmd_get'] != 0) {
+            $MemStats['Hits'] = (($MemStats['get_hits'] / $MemStats['cmd_get'] < 0.7) ? '' : number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3));
+        } else {
+            $MemStats['Hits'] = '';
+        }
         $mc1->cache_value('mc_hits', $MemStats, 10);
     }
     // load averages - pdq
@@ -391,6 +395,41 @@ function StatusBar()
     $upped = mksize($CURUSER['uploaded']);
     $downed = mksize($CURUSER['downloaded']);
     $connectable = "";
+    if ($CURUSER['class'] < UC_VIP && $INSTALLER09['max_slots']) {
+    $ratioq = (($CURUSER['downloaded'] > 0) ? ($CURUSER['uploaded'] / $CURUSER['downloaded']) : 1);
+if ($ratioq < 0.95) {
+	switch (true) {
+		case ($ratioq < 0.5):
+		$max = 2;
+		break;
+		case ($ratioq < 0.65):
+		$max = 3;
+		break;
+		case ($ratioq < 0.8):
+		$max = 5;
+		break;
+		case ($ratioq < 0.95):
+		$max = 10;
+		break;
+		default:
+	   $max = 10;
+	}
+ }
+ else {
+ switch ($CURUSER['class']) {
+		case UC_USER:
+		$max = 20;
+		break;
+		case UC_POWER_USER:
+		$max = 30;
+		break;
+		default:
+	   $max = 99;
+	}	
+ }   
+}
+else
+$max = 999;
     //==Memcache unread pms
     $PMCount = 0;
     if (($unread1 = $mc1->get_value('inbox_new_sb_' . $CURUSER['id'])) === false) {
@@ -460,7 +499,7 @@ function StatusBar()
     $usrclass = $StatusBar = "";
     if ($CURUSER['override_class'] != 255) $usrclass = "&nbsp;<b>[" . get_user_class_name($CURUSER['class']) . "]</b>&nbsp;";
     else if ($CURUSER['class'] >= UC_STAFF) $usrclass = "&nbsp;<a href='".$INSTALLER09['baseurl']."/setclass.php'><b>[" . get_user_class_name($CURUSER['class']) . "]</b></a>&nbsp;";
-    $StatusBar.= "<div class='text-center'>Welcome ".format_username($CURUSER) ." ".(isset($CURUSER) && $CURUSER['class'] < UC_STAFF ? "[".get_user_class_name($CURUSER['class'])."]" : $usrclass)."&nbsp;{$lang['gl_achpoints']}&nbsp;<a href='./achievementhistory.php?id={$CURUSER['id']}'>" . (int)$Achievement_Points['achpoints'] . "</a>&nbsp;{$lang['gl_karma']}: <a href='".$INSTALLER09['baseurl']."/mybonus.php'>{$CURUSER['seedbonus']}</a>&nbsp;{$lang['gl_invites']}: <a href='".$INSTALLER09['baseurl']."/invite.php'>{$CURUSER['invites']}</a>&nbsp;{$lang['gl_rep']}:{$member_reputation}&nbsp;{$lang['gl_shareratio']}&nbsp;". member_ratio($CURUSER['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $CURUSER['downloaded']);
+    $StatusBar.= "<div class='text-center'>Welcome ".format_username($CURUSER) ."".(isset($CURUSER) && $CURUSER['class'] < UC_STAFF ? "[".get_user_class_name($CURUSER['class'])."]" : $usrclass)."".($INSTALLER09['max_slots'] ? "{$lang['gl_act_torrents']}:&nbsp;<img alt='{$lang['gl_seed_torrents']}' title='{$lang['gl_seed_torrents']}' src='{$INSTALLER09['pic_base_url']}up.png' />&nbsp;".intval($seed['yes']).""."&nbsp;<img alt='{$lang['gl_leech_torrents']}' title='{$lang['gl_leech_torrents']}' src='{$INSTALLER09['pic_base_url']}dl.png' />&nbsp;".($INSTALLER09['max_slots'] ? "<a title='I have ".$max." Download Slots'>".intval($seed['no'])."/".$max."</a>" : intval($seed['no']))."" : "")."&nbsp;{$lang['gl_achpoints']}&nbsp;<a href='./achievementhistory.php?id={$CURUSER['id']}'>" . (int)$Achievement_Points['achpoints'] . "</a>&nbsp;{$lang['gl_karma']}: <a href='".$INSTALLER09['baseurl']."/mybonus.php'>{$CURUSER['seedbonus']}</a>&nbsp;{$lang['gl_invites']}: <a href='".$INSTALLER09['baseurl']."/invite.php'>{$CURUSER['invites']}</a>&nbsp;{$lang['gl_rep']}:{$member_reputation}&nbsp;{$lang['gl_shareratio']}&nbsp;". member_ratio($CURUSER['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $CURUSER['downloaded']);
  if ($INSTALLER09['ratio_free']) {
     $StatusBar .= "&nbsp;{$lang['gl_uploaded']}:".$upped;
     } else {

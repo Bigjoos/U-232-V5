@@ -37,7 +37,7 @@ $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 
 
-$lang = array_merge( $lang, load_language('forums') );
+$lang = array_merge($lang, load_language('forums'));
 
 
 $HTMLOUT = $select = '';
@@ -46,14 +46,14 @@ $this_url = 'staffpanel.php?tool=msubforums&action=msubforums';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mkglobal("subforum:descr:place");
     if (empty($subforum) || empty($descr) || empty($place))
-        stderr("Err", "You missed something !");
+        stderr($lang['forum_mngr_err1'], $lang['forum_mngr_warn1']);
     else {
         sql_query("INSERT INTO forums(`name`,`description` ,`min_class_read` ,`min_class_write` ,`min_class_create`,`place`,`forum_id`) VALUES(" . join(",", array_map("sqlesc", array($subforum, $descr, $readclass, $writeclass, $createclass, $place, $place))) . ")") or sqlerr(__FILE__, __LINE__);
         if (((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res)) {
             header("Refresh: 2; url=" . $this_url);
-            stderr("Success", "Sub Forum added");
+            stderr($lang['forum_mngr_succ'], $lang['forum_sub_add']);
         } else
-            stderr("Err", "Something was wrong");
+            stderr($lang['forum_mngr_err1'], $lang['forum_mngr_warn2']);
     }
 } else {
   
@@ -65,15 +65,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 	$HTMLOUT .="<table class='table table-bordered'>
               <tr>
-    	        <td width='100%' align='left' rowspan='2' class='colhead'>Subforum</td>
-              <td nowrap='nowrap' align='center' rowspan='2' class='colhead'>Parrent forum</td>
-              <td colspan='3' align='center' class='colhead'>Permissions</td>
-              <td align='center' rowspan='2' class='colhead'>Modify</td>
+    	        <td width='100%' align='left' rowspan='2' class='colhead'>{$lang['forum_sub_sub']}</td>
+              <td nowrap='nowrap' align='center' rowspan='2' class='colhead'>{$lang['forum_sub_par']}</td>
+              <td colspan='3' align='center' class='colhead'>{$lang['forum_sub_per']}</td>
+              <td align='center' rowspan='2' class='colhead'>{$lang['forum_sub_mod']}</td>
               </tr>
               <tr>
-    	        <td nowrap='nowrap' class='colhead'>read</td>
-              <td nowrap='nowrap' class='colhead'>write</td>
-              <td nowrap='nowrap' class='colhead'>create</td>
+    	      <td nowrap='nowrap' class='colhead'>{$lang['forum_sub_rd']}</td>
+              <td nowrap='nowrap' class='colhead'>{$lang['forum_sub_wr']}</td>
+              <td nowrap='nowrap' class='colhead'>{$lang['forum_sub_cr']}</td>
               </tr>";
 
 
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  $HTMLOUT .="<form action='".$this_url."' method='post'>
 	  <table class='table table-bordered'>
 	  <tr>
-		<td align='right' class='colhead'>subforum in</td>
+		<td align='right' class='colhead'>{$lang['forum_sub_in']}</td>
 		<td nowrap='nowrap' colspan='3' align='left' >";
     $select .="<select name=\"place\"><option value=\"\">Select</option>\n";
     $r = sql_query("SELECT id,name FROM forums WHERE place=-1 ORDER BY name ASC") or sqlerr(__FILE__, __LINE__);
@@ -113,32 +113,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$HTMLOUT .="</td>
 	  </tr>
 	  <tr>
-		<td align='right' class='colhead'>Subforum</td>
+		<td align='right' class='colhead'>{$lang['forum_sub_sub1']}</td>
 		<td nowrap='nowrap' colspan='3' align='left' >
 		<input type='text' name='subforum' size='60' /></td>
 	  </tr>
 	  <tr>
-		<td align='right' class='colhead'>Description</td>
+		<td align='right' class='colhead'>{$lang['forum_sub_desc']}</td>
 		<td nowrap='nowrap' colspan='3' align='left'>
 		<textarea name='descr' rows='4' cols='60'></textarea></td>
 	  </tr>
 	  <tr>
-		<td align='right' class='colhead'>Permisions</td>
+		<td align='right' class='colhead'>{$lang['forum_sub_per1']}</td>
 		<td align='center'>
 		<select name='createclass'>
-		<option value=''>Create</option>";
+		<option value=''>{$lang['forum_sub_cr']}</option>";
     $maxclass = UC_MAX;
     for ($i = 0; $i <= $maxclass; ++$i)
     $HTMLOUT .="<option value=\"$i\">" . get_user_class_name($i) . "</option>\n";
     $HTMLOUT .=" </select></td>
 		<td align='center'><select name='writeclass'>
-		<option value=''>Write</option>";
+		<option value=''>{$lang['forum_sub_wr']}</option>";
     $maxclass = $CURUSER["class"];
     for ($i = 0; $i <= $maxclass; ++$i)
     $HTMLOUT .="<option value=\"$i\">" . get_user_class_name($i) . "</option>\n";
     $HTMLOUT .="</select></td>
 	  <td align='center'><select name='readclass'>
-		<option value=''>Read</option>";
+		<option value=''>{$lang['forum_sub_rd']}</option>";
     $maxclass = $CURUSER["class"];
     for ($i = 0; $i <= $maxclass; ++$i)
     $HTMLOUT .="<option value=\"$i\">" . get_user_class_name($i) . "</option>\n";
@@ -146,13 +146,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	  </tr>
 	  <tr>
 	  <td align='center' colspan='4' class='colhead'>
-	  <input type='submit' value='add Subforum'/></td></tr>
+	  <input type='submit' value='{$lang['forum_sub_ads']}'/></td></tr>
 	  </table>
 	  </form>";
 	$HTMLOUT .= "</div></div>";
 
     //$HTMLOUT .= end_frame();
-     echo stdhead("Sub Forum Manage") . $HTMLOUT . stdfoot();
+     echo stdhead($lang['forum_sub_mng']) . $HTMLOUT . stdfoot();
 }
 
 ?>

@@ -178,7 +178,7 @@ function Show_Cat_Edit_Form()
                     <td><input type='text' value='" . htmlsafechars($row['shortcut']) . "' name='shortcut' style='width:380px;' /></td>
                     <td><select name='min_view'>";
         for ($i = 0; $i <= $maxclass; ++$i) {
-            $htmlout .= '<option value="' . $i . '">' . get_user_class_name($i) . '</option>';
+            $htmlout .= '<option value="' . $i . '"'.($row['min_view'] == $i ? " selected='selected'" : "").'">' . get_user_class_name($i) . '</option>';
         }
         $htmlout .= "</select></td>
                      <td colspan='3'><input type='submit' name='submit' value='Edit' class='button' /></td>
@@ -267,7 +267,7 @@ function Do_Cat_Update()
         stderr("Error", "No value or value too big");
     if (empty($_POST['shortcut']) || (strlen($_POST['shortcut']) > 100))
         stderr("Error", "No value or value too big");
-    $sql = "UPDATE faq_cat SET name = " . sqlesc(strip_tags($_POST['name'])) . ", shortcut = " . sqlesc(strip_tags($_POST['shortcut'])) . ", min_view=$min_view WHERE id=" . sqlesc($cat_id);
+    $sql = "UPDATE faq_cat SET name = " . sqlesc(strip_tags($_POST['name'])) . ", shortcut = " . sqlesc($_POST['shortcut']) . ", min_view=$min_view WHERE id=" . sqlesc($cat_id);
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
         stderr("Warning", "Could not carry out that request");
@@ -283,7 +283,7 @@ function Do_Cat_Add()
     if (empty($_POST['shortcut']) || strlen($_POST['shortcut']) > 100)
         stderr("Error", "Field is blank or length too long!");
     $cat_name       = sqlesc(strip_tags($_POST['name']));
-    $cat_scut       = sqlesc(strip_tags($_POST['shortcut']));
+    $cat_scut       = sqlesc($_POST['shortcut']);
     $min_view = sqlesc(strip_tags($_POST['min_view']));
     $sql            = "INSERT INTO faq_cat (name, shortcut, min_view) VALUES ($cat_name, $cat_scut, $min_view)";
     sql_query($sql) or sqlerr(__FILE__, __LINE__);

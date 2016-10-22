@@ -104,7 +104,7 @@ U-232 V5 requires the following :
 - PHP7-JSON
 - PHP7-MEMCACHED
 - PHP7-MSGPACK
-- PHP7-MYCRYPT
+- PHP7-MCRYPT
 - PHP7-MYSQL/MYSQLI
 - PHP7-MBSTRING
 - PHP7-GD
@@ -153,11 +153,6 @@ Enter the following commands in a terminal. Be patient while g++ is running, it'
 wget https://github.com/whocares-openscene/u-232-xbt/raw/master/xbt.tar.gz
 tar xfz xbt.tar.gz
 cd xbt/Tracker
-```
-
-Replace `server.h` and `server.cpp` and add `xbt_tracker.conf` from the U-232 V4 archive then run:
-
-```
 ./make.sh
 ```
 
@@ -198,7 +193,7 @@ If you experience a failure then a properly configured server will report that i
 Install `memcached` and zend `opcode` cache before installing U-232 V5.
 
 1. Create a directory one up from root so it resides beside it not inside it, named bucket.
-	1. Then inside the bucket folder make another and name it avatar.
+	1. Then inside the bucket folder make another and name it avatar, remember to chmod them to 777
 	2. If you use your own names for those folders then you need to edit `bitbucket.php` and `img.php` defines at top of the files.
 	3. Then add a `.htaccess` and `index.html` files into both newly created folders.
 	4. Then chmod those above folders.

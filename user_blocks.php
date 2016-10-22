@@ -456,13 +456,16 @@ $HTMLOUT.= '
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_freeleech_contribution" name="stdhead_freeleech_contribution" value="yes"' . $checkbox_global_freeleech_contribution . '>
 </label><span>Enable karma contribution status alert in stdhead</span></div>        
         </td>
-        </tr>
+        </tr>';
+if ($CURUSER['class'] >= UC_STAFF) {
+$HTMLOUT.= '
         <tr><td><b>Staff Tool Quick Links</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_stafftools" name="stdhead_stafftools" value="yes"' . $checkbox_global_stafftools . '>
 </label><span>Enable the staff tool quick links in stdhead</span></div>        
         </td>
-        </tr>
-        </table><div class="col-sm-offset-5"><input class="btn btn-primary" type="submit" name="submit" value="Submit" tabindex="2" accesskey="s"></div><br><br></div>';
+        </tr>';
+}
+       $HTMLOUT.= '</table><div class="col-sm-offset-5"><input class="btn btn-primary" type="submit" name="submit" value="Submit" tabindex="2" accesskey="s"></div><br><br></div>';
 $HTMLOUT.= '<div class="tab-pane fade" id="user">
 <fieldset><legend>Userdetails Settings</legend></fieldset>
         <table class="table table-bordered">

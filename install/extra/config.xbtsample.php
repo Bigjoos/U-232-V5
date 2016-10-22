@@ -146,6 +146,10 @@ $INSTALLER09['expires']['ismoddin'] = 0; // 0 = infinite
 $INSTALLER09['expires']['faqs'] = 0;  // 0 = infinite
 $INSTALLER09['expires']['rules'] = 0; // 0 = infinite
 $INSTALLER09['expires']['torrent_pretime'] = 0; // 0 = infinite
+$INSTALLER09['expires']['req_limit'] = 3600; // 3600 = 1 hour
+$INSTALLER09['expires']['off_limit'] = 3600; // 3600 = 1 hour
+$INSTALLER09['expires']['staff_check'] = 3600; // 3600 = 1 hour
+$INSTALLER09['expires']['details_snatchlist'] = 300; // 300 = 5 min
 //== Tracker configs
 $INSTALLER09['cipher_key']['key'] = 'fsdsf@sadadjk@@@@4453qaw0qw';
 $INSTALLER09['tracker_post_key'] = 'lsdflksfda4545frwe35@kk';
@@ -159,6 +163,8 @@ $INSTALLER09['language'] = 1;
 $INSTALLER09['bot_id'] = 2;
 $INSTALLER09['staffpanel_online'] = 1;
 $INSTALLER09['irc_autoshout_on'] = 1;
+$INSTALLER09['wait_times'] = 0;
+$INSTALLER09['max_slots'] = 0;
 $INSTALLER09['crazy_hour'] = false; //== Off for XBT
 $INSTALLER09['happy_hour'] = false; //== Off for XBT
 $INSTALLER09['mods']['slots'] = true;
@@ -230,6 +236,8 @@ $INSTALLER09['stylesheet'] = 1;
 $INSTALLER09['categorie_icon'] = 1;
 $INSTALLER09['comment_min_class'] = 4; //minim class to be checked when posting comments
 $INSTALLER09['comment_check'] = 1; //set it to 0 if you wanna allow commenting with out staff checking 
+$INSTALLER09['requests']['req_limit'] = 10;
+$INSTALLER09['offers']['off_limit'] = 10;
 //for subs & youtube mode
 $INSTALLER09['movie_cats'] = array(
     3,
@@ -246,6 +254,7 @@ $INSTALLER09['slider_cats'] = array(
     11
 );
 $INSTALLER09['moviecats'] = "3,5,6,10,11";
+$INSTALLER09['tv_cats'] = "11";
 $youtube_pattern = "/^http(s)?\:\/\/www\.youtube\.com\/watch\?v\=[\w-]{11}/i";
 //== set this to size of user avatars
 $INSTALLER09['av_img_height'] = 100;

@@ -31,13 +31,14 @@ require_once(INCL_DIR.'html_functions.php');
 require_once(INCL_DIR.'function_rating.php');
 dbconn(false);
 loggedinorreturn();
+flood_limit('posts');
 require_once(TEMPLATE_DIR.''.$CURUSER['stylesheet'].'' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'forums_html_functions.php');
 require_once(TEMPLATE_DIR.''.$CURUSER['stylesheet'].'' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'global_html_functions.php'); 
 require_once(TEMPLATE_DIR.''.$CURUSER['stylesheet'].'' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'navigation_html_functions.php'); 
 define('MAX_CLASS', UC_STAFF);
 $lang = array_merge( load_language('global'), load_language('forums') );
 if ($INSTALLER09['forums_online'] == 0 && $CURUSER['class'] < UC_STAFF)
-stderr('Information', 'The forums are currently offline for maintainance work');
+stderr($lang['forum_pg_inf1'], $lang['forum_pg_inf2']);
 if (function_exists('parked'))
 parked();
 $INSTALLER09['show_last_10'] = false;
@@ -46,13 +47,13 @@ $Multi_forum['configs']['maxfilesize'] = 1024 * 1024;
 ini_set("upload_max_filesize", $Multi_forum['configs']['maxfilesize']);
 $Multi_forum['configs']['attachment_dir'] = ROOT_DIR."uploads";
 $Multi_forum['configs']['forum_width'] = '100%';
-$Multi_forum['configs']['allowed_file_extensions'] = array('rar', 'zip');
+$Multi_forum['configs']['allowed_file_extensions'] = array('rar', 'zip', 'gz');
 $Multi_forum['configs']['maxsubjectlength'] = 80;
 $Multi_forum['configs']['postsperpage'] = (empty($CURUSER['postsperpage']) ? 10 : (int)$CURUSER['postsperpage']);
 $Multi_forum['configs']['use_flood_mod'] = true;
 $Multi_forum['configs']['minutes'] = 5;
 $Multi_forum['configs']['limit'] = 10;
-$Multi_forum['configs']['use_attachment_mod'] = false; //=== disable this feat
+$Multi_forum['configs']['use_attachment_mod'] = true; //=== disable this feat
 $Multi_forum['configs']['use_poll_mod'] = true;
 $Multi_forum['configs']['use_forum_stats_mod'] = true;
 /**
@@ -199,7 +200,6 @@ $action = (in_array($posted_action, $valid_actions) ? $posted_action : 'view_def
                   require_once FORUM_DIR."/make_poll.php";
            exit();
            break;
-                  //== Dangerous shit - should remove completely
                   case 'attachment':
            if( $Multi_forum['configs']['use_attachment_mod'] )
                   require_once FORUM_DIR."/forum_attachment.php";
@@ -239,7 +239,6 @@ $action = (in_array($posted_action, $valid_actions) ? $posted_action : 'view_def
                   header('Location: forums.php');
            exit();
            break;
-                  //== re-write this shite
                   case 'preview':
                   require_once INCL_DIR."/html_functions.php";
                   require_once INCL_DIR."/bbcode_functions.php";
@@ -262,7 +261,7 @@ $action = (in_array($posted_action, $valid_actions) ? $posted_action : 'view_def
              }
           }
           if ($INSTALLER09['forums_online'] == 0)
-          $HTMLOUT .= stdmsg('Warning', 'Forums are currently in maintainance mode');
+          $HTMLOUT .= stdmsg($lang['forum_pg_warn1'], $lang['forum_pg_warn2']);
           $HTMLOUT .= "<div class='navigation'><a href='index.php'>" . $INSTALLER09["site_name"] . "</a>
           <br><span class='active'></span></div> <br />";
 	  $ovf_res = sql_query("SELECT id, name, min_class_view FROM over_forums ORDER BY sort ASC") or sqlerr(__FILE__, __LINE__);
@@ -283,14 +282,14 @@ $HTMLOUT .= "";
           $HTMLOUT .= forum_stats();
 $HTMLOUT .= "<div class='col-sm-12 col-sm-offset-0'>
           <p align='center'>
-	  <a href='{$INSTALLER09['baseurl']}/forums.php?action=search'><b class='btn btn-default btn-sm'>&nbsp;&nbsp;Search Forums&nbsp;&nbsp;</b></a>&nbsp;&nbsp; 
-	  <a href='{$INSTALLER09['baseurl']}/forums.php?action=viewunread'><b class='btn btn-default btn-sm'>&nbsp;&nbsp;New Posts&nbsp;&nbsp;</b></a>&nbsp;&nbsp; 
-	  <a href='{$INSTALLER09['baseurl']}/forums.php?action=getdaily'><b class='btn btn-default btn-sm'>&nbsp;&nbsp;Todays Posts [Last 24h]&nbsp;&nbsp;</b></a>&nbsp;&nbsp; 
-	  <a href='{$INSTALLER09['baseurl']}/forums.php?catchup'><b class='btn btn-default btn-sm'>&nbsp;&nbsp;Mark all as read&nbsp;&nbsp;</b></a></p>
+	  <a href='{$INSTALLER09['baseurl']}/forums.php?action=search'><b class='btn btn-default btn-sm'>&nbsp;&nbsp;{$lang['forum_pg_srch']}&nbsp;&nbsp;</b></a>&nbsp;&nbsp; 
+	  <a href='{$INSTALLER09['baseurl']}/forums.php?action=viewunread'><b class='btn btn-default btn-sm'>&nbsp;&nbsp;{$lang['forum_pg_new']}&nbsp;&nbsp;</b></a>&nbsp;&nbsp; 
+	  <a href='{$INSTALLER09['baseurl']}/forums.php?action=getdaily'><b class='btn btn-default btn-sm'>&nbsp;&nbsp;{$lang['forum_pg_24h']}&nbsp;&nbsp;</b></a>&nbsp;&nbsp; 
+	  <a href='{$INSTALLER09['baseurl']}/forums.php?catchup'><b class='btn btn-default btn-sm'>&nbsp;&nbsp;{$lang['forum_pg_mark']}&nbsp;&nbsp;</b></a></p>
           </div><br /><br />";
-          echo stdhead("Forum", true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
+          echo stdhead($lang['forums_forum_heading'], true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
           exit();
           break;
 }
-exit('Deary me \0/');
-?> 
+exit($lang['forum_pg_deary']);
+?>

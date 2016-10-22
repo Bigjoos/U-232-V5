@@ -397,7 +397,7 @@ function userlogin()
             $ann_row = mysqli_fetch_assoc($result);
             $query = sqlesc($ann_row['sql_query']);
             // Ensure it only selects...
-            if (!preg_match('/\\ASELECT.+?FROM.+?WHERE.+?\\z/', $query)) die('oops');
+            if (!preg_match('/\\ASELECT.+?FROM.+?WHERE.+?\\z/', $query)) die('Oops, Query error');
             // The following line modifies the query to only return the current user
             // row if the existing query matches any attributes.
             $query .= ' AND u.id = '.sqlesc($row['id']).' LIMIT 1';
@@ -889,17 +889,11 @@ function validemail($email)
 function sqlesc($x)
 {
     if (is_integer($x)) return (int)$x;
-    return sprintf('\'%s\'', ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x) : ((trigger_error("Err", E_USER_ERROR)) ? "" : "")));
+    return sprintf('\'%s\'', mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x));
 }
 function sqlwildcardesc($x)
 {
-    return str_replace(array(
-        "%",
-        "_"
-    ) , array(
-        "\\%",
-        "\\_"
-    ) , ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x) : ((trigger_error("", E_USER_ERROR)) ? "" : "")));
+    return str_replace(array('%', '_'), array('\\%', '\\_'), mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x));
 }
 function httperr($code = 404)
 {
@@ -1188,7 +1182,7 @@ function flood_limit($table)
     if (!file_exists($INSTALLER09['flood_file']) || !is_array($max = unserialize(file_get_contents($INSTALLER09['flood_file'])))) return;
     if (!isset($max[$CURUSER['class']])) return;
     $tb = array(
-        'posts' => 'posts.userid',
+        'posts' => 'posts.user_id',
         'comments' => 'comments.user',
         'messages' => 'messages.sender'
     );

@@ -25,6 +25,7 @@ require_once (CLASS_DIR . 'class_user_options.php');
 require_once (CLASS_DIR . 'class_user_options_2.php');
 dbconn(false);
 loggedinorreturn();
+flood_limit('messages');
 define('BUNNY_PM_SYSTEM', TRUE);
 /*********************************************************
 - Pm system by snuggles
@@ -109,6 +110,14 @@ case UC_ADMINISTRATOR:
 case UC_SYSOP:
     $maxbox = 500;
     $maxboxes = 40;
+    break;
+case UC_MAX:
+    $maxbox = 900;
+    $maxboxes = 90;
+    break;
+default:
+    $maxbox = 100;
+    $maxboxes = 15;
     break;
 }
 //=== get action and check to see if it's ok...

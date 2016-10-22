@@ -31,7 +31,18 @@ function torrenttable($res, $variant = "index")
     require_once (INCL_DIR . 'bbcode_functions.php');
     require_once (CLASS_DIR . 'class_user_options_2.php');
     $htmlout = $prevdate = $nuked = $free_slot = $freetorrent = $free_color = $slots_check = $double_slot = $private = $newgenre = $oldlink = $char = $description = $type = $sort = $row = $youtube = '';
-    $count_get = 0;
+    $count_get = $wait = 0;
+    if ($CURUSER["class"] < UC_VIP && $INSTALLER09['wait_times'] == 1)
+    {
+      $gigs = $CURUSER["uploaded"] / (1024*1024*1024);
+      $ratio = (($CURUSER["downloaded"] > 0) ? ($CURUSER["uploaded"] / $CURUSER["downloaded"]) : 0);
+      if ($ratio < 0.5 || $gigs < 5) $wait = 48;
+      elseif ($ratio < 0.65 || $gigs < 6.5) $wait = 24;
+      elseif ($ratio < 0.8 || $gigs < 8) $wait = 12;
+      elseif ($ratio < 0.95 || $gigs < 9.5) $wait = 6;
+      else $wait = 0;
+    }
+
     /** ALL FREE/DOUBLE **/
     foreach ($free as $fl) {
         switch ($fl['modifier']) {
@@ -100,6 +111,7 @@ function torrenttable($res, $variant = "index")
     $htmlout.= "<td class='text-right'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=2&amp;type={$link2}'>{$lang["torrenttable_files"]}</a></td>
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=3&amp;type={$link3}'>{$lang["torrenttable_comments"]}</a></td>
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=4&amp;type={$link4}'>{$lang["torrenttable_added"]}</a></td>
+   ".($INSTALLER09['wait_times'] == 1 ? "<td class='text-center'>{$lang["torrenttable_ttl"]}</td>" : "")."
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=5&amp;type={$link5}'>{$lang["torrenttable_size"]}</a></td>
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=6&amp;type={$link6}'>{$lang["torrenttable_snatched"]}</a></td>
    <td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=7&amp;type={$link7}'>{$lang["torrenttable_seeders"]}</a></td>
@@ -109,7 +121,7 @@ function torrenttable($res, $variant = "index")
     $htmlout .= "<td class='text-center'>Tools</td>\n";
     }
     $htmlout.= "
-<td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=8&amp;type={$link10}'>Health</a></td></tr>\n";
+<td class='text-center'><a href='{$_SERVER["PHP_SELF"]}?{$oldlink}sort=10&amp;type={$link10}'>Health</a></td></tr>\n";
     $categories = genrelist();
     foreach ($categories as $key => $value) $change[$value['id']] = array(
         'id' => $value['id'],
@@ -185,10 +197,10 @@ function torrenttable($res, $variant = "index")
         $Subs = '';
         if (in_array($row["category"], $INSTALLER09['movie_cats']) && !empty($row["subs"])) {
             $subs_array = explode(",", $row["subs"]);
-            require_once (CACHE_DIR . 'subs.php');
             foreach ($subs_array as $k => $sid) {
+            require_once (CACHE_DIR . 'subs.php');
                 foreach ($subs as $sub) {
-                    if ($sub["id"] == $sid) $Subs = "<img border=\'0\' width=\'16px\' style=\'padding:3px;\' src=\'{$sub["pic"]}\' alt=\'{$sub["name"]}\' title=\'{$sub["name"]}\' />";
+                    if ($sub["id"] == $sid) $Subs = "<img border='0' width='16px' style='padding:3px;' src='".htmlsafechars($sub["pic"])."' alt='".htmlsafechars($sub["name"])."' title='".htmlsafechars($sub["name"])."' />";
                 }
             }
         } else $Subs = "---";
@@ -243,9 +255,15 @@ function torrenttable($res, $variant = "index")
             }
         }
         $htmlout.= "<td class='text-center'><span style='white-space: nowrap;'>" . str_replace(",", "<br />", get_date($row['added'], '')) . "</span></td>\n";
+          $ttl = (28*24) - floor((TIME_NOW - $row["added"]) / 3600);
+          if ($ttl == 1) 
+                 $ttl .= "<br />".$lang["torrenttable_hour_singular"]; 
+              else 
+                 $ttl .= "<br />".$lang["torrenttable_hour_plural"];
+        $htmlout .= ($INSTALLER09['wait_times'] == 1 ? "<td class='text-center'>$ttl</td>\n" : "");
         $htmlout.= "<td class='text-center'>" . str_replace(" ", "<br />", mksize($row["size"])) . "</td>\n";
-        if ($row["times_completed"] != 1) $_s = "" . $lang["torrenttable_time_plural"] . "";
-        else $_s = "" . $lang["torrenttable_time_singular"] . "";
+        if ($row["times_completed"] != 1) $_s = "" . $lang["torrenttable_time_plural"];
+        else $_s = "" . $lang["torrenttable_time_singular"];
         $What_Script_S = (XBT_TRACKER == true ? 'snatches_xbt.php?id=' : 'snatches.php?id=' );
         $htmlout.= "<td class='text-center'><a href='$What_Script_S"."$id'>" . number_format($row["times_completed"]) . "<br />$_s</a></td>\n";
         if ($row["seeders"]) {
@@ -285,42 +303,43 @@ if (!function_exists('health')) {
     {
         global $INSTALLER09;
         if ($leechers > 0 && $seeders > 0) $ratio = $seeders / $leechers * 100;
-        if (($leechers == 0 && $seeders == 0) || ($leechers > 0 && $seeders == 0)) return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_0.gif' alt='Torrent Dead' title='Torrent Mort' />";
-        elseif ($seeders > $leechers) return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_10.gif' alt='Torrent healthy' title='Sante' />";
+        if ($leechers == 1 && $seeders == 1) $ratio = $seeders / $leechers * 1;
+        if (($leechers == 0 && $seeders == 0) || ($leechers > 0 && $seeders == 0)) return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_0.gif' alt='Torrent Dead' title='Torrent Dead' />";
+        elseif ($seeders > $leechers) return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_10.gif' alt='Torrent health' title='Torrent health' />";
         switch ($ratio) {
         case $ratio > 0 && $ratio < 15:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_1.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_1.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 15 && $ratio < 25:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_2.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_2.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 25 && $ratio < 35:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_3.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_3.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 35 && $ratio < 45:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_4.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_4.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 45 && $ratio < 55:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_5.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_5.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 55 && $ratio < 65:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_6.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_6.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 65 && $ratio < 75:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_7.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_7.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 75 && $ratio < 85:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_8.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_8.gif' alt='Torrent health' title='Torrent health' />";
             break;
          case $ratio >= 85 && $ratio < 95:
-            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_9.gif' alt='Torrent healthy' title='Sante' />";
+            return "<img src=' " . $INSTALLER09['baseurl'] . "/images/health/health_9.gif' alt='Torrent health' title='Torrent health' />";
             break;
         }
     }
 }
 $htmlout.= "<td class='text-center'><span>" . health($row["leechers"], $row["seeders"]) . "</td>";
         $htmlout.= "</tr>\n";
-        $htmlout.= "<tr id=\"kdescr" . (int)$row["id"] . "\" style=\"display:none;\"><td width=\"100%\" colspan=\"13\">" . format_comment($descr, false) . "</td></tr>\n";
+        $htmlout.= "<tr id=\"kdescr" . (int)$row["id"] . "\" style=\"display:none;\"><td width=\"100%\" colspan=\"14\">" . format_comment($descr, false) . "</td></tr>\n";
     }
     $htmlout.= "</table></div>\n";
     return $htmlout;

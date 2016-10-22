@@ -30,11 +30,12 @@ function docleanup($data)
      $What_user_id = (XBT_TRACKER == true ? 'uid' : 'userid');
      $What_Table = (XBT_TRACKER == true ? 'xbt_files_users' : 'peers');
      $What_Where = (XBT_TRACKER == true ? "`left` = 0 AND `active` = 1" : "seeder = 'yes' AND connectable = 'yes'");
-     $res = sql_query('SELECT COUNT('.$What_id.') As tcount, '.$What_user_id.', seedbonus FROM '.$What_Table.' LEFT JOIN users ON users.id = '.$What_user_id.' WHERE '.$What_Where.' GROUP BY '.$What_user_id) or sqlerr(__FILE__, __LINE__);
+     $res = sql_query('SELECT COUNT('.$What_id.') As tcount, '.$What_user_id.', seedbonus, users.id As users_id FROM '.$What_Table.' LEFT JOIN users ON users.id = '.$What_user_id.' WHERE '.$What_Where.' GROUP BY '.$What_user_id) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($res) > 0) {
         while ($arr = mysqli_fetch_assoc($res)) {
             /*if ($arr['tcount'] >= 5) $arr['tcount'] = 1;*/
             $Buffer_User = (XBT_TRACKER == true ? $arr['uid'] : $arr['userid']);
+            if($arr['users_id']== $Buffer_User && $arr['users_id'] != NULL) {
             $users_buffer[] = '(' . $Buffer_User . ', '.$INSTALLER09['bonus_per_duration'].' * ' . $arr['tcount'] . ')';
             $update['seedbonus'] = ($arr['seedbonus'] + $INSTALLER09['bonus_per_duration'] * $arr['tcount']);
             $mc1->begin_transaction('userstats_' . $Buffer_User);
@@ -47,6 +48,7 @@ function docleanup($data)
                 'seedbonus' => $update['seedbonus']
             ));
             $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        }
         }
         $count = count($users_buffer);
         if ($count > 0) {

@@ -87,7 +87,7 @@ $search_help_boolean = '<div class="panel panel-default">
     </p> </div></div></div></div></div></div>';
 $cats = genrelist();
 if (isset($_GET["search"])) {
-    $searchstr = sqlesc($_GET["search"]);
+    $searchstr = unesc($_GET["search"]);
     $cleansearchstr = searchfield($searchstr);
     if (empty($cleansearchstr)) unset($cleansearchstr);
 }
@@ -180,7 +180,8 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
                 }
             }
         } elseif ($category) {
-            if (!is_valid_id($category) || $cats[$category]['min_class'] >= $CURUSER['class']) stderr("{$lang['browse_error']}", "{$lang['browse_invalid_cat']}");
+            $cnum = array_search((int)$category, array_column($cats, 'id'));
+        if (!is_valid_id($category) || $cats[$cnum]['min_class'] >= $CURUSER['class']) stderr("{$lang['browse_error']}", "{$lang['browse_invalid_cat']}");
             $wherecatina[] = $category;
             $addparam.= "cat=$category&amp;";
         } else {
@@ -220,7 +221,7 @@ elseif (count($wherecatina) == 1) $wherea[] = 'category =' . $wherecatina[0];
 if (isset($cleansearchstr)) {
     //== boolean search by djgrr
     if ($searchstr != '') {
-        $addparam.= 'search=' . rawurlencode($searchstr) . '&amp;';
+        $addparam.= 'search=' . rawurlencode($searchstr) . '&amp;searchin='.htmlsafechars($_GET['searchin']).'&amp;incldead='.intval($_GET['incldead']).'&amp;';
         $searchstring = str_replace(array(
             '_',
             '.',
@@ -245,7 +246,6 @@ if (isset($cleansearchstr)) {
         elseif (preg_match('/^[A-Za-z0-9][a-zA-Z0-9()._-]+-[A-Za-z0-9_]*[A-Za-z0-9]$/iD', $searchstr)) $wherea[] = '`name` = ' . sqlesc($searchstr);
         else $wherea[] = 'MATCH (`search_text`, `filename`) AGAINST (' . sqlesc($searchstr) . ' IN BOOLEAN MODE)';
         //......
-        $orderby = 'ORDER BY id DESC';
         $searcha = explode(' ', $cleansearchstr);
         //==Memcache search cloud by putyn
         searchcloud_insert($cleansearchstr);

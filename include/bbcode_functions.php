@@ -93,7 +93,7 @@ function _strlastpos($haystack, $needle, $offset = 0)
     return ($endPos >= 0) ? $endPos : false;
 }
 function validate_imgs($s){
-    $start = "http://";
+    $start = "(http|https)://";
     $end = "+\.(?:jpe?g|png|gif)";
     preg_match_all("!" . $start . "(.*)" . $end . "!Ui", $s, $result);
     $array = $result[0];
@@ -166,7 +166,7 @@ function islocal($link)
         $title = trim($link[2]);
         if (false !== stristr($link[2], '[img]')) {
             $flag = true;
-            $title = preg_replace("/\[img](http:\/\/[^\s'\"<>]+(\.(jpg|gif|png)))\[\/img\]/i", "<img src=\"\\1\" alt=\"\" border=\"0\" />", $title);
+            $title = preg_replace("/\[img]((http|https):\/\/[^\s'\"<>]+(\.(jpg|gif|png)))\[\/img\]/i", "<img src=\"\\1\" alt=\"\" border=\"0\" />", $title);
         }
     } elseif (false !== stristr($link[0], '[url]')) $url = $title = trim($link[1]);
     else $url = $title = trim($link[2]);
@@ -271,7 +271,7 @@ function format_comment($text, $strip_html = true, $urls = true, $images = true)
     // Linebreaks
     $s = nl2br($s);
     // Dynamic Vars
-    //$s = dynamic_user_vars($s);
+    $s = dynamic_user_vars($s);
     // [pre]Preformatted[/pre]
     if (stripos($s, '[pre]') !== false) $s = preg_replace("/\[pre\]((\s|.)+?)\[\/pre\]/i", "<tt><span style=\"white-space: nowrap;\">\\1</span></tt>", $s);
     // [nfo]NFO-preformatted[/nfo]
@@ -294,7 +294,10 @@ function format_comment($text, $strip_html = true, $urls = true, $images = true)
     if (stripos($s, '[mcom]') !== false) $s = preg_replace("/\[mcom\](.+?)\[\/mcom\]/is", "<div style=\"font-size: 18pt; line-height: 50%;\">
    <div style=\"border-color: red; background-color: red; color: white; text-align: center; font-weight: bold; font-size: large;\"><b>\\1</b></div></div>", $s);
    // the [you] tag
-   //if (stripos($s, '[you]') !== false) $s = preg_replace("/\[you\]/i", $CURUSER['username'], $s);
+    if (stripos($s, '[you]') !== false) {
+    $s = preg_replace("/https?:\/\/[^\s'\"<>]*\[you\][^\s'\"<>]*/i", " ", $s);
+    $s = preg_replace("/\[you\]/i", $CURUSER['username'], $s);
+    }
    // [php]code[/php]
    if (stripos($s, '[php]') !== false) {
    $s = preg_replace_callback("#\[(php|sql|html)\](.+?)\[\/\\1\]#is",

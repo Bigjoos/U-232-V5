@@ -111,7 +111,7 @@ case 'add':
             
         }
     }
-    header("Refresh: 0; url=details.php?id=$id");
+    header("Refresh: 0; url=details.php?id=$tid");
     if ($INSTALLER09['seedbonus_on'] == 1) {
         // ===add karma
         sql_query("UPDATE users SET seedbonus = seedbonus+".sqlesc($INSTALLER09['bonus_per_thanks'])." WHERE id =" . sqlesc($uid)) or sqlerr(__FILE__, __LINE__);

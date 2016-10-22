@@ -91,6 +91,7 @@ $lang = array(
     'details_snatches_downspeed' => "Downspeed",
     'details_snatches_ratio' => "Ratio",
     'details_snatches_completed' => "Completed",
+    'details_snatches_active' => "Active",
     'details_snatches_seedtime' => "Seed time",
     'details_snatches_leechtime' => "Leech time",
     'details_snatches_lastaction' => "Last action",

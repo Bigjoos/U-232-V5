@@ -28,16 +28,14 @@ $stdhead = array(
         'staff'
     )
 );
-$support = $mods = $admin = $sysop = array();
+$support = $staffs = array();
 $htmlout = $firstline = $support = '';
 $query = sql_query("SELECT u.id, u.perms, u.username, u.support, u.supportfor, u.email, u.last_access, u.class, u.title, u.country, u.status, countries.flagpic, countries.name FROM users AS u LEFT  JOIN countries ON countries.id = u.country WHERE u.class >= " . UC_STAFF . " OR u.support='yes' AND u.status='confirmed' ORDER BY username") or sqlerr(__FILE__, __LINE__);
 unset($support);
-while ($arr2 = mysqli_fetch_assoc($query)) {
-    if ($arr2["support"] == 'yes') $support[] = $arr2;
-    if ($arr2["class"] == UC_MODERATOR) $mods[] = $arr2;
-    if ($arr2["class"] == UC_ADMINISTRATOR) $admin[] = $arr2;
-    if ($arr2["class"] == UC_SYSOP) $sysop[] = $arr2;
-}
+    while ($arr2 = mysqli_fetch_assoc($query)) {
+        if($arr2['class'] >= UC_STAFF) $staffs[$arr2["class"]][] = $arr2;
+        if ($arr2["support"] == 'yes') $support[] = $arr2;
+    }
 function DoStaff($staff, $staffclass, $cols = 2)
 {
     global $INSTALLER09;
@@ -66,9 +64,12 @@ function DoStaff($staff, $staffclass, $cols = 2)
     $htmlout.= "</table></div></div></div>";
     return $htmlout;
 }
-$htmlout.= DoStaff($sysop, "Sysops");
-$htmlout.= isset($admin) ? DoStaff($admin, "Administrator") : DoStaff($admin = false, "Administrator");
-$htmlout.= isset($mods) ? DoStaff($mods, "Moderators") : DoStaff($mods = false, "Moderators");
+    $i = UC_MAX;
+    while ($i >= UC_STAFF) {
+        isset($staffs[$i]) ? DoStaff($staffs[$i], $class_names[$i]) : DoStaff($staffs[$i] = false, $class_names[$i]);
+        $htmlout.= DoStaff($staffs[$i], $class_names[$i]);
+        $i--;
+    }
 $dt = TIME_NOW - 180;
 if (!empty($support)) {
     foreach ($support as $a) {
