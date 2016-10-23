@@ -33,6 +33,7 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
 require_once (INCL_DIR . 'pager_functions.php');
 require_once (INCL_DIR . 'user_functions.php');
 require_once (CLASS_DIR . 'class_check.php');
+require_once (INCL_DIR . 'function_account_delete.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $HTMLOUT = "";
@@ -47,10 +48,21 @@ $days = 50; //number of days of inactivity
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = isset($_POST["action"]) ? htmlsafechars(trim($_POST["action"])) : '';
     if (empty($_POST["userid"]) && (($action == "deluser") || ($action == "mail"))) stderr($lang['inactive_error'], "{$lang['inactive_selectuser']}");
-    if ($action == "deluser" && (!empty($_POST["userid"]))) {
-        sql_query("DELETE FROM users WHERE id IN (" . implode(", ", array_map("sqlesc", $_POST['userid'])) . ") ");
-        stderr($lang['inactive_success'], "{$lang['inactive_deleted']} <a href='" . $INSTALLER09['baseurl'] . "/staffpanel.php?tool=inactive>{$lang['inactive_back']}</a>");
-    }
+      if ($action == "deluser" && (!empty($_POST["userid"]))) {
+          $res   = sql_query("SELECT id, email, modcomment, username, added, last_access FROM users WHERE id IN (" . implode(", ", array_map("sqlesc", $_POST['userid'])) . ") ORDER BY last_access DESC ");
+          $count = mysqli_num_rows($res);
+          while ($arr = mysqli_fetch_array($res)) {
+              $userid   = (int) $arr["id"];
+              $username = htmlsafechars($arr["username"]);
+              $res_del = sql_query(account_delete($userid)) or sqlerr(__FILE__, __LINE__);
+              if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
+                  $mc1->delete_value('MyUser_' . $userid);
+                  $mc1->delete_value('user' . $userid);
+                  write_log("User: $username Was deleted by {$CURUSER['username']}");
+              }
+          }
+          stderr($lang['inactive_success'], "{$lang['inactive_deleted']} <a href='" . $INSTALLER09['baseurl'] . "/staffpanel.php?tool=inactive>{$lang['inactive_back']}</a>");
+      }
     if ($action == "disable" && (!empty($_POST["userid"]))) {
         sql_query("UPDATE users SET enabled='no' WHERE id IN (" . implode(", ", array_map("sqlesc", $_POST['userid'])) . ") ");
         stderr($lang['inactive_success'], "{$lang['inactive_disabled']} <a href='" . $INSTALLER09['baseurl'] . "/staffpanel.php?tool=inactive>{$lang['inactive_back']}</a>");

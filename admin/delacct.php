@@ -33,37 +33,11 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
 require_once (INCL_DIR . 'user_functions.php');
 require_once (CLASS_DIR . 'class_check.php');
 require_once (INCL_DIR . 'password_functions.php');
+require_once (INCL_DIR . 'function_account_delete.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_delacct'));
 
-//== Account delete function by Laffin
-function account_delete($userid)
-{
-        $secs = 350 * 86400;
-        $maxclass = UC_STAFF;
-	$references = array(
-		"id" => array("users","usersachiev"), // Do Not move this line
-		"userid" => array("blackjack","blocks","bookmarks","casino","coins","freeslots","friends","happyhour","happylog","ips","peers","pmboxes","reputation","shoutbox","snatched","uploadapp","user_blocks","ustatus","userhits","usercomments"
-			),
-                "uid" => array("xbt_files_users","thankyou"),
-                "user_id" => array("poll_voters","posts","topics","subscriptions","read_posts"),
-		"friendid" => array(
-			"friends"
-			),
-		);
-	$ctr = 1;
-	foreach($references as $field => $tablelist)
-	{
-		foreach($tablelist as $table)
-		{
-			$tables[] = $tc = "t{$ctr}";
-			$joins[] = ($ctr == 1) ? "users as {$tc}":"LEFT JOIN {$table} as {$tc} on t1.id={$tc}.{$field}";
-			$ctr++;
-		}
-	}
-	return 'DELETE '. implode(', ',$tables) . " FROM " . implode(' ',$joins) . " WHERE t1.id='{$userid}' AND t1.class < '{$maxclass}';";
-}
 //==
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim(htmlsafechars($_POST["username"]));
