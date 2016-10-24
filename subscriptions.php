@@ -159,8 +159,8 @@ $HTMLOUT.="<form action=\"".$_SERVER["PHP_SELF"]."\" method=\"post\">
 <table class='table table-bordered'>
 <tr>
 <td class='colhead text-center'>
-<a class='altlink' href='{$INSTALLER09['baseurl']}/subscriptions.php?action=".isset($_GET["action"])."&amp;box=".isset($_GET["box"])."&amp;check=yes'>select all</a> -
-<a class='altlink' href='{$INSTALLER09['baseurl']}/subscriptions.php?action=".isset($_GET["action"])."&amp;box=".isset($_GET["box"])."&amp;uncheck=yes'>un-select all</a>
+<a class='altlink' href='{$INSTALLER09['baseurl']}/subscriptions.php?action=".isset(htmlsafechars($_GET["action"]))."&amp;box=".isset(intval($_GET["box"]))."&amp;check=yes'>select all</a> -
+<a class='altlink' href='{$INSTALLER09['baseurl']}/subscriptions.php?action=".isset(htmlsafechars($_GET["action"]))."&amp;box=".isset(intval($_GET["box"]))."&amp;uncheck=yes'>un-select all</a>
 <input class='button' type='submit' name='delete' value='Delete' /> selected</td></tr></table></form>";
 $HTMLOUT.= "</div></div>";
 echo stdhead('Subscriptions') . $HTMLOUT . stdfoot();

@@ -100,6 +100,11 @@ $lang = array(
     'index_stats_moderators' => "Moderators",
     'index_stats_admin' => "Administrators",
     'index_stats_sysops' => "Sysops",
+     //add terms by yoooov
+     'index_stats_uinfo' => "User Info",
+     'index_stats_cinfo' => "Class Info",
+     'index_stats_finfo' => "Forum Info",
+     'index_stats_tinfo' => "Torrent Info",
     //disclaimer
     'foot_disclaimer' => "None of the files shown here are actually hosted on this server. The links are provided solely by this site's users.
 The administrator of this site (%s) cannot be held responsible for what its users post, or any other actions of its users.
