@@ -23,7 +23,7 @@ if ($CURUSER['class'] >= UC_STAFF) {
 }
 $HTMLOUT.= "<div class='panel panel-default'>
     <div class='panel-heading'>
-        <label for='checkbox_4' class='text-left'>Site Poll</label>";
+        <label for='checkbox_4' class='text-left'>{$lang['index_poll_name']}</label>";
 if ($CURUSER['class'] >= UC_STAFF)
 {
 $HTMLOUT.= "<span class='nav navbar-nav navbar-right'>{$adminbutton}</span>";

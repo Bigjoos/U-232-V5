@@ -177,6 +177,7 @@ It is your own responsibility to adhere to these terms.",
 	//torrent freak
 	'index_torr_freak' => " Torrent Freak News",
         //polls 
-        'index_poll_title' => "Add / Edit"
+        'index_poll_title' => "Add / Edit",
+        'index_poll_name' => "Site Poll"
 );
 ?>

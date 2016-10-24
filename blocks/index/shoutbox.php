@@ -30,7 +30,7 @@ $commandbutton = "<a href=\"javascript:popUp('shoutbox_commands.php')\">{$lang['
 $refreshbutton = "<a href='shoutbox.php' target='shoutbox'>{$lang['index_shoutbox_refresh']}</a>\n";
 $smilebutton = "<a href=\"javascript:PopMoreSmiles('shbox','shbox_text')\">{$lang['index_shoutbox_smilies']}</a>\n";
 $HTMLOUT .= "<div class='panel panel-default'>";
-$HTMLOUT .= "<div class='panel-heading'><span><a class='btn btn-default' href='{$INSTALLER09['baseurl']}/shoutbox.php?show_shout=1&amp;show=no'>Close</a></span>&nbsp;";
+    $HTMLOUT .= "<div class='panel-heading'><span><a class='btn btn-default' href='{$INSTALLER09['baseurl']}/shoutbox.php?show_shout=1&amp;show=no'>{$lang['index_shoutbox_close']}</a></span>&nbsp;";
 $HTMLOUT .=  "<label for='checkbox_4' class='text-left'>";
 $HTMLOUT.= "{$lang['index_shoutbox_general']}";
 $HTMLOUT .= "</label>";
@@ -56,7 +56,7 @@ $HTMLOUT.= "
 <li>{$refreshbutton}</li>
 </ul>
 </div>
-<input type='text' class='form-control col-md-12' name='shbox_text' placeholder='Shout Text'>
+<input type='text' class='form-control col-md-18' name='shbox_text' placeholder='Shout Text'>
 <span class='input-group-btn'>
 <input class='btn btn-primary' type='submit' value='{$lang['index_shoutbox_send']}' />
 <input type='hidden' name='sent' value='yes' />
