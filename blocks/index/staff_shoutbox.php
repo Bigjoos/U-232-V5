@@ -35,7 +35,7 @@ if ($CURUSER['opt2'] & user_options_2::SHOW_STAFFSHOUT) {
    <div class='panel panel-default'>
 	<div class='panel-heading'>
 	<!--<span class='shouthis'>-->
-	<span><a class='btn btn-default' href='{$INSTALLER09['baseurl']}/staff_shoutbox.php?show_staffshout=1&amp;show_staff=no'>Close</a></span>
+	<span><a class='btn btn-default' href='{$INSTALLER09['baseurl']}/staff_shoutbox.php?show_staffshout=1&amp;show_staff=no'>{$lang['index_shoutbox_close']}</a></span>
 		<label for='checkbox_4' class='text-left'>{$lang['index_staff_shoutbox']}</label>
 <span class='nav navbar-nav navbar-right'><a class='btn btn-primary btn-sm navbar-btn' style='margin-top:-2px;' href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=staff_shistory'>{$lang['index_shoutbox_history']}</a></span>
 </div>
