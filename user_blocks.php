@@ -30,11 +30,12 @@ require_once (INCL_DIR . 'html_functions.php');
 require_once (INCL_DIR . 'user_functions.php');
 dbconn(false);
 loggedinorreturn();
-$lang = load_language('global');
+//$lang = load_language('global');
+$lang = array_merge(load_language('global'), load_language('user_blocks'));
 $id = (isset($_GET['id']) ? $_GET['id'] : $CURUSER['id']);
 if (!is_valid_id($id) || $CURUSER['class'] < UC_STAFF) $id = $CURUSER['id'];
 if ($CURUSER['got_blocks'] == 'no') {
-    stderr($lang['gl_error'], "Time shall unfold what plighted cunning hides\n\nWho cover faults, at last shame them derides.... Go to your Karma bonus page and buy this unlock before trying to access it.");
+    stderr($lang['gl_error'], $lang['user_b_err1']);
     die;
 }
     //$mc1->delete_value('blocks::' . $id);
@@ -262,381 +263,381 @@ $checkbox_userdetails_usercomments = ((curuser::$blocks['userdetails_page'] & bl
 $checkbox_userdetails_showfriends = ((curuser::$blocks['userdetails_page'] & block_userdetails::SHOWFRIENDS) ? ' checked="checked"' : '');
 $HTMLOUT = '';
 $HTMLOUT.= '<div class="container">
-<h2 class="text-center">USER BLOCKS</h2><br>
+<h2 class="text-center">'.$lang['user_b_head'].'</h2><br>
 <form class="form-horizontal col-sm-10 col-sm-offset-1" action="" method="post">
 <ul id="myTab" class="nav nav-pills col-sm-offset-3">
-   <li class="active"><a href="#Home" data-toggle="tab">Home Page Settings</a></li>   
-   <li><a href="#site" data-toggle="tab">Site Alert Settings</a></li>
-   <li><a href="#user" data-toggle="tab">User Details Settings</a></li>  
+   <li class="active"><a href="#Home" data-toggle="tab">'.$lang['user_b_title1'].'</a></li>   
+   <li><a href="#site" data-toggle="tab">'.$lang['user_b_title2'].'</a></li>
+   <li><a href="#user" data-toggle="tab">'.$lang['user_b_title3'].'</a></li>  
 </ul><br>
 <div style="display:block;height:20px;"></div>
 <div id="myTabContent" class="tab-content"> 
 <div class="tab-pane fade in active" id="Home">
- <fieldset><legend>Home Page Settings</legend></fieldset>
+ <fieldset><legend>'.$lang['user_b_title1'].'</legend></fieldset>
         <table class="table table-bordered">
-        <tr><td class="userblock"><b>Enable IE alert?</b></td><td>
+        <tr><td class="userblock"><b>'.$lang['user_b_ie1'].'</b></td><td>
         <div class="checkbox-inline col-sm-offset-0"><label><input data-toggle="toggle" type="checkbox" id="ie_alert" name="ie_alert" value="yes"' . $checkbox_index_ie_alert . '></label>
-        <span>Check this option if you want to enable the IE user alert.</span></div>             
+        <span>'.$lang['user_b_chk'].''.$lang['user_b_ie2'].'</span></div>             
     </td>
     </tr>
-        <tr class="userblock"><td><b>Enable News?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_nb1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="index_news" value="yes" name="news"' . $checkbox_index_news . '></label>
-               <span>Check this option if you want to enable the News Block.</span></div>
+               <span>'.$lang['user_b_chk'].''.$lang['user_b_nb2'].'</span></div>
     </td>
         </tr>
-        <tr class="userblock"><td><b>Enable Shoutbox?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_sh1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="shoutbox" name="shoutbox" value="yes"' . $checkbox_index_shoutbox . '></label>
-               <span>Check this option if you want to enable the Shoutbox.</span></div>
+               <span>'.$lang['user_b_chk'].''.$lang['user_b_sh2'].'</span></div>
         </td>
         </tr>';
 if ($CURUSER['class'] >= UC_STAFF) {
-    $HTMLOUT.= '<tr class="userblock"><td><b>Enable Staff Shoutbox?</b></td><td>
+    $HTMLOUT.= '<tr class="userblock"><td><b>'.$lang['user_b_shst1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="staffshout" name="staff_shoutbox" value="yes"' . $checkbox_index_staffshoutbox . '>
-        </label><span>Check this option if you want to enable the Staff Shoutbox.</span></div>
+        </label><span>'.$lang['user_b_chk'].''.$lang['user_b_shst2'].'</span></div>
             </td>
         </tr>';
 }
-$HTMLOUT.= '<tr class="userblock"><td><b>Enable Active Users?</b></td><td>
+$HTMLOUT.= '<tr class="userblock"><td><b>'.$lang['user_b_actu1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="active_users" name="active_users" value="yes"' . $checkbox_index_active_users . '>
-        </label><span>Check this option if you want to enable the Active Users.</span></div>
+        </label><span>'.$lang['user_b_chk'].''.$lang['user_b_actu2'].'</span></div>
             </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Active Users Over 24hours?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_act24'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="active_users2" name="last_24_active_users" value="yes"' . $checkbox_index_active_24h_users . '>
-        </label><span>Check this option if you want to enable the Active Users visited over 24hours.</span></div>
+        </label><span>'.$lang['user_b_chk'].''.$lang['user_b_act25'].'</span></div>
             </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Active Irc Users?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_irc1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="active_users3" name="irc_active_users" value="yes"' . $checkbox_index_active_irc_users . '>
-        </label><span>Check this option if you want to enable the Active Irc Users.</span></div>       
+        </label><span>'.$lang['user_b_chk'].''.$lang['user_b_irc2'].'</span></div>       
         </td>
         </tr>
-        <tr class="userblock"><td><b>Enable Birthday Users?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_bir1'].'</b></td><td>
          <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="birthday_active_users" name="birthday_active_users" value="yes"' . $checkbox_index_active_birthday_users . '>
-        </label> <span>Check this option if you want to enable the Active Birthday Users.</span></div>
+        </label> <span>'.$lang['user_b_chk'].''.$lang['user_b_bir2'].'</span></div>
             </td>
         </tr>   
-        <tr class="userblock"><td><b>Enable Site Stats?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_sit1'].'</b></td><td>
          <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stats" name="stats" value="yes"' . $checkbox_index_stats . '>
-    </label><span>Check this option if you want to enable the Stats.</span></div>        
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_sit2'].'</span></div>        
         </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Disclaimer?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_disc1'].'</b></td><td>
          <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="disclaimer" name="disclaimer" value="yes"' . $checkbox_index_disclaimer . '>
-    </label><span>Check this option if you want to enable Disclaimer.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_disc2'].'</span></div>
         </td>
         </tr>   
-        <tr class="userblock"><td><b>Enable Latest User?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_last1'].'</b></td><td>
     <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="latest_user" name="latest_user" value="yes"' . $checkbox_index_latest_user . '>
-    </label><span>Check this option if you want to enable Latest User.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_last2'].'</span></div>
         </td>
         </tr>   
-        <tr class="userblock"><td><b>Enable Latest Forum Posts?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_fol1'].'</b></td><td>
     <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="forumposts" name="forumposts" value="yes"' . $checkbox_index_latest_forumposts . '>
-    </label> <span>Check this option if you want to enable latest Forum Posts.</span></div>
+    </label> <span>'.$lang['user_b_chk'].''.$lang['user_b_fol2'].'</span></div>
         </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Latest torrents?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_torl1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="latest_torrents" name="latest_torrents" value="yes"' . $checkbox_index_latest_torrents . '>
-    </label><span>Check this option if you want to enable latest torrents.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_torl2'].'</span></div>
         </td>
         </tr>
         
-        <tr class="userblock"><td><b>Enable Latest torrents scroll?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_tors1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="latest_torrents_scroll" name="latest_torrents_scroll" value="yes"' . $checkbox_index_latest_torrents_scroll . '>
-    </label><span>Check this option if you want to enable latest torrents marquee.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_tors2'].'</span></div>
         </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Announcement?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_ann1'].'</b></td><td>
     <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="announcement" name="announcement" value="yes"' . $checkbox_index_announcement . '>
-    </label><span>Check this option if you want to enable the Announcement Block.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_ann2'].'</span></div>
         </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Donation Progress?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_don1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="donation_progress" name="donation_progress" value="yes"' . $checkbox_index_donation_progress . '>
-    </label><span>Check this option if you want to enable the Donation Progress.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_don2'].'</span></div>
         </td>
         </tr>
-        <tr class="userblock"><td><b>Enable Advertisements?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_adv1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="advertisements" name="advertisements" value="yes"' . $checkbox_index_ads . '>
-    </label><span>Check this option if you want to enable the Advertisements.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_adv2'].'</span></div>
         </td>
         </tr>
-        <tr class="userblock"><td><b>Enable Radio?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_rad1'].'</b></td><td>
        <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="radio" name="radio" value="yes"' . $checkbox_index_radio . '>
-    </label><span>Check this option if you want to enable the site radio.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_rad2'].'</span></div>
         </td>
         </tr>
-        <tr class="userblock"><td><b>Enable Torrent Freak?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_tf1'].'</b></td><td>
     <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="torrentfreak" name="torrentfreak" value="yes"' . $checkbox_index_torrentfreak . '>
-    </label><span>Check this option if you want to enable the torrent freak news.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_tf2'].'</span></div>
         </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Xmas Gift?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_xmas1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="xmas_gift" name="xmas_gift" value="yes"' . $checkbox_index_xmasgift . ' />
-    </label><span>Check this option if you want to enable the Christmas Gift.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_xmas2'].'</span></div>
         </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Poll?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_poll1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="active_poll" name="active_poll" value="yes"' . $checkbox_index_active_poll . '>
-    </label><span>Check this option if you want to enable the Active Poll.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_poll2'].'</span></div>
         </td>
         </tr>       
-        <tr class="userblock"><td><b>Enable Movie of the week?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_mow1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="index_movie_ofthe_week" name="movie_ofthe_week" value="yes"' . $checkbox_index_mow . '><label for="index_movie_ofthe_week">
-    </label><span>Check this option if you want to enable the Movie of the week.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_mow2'].'</span></div>
         </td>
         </tr>
-        <tr class="userblock"><td><b>Enable Requests and Offers?</b></td><td>
+        <tr class="userblock"><td><b>'.$lang['user_b_rqno1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="index_requests_and_offers" name="requests_and_offers" value="yes"' . $checkbox_index_reqnoff . '><label for="index_requests_and_offers">
-    </label><span>Check this option if you want to enable the requests and offers.</span></div>
+    </label><span>'.$lang['user_b_chk'].''.$lang['user_b_rqno2'].'</span></div>
         </td>
         </tr>
     </table>         
-    <div class="col-sm-offset-5"><input class="btn btn-primary" type="submit" name="submit" value="Submit" tabindex="2" accesskey="s"></div><br><br></div>';
+    <div class="col-sm-offset-5"><input class="btn btn-primary" type="submit" name="submit" value="'.$lang['user_b_butt'].'" tabindex="2" accesskey="s"></div><br><br></div>';
 $HTMLOUT.='<div class="tab-pane fade" id="site">
-<fieldset><legend>Site Alert Settings</legend></fieldset>
+<fieldset><legend>'.$lang['user_b_title2'].'</legend></fieldset>
         <table class="table table-bordered">        
-    <tr class="userblock"><td><b>Freeleech?</b></td><td>
+    <tr class="userblock"><td><b>'.$lang['user_s_free1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle"  type="checkbox" id="stdhead_freeleech" name="stdhead_freeleech" value="yes"' . $checkbox_global_freeleech . '>
-</label><span>Enable "freeleech mark" in stdhead</span></div>        
+</label><span>'.$lang['user_s_free2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Staff Reports?</b></td><td>
+        <tr><td><b>'.$lang['user_s_rep1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_reports" name="stdhead_reports" value="yes"' . $checkbox_global_staff_report . '>
-</label><span>Enable reports alert in stdhead</span></div>        
+</label><span>'.$lang['user_s_rep2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Upload App Alert?</b></td><td>
+        <tr><td><b>'.$lang['user_s_app1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_uploadapp" name="stdhead_uploadapp" value="yes"' . $checkbox_global_staff_uploadapp . '>
-</label><span>Enable upload application alerts in stdhead</span></div>        
+</label><span>'.$lang['user_s_app1'].'</span></div>        
         </td>
         </tr>';
 if ($CURUSER['class'] >= UC_STAFF) {
     $HTMLOUT.= '        
-    <tr><td><b>Demotion</b></td><td>
+    <tr><td><b>'.$lang['user_s_dem1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_demotion" name="stdhead_demotion" value="yes"' . $checkbox_global_demotion . '>
-</label><span>Enable the global demotion alerts block in stdhead</span></div>        
+</label><span>'.$lang['user_s_dem2'].'</span></div>        
         </td>
         </tr>';
 }
 if ($CURUSER['class'] >= UC_STAFF) {
     $HTMLOUT.= '
-    <tr><td><b>Staff Warning?</b></td><td>
+    <tr><td><b>'.$lang['user_s_warn1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_staff_message" name="stdhead_staff_message" value="yes"' . $checkbox_global_staff_message_alert . '>
-</label><span>Shows if there is a new message for staff alert in stdhead </span></div>        
+</label><span>'.$lang['user_s_warn2'].'</span></div>        
         </td>
         </tr>';
 }
 if ($CURUSER['class'] >= UC_STAFF) {
     $HTMLOUT.= '
-    <tr><td><b>Bug Alert Message?</b></td><td>
+    <tr><td><b>'.$lang['user_s_bug1'].'</b></td><td>
          <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_bugmessage" name="stdhead_bugmessage" value="yes"' . $checkbox_global_bugmessage . '>
-</label><span>Enable Bug Message alerts in stdhead</span></div>        
+</label><span>'.$lang['user_s_bug2'].'</span></div>        
         </td>
         </tr>';
 }
 $HTMLOUT.= '
-    <tr><td><b>Message block?</b></td><td>
+    <tr><td><b>'.$lang['user_s_mess1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_newpm" name="stdhead_newpm" value="yes"' . $checkbox_global_message_alert . '>
-</label><span>Enable message alerts in stdhead</span></div>        
+</label><span>'.$lang['user_s_mess2'].'</span></div>        
        </td>
         </tr>       
-        <tr><td><b>Happyhour?</b></td><td>
+        <tr><td><b>'.$lang['user_s_hh1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_happyhour" name="stdhead_happyhour" value="yes"' . $checkbox_global_happyhour . '>
-</label><span>Enable happy hour alerts in stdhead</span></div>        
+</label><span>'.$lang['user_s_hh2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>CrazyHour?</b></td><td>
+        <tr><td><b>'.$lang['user_s_ch1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_crazyhour" name="stdhead_crazyhour" value="yes"' . $checkbox_global_crazyhour . '>
-</label><span>Enable crazyhour alerts in stdhead</span></div>        
+</label><span>'.$lang['user_s_ch2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>Karma Contributions</b></td><td>
+        <tr><td><b>'.$lang['user_s_kc1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_freeleech_contribution" name="stdhead_freeleech_contribution" value="yes"' . $checkbox_global_freeleech_contribution . '>
-</label><span>Enable karma contribution status alert in stdhead</span></div>        
+</label><span>'.$lang['user_s_kc2'].'</span></div>        
         </td>
-        </tr>';
+       </tr>';
 if ($CURUSER['class'] >= UC_STAFF) {
 $HTMLOUT.= '
-        <tr><td><b>Staff Tool Quick Links</b></td><td>
+        <tr><td><b>'.$lang['user_s_stq1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="stdhead_stafftools" name="stdhead_stafftools" value="yes"' . $checkbox_global_stafftools . '>
-</label><span>Enable the staff tool quick links in stdhead</span></div>        
+</label><span>'.$lang['user_s_stq2'].'</span></div>        
         </td>
         </tr>';
 }
-       $HTMLOUT.= '</table><div class="col-sm-offset-5"><input class="btn btn-primary" type="submit" name="submit" value="Submit" tabindex="2" accesskey="s"></div><br><br></div>';
+       $HTMLOUT.= '</table><div class="col-sm-offset-5"><input class="btn btn-primary" type="submit" name="submit" value="'.$lang['user_b_butt'].'" tabindex="2" accesskey="s"></div><br><br></div>';
 $HTMLOUT.= '<div class="tab-pane fade" id="user">
-<fieldset><legend>Userdetails Settings</legend></fieldset>
+<fieldset><legend>'.$lang['user_b_title3'].'</legend></fieldset>
         <table class="table table-bordered">
-        <tr><td><b>Login link?</b></td><td>
+        <tr><td><b>'.$lang['user_u_ll1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_login_link" name="userdetails_login_link" value="yes"' . $checkbox_userdetails_login_link . '>
-</label><span>Enable quick login link</span></div>   
+</label><span>'.$lang['user_u_ll2'].'</span></div>   
         </td>
         </tr>
-        <tr><td><b>Flush torrents?</b></td><td>
+        <tr><td><b>'.$lang['user_u_ftt1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_flush" name="userdetails_flush" value="yes"' . $checkbox_userdetails_flush . '>
-</label><span>Enable flush torrents</span></div>        
+</label><span>'.$lang['user_u_ftt2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Join date?</b></td><td>
+        <tr><td><b>'.$lang['user_u_join1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_joined" name="userdetails_joined" value="yes"' . $checkbox_userdetails_joined . '>
-</label><span>Enable join date</span></div>        
+</label><span>'.$lang['user_u_join2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Online time?</b></td><td>
+        <tr><td><b>'.$lang['user_u_onl1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_online_time" name="userdetails_online_time" value="yes"' . $checkbox_userdetails_onlinetime . '>
-</label><span>Enable online time</span></div>        
+</label><span>'.$lang['user_u_onl2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>Browser?</b></td><td>
+        <tr><td><b>'.$lang['user_u_brw1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_browser" name="userdetails_browser" value="yes"' . $checkbox_userdetails_browser . '>
-</label><span>Enable browser and os detection</span></div>        
+</label><span>'.$lang['user_u_brw2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>Reputation?</b></td><td>
+        <tr><td><b>'.$lang['user_u_rep1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_reputation" name="userdetails_reputation" value="yes"' . $checkbox_userdetails_reputation . '>
-</label><span>Enable add reputation link</span></div>        
+</label><span>'.$lang['user_u_rep2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Profile hits?</b></td><td>
+        <tr><td><b>'.$lang['user_u_phit1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_user_hits" name="userdetails_user_hits" value="yes"' . $checkbox_userdetails_userhits . '>
-</label><span>Enable user hits</span></div>        
+</label><span>'.$lang['user_u_phit2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Birthday?</b></td><td>
+        <tr><td><b>'.$lang['user_u_bir1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_birthday" name="userdetails_birthday" value="yes"' . $checkbox_userdetails_birthday . '>
-</label><span>Enable birthdate and age</span></div>       
+</label><span>'.$lang['user_u_bir2'].'</span></div>       
         </td>
         </tr>   
-        <tr><td><b>Contact?</b></td><td>
+        <tr><td><b>'.$lang['user_u_con1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_contact_info" name="userdetails_contact_info" value="yes"' . $checkbox_userdetails_contact_info . '>
-</label><span>Enable contact infos</span></div>        
+</label><span>'.$lang['user_u_con2'].'</span></div>        
        </td>
         </tr>       
-        <tr><td><b>IP history?</b></td><td>
+        <tr><td><b>'.$lang['user_u_ip1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_iphistory" name="userdetails_iphistory" value="yes"' . $checkbox_userdetails_iphistory . '>
-</label><span>Enable ip history lists</span></div>        
+</label><span>'.$lang['user_u_ip2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>User traffic?</b></td><td>
+        <tr><td><b>'.$lang['user_u_ut1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_traffic" name="userdetails_traffic" value="yes"' . $checkbox_userdetails_traffic . '>
-</label> <span>Enable uploaded and download</span></div>       
+</label> <span>'.$lang['user_u_ut2'].'</span></div>       
         </td>
         </tr>       
-        <tr><td><b>Share ratio?</b></td><td>
+        <tr><td><b>'.$lang['user_u_shr1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_share_ratio" name="userdetails_share_ratio" value="yes"' . $checkbox_userdetails_shareratio . '>
-</label><span>Enable share ratio</span></div>       
+</label><span>'.$lang['user_u_shr2'].'</span></div>       
         </td>
         </tr>       
-        <tr><td><b>Seed time ratio?</b></td><td>
+        <tr><td><b>'.$lang['user_u_st1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_seedtime_ratio" name="userdetails_seedtime_ratio" value="yes"' . $checkbox_userdetails_seedtime_ratio . '>
-</label><span>Enable seed time per torrent average ratio</span></div>        
+</label><span>'.$lang['user_u_st2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>Seedbonus?</b></td><td>
+        <tr><td><b>'.$lang['user_u_seed1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_seedbonus" name="userdetails_seedbonus" value="yes"' . $checkbox_userdetails_seedbonus . '>
-</label><span>Enable seed bonus</span></div>       
+</label><span>'.$lang['user_u_seed2'].'</span></div>       
          </td>
         </tr>
-        <tr><td><b>IRC stats?</b></td><td>
+        <tr><td><b>'.$lang['user_u_ircs1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_irc_stats" name="userdetails_irc_stats" value="yes"' . $checkbox_userdetails_irc_stats . '>
-</label><span>Enable irc online stats</span></div>       
+</label><span>'.$lang['user_u_ircs2'].'</span></div>       
         </td>
         </tr>   
-        <tr><td><b>Connectable?</b></td><td>
+        <tr><td><b>'.$lang['user_u_cnn1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_connectable_port" name="userdetails_connectable_port" value="yes"' . $checkbox_userdetails_connectable . '>
-</label><span>Enable connectable and port</span></div>        
+</label><span>'.$lang['user_u_cnn2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>Avatar?</b></td><td>
+        <tr><td><b>'.$lang['user_u_av1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_avatar" name="userdetails_avatar" value="yes"' . $checkbox_userdetails_avatar . '>
-</label><span>Enable avatar</span></div>        
+</label><span>'.$lang['user_u_av2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>Userclass?</b></td><td>
+        <tr><td><b>'.$lang['user_u_ucc1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_userclass" name="userdetails_userclass" value="yes"' . $checkbox_userdetails_userclass . '>
-</label><span>Enable userclass</span></div>       
+</label><span>'.$lang['user_u_ucc2'].'</span></div>       
         </td>
         </tr>       
-        <tr><td><b>Gender?</b></td><td>
+        <tr><td><b>'.$lang['user_u_gen1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_gender" name="userdetails_gender" value="yes"' . $checkbox_userdetails_gender . '>
-</label><span>Enable gender</span></div>       
+</label><span>'.$lang['user_u_gen2'].'</span></div>       
         </td>
         </tr>   
-        <tr><td><b>Free stuffs?</b></td><td>
+        <tr><td><b>'.$lang['user_u_free1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_freestuffs" name="userdetails_freestuffs" value="yes"' . $checkbox_userdetails_freestuffs . '>
-</label><span>Enable freeslots and freeleech status</span></div>        
+</label><span>'.$lang['user_u_free2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Comments?</b></td><td>
+        <tr><td><b>'.$lang['user_u_cmm1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_comments" name="userdetails_comments" value="yes"' . $checkbox_userdetails_torrent_comments . '>
-</label><span>Enable torrent comments history</span></div>        
+</label><span>'.$lang['user_u_cmm2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>Forumposts?</b></td><td>
+        <tr><td><b>'.$lang['user_u_fpt1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_forumposts" name="userdetails_forumposts" value="yes"' . $checkbox_userdetails_forumposts . '>
-</label><span>Enable forum posts history</span></div>        
+</label><span>'.$lang['user_u_fpt2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Invited by?</b></td><td>
+        <tr><td><b>'.$lang['user_u_inv1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_invitedby" name="userdetails_invitedby" value="yes"' . $checkbox_userdetails_invitedby . '>
-</label><span>Enable invited by list</span></div>        
+</label><span>'.$lang['user_u_inv2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>Torrents blocks?</b></td><td>
+        <tr><td><b>'.$lang['user_u_tb1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_torrents_block" name="userdetails_torrents_block" value="yes"' . $checkbox_userdetails_torrents_block . '>
-</label><span>Enable seeding, leeching, snatched and uploaded torrents</span></div>       
+</label><span>'.$lang['user_u_tb2'].'</span></div>       
         </td>
         </tr>   
-        <tr><td><b>Staff snatched?</b></td><td>
+        <tr><td><b>'.$lang['user_u_sts1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_snatched_staff" name="userdetails_snatched_staff" value="yes"' . $checkbox_userdetails_snatched_staff . '>
-</label><span>Enable staff snatchlist</span></div>        
+</label><span>'.$lang['user_u_sts2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>User info?</b></td><td>
+        <tr><td><b>'.$lang['user_u_usinf1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_userinfo" name="userdetails_userinfo" value="yes"' . $checkbox_userdetails_userinfo . '>
-</label><span>Enable user info</span></div>        
+</label><span>'.$lang['user_u_usinf2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>Show pm?</b></td><td>
+        <tr><td><b>'.$lang['user_u_pm1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_showpm" name="userdetails_showpm" value="yes"' . $checkbox_userdetails_showpm . '>
-</label><span>Enable send message button</span></div>       
+</label><span>'.$lang['user_u_pm2'].'</span></div>       
         </td>
         </tr>';
 if ($BLOCKS['userdetails_report_user_on']) {		
-        $HTMLOUT.= '<tr><td><b>Report user?</b></td><td>
+        $HTMLOUT.= '<tr><td><b>'.$lang['user_u_rpu1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_report_user" name="userdetails_report_user" value="yes"' . $checkbox_userdetails_report . '>
-</label><span>Enable report users button</span></div>        
+</label><span>'.$lang['user_u_rpu2'].'</span></div>        
         </td>
         </tr>';
 }	
-$HTMLOUT.= '<tr><td><b>User status?</b></td><td>
+$HTMLOUT.= '<tr><td><b>'.$lang['user_u_ust1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_user_status" name="userdetails_user_status" value="yes"' . $checkbox_userdetails_userstatus . '>
-</label><span>Enable user status</span></div>        
+</label><span>'.$lang['user_u_ust2'].'</span></div>        
         </td>
         </tr>       
-        <tr><td><b>User comments?</b></td><td>
+        <tr><td><b>'.$lang['user_u_ucmm1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_user_comments" name="userdetails_user_comments" value="yes"' . $checkbox_userdetails_usercomments . '>
-</label><span>Enable user comments</span></div>        
+</label><span>'.$lang['user_u_ucmm2'].'</span></div>        
         </td>
         </tr>';
 if ($CURUSER['class'] >= UC_STAFF) {
     $HTMLOUT.= '
-    <tr><td><b>Completed?</b></td><td>
+    <tr><td><b>'.$lang['user_u_comp1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_completed" name="userdetails_completed" value="yes"' . $checkbox_userdetails_completed . '>
-</label><span>Enable completed torrents</span></div>        
+</label><span>'.$lang['user_u_comp2'].'</span></div>        
         </td>
         </tr>';
 }
 $HTMLOUT.= '
-    <tr><td><b>Show friends?</b></td><td>
+    <tr><td><b>'.$lang['user_u_sfd1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_showfriends" name="userdetails_showfriends" value="yes"' . $checkbox_userdetails_showfriends . '>
-</label><span>Enable your friends block</span></div>        
+</label><span>'.$lang['user_u_sfd2'].'</span></div>        
         </td>
         </tr>
     </table>
-<div class="col-sm-offset-5"><input class="btn btn-primary" type="submit" name="submit" value="Submit" tabindex="2" accesskey="s"></div></div>';
+<div class="col-sm-offset-5"><input class="btn btn-primary" type="submit" name="submit" value="'.$lang['user_b_butt'].'" tabindex="2" accesskey="s"></div></div>';
 $HTMLOUT.= '</div></form></div>';
-echo stdhead("User Blocks Config", true) . $HTMLOUT . stdfoot();
+echo stdhead($lang['user_b_echo'], true) . $HTMLOUT . stdfoot();
 ?>

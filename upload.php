@@ -145,9 +145,9 @@ if ($CURUSER['class'] >= UC_UPLOADER AND XBT_TRACKER == false) {
     <option value='8'>{$lang['upload_add_week8']}</option>
     <option value='255'>{$lang['upload_add_unltd']}</option>
     </select></div>";
-    $HTMLOUT.= "<div class='col-sm-4'>Silver Torrent   
+    $HTMLOUT.= "<div class='col-sm-4'>{$lang['upload_add_silv']}   
     <select class='form-control' name='half_length'>
-    <option value='0'>Not Silver</option>
+    <option value='0'>{$lang['upload_add_nosilv']}</option>
     <option value='42'>{$lang['upload_add_sday1']}</option>
     <option value='1'>{$lang['upload_add_sweek1']}</option>
     <option value='2'>{$lang['upload_add_sweek2']}</option>
