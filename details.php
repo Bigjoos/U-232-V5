@@ -76,7 +76,6 @@ foreach ($categorie as $key => $value) $change[$value['id']] = array(
     'image' => $value['image'],
     'min_class' => $value['min_class']
 );
-$mc1->delete_value('torrent_details_' . $id);
 if (($torrents = $mc1->get_value('torrent_details_' . $id)) === false) {
     $tor_fields_ar_int = array(
         'id',
