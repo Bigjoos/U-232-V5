@@ -22,12 +22,17 @@ require_once (INCL_DIR . 'user_functions.php');
 dbconn(false);
 loggedinorreturn();
 $HTMLOUT = '';
-$lang = array_merge(load_language('global'));
+$lang = array_merge(load_language('global'), load_language('usermood'));
 $stdhead = array(
     'js' => array(
         'popup'
     )
 );
+
+if ($INSTALLER09['mood_sys_on'] == false) {
+stderr($lang['user_mood_err'], $lang['user_mood_off']);
+exit();
+}
 
 $HTMLOUT.= '<div class="container"><div class="row"><div class="col-md-8 col-md-offset-2"><br><table class="table table-bordered">
       <tr>

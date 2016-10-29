@@ -1,5 +1,7 @@
 <?php
 $lang = array(
+    'achbon_err' => 'Error',
+    'achbon_off' => 'It appears that the achievement system is offline.',
     'achbon_std_head' => "Achievement Random Bonus",
     'achbon_no_ach_bon_pnts' => "No Achievement Bonus Points",
     'achbon_no_ach_bon_pnts_msg' => "It appears that you currently have no Achievement Bonus Points available to spend.",

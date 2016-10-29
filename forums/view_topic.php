@@ -411,9 +411,11 @@ while ($arr = mysqli_fetch_assoc($res)) {
             <img src='" . $INSTALLER09['pic_base_url'] . $Multi_forum['configs']['forum_pics'][($last_access > (TIME_NOW - 360) || $posterid == $CURUSER['id'] ? 'on' : 'off') . 'line_btn'] . "' border='0' alt='' />
         <br />
             <span class='smalltext'>" . $class_name . "</span><br />";
-    $HTMLOUT .= '<!-- Mood -->
+     if($INSTALLER09['mood_sys_on']) {
+        $HTMLOUT .= '<!-- Mood -->
             <span class="smalltext"><a href="javascript:;" onclick="PopUp(\'usermood.php\',\'Mood\',530,500,1,1);"><img src="' . $INSTALLER09['pic_base_url'] . 'smilies/' . $moodpic . '" alt="' . $moodname . '" border="0" /></a>
       <span class="tip">' . (($arr['p_anon'] == 'yes' && $CURUSER['class'] < UC_STAFF) ? '<i>Anonymous</i>' : htmlsafechars($arr['username'])) . ' ' . $moodname . ' !</span>&nbsp;</span>';
+    }
     $HTMLOUT .= "<br /></div>";
     // end left
     // begin right
@@ -429,15 +431,14 @@ while ($arr = mysqli_fetch_assoc($res)) {
           Ratio:&nbsp;{$Ratio}<br />
           Uploaded:&nbsp;{$uploaded}<br />
           Downloaded:&nbsp;{$downloaded}<br />
-          $member_reputation";
+          ".($INSTALLER09['rep_sys_on'] ? $member_reputation : "")."";
     } else {
         $HTMLOUT .= "
           Posts:&nbsp;{$forumposts}<br />
           Ratio:&nbsp;{$Ratio}<br />
           Uploaded:&nbsp;{$uploaded}<br />
           Downloaded:&nbsp;{$downloaded}<br />
-          $member_reputation
-          ";
+          ".($INSTALLER09['rep_sys_on'] ? $member_reputation : "")."";
     }
     $HTMLOUT .= "</div></div>";
     $HTMLOUT .= "<div class='panel panel-default'>

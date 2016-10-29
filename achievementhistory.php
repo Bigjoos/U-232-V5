@@ -26,6 +26,12 @@ loggedinorreturn();
 $newpage = new page_verify();
 $newpage->create('takecounts');
 $lang = array_merge(load_language('global') , load_language('achievement_history'));
+
+if ($INSTALLER09['achieve_sys_on'] == false) {
+stderr($lang['achievement_history_err'], $lang['achievement_history_off']);
+exit();
+}
+
 $HTMLOUT = "";
 $id = (int)$_GET["id"];
 if (!is_valid_id($id)) stderr($lang['achievement_history_err'], $lang['achievement_history_err1']);

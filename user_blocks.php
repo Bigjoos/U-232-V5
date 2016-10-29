@@ -495,11 +495,11 @@ $HTMLOUT.= '<div class="tab-pane fade" id="user">
 </label><span>'.$lang['user_u_brw2'].'</span></div>        
         </td>
         </tr>   
-        <tr><td><b>'.$lang['user_u_rep1'].'</b></td><td>
+        '.($INSTALLER09['rep_sys_on'] ? '<tr><td><b>'.$lang['user_u_rep1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_reputation" name="userdetails_reputation" value="yes"' . $checkbox_userdetails_reputation . '>
 </label><span>'.$lang['user_u_rep2'].'</span></div>        
         </td>
-        </tr>       
+        </tr>' : '').'       
         <tr><td><b>'.$lang['user_u_phit1'].'</b></td><td>
         <div class="checkbox-inline"><label><input data-toggle="toggle" type="checkbox" id="userdetails_user_hits" name="userdetails_user_hits" value="yes"' . $checkbox_userdetails_userhits . '>
 </label><span>'.$lang['user_u_phit2'].'</span></div>        

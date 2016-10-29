@@ -167,6 +167,9 @@ $INSTALLER09['wait_times'] = 0;
 $INSTALLER09['max_slots'] = 0;
 $INSTALLER09['crazy_hour'] = false; //== Off for XBT
 $INSTALLER09['happy_hour'] = false; //== Off for XBT
+$INSTALLER09['rep_sys_on'] = true;
+$INSTALLER09['achieve_sys_on'] = true;
+$INSTALLER09['mood_sys_on'] = true;
 $INSTALLER09['mods']['slots'] = true;
 $INSTALLER09['votesrequired'] = 15;
 $INSTALLER09['catsperrow'] = 7;

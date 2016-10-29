@@ -76,7 +76,7 @@ foreach ($categorie as $key => $value) $change[$value['id']] = array(
     'image' => $value['image'],
     'min_class' => $value['min_class']
 );
-//$mc1->delete_value('torrent_details_' . $id);
+$mc1->delete_value('torrent_details_' . $id);
 if (($torrents = $mc1->get_value('torrent_details_' . $id)) === false) {
     $tor_fields_ar_int = array(
         'id',
@@ -422,13 +422,13 @@ $HTMLOUT.= "<div class='col-md-8'>
 		</tr>";
     /**  Mod by dokty, rewrote by pdq  **/    
 $my_points = 0;
-    if (($torrent['torrent_points_'] = $mc1->get('coin_points_' . $id)) === false) {
+    if (($torrent['torrent_points_'] = $mc1->get_value('coin_points_' . $id)) === false) {
         $sql_points = sql_query('SELECT userid, points FROM coins WHERE torrentid=' . sqlesc($id));
         $torrent['torrent_points_'] = array();
         if (mysqli_num_rows($sql_points) !== 0) {
             while ($points_cache = mysqli_fetch_assoc($sql_points)) $torrent['torrent_points_'][$points_cache['userid']] = $points_cache['points'];
         }
-        $mc1->add('coin_points_' . $id, $torrent['torrent_points_'], 0);
+        $mc1->add_value('coin_points_' . $id, $torrent['torrent_points_'], 0);
     }
     $my_points = (isset($torrent['torrent_points_'][$CURUSER['id']]) ? (int)$torrent['torrent_points_'][$CURUSER['id']] : 0);
     $HTMLOUT.= '<tr>
@@ -641,7 +641,7 @@ $HTMLOUT.= "</table></div><!-- closing col md 4 -->
 //==Report Torrent Link
 $HTMLOUT.= tr("Report Torrent", "<form action='report.php?type=Torrent&amp;id=$id' method='post'><input class='btn btn-primary' type='submit' name='submit' value='Report This Torrent' />&nbsp;&nbsp;<strong><em class='label label-primary'>For breaking the&nbsp;<a href='rules.php'>rules</a></em></strong></form>", 1);
 //== Tor Reputation by pdq
-if ($torrent_cache['rep']) {
+if ($torrent_cache['rep'] && $INSTALLER09['rep_sys_on']) {
     $torrents = array_merge($torrents, $torrent_cache['rep']);
     $member_reputation = get_reputation($torrents, 'torrents', $torrents['anonymous']);
     $HTMLOUT.= '<tr><td class="heading" valign="top" align="right" width="1%">Reputation</td>

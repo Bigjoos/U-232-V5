@@ -19,7 +19,7 @@
 //==Installer09 MemCached News
 $adminbutton = '';
 if ($CURUSER['class'] >= UC_STAFF) {
-    $adminbutton = "<a class='pull-right' href='staffpanel.php?tool=news&amp;mode=news'>{$lang['index_news_title']}</a>";
+    $adminbutton = "<a class='btn btn-primary btn-sm navbar-btn' style='margin-top:-2px;' href='staffpanel.php?tool=news&amp;mode=news'>{$lang['index_news_title']}</a>";
 }
 $HTMLOUT.= "<div class='panel panel-default'>
 	<div class='panel-heading'>
@@ -27,7 +27,7 @@ $HTMLOUT.= "<div class='panel panel-default'>
 ";
 if ($CURUSER['class'] >= UC_STAFF)
 {
-$HTMLOUT.= "<span class='nav navbar-nav navbar-right btn btn-primary btn-sm navbar-btn' style='margin-top:-2px;'> {$adminbutton}</span>";
+$HTMLOUT.= "<span class='nav navbar-nav navbar-right'> {$adminbutton}</span>";
 }
 $HTMLOUT.= "</div>
 					<div class='panel-body squashn'>";

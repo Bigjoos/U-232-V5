@@ -72,9 +72,11 @@ function commenttable($rows, $variant = 'torrent')
                 $avatar1 = ($row['anonymous'] == 'yes' ? "<img src=\'pic/anonymous_1.jpg\' width=\'150\' height=\'150\' border=\'0\' alt=\'Avatar\' title=\'Avatar\' />" : "<img src=\'" . htmlsafechars($row['avatar']) . "\' width=\'150\' height=\'150\' border=\'0\' alt=\'Avatar\' title=\'Avatar\' />");
                 if (!$avatar1) $avatar1 = "{$INSTALLER09['pic_base_url']}default_avatar.gif";
                 $htmlout.= "<a name='comm" . (int)$row["id"] . "' onmouseover=\"Tip('<b>$username</b><br />$avatar1');\" onmouseout=\"UnTip();\" href='userdetails.php?id=" . (int)$row["user"] . "'><b>" . htmlsafechars($row["username"]) . "</b></a>" . ($row["donor"] == "yes" ? "<img src='pic/star.gif' alt='" . $lang["commenttable_donor_alt"] . "' />" : "") . ($row["warned"] == "yes" ? "<img src='pic/warned.gif' alt='" . $lang["commenttable_warned_alt"] . "' />" : "") . " ($title)\n";
+                if($INSTALLER09['mood_sys_on']) {
                 $htmlout.= '<a href="javascript:;" onclick="PopUp(\'usermood.php\',\'Mood\',530,500,1,1);">
     <span class="tool"><img src="' . $INSTALLER09['pic_base_url'] . 'smilies/' . $moodpic . '" alt="' . $moodname . '" border="0" />
     <span class="tip">' . ($row['anonymous'] == 'yes' ? '<i>Anonymous</i>' : htmlsafechars($row['username'])) . ' ' . $moodname . ' !</span></span></a>';
+                 }
             }
         } else $htmlout.= "<a name='comm" . (int)$row["id"] . "'><i>(" . $lang["commenttable_orphaned"] . ")</i></a>\n";
         $htmlout.= get_date($row['added'], '');
@@ -86,7 +88,7 @@ function commenttable($rows, $variant = 'torrent')
         if ($row["editedby"]) $text.= "<p><font size='1' class='small'>" . $lang["commenttable_last_edited_by"] . " <a href='userdetails.php?id=" . (int)$row['editedby'] . "'><b>" . htmlsafechars($row['edit_name']) . "</b></a> " . $lang["commenttable_last_edited_at"] . " " . get_date($row['editedat'], 'DATE') . "</font></p>\n";
         $htmlout.= begin_table(true);
         $htmlout.= "<tr valign='top'>\n";
-        $htmlout.= "<td align='center' width='150' style='padding: 0px'><img width='150' height='150' src='{$avatar}' alt='' /><br />" . get_reputation($row, 'comments') . "</td>\n";
+        $htmlout.= "<td align='center' width='150' style='padding: 0px'><img width='150' height='150' src='{$avatar}' alt='' /><br />" .($INSTALLER09['rep_sys_on'] ?  get_reputation($row, 'comments') : ''). "</td>\n";
         $htmlout.= "<td class='text'>$text</td>\n";
         $htmlout.= "</tr>\n";
         $htmlout.= end_table();
