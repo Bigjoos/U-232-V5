@@ -25,6 +25,10 @@ dbconn(false);
 loggedinorreturn();
 $newpage = new page_verify();
 $newpage->check('takecounts');
+if ($INSTALLER09['achieve_sys_on'] == false) {
+stderr($lang['achbon_err'], $lang['achbon_off']);
+exit();
+}
 $lang = array_merge(load_language('global'), load_language('achievementbonus'));
 $id = (int)$CURUSER['id'];
 $min = 1;

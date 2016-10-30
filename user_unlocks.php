@@ -93,7 +93,7 @@ $HTMLOUT.= begin_frame();
 $HTMLOUT.= '<div class="container"><form action="" method="post">        
         <fieldset><legend>'.$lang['uunlk_user_unlock_settings'].'</legend></fieldset>
         <div class="row-fluid">
-        <div class="span3 offset1">
+        '.($INSTALLER09['mood_sys_on'] ? '<div class="span3 offset1">
         <table class="table table-bordered">
 	<tr>
         <td>
@@ -105,7 +105,7 @@ $HTMLOUT.= '<div class="container"><form action="" method="post">
 	</td>
 	</tr>
 	</table>
-	</div>
+	</div>' : '').'
         <!--<div><h1>'.$lang['uunlk_unlock_user_moods'].'</h1></div>
         <table width="100%" border="0" cellpadding="5" cellspacing="0"><tr>
         <td width="50%">

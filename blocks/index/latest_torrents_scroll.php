@@ -1,15 +1,15 @@
 <?php
 /**
  |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                			    |
+ |   https://github.com/Bigjoos/--------------------------------------------|
  |--------------------------------------------------------------------------|
- |   Licence Info: GPL						            |
+ |   Licence Info: GPL------------------------------------------------------|
  |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5				            |
+ |   Copyright (C) 2010 U-232 V5--------------------------------------------|
  |--------------------------------------------------------------------------|
  |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
  |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.		    |
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.---------------|
  |--------------------------------------------------------------------------|
   _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
  / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
@@ -17,10 +17,22 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 // 09 poster mod
+$stdhead = array(
+    /** include js **/
+    'js' => array(
+        'raphael-min.js',
+        'jquery.mousewheel.js',
+        'icarousel.js'
+    )
+);
+ 
 $HTMLOUT.= '
-<script type="text/javascript" src="/scripts/raphael-min.js"></script>
+<!--<script type="text/javascript" src="/scripts/raphael-min.js"></script>
 <script type="text/javascript" src="/scripts/icarousel.js"></script>
-<script type="text/javascript" src="/scripts/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="/scripts/jquery.mousewheel.js"></script>-->
+
+<link rel="stylesheet" href="css/icarousel.css" type="text/css" />
+
 <script type="text/javascript" language="javascript">
 /*<![CDATA[*/
 $(document).ready(function(){ $("#icarousel").iCarousel({

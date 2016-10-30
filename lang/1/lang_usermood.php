@@ -1,5 +1,7 @@
 <?php
 $lang = array(
+        'user_mood_err' => 'Error',
+        'user_mood_off' => 'It appears that the achievement system is offline.',
 	'user_mood_log' => "log in to use this feature!",
 	'user_mood_change' => "Mood Change",
 	'user_mood_hmm' => "Hmmm. Invalid Mood choice.",

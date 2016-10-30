@@ -76,15 +76,15 @@ $search_help_boolean = '<div class="panel panel-default">
 <h2 class="text-center text-info">The boolean search supports the following operators:</h2>
 </div><div class="panel">
 	<div class="panel-body">
- <p>   <span style="font-weight: bold;">+</span> A leading plus sign indicates that this word must be present.<br><br>
-    <span style="font-weight: bold;">-</span> A leading minus sign indicates that this word must not be present.<br><br>
-        By default (when neither + nor - is specified) the word is optional, but results that contain it are rated higher. <br><br>
-    <span style="font-weight: bold;">*</span> The asterisk serves as the wildcard operator. Unlike the other operators, it should be appended to the word to be affected. Words match if they begin with the word preceding the * operator.<br><br>
-    <span style="font-weight: bold;">> <</span> These two operators are used to change a word\'s contribution to the relevance value that is assigned to a word. The > operator increases the contribution and the < operator decreases it.<br><br>
-    <span style="font-weight: bold;">~</span> A leading tilde acts as a negation operator, causing the word\'s contribution to the words\'s relevance to be negative. A row containing such a word is rated lower than others, but is not excluded altogether, as it would be with the - operator.<br><br>
-    <span style="font-weight: bold;">" "</span> A phrase that is enclosed within double quotes return only results that contain the phrase literally, as it was typed. <br><br>
+ <p><span style="font-weight: bold;">+</span> A leading plus sign indicates that this word must be present.<br /><br />
+    <span style="font-weight: bold;">-</span> A leading minus sign indicates that this word must not be present.<br /><br />
+        By default (when neither + nor - is specified) the word is optional, but results that contain it are rated higher. <br /><br />
+    <span style="font-weight: bold;">*</span> The asterisk serves as the wildcard operator. Unlike the other operators, it should be appended to the word to be affected. Words match if they begin with the word preceding the * operator.<br /><br />
+    <span style="font-weight: bold;">> <</span> These two operators are used to change a word\'s contribution to the relevance value that is assigned to a word. The > operator increases the contribution and the < operator decreases it.<br /><br />
+    <span style="font-weight: bold;">~</span> A leading tilde acts as a negation operator, causing the word\'s contribution to the words\'s relevance to be negative. A row containing such a word is rated lower than others, but is not excluded altogether, as it would be with the - operator.<br /><br />
+    <span style="font-weight: bold;">" "</span> A phrase that is enclosed within double quotes return only results that contain the phrase literally, as it was typed. <br /><br />
     <span style="font-weight: bold;">( )</span> Parentheses group words into subexpressions. Parenthesized groups can be nested.
-    </p> </div></div></div></div></div></div>';
+    </p></div></div></div></div></div></div>';
 $cats = genrelist();
 if (isset($_GET["search"])) {
     $searchstr = unesc($_GET["search"]);
@@ -180,7 +180,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
                 }
             }
         } elseif ($category) {
-            $cnum = array_search((int)$category, array_column($cats, 'id'));
+        $cnum = array_search((int)$category, array_column($cats, 'id'));
         if (!is_valid_id($category) || $cats[$cnum]['min_class'] >= $CURUSER['class']) stderr("{$lang['browse_error']}", "{$lang['browse_invalid_cat']}");
             $wherecatina[] = $category;
             $addparam.= "cat=$category&amp;";
@@ -256,6 +256,7 @@ if (isset($cleansearchstr)) {
         $wherea[] = '( ' . join(' OR ', $searchincrt) . ' )';
     }
 }
+
 $where = count($wherea) ? 'WHERE ' . join(' AND ', $wherea) : '';
 $where_key = 'where::' . sha1($where);
 if (($count = $mc1->get_value($where_key)) === false) {
@@ -269,16 +270,19 @@ if (!$torrentsperpage) $torrentsperpage = 15;
 if ($count) {
     if ($addparam != "") {
         if ($pagerlink != "") {
-            if ($addparam{strlen($addparam) - 1} != ";") { // & = &amp;
-                $addparam = $addparam . "&" . $pagerlink;
+            if ($addparam {
+             strlen($addparam) - 1 } != ";") { // & = &amp;
+                $addparam .= $addparam . "&" . $pagerlink;
             } else {
-                $addparam = $addparam . $pagerlink;
+                $addparam .= $addparam . $pagerlink;
             }
         }
     } else {
-        $addparam = $pagerlink;
+        $addparam .= $pagerlink;
     }
+
     $pager = pager($torrentsperpage, $count, "browse.php?" . $addparam);
+   
     $query = "SELECT id, search_text, category, leechers, seeders, bump, release_group, subs, name, times_completed, size, added, poster, descr, type, free, freetorrent, silver, comments, numfiles, filename, anonymous, sticky, nuked, vip, nukereason, newgenre, description, owner, username, youtube, checked_by, IF(nfo <> '', 1, 0) as nfoav," . "IF(num_ratings < {$INSTALLER09['minvotes']}, NULL, ROUND(rating_sum / num_ratings, 1)) AS rating " . "FROM torrents {$where} {$orderby} {$pager['limit']}";
     $res = sql_query($query) or sqlerr(__FILE__, __LINE__);
 } else {
@@ -298,7 +302,7 @@ if ($CURUSER['opt1'] & user_options::VIEWSCLOUD) {
     $HTMLOUT.= cloud() . "
     </div>";
 }
-$HTMLOUT.= "<br><br>
+$HTMLOUT.= "<br /><br />
     <form role='form' class='form-horizontal' method='get' action='browse.php'>
     <table>
     <tr>
@@ -337,7 +341,7 @@ $HTMLOUT.= "</tr>
     </table>
     </td>
     </tr>
-    </table><br>";
+    </table><br />";
 //== clear new tag manually
 if ($CURUSER['opt1'] & user_options::CLEAR_NEW_TAG_MANUALLY) {
     $new_button = "<a href='?clear_new=1'><input type='submit' value='clear new tag' class='button' /></a><br>";
@@ -372,7 +376,7 @@ $HTMLOUT.= "</div></div><br>
 	</div></div></div>
 <div class='row'>
 <div class='form-group'>
-<div class='col-md-4'><i class='fa fa-search-plus'></i><input  class='form-control' placeholder='Search' type='text' name='search' value='' /></div>";
+<div class='col-md-4'><i class='fa fa-search-plus'></i><input  class='form-control' placeholder='Search' type='text' value='' /></div>";
 //=== only free option :o)
 $only_free =((isset($_GET['only_free'])) ? intval($_GET['only_free']) : '');
 //=== checkbox for only free torrents
@@ -397,21 +401,21 @@ foreach (array(
     'all' => 'All'
 ) as $k => $v) $searchin.= '<option value="' . $k . '" ' . ($select_searchin == $k ? 'selected=\'selected\'' : '') . '>' . $v . '</option>';
 $searchin.= '</select>';
-$HTMLOUT.="<div class='col-md-3'>$searchin</div>" . "<div class='col-md-3'>$deadcheck</div>" . "<br>". $only_free_box ."</div>";
-$HTMLOUT.= "</div><br><div class='row'>
+$HTMLOUT.="<div class='col-md-3'>$searchin</div>" . "<div class='col-md-3'>$deadcheck</div>" . "<br />". $only_free_box ."</div>";
+$HTMLOUT.= "</div><br /><div class='row'>
 <div class='col-md-4'><a href='{$INSTALLER09["baseurl"]}/browse_catalogue.php' class='btn btn-default btn-default'>Alternative Browse</a></div>
 <div class='col-md-4'><input class='form-control btn btn-md btn-primary' type='submit' value='{$lang['search_search_btn']}'></div>
 <div class='col-md-4 col-md-push-2'><a href='{$INSTALLER09["baseurl"]}/catalogue.php' class='btn btn-default btn-default'>Search our Catalogue</a></div></div>
-           </form><br ><div class='res'></div>";
+           </form><br /><div class='res'></div>";
 $HTMLOUT.= "{$new_button}";
 if (isset($cleansearchstr)) {
     $HTMLOUT.= "<div class='row'><div class='col-md-6 col-md-offset-4'><h2>{$lang['browse_search']} " . htmlsafechars($searchstr, ENT_QUOTES) . "</h2></div></div>\n";
 }
 if ($count) {
-    $HTMLOUT.="<!--<br><div class='row'><div class='col-md-3 col-md-offset-5'><div style='display:inline-block;width:4px';></div><a href='{$INSTALLER09["baseurl"]}/catalogue.php' class='btn btn-default btn-default'>Search our Catalogue</a></div></div><br><br>-->". $pager['pagertop'];
-    $HTMLOUT.= "<br >";
+    $HTMLOUT.="<!--<br /><div class='row'><div class='col-md-3 col-md-offset-5'><div style='display:inline-block;width:4px';></div><a href='{$INSTALLER09["baseurl"]}/catalogue.php' class='btn btn-default btn-default'>Search our Catalogue</a></div></div><br /><br />-->". $pager['pagertop'];
+    $HTMLOUT.= "<br />";
     $HTMLOUT.= torrenttable($res);
-    $HTMLOUT.= $pager['pagerbottom']."<br>";
+    $HTMLOUT.= $pager['pagerbottom']."<br />";
 } else {
     if (isset($cleansearchstr)) {
         $HTMLOUT.= "<div class='row'><div class='col-md-6 col-md-offset-4'><h2>{$lang['browse_not_found']}</h2>";

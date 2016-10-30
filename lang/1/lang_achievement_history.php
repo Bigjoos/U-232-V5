@@ -2,6 +2,7 @@
 $lang = array(
     //stderr
     'achievement_history_err' => 'Error',
+    'achievement_history_off' => 'It appears that the achievement system is offline.',
     'achievement_history_err1' => 'It appears that you have entered an invalid id.',
     'achievement_history_no' => 'No Achievements',
     'achievement_history_err2' => 'It appears that ',

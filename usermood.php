@@ -21,6 +21,12 @@ require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 
 dbconn(false);
 $HTMLOUT = '';
 $lang = array_merge(load_language('global'), load_language('usermood'));
+
+if ($INSTALLER09['mood_sys_on'] == false) {
+stderr($lang['user_mood_err'], $lang['user_mood_off']);
+exit();
+}
+
 if (!isset($CURUSER['id'])) die($lang['user_mood_log']);
 $more = (($CURUSER['perms'] & bt_options::UNLOCK_MORE_MOODS) ? 2 : 1);
 if (isset($_GET['id'])) {

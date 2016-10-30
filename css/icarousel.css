@@ -1,0 +1,87 @@
+/**
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/--------------------------------------------|
+ |--------------------------------------------------------------------------|
+ |   Licence Info: GPL------------------------------------------------------|
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5--------------------------------------------|
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.---------------|
+ |--------------------------------------------------------------------------|
+*/
+
+/*Scroll Torrents*/
+.carousel-container {width: 100%; overflow: hidden;}
+#icarousel {
+    width: 490px;
+    height: 225px;
+    position: relative;
+    margin-left: 42.25%;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    -ms-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-perspective: 1000px;
+    -moz-perspective: 1000px;
+    -o-perspective: 1000px;
+    -ms-perspective: 1000px;
+    perspective: 1000px;
+}
+ #icarousel div.slide {#border-radius: 4px; #border: 5px #000 solid; width: 200px; height: 350px;}
+
+#icarousel div.slide.current {margin-left: -145px;}
+/* The Navigation buttons in the Slider */
+a.iCarouselNav {
+    display: block;
+    position: absolute;
+    top: 100px;
+    width: 43px;
+    height: 43px;
+    background: url(/pic/arrows.png) no-repeat;
+    z-index: 1000;
+    text-indent: -9999px;
+}
+a#iCarouselPrev {left: -50px; background-position: left top;}
+a#iCarouselPrev:hover {background-position: left bottom;}
+a#iCarouselNext {right: 290px;background-position: right top;}
+a#iCarouselNext:hover {background-position: right bottom;}
+ /* The Preloader in the Slider */
+#iCarousel-preloader {
+    position: absolute;
+    z-index: 1000;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: #000 1px solid;
+    border-color: rgba(0,0,0,0.6);
+    padding: 1px;
+    width: 150px;
+    height: 3px;
+}
+#iCarousel-preloader div {
+    float: left;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    height: 3px;
+    background: #000;
+    background: rgba(0,0,0,0.6);
+    width: 0px;
+}
+/* The timer in the Slider */
+#iCarousel-timer {position: absolute;z-index: 1000;border-radius: 5px;cursor: pointer;}
+#iCarousel-timer div {border-radius: 3px;}
+#icarousel > div > a > img.tester{width:150px;height:200px;}
+/*	/-------------------------------------------------------------------------------------------\
+	| Information About This File --------------------------------------------------------------|
+	|-------------------------------------------------------------------------------------------|
+	| This file is part of installer09 sourcecode. Show us some respect for the free time that	|
+	| went into making this source code, please leave all credit in PLACE. ---------------------|
+	| By removing ANY credit from these files you will not get any help from our support forum.	|
+	|-------------------------------------------------------------------------------------------|
+	| Thanks for using this sourcecode.	--------------------------------------------------------|
+	\------------------------------------------------------------------------------------------/ 
+*/

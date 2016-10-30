@@ -206,7 +206,7 @@ class PHPZip
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header("Cache-Control: private", false);
         header("Content-Type: application/zip");
-        header("Content-Encoding: zlib,deflate,gzip");
+        //header("Content-Encoding: zlib,deflate,gzip");
         header("Content-Disposition: attachment; filename=" . basename($archiveName) . ";");
         header("Content-Transfer-Encoding: binary");
         header("Content-Length: " . filesize($archiveName));

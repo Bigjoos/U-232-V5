@@ -1,0 +1,87 @@
+/**
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/--------------------------------------------|
+ |--------------------------------------------------------------------------|
+ |   Licence Info: GPL------------------------------------------------------|
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5--------------------------------------------|
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.---------------|
+ |--------------------------------------------------------------------------|
+*/
+
+/** End Cpatcha Links Settings ------------------------------------------------------------ */
+@media only screen and (min-width:319px) and (max-width:479px) {
+.adjust {margin-left:-60%;width:250%;}
+}
+@media only screen and (min-width:480px) and (max-width:599px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:600px) and (max-width:799px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:800px) and (max-width:1023px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:319px) and (max-width:479px) {
+.captchaImage {margin-left:-14%;margin-right:45px; padding-left:0px;}
+.form-control {width:100%;}
+}
+@media only screen and (min-width:600px) and (max-width:800px) {
+.captchaImage {margin-right:9%;margin-left:-10%;}
+}
+/**pm_system**/
+@media only screen and (min-width:319px) and (max-width:479px) {
+.moveup {margin-top:10%;}
+.text-resize {width:50%;}
+.form-control {width:50%;}
+}
+@media only screen and (min-width:480px) and (max-width:599px) {
+.moveup {margin-top:10%;}
+}
+@media only screen and (min-width:600px) and (max-width:800px) {
+.moveup {margin-top:10%;}
+}
+/**upload**/
+@media only screen and (min-width:319px) and (max-width:479px) {
+.embed-responsive1{width:220px;height:100px;}
+.btn-adjust {width:245px;}
+}
+/**userdetails-edit**/
+@media only screen and (min-width: 767px)and (max-width:1022px) {
+textarea.shrink { width:85%; }
+}
+@media only screen and (min-width: 1024px)and (max-width:1200px) {
+textarea.shrink { width:85%; }
+}
+@media only screen and (min-width:480px) and (max-width:599px) {
+.moveup {margin-top:10%;}
+}
+@media only screen and (min-width:600px) and (max-width:800px) {
+.moveup {margin-top:10%;}
+}
+/**login**/
+@media only screen and (min-width:319px) and (max-width:479px) {
+.adjust {margin-left:-60%;width:250%;}
+}
+@media only screen and (min-width:480px) and (max-width:599px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:600px) and (max-width:799px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+@media only screen and (min-width:800px) and (max-width:1023px) {
+.adjust {margin-left:-70%;width:250%;}
+}
+/*	/-------------------------------------------------------------------------------------------\
+	| Information About This File --------------------------------------------------------------|
+	|-------------------------------------------------------------------------------------------|
+	| This file is part of installer09 sourcecode. Show us some respect for the free time that	|
+	| went into making this source code, please leave all credit in PLACE. ---------------------|
+	| By removing ANY credit from these files you will not get any help from our support forum.	|
+	|-------------------------------------------------------------------------------------------|
+	| Thanks for using this sourcecode.	--------------------------------------------------------|
+	\-------------------------------------------------------------------------------------------/ 
+*/
