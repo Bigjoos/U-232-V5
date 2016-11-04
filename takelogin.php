@@ -9,7 +9,7 @@
  |--------------------------------------------------------------------------|
  |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
  |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.					    |
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.		    |
  |--------------------------------------------------------------------------|
   _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
  / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
@@ -40,18 +40,18 @@ $lang = array_merge(load_language('global') , load_language('takelogin'));
 // 09 failed logins thanks to pdq - Retro
 function failedloginscheck()
 {
-    global $INSTALLER09;
+    global $INSTALLER09, $lang;
     $total = 0;
     $ip = getip();
     $res = sql_query("SELECT SUM(attempts) FROM failedlogins WHERE ip=" . sqlesc($ip)) or sqlerr(__FILE__, __LINE__);
     list($total) = mysqli_fetch_row($res);
     if ($total >= $INSTALLER09['failedlogins']) {
         sql_query("UPDATE failedlogins SET banned = 'yes' WHERE ip=" . sqlesc($ip)) or sqlerr(__FILE__, __LINE__);
-        stderr("Login Locked!", "You have been <b>Exceeded</b> the allowed maximum login attempts without successful login, therefore your ip address <b>(" . htmlsafechars($ip) . ")</b> has been locked for 24 hours.");
+        stderr($lang['tlogin_locked'], "{$lang['tlogin_lockerr1']} . <b>(" . htmlsafechars($ip) . ")</b> . {$lang['tlogin_lockerr2']}");
     }
 } // End
-if (!mkglobal('username:password' . ($INSTALLER09['captcha_on'] ? (!$gotkey ? ":captchaSelection:" : "") : ":") . 'submitme')) die('Something went wrong');
-if ($submitme != 'X') stderr('Ha Ha', 'You Missed, You plonker !');
+if (!mkglobal('username:password' . ($INSTALLER09['captcha_on'] ? (!$gotkey ? ":captchaSelection:" : "") : ":") . 'submitme')) die("{$lang['tlogin_sww']}");
+if ($submitme != 'X') stderr($lang['tlogin_err1'], $lang['tlogin_err2']);
 if ($INSTALLER09['captcha_on'] && !$gotkey) {
     if (empty($captchaSelection) || $_SESSION['simpleCaptchaAnswer'] != $captchaSelection) {
         header('Location: login.php');
@@ -65,7 +65,7 @@ function bark($text = 'Username or password incorrect')
     $dict_key = 'dictbreaker:::' . $sha;
     $flood = $mc1->get_value($dict_key);
     if ($flood === false) $mc1->cache_value($dict_key, 'flood_check', 20);
-    else die('Minimum 8 seconds between login attempts :)');
+    else die("{$lang['tlogin_err4']}");
     stderr($lang['tlogin_failed'], $text);
 }
 failedloginscheck();
@@ -85,13 +85,13 @@ if ($row['passhash'] != make_passhash($row['secret'], md5($password))) {
     if ($fail[0] == 0) sql_query("INSERT INTO failedlogins (ip, added, attempts) VALUES ($ip_escaped, $added, 1)") or sqlerr(__FILE__, __LINE__);
     else sql_query("UPDATE failedlogins SET attempts = attempts + 1 where ip=$ip_escaped") or sqlerr(__FILE__, __LINE__);
     $to = ((int)$row["id"]);
-    $subject = "Failed login";
-    $msg = "[color=red]Security alert[/color]\n Account: ID=" . (int)$row['id'] . " Somebody (probably you, " . htmlsafechars($username) . " !) tried to login but failed!" . "\nTheir [b]Ip Address [/b] was : " . htmlsafechars($ip) . "\n If this wasn't you please report this event to a {$INSTALLER09['site_name']} staff member\n - Thank you.\n";
+    $subject = "{$lang['tlogin_log_err1']}";
+    $msg = "[color=red]{$lang['tlogin_log_err2']}[/color]\n{$lang['tlogin_mess1']}" . (int)$row['id'] . "{$lang['tlogin_mess2']}" . htmlsafechars($username) . "{$lang['tlogin_mess3']}" . "{$lang['tlogin_mess4']}" . htmlsafechars($ip) . "{$lang['tlogin_mess5']}";
     $sql = "INSERT INTO messages (sender, receiver, msg, subject, added) VALUES('System', " . sqlesc($to) . ", " . sqlesc($msg) . ", " . sqlesc($subject) . ", $added);";
     $res = sql_query($sql) or sqlerr(__FILE__, __LINE__);
     $mc1->delete_value('inbox_new_' . $row['id']);
     $mc1->delete_value('inbox_new_sb_' . $row['id']);
-    bark("<b>Error</b>: Username or password entry incorrect <br />Have you forgotten your password? <a href='{$INSTALLER09['baseurl']}/resetpw.php'><b>Recover</b></a> your password !");
+    bark("<b>{$lang['gl_error']}</b>{$lang['tlogin_forgot']}");
 }
 if ($row['enabled'] == 'no') bark($lang['tlogin_disabled']);
 sql_query("DELETE FROM failedlogins WHERE ip = $ip_escaped");

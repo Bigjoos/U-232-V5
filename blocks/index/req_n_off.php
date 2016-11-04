@@ -25,13 +25,13 @@ foreach ($categorie as $key => $value) $change[$value['id']] = array(
 );
 $HTMLOUT.="<div class='panel panel-default'>
 	<div class='panel-heading'>
-		<label for='checkbox_4' class='text-left'>Requests and Offers</label>
+		<label for='checkbox_4' class='text-left'>{$lang['req_off_label']}</label>
 	</div>
 	<div class='panel-body'>";
 //== Requests
 $HTMLOUT.="<div class='panel panel-default'>
 	<div class='panel-heading'>
-		<label class='text-left'>Unfilled Requests</label>
+		<label class='text-left'>{$lang['req_off_unfld']}</label>
 	</div>
 	<div class='panel-body'>";
 $requests = array();
@@ -45,13 +45,13 @@ if (($requests = $mc1->get_value('requests_')) === false) {
 if (count($requests) > 0) {
     $HTMLOUT.= "<table class='table table-striped table-bordered'>";
     $HTMLOUT.= " <thead><tr>
-                <th class='col-md-1 text-left'><b>Category</b></th>
-                <th class='col-md-5 text-left'><b>Title</b></th>
-	        <th class='col-md-1 text-center'><b>Added</b></th>
-        	<th class='col-md-1 text-center''>Comm</th>  
-        	<th class='col-md-1 text-center''>Votes</th>
-        	<th class='col-md-1 text-center'>Requested By</th>
-<th class='col-md-1 text-center'>Filled</th>
+                <th class='col-md-1 text-left'><b>{$lang['req_off_cat']}</b></th>
+                <th class='col-md-5 text-left'><b>{$lang['req_off_tit']}</b></th>
+	        <th class='col-md-1 text-center'><b>{$lang['req_off_add']}</b></th>
+        	<th class='col-md-1 text-center'>{$lang['req_off_com']}</th>  
+        	<th class='col-md-1 text-center'>{$lang['req_off_vot']}</th>
+        	<th class='col-md-1 text-center'>{$lang['req_off_reqby']}</th>
+<th class='col-md-1 text-center'>{$lang['req_off_fild']}</th>
 
 </tr></thead>\n";
     if ($requests) {
@@ -59,7 +59,7 @@ if (count($requests) > 0) {
             $torrname = htmlsafechars($requestarr['request_name']);
             $requestarr['cat_name'] = htmlsafechars($change[$requestarr['category']]['name']);
 	    $requestarr['cat_pic'] = htmlsafechars($change[$requestarr['category']]['image']);
-   	    $request_f =($requestarr['filled_by_user_id'] > 0 ? '<a href="details.php?id=' . (int)$requestarr['filled_torrent_id'] . '" title="go to torrent page!!!"><span style="color: limegreen;font-weight: bold;">yes!</span></a>' : '<span style="color: red;font-weight: bold;">no</span>'); 
+   	    $request_f =($requestarr['filled_by_user_id'] > 0 ? '<a href="details.php?id=' . (int)$requestarr['filled_torrent_id'] . '" title='.$lang['req_off_goto'].'><span style="color: limegreen;font-weight: bold;">'.$lang['req_off_yes1'].'</span></a>' : '<span style="color: red;font-weight: bold;">'.$lang['req_off_no1'].'</span>'); 
             
 if (strlen($torrname) > 50) $torrname = substr($torrname, 0, 50) . "...";
             $HTMLOUT.= " <tbody><tr>
@@ -67,8 +67,8 @@ if (strlen($torrname) > 50) $torrname = substr($torrname, 0, 50) . "...";
                 <td class='text-left'><a href=\"{$INSTALLER09['baseurl']}/requests.php?action=request_details&amp;id=" . (int)$requestarr['request_id'] . "&amp;hit=1\" >{$torrname}</a></td>
 		<td class='text-center'>" . get_date($requestarr['added'], 'LONG') . "</td>
         	<td class='text-center'>" . number_format($requestarr['comments']) . "</td>  
-        	<td class='text-center'>yes: " . number_format($requestarr['vote_yes_count']) . "<br />
-        				 no: " . number_format($requestarr['vote_no_count']) . "</td> 
+        	<td class='text-center'>{$lang['req_off_yes2']}" . number_format($requestarr['vote_yes_count']) . "<br />
+        				 {$lang['req_off_no2']}" . number_format($requestarr['vote_no_count']) . "</td> 
         	<td class='text-center'>" . print_user_stuff($requestarr) . "</td>
 		<td class='text-center'>" . $request_f . "</td>
 </tr></tbody>";
@@ -78,7 +78,7 @@ if (strlen($torrname) > 50) $torrname = substr($torrname, 0, 50) . "...";
  
 else {
      //== If there are no requests
-        if (empty($requests)) $HTMLOUT.= "<tbody><tr><td class='text-left' colspan='5'>No Requests Found</td></tr></tbody></table></div>";
+        if (empty($requests)) $HTMLOUT.= "<tbody><tr><td class='text-left' colspan='5'>{$lang['req_off_noreq']}</td></tr></tbody></table></div>";
 }
 }
 //==End
@@ -86,7 +86,7 @@ $HTMLOUT.= "</div>";
 //== Offers
 $HTMLOUT.="<div class='panel panel-default'>
 	<div class='panel-heading'>
-		<label class='text-left'>Offers</label>
+		<label class='text-left'>{$lang['req_off_offers']}</label>
 	</div>
 	<div class='panel-body'>";
 $offers = array();
@@ -100,28 +100,28 @@ if (($offers = $mc1->get_value('offers_')) === false) {
 if (count($offers) > 0) {
     $HTMLOUT.= "<table class='table table-striped table-bordered'>";
     $HTMLOUT.= " <thead><tr>
-                <th class='col-md-1 text-left'><b>Category</b></th>
-                <th class='col-md-5 text-left'><b>Title</b></th>
-	        <th class='col-md-1 text-center'><b>Added</b></th>
-        	<th class='col-md-1 text-center''>Comm</th>  
-        	<th class='col-md-1 text-center''>Votes</th>
-        	<th class='col-md-1 text-center''>Offered</th>
-                <th class='col-md-1 text-center''>Status</th>
+                <th class='col-md-1 text-left'><b>{$lang['req_off_cat']}</b></th>
+                <th class='col-md-5 text-left'><b>{$lang['req_off_tit']}</b></th>
+	        <th class='col-md-1 text-center'><b>{$lang['req_off_add']}</b></th>
+        	<th class='col-md-1 text-center'>{$lang['req_off_com']}</th>  
+        	<th class='col-md-1 text-center'>{$lang['req_off_vot']}</th>
+        	<th class='col-md-1 text-center'>{$lang['req_off_offd']}</th>
+                <th class='col-md-1 text-center'>{$lang['req_off_stat']}</th>
                 </tr></thead>\n";
     if ($offers) {
         foreach ($offers as $offerarr) {
             $torrname = htmlsafechars($offerarr['offer_name']);
             $offerarr['cat_name'] = htmlsafechars($change[$offerarr['category']]['name']);
 	    $offerarr['cat_pic'] = htmlsafechars($change[$offerarr['category']]['image']);
- 	    $status = ($offerarr['status'] == 'approved' ? '<span style="color: limegreen;font-weight: bold;">Approved!</span>' : ($offerarr['status'] == 'pending' ? '<span style="color: skyblue;font-weight: bold;">Pending...</span>' : '<span style="color: red;font-weight: bold;">denied</span>'));
+ 	    $status = ($offerarr['status'] == 'approved' ? '<span style="color: limegreen;font-weight: bold;">'.$lang['req_off_app'].'</span>' : ($offerarr['status'] == 'pending' ? '<span style="color: skyblue;font-weight: bold;">'.$lang['req_off_pend'].'</span>' : '<span style="color: red;font-weight: bold;">'.$lang['req_off_den'].'</span>'));
              if (strlen($torrname) > 50) $torrname = substr($torrname, 0, 50) . "...";
             $HTMLOUT.= " <tbody><tr>
                <td class='text-center'><img src='{$INSTALLER09['pic_base_url']}caticons/{$CURUSER['categorie_icon']}/" . htmlsafechars($offerarr["cat_pic"]) . "' alt='" . htmlsafechars($offerarr["cat_name"]) . "' title='" . htmlsafechars($offerarr["cat_name"]) . "' /></td>
                 <td class='text-left'><a href=\"{$INSTALLER09['baseurl']}/offers.php?action=offer_details&amp;id=" . (int)$offerarr['offer_id'] . "&amp;hit=1\" >{$torrname}</a></td>
 		<td class='text-center'>" . get_date( $offerarr['added'], 'LONG') . "</td>
         	<td class='text-center'>" . number_format( $offerarr['comments']) . "</td>  
-        	<td class='text-center'>yes: " . number_format( $offerarr['vote_yes_count']) . "<br />
-        				 no: " . number_format( $offerarr['vote_no_count']) . "</td> 
+        	<td class='text-center'>{$lang['req_off_yes2']}" . number_format( $offerarr['vote_yes_count']) . "<br />
+        				 {$lang['req_off_no2']}" . number_format( $offerarr['vote_no_count']) . "</td> 
         	<td class='text-center'>" . print_user_stuff($offerarr) . "</td>
 		<td class='text-center'>" . $status . "</td>
 </tr></tbody>";
@@ -131,7 +131,7 @@ if (count($offers) > 0) {
  
 else {
    //== If there are no offers
-        if (empty($offers)) $HTMLOUT.= "<tbody><tr><td class='text-left' colspan='5'>No Offers Found</td></tr></tbody></table></div>";
+        if (empty($offers)) $HTMLOUT.= "<tbody><tr><td class='text-left' colspan='5'>{$lang['req_off_nooff']}</td></tr></tbody></table></div>";
 }
 }
 //==End

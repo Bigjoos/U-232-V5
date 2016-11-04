@@ -160,7 +160,7 @@ if ($zipuse) {
         $files = array(
             $file_name
         );
-        $file_name = $INSTALLER09['torrent_dir'] . '/' . $row['name'].'.zip';
+        $file_name = $INSTALLER09['torrent_dir'] . '/' . substr(md5(rawurlencode($row['name'])), 0, 6) . '.zip';
         $zip->Zip($files, $file_name);
         $zip->forceDownload($file_name);
         unlink($INSTALLER09['torrent_dir'] . '/' . $row['name'] . '.torrent');

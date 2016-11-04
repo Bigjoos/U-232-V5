@@ -351,7 +351,7 @@ if ($CURUSER['opt1'] & user_options::CLEAR_NEW_TAG_MANUALLY) {
 }
 $HTMLOUT.= "</div></div><br>
 <div class='container'>
- <div class='col-md-12'> <div class='panel'>     
+ <div class='col-md-12'>   
 <div>
 <div class='col-md-4 col-md-offset-4'>
 <br><a href='#myModal' class='btn btn-default btn-small' data-toggle='modal'>For more information about this search click here</a><br><br>
@@ -363,7 +363,7 @@ $HTMLOUT.= "</div></div><br>
 				</div>
 			</div>
 		</div>
-	</div></div></div>
+	</div></div>
 <div class='row'>
 <div class='form-group'>
 
