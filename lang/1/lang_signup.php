@@ -67,5 +67,7 @@ $lang = array(
     'signup_female' => 'Female',
     'signup_na' => 'N/A',
     'signup_gender' => 'Gender',
+    //add terms by yoooov
+    'signup_hint_here' => "Enter&nbsp;Your&nbsp;Hint&nbsp;Answer&nbsp;Here."
 );
 ?>

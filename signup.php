@@ -110,6 +110,7 @@ $HTMLOUT.= "".($INSTALLER09['captcha_on'] ? "<script type='text/javascript'>
 <div class='form-group'><div id='namecheck' class='col-sm-9 col-sm-offset-1'></div></div>
 <div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input class='form-control' type='password' placeholder='{$lang['signup_pass']}' name='wantpassword'></div></div>
 <div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='password' class='form-control' placeholder='{$lang['signup_passa']}' name='passagain'></div></div>
+<div class='form-group'><div class='col-sm-5 col-sm-offset-1'><input type='text' class='form-control' placeholder='Choose a 4 digit Pin Code' name='pin_code'></div><div class='col-sm-4'><input type='text' class='form-control' placeholder='Repeat Pin Code' name='pin_code2'></div></div>
 <div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='text' class='form-control' placeholder='{$lang['signup_email']}' name='email'></div></div>
 
 <div class='form-group'><div class='col-sm-9 col-sm-offset-1'><span style='font-size:100%;'>{$lang['signup_valemail']}</span></div></div>
@@ -190,8 +191,7 @@ foreach ($questions as $sph) {
 }
 $HTMLOUT.= "
 <div class='form-group'><div class='col-sm-9 col-sm-offset-1'>{$lang['signup_select']}</div></div>
-<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><select class='form-control' name='passhint'>\n$passhint\n</select></div></div>
-<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='text' class='form-control' placeholder='Enter&nbsp;Your&nbsp;Hint&nbsp;Answer&nbsp;Here.{$lang['signup_this_answer']}{$lang['signup_this_answer1']}' name='hintanswer'></div></div>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><select class='form-control' name='passhint'>\n$passhint\n</select></div></div><div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='text' class='form-control' placeholder='{$lang['signup_hint_here']}{$lang['signup_this_answer']}{$lang['signup_this_answer1']}' name='hintanswer'></div></div>
 <div class='form-group'>
 <div class='col-sm-5 col-sm-offset-1'>{$lang['signup_country']}<select class='form-control' name='country'>\n$country\n</select></div>
 &nbsp;&nbsp;&nbsp;&nbsp;{$lang['signup_gender']}$gender

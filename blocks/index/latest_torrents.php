@@ -117,7 +117,7 @@ if (($last5torrents = $mc1->get_value('last5_tor_')) === false) {
 }
 if (count($last5torrents) > 0) {
     $HTMLOUT.= "<div class='module'><div class='tbadge tbadge-new'></div>
-    	        <table class='table table-striped table-bordered'>
+    	        <table class='table table-bordered'>
                 <thead><tr>
                 <th class=' col-md-1 text-left'><b>{$lang['last5torrents_type']}</b></th>
                 <th class=' col-md-5 text-left'><b>{$lang['last5torrents_name']}</b></th>
@@ -129,6 +129,7 @@ if (count($last5torrents) > 0) {
         foreach ($last5torrents as $last5torrentarr) {
             $last5torrentarr['cat_name'] = htmlsafechars($change[$last5torrentarr['category']]['name']);
 	    $last5torrentarr['cat_pic'] = htmlsafechars($change[$last5torrentarr['category']]['image']);
+            $thealth = health($last5torrentarr['leechers'], $last5torrentarr['seeders']);
             $torrname = htmlsafechars($last5torrentarr['name']);
             if (strlen($torrname) > 50) $torrname = substr($torrname, 0, 50) . "...";
             $poster = empty($last5torrentarr["poster"]) ? "<img src=\'{$INSTALLER09['pic_base_url']}noposter.jpg\' width=\'150\' height=\'220\' />" : "<img src=\'" . htmlsafechars($last5torrentarr['poster']) . "\' width=\'150\' height=\'220\' />";

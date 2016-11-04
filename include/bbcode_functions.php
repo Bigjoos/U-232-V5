@@ -181,6 +181,7 @@ function format_urls($s)
 {
     return preg_replace_callback("/(\A|[^=\]'\"a-zA-Z0-9])((http|ftp|https|ftps|irc):\/\/[^<>\s]+)/i", "islocal", $s);
 }
+
 function format_comment($text, $strip_html = true, $urls = true, $images = true)
 {
     global $smilies, $staff_smilies, $customsmilies, $INSTALLER09, $CURUSER;
@@ -284,6 +285,7 @@ function format_comment($text, $strip_html = true, $urls = true, $images = true)
     },
     $s);
     }
+
     if (stripos($s, '[img') !== false && $images) {
         // [img=http://www/image.gif]
         $s = preg_replace("/\[img\]((http|https):\/\/[^\s'\"<>]+(\.(jpg|gif|png|bmp)))\[\/img\]/i", "<a href=\"\\1\" rel=\"lightbox\"><img src=\"\\1\" border=\"0\" alt=\"\" style=\"max-width: 150px;\" /></a>", $s);
@@ -342,7 +344,7 @@ function textbbcode($form, $text, $content = "")
 	var textBBcode = "{$text}";
 </script>
 <script type="text/javascript" src="./scripts/textbbcode.js"></script>
-<div id="hover_pick" style="width:25px; height:25px; position:absolute; border:1px solid #333333; display:none; z-index:20;"></div>
+<div id="hover_pick" style="width:25px; height:25px; position:static; border:1px solid #333333; display:none; z-index:20;"></div>
 <div id="pickerholder"></div>
 <table border='0' cellspacing='0' cellpadding='5' class='tborder'>
   <tr>

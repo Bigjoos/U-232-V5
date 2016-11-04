@@ -100,11 +100,6 @@ $lang = array(
     'index_stats_moderators' => "Moderators",
     'index_stats_admin' => "Administrators",
     'index_stats_sysops' => "Sysops",
-     //add terms by yoooov
-     'index_stats_uinfo' => "User Info",
-     'index_stats_cinfo' => "Class Info",
-     'index_stats_finfo' => "Forum Info",
-     'index_stats_tinfo' => "Torrent Info",
     //disclaimer
     'foot_disclaimer' => "None of the files shown here are actually hosted on this server. The links are provided solely by this site's users.
 The administrator of this site (%s) cannot be held responsible for what its users post, or any other actions of its users.
@@ -181,8 +176,35 @@ It is your own responsibility to adhere to these terms.",
 	'index_shoutbox_general' => "ShoutBox - General Chit-chat",
 	//torrent freak
 	'index_torr_freak' => " Torrent Freak News",
-        //polls 
-        'index_poll_title' => "Add / Edit",
-        'index_poll_name' => "Site Poll"
+    //polls 
+    'index_poll_title' => "Add / Edit",
+    //add_stats_bl_by yoooov
+    'index_stats_uinfo' => "User Info",
+    'index_stats_cinfo' => "Class Info",
+    'index_stats_finfo' => "Forum Info",
+    'index_stats_tinfo' => "Torrent Info",
+    //add_reqnoff_bl_by_yoooov
+    'req_off_label' => "Requests and Offers",
+    'req_off_unfld' => "Unfilled Requests",
+    'req_off_cat' => "Category",
+    'req_off_tit' => "Title",
+    'req_off_add' => "Added",
+    'req_off_com' => "Comm",
+    'req_off_vot' => "Votes",
+    'req_off_reqby' => "Requested By",
+    'req_off_fild' => "Filled",
+    'req_off_goto' => "Go to torrent page!!!",
+    'req_off_yes1' => "yes!",
+    'req_off_no1' => "no",
+    'req_off_yes2' => "yes: ",
+    'req_off_no2' => "no: ",
+    'req_off_noreq' => "No Requests Found",
+    'req_off_offers' => "Offers",
+    'req_off_offd' => "Offered",
+    'req_off_stat' => "Status",
+    'req_off_app' => "Approved!",
+    'req_off_pend' => "Pending...",
+    'req_off_den' => "Denied",
+    'req_off_nooff' => "No Offers Found"
 );
 ?>
