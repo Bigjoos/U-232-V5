@@ -227,7 +227,7 @@ $INSTALLER09['baseurl'] = 'http' . (isset($_SERVER['HTTPS']) && (bool)$_SERVER['
 //== Email for sender/return path.
 $INSTALLER09['sub_max_size'] = 500 * 1024;
 $INSTALLER09['site_email'] = '#site_email';
-$INSTALLER09['site_name'] = '#site_name';
+$INSTALLER09['site_name'] = "#site_name";
 $INSTALLER09['msg_alert'] = 1; // saves a query when off
 $INSTALLER09['report_alert'] = 1; // saves a query when off
 $INSTALLER09['staffmsg_alert'] = 1; // saves a query when off
