@@ -1,15 +1,15 @@
 <?php
 /**
  |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                			    |
+ |   https://github.com/Bigjoos/                                            |
  |--------------------------------------------------------------------------|
- |   Licence Info: GPL			                                    |
+ |   Licence Info: WTFPL                                                    |
  |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5					    |
+ |   Copyright (C) 2010 U-232 V5                                            |
  |--------------------------------------------------------------------------|
  |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
  |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.					    |
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
  |--------------------------------------------------------------------------|
   _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
  / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
@@ -292,7 +292,7 @@ elseif ($mode == "details") {
 		\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 		<html xmlns='http://www.w3.org/1999/xhtml'>
 		<head>
-		<title>$lang['subtitles_preview_for'] - " . htmlsafechars($arr["name"]) . "</title>
+		<title>{$lang['subtitles_preview_for']} - " . htmlsafechars($arr["name"]) . "</title>
 		</head>
 		<body>
 	<div style='font-size:12px;color:black;background-color:#CCCCCC;'>{$lang['subtitles_subtitle_preview']}<br />" . htmlsafechars($fileContent) . "</div>
