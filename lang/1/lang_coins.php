@@ -1,4 +1,21 @@
 <?php
+/**
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ */
 $lang = array(
     'coins_you_cant_give_that_amount_of_points' => "You can't give that amount of points!!!",
     'coins_you_already_gave_points_to_this_torrent' => "You already gave points to this torrent.",
