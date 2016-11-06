@@ -67,11 +67,11 @@ function radioinfo($radio)
             foreach ($data as $d) $html.= '<li><b>' . $d . '</b></li>';
             $html.= '<li><b>Playlist history: </b> ' . (count($history) > 0 ? join(', ', $history) : 'No playlist history') . '</li>';
             if (empty($users_ip) === false) {
-                $q1 = sql_query('SELECT id, username FROM users WHERE ip IN (' . $users_ip . ') ORDER BY username ASC') or sqlerr(__FILE__, __LINE__);
+                $q1 = sql_query('SELECT id, username, paranoia FROM users WHERE ip IN (' . $users_ip . ') ORDER BY username ASC') or sqlerr(__FILE__, __LINE__);
                 if (mysqli_num_rows($q1) == 0) $html.= '<li><b>Listeners</b>: currently no listener from site </li>';
                 else {
                     $users = array();
-                    while ($a1 = mysqli_fetch_assoc($q1)) $users[] = sprintf('<a href="/userdetails.php?id=%d">%s</a>', $a1['id'], $a1['username']);
+                    while ($a1 = mysqli_fetch_assoc($q1)) $users[] = ($a1['paranoia'] < 1 || $CURUSER['id'] == $a1['id'] || $CURUSER['class'] >= UC_STAFF) ? sprintf('<a href="/userdetails.php?id=%d">%s</a>', $a1['id'], $a1['username']) : 'Anonymous';
                     $html.= '<li><b>Listeners</b>: ' . join(', ', $users) . '</li>';
                 }
             }
