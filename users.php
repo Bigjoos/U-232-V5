@@ -22,7 +22,7 @@ dbconn();
 loggedinorreturn();
 $lang = array_merge(load_language('global') , load_language('users'));
 $search = isset($_GET['search']) ? strip_tags(trim($_GET['search'])) : '';
-$class = isset($_GET['class']) ? (int)$_GET['class'] : '-';
+$class = isset($_GET['class']) ? $_GET['class'] : '-';
 $letter = '';
 $q1 = '';
 if ($class == '-' || !ctype_digit($class)) $class = '';
