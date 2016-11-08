@@ -20,9 +20,9 @@
 $stdhead = array(
     /** include js **/
     'js' => array(
-        'raphael-min.js',
-        'jquery.mousewheel.js',
-        'icarousel.js'
+        'raphael-min',
+        'jquery.mousewheel',
+        'icarousel'
     )
 );
  
