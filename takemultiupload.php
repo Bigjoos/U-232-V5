@@ -56,7 +56,10 @@ function file_list($arr, $id)
         $new[] = "($id," . sqlesc($v[0]) . "," . $v[1] . ")";
     return join(",", $new);
 }
-
+$cats = "";
+    $res  = sql_query("SELECT id, name FROM categories");
+    while ($arr = mysqli_fetch_assoc($res))
+        $cats[$arr["id"]] = $arr["name"];
 $processed = 0;
 
 //parse _FILES into readable format
@@ -110,16 +113,17 @@ foreach( $file_list as $key=>$f ) {
     $nfo = sqlesc('');
 
     $nfofile = $f['nfo'];
-    if ($nfofile['name'] == '')
-        continue;
-    if ($nfofile['size'] == 0)
-        continue;
-    if ($nfofile['size'] > 65535)
-        continue;
-    $nfofilename = $nfofile['tmp_name'];
-    if (@!is_uploaded_file($nfofilename))
-        continue;
-    $nfo = sqlesc(str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename)));
+    if ($nfofile['name'] == '' || $nfofile['size'] == 0 || $nfofile['size'] > 65535) {
+        $nfo = sqlesc('');
+    } else {
+        $nfofilename = $nfofile['tmp_name'];
+        if (@!is_uploaded_file($nfofilename)) {
+            $nfo = sqlesc('');
+        } else {
+            $nfo = sqlesc(str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename)));
+            $descr = str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename));
+        }
+    }
 
 
     $catid = (0 + $f["type"]);
@@ -231,7 +235,7 @@ foreach( $file_list as $key=>$f ) {
             $descr,
             $descr,
             $description,
-            0,
+            $catid,
             $free,
             $silver,
             $dname,
@@ -254,7 +258,7 @@ foreach( $file_list as $key=>$f ) {
 
     $ids[] = $id;
     $messages = "{$INSTALLER09['site_name']} New Torrent: $torrent Uploaded By: $anon " . mksize($totallen) . " {$INSTALLER09['baseurl']}/details.php?id=$id";
-
+    $message = "New Torrent : Category = ".htmlsafechars($cats[$catid]).", [url={$INSTALLER09['baseurl']}/details.php?id=$id] " . htmlsafechars($torrent) . "[/url] Uploaded - Anonymous User";
 
     sql_query("DELETE FROM files WHERE torrent = " . sqlesc($id));
 
@@ -276,10 +280,7 @@ foreach( $file_list as $key=>$f ) {
 
     /* RSS feeds */
 if (($fd1 = @fopen("rss.xml", "w")) && ($fd2 = fopen("rssdd.xml", "w"))) {
-    $cats = "";
-    $res  = sql_query("SELECT id, name FROM categories");
-    while ($arr = mysqli_fetch_assoc($res))
-        $cats[$arr["id"]] = $arr["name"];
+    
     $s = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>\n<rss version=\"0.91\">\n<channel>\n" . "<title>{$INSTALLER09['site_name']}</title>\n<description>Installer09 is the best!</description>\n<link>{$INSTALLER09['baseurl']}/</link>\n";
     @fwrite($fd1, $s);
     @fwrite($fd2, $s);
