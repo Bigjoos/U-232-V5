@@ -110,16 +110,17 @@ foreach( $file_list as $key=>$f ) {
     $nfo = sqlesc('');
 
     $nfofile = $f['nfo'];
-    if ($nfofile['name'] == '')
-        continue;
-    if ($nfofile['size'] == 0)
-        continue;
-    if ($nfofile['size'] > 65535)
-        continue;
-    $nfofilename = $nfofile['tmp_name'];
-    if (@!is_uploaded_file($nfofilename))
-        continue;
-    $nfo = sqlesc(str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename)));
+    if ($nfofile['name'] == '' || $nfofile['size'] == 0 || $nfofile['size'] > 65535) {
+        $nfo = sqlesc('');
+    } else {
+        $nfofilename = $nfofile['tmp_name'];
+        if (@!is_uploaded_file($nfofilename)) {
+            $nfo = sqlesc('');
+        } else {
+            $nfo = sqlesc(str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename)));
+            $descr = str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename));
+        }
+    }
 
 
     $catid = (0 + $f["type"]);
@@ -231,7 +232,7 @@ foreach( $file_list as $key=>$f ) {
             $descr,
             $descr,
             $description,
-            0,
+            $catid,
             $free,
             $silver,
             $dname,
