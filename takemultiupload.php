@@ -56,7 +56,10 @@ function file_list($arr, $id)
         $new[] = "($id," . sqlesc($v[0]) . "," . $v[1] . ")";
     return join(",", $new);
 }
-
+$cats = "";
+    $res  = sql_query("SELECT id, name FROM categories");
+    while ($arr = mysqli_fetch_assoc($res))
+        $cats[$arr["id"]] = $arr["name"];
 $processed = 0;
 
 //parse _FILES into readable format
@@ -255,7 +258,7 @@ foreach( $file_list as $key=>$f ) {
 
     $ids[] = $id;
     $messages = "{$INSTALLER09['site_name']} New Torrent: $torrent Uploaded By: $anon " . mksize($totallen) . " {$INSTALLER09['baseurl']}/details.php?id=$id";
-
+    $message = "New Torrent : Category = ".htmlsafechars($cats[$catid]).", [url={$INSTALLER09['baseurl']}/details.php?id=$id] " . htmlsafechars($torrent) . "[/url] Uploaded - Anonymous User";
 
     sql_query("DELETE FROM files WHERE torrent = " . sqlesc($id));
 
@@ -277,10 +280,7 @@ foreach( $file_list as $key=>$f ) {
 
     /* RSS feeds */
 if (($fd1 = @fopen("rss.xml", "w")) && ($fd2 = fopen("rssdd.xml", "w"))) {
-    $cats = "";
-    $res  = sql_query("SELECT id, name FROM categories");
-    while ($arr = mysqli_fetch_assoc($res))
-        $cats[$arr["id"]] = $arr["name"];
+    
     $s = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>\n<rss version=\"0.91\">\n<channel>\n" . "<title>{$INSTALLER09['site_name']}</title>\n<description>Installer09 is the best!</description>\n<link>{$INSTALLER09['baseurl']}/</link>\n";
     @fwrite($fd1, $s);
     @fwrite($fd2, $s);
