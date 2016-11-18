@@ -23,8 +23,8 @@ loggedinorreturn();
 $lang = array_merge(load_language('global') , load_language('chat'));
 $nick = ($CURUSER ? $CURUSER['username'] : ('Guest'.rand(1000, 9999)));
 $irc_url = 'irc.mibbit.com';
-$irc_channel = '#09source';
-$irc_network = 'U232_DEV';
+$irc_channel = '#';
+$irc_network = 'CHANGEME';
 $HTMLOUT = '';
 $HTMLOUT.= "<p>{$lang['chat_channel']}<a href='irc://{$irc_url}/{$irc_channel}'>{$irc_channel}</a> {$lang['chat_on']} {$irc_network} {$lang['chat_network']}</p>
 <iframe src='https://kiwiirc.com/client/{$irc_url}/?nick={$nick}|?&theme=cli{$irc_channel}' style='border:0; width:100%; height:450px;'></iframe>";
