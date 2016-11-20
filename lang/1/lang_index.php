@@ -122,79 +122,80 @@ $lang = array(
 The administrator of this site (%s) cannot be held responsible for what its users post, or any other actions of its users.
 You may not use this site to distribute or download any material when you do not have the legal rights to do so.
 It is your own responsibility to adhere to these terms.",
-	//last24 
-	'index_last24_nousers' => "There&nbsp;have&nbsp;been&nbsp;no&nbsp;active&nbsp;users&nbsp;in&nbsp;the&nbsp;last&nbsp;15&nbsp;minutes.",
-	'index_last24_list' => "&nbsp;-&nbsp;List&nbsp;updated&nbsp;hourly",
-	'index_last24_during' => " visited during the last 24 hours",
-	'index_last24_most' => "Most ever visited in 24 hours was ",
-	'index_last24_on' => " on ",
-	//global show hide
-	'index_hide_show' => "[Hide/Show]",
-	'index_click_more' => "Click for more info",
-	//irc users
-	'index_irc_days' => "days",
-	'index_irc_hrs' => "hrs",
-	'index_irc_min' => "minutes",
-	'index_irc_nousers' => "There have been no active irc users in the last 15 minutes.",
-	//birthday users
-	'index_birthday_no' => "There is no members birthdays today.",
-	//active users
-	'index_active_users_no' => "There have been no active users in the last 15 minutes.",
-	//advertise
-	'index_advertise_t' => "U-232",
-	//announcement
-	'index_ann_title' => "Announcement",
-	'index_ann_click' => "Click ",
-	'index_ann_here' => "here",
-	'index_ann_clear' => " to clear this announcement.",
-	//forum_posts
-	'index_fposts_anonymous' => "Anonymous",
-	'index_fposts_unknow' => "Unknown",
-	'index_fposts_system' => "System",
-	'index_fposts_sticky' => "Sticky",
-	'index_fposts_stickyt' => "Sticky Topic",
-	'index_fposts_locked' => "Locked",
-	'index_fposts_lockedt' => "Locked Topic",
-	'index_fposts_in' => "in ",
-	//xmas gift
-	'index_xmas_gift' => "Xmas Gift",
-	//ie user
-	'index_ie_warn' => "Warning - Internet Explorer Browser",
-	'index_ie_not' => " It appears as though you are running Internet Explorer, this site was <b>NOT</b> intended to be viewed with internet explorer and chances are it will not look right and may not even function correctly.",
-	'index_ie_suggest' => " suggests that you ",
-	'index_ie_bhappy' => "browse happy",
-	'index_ie_consider' => " and consider switching to one of the many better alternatives.",
-	'index_ie_firefox' => "Get Firefox!",
-	'index_ie_get' => "Get a SAFER browser !",
-	///Latest Torrents
-	'index_ltst_name' => "Name:",
-	'index_ltst_seeder' => "Seeders:",
-	'index_ltst_leecher' => "Leechers:",
-	//Latest Member
-	'index_lmember' => "Latest Member",
-	'index_wmember' => "Welcome our newest member ",
-	//movie of the week
-	'index_mow_title' => "Movie of the Week",
-	'index_mow_type' => "Type",
-	'index_mow_name' => "Name",
-	'index_mow_snatched' => "Snatched",
-	'index_mow_seeder' => "Seeders",
-	'index_mow_leecher' => "Leechers",
-	'index_mow_no' => "No Movie of the week set!",
-	//news
-	'index_news_title' => "&nbsp;&nbsp;Add / Edit",
-	'index_news_ed' => "Edit news",
-	'index_news_del' => "Delete news",
-	'index_news_added' => "&nbsp;-&nbsp;Added by ",
-	'index_news_anon' => "Anonymous",
-	'index_news_not' => "We currently have fuck all to say :-P",
-	'index_news_txt' => "&nbsp;-&nbsp;",
-	//shoutbox
-	'index_shoutbox_general' => "ShoutBox - General Chit-chat",
-	//torrent freak
-	'index_torr_freak' => " Torrent Freak News",
-    //polls 
+    //last24
+    'index_last24_nousers' => "There&nbsp;have&nbsp;been&nbsp;no&nbsp;active&nbsp;users&nbsp;in&nbsp;the&nbsp;last&nbsp;15&nbsp;minutes.",
+    'index_last24_list' => "&nbsp;-&nbsp;List&nbsp;updated&nbsp;hourly",
+    'index_last24_during' => " visited during the last 24 hours",
+    'index_last24_most' => "Most ever visited in 24 hours was ",
+    'index_last24_on' => " on ",
+    //global show hide
+    'index_hide_show' => "[Hide/Show]",
+    'index_click_more' => "Click for more info",
+    //irc users
+    'index_irc_days' => "days",
+    'index_irc_hrs' => "hrs",
+    'index_irc_min' => "minutes",
+    'index_irc_nousers' => "There have been no active irc users in the last 15 minutes.",
+    //birthday users
+    'index_birthday_no' => "There is no members birthdays today.",
+    //active users
+    'index_active_users_no' => "There have been no active users in the last 15 minutes.",
+    //advertise
+    'index_advertise_t' => "U-232",
+    //announcement
+    'index_ann_title' => "Announcement",
+    'index_ann_click' => "Click ",
+    'index_ann_here' => "here",
+    'index_ann_clear' => " to clear this announcement.",
+    //forum_posts
+    'index_fposts_anonymous' => "Anonymous",
+    'index_fposts_unknow' => "Unknown",
+    'index_fposts_system' => "System",
+    'index_fposts_sticky' => "Sticky",
+    'index_fposts_stickyt' => "Sticky Topic",
+    'index_fposts_locked' => "Locked",
+    'index_fposts_lockedt' => "Locked Topic",
+    'index_fposts_in' => "in ",
+    //xmas gift
+    'index_xmas_gift' => "Xmas Gift",
+    //ie user
+    'index_ie_warn' => "Warning - Internet Explorer Browser",
+    'index_ie_not' => " It appears as though you are running Internet Explorer, this site was <b>NOT</b> intended to be viewed with internet explorer and chances are it will not look right and may not even function correctly.",
+    'index_ie_suggest' => " suggests that you ",
+    'index_ie_bhappy' => "browse happy",
+    'index_ie_consider' => " and consider switching to one of the many better alternatives.",
+    'index_ie_firefox' => "Get Firefox!",
+    'index_ie_get' => "Get a SAFER browser !",
+    ///Latest Torrents
+    'index_ltst_name' => "Name:",
+    'index_ltst_seeder' => "Seeders:",
+    'index_ltst_leecher' => "Leechers:",
+    //Latest Member
+    'index_lmember' => "Latest Member",
+    'index_wmember' => "Welcome our newest member ",
+    //movie of the week
+    'index_mow_title' => "Movie of the Week",
+    'index_mow_type' => "Type",
+    'index_mow_name' => "Name",
+    'index_mow_snatched' => "Snatched",
+    'index_mow_seeder' => "Seeders",
+    'index_mow_leecher' => "Leechers",
+    'index_mow_no' => "No Movie of the week set!",
+    //news
+    'index_news_title' => "&nbsp;&nbsp;Add / Edit",
+    'index_news_ed' => "Edit news",
+    'index_news_del' => "Delete news",
+    'index_news_added' => "&nbsp;-&nbsp;Added by ",
+    'index_news_anon' => "Anonymous",
+    'index_news_not' => "We currently have fuck all to say :-P",
+    'index_news_txt' => "&nbsp;-&nbsp;",
+    //shoutbox
+    'index_shoutbox_general' => "ShoutBox - General Chit-chat",
+    //torrent freak
+    'index_torr_freak' => " Torrent Freak News",
+    //polls
     'index_poll_title' => "Add / Edit",
+    'index_poll_name' => "Site Poll" .
     //add_stats_bl_by yoooov
     'index_stats_uinfo' => "User Info",
     'index_stats_cinfo' => "Class Info",
@@ -222,6 +223,6 @@ It is your own responsibility to adhere to these terms.",
     'req_off_app' => "Approved!",
     'req_off_pend' => "Pending...",
     'req_off_den' => "Denied",
-    'req_off_nooff' => "No Offers Found"
+    'req_off_nooff' => "No Offers Found",
 );
 ?>
