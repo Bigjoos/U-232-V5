@@ -60,7 +60,7 @@ $cats = "";
     $res  = sql_query("SELECT id, name FROM categories");
     while ($arr = mysqli_fetch_assoc($res))
         $cats[$arr["id"]] = $arr["name"];
-$processed = 0;
+$processed = $successful = 0;
 
 //parse _FILES into readable format
 $file_list = array();
@@ -257,6 +257,7 @@ foreach( $file_list as $key=>$f ) {
     $id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
 
     $ids[] = $id;
+    if ($id > 0) $successful +=1;
     $messages = "{$INSTALLER09['site_name']} New Torrent: $torrent Uploaded By: $anon " . mksize($totallen) . " {$INSTALLER09['baseurl']}/details.php?id=$id";
     $message = "New Torrent : Category = ".htmlsafechars($cats[$catid]).", [url={$INSTALLER09['baseurl']}/details.php?id=$id] " . htmlsafechars($torrent) . "[/url] Uploaded - Anonymous User";
 
@@ -313,7 +314,7 @@ $mc1->delete_value('scroll_tor_');
 //==
 if ($INSTALLER09['seedbonus_on'] == 1) {
 
-    $bonus_val = ($INSTALLER09['bonus_per_upload']*$total_torrents);
+    $bonus_val = ($INSTALLER09['bonus_per_upload']*$successful);
     //===add karma
     sql_query("UPDATE users SET seedbonus=seedbonus+" . sqlesc($bonus_val) . ", numuploads=numuploads+1 WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
     //===end
