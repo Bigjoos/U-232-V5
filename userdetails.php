@@ -40,6 +40,7 @@ $stdhead = array(
 $stdfoot = array(
     /** include js **/
     'js' => array(
+	'popup',
         'java_klappe',
         'jquery.treeview.pack',
         'flip_box',
