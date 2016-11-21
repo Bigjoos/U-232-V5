@@ -18,7 +18,7 @@
  */
 //== Free torrents begin
 if ($CURUSER) {
-    if (isset($free) && (count($free) >= 1)) {
+    if (isset($free) && is_array($free) && (count($free) >= 1)) {
         foreach ($free as $fl) {
             switch ($fl['modifier']) {
             case 1:
