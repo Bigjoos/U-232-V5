@@ -96,14 +96,14 @@ if (isset($_FILES['nfo']) && !empty($_FILES['nfo']['name'])) {
 }
 /////////////////////// NFO FILE END /////////////////////
 /// Set Freeleech on Torrent Time Based
-$free = 0;
+$free2 = 0;
 if (isset($_POST['free_length']) && ($free_length = 0 + $_POST['free_length'])) {
     if ($free_length == 255)
-        $free = 1;
+        $free2 = 1;
     elseif ($free_length == 42)
-        $free = (86400 + TIME_NOW);
+        $free2 = (86400 + TIME_NOW);
     else
-        $free = (TIME_NOW + $free_length * 604800);
+        $free2 = (TIME_NOW + $free_length * 604800);
 }
 /// end
 /// Set Silver Torrent Time Based
@@ -333,7 +333,7 @@ $ret = sql_query("INSERT INTO torrents (search_text, filename, owner, username, 
     $descr,
     $description,
     0 + $_POST["type"],
-    $free,
+    $free2,
     $silver,
     $dname,
     $youtube,
