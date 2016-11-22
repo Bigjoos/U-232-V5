@@ -424,7 +424,7 @@ if ($game) {
     <table class='message table'>
     <tr><td align='center'><img src='{$INSTALLER09['pic_base_url']}cards/tp.bmp' width='71' height='96' border='0' alt='' />&nbsp;<img src='{$INSTALLER09['pic_base_url']}cards/vp.bmp' width='71' height='96' border='0' alt='' /></td></tr>
     <tr><td align='left'>{$lang['bj_you_most_collect_21']}<br /><br />
-    <b>{$lang['bj_note']}</b> {$lang['bj_bj_note_cost']}</td></tr>
+    <b>{$lang['bj_note']}</b> " . $lang['bj_bj_note_cost'] . mksize($mb) . $lang['bj_bj_note_cost2'] . "</td></tr>
     <tr><td align='center'>
     <div class='col-sm-2 col-sm-offset-5'><form class='form-horizontal' method='post' action='" . $_SERVER['PHP_SELF'] . "'><input type='hidden' name='game' value='hit' readonly='readonly' /><input type='hidden' name='start_' value='yes' readonly='readonly' /><input class='form-control btn btn-default input-small'type='submit' value='Start!' /></form></div>
     </td></tr></table>
