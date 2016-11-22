@@ -19,8 +19,8 @@
 $lang = array(
     'bj_title' => "Blackjack",
     'bj_back' => "Back",
-    'bj_bj_note_cost' => "By playing blackjack, you are betting 100 MB of upload credit!",
-    'bj_blackjack_results' => "Blackjack Results",
+    'bj_bj_note_cost' => "By playing blackjack, you are betting ",
+    'bj_bj_note_cost2' => " of upload credit!",
     'bj_blackjack_stats' => "Blackjack Stats",
     'bj_cards' => "Cards",
     'bj_continue_old_game' => "Continue old game",
