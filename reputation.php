@@ -1,15 +1,15 @@
 <?php
 /**
  |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                			    |
+ |   https://github.com/Bigjoos/                                            |
  |--------------------------------------------------------------------------|
- |   Licence Info: GPL			                                    |
+ |   Licence Info: WTFPL                                                    |
  |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5					    |
+ |   Copyright (C) 2010 U-232 V5                                            |
  |--------------------------------------------------------------------------|
  |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
  |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.					    |
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
  |--------------------------------------------------------------------------|
   _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
  / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
@@ -56,14 +56,14 @@ if (isset($input['done'])) {
 //	Nope, so do something different, like check stuff
 ///////////////////////////////////////////////
 /// weeeeeeeeee =]
-$check = isset($input['pid']) ? is_valid_id($input['pid']) : false;
+$check = isset($input['pid']) ? is_valid_id(intval($input['pid'])) : false;
 $locales = array(
     'posts',
     'comments',
     'torrents',
     'users'
 );
-$rep_locale = (isset($input['locale']) && (in_array($input['locale'], $locales)) ? $input['locale'] : 'posts');
+$rep_locale = (isset($input['locale']) && (in_array($input['locale'], $locales)) ? htmlsafechars($input['locale']) : 'posts');
 if (!$check) {
     rep_output('Incorrect Access');
 }
@@ -77,7 +77,7 @@ FROM posts
 LEFT JOIN topics ON topic_id = topics.id
 LEFT JOIN forums ON topics.forum_id = forums.id
 LEFT JOIN users ON posts.user_id = users.id
-WHERE posts.id ={$input['pid']}");
+WHERE posts.id =".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
 } elseif ($rep_locale == 'comments') {
     ///////////////////////////////////////////////
     // check the comment actually exists!
@@ -88,7 +88,7 @@ WHERE posts.id ={$input['pid']}");
      users.username, users.reputation
      FROM comments
      LEFT JOIN users ON comments.user = users.id
-     WHERE comments.id = {$input['pid']}");
+     WHERE comments.id = ".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
 } elseif ($rep_locale == 'torrents') {
     ///////////////////////////////////////////////
     // check the uploader actually exists!
@@ -97,12 +97,12 @@ WHERE posts.id ={$input['pid']}");
     users.username, users.reputation
     FROM torrents
     LEFT JOIN users ON torrents.owner = users.id
-    WHERE torrents.id ={$input['pid']}");
+    WHERE torrents.id =".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
 } elseif ($rep_locale == 'users') {
     ///////////////////////////////////////////////
     // check the user actually exists!
     ///////////////////////////////////////////////
-    $forum = sql_query("SELECT id AS userid, username, reputation, opt1, opt2 FROM users WHERE id ={$input['pid']}");
+    $forum = sql_query("SELECT id AS userid, username, reputation, opt1, opt2 FROM users WHERE id =".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
 } // end
 switch ($rep_locale) {
 case 'comments':
@@ -125,7 +125,7 @@ if (!mysqli_num_rows($forum)) rep_output($this_rep . ' Does Not Exist - Incorrec
 ///////////////////////////////////////////////
 // ok, lets proceed
 ///////////////////////////////////////////////
-$res = mysqli_fetch_assoc($forum) or sqlerr(__line__, __file__);
+$res = mysqli_fetch_assoc($forum);
 if (isset($res['minclassread'])) // 'posts'
 if ($CURUSER['class'] < $res['minclassread'])
 // check permissions! Dun want sneaky pests lookin!
@@ -135,7 +135,7 @@ if ($CURUSER['class'] < $res['minclassread'])
 ///////////////////////////////////////////////
 //	Does the user have memory loss? Have they already rep'd?
 ///////////////////////////////////////////////
-$repeat = sql_query("SELECT postid FROM reputation WHERE postid ={$input['pid']} AND whoadded={$CURUSER['id']}");
+$repeat = sql_query("SELECT postid FROM reputation WHERE postid =".sqlesc($input['pid'])." AND whoadded=".sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
 //$repres = mysql_fetch_assoc( $forum ) or sqlerr(__LINE__,__FILE__);
 if (mysqli_num_rows($repeat) > 0 && $rep_locale != 'users') // blOOdy eedjit check!
 {
@@ -154,10 +154,7 @@ if (!$is_mod) {
     ///////////////////////////////////////////////
     //	Some trivial flood checking
     ///////////////////////////////////////////////
-    $flood = sql_query("SELECT dateadd, userid FROM reputation 
-									WHERE whoadded = {$CURUSER['id']} 
-									ORDER BY dateadd DESC
-									LIMIT 0 , $klimit");
+    $flood = sql_query("SELECT dateadd, userid FROM reputation WHERE whoadded = ".sqlesc($CURUSER['id'])." ORDER BY dateadd DESC LIMIT 0 , ".sqlesc($klimit)) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($flood)) {
         $i = 0;
         while ($check = mysqli_fetch_assoc($flood)) {
@@ -177,9 +174,9 @@ if (!$is_mod) {
 ///////////////////////////////////////////////
 // Note: if you use another forum type, you may already have this GLOBAL available
 // So you can save a query here, else...
-$r = sql_query("SELECT COUNT(*) FROM posts WHERE user_id = {$CURUSER['id']}") or sqlerr();
-$a = mysqli_fetch_row($r) or sqlerr();
-$CURUSER['posts'] = $a[0];
+$r = sql_query("SELECT COUNT(*) FROM posts WHERE user_id = ".sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
+$a = mysqli_fetch_row($r);
+$CURUSER['posts'] = intval($a[0]);
 ///////////////////////////////////////////////
 // What's the reason for bothering me?
 ///////////////////////////////////////////////
@@ -207,7 +204,7 @@ if (isset($input['do']) && $input['do'] == 'addrep') {
     }
     $score = fetch_reppower($CURUSER, $input['reputation']);
     $res['reputation']+= $score;
-    sql_query("UPDATE users set reputation=" . intval($res['reputation']) . " WHERE id=" . $res['userid']);
+    sql_query("UPDATE users set reputation=" . sqlesc(intval($res['reputation'])) . " WHERE id=" . sqlesc($res['userid'])) or sqlerr(__FILE__, __LINE__);
     $mc1->begin_transaction('MyUser_' . $res['userid']);
     $mc1->update_row(false, array(
         'reputation' => $res['reputation']
@@ -220,29 +217,29 @@ if (isset($input['do']) && $input['do'] == 'addrep') {
     $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
     $mc1->delete_value('user_rep_' . $res['userid']);
     $save = array(
-        'reputation' => $score,
-        'whoadded' => $CURUSER['id'],
+        'reputation' => sqlesc($score),
+        'whoadded' => sqlesc($CURUSER['id']),
         'reason' => sqlesc($reason) ,
         'dateadd' => TIMENOW,
         'locale' => sqlesc($rep_locale) ,
-        'postid' => (int)$input['pid'],
-        'userid' => $res['userid']
+        'postid' => sqlesc(intval($input['pid'])),
+        'userid' => sqlesc(intval($res['userid']))
     );
     //print( join( ',', $save) );
     //print( join(',', array_keys($save)));
-    sql_query("INSERT INTO reputation (" . join(',', array_keys($save)) . ") VALUES (" . join(',', $save) . ")");
-    header("Location: {$INSTALLER09['baseurl']}/reputation.php?pid={$input['pid']}&done=1");
+    sql_query("INSERT INTO reputation (" . join(',', array_keys($save)) . ") VALUES (" . join(',', $save) . ")") or sqlerr(__FILE__, __LINE__);
+    header("Location: {$INSTALLER09['baseurl']}/reputation.php?pid=".intval($input['pid'])."&done=1");
 } // Move along, nothing to see here!
 else {
     if ($res['userid'] == $CURUSER['id']) // same as him!
     {
         // check for fish!
-        $query1 = sql_query("select r.*, leftby.id as leftby_id, leftby.username as leftby_name
-                                        from reputation r
-                                        left join users leftby on leftby.id=r.whoadded
-                                        where post_id={$input['pid']}
+        $query1 = sql_query("SELECT r.*, leftby.id AS leftby_id, leftby.username AS leftby_name
+                                        FROM reputation r
+                                        LEFT JOIN users leftby ON leftby.id=r.whoadded
+                                        WHERE postid=".sqlesc($input['pid'])."
                                         AND r.locale = " . sqlesc($input['locale']) . "
-                                        order by dateadd DESC");
+                                        ORDER BY dateadd DESC") or sqlerr(__FILE__, __LINE__);
         $reasonbits = '';
         if (false !== mysqli_num_rows($query1)) {
             $total = 0;
@@ -256,11 +253,11 @@ else {
                     $posneg = 'balance';
                 }
                 if ($GVARS['g_rep_seeown']) {
-                    $postrep['reason'] = $postrep['reason'] . " <span class='desc'>{$lang["rep_left_by"]} <a href=\"{$INSTALLER09['baseurl']}/userdetails.php?id={$postrep['leftby_id']}\" target='_blank'>{$postrep['leftby_name']}</a></span>";
+                    $postrep['reason'] = htmlsafechars($postrep['reason']) . " <span class='desc'>{$lang["rep_left_by"]} <a href=\"{$INSTALLER09['baseurl']}/userdetails.php?id=".intval($postrep['leftby_id'])."\" target='_blank'>".htmlspecialchars($postrep['leftby_name'])."</a></span>";
                 }
                 $reasonbits.= "<tr>
 	<td class='row2' width='1%'><img src='./pic/rep/reputation_$posneg.gif' border='0' alt='' /></td>
-	<td class='row2'>{$postrep['reason']}</td>
+	<td class='row2'>".htmlspecialchars($postrep['reason'])."</td>
 </tr>";
             }
             ///////////////////////////////////////////////
@@ -311,7 +308,7 @@ else {
         ///////////////////////////////////////////////
         //$rep_info = sprintf("".$lang["info_your_rep_on"]." <a href='{$INSTALLER09['baseurl']}/forums.php?action=viewtopic&amp;topicid=%d&amp;page=p%d#%d' target='_blank'>".$lang["info_this_post"]."</a> ".$lang["info_is"]." %s.", $res['topicid'], $input['pid'], $input['pid'], $rep );
         $rep_points = sprintf("" . $lang["info_you_have"] . " %d " . $lang["info_reputation_points"] . "", $CURUSER['reputation']);
-        $html = "<tr><td class='darkrow1'>{$rep_info}</td></tr>
+        $html = "<tr><td class='darkrow1'>".htmlsafechars($rep_info)."</td></tr>
 						<tr>
 							<td class='row2'>
 							<div class='tablepad'>";
@@ -365,8 +362,8 @@ else {
 					<div align='center' style='margin-top:3px;'>
 						<input type='hidden' name='act' value='reputation' />
 						<input type='hidden' name='do' value='addrep' />
-						<input type='hidden' name='pid' value='{$input['pid']}' />
-						<input type='hidden' name='locale' value='{$input['locale']}' />
+						<input type='hidden' name='pid' value='".intval($input['pid'])."' />
+						<input type='hidden' name='locale' value='".htmlsafechars($input['locale'])."' />
 						<input type='submit' value='" . $lang["info_add_rep"] . "' class='button' accesskey='s' />
 						<input type='button' value='Close Window' class='button' accesskey='c' onclick='self.close()' />
 					</div>	
@@ -386,30 +383,35 @@ function rep_output($msg = "", $html = "")
 {
     global $closewindow, $lang, $CURUSER, $INSTALLER09;
     if ($msg && empty($html)) {
-        $html = "<tr><td class='row2'>$msg</td></tr>";
+        $html = "<tr><td class='row'>$msg</td></tr>";
     }
 ?>
-    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">		
-		<html xmlns="http://www.w3.org/1999/xhtml">
+    <!DOCTYPE html>
+  <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 		<head>
-		<meta name="generator" content="" />
-		<meta name="MSSmartTagsPreventParsing" content="TRUE" />			
+		    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.35, maximum-scale=1" />			
 		<title>Reputation System</title>
-    <link rel='stylesheet' href='<?php
+    	<link rel="stylesheet" href="css/font-awesome.min.css" />
+        <link rel="stylesheet" href="css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="css/global_media.css" type="text/css" />
+<link rel='stylesheet' href='<?php
     echo $INSTALLER09['baseurl']; ?>/templates/<?php
     echo $CURUSER['stylesheet']; ?>/<?php
     echo $CURUSER['stylesheet']; ?>.css' type='text/css' />
+  
     </head>
     <body>
     <?php
-    $html = "<div style='background-color:transparent;'>
-		<div class='borderwrap'>
-	  <div class='maintitle'>Reputation System</div>
-	  <table class='main' cellspacing='1'>
+    $html = "<div class='panel panel-default' id='reputation'>
+	<div class='panel-heading'>
+		<label for='checkbox_1' class='text-left'>Reputation System</label>
+	</div><div class='panel-body'>
+<table class='table table-striped table-bordered'>
 		$html";
+
     if ($closewindow) {
-        $html.= "<tr><td class='darkrow1' align='center'><a href='javascript:self.close();'><b>{$lang["info_close_rep"]}</b></a></td></tr>";
+        $html.= "<tr><td class='main' align='center'><a href='javascript:self.close();'><b>{$lang["info_close_rep"]}</b></a></td></tr>";
     }
     $html.= "</table></div></div></body></html>";
     echo $html;

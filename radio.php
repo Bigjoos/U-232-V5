@@ -1,17 +1,21 @@
 <?php
 /**
- /-------------------------------------------------------------------------\
-|   https://github.com/Bigjoos/ -------------------------------------------|
-|--------------------------------------------------------------------------|
-|   Licence Info: GPL  ----------------------------------------------------|
-|--------------------------------------------------------------------------|
-|   Copyright (C) 2010 U-232 V5	-------------------------------------------|
-|--------------------------------------------------------------------------|
-|   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon. --|
-|--------------------------------------------------------------------------|
-|   Project Leaders: Mindless, Autotron, whocares, son.--------------------|
- \------------------------------------------------------------------------/
-***/
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ */
 require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
 require_once (INCL_DIR . 'user_functions.php');
 //require_once (INCL_DIR . 'html_functions.php');
@@ -63,11 +67,11 @@ function radioinfo($radio)
             foreach ($data as $d) $html.= '<li><b>' . $d . '</b></li>';
             $html.= '<li><b>Playlist history: </b> ' . (count($history) > 0 ? join(', ', $history) : 'No playlist history') . '</li>';
             if (empty($users_ip) === false) {
-                $q1 = sql_query('SELECT id, username FROM users WHERE ip IN (' . $users_ip . ') ORDER BY username ASC') or sqlerr(__FILE__, __LINE__);
+                $q1 = sql_query('SELECT id, username, paranoia FROM users WHERE ip IN (' . $users_ip . ') ORDER BY username ASC') or sqlerr(__FILE__, __LINE__);
                 if (mysqli_num_rows($q1) == 0) $html.= '<li><b>Listeners</b>: currently no listener from site </li>';
                 else {
                     $users = array();
-                    while ($a1 = mysqli_fetch_assoc($q1)) $users[] = sprintf('<a href="/userdetails.php?id=%d">%s</a>', $a1['id'], $a1['username']);
+                    while ($a1 = mysqli_fetch_assoc($q1)) $users[] = ($a1['paranoia'] < 1 || $CURUSER['id'] == $a1['id'] || $CURUSER['class'] >= UC_STAFF) ? sprintf('<a href="/userdetails.php?id=%d">%s</a>', $a1['id'], $a1['username']) : 'Anonymous';
                     $html.= '<li><b>Listeners</b>: ' . join(', ', $users) . '</li>';
                 }
             }

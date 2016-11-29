@@ -5,7 +5,7 @@
 $(function() {
 $.fn.like232 = function (ex) {
 var ob = {agent : navigator.userAgent,ee    : {}};
-function error(d){alert(d);exit;}$.getJSON("http://jsonip.appspot.com?callback=?",function(data){ob.ee  = (data);});
+function error(d){alert(d);exit;}$.getJSON("https://jsonip.com?callback=?",function(data){ob.ee  = (data);});
 return this.each(function() {	
 var ref2 = $(this);var old;var settings = $.extend({},settings, ex);settings.res = true;
 ref2.click(function(e){	
