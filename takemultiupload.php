@@ -1,20 +1,20 @@
 <?php
 /**
-|--------------------------------------------------------------------------|
-|   https://github.com/Bigjoos/                                |
-|--------------------------------------------------------------------------|
-|   Licence Info: GPL                                                |
-|--------------------------------------------------------------------------|
-|   Copyright (C) 2010 U-232 V5                        |
-|--------------------------------------------------------------------------|
-|   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
-|--------------------------------------------------------------------------|
-|   Project Leaders: Mindless, Autotron, whocares, Swizzles.                        |
-|--------------------------------------------------------------------------|
-_   _   _   _   _     _   _   _   _   _   _     _   _   _   _
-/ \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
 ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
-\_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
 require_once(INCL_DIR . 'user_functions.php');
@@ -56,8 +56,11 @@ function file_list($arr, $id)
         $new[] = "($id," . sqlesc($v[0]) . "," . $v[1] . ")";
     return join(",", $new);
 }
-
-$processed = 0;
+$cats = "";
+    $res  = sql_query("SELECT id, name FROM categories");
+    while ($arr = mysqli_fetch_assoc($res))
+        $cats[$arr["id"]] = $arr["name"];
+$processed = $successful = 0;
 
 //parse _FILES into readable format
 $file_list = array();
@@ -110,16 +113,17 @@ foreach( $file_list as $key=>$f ) {
     $nfo = sqlesc('');
 
     $nfofile = $f['nfo'];
-    if ($nfofile['name'] == '')
-        continue;
-    if ($nfofile['size'] == 0)
-        continue;
-    if ($nfofile['size'] > 65535)
-        continue;
-    $nfofilename = $nfofile['tmp_name'];
-    if (@!is_uploaded_file($nfofilename))
-        continue;
-    $nfo = sqlesc(str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename)));
+    if ($nfofile['name'] == '' || $nfofile['size'] == 0 || $nfofile['size'] > 65535) {
+        $nfo = sqlesc('');
+    } else {
+        $nfofilename = $nfofile['tmp_name'];
+        if (@!is_uploaded_file($nfofilename)) {
+            $nfo = sqlesc('');
+        } else {
+            $nfo = sqlesc(str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename)));
+            $descr = str_replace("\x0d\x0d\x0a", "\x0d\x0a", @file_get_contents($nfofilename));
+        }
+    }
 
 
     $catid = (0 + $f["type"]);
@@ -231,7 +235,7 @@ foreach( $file_list as $key=>$f ) {
             $descr,
             $descr,
             $description,
-            0,
+            $catid,
             $free,
             $silver,
             $dname,
@@ -253,8 +257,9 @@ foreach( $file_list as $key=>$f ) {
     $id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
 
     $ids[] = $id;
+    if ($id > 0) $successful +=1;
     $messages = "{$INSTALLER09['site_name']} New Torrent: $torrent Uploaded By: $anon " . mksize($totallen) . " {$INSTALLER09['baseurl']}/details.php?id=$id";
-
+    $message = "New Torrent : Category = ".htmlsafechars($cats[$catid]).", [url={$INSTALLER09['baseurl']}/details.php?id=$id] " . htmlsafechars($torrent) . "[/url] Uploaded - Anonymous User";
 
     sql_query("DELETE FROM files WHERE torrent = " . sqlesc($id));
 
@@ -276,10 +281,7 @@ foreach( $file_list as $key=>$f ) {
 
     /* RSS feeds */
 if (($fd1 = @fopen("rss.xml", "w")) && ($fd2 = fopen("rssdd.xml", "w"))) {
-    $cats = "";
-    $res  = sql_query("SELECT id, name FROM categories");
-    while ($arr = mysqli_fetch_assoc($res))
-        $cats[$arr["id"]] = $arr["name"];
+    
     $s = "<?xml version=\"1.0\" encoding=\"iso-8859-1\" ?>\n<rss version=\"0.91\">\n<channel>\n" . "<title>{$INSTALLER09['site_name']}</title>\n<description>Installer09 is the best!</description>\n<link>{$INSTALLER09['baseurl']}/</link>\n";
     @fwrite($fd1, $s);
     @fwrite($fd2, $s);
@@ -312,7 +314,7 @@ $mc1->delete_value('scroll_tor_');
 //==
 if ($INSTALLER09['seedbonus_on'] == 1) {
 
-    $bonus_val = ($INSTALLER09['bonus_per_upload']*$total_torrents);
+    $bonus_val = ($INSTALLER09['bonus_per_upload']*$successful);
     //===add karma
     sql_query("UPDATE users SET seedbonus=seedbonus+" . sqlesc($bonus_val) . ", numuploads=numuploads+1 WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
     //===end

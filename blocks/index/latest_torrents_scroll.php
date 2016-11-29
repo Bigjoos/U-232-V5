@@ -1,15 +1,15 @@
 <?php
 /**
  |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/--------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
  |--------------------------------------------------------------------------|
- |   Licence Info: GPL------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
  |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5--------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
  |--------------------------------------------------------------------------|
  |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
  |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.---------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
  |--------------------------------------------------------------------------|
   _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
  / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
@@ -20,9 +20,9 @@
 $stdhead = array(
     /** include js **/
     'js' => array(
-        'raphael-min.js',
-        'jquery.mousewheel.js',
-        'icarousel.js'
+        'raphael-min',
+        'jquery.mousewheel',
+        'icarousel'
     )
 );
  

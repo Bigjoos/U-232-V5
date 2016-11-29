@@ -1,21 +1,21 @@
 <?php
 /**
-|--------------------------------------------------------------------------|
-|   https://github.com/Bigjoos/                                |
-|--------------------------------------------------------------------------|
-|   Licence Info: GPL                                                |
-|--------------------------------------------------------------------------|
-|   Copyright (C) 2010 U-232 V5                        |
-|--------------------------------------------------------------------------|
-|   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
-|--------------------------------------------------------------------------|
-|   Project Leaders: Mindless, Autotron, whocares, Swizzles.                        |
-|--------------------------------------------------------------------------|
-_   _   _   _   _     _   _   _   _   _   _     _   _   _   _
-/ \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
 ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
-\_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
-*/
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ */
 require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
 require_once(INCL_DIR . 'user_functions.php');
 require_once(CLASS_DIR . 'page_verify.php');
@@ -96,14 +96,14 @@ if (isset($_FILES['nfo']) && !empty($_FILES['nfo']['name'])) {
 }
 /////////////////////// NFO FILE END /////////////////////
 /// Set Freeleech on Torrent Time Based
-$free = 0;
+$free2 = 0;
 if (isset($_POST['free_length']) && ($free_length = 0 + $_POST['free_length'])) {
     if ($free_length == 255)
-        $free = 1;
+        $free2 = 1;
     elseif ($free_length == 42)
-        $free = (86400 + TIME_NOW);
+        $free2 = (86400 + TIME_NOW);
     else
-        $free = (TIME_NOW + $free_length * 604800);
+        $free2 = (TIME_NOW + $free_length * 604800);
 }
 /// end
 /// Set Silver Torrent Time Based
@@ -333,7 +333,7 @@ $ret = sql_query("INSERT INTO torrents (search_text, filename, owner, username, 
     $descr,
     $description,
     0 + $_POST["type"],
-    $free,
+    $free2,
     $silver,
     $dname,
     $youtube,
