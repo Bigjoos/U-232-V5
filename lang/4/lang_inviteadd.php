@@ -1,4 +1,21 @@
 <?php
+/**
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ */
 $lang['inviteadd_error'] = 'Error';
 $lang['inviteadd_aunknown'] = 'You can\'t do that! you can do this %s with invites';
 $lang['inviteadd_error2'] = 'You can\'t remove/add 0';
@@ -23,5 +40,5 @@ $lang['inviteadd_stdhead'] = 'Add|Remove invites';
 $lang['inviteadd_sendpm'] = 'Send pm';
 $lang['inviteadd_yes'] = 'Yes';
 $lang['inviteadd_no'] = 'No';
-$lang['inviteadd_action'] = 'Do';
+$lang['inviteadd_action'] = 'Do'
 ?>

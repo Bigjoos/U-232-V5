@@ -1,4 +1,21 @@
 <?php
+/**
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ */
 $lang = array(
     //invite errors
     'bonus_error' => "Error",
@@ -45,29 +62,6 @@ $lang = array(
 	'bonus_gained1t1' => " you have gained a 1 to 1 ratio on the selected torrent, and the difference in MB has been added to your total upload!",
 	'bonus_spreadkarma' => " you can not spread the karma to yourself...If you want to spread the love, pick another user!",
 	'bonus_nouser' => " No User with that username.",
-	'bonus_notenough' => " you dont have enough Karma points ",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	
-	
+	'bonus_notenough' => " you dont have enough Karma points "
 );
 ?>

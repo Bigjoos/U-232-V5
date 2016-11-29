@@ -1,4 +1,21 @@
 <?php
+/**
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ */
 $lang = array(
     //FAQ
     'faq_welcome' => "<b>Bienvenue sur {$INSTALLER09['site_name']}!</b><br />
@@ -849,6 +866,6 @@ $lang = array(
     error message you get, if any? What are the torrents you are having problems with? The more
     you tell the easiest it will be for us, and the more probable your post will get a reply.</li>
     <li>And needless to say: be polite. Demanding help rarely works, asking for it usually does
-    the trick.</li>",
+    the trick.</li>"
 );
 ?>
