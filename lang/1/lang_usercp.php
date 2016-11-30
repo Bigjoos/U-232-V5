@@ -223,14 +223,14 @@ $lang = array(
     'usercp_pers_month11' => "November",
     'usercp_pers_month12' => "December",
     'usercp_pers_birth' => "Birthday",
-    'usercp_pm_tit' => "Pm options",
-    'usercp_pm_tit' => " When someone posts in a subscribed thread, you will be PMed.",
-    'usercp_pm_tit' => "When any of your uploaded torrents are deleted, you will be PMed.",
-    'usercp_pm_tit' => "When any of your uploaded torrents are commented on, you will be PMed.",
-    'usercp_pm_tit' => " When enabled you will be redirected to mailbox when you have unread pm's.",
-    'usercp_pm_tit' => "Forum Subscribe Pm",
-    'usercp_pm_tit' => "Torrent deletion Pm",
-    'usercp_pm_tit' => "Torrent comment Pm",
-    'usercp_pm_tit' => "Force read pm"
+    'usercp_pm_opt' => "Pm options",
+    'usercp_pm_pm01' => " When someone posts in a subscribed thread, you will be PMed.",
+    'usercp_pm_pm02' => "When any of your uploaded torrents are deleted, you will be PMed.",
+    'usercp_pm_pm03' => "When any of your uploaded torrents are commented on, you will be PMed.",
+    'usercp_pm_pm04' => " When enabled you will be redirected to mailbox when you have unread pm's.",
+    'usercp_pm_fopm' => "Forum Subscribe Pm",
+    'usercp_pm_topm' => "Torrent deletion Pm",
+    'usercp_pm_copm' => "Torrent comment Pm",
+    'usercp_pm_force' => "Force read pm"
 );
 ?>
