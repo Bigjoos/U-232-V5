@@ -1730,7 +1730,7 @@ if(($halfdownload_counter = $mc1->get_value('halfdownload_counter')) === false) 
             <option value='500.0'> 500.0</option>
             <option value='1000.0'> 1000.0</option>
             <option value='5000.0'> 5000.0</option>
-            <option value='10000.0'> 20000.0</option>
+            <option value='10000.0'> 10000.0</option>
             <option value='20000.0'> 20000.0</option>
             <option value='50000.0'> 50000.0</option>
             <option value='100000.0'> 100000.0</option>
