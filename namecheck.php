@@ -52,9 +52,9 @@ if (strlen($_GET["wantusername"]) > 12) {
     echo $HTMLOUT;
     exit();
 }
-$checkname = sqlesc($_GET["wantusername"]);
-$sql = "SELECT username FROM users WHERE username = $checkname";
-$result = sql_query($sql);
+
+$checkname = htmlsafechars($_GET["wantusername"]);
+$result = sql_query("SELECT username FROM users WHERE username = ".sqlesc($checkname)) or sqlerr(__FILE__, __LINE__);
 $numbers = mysqli_num_rows($result);
 if ($numbers > 0) {
     while ($namecheck = mysqli_fetch_assoc($result)) {
