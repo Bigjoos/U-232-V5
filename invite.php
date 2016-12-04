@@ -41,7 +41,7 @@ $valid_actions = array(
     'send_email'
 );
 $do = (($do && in_array($do, $valid_actions, true)) ? $do : '') or header("Location: ?do=view_page");
-if ($CURUSER['suspended'] == 'yes') stderr("Sorry", "Your account is suspended");
+if ($CURUSER['suspended'] == 'yes') stderr($lang['invites_err1'], $lang['invites_err2']);
 /**
  * @action Main Page
  */
@@ -73,12 +73,12 @@ if ($do == 'view_page') {
             else $status = "<font color='#ca0226'>{$lang['invites_pend']}</font>";
             $HTMLOUT.= "<tr class='one'>" . $user . "<td align='center'>" . mksize($arr['uploaded']) . "</td>" . ($INSTALLER09['ratio_free'] ? "" : "<td align='center'>" . mksize($arr['downloaded']) . "</td>") . "<td align='center'>" . $ratio . "</td><td align='center'>" . $status . "</td>";
             if ($arr['status'] == 'pending') {
-                $HTMLOUT.= "<td align='center'><a href='?do=confirm_account&amp;userid=" . (int)$arr['id'] . "&amp;sender=" . (int)$CURUSER['id'] . "'><img src='{$INSTALLER09['pic_base_url']}confirm.png' alt='confirm' title='Confirm' border='0' /></a></td></tr>";
+                $HTMLOUT.= "<td align='center'><a href='?do=confirm_account&amp;userid=" . (int)$arr['id'] . "&amp;sender=" . (int)$CURUSER['id'] . "'><img src='{$INSTALLER09['pic_base_url']}confirm.png' alt='confirm' title='{$lang['invites_confirm']}' border='0' /></a></td></tr>";
             } else $HTMLOUT.= "<td align='center'>---</td></tr>";
         }
     }
     $HTMLOUT.= "</table><br>";
-    $select = sql_query("SELECT * FROM invite_codes WHERE sender = " . sqlesc($CURUSER['id']) . " AND status = 'Pending'") or sqlerr(__FILE__, __LINE__);
+    $select = sql_query('SELECT * FROM invite_codes WHERE sender = ' . sqlesc($CURUSER['id']) . ' AND status = "Pending"') or sqlerr(__FILE__, __LINE__);
     $num_row = mysqli_num_rows($select);
     $HTMLOUT.= "<table class='table table-bordered table-striped'>" . "<tr class='tabletitle'><td colspan='6' class='colhead'><b>{$lang['invites_codes']}</b></td></tr>";
     if (!$num_row) {
@@ -133,35 +133,11 @@ elseif ($do == 'send_email') {
         $invite = (isset($_POST['code']) ? htmlsafechars($_POST['code']) : '');
         if (!$email) stderr($lang['invites_error'], $lang['invites_noemail']);
         $check = (mysqli_fetch_row(sql_query('SELECT COUNT(id) FROM users WHERE email = ' . sqlesc($email)))) or sqlerr(__FILE__, __LINE__);
-        if ($check[0] != 0) stderr('Error', 'This email address is already in use!');
+        if ($check[0] != 0) stderr($lang['invites_error'], $lang['invites_mail_err']);
         if (!validemail($email)) stderr($lang['invites_error'], $lang['invites_invalidemail']);
         $inviter = htmlsafechars($CURUSER['username']);
-        $body = <<<EOD
-You have been invited to {$INSTALLER09['site_name']} by $inviter. They have
-specified this address ($email) as your email. If you do not know this person, please ignore this email. Please do not reply.
-
-This is a private site and you must agree to the rules before you can enter:
-
-{$INSTALLER09['baseurl']}/useragreement.php
-
-{$INSTALLER09['baseurl']}/rules.php
-
-{$INSTALLER09['baseurl']}/faq.php
-
-------------------------------------------------------------
-
-To confirm your invitation, you have to follow this link and type the invite code:
-
-{$INSTALLER09['baseurl']}/invite_signup.php
-
-Invite Code: $invite
-
-------------------------------------------------------------
-
-After you do this, your inviter need's to confirm your account. 
-We urge you to read the RULES and FAQ before you start using {$INSTALLER09['site_name']}.
-EOD;
-        $sendit = mail($email, "You have been invited to {$INSTALLER09['site_name']}", $body, "From: {$INSTALLER09['site_email']}", "-f{$INSTALLER09['site_email']}");
+        $body = "{$lang['invites_send_emailpart1']} ".htmlsafechars($inviter)." {$lang['invites_send_emailpart2']} ".htmlsafechars($email)." {$lang['invites_send_emailpart3']} ".htmlsafechars($invite)." {$lang['invites_send_emailpart4']}";
+        $sendit = mail($email, "{$lang['invites_send_email1_ema']}", $body, "{$lang['invites_send_email1_bod']}", "-f{$INSTALLER09['site_email']}");
         if (!$sendit) stderr($lang['invites_error'], $lang['invites_unable']);
         else stderr('', $lang['invites_confirmation']);
     }
@@ -170,7 +146,7 @@ EOD;
     $query = sql_query('SELECT * FROM invite_codes WHERE id = ' . sqlesc($id) . ' AND sender = ' . sqlesc($CURUSER['id']) . ' AND status = "Pending"') or sqlerr(__FILE__, __LINE__);
     $fetch = mysqli_fetch_assoc($query) or stderr($lang['invites_error'], $lang['invites_noexsist']);
     $HTMLOUT.= "<form method='post' action='?do=send_email'><table border='1' cellspacing='0' cellpadding='10'>
-<tr><td class='rowhead'>E-Mail</td><td><input type='text' size='40' name='email' /></td></tr><tr><td colspan='2' align='center'><input type='hidden' name='code' value='" . htmlsafechars($fetch['code']) . "' /></td></tr><tr><td colspan='2' align='center'><input type='submit' value='Send e-mail' class='btn' /></td></tr></table></form>";
+<tr><td class='rowhead'>{$lang['invites_mail_email']}</td><td><input type='text' size='40' name='email' /></td></tr><tr><td colspan='2' align='center'><input type='hidden' name='code' value='" . htmlsafechars($fetch['code']) . "' /></td></tr><tr><td colspan='2' align='center'><input type='submit' value='".$lang['invites_mail_send']."' class='btn' /></td></tr></table></form>";
     echo stdhead('Invites') . $HTMLOUT . stdfoot();
 }
 /**
@@ -208,7 +184,7 @@ elseif ($do = 'confirm_account') {
     $assoc = mysqli_fetch_assoc($select);
     if (!$assoc) stderr($lang['invites_error'], $lang['invites_errorid']);
     isset($_GET['sure']) && $sure = htmlsafechars($_GET['sure']);
-    if (!$sure) stderr($lang['invites_confirm1'], $lang['invites_sure1'] . ' ' . htmlsafechars($assoc['username']) . '\'s account? Click <a href="?do=confirm_account&amp;userid=' . $userid . '&amp;sender=' . (int)$CURUSER['id'] . '&amp;sure=yes">here</a> to confirm it or <a href="?do=view_page">here</a> to go back.');
+    if (!$sure) stderr($lang['invites_confirm1'], $lang['invites_sure1'] . ' ' . htmlsafechars($assoc['username']) . ' '.$lang['invites_sure2'].' <a href="?do=confirm_account&amp;userid=' . $userid . '&amp;sender=' . (int)$CURUSER['id'] . '&amp;sure=yes">'.$lang['invites_sure3'].'</a>'.$lang['invites_sure4'].'<a href="?do=view_page">'.$lang['invites_sure3'].'</a>'.$lang['invites_sure5'].'');
     sql_query('UPDATE users SET status = "confirmed" WHERE id = ' . sqlesc($userid) . ' AND invitedby = ' . sqlesc($CURUSER['id']) . ' AND status="pending"') or sqlerr(__FILE__, __LINE__);
     $mc1->begin_transaction('MyUser_' . $userid);
     $mc1->update_row(false, array(
@@ -221,19 +197,9 @@ elseif ($do = 'confirm_account') {
     ));
     $mc1->commit_transaction($INSTALLER09['expires']['user_cache']); // 15 mins 
     //==pm to new invitee/////
-    $msg = sqlesc("Hey there :wave:
-Welcome to {$INSTALLER09['site_name']}!\n
-We have made many changes to the site, and we hope you enjoy them!\n 
-We have been working hard to make {$INSTALLER09['site_name']} somethin' special!\n
-{$INSTALLER09['site_name']} has a strong community (just check out forums), and is a feature rich site. We hope you'll join in on all the fun!\n
-Be sure to read the [url={$INSTALLER09['baseurl']}/rules.php]Rules[/url] and [url={$INSTALLER09['baseurl']}/faq.php]FAQ[/url] before you start using the site.\n
-We are a strong friendly community here :D {$INSTALLER09['site_name']} is so much more then just torrents.\n
-Just for kicks, we've started you out with 200.0 Karma Bonus  Points, and a couple of bonus GB to get ya started!\n 
-so, enjoy\n  
-cheers,\n 
-{$INSTALLER09['site_name']} Staff.\n");
+    $msg = sqlesc("".$lang['invites_send_email2']."");
     $id = (int)$assoc["id"];
-    $subject = sqlesc("Welcome to {$INSTALLER09['site_name']} !");
+    $subject = sqlesc("".$lang['invites_send_email2_sub']."");
     $added = TIME_NOW;
     sql_query("INSERT INTO messages (sender, subject, receiver, msg, added) VALUES (0, $subject, " . sqlesc($id) . ", $msg, $added)") or sqlerr(__FILE__, __LINE__);
     ///////////////////end////////////
