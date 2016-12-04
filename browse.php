@@ -376,7 +376,7 @@ $HTMLOUT.= "</div></div><br>
 	</div></div>
 <div class='row'>
 <div class='form-group'>
-<div class='col-md-4'><i class='fa fa-search-plus'></i><input  class='form-control' placeholder='Search' type='text' value='' /></div>";
+<div class='col-md-4'><i class='fa fa-search-plus'></i><input  class='form-control' placeholder='Search' type='text' name='search' value='' /></div>";
 //=== only free option :o)
 $only_free =((isset($_GET['only_free'])) ? intval($_GET['only_free']) : '');
 //=== checkbox for only free torrents
