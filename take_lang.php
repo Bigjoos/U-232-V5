@@ -58,8 +58,8 @@ $HTMLOUT.= "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http
             <p align='center'>
           <select name='language' onchange='this.form.submit();' size='1' style='font-family: Verdana; font-size: 8pt; color: #000000; border: 1px solid #808080; background-color: #ececec'>";
 $out.= "<option value='1'" . ($CURUSER['language'] == '1' ? " selected='selected'" : "") . ">En</option>
-    <option value='2'" . ($CURUSER['language'] == '2' ? " selected='selected'" : "") . ">Dk</option>
-<option value='3'" . ($CURUSER['language'] == '3' ? " selected='selected'" : "") . ">Rm</option>";
+    	<option value='2'" . ($CURUSER['language'] == '2' ? " selected='selected'" : "") . ">Fr</option>";   
+//<option value='3'" . ($CURUSER['language'] == '3' ? " selected='selected'" : "") . ">Rm</option>";
 $HTMLOUT.= $out;
 $HTMLOUT.= "</select>
    <input type='button' value='Close' onclick='self.close()' /></p></form>

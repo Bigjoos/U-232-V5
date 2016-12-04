@@ -250,10 +250,10 @@ elseif ($action == "location") {
     //==Language
     $HTMLOUT.= tr($lang['usercp_language'], "<select name='language'>
     <option value='1'" . ($CURUSER['language'] == '1' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc1']}</option>
-    <option value='2'" . ($CURUSER['language'] == '2' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc2']}</option>
-    <option value='3'" . ($CURUSER['language'] == '3' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc3']}</option>
-    <option value='4'" . ($CURUSER['language'] == '4' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc4']}</option>
+    <option value='2'" . ($CURUSER['language'] == '2' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc4']}</option>
     </select>", $CURUSER['language']);
+//    <option value='2'" . ($CURUSER['language'] == '2' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc2']}</option>
+//    <option value='3'" . ($CURUSER['language'] == '3' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc3']}</option>
     $HTMLOUT.= "<tr ><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
 $HTMLOUT.="</div>";
 }
