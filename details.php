@@ -174,12 +174,7 @@ if (($l_a = $mc1->get_value($What_String_Key.$id)) === false) {
     $mc1->add_value('last_action_' . $id, $l_a, 1800);
 }
 /** seeders/leechers/completed caches pdq**/
-$torrent_cache['seeders'] = $mc1->get_value('torrents::seeds:::' . $id);
-$torrent_cache['leechers'] = $mc1->get_value('torrents::leechs:::' . $id);
-$torrent_cache['times_completed'] = $mc1->get_value('torrents::comps:::' . $id);
-$torrents['seeders'] = ((XBT_TRACKER === false || $torrent_cache['seeders'] === false || $torrent_cache['seeders'] === 0 || $torrent_cache['seeders'] === false) ? $torrents['seeders'] : $torrent_cache['seeders']);
-$torrents['leechers'] = ((XBT_TRACKER === false || $torrent_cache['leechers'] === false || $torrent_cache['leechers'] === 0 || $torrent_cache['leechers'] === false) ? $torrents['leechers'] : $torrent_cache['leechers']);
-$torrents['times_completed'] = ((XBT_TRACKER === false || $torrent_cache['times_completed'] === false || $torrent_cache['times_completed'] === 0 || $torrent_cache['times_completed'] === false) ? $torrents['times_completed'] : $torrent_cache['times_completed']);
+$torrents['times_completed'] = ((XBT_TRACKER === false || $torrents_xbt['times_completed'] === false || $torrents_xbt['times_completed'] === 0 || $torrents_xbt['times_completed'] === false) ? $torrents['times_completed'] : $torrents_xbt['times_completed']);
 //==slots by pdq
 $torrent['addup'] = get_date($torrent['addedup'], 'DATE');
 $torrent['addfree'] = get_date($torrent['addedfree'], 'DATE');
@@ -626,7 +621,7 @@ $HTMLOUT.="<tr><td align='right' class='heading'>Pre Time</td><td width='99%' al
 $HTMLOUT.= tr("{$lang['details_views']}", (int)$torrents["views"]);
 $HTMLOUT.= tr("{$lang['details_hits']}", (int)$torrents["hits"]);
 $XBT_Or_Default = (XBT_TRACKER == true ? 'snatches_xbt.php?id=' : 'snatches.php?id=');
-$HTMLOUT.= tr("{$lang['details_snatched']}", ($torrent_cache["times_completed"] > 0 ? "<a href='{$INSTALLER09["baseurl"]}/{$XBT_Or_Default}{$id}'>{$torrent_cache['times_completed']} {$lang['details_times']}</a>" : "0 {$lang['details_times']}") , 1);
+$HTMLOUT.= tr("{$lang['details_snatched']}", ($torrents["times_completed"] > 0 ? "<a href='{$INSTALLER09["baseurl"]}/{$XBT_Or_Default}{$id}'>{$torrents['times_completed']} {$lang['details_times']}</a>" : "0 {$lang['details_times']}") , 1);
 $HTMLOUT.= "
 <script type='text/javascript'>
 function showme() {
