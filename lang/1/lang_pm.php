@@ -305,6 +305,13 @@ $lang = array(
 	'pm_viewmsg_mailbox' => "Mailbox: ",
 	'pm_viewmsg_to' => "To",
 	'pm_viewmsg_from' => "From",
-	'pm_viewmsg_sys' => "System"
+	'pm_viewmsg_sys' => "System",
+	//addby yoooov
+    'pm_mailbox_doav' => "Show avatars on PM list",
+    'pm_edmail_email_notif3' => "Torrent notification:",
+    'pm_viewmsg_sent' => "Sent: ",
+    'pm_send_edt' => "Edit"
+);
+?>
 );
 ?>
