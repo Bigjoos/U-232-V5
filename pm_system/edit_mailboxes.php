@@ -271,7 +271,7 @@ $HTMLOUT.= '<h1>' . $lang['pm_edmail_title'] . '</h1>' . $h1_thingie . $top_link
 for ($i = 1; $i < 6; $i++) {
     $HTMLOUT.= '
             <tr>
-                <td class="text-right"><span style="font-weight: bold;">box ' . $i . ':</span></td>
+                <td class="text-right"><span style="font-weight: bold;">' . $lang['pm_edmail_box'] . '' . $i . ':</span></td>
                 <td class="text-left"><input type="text" name="new[]" class="text_default" maxlength="100" /></td>
                 <td class="text-left"></td>
             </tr>';
@@ -332,7 +332,7 @@ $HTMLOUT.= '
         <td class="text-left"></td>
     </tr>
     <tr>
-        <td class="text-right"></td>
+        <td class="text-right"><span style="font-weight: bold;">' . $lang['pm_edmail_email_notif3'] . '</span></td>
         <td class="text-left"><input type="checkbox" name="emailnotif" ' . (strpos($CURUSER['notifs'], $lang['pm_edmail_email_1']) !== false ? ' checked="checked"' : '') . '  value="yes" />' . $lang['pm_edmail_notify1'] . '</td>
         <td class="text-left"></td>
     </tr>
