@@ -131,8 +131,6 @@ $lang = array(
 	'doc_fpost_lvl7' => "Posteur Forum Niveau 7",
 	'doc_fpost_made7' => "A écrit au moins 750 messages dans les forums.",
 	'doc_fpost_clean' => "Bilan Trophée: Récompense pour l\'activité dans le forum",
-	'doc_fpost_award' => "Un prix de l'écrivain est décerné à - "
-
-	
+	'doc_fpost_award' => "Un prix de l'écrivain est décerné à - "	
 	);
 ?>

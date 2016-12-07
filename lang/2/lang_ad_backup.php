@@ -61,5 +61,5 @@ $lang = array(
         'backup_database_plural' =>" bases de données",
         'backup_stdhead' => "Gestionnaire de sauvegardes de base de donnée",
         'backup_inexistent' => "Nom de fichier inexistant."
-)
+);
 ?>
