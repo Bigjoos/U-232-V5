@@ -18,7 +18,7 @@
  */
 $lang = array(
 	//errors
-	'invite_head' => "Arbre d'invitation",
+	'invite_head' => "Arborescence d'invitations",
 	'invite_open'   =>  "a été enregistré au cours des portes ouvertes",
 	'invite_up' =>  "remonter d'un niveau",
 	'invite_click'  =>  "cliquez pour",
@@ -38,7 +38,7 @@ $lang = array(
 	'invite_invites'    =>  "Invités:",
 	'invite_confirmed'  =>  "Confirmé",
 	'invite_pending'    =>  "En Attente",
-	'invite_search' =>  "Recherche aux utilisateurs de visualiser l'Arbre d'invitation",
+	'invite_search' =>  "Recherche aux utilisateurs de visualiser l'Arborescence d'invitations",
 	'invite_any'    =>  "(Toutes les classes)",
 	'invite_btn'    =>  "Rechercher",
 	'invite_search_user'    =>  "Pseudo",
@@ -47,9 +47,9 @@ $lang = array(
 	'invite_search_class'   =>  "Classe",
 	'invite_search_country' =>  "Pays",
 	'invite_search_edit'    =>  "Editer",
-	'invite_search_look'    =>  "Regardez ce membre et son Arbre d'invitation",
+	'invite_search_look'    =>  "Regardez ce membre et son Arborescence d'invitations",
 	'invite_search_view'    =>  "VOIR",
 	'invite_search_none'    =>  "Désolé, aucun membre n'a été trouvée",
-	'invite_stdhead'    =>  "Arbre d'invitation"
+	'invite_stdhead'    =>  "Arborescence d'invitations"
 );
 ?>

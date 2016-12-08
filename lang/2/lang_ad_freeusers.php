@@ -36,8 +36,6 @@ $lang = array(
     'freeusers_confirm' =>  "Etes-vous sûr de vouloir retirer le status Freeleech?",
     'freeusers_rem' =>  "Retirer",
     'freeusers_togo'    =>  "aller",
-    'freeusers_stdhead' =>  "Coup d'oeil au Freeleech"
- 
-   
+    'freeusers_stdhead' =>  "Coup d'oeil au Freeleech"  
 );
 ?>

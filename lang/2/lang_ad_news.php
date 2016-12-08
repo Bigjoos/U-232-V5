@@ -40,7 +40,7 @@ $lang = array(
     'news_window_title' => 'Site news',
 	*/
     'news_error' => 'Erreur',
-	'news_error_ruffian' => 'A ruffian that will swear, drink, dance, revel the night, rob, murder and commit the oldest of ins the newest kind of ways.',
+	'news_error_ruffian' => "Quand on passe sa vie à s'occuper de voyous, on a tendance à attraper quelques-uns de leurs vices, c'est inévitable...",
 	'news_success' => 'Succès',
 	'news_del_invalid' => 'ID invalide.',
 	'news_del_confirm' => 'Confirmez la suppression',

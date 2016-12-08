@@ -68,4 +68,3 @@ $lang = array(
     'table_forumrank' => "Rang du Forum"
 );
 ?>
-
