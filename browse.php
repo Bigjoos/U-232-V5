@@ -181,7 +181,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
             }
         } elseif ($category) {
         $cnum = array_search((int)$category, array_column($cats, 'id'));
-        if (!is_valid_id($category) || $cats[$cnum]['min_class'] >= $CURUSER['class']) stderr("{$lang['browse_error']}", "{$lang['browse_invalid_cat']}");
+        if (!is_valid_id($category) || $cats[$cnum]['min_class'] > $CURUSER['class']) stderr("{$lang['browse_error']}", "{$lang['browse_invalid_cat']}");
             $wherecatina[] = $category;
             $addparam.= "cat=$category&amp;";
         } else {
