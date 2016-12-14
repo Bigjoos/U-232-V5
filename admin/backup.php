@@ -37,12 +37,12 @@ require_once (INCL_DIR . 'user_functions.php');
 require_once (INCL_DIR . 'html_functions.php');
 require_once (CLASS_DIR . 'class_check.php');
 class_check(UC_MAX);
+$lang = array_merge($lang, load_language('ad_backup'));
 /* add your ids and uncomment this check*/
 $allowed_ids = array(
     1
 );
 if (!in_array($CURUSER['id'], $allowed_ids)) stderr($lang['backup_stderr'], $lang['backup_stderr1']);
-$lang = array_merge($lang, load_language('ad_backup'));
 $HTMLOUT = '';
 /**
  * Configs Start
