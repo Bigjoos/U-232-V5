@@ -20,7 +20,7 @@ require_once ROOT_DIR . 'tfreak.php';
 			$HTMLOUT.= "<div class='panel panel-default'>
 	<div class='panel-heading'>
 		<a class='accordion-toggle' data-toggle='collapse' data-parent='#accordion' href='#collapseTen'>
-		<label for='checkbox_4' class='text-left'>'{$INSTALLER09['site_name']}{$lang['index_torr_freak']}</label>
+		<label for='checkbox_4' class='text-left'>{$INSTALLER09['site_name']}{$lang['index_torr_freak']}</label>
 		</a>
 	</div>
 	<div class='panel-body'>

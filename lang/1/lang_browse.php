@@ -27,7 +27,6 @@ $lang = array(
     'browse_dead' => "only dead",
     'browse_go' => "Go!",
     'browse_toggle' => "Show Cats!",
-    'browse_search' => "Search results for ",
     'browse_not_found' => "Nothing found!",
     'browse_tryagain' => "Try again with a refined search string.",
     'browse_nothing' => "Nothing here!",
