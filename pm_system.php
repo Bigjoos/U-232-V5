@@ -41,10 +41,10 @@ $lang = array_merge(load_language('global') , load_language('takesignup'), load_
 $stdhead = array(
     /** include css **/
     'css' => array(
-        'forums',
+        'forum',
        /* 'style', */
         'style2',
-        'jquery.lightbox-0.5',
+        //'jquery.lightbox-0.5', <-doe not exist in repo
 	'bbcode'
     )
 );

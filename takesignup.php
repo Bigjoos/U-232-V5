@@ -89,7 +89,7 @@ if (isset($_POST["user_timezone"]) && preg_match('#^\-?\d{1,2}(?:\.\d{1,2})?$#',
     $time_offset = isset($INSTALLER09['time_offset']) ? sqlesc($INSTALLER09['time_offset']) : '0';
 }
 // have a stab at getting dst parameter?
-$dst_in_use = localtime(TIME_NOW + ($time_offset * 3600) , true);
+$dst_in_use = localtime(TIME_NOW + ((int)$time_offset * 3600) , true);
 // TIMEZONE STUFF END
 $secret = mksecret();
 $wantpasshash = make_passhash($secret, md5($wantpassword));

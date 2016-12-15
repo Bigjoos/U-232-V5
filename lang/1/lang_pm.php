@@ -313,5 +313,3 @@ $lang = array(
     'pm_send_edt' => "Edit"
 );
 ?>
-);
-?>
