@@ -76,7 +76,7 @@ function permissioncheck()
         $out .= '<div class="readable">memcached</div>';
     }
 
-    if( $memcached_loaded ) {
+    if( !$memcached_loaded ) {
         $out .= '<div class="info">The memcached module for PHP is not installed and is required for u232<br/>' .
             '<input type="button" value="Reload" onclick="window.location.reload()"/>'.
             '</div>';
