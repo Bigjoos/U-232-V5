@@ -38,6 +38,7 @@ $lang = array_merge(load_language('global'), load_language('catalogue'));
 $htmlout = '';
 function readMore($text, $char, $link)
 {
+    global $INSTALLER09, $lang;
     return (strlen($text) > $char ? substr(htmlsafechars($text), 0, $char - 1) . "...<br /><a href='$link'>{$lang['catol_read_more']}</a>" : htmlsafechars($text));
 }
 function peer_list($array)
