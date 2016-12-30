@@ -18,6 +18,6 @@
  */
 $lang = array(
     'lalala' => "lalala",
-    'weeeee' => "weeeee"
+    'weeeee' => "wizzzz"
 );
 ?>

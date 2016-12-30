@@ -17,24 +17,24 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-	'donate_err' => "Error",
-	'donate_err1' => "I smell a rat!",
-	'donate_sorry' => "Sorry",
-	'donate_nofound' => "no donors found!",
-	'donate_list_all' => "Donor List: All Donations ",
-	'donate_list_curr' => "Donor List: Current Donors ",
-	'donate_curr_don' => "Current Donors",
-	'donate_all_don' => "All Donations",
+	'donate_err' => "Erreur",
+	'donate_err1' => "Je sens un rat dans les parages!",
+	'donate_sorry' => "Désolé",
+	'donate_nofound' => "pas de donateurs trouvés!",
+	'donate_list_all' => "Liste des donateurs: tous les dons ",
+	'donate_list_curr' => "Liste des donateurs: donateurs actuels ",
+	'donate_curr_don' => "Les donateurs actuels",
+	'donate_all_don' => "Tous les dons",
 	'donate_id' => "ID",
-	'donate_username' => "Username",
+	'donate_username' => "Pseudo",
 	'donate_email' => "E-mail",
-	'donate_joined' => "Joined",
-	'donate_until' => "Donor Until?",
-	'donate_current' => "Current",
+	'donate_joined' => "Rejoins le",
+	'donate_until' => "Donateur jusqu'à?",
+	'donate_current' => "Actuel",
 	'donate_total' => "Total",
 	'donate_pm' => "PM",
 	'donate_sendpm' => "PM",
-	'donate_togo' => " To go...",
+	'donate_togo' => " Aller...",
 	'donate_stdhead' => "Donations"
 	);
 ?>

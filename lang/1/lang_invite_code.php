@@ -51,5 +51,61 @@ $lang = array(
     'invites_send_code' => "Send Invite Code",
     'invites_delete1' => "Delete Invite",
     'invites_confirm1' => "Confirmed Account",
+    /// addterms by yoooov
+    'invites_sure2' => "\'s account? Click ",
+    'invites_sure3' => "HERE",
+    'invites_sure4' => " to confirm it or ",
+    'invites_sure5' => " to go back.",    
+    'invites_err1' => "Sorry",
+    'invites_err2' => "Your account is suspended",
+    'invites_invits' => "Invites",
+    ///
+    'invites_mail_email' => "Email",
+    'invites_mail_send' => "Send Email",    
+    'invites_mail_err' => "This email address is already in use!",
+    'invites_send_emailpart1' => "You have been invited to {$INSTALLER09['site_name']} by",
+    'invites_send_emailpart2' => "\n\nThey have specified this address ", 
+    'invites_send_emailpart3' => " as your email.\n
+If you do not know this person, please ignore this email.\n
+Please do not reply.
+ 
+This is a private site and you must agree to the rules before you can enter:\n
+ 
+{$INSTALLER09['baseurl']}/useragreement.php\n
+ 
+{$INSTALLER09['baseurl']}/rules.php\n
+ 
+{$INSTALLER09['baseurl']}/faq.php\n
+ 
+------------------------------------------------------------
+ 
+To confirm your invitation, you have to follow this link and type the invite code:
+ 
+{$INSTALLER09['baseurl']}/invite_signup.php
+ 
+Invite Code: ",
+        'invites_send_emailpart4' => "\n
+------------------------------------------------------------
+ 
+After you do this, your inviter need's to confirm your account. 
+We urge you to read the RULES and FAQ before you start using {$INSTALLER09['site_name']}.",
+        ///
+        'invites_send_email1_ema' => "You have been invited to {$INSTALLER09['site_name']}",
+        'invites_send_email1_bod' => "From: {$INSTALLER09['site_email']}",
+        ///
+    'invites_send_email2' => "Hey there :wave:
+Welcome to {$INSTALLER09['site_name']}!\n
+We have made many changes to the site, and we hope you enjoy them!\n 
+We have been working hard to make {$INSTALLER09['site_name']} somethin' special!\n
+{$INSTALLER09['site_name']} has a strong community (just check out forums), and is a feature rich site.\n
+We hope you'll join in on all the fun!\n
+Be sure to read the [url={$INSTALLER09['baseurl']}/rules.php]Rules[/url] and [url={$INSTALLER09['baseurl']}/faq.php]FAQ[/url] before you start using the site.\n
+We are a strong friendly community here :D {$INSTALLER09['site_name']} is so much more then just torrents.\n
+Just for kicks, we've started you out with 200.0 Karma Bonus  Points, and a couple of bonus GB to get ya started!\n 
+so, enjoy\n  
+cheers,\n 
+{$INSTALLER09['site_name']} Staff.\n",
+        ///
+        'invites_send_email2_sub' => "Welcome to {$INSTALLER09['site_name']} !"
 );
 ?>

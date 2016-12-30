@@ -17,17 +17,17 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-	'cloudview_success' => "Success",
-	'cloudview_success_del' => "The obscene terms where successfully deleted!",
-	'cloudview_overview' => "Searchcloud overview",
-	'cloudview_phrase' => "Searched phrase",
-	'cloudview_hits' => "Hits",
-	'cloudview_ip' => "Ip",
-	'cloudview_del' => "Del",
-	'cloudview_mark' => "Mark",
-	'cloudview_markall_search' => "Mark&nbsp;all&nbsp;searches",
-	'cloudview_markall' => "Mark All",
-	'cloudview_del_terms' => "Delete selected terms!",
-	'cloudview_stdhead' => "Cloud View"
+	'cloudview_success' => "Succès",
+	'cloudview_success_del' => "Les termes sélectionnés ont été supprimés avec succès!",
+	'cloudview_overview' => "Gestion de la Recherche Cloud",
+	'cloudview_phrase' => "Termes recherchés",
+	'cloudview_hits' => "Nombre de fois",
+	'cloudview_ip' => "IP",
+	'cloudview_del' => "Supprimer",
+	'cloudview_mark' => "Marquer",
+	'cloudview_markall_search' => "Cocher&nbsp;toutes&nbsp;les recherches",
+	'cloudview_markall' => "Tout Cocher",
+	'cloudview_del_terms' => "Supprimer les termes choisis!",
+	'cloudview_stdhead' => "Vue du cloud"
 );
 ?>

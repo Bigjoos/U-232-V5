@@ -17,10 +17,10 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-    'ajlike_you_been_disabled' => "You have been Disabled!",
-    'ajlike_you_been_banned' => "You have been Permanently Banned! Please Contact Staff Member",
-    'ajlike_you_already_liked' => "You have already liked",
-    'ajlike_you_already_unliked' => "You have already unliked",
-    'ajlike_get_lost' => "GET LOST"
+    'ajlike_you_been_disabled' => "Vous avez été Désactivé!",
+    'ajlike_you_been_banned' => "Vous avez été banni de façon permanente! SVP Contactez le Staff",
+    'ajlike_you_already_liked' => "Vous avez déjà liké",
+    'ajlike_you_already_unliked' => "Vous avez déjà unliké",
+    'ajlike_get_lost' => "ETRE PERDU"
 );
 ?>

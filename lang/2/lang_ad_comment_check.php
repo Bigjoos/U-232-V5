@@ -17,16 +17,16 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-	'comm_check_success' => "Success",
-	'comm_check_successfully' => "Comments successfully checked",
-	'comm_check_user' => "User",
-	'comm_check_text' => "Text",
+	'comm_check_success' => "Succès",
+	'comm_check_successfully' => "Commentaires vérifiés avec succés",
+	'comm_check_user' => "Membre",
+	'comm_check_text' => "Texte",
 	'comm_check_date' => "Date",
 	'comm_check_action' => "Actions",
-	'comm_check_edit' => "Edit",
-	'comm_check_chk' => "Checked.",
-	'comm_check_chk1' => "Checked?",
-	'comm_check_read' => "Mark as checked",
-	'comm_check_stdhead' => "Comment checks"
+	'comm_check_edit' => "Editer",
+	'comm_check_chk' => "Vérifié.",
+	'comm_check_chk1' => "Vérifié?",
+	'comm_check_read' => "Marquer comme vérifié",
+	'comm_check_stdhead' => "Vérification de Commentaire"
 );
 ?>

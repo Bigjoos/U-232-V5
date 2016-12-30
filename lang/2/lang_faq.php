@@ -18,428 +18,368 @@
  */
 $lang = array(
     //FAQ
-    'faq_welcome' => "<b>Welcome to {$INSTALLER09['site_name']} FAQ's!</b><br />
+    'faq_welcome' => "<b>Bienvenue sur {$INSTALLER09['site_name']}!</b><br />
     <br />
-    Our goal is not to become another Bytemonsoon or Suprnova (not dizzying either of them though).
-    The goal is to provide the absolutely latest stuff. Therefore, only specially authorised users have
-    permission to upload torrents. If you have access to 0-day stuff do not hesitate to
-    <a class='altlink' href='staff.php'>contact</a> us!<br />
+    Contacter le <a class='altlink' href='staff.php'>Staff</a> pour toute question relative à la FAQ<br />
     <br />
-    This is a private tracker, and you have to register before you can get full access to the site.
-    Before you do anything here at {$INSTALLER09['site_name']} we suggest you read the <a class='altlink' href='rules.php'>rules</a>!
-    There are only a few rules to abide by, but we do enforce them!<br />
+    Il s'agit d'un tracker privé, et vous devez vous inscrire afin d'obtenir un accès complet au site.
+    Avant de faire quoi que ce soit, nous vous suggérons de lire les <a class='altlink' href='rules.php'>règles</a>!<br />
     <br />
-    Before you go any further you should read the {$INSTALLER09['site_name']} <a class='altlink' href='useragreement.php'>user agreement</a>.
+    Il y a seulement quelques points à respecter, alors pas de panique! Les règles nous aident simplement à être une meilleure communauté!!<br />
+    <br />
+    Avant d'aller plus loin, vous devriez lire <a class='altlink' href='useragreement.php'>l'accord de l'utilisateur</a> {$INSTALLER09['site_name']}.
     <br />",
-    'faq_contents_header' => "Contents",
-    'faq_siteinfo_header' => "Site information",
+    'faq_contents_header' => "Table des matières",
+    'faq_siteinfo_header' => "Informations sur le site",
     'faq_siteinfo' => "<ul>
-        <li><a href='#site1' class='altlink'>What is this bittorrent all about anyway? How do I get the files?</a></li>
-        <li><a href='#site2' class='altlink'>Where does the donated money go?</a></li>
-        <li><a href='#site4' class='altlink'>Where can I get a copy of the source code?</a></li>
+        <li><a href='#site1' class='altlink'>Qu'est-ce-que bittorrent? Comment puis-je récupérer les fichiers?</a></li>
+        <li><a href='#site2' class='altlink'>Où va l'argent des donations?</a></li>
+        <li><a href='#site4' class='altlink'>Où puis-je obtenir une copie du code source?</a></li>
       </ul>
     <br />",
-    'faq_userinfo_header' => "User information",
+    'faq_userinfo_header' => "Informations d'utilisateur",
     'faq_userinfo' => "<ul>
-        <li><a href='#user1' class='altlink'>I registered an account but did not receive the confirmation e-mail!</a></li>
-        <li><a href='#user2' class='altlink'>I've lost my user name or password! Can you send it to me?</a></li>
-        <li><a href='#user3' class='altlink'>Can you rename my account?</a></li>
-        <li><a href='#user4' class='altlink'>Can you delete my (confirmed) account?</a>
+        <li><a href='#user1' class='altlink'>J'ai enregistré un compte mais je n'ai pas reçu l'email de confirmation!</a></li>
+        <li><a href='#user2' class='altlink'>J'ai perdu mon nom d'utilisateur ou mot de passe! Pouvez-vous me l'envoyer?</a></li>
+        <li><a href='#user3' class='altlink'>Pouvez-vous renommer mon compte?</a></li>
+        <li><a href='#user4' class='altlink'>Pouvez-vous supprimer mon compte (confirmé)?</a>
         <img src='{$INSTALLER09['pic_base_url']}updated.png' alt='Updated' width='46' height='11' /></li>
-        <li><a href='#userb' class='altlink'>So, what's MY ratio?</a></li>
-        <li><a href='#user5' class='altlink'>Why is my IP displayed on my details page?</a></li>
-        <li><a href='#user6' class='altlink'>Help! I cannot login!? (a.k.a. Login of Death)</a></li>
-        <li><a href='#user7' class='altlink'>My IP address is dynamic. How do I stay logged in?</a>
+        <li><a href='#userb' class='altlink'>Alors, quel est mon ratio?</a></li>
+        <li><a href='#user5' class='altlink'>Pourquoi mon IP est affiché sur ma page de détails?</a></li>
+        <li><a href='#user6' class='altlink'>Au secours! Je ne peux pas me connecter!? (aka Login of Death)</a></li>
+        <li><a href='#user7' class='altlink'>Mon adresse IP est dynamique. Comment puis-je rester connecté?</a>
         <img src='{$INSTALLER09['pic_base_url']}updated.png' alt='Updated' width='46' height='11' /></li>
-        <li><a href='#user8' class='altlink'>Why am I listed as not connectable? (And why should I care?)</a></li>
-        <li><a href='#user9' class='altlink'>What are the different user classes?</a></li>
-        <li><a href='#usera' class='altlink'>How does this promotion thing work anyway?</a></li>
-        <li><a href='#usere' class='altlink'>Hey! I've seen Power Users with less than 25GB uploaded!</a></li>
-        <li><a href='#userc' class='altlink'>Why can't my friend become a member?</a>
+        <li><a href='#user8' class='altlink'>Pourquoi suis-je inscrit comme non connectable? (Et pourquoi s'en soucier?)</a></li>
+        <li><a href='#user9' class='altlink'>Quelles sont les différentes classes d'utilisateurs?</a></li>
+        <li><a href='#usera' class='altlink'>Comment fonctionne le système de promotion?</a></li>
+        <li><a href='#usere' class='altlink'>Hey! J'ai vu des Power Users avec moins de 25Go uploadés!</a></li>
+        <li><a href='#userc' class='altlink'>Comment un ami peut devenir membre?</a>
         <img src='{$INSTALLER09['pic_base_url']}updated.png' alt='Updated' width='46' height='11' /></li>
-        <li><a href='#userd' class='altlink'>How do I add an avatar to my profile?</a></li>
+        <li><a href='#userd' class='altlink'>Comment puis-je ajouter un avatar à mon profil?</a></li>
       </ul>
     <br />",
-    'faq_stats_header' => "Stats",
+    'faq_stats_header' => "Statistiques",
     'faq_stats' => "<ul>
-        <li><a href='#stats1' class='altlink'>Most common reasons for stats not updating</a></li>
-        <li><a href='#stats2' class='altlink'>Best practices</a></li>
-        <li><a href='#stats3' class='altlink'>May I use any bittorrent client?</a></li>
-        <li><a href='#stats4' class='altlink'>Why is a torrent I'm leeching/seeding listed several times in my profile?</a></li>
-        <li><a href='#stats5' class='altlink'>I've finished or cancelled a torrent. Why is it still listed in my profile?</a></li>
-        <li><a href='#stats6' class='altlink'>Why do I sometimes see torrents I'm not leeching in my profile!?</a>
+        <li><a href='#stats1' class='altlink'>Raisons les plus communes qui empêchent la MAJ des stats</a></li>
+        <li><a href='#stats2' class='altlink'>Les bonnes pratiques</a></li>
+        <li><a href='#stats3' class='altlink'>Puis-je utiliser n'importe quel client bittorrent?</a></li>
+        <li><a href='#stats4' class='altlink'>Pourquoi un torrent que je télécharge / upload est listé plusieurs fois sur mon profil?</a></li>
+        <li><a href='#stats5' class='altlink'>J'ai terminé ou annulé un torrent. Pourquoi est-il toujours répertorié dans mon profil?</a></li>
+        <li><a href='#stats6' class='altlink'>Pourquoi je vois parfois des torrents sur lesquels je ne suis pas en leech dans mon profil!?</a>
         <img src='{$INSTALLER09['pic_base_url']}/updated.png' alt='Updated' width='46' height='11' /></li>
-        <li><a href='#stats7' class='altlink'>Multiple IPs (Can I login from different computers?)</a>
+        <li><a href='#stats7' class='altlink'>Plusieurs adresses IP (Puis-je me connecter à partir de différents ordinateurs?)</a>
         <img src='{$INSTALLER09['pic_base_url']}updated.png' alt='Updated' width='46' height='11' /></li>
-        <li><a href='#stats8' class='altlink'>How does NAT/ICS change the picture?</a></li>
-        <li><a href='#stats9' class='altlink'>For those of you who are interested (Anatomy of a torrent session)</a></li>
+        <li><a href='#stats8' class='altlink'>Comment fonctionne le partage de connexion NAT ou ICS?</a></li>
+        <li><a href='#stats9' class='altlink'>Pour ceux d'entre vous qui veulent approfondir (Anatomie d'une session de torrent)...</a></li>
       </ul>
     <br />",
-    'faq_uploading_header' => "Uploading",
+    'faq_uploading_header' => "Upload",
     'faq_uploading' => "<ul>
-        <li><a href='#up1' class='altlink'>Why can't I upload torrents?</a> </li>
-      <li><a href='#up2' class='altlink'>What criteria must I meet before I can join the Uploader team?</a></li>
-      <li><a href='#up3' class='altlink'>Can I upload your torrents to other trackers?</a>
+        <li><a href='#up1' class='altlink'>Pourquoi ne puis-je pas envoyer des torrents?</a> </li>
+      <li><a href='#up2' class='altlink'>Quels critères faut-il remplir avant de pouvoir rejoindre l'équipe des Uploadeurs?</a></li>
+      <li><a href='#up3' class='altlink'>Puis-je uploader les torrents sur d'autres trackers?</a>
       <img src='{$INSTALLER09['pic_base_url']}new.png' alt='New' width='27' height='11' /></li>
       </ul>
     <br />",
-    'faq_downloading_header' => "Downloading",
+    'faq_downloading_header' => "Téléchargement",
     'faq_downloading' => "<ul>
-        <li><a href='#dl1' class='altlink'>How do I use the files I've downloaded?</a></li>
-        <li><a href='#dl2' class='altlink'>Downloaded a movie and don't know what CAM/TS/TC/SCR means?</a></li>
-        <li><a href='#dl3' class='altlink'>Why did an active torrent suddenly disappear?</a>
+        <li><a href='#dl1' class='altlink'>Comment puis-je utiliser les fichiers que j'ai téléchargés?</a></li>
+        <li><a href='#dl2' class='altlink'>Télécharger un film et comprendre ce que signifie les tags CAM / TS / TC / SCR?</a></li>
+        <li><a href='#dl3' class='altlink'>Pourquoi un torrent actif a soudainement disparu?</a>
         <img src='{$INSTALLER09['pic_base_url']}updated.png' alt='Updated' width='46' height='11' /></li>
-        <li><a href='#dl4' class='altlink'>How do I resume a broken download or reseed something?</a></li>
-        <li><a href='#dl5' class='altlink'>Why do my downloads sometimes stall at 99%?</a></li>
-        <li><a href='#dl6' class='altlink'>What are these &quot;a piece has failed an hash check&quot; messages?</a></li>
-        <li><a href='#dl7' class='altlink'>The torrent is supposed to be 100MB. How come I downloaded 120MB?</a></li>
-        <li><a href='#dl8' class='altlink'>Why do I get a &quot;Not authorized (xx h) - READ THE FAQ!&quot; error?</a></li>
-        <li><a href='#dl9' class='altlink'>Why do I get a &quot;rejected by tracker - Port xxxx is blacklisted&quot; error?</a></li>
-        <li><a href='#dla' class='altlink'>What's this 'IOError - [Errno13] Permission denied' error?</a></li>
-        <li><a href='#dlb' class='altlink'>What's this &quot;TTL&quot; in the browse page?</a></li>
+        <li><a href='#dl4' class='altlink'>Comment puis-je reprendre un téléchargement ou un envoie?</a></li>
+        <li><a href='#dl5' class='altlink'>Pourquoi mes téléchargements restent parfois bloqués à 99%?</a></li>
+        <li><a href='#dl6' class='altlink'>Que signifie ces messages &quot;a piece has failed an hash check&quot; ?</a></li>
+        <li><a href='#dl7' class='altlink'>Le torrent est supposé être de 100MB. Comment se fait-il que j'ai téléchargé 120MB?</a></li>
+        <li><a href='#dl8' class='altlink'>Pourquoi ai-je &quot;Not authorized (xx h) - READ THE FAQ!&quot; error?</a>
+        <img src='{$INSTALLER09['pic_base_url']}new.png' alt='New' width='27' height='11' /></li>
+        <li><a href='#dl9' class='altlink'>Pourquoi ai-je &quot;rejected by tracker - Port xxxx is blacklisted&quot; error?</a>
+        <img src='{$INSTALLER09['pic_base_url']}new.png' alt='New' width='27' height='11' /></li>
+        <li><a href='#dla' class='altlink'>Qu'est-ce que c'est 'IOError - [Errno13] Permission denied' error?</a>
+        <img src='{$INSTALLER09['pic_base_url']}new.png' alt='New' width='27' height='11' /></li>
+        <li><a href='#dlb' class='altlink'>Qu'est-ce que c'est &quot;TTL&quot; in the browse page?</a>
+        <img src='{$INSTALLER09['pic_base_url']}new.png' alt='New' width='27' height='11' /></li>
       </ul>
     <br />",
-    'faq_improve_header' => "How can I improve my download speed?",
+    'faq_improve_header' => "Comment puis-je améliorer ma vitesse de téléchargement?",
     'faq_improve' => "<ul>
-        <li><a href='#dlsp1' class='altlink'>Do not immediately jump on new torrents</a></li>
-        <li><a href='#dlsp2' class='altlink'>Make yourself connectable</a></li>
-        <li><a href='#dlsp3' class='altlink'>Limit your upload speed</a></li>
-        <li><a href='#dlsp4' class='altlink'>Limit the number of simultaneous connections</a></li>
-        <li><a href='#dlsp5' class='altlink'>Limit the number of simultaneous uploads</a></li>
-      <li><a href='#dlsp6' class='altlink'>Just give it some time</a></li>
-        <li><a href='#dlsp7' class='altlink'>Why is my browsing so slow while leeching?</a></li>
+        <li><a href='#dlsp1' class='altlink'>Ne pas se précipiter sur les nouveaux torrents</a></li>
+        <li><a href='#dlsp2' class='altlink'>Assurez-vous d'être connectable</a></li>
+        <li><a href='#dlsp3' class='altlink'>Limitez votre vitesse d'upload</a></li>
+        <li><a href='#dlsp4' class='altlink'>Limitez le nombre de connexions simultanées</a></li>
+        <li><a href='#dlsp5' class='altlink'>Limitez le nombre d'uploads simultanés</a></li>
+      <li><a href='#dlsp6' class='altlink'>Il suffit de donner un peu de temps</a></li>
+        <li><a href='#dlsp7' class='altlink'>Pourquoi ma navigation est si lente quand je télécharge?</a></li>
       </ul>
     <br />",
-    'faq_isp_header' => "My ISP uses a transparent proxy. What should I do?",
+    'faq_isp_header' => "Mon FAI utilise un proxy. Que dois-je faire?",
     'faq_isp' => "<ul>
-        <li><a href='#prox1' class='altlink'>What is a proxy?</a></li>
-        <li><a href='#prox2' class='altlink'>How do I find out if I'm behind a (transparent/anonymous) proxy?</a></li>
-        <li><a href='#prox3' class='altlink'>Why am I listed as not connectable even though I'm not NAT/Firewalled?</a></li>
-        <li><a href='#prox4' class='altlink'>Can I bypass my ISP's proxy?</a></li>
-        <li><a href='#prox5' class='altlink'>How do I make my bittorrent client use a proxy?</a></li>
-        <li><a href='#prox6' class='altlink'>Why can't I signup from behind a proxy?</a></li>
-        <li><a href='#prox7' class='altlink'>Does this apply to other torrent sites?</a></li>
+        <li><a href='#prox1' class='altlink'>Qu'est-ce qu'un proxy?</a></li>
+        <li><a href='#prox2' class='altlink'>Comment puis-je savoir si je suis derrière un proxy?</a></li>
+        <li><a href='#prox3' class='altlink'>Pourquoi suis-je non connectable alors que je ne suis pas derrière un NAT / Firewall?</a></li>
+        <li><a href='#prox4' class='altlink'>Puis-je contourner le proxy de mon FAI?</a></li>
+        <li><a href='#prox5' class='altlink'>Comment puis-je m'assurer que mon client bittorrent utilise un Proxy?</a></li>
+        <li><a href='#prox6' class='altlink'>Pourquoi ne puis-je pas m'enregistrer derrière un proxy?</a></li>
+        <li><a href='#prox7' class='altlink'>Est-ce que cela s'applique à d'autres sites de torrent?</a></li>
       </ul>
     <br />",
-    'faq_connect_header' => "Why can't I connect? Is the site blocking me?",
+    'faq_connect_header' => "Pourquoi ne puis-je pas me connecter? Le site me bloque?",
     'faq_connect' => "<ul>  <li><a href='#conn1' class='altlink'>Name resolution problems</a></li>
-        <li><a href='#conn2' class='altlink'>Maybe my address is blacklisted?</a></li>
-        <li><a href='#conn3' class='altlink'>Your ISP blocks the site's address</a></li>
-      <li><a href='#conn4' class='altlink'>Alternate port (81)</a>
+        <li><a href='#conn2' class='altlink'>Peut-être que mon adresse est blacklistée?</a></li>
+        <li><a href='#conn3' class='altlink'>Votre FAI bloque l'adresse du site</a></li>
+      <li><a href='#conn4' class='altlink'>Port alternatif (81)</a>
       <img src='{$INSTALLER09['pic_base_url']}updated.png' alt='Updated' width='46' height='11' /></li>
       </ul>
     <br />",
-    'faq_problem' => "<b>What if I can't find the answer to my problem here?</b>",
+    'faq_problem' => "<b>Que faire si je ne peux pas trouver la réponse à mon problème ici?</b>",
     'faq_siteinfo_body' => "<br />
-    <b>What is this bittorrent all about anyway? How do I get the files?</b><a name='site1' id='site1'></a><br />
+    <b>Qu'est-ce-que bittorrent? Comment puis-je récupérer les fichiers?</b><a name='site1' id='site1'></a><br />
     <br />
-    Check out <a class='altlink' href='redir.php?url=http://www.btfaq.com/'>Brian's BitTorrent FAQ and Guide</a>.<br />
-    <br />
-    <br />
-    <b>Where does the donated money go?</b><a name='site2' id='site2'></a><br />
-    <br />
-    {$INSTALLER09['site_name']} is situated on a dedicated server in the Netherlands.
-    For the moment we have monthly running costs of approximately &pound; 213.<br />
+    Départ <a class='altlink' href='http://www.bthq.net/btfaq.html'Target=_blank >BitTorrent FAQ et Guide</a>.<br />
     <br />
     <br />
-    <b>Where can I get a copy of the source code?<a name='site4' id='site4'></a></b><br />
+    <b>Où va l'argent des donations?</b><a name='site2' id='site2'></a><br />
     <br />
-    U-232 is an active open source project available for download via Github <a href='https://github.com/Bigjoos/U-232-V3' class='altlink'>Zip download</a> or directly from the support forum <a href='https://forum.u-232.com/index.php?action=downloads;cat=1' class='altlink'>Zip downloads</a>. Please note: We do not give any kind of support on the source code so please don't bug us about it. If it works, great, if not too bad. Use this software at your own risk!
+    {$INSTALLER09['site_name']} est située sur un serveur dédié en Californie USA.
+    Pour le moment nous avons tous les mois des frais de fonctionnement.<br />
+    <br />
+    <b>Où puis-je obtenir une copie du code source ?<a name='site4' id='site4'></a></b><br />
+    <br />
     <p>
-    Here is a nice tutorial on getting it all to work. Note: This tutorial is not supported by U-232. Please direct all comments on the tutorial to the author</p>",
-    'faq_userinfo_body' => "<b>I registered an account but did not receive the confirmation e-mail!</b><a name='user1' id='user1'></a><br />
+    Nous ne fournissons pas le code source <a class='altlink' href='https://www.anonymous-tracker.me' TARGET=BLANK>{$INSTALLER09['site_name']}</a>.</p>",
+    'faq_userinfo_body' => "<b>J'ai enregistré un compte mais je n'ai pas reçu la confirmation par e-mail!</b><a name='user1' id='user1'></a><br />
     <br />
-    You can contact site staff with your request on irc<br />
-    <br />
-    <br />
-    <b>I've lost my user name or password! Can you send it to me?</b><a name='user2' id='user2'></a><br />
-    <br />
-    Please use <a class='altlink' href='recover.php'>this form</a> to have the login details mailed back to you.<br />
+    Vous pouvez contacter le staff du site via irc ou via un PM staff<br />
     <br />
     <br />
-    <b>Can you rename my account?</b><a name='user3' id='user3'></a><br />
+    <b>J'ai perdu mon nom d'utilisateur ou mon mot de passe! Pouvez-vous me l'envoyer?</b><a name='user2' id='user2'></a><br />
     <br />
-    We do not rename accounts. Please create a new one. You can contact site staff with your request.<br />
-    <br />
-    <br />
-    <b>Can you delete my (confirmed) account?</b><a name='user4' id='user4'></a><br />
-    <br />
-    You can contact site staff with your request.<br />
+    S'il vous plaît utilisez <a class='altlink' href='recover.php' TARGET=BLANK>ce formulaire</a> pour retrouver vos détails de connexion.<br />
     <br />
     <br />
-    <b>So, what's MY ratio?</b><a name='userb' id='userb'></a><br />
+    <b>Pouvez-vous renommer mon compte?</b><a name='user3' id='user3'></a><br />
     <br />
-    Click on your <a class='altlink' href='usercp.php?action=default'>profile</a>, then on your user name (at the top).<br />
-    <br />
-    It's important to distinguish between your overall ratio and the individual ratio on each torrent
-    you may be seeding or leeching. The overall ratio takes into account the total uploaded and downloaded
-    from your account since you joined the site. The individual ratio takes into account those values for each torrent.<br />
-    <br />
-    You may see two symbols instead of a number: &quot;Inf.&quot;, which is just an abbreviation for Infinity, and
-    means that you have downloaded 0 bytes while uploading a non-zero amount (ul/dl becomes infinity); &quot;---&quot;,
-    which should be read as &quot;non-available&quot;, and shows up when you have both downloaded and uploaded 0 bytes
-    (ul/dl = 0/0 which is an indeterminate amount).<br />
+    Non. Merci d'en créer un nouveau. Vous pouvez contacter le staff pour cette demande.<br />
     <br />
     <br />
-    <b>Why is my IP displayed on my details page?</b><a name='user5' id='user5'></a><br />
+    <b>Pouvez-vous supprimer mon compte (confirmé)?</b><a name='user4' id='user4'></a><br />
     <br />
-    Only you and the site moderators can view your IP address and email. Regular users do not see that information.<br />
-    <br />
-    <br />
-    <b>Help! I cannot login!? (a.k.a. Login of Death)</b><a name='user6' id='user6'></a><br />
-    <br />
-    This problem sometimes occurs with MSIE. Close all Internet Explorer windows
-    and open Internet Options in the control panel. Click the Delete Cookies button.
-    You should now be able to login.<br />
+    Merci de contacter le Staff du site pour la prise en charge de votre demande.<br />
     <br />
     <br />
-    <b> My IP address is dynamic. How do I stay logged in?</b><a name='user7' id='user7'></a><br />
+    <b>Alors, quel est mon ratio?</b><a name='userb' id='userb'></a><br />
     <br />
-    You do not have to anymore. All you have to do is make sure you are logged in with your actual
-    IP when starting a torrent session. After that, even if the IP changes mid-session,
-    the seeding or leeching will continue and the statistics will update without any problem.<br />
+    Cliquez sur votre <a class='altlink' href='my.php'>profil</a>, puis sur votre nom d'utilisateur (en haut).<br />
     <br />
+    Il est important de faire la distinction entre votre ratio global et votre ratio individuel pour chaque torrent en
+	seed ou en leech. Le ratio global prend en compte le total uploadé et le total téléchargé de l'ensemble des torrents sur votre compte depuis votre 
+	inscription sur le site. Le ratio individuel prend en compte ces valeurs pour chaque torrent.<br />
     <br />
-    <b>Why am I listed as not connectable? (And why should I care?)</b><a name='user8' id='user8'></a><br />
-    <br />
-    The tracker has determined that you are firewalled or NATed and cannot accept incoming connections.
-    <br />
-    <br />
-    This means that other peers in the swarm will be unable to connect to you, only you to them. Even worse,
-    if two peers are both in this state they will not be able to connect at all. This has obviously a
-    detrimental effect on the overall speed.
+    Vous pouvez voir deux symboles au lieu d'un numéro: &quot;Inf.&quot;, qui est juste une abréviation de Infini, cela 
+	signifie que vous avez téléchargé 0 bytes et que vous avez uploadé une valeur non nulle (le ratio UP/DL devient infini); &quot;---&quot;,
+    cela doit être lu comme &quot;non-disponible&quot;, et apparaît que lorsque vous avez téléchargé et uploadé 0 bytes
+	(UP/DL = 0/0, ce qui est un montant indéterminé).<br />
     <br />
     <br />
-    The way to solve the problem involves opening the ports used for incoming connections
-    (the same range you defined in your client) on the firewall and/or configuring your
-    NAT server to use a basic form of NAT
-    for that range instead of NAPT (the actual process differs widely between different router models.
-    Check your router documentation and/or support forum. You will also find lots of information on the
-    subject at <a class='altlink' href='redir.php?url=http://portforward.com/'>PortForward</a>).<br />
+    <b>Pourquoi mon IP est affiché sur ma page de détails?</b><a name='user5' id='user5'></a><br />
+    <br />
+    Vous seul et le staff du site peuvent voir votre adresse IP comme votre adresse email. Les utilisateurs ne voient pas ces informations.<br />
     <br />
     <br />
-    <b>What are the different user classes?</b><a name='user9' id='user9'></a><br />
-    <div class='col-md-6'>
-    <table class='table table-bordered table-striped' cellspacing='3' cellpadding='0'>
+    <b>Au secours! Je ne peux pas me connecter!?</b><a name='user6' id='user6'></a><br />
+    <br />
+    Ce problème se produit parfois avec le navigateur Internet Explorer. 
+	Fermez toutes les fenêtres d'Internet Explorer et cliquez sur Options Internet dans le panneau de contrôle. 
+	Cliquez sur le bouton Supprimer les cookies.
+	Relancer votre navigateur, vous devriez maintenant pouvoir vous connecter.<br />
+    <br />
+    <br />
+    <b>Mon adresse IP est dynamique. Comment puis-je rester connecté?</b><a name='user7' id='user7'></a><br />
+    <br />
+    Tout ce que vous avez à faire est de vous assurer que vous êtes connecté avec votre IP réelle (IP de connection du FAI) lors du démarrage d'une session de torrent. 
+	Après cela, même si votre IP change, l'upload et le téléchargement vont se poursuivre et les statistiques seront mises à jour sans aucun problème.<br />
+    <br />
+    <br />
+    <b>Pourquoi suis-je inscrit comme non connectable? (Et pourquoi s'en soucier?)</b><a name='user8' id='user8'></a><br />
+    <br />
+    Le tracker a déterminé que vous êtes derrière un Firewall (pare-feu) cela signifie que vous ne pouvez pas accepter des connexions entrantes.
+    <br />
+    <br />
+    Cela signifie que d'autres peers de la communauté ne pourront pas se connecter à vous. 
+    <br />
+    <br />
+    La façon de résoudre ce problème consiste à ouvrir les ports TCP et UDP utilisés pour les connexions entrantes 
+	(les ports définis dans votre client) sur votre pare-feu et/ou sur la configuration de votre serveur NAT.
+    Consultez la documentation de votre routeur et/ou le forum de support. Vous trouverez également de nombreuses informations sur le sujet sur 
+	<a class='altlink' href='http://portforward.com/' Target='blank'>PortForward</a>).<br />
+    <br />
+    <br />
+    <b>Quelles sont les différentes classes d'utilisateurs?</b><a name='user9' id='user9'></a><br />
+    <br />
+      <table cellspacing='3' cellpadding='0'>
     <tr>
-      <td class='embedded' width='100'>&nbsp; <b>User</b></td>
-      <td class='embedded'>The default class of new members.</td>
+      <td class='embedded' width='100' bgcolor='#F5F4EA'>&nbsp; <b>UTILISATEUR</b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>La classe par défaut des nouveaux membres.</td>
     </tr>
     <tr>
-      <td class='embedded'>&nbsp; <b>Power User</b></td>
-      <td class='embedded'>Can download DOX over 1MB and view NFO files.</td>
+      <td class='embedded' bgcolor='#F5F4EA'>&nbsp; <b>POWER USER</b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>Peut télécharger les torrents et afficher les fichiers NFO.</td>
     </tr>
     <tr>
-      <td class='embedded'>&nbsp;  <img src='{$INSTALLER09['pic_base_url']}star.gif' alt='Star' /></td>
-      <td class='embedded'>Has donated money to {$INSTALLER09['site_name']} . </td>
+      <td class='embedded' bgcolor='#F5F4EA'>&nbsp;  <img src='{$INSTALLER09['pic_base_url']}star.gif' alt='Star' /></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>DONATEUR pour {$INSTALLER09['site_name']} . </td>
     </tr>
     <tr>
-      <td class='embedded' valign='top'>&nbsp; <b>VIP</b></td>
-      <td class='embedded' valign='top'>Same privileges as Power User and is considered an Elite Member of {$INSTALLER09['site_name']}. Immune to automatic demotion.</td>
+      <td class='embedded' valign='top' bgcolor='#F5F4EA'>&nbsp; <b>VIP</b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded' valign='top'>Mêmes privilèges que les Power Users, ils sont considéré comme des membres d'élite pour {$INSTALLER09['site_name']}. Immunité totale.</td>
     </tr>
     <tr>
-      <td class='embedded'>&nbsp; <b>Other</b></td>
-       <td class='embedded'>Customised title.</td>
+      <td class='embedded' bgcolor='#F5F4EA'>&nbsp; <b><font color='#4040c0'>UPLOADER</font></b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>Peuvent uploader et gagne l'immunité contre la rétrogradation automatique.</td>
     </tr>
     <tr>
-      <td class='embedded'>&nbsp; <b><font color='#4040c0'>Uploader</font></b></td>
-      <td class='embedded'>Same as PU except with upload rights and immune to automatic demotion.</td>
+      <td class='embedded' valign='top' bgcolor='#F5F4EA'>&nbsp; <b><font color='#A83838'>MODERATEUR</font></b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded' valign='top'>Les modérateurs peuvent modifier et supprimer les torrents uploadés. Ils peuvent aussi modérer les commentaires des utilisateurs et désactiver les comptes utilisateurs.</td>
     </tr>
     <tr>
-      <td class='embedded' valign='top'>&nbsp; <b><font color='#A83838'>Moderator</font></b></td>
-      <td class='embedded' valign='top'>Can edit and delete any uploaded torrents. Can also moderate user	comments and disable accounts.</td>
+      <td class='embedded' bgcolor='#F5F4EA'>&nbsp; <b><font color='#A83838'>ADMINISTRATEUR</font></b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>Droit total sur la gestion des utilisateurs et des torrents.</td>
     </tr>
     <tr>
-      <td class='embedded'>&nbsp; <b><font color='#A83838'>Administrator</font></b></td>
-      <td class='embedded'>Can do just about anything.</td>
-    </tr>
-    <tr>
-      <td class='embedded'>&nbsp; <b><font color='#A83838'>SysOp</font></b></td>
-      <td class='embedded'>Runs day to day matters on site</td>
-    </tr>
-    </table></div>
-    ",
-    'faq_promotion_header' => "<b>How does this promotion thing work anyway?</b><a name='usera' id='usera'></a><br />
-    <br />",
-    'faq_promotion_body' => "<tr>
-      <td class='embedded'valign='top' width='100'>&nbsp; <b>Power User</b></td>
-      <td class='embedded' valign='top'>Must have been be a member for at least 4 weeks, have uploaded at least 25GB and
-      have a ratio at or above 1.05.<br />
-      The promotion is automatic when these conditions are met. Note that you will be automatically demoted from<br />
-      this status if your ratio drops below 0.95 at any time.</td>
-    </tr>
-    <tr>
-      <td class='embedded'>&nbsp; <img src='{$INSTALLER09['pic_base_url']}star.gif' alt='Star' /></td>
-      <td class='embedded'>Just donate, and send <a class='altlink' href='pm_system.php?action=send_message&amp;receiver=1'>Sysop</a> - and only sysop - the details.</td>
-    </tr>
-    <tr>
-      <td class='embedded' valign='top'>&nbsp; <b>VIP</b></td>
-      <td class='embedded' valign='top'>Assigned by mods at their discretion to users they feel contribute
-      something special to the site.<br />
-      (Anyone begging for VIP status will be automatically disqualified.)</td>
-    </tr>
-    <tr>
-      <td class='embedded'>&nbsp; <b>Other</b></td>
-      <td class='embedded'>Conferred by mods at their discretion (not available to Users or Power Users).</td>
-    </tr>
-    <tr>
-      <td class='embedded'>&nbsp; <b><font color='#4040c0'>Uploader</font></b></td>
-      <td class='embedded'>Appointed by Admins/SysOp (see the 'Uploading' section for conditions).</td>
-    </tr>
-    <tr>
-      <td class='embedded'>&nbsp; <b><font color='#A83838'>Moderator</font></b></td>
-      <td class='embedded'>You don't ask us, we'll ask you!</td>
+      <td class='embedded' bgcolor='#F5F4EA'>&nbsp; <b><font color='#A83838'>SYSOP</font></b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>Propriétaire du site {$INSTALLER09['site_name']}</td>
     </tr>
     </table>
     <br />
-    <br /><br><br><br>
-    <span class='text-left'><b>Hey! I've seen Power Users with less than 25GB uploaded!</b><a name='usere'></a></span><br />
+    <br />",
+    'faq_promotion_header' => "<b>Comment être promu?</b><a name='usera' id='usera'></a><br />
+    <br />",
+    'faq_promotion_body' => "<tr>
+      <td class='embedded' bgcolor='#F5F4EA' valign='top' width='100'>&nbsp; <b>Power User</b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded' valign='top'>Il faut être membre pendant au moins 20 jours, avoir Uploader au moins 50 Go et avoir un ratio égal ou supérieur à 1,5.<br />
+	  La promotion est automatique lorsque ces conditions sont remplies. Notez que vous serez rétrogradé automatiquement<br />
+      si votre ratio descend en dessous de 0,95.</td>
+    </tr>
+    <tr>
+      <td class='embedded' bgcolor='#F5F4EA'>&nbsp; <img src='{$INSTALLER09['pic_base_url']}star.gif' alt='Star' /></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>Seulement pour les donateurs, contacter le <a class='altlink' href='pm_system.php?action=send_message&amp;receiver=1'>SysOp</a> pour les détails.</td>
+    </tr>
+    <tr>
+      <td class='embedded' bgcolor='#F5F4EA' valign='top'>&nbsp; <b>VIP</b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded' valign='top'>Assigné aux utilisateurs qui contribue pour {$INSTALLER09['site_name']}.<br />
+      (Toute personne demandant le statut VIP sera automatiquement disqualifiée.)</td>
+    </tr>
+    <tr>
+      <td class='embedded' bgcolor='#F5F4EA'>&nbsp; <b><font color='#4040c0'>Uploader</font></b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>Nommé par les Admins/SysOp (voir la section 'Uploading' pour les conditions).</td>
+    </tr>
+    <tr>
+      <td class='embedded' bgcolor='#F5F4EA'>&nbsp; <b><font color='#A83838'>Modérateur</font></b></td>
+      <td class='embedded' width='5'>&nbsp;</td>
+      <td class='embedded'>Vous pouvez postuler <a href='http://www.anonymous-tracker.me/staffapp.php' Target='blank'>ICI</a></td>
+    </tr>
+    </table>
     <br />
-    The PU limit used to be 10GB and we didn't demote anyone when we raised it to 25GB.<br />
+    <b>Hey! J'ai vu des Power Users avec moins de 50Go Uploader!</b><a name='usere'></a><br />
     <br />
+    La limite du PU était autrefois de 25Go et nous n'avons pas rétrograder ces membres lorsque ils passaient sous les 50Go.<br />
     <br />
-    <b>Why can't my friend become a member?</b><a name='userc'></a><br />
+    <b>Pourquoi mon amie ne peut pas s'inscrire ?</b><a name='userc'></a><br />
     <br />
-    There is a 75.000 users limit. When that number is reached we stop accepting new members.
-    Accounts inactive for more than 42 days are automatically deleted, so keep trying.
-    (There is no reservation or queuing system, don't ask for that.)<br />
+    Cela peut venir de la limite du taux d'inscription (parfois désactivée quand le quota est atteint). Lorsque ce nombre est atteint, nous n'acceptons plus de nouveaux membres. 
+	Les comptes inactifs pendant plus de 42 jours sont automatiquement supprimés, donc conseillez à votre amie de continuer à essayer de s'inscrire... 
+	(Il n'y a pas de système de réservation, ni de file d'attente...)<br />
     <br />
+    <b>Comment puis-je ajouter un avatar à mon profil?</b><a name='userd'></a><br />
     <br />
-    <b>How do I add an avatar to my profile?</b><a name='userd'></a><br />
+    Tout d'abord, trouver une image qui vous plaît, respectant le
+    <a class='altlink' href='rules.php' Target='blank'>règlement</a>. Ensuite, trouver un hébergeur d'image, 
+	vous pouvez utiliser le nôtre <a class='altlink' href='bitbucket.php' Target='blank'>ImgUpload</a>.
+    (Autre choix populaires <a class='altlink' href='http://photobucket.com/' Target='blank'>Photobucket</a>,
+    <a class='altlink' href='http://uploadit.org/' Target='blank'>Upload-It!</a> or
+    <a class='altlink' href='http://www.imageshack.us/' Target='blank'>ImageShack</a>).
+    Tout ce qui reste à faire est de copier l'URL que vous avez reçu lors de l'upload de votre image 
+	vers le champ de l'avatar dans votre <a class='altlink' href='usercp.php?action=avatar' target='blank'>profil</a>.<br />
     <br />
-    First, find an image that you like, and that is within the
-    <a class='altlink' href='rules.php'>rules</a>. Then you will have
-    to find a place to host it, such as our own <a class='altlink' href='bitbucket.php'>BitBucket</a>.
-    (Other popular choices are <a class='altlink' href='http://photobucket.com/'>Photobucket</a>,
-    <a class='altlink' href='http://uploadit.org/'>Upload-It!</a> or
-    <a class='altlink' href='http://www.imageshack.us/'>ImageShack</a>).
-    All that is left to do is copy the URL you were given when
-    uploading it to the avatar field in your <a class='altlink' href='usercp.php?action=default'>profile</a>.<br />
-    <br />
-    Please do not make a post just to test your avatar. If everything is allright you'll see it
-    in your ",
-    'faq_details_page' => "details page",
-    'faq_stats_title' => "Stats",
+    SVP, inutile de poster un message juste pour tester votre avatar. Si tout est OK, vous le verrez dans votre ",
+    'faq_details_page' => "page de détails",
+    'faq_stats_title' => "Statistiques",
     'faq_stats_body' => "<br />
-    <b>Most common reason for stats not updating</b><a name='stats1'></a><br />
+    <a name='stats1'></a><br />
     <br />
     <ul>
-      <li>The user is cheating. (a.k.a. &quot;Summary Ban&quot;)</li>
-      <li>The server is overloaded and unresponsive. Just try to keep the session open
-          until the server responds again. (Flooding the server with consecutive manual updates is not recommended.)</li>
-      <li>You are using a faulty client. If you want to use an experimental or CVS version you do it at your own risk.</li>
+      <li>L'utilisateur triche. (a.k.a. &quot;Résumé Ban&quot;)</li>
+      <li>Le serveur est surchargé et ne répond pas. Juste essayer de garder la session ouverte
+           jusqu'à ce que le serveur répond à nouveau. (Surcharger le serveur de MAJ consécutives n'est pas recommandé.)</li>
+      <li>Vous utilisez un client défectueux. Si vous souhaitez utiliser une version expérimentale ou CVS vous le faites à vos propres risques.</li>
     </ul>
     <br />
-    <b>Best practices</b><a name='stats2'></a><br />
+    <b>Les meilleures pratiques</b><a name='stats2'></a><br />
     <br />
     <ul>
-      <li>If a torrent you are currently leeching/seeding is not listed on your profile, just wait or force a manual update.</li>
-      <li>Make sure you exit your client properly, so that the tracker receives &quot;event=completed&quot;.</li>
-      <li>If the tracker is down, do not stop seeding. As long as the tracker is back up before you exit the client the stats
-          should update properly.</li>
+      <li>Si un torrent vous êtes actuellement leech/seed ne figure pas sur votre profil, il suffit d'attendre ou forcer une mise à jour manuelle.</li>
+      <li>Assurez-vous que vous quittez votre client correctement, de sorte que le tracker reçoit &quot;les évènements complets&quot;.</li>
+      <li>Si le tracker est en panne, ne vous arrêtez pas le seed. Tant que le tracker est de retour avant de quitter le client les stats
+           devrait se mettre à jour correctement.</li>
     </ul>
     <br />
-    <b>May I use any bittorrent client?</b><a name='stats3'></a><br />
+    <b>Puis-je utiliser n'importe quel client bittorrent?</b><a name='stats3'></a><br />
     <br />
-    Yes. The tracker now updates the stats correctly for all bittorrent clients. However, we still recommend
-    that you <b>avoid</b> the following clients:<br />
+    Oui. Le tracker maintenant met à jour les statistiques correctement pour tous les clients BitTorrent. Toutefois, nous vous recommandons d'<b>évitez</b> les clients suivants:<br />
     <br />
     * BitTorrent++,<br />
     * Nova Torrent,<br />
     * TorrentStorm.<br />
     <br />
-    These clients do not report correctly to the tracker when canceling/finishing a torrent session.
-    If you use them then a few MB may not be counted towards
-    the stats near the end, and torrents may still be listed in your profile for some time after you have closed the client.<br />
+    Ces clients ne signalent pas correctement au tracker lors de l'annulation/fin d'une session de torrent.
+     Si vous les utilisez ensuite quelques Mo ne peut pas être prise en compte dans
+     les stats près de la fin, et les torrents peuvent encore être répertoriés dans votre profil pendant un certain temps après que vous avez fermé le client.<br />
     <br />
-    Also, clients in alpha or beta version should be avoided.<br />
-    <br />
-    <br />
-    <b>Why is a torrent I'm leeching/seeding listed several times in my profile?</b><a name='stats4'></a><br />
-    <br />
-    If for some reason (e.g. pc crash, or frozen client) your client exits improperly and you restart it,
-    it will have a new peer_id, so it will show as a new torrent. The old one will never receive a &quot;event=completed&quot;
-    or &quot;event=stopped&quot; and will be listed until some tracker timeout. Just ignore it, it will eventually go away.<br />
+    En outre, les clients en version alpha ou bêta devraient être évités.<br />
     <br />
     <br />
-    <b>I've finished or cancelled a torrent. Why is it still listed in my profile?</b><a name='stats5'></a><br />
+    <b>Pourquoi un torrent que je télécharge/seed listé plusieurs fois dans mon profil?</b><a name='stats4'></a><br />
     <br />
-    Some clients, notably TorrentStorm and Nova Torrent, do not report properly to the tracker when canceling or finishing a torrent.
-    In that case the tracker will keep waiting for some message - and thus listing the torrent as seeding or leeching - until some
-    timeout occurs. Just ignore it, it will eventually go away.<br />
-    <br />
-    <br />
-    <b>Why do I sometimes see torrents I'm not leeching in my profile!?</b><a name='stats6'></a><br />
-    <br />
-    When a torrent is first started, the tracker uses the IP to identify the user. Therefore the torrent will
-    become associated with the user <i>who last accessed the site</i> from that IP. If you share your IP in some
-    way (you are behind NAT/ICS, or using a proxy), and some of the persons you share it with are also users,
-    you may occasionally see their torrents listed in your profile. (If they start a torrent session from that
-    IP and you were the last one to visit the site the torrent will be associated with you). Note that now
-    torrents listed in your profile will always count towards your total stats.
+    Si pour une raison quelconque (par exemple accident de PC, ou un client congelé) votre client sort mal et vous le redémarrez,
+     il aura une nouvelle peer_id, il apparaîtra comme un nouveau torrent. L'ancien recevra jamais &quot;les évènements completsd&quot;
+    ou &quot;les évènements=stoppé&quot; et seront admises jusqu'à ce qu'un délai de tracker. Il suffit de l'ignorer, elle finira par disparaître.<br />
     <br />
     <br />
-    To make sure your torrents show up in your profile you should visit the site immediately before starting a session.
+    <b>J'ai terminé ou annulé un torrent. Pourquoi est-il toujours répertorié dans mon profil?</b><a name='stats5'></a><br />
+    <br />
+   Certains clients, notamment TorrentStorm et en Nouva-Torrent, ne signalent pas correctement au tracker lors de l'annulation ou de la fin d'un torrent.
+     Dans ce cas le tracker faire attendre pendant un certain message - et annonce ainsi le torrent que le leech ou seed - jusqu'à ce que certains
+     timeout. Il suffit de l'ignorer, elle finira par disparaître.<br />
     <br />
     <br />
-    (The only way to completely stop foreign torrents from showing in profiles is to forbid users without
-    an individual IP from accessing the site. Yes, that means you. Complain at your own risk.)<br />
+    Pour vous assurer que vos torrents apparaissent dans votre profil, vous devriez visiter le site immédiatement avant de commencer une session.
     <br />
     <br />
-    <b>Multiple IPs (Can I login from different computers?)</b><a name='stats7' id='stats7'></a><br />
+    <b>IP multiples (Puis-je connecter à partir de différents ordinateurs?)</b><a name='stats7' id='stats7'></a><br />
     <br />
-    Yes, the tracker is now capable of following sessions from different IPs for the same user. A torrent is associated with
-    the user when it starts, and only at that moment is the IP relevant. So if you want to seed/leech from computer A
-    and computer B with the same account you should access the site from computer A, start the torrent there, and then repeat both
-    steps from computer B (not limited to two computers or to a single torrent on each, this is just the simplest example).
-    You do not need to login again when closing the torrent.<br />
-    <br />
-    <br />
-    <b>How does NAT/ICS change the picture?<a name='stats8' id='stats8'></a></b><br />
-    <br />
-    This is a very particular case in that all computers in the LAN will appear to the outside world as having the same IP. We must distinguish
-    between two cases:<br />
-    <br />
-    <b>1.</b> <i>You are the single {$INSTALLER09['site_name']} users in the LAN</i><br />
-    <br />
-    You should use the same {$INSTALLER09['site_name']} account in all the computers.<br />
-    <br />
-    Note also that in the ICS case it is preferable to run the BT client on the ICS gateway. Clients running on the other computers
-    will be unconnectable (they will be listed as such, as explained elsewhere in the FAQ) unless you specify
-    the appropriate services in your ICS configuration (a good explanation of how to do this for Windows XP can be found
-    <a class='altlink' href='redir.php?url=http://www.microsoft.com/downloads/details.aspx?FamilyID=1dcff3ce-f50f-4a34-ae67-cac31ccd7bc9&amp;displaylang=en'>here</a>).
-    In the NAT case you should configure different ranges for clients on different computers and create appropriate NAT rules in the router. (Details vary widely from router to router and are outside the scope of this FAQ. Check your router documentation and/or support forum.)<br />
-    <br />
-    <br />
-    <b>2.</b> <i>There are multiple {$INSTALLER09['site_name']} users in the LAN</i><br />
-    <br />
-    At present there is no way of making this setup always work properly with {$INSTALLER09['site_name']}.
-    Each torrent will be associated with the user who last accessed the site from within
-    the LAN before the torrent was started.
-    Unless there is cooperation between the users mixing of statistics is possible.
-    (User A accesses the site, downloads a .torrent file, but does not start the torrent immediately.
-    Meanwhile, user B accesses the site. User A then starts the torrent. The torrent will count
-    towards user B's statistics, not user A's.)
-    <br />
-    <br />
-    It is your LAN, the responsibility is yours. Do not ask us to ban other users
-    with the same IP, we will not do that. (Why should we ban <i>him</i> instead of <i>you</i>?)
-    <br />
-    <br />
-    <br />
-    <b>For those of you who are interested...</b><a name='stats9' id='stats9'></a><br />
-    <br />
-    Some <a class='altlink' href='anatomy.php'>info</a> about the &quot;Anatomy of a torrent session&quot;.
-    <br />
+    Oui, le tracker est pas capable de suivre des séances de différentes adresses IP pour le même utilisateur. Un torrent est associé à l'utilisateur lors de son démarrage, et seulement à ce moment-là est l'adresse IP correspondante. Donc, si vous voulez seed / leech de l'ordinateur A et l'ordinateur B avec le même compte, vous devez accéder au site à partir de l'ordinateur A, démarrer le torrent là-bas, puis répétez les étapes à partir de l'ordinateur B (non limité à deux ordinateurs ou à un seul torrent sur chaque, ceci est juste l'exemple le plus simple). Vous ne devez vous identifier à nouveau lors de la fermeture du torrent.
+   
     </div>
     </td></tr></table>
     </td></tr></table>
     <br />
     <br />",
     'faq_uploading_body' => "<br />
-    <b>Why can't I upload torrents?</b><a name='up1'></a><br />
+    <b>Pourquoi je ne peux pas télécharger des torrents?</b><a name='up1'></a><br />
     <br />
-    Only specially authorized users (<font color='#4040C0'><b>Uploaders</b></font>) have permission to upload torrents.<br />
+    Seuls les utilisateurs autorisés spécialement (<font color='#4040C0'><b>Uploadeurs</b></font>) ont la permission de télécharger des torrents.<br />
     <br />
     <br />
     <b>What criteria must I meet before I can join the <font color='#4040C0'>Uploader</font> team?</b><a name='up2'></a><br />
@@ -528,42 +468,51 @@ $lang = array(
     some users must wait before they can download it.<br />
     This delay in downloading will only affect users with a low ratio, and users with low upload amounts.<br />
     <br />
-    <div class='col-md-5'> <table class='table table-bordered table-striped' cellspacing='3' cellpadding='0'>
+    <table cellspacing='3' cellpadding='0'>
      <tr>
       <td class='embedded' width='70'>Ratio below</td>
-      <td class='embedded' width='40'><div align='center'><font color='#BB0000'>0.50</font></div></td>
+      <td class='embedded' width='40' bgcolor='#F5F4EA'><div align='center'><font color='#BB0000'>0.50</font></div></td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded' width='110'>and/or upload below</td>
-      <td class='embedded' width='40'><div align='center'>5.0GB</div></td>
+      <td class='embedded' width='40' bgcolor='#F5F4EA'><div align='center'>5.0GB</div></td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded' width='50'>delay of</td>
-      <td class='embedded' width='40'><div align='center'>48h</div></td>
+      <td class='embedded' width='40' bgcolor='#F5F4EA'><div align='center'>48h</div></td>
      </tr>
      <tr>
       <td class='embedded'>Ratio below</td>
-      <td class='embedded'><div align='center'><font color='#A10000'>0.65</font></div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'><font color='#A10000'>0.65</font></div></td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded'>and/or upload below</td>
-      <td class='embedded'><div align='center'>6.5GB</div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'>6.5GB</div></td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded'>delay of</td>
-      <td class='embedded'><div align='center'>24h</div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'>24h</div></td>
      </tr>
      <tr>
       <td class='embedded'>Ratio below</td>
-      <td class='embedded'><div align='center'><font color='#880000'>0.80</font></div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'><font color='#880000'>0.80</font></div></td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded'>and/or upload below</td>
-      <td class='embedded'><div align='center'>8.0GB</div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'>8.0GB</div></td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded'>delay of</td>
-      <td class='embedded'><div align='center'>12h</div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'>12h</div></td>
      </tr>
      <tr>
       <td class='embedded'>Ratio below</td>
-      <td class='embedded'><div align='center'><font color='#6E0000'>0.95</font></div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'><font color='#6E0000'>0.95</font></div></td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded'>and/or upload below</td>
-      <td class='embedded'><div align='center'>9.5GB</div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'>9.5GB</div></td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded'>delay of</td>
-      <td class='embedded><div align='center'>06h</div></td>
+      <td class='embedded' bgcolor='#F5F4EA'><div align='center'>06h</div></td>
      </tr>
-    </table></div>
-
-    '<b>And/or</b>' means any or both. Your delay will be the <b>largest</b> one for which you meet <b>at least</b> one condition.<br />",
+    </table>
+    <br />
+    '<b>And/or</b>' means any or both. Your delay will be the <b>largest</b> one for which you meet <b>at least</b> one condition.<br />
+    <br />",
     'faq_in' => "In ",
     'faq_your' => "your",
     'faq_case' => " particular case, ",
@@ -598,26 +547,26 @@ $lang = array(
     <br />
     The blocked ports list include, but is not neccessarily limited to, the following:<br />
     <br />
-    <table class='table table-bordered table-striped' cellspacing='3' cellpadding='0'>
+    <table cellspacing='3' cellpadding='0'>
       <tr>
       <td class='embedded' width='80'>Direct Connect</td>
-      <td class='embedded' width='80'><div align='center'>411 - 413</div></td>
+      <td class='embedded' width='80' bgcolor='#F5F4EA'><div align='center'>411 - 413</div></td>
       </tr>
       <tr>
       <td class='embedded' width='80'>Kazaa</td>
-      <td class='embedded' width='80'><div align='center'>1214</div></td>
+      <td class='embedded' width='80' bgcolor='#F5F4EA'><div align='center'>1214</div></td>
       </tr>
       <tr>
       <td class='embedded' width='80'>eDonkey</td>
-      <td class='embedded' width='80'><div align='center'>4662</div></td>
+      <td class='embedded' width='80' bgcolor='#F5F4EA'><div align='center'>4662</div></td>
       </tr>
       <tr>
       <td class='embedded' width='80'>Gnutella</td>
-      <td class='embedded' width='80'><div align='center'>6346 - 6347</div></td>
+      <td class='embedded' width='80' bgcolor='#F5F4EA'><div align='center'>6346 - 6347</div></td>
       </tr>
       <tr>
       <td class='embedded' width='80'>BitTorrent</td>
-      <td class='embedded' width='80'><div align='center'>6881 - 6889</div></td>
+      <td class='embedded' width='80' bgcolor='#F5F4EA'><div align='center'>6881 - 6889</div></td>
      </tr>
     </table>
     <br />
@@ -762,23 +711,28 @@ $lang = array(
     (the terminology is far from standard):<br />
     <br />",
     'faq_proxy_body2' => "<tr>
-      <td class='embedded' valign='top'width='100'>&nbsp;Transparent</td>
+      <td class='embedded' valign='top' bgcolor='#F5F4EA' width='100'>&nbsp;Transparent</td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded' valign='top'>A transparent proxy is one that needs no configuration on the clients. It works by automatically redirecting all port 80 traffic to the proxy. (Sometimes used as synonymous for non-anonymous.)</td>
      </tr>
      <tr>
-      <td class='embedded' valign='top'>&nbsp;Explicit/Voluntary</td>
+      <td class='embedded' valign='top' bgcolor='#F5F4EA'>&nbsp;Explicit/Voluntary</td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded' valign='top'>Clients must configure their browsers to use them.</td>
      </tr>
      <tr>
-      <td class='embedded' valign='top'>&nbsp;Anonymous</td>
+      <td class='embedded' valign='top' bgcolor='#F5F4EA'>&nbsp;Anonymous</td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded' valign='top'>The proxy sends no client identification to the server. (HTTP_X_FORWARDED_FOR header is not sent; the server does not see your IP.)</td>
      </tr>
      <tr>
-      <td class='embedded' valign='top'>&nbsp;Highly Anonymous</td>
+      <td class='embedded' valign='top' bgcolor='#F5F4EA'>&nbsp;Highly Anonymous</td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded' valign='top'>The proxy sends no client nor proxy identification to the server. (HTTP_X_FORWARDED_FOR, HTTP_VIA and HTTP_PROXY_CONNECTION headers are not sent; the server doesn't see your IP and doesn't even know you're using a proxy.)</td>
      </tr>
      <tr>
-      <td class='embedded' valign='top'>&nbsp;Public</td>
+      <td class='embedded' valign='top' bgcolor='#F5F4EA'>&nbsp;Public</td>
+      <td class='embedded' width='10'>&nbsp;</td>
       <td class='embedded' valign='top'>(Self explanatory)</td>
      </tr>
     </table>
@@ -912,6 +866,6 @@ $lang = array(
     error message you get, if any? What are the torrents you are having problems with? The more
     you tell the easiest it will be for us, and the more probable your post will get a reply.</li>
     <li>And needless to say: be polite. Demanding help rarely works, asking for it usually does
-    the trick.</li>",
+    the trick.</li>"
 );
 ?>

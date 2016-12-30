@@ -658,11 +658,11 @@ function charset()
     $lang_charset = $CURUSER['language'];
     switch ($lang_charset) {
     case ($lang_charset == 2):
-        return "ISO-8859-1";
-    case ($lang_charset == 3):
-        return "ISO-8859-17";
-    case ($lang_charset == 4):
-		return "ISO-8859-15";
+        return "UTF-8";
+//    case ($lang_charset == 3):
+//        return "ISO-8859-17";
+//    case ($lang_charset == 4):
+//		return "ISO-8859-15";
     default:
         return "UTF-8";
     }

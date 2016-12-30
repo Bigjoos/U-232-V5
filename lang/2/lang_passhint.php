@@ -35,13 +35,14 @@ $lang = array(
     'stderr_successhead' => "Success",
     'stderr_error14' => "Your password has been updated! Click",
     'stderr_error15' => "Here",
-    'stderr_error16' => "to log in with your new password!",
+    'stderr_error16' => "if not redirected, to log in with your new password!",
     'stderr_notfound' => "This email address was not found in the database.",
     'stderr_invalidemail' => "You must enter your email address!",
     'stderr_invalidemail1' => "That doesn't look like a valid email address!",
     //captcha
     'captcha_spam' => "NO SPAM! Wait 10 seconds and then refresh page",
     //main
+	'main_header' => "Reset Lost Password",
     'main_question' => "Question",
     'main_question1' => "Mother's birthplace",
     'main_question2' => "Best childhood friend",
@@ -51,6 +52,7 @@ $lang = array(
     'main_question6' => "Grandfather's occupation",
     'main_sec_answer' => "Secret Answer",
     'main_next' => "Next",
+	'main_changepass' => "Change your password",
     'main_new_pass' => "New password",
     'main_new_pass_confirm' => "Confirm password",
     'main_message' => "somebody (probably you), tried to set a new password for this account by question & secret answer method but failed!",

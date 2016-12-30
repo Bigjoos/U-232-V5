@@ -62,29 +62,6 @@ $lang = array(
 	'bonus_gained1t1' => " you have gained a 1 to 1 ratio on the selected torrent, and the difference in MB has been added to your total upload!",
 	'bonus_spreadkarma' => " you can not spread the karma to yourself...If you want to spread the love, pick another user!",
 	'bonus_nouser' => " No User with that username.",
-	'bonus_notenough' => " you dont have enough Karma points ",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	'bonus_' => "",
-	
-	
+	'bonus_notenough' => " you dont have enough Karma points "
 );
 ?>

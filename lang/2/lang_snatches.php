@@ -18,22 +18,22 @@
  */
 $lang = array(
     //snatchtable
-    'snatches_username' => "Username",
+    'snatches_username' => "Pseudo",
     'snatches_connectable' => "Connectable",
-    'snatches_uploaded' => "Uploaded",
-    'snatches_upspeed' => "Upspeed",
-    'snatches_downloaded' => "Downloaded",
-    'snatches_downspeed' => "Downspeed",
+    'snatches_uploaded' => "Uploadé",
+    'snatches_upspeed' => "Vitesse Upload",
+    'snatches_downloaded' => "Downloadé",
+    'snatches_downspeed' => "Vitesse Download",
     'snatches_ratio' => "Ratio",
-    'snatches_completed' => "Completed",
-    'snatches_seedtime' => "Seed time",
-    'snatches_leechtime' => "Leech time",
-    'snatches_lastaction' => "Last action",
-    'snatches_completedat' => "Completed at",
+    'snatches_completed' => "Completé",
+    'snatches_seedtime' => "Durée de Seed",
+    'snatches_leechtime' => "Durée de Leech",
+    'snatches_lastaction' => "Dernière action",
+    'snatches_completedat' => "Complété à",
     'snatches_client' => "Client",
     'snatches_port' => "Port",
-    'snatches_announced' => "Announced",
-    'snatches_anon' => "Kezer Soze",
-    'snatches_unknown' => "Unknown"
+    'snatches_announced' => "Annoncé",
+    'snatches_anon' => "Keyzer Soze",
+    'snatches_unknown' => "Inconnu"
 );
 ?>

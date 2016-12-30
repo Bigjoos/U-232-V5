@@ -71,5 +71,18 @@ $lang = array(
     'peers_dlrate' => "Download rate",
     'peers_fastestup' => "Top %u Fastest Uploaders",
     'peers_fastestdown' => "Top %u Fastest Downloaders",
+    //add by yoooov
+    'torrent_mostact_10' => "Top 10 Most Active Torrents",
+    'torrent_mostsna_10' => "Top 10 Most Snatched Torrents",
+    'torrent_insuff_tt' => "Insufficient Torrents ",
+    'country_mostact_10' => "Top 10 Countries (users)",
+    'country_mostsna_10' => "Top 10 Countries (total uploaded)",
+    'country_insuff_ct' => "Insufficient Countries ",
+    'user_mostup_10' => "Top 10 Uploaders",
+    'user_mostdl_10' => "Top 10 Downloaders",
+    'user_mostup_fst' => "Top 10 Fastest Uploaders",
+    'user_mostdl_fst' => "Top 10 Fastest Downloaders",
+    'user_insuff_up' => "Insufficient Uploaders ",
+    'user_insuff_dl' => "Insufficient Downloaders "
 );
 ?>

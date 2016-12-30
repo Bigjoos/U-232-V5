@@ -18,78 +18,108 @@
  */
 $lang = array(
     //VIDEOFORMATS
-    'videoformats_body' => "Downloaded a movie and don't know what CAM/TS/TC/SCR means?",
+    'videoformats_body' => "Vous venez de télécharger une vidéo et vous ignorez ce que veulent dire les tags CAM/TS/TC/SCR etc?",
 	//
+
     'videoformats_cam' => "CAM -",
-    'videoformats_cam1' => "A cam is a theater rip usually done with a digital video camera. A mini tripod is sometimes used, but a lot of the time this wont be possible, so the camera make shake. Also seating placement isn't always idle, and it might be filmed from an angle. If cropped properly, this is hard to tell unless there's text on the screen, but a lot of times these are left with triangular borders on the top and bottom of the screen. Sound is taken from the onboard microphone of the camera, and especially in comedies, laughter can often be heard during the film. Due to these factors picture and sound quality are usually quite poor, but sometimes we're lucky, and the theater will be' fairly empty and a fairly clear signal will be heard.",
+
+    'videoformats_cam1' => "C'est une copie d'un film réalisé dans un cinéma, à l'aide d'une caméra (Take on Screen). Le son provient du micro embarqué de la caméra. Ensemble d'une qualité souvent médiocre.",
 	//
+
     'videoformats_ts' => "TELESYNC (TS) -",
-    'videoformats_ts1' => "A telesync is the same spec as a CAM except it uses an external audio source (most likely an audio jack in the chair for hard of hearing people). A direct audio source does not ensure a good quality audio source, as a lot of background noise can interfere. A lot of the times a telesync is filmed in an empty cinema or from the projection booth with a professional camera, giving a better picture quality. Quality ranges drastically, check the sample before downloading the full release. A high percentage of Telesyncs are CAMs that have been mislabeled.",
+
+    'videoformats_ts1' => "C'est une copie d'un film réalisé dans un cinéma, à l'aide d'une caméra, mais avec un son ou une vidéo provenant d'une source externe..",
 	//
+
 	'videoformats_tc' => "TELECINE (TC) -",
-	'videoformats_tc1' => " A telecine machine copies the film digitally from the reels. Sound and picture should be very good, but due to the equipment involved and cost telecines are fairly uncommon. Generally the film will be in correct aspect ratio, although 4:3 telecines have existed. A great example is the JURASSIC PARK 3 TC done last year. TC should not be confused with TimeCode , which is a visible counter on screen throughout the film.",
+
+	'videoformats_tc1' => "Une machine de téléciné copie le film digitalement des bobines (il est aussi possible d’utiliser un graveur dvd, un mini-dv recorder, etc.). Le son et la vidéo devraient être très bons, mais en raison de l’équipement impliqué qui est très coûteux, ils sont assez rares.",
 	//
+
     'videoformats_scr' => "SCREENER (SCR) -",
-	'videoformats_scr1' => "A pre VHS tape, sent to rental stores, and various other places for promotional use. A screener is supplied on a VHS tape, and is usually in a 4:3 (full screen) a/r, although letterboxed screeners are sometimes found. The main draw back is a 'ticker' (a message that scrolls past at the bottom of the screen, with the copyright and anti-copy telephone number). Also, if the tape contains any serial numbers, or any other markings that could lead to the source of the tape, these will have to be blocked, usually with a black mark over the section. This is sometimes only for a few seconds, but unfortunately on some copies this will last for the entire film, and some can be quite big. Depending on the equipment used, screener quality can range from excellent if done from a MASTER copy, to very poor if done on an old VHS recorder thru poor capture equipment on a copied tape. Most screeners are transferred to VCD, but a few attempts at SVCD have occurred, some looking better than others.",
+
+	'videoformats_scr1' => "Un screener est fait à partir d’une cassette VHS promotionnelle. Habituellement, le film est en 4:3 (plein écran) bien que des widescreen ont déjà été fait par le passé. Un message de copyright permanent ou intermittant défile à l’écran.",
 	//
+
 	'videoformats_dvdscr' => "DVD-SCREENER (DVDscr) -",
-	'videoformats_dvdscr1' => "Same premise as a screener, but transferred off a DVD. Usually letterbox , but without the extras that a DVD retail would contain. The ticker is not usually in the black bars, and will disrupt the viewing. If the ripper has any skill, a DVDscr should be very good. Usually transferred to SVCD or DivX/XviD.",
+
+	'videoformats_dvdscr1' => "Même chose que le SCREENER sauf que la copie promotionnelle est diffusée sur DVD au lieu de VHS. Un message de copyright permanent ou intermittant défile à l’écran. Il arrive aussi qu’il y ait des passages en noir/blanc pendant quelques minutes.",
 	//
+
     'videoformats_dvdrip' => "DVDRip -",
-	'videoformats_dvdrip1' => "A copy of the final released DVD. If possible this is released PRE retail (for example, Star Wars episode 2) again, should be excellent quality. DVDrips are released in SVCD and DivX/XviD.",
+
+	'videoformats_dvdrip1' => "Copie depuis le DVD commercialisé final (retail).",
+
     //
+
 	'videoformats_vhsrip' => "VHSRip -",
-    'videoformats_vhsrip1' => "Transferred off a retail VHS, mainly skating/sports videos and XXX releases.", 
+
+    'videoformats_vhsrip1' => "Copie depuis la VHS commercialisée finale (retail).", 
 	//
+
     'videoformats_tvrip' => "TVRip -", 
-	'videoformats_tvrip1' => "TV episode that is either from Network (capped using digital cable/satellite boxes are preferable) or PRE-AIR from satellite feeds sending the program around to networks a few days earlier (do not contain 'dogs' but sometimes have flickers etc) Some programs such as WWF Raw Is War contain extra parts, and the 'dark matches' and camera/commentary tests are included on the rips. PDTV is capped from a digital TV PCI card, generally giving the best results, and groups tend to release in SVCD for these. VCD/SVCD/DivX/XviD rips are all supported by the TV scene.",
+	'videoformats_tvrip1' => "Copie réalisée à partir de l'enregistrement d'une chaîne de Télévision.",
 	//
 	'videoformats_workpoint' => "WORKPRINT (WP) -", 
-	'videoformats_workpoint1' => "A workprint is a copy of the film that has not been finished. It can be missing scenes, music, and quality can range from excellent to very poor. Some WPs are very different from the final print (Men In Black is missing all the aliens, and has actors in their places) and others can contain extra scenes (Jay and Silent Bob) . WPs can be nice  additions to the collection once a good quality final has been obtained.",
+	'videoformats_workpoint1' => "Un workprint est une copie du film qui n’a pas été fini. Cela peut être des scènes absentes, musique, etc La qualité va d’excellente à très mauvaise. Certains WP sont très différents de la copie finale et d’autres peuvent contenir des scènes supplémentaires. Les WP peuvent s’ajouter à la collection une fois qu’une version finale de bonne qualité a été obtenue.",
+
     //
 	'videoformats_divxre' => "DivX Re-Enc -", 
-	'videoformats_divxre1' => "A DivX re-enc is a film that has been taken from its original VCD source, and re-encoded into a small DivX file. Most commonly found on file sharers, these are usually labeled something like Film.Name.Group(1of2) etc. Common groups are SMR and TND. These aren't really worth downloading, unless you're that unsure about a film u only want a 200mb copy of it. Generally avoid.",
+	'videoformats_divxre1' => "Un DivX re-enc est un film pris d’une source VCD et réencodé dans un fichier DivX plus petit. A éviter, à moins de vouloir regarder un film basse qualité qui pèse 200 Mo.",
 	//
+
 	'videoformats_watermarks' => "Watermarks -", 
-	'videoformats_watermarks1' => "A lot of films come from Asian Silvers/PDVD (see below) and these are tagged by the people responsible. Usually with a letter/initials or a little logo, generally in one of the corners. Most famous are the 'Z' 'A' and 'Globe' watermarks.",
+	'videoformats_watermarks1' => "Beaucoup de films qui viennent des Silvers/PDVD asiatique (voir ci-dessous) sont marquée par les personnes responsables. Habituellement avec des lettres (initiales) ou un petit logo sont généralement dans un des coins. Le plus célèbres sont les watermarks 'A' 'Z' et 'Globe'.",
 	//
+
 	'videoformats_pdvd' => "Asian Silvers / PDVD -", 
-	'videoformats_pdvd1' => "These are films put out by eastern bootleggers, and these are usually bought by some groups to put out as their own. Silvers are very cheap and easily available in a lot of countries, and its easy to put out a release, which is why there are so many in the scene at the moment, mainly from smaller groups who don't last more than a few releases. PDVDs are the same thing pressed onto a DVD. They have removable subtitles, and the quality is usually better than the silvers. These are ripped like a normal DVD, but usually released as VCD.",
+	'videoformats_pdvd1' => "Ce sont des films qui sont piratés par des asiatiques avant leurs sortie sur le marché et qui sont ensuite acheté par des groupes de releases principalement sur la scène américaine. Ils les achètent la majorité du temps par des contacts qui vivent en Asie et qui peuvent les acheter sur les marchés orientaux (Thaïlande, HK, etc.). Les Silvers sont très bon marché et facilement disponible dans beaucoup de pays, donc il est facile de sortir une release, voilà pourquoi il y en a tellement sur la scène à l’heure actuelle. Les PDVD sont la même chose mai copiés sur un DVD. Ils ont des sous-titres optionnels et la qualité est habituellement meilleure que les Silvers. Ceux-ci sont rippés comme un DVD normal mais habituellement encodés en VCD.",
 	//
+
 	'videoformats_scene' => "Scene Tags...", 
 	//
 	'videoformats_proper' => "PROPER -", 
-	'videoformats_proper1' => "Due to scene rules, whoever releases the first Telesync has won that race (for example). But if the quality of that release is fairly poor, if another group has another telesync (or the same source in higher quality) then the tag PROPER is added to the folder to avoid being duped. PROPER is the most subjective tag in the scene, and a lot of people will generally argue whether the PROPER is better than the original release. A lot of groups release PROPERS just out of desperation due to losing the race. A reason for the PROPER should always be included in the NFO.",
+	'videoformats_proper1' => "Tag indiquant qu’il y a une amélioration par rapport à une version précédente. La raison du PROPER devrait toujours être indiquée dans le NFO.",
 	//
 	'videoformats_limited' => "LIMITED -", 
-	'videoformats_limited1' => "A limited movie means it has had a limited theater run, generally opening in less than 250 theaters, generally smaller films (such as art house films) are released as limited.",
+	'videoformats_limited1' => "Un film LiMiTED signifie qu’il est sorti dans un nombre restreint de cinémas (souvent moins de 250 cinémas). Il s’agit souvent de petits films comme les films sur l’art, etc.",
 	//
+
     'videoformats_internal' => "INTERNAL -", 
-	'videoformats_internal1' => "An internal release is done for several reasons. Classic DVD groups do a lot of INTERNAL releases, as they wont be dupe'd on it. Also lower quality theater rips are done INTERNAL so not to lower the reputation of the group, or due to the amount of rips done already. An INTERNAL release is available as normal on the groups affiliate sites, but they can't be traded to other sites without request from the site ops. Some INTERNAL releases still trickle down to IRC/Newsgroups, it usually depends on the title and the popularity. Earlier in the year people referred to Centropy going 'internal'. This meant the group were only releasing the movies to their members and site ops. This is in a different context to the usual definition.",
+	'videoformats_internal1' => "Ce tag est principalement utilisé pour les releases CAM ou TS et indique que la qualité est mauvaise. Il peut aussi y avoir d’autres raisons qui sont indiquées dans le fichier NFO.",
 	//
+
 	'videoformats_stv' => "STV -", 
-	'videoformats_stv1' => "Straight To Video. Was never released in theaters, and therefore a lot of sites do not allow these.",
+	'videoformats_stv1' => "Straight to Video: n'a jamais été sorti dans les cinémas, donc beaucoup de sites ne permettent pas ces dernières. Normalement, ceci doit être très clairement dit dans le nom du dossier et dans le NFO.",
 	//
+
     'videoformats_aspect' => "ASPECT RATIO TAGS -", 
-	'videoformats_ws' => "These are *WS* for widescreen (letterbox) and *FS* for Fullscreen.",
+	'videoformats_ws' => "C'est 'WS' for WideScreen (letterbox) et 'FS' pour FullScreen (plein écran). Selon les normes, les DVDRips sont toujours en WideScreen. Si ce n'est pas le cas, cela sera spécifié dans le nom de la release et dans le NFO.",
 	//
+
     'videoformats_repack' => "REPACK -", 
-	'videoformats_repack1' => "If a group releases a bad rip, they will release a Repack which will fix the problems.",
+	'videoformats_repack1' => "Si un groupe sort une mauvaise release, ils releaseront ensuite un 'FIX' qui réglera le problème (dirfix, nfofix, CD2fix, etc.) ou littéralement un REPACK si c'est le fichier de base qui avait un problème.",
 	//
+
     'videoformats_nuked' => "NUKED -", 
-	'videoformats_nuked1' => "A film can be nuked for various reasons. Individual sites will nuke for breaking their rules (such as &quot;No Telesyncs&quot;) but if the film has something extremely wrong with it (no soundtrack for 20mins, CD2 is incorrect film/game etc) then a global nuke will occur, and people trading it across sites will lose their credits. Nuked films can still reach other sources such as p2p/usenet, but its a good idea to check why it was nuked first in case. If a group realise there is something wrong, they can request a nuke.",
-    'videoformats_reason' => "NUKE REASONS...", 
-	'videoformats_reason1' => "this is a list of common reasons a film can be nuked for (generally DVDRip)",
+	'videoformats_nuked1' => "Un film peut être nuked pour différentes raisons. Les différents sites veulent le nuke car la release ne suit pas leurs règles perso (telles que 'aucun Telesyncs' mais si la release a quelque chose extrêmement mauvais (aucune bande sonore pour 20mins, CD2 est incorrect film/game, etc...) alors un nuke global se produira et les gens qui le traderons à travers les sites perdront leurs crédits.",
+    'videoformats_reason' => "Raisons du NUKE REASONS...", 
+	'videoformats_reason1' => "Vous trouverez ci-dessous une liste des raisons communes pour qu'un film puisse être nuked (généralement DVDRip)",
+
     'videoformats_badar' => "BAD A/R",
-	'videoformats_badar1' => "= bad aspect ratio, ie people appear too fat/thin",
+	'videoformats_badar1' => "= mauvais aspect ratio, par ex. les personnages apparaissent minces",
+
     'videoformats_badivtc' => "BAD IVTC",
-	'videoformats_badivtc1' => "= bad inverse telecine. process of converting framerates was incorrect.",
+	'videoformats_badivtc1' => "= mauvais téléciné. la conversion des trames était incorrecte.",
+
     'videoformats_interlaced' => "INTERLACED",
-	'videoformats_interlaced1' => "= black lines on movement as the field order is incorrect.",
+	'videoformats_interlaced1' => "= des lignes noires en mouvement apparaissent sur la vidéo à l'écran dans un des champs de l'image.",
 	//
+
     'videoformats_dupe' => "DUPE -",
-    'videoformats_dupe1' => "Dupe is quite simply, if something exists already, then theres no reason for it to exist again without proper reason.",
+
+    'videoformats_dupe1' => "Ce terme signifie simplement que si quelque chose a déjà été releasé, il n'y a aucune raison de le refaire sauf si 'PROPER' avec de bonnes raisons.",
 	//
-    'videoformats_header' => "Video Formats"
+    'videoformats_header' => "Formats Video"
 );
 ?>

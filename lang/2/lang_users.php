@@ -18,19 +18,19 @@
  */
 $lang = array(
     //head
-    'head_users' => "Users",
+    'head_users' => "Utilisateurs",
     //form
-    'form_search' => "Search:",
-    'form_btn' => "Okay",
+    'form_search' => "Rechercher:",
+    'form_btn' => "OK",
     //pager
-    'pager_first' => "First",
-    'pager_last' => "Last",
+    'pager_first' => "Premier",
+    'pager_last' => "Dernier",
     //users
-    'users_regd' => "Registered",
-    'users_la' => "Last access",
-    'users_class' => "Class",
-    'users_country' => "Country",
-	'users_username' => "User name",
-	'users_donor' => "Donor"
+    'users_regd' => "Enregistré",
+    'users_la' => "Dernier accès",
+    'users_class' => "Classe",
+    'users_country' => "Pays",
+	'users_username' => "Pseudo",
+	'users_donor' => "Donateur"
 );
 ?>

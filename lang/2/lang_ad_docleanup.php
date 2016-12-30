@@ -18,12 +18,12 @@
  */
 $lang = array(
     //Misc
-    'stderr_error' => "Error",
-    'stderr_cleanup' => "Cleanup",
+    'stderr_error' => "Erreur",
+    'stderr_cleanup' => "Nettoyage",
     //Texts
-    'text_incorrect' => "Incorrect access",
-    'text_cannot' => "You cannot access this file directly.",
-    'text_denied' => "Permission denied !",
-    'text_done' => " Successfully done."
+    'text_incorrect' => "Accès incorrect",
+    'text_cannot' => "Vous ne pouvez pas accéder à ce fichier directement.",
+    'text_denied' => "Permission refusée !",
+    'text_done' => " Action effectuée avec succès."
 );
 ?>

@@ -40,5 +40,5 @@ $lang['inviteadd_stdhead'] = 'Add|Remove invites';
 $lang['inviteadd_sendpm'] = 'Send pm';
 $lang['inviteadd_yes'] = 'Yes';
 $lang['inviteadd_no'] = 'No';
-$lang['inviteadd_action'] = 'Do';
+$lang['inviteadd_action'] = 'Do'
 ?>

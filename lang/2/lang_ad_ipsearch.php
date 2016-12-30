@@ -17,21 +17,21 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-    'ipsearch_error' => "Error",
-    'ipsearch_invalid' => "Invalid IP.",
-    'ipsearch_stdhead' => "IP Search",
-    'ipsearch_subnet' => "Invalid subnet mask.",
-    'ipsearch_none' => "No users found",
-    'ipsearch_mask' => "Mask:",
-    'ipsearch_have_used' => "users have used the IP: ",
-    'ipsearch_username' => "Username",
+    'ipsearch_error' => "Erreur",
+    'ipsearch_invalid' => "IP Invalide.",
+    'ipsearch_stdhead' => "Chercher IP",
+    'ipsearch_subnet' => "Masque de sous-réseau invalide.",
+    'ipsearch_none' => "Aucun membre trouvé",
+    'ipsearch_mask' => "Masque:",
+    'ipsearch_have_used' => "Membre qui ont utilisé cette IP: ",
+    'ipsearch_username' => "Pseudo",
     'ipsearch_ratio' => "Ratio",
     'ipsearch_email' => "Email",
-    'ipsearch_ip' => "Last IP",
-    'ipsearch_access' => "Last access",
-    'ipsearch_num' => "Num of IP's",
-    'ipsearch_added' => "Added",
-    'ipsearch_invited' => "Invited by",
-    'ipsearch_deleted' => "Deleted"
+    'ipsearch_ip' => "Dernière IP",
+    'ipsearch_access' => "Dernier accés",
+    'ipsearch_num' => "Nbr d'IP de",
+    'ipsearch_added' => "Ajouté",
+    'ipsearch_invited' => "Invité par",
+    'ipsearch_deleted' => "Supprimé"
 );
 ?>

@@ -17,9 +17,9 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-    'set_class_temp' => "Temporary Demotion",
-    'set_class_ok' => "Ok!",
-    'set_class_allow' => "Allows you to change your user class on the fly.",
-    'set_class_class' => "Class"
+    'set_class_temp' => "Rétrogradage temporaire",
+    'set_class_ok' => "OK!",
+    'set_class_allow' => "Vous permet de changer de classe à la volée.",
+    'set_class_class' => "Classe"
 );
 ?>

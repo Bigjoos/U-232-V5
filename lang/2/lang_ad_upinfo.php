@@ -17,14 +17,14 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-	'upinfo_stdhead' => "Uploader Stats",
-	'upinfo_rank' => "Rank",
+	'upinfo_stdhead' => "Stats Uploadeur",
+	'upinfo_rank' => "Rang",
 	'upinfo_torrent' => "#Torrents",
-	'upinfo_member' => "Member",
-	'upinfo_class' => "Class",
+	'upinfo_member' => "Membre",
+	'upinfo_class' => "Classe",
 	'upinfo_ratio' => "Ratio",
-	'upinfo_ltupload' => "Last Upload",
-	'upinfo_sendpm' => "Send PM",
-	'upinfo_pm' => "Pm"
+	'upinfo_ltupload' => "Dernier Upload",
+	'upinfo_sendpm' => "Envoyer PM",
+	'upinfo_pm' => "PM"
 );
 ?>

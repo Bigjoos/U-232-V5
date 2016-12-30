@@ -18,17 +18,16 @@
  */
 $lang = array(
     //Flush
-    'flush_stderror' => "Error",
-    'flush_invalid' => "Invalid ID.",
-    'flush_log1'    =>  "Staff flushed ",
-    'flush_log2'    =>  "'s ghost torrents at ",
+    'flush_stderror' => "Erreur",
+    'flush_invalid' => "ID Invalide.",
+    'flush_log1'    =>  "Le Staff a flushé ",
+    'flush_log2'    =>  "'s torrents fantômes à ",
     'flush_log3'    =>  ". ",
-    'flush_log4'    =>  " torrents where sucessfully cleaned.",
-    'flush_success' =>  "Success",
-    'flush_success2'    =>  " ghost torrent",
-    'flush_success3'    =>  "were sucessfully cleaned. You may now restart your torrents, The tracker has been updated, and your ghost torrents where sucessfully flushed. please remember to put the seat down. Redirecting to homepage in 3...2...1.",
-    'flush_fail'    =>  "Oops",
-    'flush_fail2'   =>  "Your not a member of staff."
- 
+    'flush_log4'    =>  " torrents nettoyés avec succès.",
+    'flush_success' =>  "Succès",
+    'flush_success2'    =>  " torrent fantôme",
+    'flush_success3'    =>  "ont été nettoyés avec succès. Vous pouvez redémarrer vos torrents, Le tracker a été mis à jour, et vos torrents fantômes flushés avec succès. Redirection vers la page d'accueil dans 3...2...1.",
+    'flush_fail'    =>  "Oups",
+    'flush_fail2'   =>  "Vous n'êtes pas un membre du staff."
 );
 ?>

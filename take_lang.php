@@ -48,21 +48,21 @@ $HTMLOUT.= "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http
 <html xmlns='http://www.w3.org/1999/xhtml'>
 <head>
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
-<title>Choose Language</title>
+<title>{$lang['language_choice']}</title>
 <link rel='stylesheet' href='./templates/{$CURUSER['stylesheet']}/{$CURUSER['stylesheet']}.css' type='text/css' />
 </head>
 <body>
   <div align='center' style='width:200px'><fieldset>
-    <legend>Change language</legend>
+    <legend>{$lang['language_choice']}</legend>
   <form action='take_lang.php' method='post'>
             <p align='center'>
           <select name='language' onchange='this.form.submit();' size='1' style='font-family: Verdana; font-size: 8pt; color: #000000; border: 1px solid #808080; background-color: #ececec'>";
-$out.= "<option value='1'" . ($CURUSER['language'] == '1' ? " selected='selected'" : "") . ">En</option>
-    <option value='2'" . ($CURUSER['language'] == '2' ? " selected='selected'" : "") . ">Dk</option>
-<option value='3'" . ($CURUSER['language'] == '3' ? " selected='selected'" : "") . ">Rm</option>";
+$out.= "<option value='1'" . ($CURUSER['language'] == '1' ? " selected='selected'" : "") . ">{$lang['language_loc1']}</option>
+    	<option value='2'" . ($CURUSER['language'] == '2' ? " selected='selected'" : "") . ">{$lang['language_loc4']}</option>";   
+//<option value='3'" . ($CURUSER['language'] == '3' ? " selected='selected'" : "") . ">Rm</option>";
 $HTMLOUT.= $out;
 $HTMLOUT.= "</select>
-   <input type='button' value='Close' onclick='self.close()' /></p></form>
+   <input type='button' value='".$lang['language_close']."' onclick='self.close()' /></p></form>
 </fieldset></div></body></html>";
 echo $HTMLOUT;
 exit();

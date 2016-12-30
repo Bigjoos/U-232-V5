@@ -155,7 +155,7 @@ $per_page_drop_down.= '</select><input type="hidden" name="box" value="' . $mail
 $show_pm_avatar_drop_down = '
     <form method="post" action="pm_system.php">
         <select name="show_pm_avatar" onchange="location = this.options[this.selectedIndex].value;">
-            <option value="' . $link . '&amp;show_pm_avatar=yes" ' . (($CURUSER['opt2'] & user_options_2::SHOW_PM_AVATAR) ? ' selected="selected"' : '') . '>show avatars on PM list</option>
+            <option value="' . $link . '&amp;show_pm_avatar=yes" ' . (($CURUSER['opt2'] & user_options_2::SHOW_PM_AVATAR) ? ' selected="selected"' : '') . '>' .$lang['pm_mailbox_doav'] . '</option>
             <option value="' . $link . '&amp;show_pm_avatar=no" ' . (($CURUSER['opt2'] | user_options_2::SHOW_PM_AVATAR) ? ' selected="selected"' : '') . '>' .$lang['pm_mailbox_dontav'] . '</option>
         </select>
             <input type="hidden" name="box" value="' . $mailbox . '" /></form>';

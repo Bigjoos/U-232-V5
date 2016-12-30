@@ -18,21 +18,21 @@
  */
 $lang = array(
     //errors
-    'ipcheck_users' => 'Duplicate IP users:',
-    'ipcheck_user' => 'User',
+    'ipcheck_users' => "Membres à duplicata d'IP:",
+    'ipcheck_user' => 'Membre',
     'ipcheck_email' => 'Email',
-    'ipcheck_regged' => 'Registered',
-    'ipcheck_lastacc' => 'Last access',
-    'ipcheck_dload' => 'Downloaded',
-    'ipcheck_upped' => 'Uploaded',
+    'ipcheck_regged' => 'Enregistré',
+    'ipcheck_lastacc' => 'Dernier accès',
+    'ipcheck_dload' => 'Downloadé',
+    'ipcheck_upped' => 'Uploadé',
     'ipcheck_ratio' => 'Ratio',
     'ipcheck_ip' => 'IP',
     'ipcheck_peer' => 'Peer',
-    'ipcheck_warned' => 'Warned',
-    'ipcheck_clear' => 'Clear',
-    'ipcheck_yes' => 'Yes',
-    'ipcheck_no' => 'No',
-    'ipcheck_noaccess' => 'You are not able to view this page.',
-	'ipcheck_stdhead' => 'Ip Check'
+    'ipcheck_warned' => 'Averti',
+    'ipcheck_clear' => 'Effacer',
+    'ipcheck_yes' => 'Oui',
+    'ipcheck_no' => 'Non',
+    'ipcheck_noaccess' => 'Vous ne pouvez pas voir cette page.',
+	'ipcheck_stdhead' => 'IP Check'
 );
 ?>

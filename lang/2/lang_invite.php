@@ -56,6 +56,6 @@ $lang = array(
     'invites_mail2' => "Send Code",
     'invites_email' => "Please enter a Valid Email",
     'invites_email2' => "Email already in use!",
-    'invites_gencodes' => "Generate Invite Code",
+    'invites_gencodes' => "Generate Invite Code"
 );
 ?>

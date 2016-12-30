@@ -18,22 +18,22 @@
  */
 $lang = array(
     //Misc
-    'stdhead_delete' => "Delete account",
-    'stderr_error' => "Error",
-    'stderr_success' => "Success",
-    'btn_delete' => "Delete",
+    'stdhead_delete' => "Supprimer le compte",
+    'stderr_error' => "Erreur",
+    'stderr_success' => "Succès",
+    'btn_delete' => "Supprimer",
     //Texts
-    'text_error' => "Error",
-    'text_incorrect' => "Incorrect access",
-    'text_cannot' => "You cannot access this file directly.",
-    'text_please' => "Please fill out the form correctly.",
-    'text_bad' => "Bad user name or password. Please verify that all entered information is correct.",
-    'text_unable' => "Unable to delete the account.",
-    'text_succes' => "The account was deleted.",
-    'text_delete' => "Delete account",
-    'text_adduser' => "Add user",
+    'text_error' => "Erreur",
+    'text_incorrect' => "Accès incorrect",
+    'text_cannot' => "Vous ne pouvez pas accéder directement à ce fichier.",
+    'text_please' => "SVP remplissez le formulaire correctement.",
+    'text_bad' => "Nom d'utilisateur ou mot de passe incorrect. SVP vérifiez que toutes les informations saisies sont correctes.",
+    'text_unable' => "Impossible de supprimer le compte.",
+    'text_succes' => "Le compte a été supprimé.",
+    'text_delete' => "Supprimer le compte",
+    'text_adduser' => "Ajouter un membre",
     //The table
-    'table_username' => "Username",
-    'table_password' => "Password"
+    'table_username' => "Pseudo",
+    'table_password' => "Mot de passe"
 );
 ?>

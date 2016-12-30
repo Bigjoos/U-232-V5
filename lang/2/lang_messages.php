@@ -81,6 +81,6 @@ $lang = array(
     'messages_no_id' => "No message with this ID.",
     'messages_no_delete' => "Could not delete message.",
     'messages_jump' => "Jump to",
-    'messages_go' => "Go",
+    'messages_go' => "Go"
 );
 ?>

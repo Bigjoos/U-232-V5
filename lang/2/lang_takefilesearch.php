@@ -18,9 +18,9 @@
  */
 $lang = array(
     //takefilesearch errors
-    'tfilesearch_oops' => "Oops",
-    'tfilesearch_nuffin' => "Nuffin 'ere!",
-    'tfilesearch_error' => "Error",
-    'tfilesearch_nothing' => "Nothing Found.",
+    'tfilesearch_oops' => "Oups",
+    'tfilesearch_nuffin' => "Rien ici!",
+    'tfilesearch_error' => "Erreur",
+    'tfilesearch_nothing' => "Rien trouvé.",
 );
 ?>

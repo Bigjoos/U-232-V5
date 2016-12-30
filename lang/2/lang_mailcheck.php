@@ -18,9 +18,9 @@
  */
 $lang = array(
     //
-    'mailcheck_notval' => "That's not a valid email address, please try again",
-    'mailcheck_sorry' => "Sorry... but that email address",
-    'mailcheck_banned' => "is banned -",
-    'mailcheck_valid' => "Email is address valid"
+    'mailcheck_notval' => "Ce n'est pas un email valide, SVP essayez à nouveau.",
+    'mailcheck_sorry' => "Désolé... mais cette addresse email",
+    'mailcheck_banned' => "est bannie -",
+    'mailcheck_valid' => "L'adresse email est valide"
 );
 ?>

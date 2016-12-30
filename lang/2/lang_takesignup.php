@@ -18,45 +18,65 @@
  */
 $lang = array(
     //takesignup
-    'takesignup_error' => "Error",
-    'takesignup_limit' => "Sorry, user limit reached. Please try again later.",
-    'takesignup_user_error' => "USER ERROR",
-    'takesignup_form_data' => "Invalid form data!",
-    'takesignup_username_length' => "Username too long or too short",
-    'takesignup_allowed_chars' => "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 Only.",
-    'takesignup_blank' => "Don't leave any fields blank.",
-    'takesignup_nomatch' => "The passwords didn't match! Must've typoed. Try again.",
-    'takesignup_pass_short' => "Sorry, password is too short (min is 6 chars)",
-    'takesignup_pass_long' => "Sorry, password is too long (max is 40 chars)",
-    'takesignup_same' => "Sorry, password cannot be same as user name.",
-    'takesignup_validemail' => "That doesn't look like a valid email address.",
-    'takesignup_invalidname' => "Invalid username.",
-    'takesignup_failed' => "Signup failed",
-    'takesignup_qualify' => "Sorry, you're not qualified to become a member of this site.",
-    'takesignup_email_used' => "The e-mail address is already in use.",
-    'takesignup_user_exists' => "Username already exists!",
-    'takesignup_fatal_error' => "Fatal Error!",
+    'stderr_errorhead' => "Désolé",
+	'takesignup_invite_only' => "Seulement sur Invitations - Les Enregistrements sont fermés, si vous avez un code d'invitation cliquez",
+	'takesignup_here' => 'ICI',
+    'takesignup_error' => "Erreur",
+    'takesignup_limit' => "Désolé, le nombre max d'utilisateurs est atteint. Merci de réessayer plus tard.",
+    'takesignup_user_error' => "ERREUR UTILISATEUR",
+    'takesignup_form_data' => "Les données remplies sont invalides!",
+    'takesignup_username_length' => "Pseudo trop long ou trop court",
+    'takesignup_allowed_chars' => "Autorisé : abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.",
+    'takesignup_blank' => "Ne laissez pas de champs vide.",
+    'takesignup_nomatch' => "Les mots de passe ne correspondent pas! Vérifiez et réessayez.",
+    'takesignup_pass_short' => "Désolé, le mot de passe est trop court (min de 6 caractères)",
+    'takesignup_pass_long' => "Désolé, le mot de passe est trop long (max de 40 caractères)",
+    'takesignup_same' => "Désolé, le mot de passe doit être différent du nom d'utilisateur.",
+    'takesignup_validemail' => "L'adresse email ne semble pas valide.",
+	'takesignup_birthday' => "Il faut remplir votre date de naissance.",
+	'takesignup_correct_birthday' => "Vous devez remplir votre date de naissance correctement.",
+	'takesignup_country' => "Vous devez sélectionner votre localité.",
+	'takesignup_ip' => "Cette IP",
+	'takesignup_ip_used' => "est déjà utilisée. Nous n'autorisons qu'un seul compte par adresse IP.",
+	'takesignup_welcome' => "Bienvenue au nouveau",
+	'takesignup_hey' => "Salut",
+	'takesignup_msg_subject' => "Bienvenue",
+	'takesignup_msg_body0' => "! Bienvenue à",
+	'takesignup_msg_body1' => "! :clap2: \n\n Vérifiez votre connectivité avnt tout téléchargement ou tout upload de torrents\n - En cas de problème merci de jeter un oeil au Forum, aux FAQs ou envoyer un message au staff.\n\nBien à vous. Le Staff.\n",
+	'takesignup_member' => "Membre: -",
+	'takesignup_yearsold' => "Vous devez avoir au moins 18 ans pour pouvoir vous enregistrer.",
+    'takesignup_invalidname' => "Pseudo Invalide.",
+    'takesignup_failed' => "Enregistrement raté",
+    'takesignup_qualify' => "Désolé, vous ne pouvez prétendre à une inscription sur ce site.",
+    'takesignup_email_used' => "L'adresse e-mail est déjà utilisée.",
+    'takesignup_user_exists' => "Pseudo déjà pris!",
+    'takesignup_fatal_error' => "Erreur Fatale!",
     'takesignup_mail' => "",
-    'takesignup_confirm' => "user registration confirmation",
-    'takesignup_badusername' => "The username your trying to use <b>(%s)</b> is on our black list chose another one",
-    'takesignup_bannedmail' => "This email address is banned!<br /><br /><strong>Reason</strong>:",
-    'takesignup_from' => "From:"
+    'takesignup_confirm' => "confirmation de l'enregistrement du membre",
+    'takesignup_badusername' => "Le pseudo que vous essayez d'utiliser <b>(%s)</b> est sur notre liste noire, choisissez en un autre",
+    'takesignup_bannedmail' => "Cette adresse email est bannie!<br /><br /><strong>Raison</strong>:",
+    'takesignup_from' => "DE:",
+	'takesignup_x_head' => "Hi Hi",
+	'takesignup_x_body' => "Pas de bol, c'est raté!"
 );
 $lang['takesignup_email_body'] = <<<EOD
 
-You have requested a new user account on <#SITENAME#> and you have
-specified this address (<#USEREMAIL#>) as user contact.
+Vous avez requis un compte nouvel utilisateur sur <#SITENAME#> et vous avez
+spécifié cette addresse (<#USEREMAIL#>) comme adresse de contact.
 
-If you did not do this, please ignore this email. The person who entered your
-email address had the IP address <#IP_ADDRESS#>. Please do not reply.
+Si vous n'avez pas fait cela, merci d'ignorer cet email. La personne qui a entré
+votre adresse email avit l'IP suivante : <#IP_ADDRESS#>. 
+Merci de ne pas répondre à cet email.
 
-To confirm your user registration, you have to follow this link:
+Pour confirmer votre enregistrement, merci de suivre ce lien:
 
 <#REG_LINK#>
 
-After you do this, you will be able to use your new account. If you fail to
-do this, your account will be deleted within a few days. We urge you to read
-the RULES and FAQ before you start using <#SITENAME#>.
+Après cette confirmation, vous pourrez utiliser ce nouveau compte.
+Sans confirmation de votre part, ce compte sera supprimé au bout de quelques jours.
+Nous vous demandons aussi de bien lire les Règles et les FAQs avant de commencer
+à utiliser le site <#SITENAME#>.
+A très vite.
 EOD;
 
 ?>

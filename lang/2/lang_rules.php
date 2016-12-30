@@ -19,11 +19,11 @@
 $lang = array(
     //RULES
     'rules_general_header' => "General rules -",
-    'rules_general_header_sub' => " Breaking these rules can and will get you banned!",
+    'rules_general_header_sub' => " Enfreindre ces règles peut mener au banissement!",
     'rules_general_body' => "Do not defy the moderators expressed wishes!",
     'rules_general_body1' => "Do not upload our torrents to other trackers! (See the <a href='faq.php#up3' class='altlink'><b>FAQ</b></a> for details.)",
     'rules_general_body2' => "Disruptive behaviour in the forums or on the site will result in a warning (<img src='{$INSTALLER09['pic_base_url']}warned.gif' alt='' /> ).<br />You will only get <b>one</b> warning! After that it's bye bye Kansas!",
-    'rules_downloading_header' => "Downloading rules -",
+    'rules_downloading_header' => "Règles de Download -",
     'rules_downloading_header_sub' => " By not following these rules you will lose download privileges!",
     'rules_downloading_body' => "Access to the newest torrents is conditional on a good ratio! (See the <a href='faq.php#dl8' class='altlink'><b>FAQ</b></a> for details.)",
     'rules_downloading_body1' => "Low ratios may result in severe consequences, including banning in extreme cases.",
@@ -51,7 +51,7 @@ $lang = array(
     'rules_avatar_body2' => "Do not use potentially offensive material involving porn, religious material, animal / human
     cruelty or ideologically charged images. Mods have wide discretion on what is acceptable.
     If in doubt PM one.",
-    'rules_uploading_header' => "Uploading rules -",
+    'rules_uploading_header' => "Règles d'Upload  -",
     'rules_uploading_header_sub' => " Torrents violating these rules may be deleted without notice",
     'rules_uploading_body' => "All uploads must include a proper NFO.",
     'rules_uploading_body1' => "Only scene releases. If it's not on <a href='redir.php?url=http://www.nforce.nl' class='altlink'>NFOrce</a> or <a href='http://www.grokmusiq.com/' class='altlink'>grokMusiQ</a> then forget it!",
@@ -101,7 +101,7 @@ $lang = array(
     'rules_mod_options_body6' => "You can add comments to users (for other mods and admins to read).",
     'rules_mod_options_body7' => "You can stop reading now 'cuz you already knew about these options. ;)",
     'rules_mod_options_body8' => "Lastly, check out the <a href='staff.php' class='altlink'>Staff</a> page (top right corner).",
-    'rules_rules' => "Rules",
+    'rules_rules' => "Règles",
     'rules_welcome' => "<b>Welcome to {$INSTALLER09['site_name']} Rule's!</b><br />This is a private tracker, and you have to register before you can get full access to the site.",
     'rules_contents_header' => "Contents"
     );

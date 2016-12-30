@@ -298,9 +298,9 @@ $htmlout .='
     if (($MemStats = $mc1->get_value('mc_hits')) === false) {
         $MemStats =  $MemStat;
         if ($MemStats['cmd_get'] != 0) {
-            $MemStats['Hits'] = (($MemStats['get_hits'] / $MemStats['cmd_get'] < 0.7) ? '' : number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3));
+            $MemStats['Hits'] = number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3);
         } else {
-            $MemStats['Hits'] = '';
+            $MemStats['Hits'] = 0;
         }
         $mc1->cache_value('mc_hits', $MemStats, 10);
     }

@@ -18,10 +18,10 @@
  */
 $lang = array(
     //SEARCH
-    'search_search' => "Search",
-    'search_in' => "in",
-    'search_all_types' => "(all types)",
-    'search_inc_dead' => "including dead torrents\n",
-    'search_search_btn' => "Search!"
+    'search_search' => "Chercher",
+    'search_in' => "dans",
+    'search_all_types' => "(tous les types)",
+    'search_inc_dead' => "en incluant les torrents inactifs\n",
+    'search_search_btn' => "Chercher!"
 );
 ?>

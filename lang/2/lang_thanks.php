@@ -17,8 +17,9 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-    'thanks_no' => 'Nobody said thanks!',
-    'thanks_say' => 'Thanks!',
-    'thanks_error' => 'There was an error with the query, contact the staff. Mysql Error: %s',
+    'thanks_no' => "Personne n'a remercié!",
+    'thanks_say' => 'Merci!',
+    'thanks_error' => 'Il y a eu une erreur avec cette requête, contactez le staff. Mysql Error: %s',
 );
 ?>
+

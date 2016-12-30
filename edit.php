@@ -150,7 +150,7 @@ if ($CURUSER['class'] >= UC_STAFF && XBT_TRACKER == false) {
     if ($row['free'] != 0) {$HTMLOUT.="<br>";
         $HTMLOUT.= tr("{$lang['edit_free_dur1']}", ($row['free'] != 1 ? "{$lang['edit_until']}" . get_date($row['free'], 'DATE') . " 
 		 (" . mkprettytime($row['free'] - TIME_NOW) . " to go)" : 'Unlimited') , 1);
-    }}
+    }
 $HTMLOUT.= "</div>";
 
 $HTMLOUT.= "<div class='col-sm-4'>";
@@ -169,7 +169,7 @@ $HTMLOUT.= tr("{$lang['edit_add_silver']}", ($row['silver'] != 0 ? "<input type=
         $HTMLOUT.= tr("{$lang['edit_silv_dur1']}", ($row['silver'] != 1 ? "{$lang['edit_until']}" . get_date($row['silver'], 'DATE') . " 
 		 (" . mkprettytime($row['silver'] - TIME_NOW) . " to go)" : 'Unlimited') , 1);
     }
-
+}
 $HTMLOUT.= "</div>";
 
 // ===09 Allow Comments

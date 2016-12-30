@@ -18,9 +18,9 @@
  */
     $lang = array(
 	'trace_out' => "Trace Output:",
-	'trace_done' => "done...",
-	'trace_ip' => "Your IP is: ",
-	'trace_host' => "Enter IP or Host ",
+	'trace_done' => "fait...",
+	'trace_ip' => "Votre IP est: ",
+	'trace_host' => "Entrer IP ou Host ",
 	'trace_submit' => "Traceroute!",
 	'trace_stdhead' => "Traceroute"
 );

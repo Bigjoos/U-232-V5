@@ -17,11 +17,11 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-	'ajaxstatus_err' => "There was an error, mysql error",
-	'ajaxstatus_err1' => "nothing to update, string empty",
-	'ajaxstatus_err2' => "there was an error",
-	'ajaxstatus_err3' => "incorrect id",
-	'ajaxstatus_successfully' => "Status update successful",
-	'ajaxstatus_err4' => "Unknow action"
+	'ajaxstatus_err' => "Il y a eu une erreur mysql",
+	'ajaxstatus_err1' => "rien à mettre à jour, la chaîne est vide",
+	'ajaxstatus_err2' => "Il y a eu une erreur",
+	'ajaxstatus_err3' => "ID incorrecte",
+	'ajaxstatus_successfully' => "Mise à jour du Status avec succès",
+	'ajaxstatus_err4' => "Action inconnue"
 );
 ?>

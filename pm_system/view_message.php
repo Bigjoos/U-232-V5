@@ -82,7 +82,7 @@ $HTMLOUT.= $h1_thingie . ($message['draft'] === 'yes' ? '<h1>' . $lang['pm_viewm
     <tr>
         <td colspan="2" class="text-left"><span style="font-weight: bold;">' . ($message['sender'] === $CURUSER['id'] ? $lang['pm_viewmsg_to'] : $lang['pm_viewmsg_from']) . ':</span>
         ' . ($arr_user_stuff['id'] == 0 ? $lang['pm_viewmsg_sys'] : print_user_stuff($arr_user_stuff)) . $spacer . $friends . $spacer . $spacer . '
-        <span style="font-weight: bold;">sent:</span> ' . get_date($message['added'], '') . $spacer . (($message['sender'] === $CURUSER['id'] && $message['unread'] == 'yes') ? '' . $lang['pm_mailbox_char1'] . '<span style="font-weight: bold;color:red;">' . $lang['pm_mailbox_unread'] . '</span>' . $lang['pm_mailbox_char2'] . '' : '') . ($message['urgent'] === 'yes' ? '<span style="font-weight: bold;color:red;">' . $lang['pm_mailbox_urgent'] . '</span>' : '') . '</td>
+        <span style="font-weight: bold;">' . $lang['pm_viewmsg_sent'] . '</span> ' . get_date($message['added'], '') . $spacer . (($message['sender'] === $CURUSER['id'] && $message['unread'] == 'yes') ? '' . $lang['pm_mailbox_char1'] . '<span style="font-weight: bold;color:red;">' . $lang['pm_mailbox_unread'] . '</span>' . $lang['pm_mailbox_char2'] . '' : '') . ($message['urgent'] === 'yes' ? '<span style="font-weight: bold;color:red;">' . $lang['pm_mailbox_urgent'] . '</span>' : '') . '</td>
     </tr>
     <tr>
         <td class="text-center" valign="top" width="0px" id="photocol">' . $avatar . '</td>
@@ -93,5 +93,4 @@ $HTMLOUT.= $h1_thingie . ($message['draft'] === 'yes' ? '<h1>' . $lang['pm_viewm
 <form class="form-horizontal" role="form" action="pm_system.php" method="post">        
 <input class="form-control" type="hidden" name="id" value="' . $pm_id . '">
 <input class="form-control" type="hidden" name="action" value="move">' . get_all_boxes() .'<br>'. $the_buttons . insertJumpTo(0).'</td></tr></table>';
-
 ?>

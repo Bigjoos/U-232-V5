@@ -18,50 +18,64 @@
  */
 $lang = array(
     //takeeditcp
-    'takeeditcp_no_data' => "missing form data",
-    'takeeditcp_pass_long' => "Sorry, password is too long (max is 40 chars)",
-    'takeeditcp_pass_not_match' => "The passwords didn't match. Try again.",
-    'takeeditcp_not_valid_email' => "That doesn't look like a valid email address.",
-    'takeeditcp_address_taken' => "Could not change email, address already taken or password mismatch.",
-    'takeeditcp_user_error' => "USER ERROR",
-    'takeeditcp_image_error' => "Not an image or unsupported image!",
-    'takeeditcp_small_image' => "Image is too small",
-    'takeeditcp_confirm' => "profile change confirmation",
-    'takeeditcp_avatar_not_allow' => "Sorry - Avatar changing disabled to your current user class",
-	'takeeditcp_err' => "Error",
-	'takeeditcp_uerr' => "USER ERROR",
-	'takeeditcp_img_unsupported' => "Not an image or unsupported image!",
-	'takeeditcp_img_to_small' => "Image is too small",
-	'takeeditcp_sorry' => "Sorry",
-	'takeeditcp_secret_long' => "secret answer is too long (max is 40 chars)",
-	'takeeditcp_secret_short' => "secret answer is too sort (min is 6 chars)",
-	'takeeditcp_email_from' => "From: ",
-	'takeeditcp_email_alert' => "Email Alert",
-	'takeeditcp_email_user' => "User ",
-	'takeeditcp_email_changed' => " changed email address :",
-	'takeeditcp_email_old' => " Old email was ",
-	'takeeditcp_email_new' => " new email is ",
-	'takeeditcp_email_check' => ", please check this was for a legitimate reason",
-	'takeeditcp_invalid_custom' => "Invalid custom title!",
-	'takeeditcp_birth_year' => "Please set your birth year.",
-	'takeeditcp_birth_month' => "Please set your birth month.",
-	'takeeditcp_birth_day' => "Please set your birth day.",
-	'takeeditcp_birth_not' => "The date entered is not a valid date, please try again",
+    'takeeditcp_no_data' => "Il manque des données",
+    'takeeditcp_pass_long' => "Désolé, le mot de passe est trop long (max 40 caractères)",
+    'takeeditcp_pass_not_match' => "Les mots de passe ne correspondent pas. Essayez à nouveau.",
+    'takeeditcp_not_valid_email' => "...ça ne ressemble pas à une adresse Email valide!",
+    'takeeditcp_address_taken' => "Modification adresse Email impossible, l'addresse est déjà prise ou le mot de passe ne correspond pas.",
+    'takeeditcp_user_error' => "ERREUR UTILISATEUR",
+    'takeeditcp_image_error' => "Ce n'est pas une image ou le format n'est pas pris en charge!",
+    'takeeditcp_small_image' => "L'image est trop petite",
+    'takeeditcp_confirm' => "Confirmation de la Modification du Profil",
+    'takeeditcp_avatar_not_allow' => "Désolé - Le changement d'Avatar est désactivé pour votre classe",
+	'takeeditcp_err' => "Erreur",
+	'takeeditcp_uerr' => "ERREUR UTILISATEUR",
+	'takeeditcp_img_unsupported' => "Ce n'est pas une image ou le format n'est pas pris en charge!",
+	'takeeditcp_img_to_small' => "L'image est trop petite",
+	'takeeditcp_sorry' => "Désolé",
+	'takeeditcp_secret_long' => "la réponse secrète est trop longue (max 40 caractères)",
+	'takeeditcp_secret_short' => "la réponse secrète est trop courte (min 6 caractères)",
+	'takeeditcp_email_from' => "De: ",
+	'takeeditcp_email_alert' => "Alerte Email",
+	'takeeditcp_email_user' => "Le membre ",
+	'takeeditcp_email_changed' => " a changé son adresse Email :",
+	'takeeditcp_email_old' => " L'ancien email était ",
+	'takeeditcp_email_new' => " le nouvel email est ",
+	'takeeditcp_email_check' => ", merci de vérifier que la raison de ce changement était légitime.",
+	'takeeditcp_invalid_custom' => "Titre personnalisé invalide!",
+	'takeeditcp_birth_year' => "SVP renseignez votre année de naissance.",
+	'takeeditcp_birth_month' => "SVP renseignez votre mois de naissance.",
+	'takeeditcp_birth_day' => "SVP renseignez votre jour de naissance..",
+	'takeeditcp_birth_not' => "La date saisie est invalide, merci de réessayer!",
 );
 $lang['takeeditcp_email_body'] = <<<EOD
-You have requested that your user profile (username <#USERNAME#>)
-on <#SITENAME#> should be updated with this email address (<#USEREMAIL#>) as
-user contact.
 
-If you did not do this, please ignore this email. The person who entered your
-email address had the IP address <#IP_ADDRESS#>. Please do not reply.
+Vous avez requis une modification du profil utilisateur (username <#USERNAME#>)
 
-To complete the update of your user profile, please follow this link:
+sur le site <#SITENAME#>, mis à jour avec cette adresse Email (<#USEREMAIL#>)
+
+sur votre fiche contact.
+
+
+Si vous n'avez rien changé, merci d'ignorer cet Email. La personne ayant utilisée
+
+votre email s'est connectée avec cette IP <#IP_ADDRESS#>.
+
+Merci de ne pas répondre à cet Email.
+
+
+Pour finaliser la mise à jour de votre profil, merci de suivre ce lien:
+
+
 
 <#CHANGE_LINK#>
 
-Your new email address will appear in your profile after you do this. Otherwise
-your profile will remain unchanged.
+
+
+Votre nouvelle adresse Email n'apparaitra sur votre profil qu'après cela.
+
+Le cas échéant votre profil restera inchangé.
+
 EOD;
 
 ?>

@@ -19,21 +19,21 @@
 $lang = array(
     //bonusmanager
     'bonusmanager_wtf' => "WTF?",
-    'bonusmanager_ysbh' => "You shouldn't be here!",
-    'bonusmanager_bm' => "Bonus Management",
-    'bonusmanager_id' => "Id",
+    'bonusmanager_ysbh' => "Vous ne devriez pas être là!",
+    'bonusmanager_bm' => "Gestion des Bonus",
+    'bonusmanager_id' => "ID",
     'bonusmanager_bonus' => "Bonus",
     'bonusmanager_points' => "Points",
-    'bonusmanager_minpoints' => "Min Points",
+    'bonusmanager_minpoints' => "Points Min",
     'bonusmanager_pointspool' => "Points Pool",
     'bonusmanager_description' => "Description",
     'bonusmanager_type' => "Type",
-    'bonusmanager_quantity' => "Quantity",
+    'bonusmanager_quantity' => "Quantité",
     'bonusmanager_action' => "Action",
-    'bonusmanager_enabled' => "Enabled",
-    'bonusmanager_submit' => "Submit",
-    'bonusmanager_oops' => "Oops",
-    'bonusmanager_sql' => "Something went wrong with the sql query",
-	'bonusmanager_stdhead' => "Bonus Manager"	
+    'bonusmanager_enabled' => "Activé",
+    'bonusmanager_submit' => "Soumettre",
+    'bonusmanager_oops' => "Oups",
+    'bonusmanager_sql' => "Il y a eu un problème avec la requête SQL",
+	'bonusmanager_stdhead' => "Gestionnaire des Bonus"	
 );
 ?>

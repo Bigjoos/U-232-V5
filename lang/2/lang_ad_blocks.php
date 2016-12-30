@@ -16,18 +16,18 @@
 ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
-    'text_settings' => "Block Settings",
-    'text_block' => "Block",
+ $lang = array(
+    'text_settings' => "Paramètres de Bloc",
+    'text_block' => "Bloc",
     'text_pos' => "Position",
-    'text_id' => "Sortid",
-    'text_class' => "Class",
-    'text_class1' => "Min Class",
-    'text_act' => "Active",
-    'text_left' => "Left",
-    'text_right' => "Right",
-    'text_disabled' => "Disabled",
-    'text_enabled' => "Enabled",
-    'btn_okay' => "Okay",
+    'text_id' => "Identification du tri",
+    'text_class' => "Classe",
+    'text_class1' => "Classe minimum",
+    'text_act' => "Activé",
+    'text_left' => "Gauche",
+    'text_right' => "Droite",
+    'text_disabled' => "Désactivé",
+    'text_enabled' => "Activé",
+    'btn_okay' => "OK",
 );
 ?>

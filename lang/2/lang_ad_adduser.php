@@ -18,21 +18,21 @@
  */
 $lang = array(
     //Misc
-    'std_adduser' => 'Add user',
-    'std_err' => 'Error',
-    'std_success' => 'Success',
-    'btn_okay' => 'Okay',
+    'std_adduser' => 'Ajouter un utilisateur',
+    'std_err' => 'Erreur',
+    'std_success' => 'Succès',
+    'btn_okay' => 'OK',
     //err
-    'err_username' => 'Forgot username or not long enough (min 5 chars)',
-    'err_password' => 'Forgot passwords or passwords mismatch or not longh enough (min 6 chars)',
-    'err_email' => 'Forgot email or not a vaild email',
-    'err_mysql_err' => 'There was a mysql error : %s, report to staff',
-    'err_already_exists' => 'User already exists...wait for redirect!',
+    'err_username' => 'Pseudo oublié ou trop court (min 5 caractères)',
+    'err_password' => 'Mot de passe oublié, ou ne correspond pas, ou pas assez long (min. 6 caractères)',
+    'err_email' => 'Adresse e-mail oubliée ou invalide',
+    'err_mysql_err' => 'Il y a eu une erreur mysql : %s, contacter le staff',
+    'err_already_exists' => 'Le pseudo existe déjà ... vous allez être redirigé!',
     //Texts
-    'text_user_added' => 'User was added, visit users details <a href="userdetails.php?id=%d">here</a>',
-    'text_username' => 'Username',
-    'text_password' => 'Password',
-    'text_password2' => 'Re-type password',
+    'text_user_added' => 'Le pseudo a été ajouté, merci de visiter les Détails Utilisateur <a href="userdetails.php?id=%d">here</a>',
+    'text_username' => 'Pseudo',
+    'text_password' => 'Mot de passe',
+    'text_password2' => 'Re-taper le mot de passe',
     'text_email' => 'Email'
 );
 ?>

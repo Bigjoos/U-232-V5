@@ -17,18 +17,18 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-	'name_hmm' => "Hmm",
-	'name_think' => "I think you forgot the name",
-	'name_success' => "Success",
-	'name_file' => "The file was written...wait for redirect",
-	'name_err' => "Error",
-	'name_check' => "There was an error while saving the file check if this file ",
-	'name_is' => " is writable",
-	'name_curr' => "Current words on blacklist",
-	'name_no' => "There is no username on the blacklist",
-	'name_add' => "Add word",
-	'name_note' => "Note if you want to submit more then one bad nick at a time separate them with a semicol",
-	'name_update' => "Update",
-	'name_stdhead' => "Username blacklist"
+	'name_hmm' => "Humm",
+	'name_think' => "Vous avez oublié le mot...",
+	'name_success' => "Succès",
+	'name_file' => "Le fichier a été mis à jour...vous allez être redirigé",
+	'name_err' => "Erreur",
+	'name_check' => "Il y a eu une ereur pendant la sauvegarde du fichier, vérifiez si le fichier ",
+	'name_is' => " est accessible en écriture",
+	'name_curr' => "Les mots actuellement inscrit sur la blacklist",
+	'name_no' => "Pas de pseudo de membre sur la blacklist",
+	'name_add' => "Ajouter un mot",
+	'name_note' => "Note: si vous souhaitez ajouter plus d'un mot, alors tapez les l'un après l'autre séparés par un point virgule",
+	'name_update' => "Mettre à jour",
+	'name_stdhead' => "Blacklist de pseudo"
 );
 ?>

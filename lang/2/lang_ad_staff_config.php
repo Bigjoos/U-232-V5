@@ -17,10 +17,10 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $lang = array(
-	'staffcfg_file_created' => "\nThis file created on ", 
+	'staffcfg_file_created' => "\nCe fichier a été créé le ", 
 	'staffcfg_mod_by' => ".\nSite Config staff mod by pdq/U-232.\n",
-	'staffcfg_success' => "'Success",
-	'staffcfg_updated' => "Both staff configuration files were updated",
-	'staffcfg_stdhead' => "Staff Config"
+	'staffcfg_success' => "'Succès",
+	'staffcfg_updated' => "Tous les fichiers config Staff ont été mis à jour!",
+	'staffcfg_stdhead' => "Config Staff"
 );
 ?>
