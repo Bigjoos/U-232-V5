@@ -18,17 +18,17 @@
  */
 $lang = array(
     //Contact Staff
-    'contactstaff_title' => 'Send message to staff',
-    'contactstaff_info' => 'If you wish to contact the staff due to a certain user or just a general problem please use this!',
-    'contactstaff_subject' => 'Subject',
-    'contactstaff_sendit' => 'Send It!',
-    'contactstaff_header' => 'ContactStaff',
-    'contactstaff_error' => 'Error',
+    'contactstaff_title' => "Envoyer un message au staff",
+    'contactstaff_info' => "Si vous souhaitez contacter le staff à propos du comportement d'un user ou d'un problème plus général, svp utilisez ce formulaire!",
+    'contactstaff_subject' => "Sujet",
+    'contactstaff_sendit' => 'Envoyer!',
+    'contactstaff_header' => 'Contact Staff',
+    'contactstaff_error' => 'Erreur',
     //takecontact - 2 files merged
-    'contactstaff_no_sub' => 'Your messages doesn\'t have a subject',
-    'contactstaff_no_msg' => 'Your messages doesn\'t have a body',
-    'contactstaff_success' => 'Success',
-    'contactstaff_success_msg' => 'Message was sent! Wait for staff to respond now! Please wait while redirecting...',
-    'contactstaff_mysql_err' => 'There was something wrong, Mysql Err: %s',
+    'contactstaff_no_sub' => "Votre message n'a pas de sujet",
+    'contactstaff_no_msg' => "Votre message n'a pas de corps de texte",
+    'contactstaff_success' => "Succès",
+    'contactstaff_success_msg' => 'Le message a été envoyé! Le problème sera traité par le staff dans les meilleurs délais! Patientez vous allez être redirigé...',
+    'contactstaff_mysql_err' => 'Il y a eu un problème, Mysql Err: %s'
 );
 ?>
