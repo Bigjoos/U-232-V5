@@ -71,17 +71,17 @@ $(document).ready(function(){
 </script>';
 $search_help_boolean = '<div class="panel panel-default">
 	<div class="panel-heading">
-<h2 class="text-center text-info">The boolean search supports the following operators:</h2>
+<h2 class="text-center text-info">'.$lang['bool_01'].'</h2>
 </div><div class="panel">
 	<div class="panel-body">
- <p>   <span style="font-weight: bold;">+</span> A leading plus sign indicates that this word must be present.<br><br>
-    <span style="font-weight: bold;">-</span> A leading minus sign indicates that this word must not be present.<br><br>
-        By default (when neither + nor - is specified) the word is optional, but results that contain it are rated higher. <br><br>
-    <span style="font-weight: bold;">*</span> The asterisk serves as the wildcard operator. Unlike the other operators, it should be appended to the word to be affected. Words match if they begin with the word preceding the * operator.<br><br>
-    <span style="font-weight: bold;">> <</span> These two operators are used to change a word\'s contribution to the relevance value that is assigned to a word. The > operator increases the contribution and the < operator decreases it.<br><br>
-    <span style="font-weight: bold;">~</span> A leading tilde acts as a negation operator, causing the word\'s contribution to the words\'s relevance to be negative. A row containing such a word is rated lower than others, but is not excluded altogether, as it would be with the - operator.<br><br>
-    <span style="font-weight: bold;">" "</span> A phrase that is enclosed within double quotes return only results that contain the phrase literally, as it was typed. <br><br>
-    <span style="font-weight: bold;">( )</span> Parentheses group words into subexpressions. Parenthesized groups can be nested.
+ <p>   <span style="font-weight: bold;">+</span>'.$lang['bool_02'].'<br><br>
+    <span style="font-weight: bold;">-</span>'.$lang['bool_03'].'<br><br>
+       '.$lang['bool_04'].'<br><br>
+    <span style="font-weight: bold;">*</span>'.$lang['bool_05'].'<br><br>
+    <span style="font-weight: bold;">> <</span>'.$lang['bool_06'].'<br><br>
+    <span style="font-weight: bold;">~</span>'.$lang['bool_07'].'<br><br>
+    <span style="font-weight: bold;">" "</span>'.$lang['bool_08'].'<br><br>
+    <span style="font-weight: bold;">( )</span>'.$lang['bool_09'].'
     </p> </div></div></div></div></div></div>';
 $cats = genrelist();
 if (isset($_GET["search"])) {
@@ -354,7 +354,7 @@ $HTMLOUT.= "</div></div><br>
  <div class='col-md-12'>   
 <div>
 <div class='col-md-4 col-md-offset-4'>
-<br><a href='#myModal' class='btn btn-default btn-small' data-toggle='modal'>For more information about this search click here</a><br><br>
+<br><a href='#myModal' class='btn btn-default btn-small' data-toggle='modal'>{$lang['search_inf_01']}</a><br><br>
 <div id='myModal' class='modal fade'>
         <div class='modal-dialog'>
             <div class='modal-content'>
@@ -367,13 +367,13 @@ $HTMLOUT.= "</div></div><br>
 <div class='row'>
 <div class='form-group'>
 
-<!--<div class='col-md-4 input-group input-group-md text-center'><span class='input-group-addon'><i class='fa fa-search-plus'></i></span><input  class='form-control' placeholder='Search' type='text' name='search' value='' /></div>-->
-<div class='col-md-4'><i class='fa fa-search-plus'></i><input  class='form-control' placeholder='Search' type='text' name='search' value='' /></div>";
+<!--<div class='col-md-4 input-group input-group-md text-center'><span class='input-group-addon'><i class='fa fa-search-plus'></i></span><input  class='form-control' placeholder='{$lang['search_fct_01']}' type='text' name='search' value='' /></div>-->
+<div class='col-md-4'><i class='fa fa-search-plus'></i><input  class='form-control' placeholder='{$lang['search_fct_01']}' type='text' name='search' value='' /></div>";
 
 //=== only free option :o)
 $only_free =((isset($_GET['only_free'])) ? intval($_GET['only_free']) : '');
 //=== checkbox for only free torrents
-$only_free_box = '<input type="checkbox" name="only_free" value="1"'.(isset($_GET['only_free']) ? ' checked="checked"' : '').' /> Only Free Torrents';
+$only_free_box = '<input type="checkbox" name="only_free" value="1"'.(isset($_GET['only_free']) ? ' checked="checked"' : '').' />'.$lang['search_inf_02'].'';
 
 $selected = (isset($_GET["incldead"])) ? (int)$_GET["incldead"] : "";
 $deadcheck = "";
@@ -403,7 +403,7 @@ if (isset($cleansearchstr)) {
     $HTMLOUT.= "<div class='row'><div class='col-md-6 col-md-offset-4'><h2>{$lang['browse_search']} " . htmlsafechars($searchstr, ENT_QUOTES) . "</h2></div></div>\n";
 }
 if ($count) {
-    $HTMLOUT.="<br><div class='row'><div class='col-md-3 col-md-offset-5'><div style='display:inline-block;width:10px';></div><a href='{$INSTALLER09["baseurl"]}/browse.php' class='btn btn-default btn-default'>Old School Browse</a></div></div><br><br>". $pager['pagertop'];
+    $HTMLOUT.="<br><div class='row'><div class='col-md-3 col-md-offset-5'><div style='display:inline-block;width:10px';></div><a href='{$INSTALLER09["baseurl"]}/browse.php' class='btn btn-default btn-default'>{$lang['old_school_b']}</a></div></div><br><br>". $pager['pagertop'];
     $HTMLOUT.= "<br >";
     $HTMLOUT.= torrenttable($res);
     $HTMLOUT.= "<br >";
