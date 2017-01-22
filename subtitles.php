@@ -310,7 +310,7 @@ elseif ($mode == "details") {
     $link = ($s && $w ? "s=$s&amp;w=$w&amp;" : "");
     $count = get_row_count("subtitles AS s", "$where");
     if ($count == 0 && !$s && !$w) stdmsg("", "{$lang['subtitles_there_is_no_subtitle']} <a href=\"subtitles.php?mode=upload\">{$lang['gl_stdfoot_here']}</a> {$lang['subtitles_and_start_uploading']}.", false);
-    $perpage = 5;
+    $perpage = 15;
     $pager = pager($perpage, $count, "subtitles.php?" . $link);
     $res = sql_query("SELECT s.id, s.name,s.lang, s.imdb,s.fps,s.poster,s.cds,s.hits,s.added,s.owner,s.comment, u.username FROM subtitles AS s LEFT JOIN users AS u ON s.owner=u.id $where ORDER BY s.added DESC {$pager['limit']}") or sqlerr(__FILE__, __LINE__);
     $HTMLOUT.= "<table width='700' cellpadding='5' cellspacing='0' border='0' align='center' style='font-weight:bold'>
@@ -335,18 +335,21 @@ elseif ($mode == "details") {
     if (mysqli_num_rows($res) > 0) {
         if ($count > $perpage) $HTMLOUT.= "<div align=\"left\" style=\"padding:5px\">{$pager['pagertop']}</div>";
         $HTMLOUT.= "<table width='700' cellpadding='5' cellspacing='0' border='1' align='center' style='font-weight:bold'>
-<tr><td class='colhead' align='center'>{$lang['gl_language_select']}</td>
-<td class='colhead' align='left' style='width:80%'>{$lang['subtitles_name']}</td>
+<tr>
+<td class='colhead' align='center'>{$lang['gl_language_select']}</td>
+<td class='colhead' align='center' style='width:80%'>{$lang['subtitles_name']}</td>
 <td class='colhead' align='center'>{$lang['subtitles_imdb']}</td>
 <td class='colhead' align='center'>{$lang['subtitles_added']}</td>
 <td class='colhead' align='center'>{$lang['subtitles_hits']}</td>
 <td class='colhead' align='center'>{$lang['subtitles_fps']}</td>
-<td class='colhead' align='center'>{$lang['subtitles_cd']}#</td>";
-        while ($arr = mysqli_fetch_assoc($res)) {
-            if ($arr["owner"] == $CURUSER["id"] || $CURUSER['class'] > UC_MODERATOR) {
-                $HTMLOUT.= "<td class='colhead' align='center'>Tools</td>";
+<td class='colhead' align='center'>{$lang['subtitles_cd']}</td>";
+if ($arr["owner"] == $CURUSER["id"] || $CURUSER['class'] > UC_MODERATOR)
+            {
+            $HTMLOUT.= "<td class='colhead' align='center'>{$lang['subtitles_tools']}</td>";
             }
             $HTMLOUT.= "<td class='colhead' align='center'>{$lang['subtitles_upper']}</td></tr>";
+while ($arr = mysqli_fetch_assoc($res))
+        {
             if ($arr["lang"] == "eng") $langs = "<img src=\"pic/flag/england.gif\" border=\"0\" alt=\"{$lang['gl_english']}\" title=\"{$lang['gl_english']}\" />";
             elseif ($arr["lang"] == "swe") $langs = "<img src=\"pic/flag/sweden.gif\" border=\"0\" alt=\"{$lang['gl_swedish']}\" title=\"{$lang['gl_swedish']}\" />";
             elseif ($arr["lang"] == "dan") $langs = "<img src=\"pic/flag/denmark.gif\" border=\"0\" alt=\"{$lang['gl_danish']}\" title=\"{$lang['gl_danish']}\" />";

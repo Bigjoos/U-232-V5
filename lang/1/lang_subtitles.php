@@ -68,6 +68,15 @@ $lang = array(
     'subtitles_what_the_hell_did_you_upload' => "What the hell did you upload?",
     'subtitles_you_forgot_to_add_the_imdb_link' => "You forgot to add the imdb link",
     'subtitles_youre_not_the_owner' => "You're not the owner! How did that happen?",
-    'subtitles_your_are_about_to_delete_subtitle' => "Your are about to delete Subtitle"
+    'subtitles_your_are_about_to_delete_subtitle' => "Your are about to delete Subtitle",
+    ///additional terms by yoooov
+    'gl_english' => "English",
+    'gl_swedish' => "Swedish",
+    'gl_danish' => "Danish",
+    'gl_norwegian' => "Norwegian",
+    'gl_finnish' => "Finnish",
+    'gl_spanish' => "Spanish",
+    'gl_french' => "French",
+    'subtitles_tools' => "Action"
 	);
 ?>
