@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 					<p class='text-center small'>{$lang['contactstaff_info']}</p>
 				  </td></tr>
 				  <tr><td>
-					<input class='form-control' type='text'  placeholder='{$lang['contactstaff_subject']}'>
+					<input class='form-control' type='text' name='subject' placeholder='{$lang['contactstaff_subject']}'/>
 				  </td></tr>
 		<tr><td align='center' colspan='2'>";
     if (isset($_GET['returnto'])) $HTMLOUT.= "<input type='hidden' name='returnto' value='" . urlencode($_GET['returnto']) . "' />";
