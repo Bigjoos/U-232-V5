@@ -204,7 +204,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
                 $addparam.= "c{$cat['id']}=1&amp;";
             }
         }
-        $addparam = "";
+        //$addparam = "";
     }
     if (count($wherecatina) < 1) {
         foreach ($cats as $cat) {
@@ -213,7 +213,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
             }
         }
         $wherea[] = 'category IN (' . join(', ', $wherecatina2) . ') ';
-        $addparam = "";
+        //$addparam = "";
     }
 
 if (count($wherecatina) > 1) $wherea[] = 'category IN (' . join(', ', $wherecatina) . ') ';
