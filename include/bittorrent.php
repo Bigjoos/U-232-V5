@@ -1359,6 +1359,8 @@ function get_imdb($imdburl) {
     $imdb_info['write'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$write[$i]["imdb"]."" ."\">" . "".$write[$i]["name"]."" . "</a>, ";
     }
     $imdb_info['write'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$write[$i]["imdb"]."" ."\">" . "".$write[$i]["name"]."" . "</a> ";
+    }else{
+    $imdb_info['write'] = "None Available";
     }
     $compose = $movie->composer();
     if (!empty($compose)) {
