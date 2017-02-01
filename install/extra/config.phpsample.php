@@ -249,14 +249,6 @@ $INSTALLER09['movie_cats'] = array(
     10,
     11
 );
-$INSTALLER09['slider_cats'] = array(
-    3,
-    5,
-    6,
-    10,
-    11
-);
-$INSTALLER09['moviecats'] = "3,5,6,10,11";
 $INSTALLER09['tv_cats'] = array(
     11
 );
