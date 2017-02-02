@@ -57,7 +57,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
             sql_query("DELETE posts, topics " .
                 ($Multi_forum['configs']['use_attachment_mod'] ? ", attachments, attachmentdownloads " : "") .
                 ($Multi_forum['configs']['use_poll_mod'] ? ", postpolls, postpollanswers " : "") . "FROM topics " . "LEFT JOIN posts ON posts.topic_id = topics.id " .
-                ($Multi_forum['configs']['use_attachment_mod'] ? "LEFT JOIN attachments ON attachments.post_id = posts.id " . "LEFT JOIN attachmentdownloads ON attachmentdownloads.file_id = attachments.id " : "") . ($Multi_forum['configs']['use_poll_mod'] ? "LEFT JOIN postpolls ON postpolls.id = topics.pollid " . "LEFT JOIN postpollanswers ON postpollanswers.pollid = postpolls.id " : "") . "WHERE topics.id=".sqlesc($topicid)) or sqlerr(__FILE__, __LINE__);
+                ($Multi_forum['configs']['use_attachment_mod'] ? "LEFT JOIN attachments ON attachments.post_id = posts.id " . "LEFT JOIN attachmentdownloads ON attachmentdownloads.file_id = attachments.id " : "") . ($Multi_forum['configs']['use_poll_mod'] ? "LEFT JOIN postpolls ON postpolls.id = topics.poll_id " . "LEFT JOIN postpollanswers ON postpollanswers.pollid = postpolls.id " : "") . "WHERE topics.id=".sqlesc($topicid)) or sqlerr(__FILE__, __LINE__);
             header('Location: '.$INSTALLER09['baseurl'].'/forums.php?action=viewforum&forumid='.(int)$a["forumid"]);
             exit();
         }
