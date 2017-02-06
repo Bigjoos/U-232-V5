@@ -116,12 +116,12 @@ if ($count_inactive > 0) {
     for (i = 0; i < field.length; i++) {
     field[i].checked = true;}
     checkflag = 'true';
-    return 'Uncheck All'; }
+    return '{$lang['inactive_unchk']}'; }
     else {
     for (i = 0; i < field.length; i++) {
     field[i].checked = false; }
     checkflag = 'false';
-    return 'Check All'; }
+    return '{$lang['inactive_chkall']}'; }
     }
     /*]]>*/
     </script>";
@@ -155,7 +155,7 @@ if ($count_inactive > 0) {
     <option value='mail'>{$lang['inactive_sendmail']}</option>
     <option value='deluser' " . ($CURUSER["class"] < UC_ADMINISTRATOR ? "disabled" : "") . ">{$lang['inactive_deleteusers']}</option>
     <option value='disable'>{$lang['inactive_disaccounts']}</option>
-    </select>&nbsp;&nbsp;<input type='submit' name='submit' value='{$lang['inactive_apchanges']}' />&nbsp;&nbsp;<input type='button' value='Check all' onclick='this.value=check(form)' /></td></tr>";
+    </select>&nbsp;&nbsp;<input type='submit' name='submit' value='{$lang['inactive_apchanges']}' />&nbsp;&nbsp;<input type='button' value='{$lang['inactive_chkall']}' onclick='this.value=check(form)' /></td></tr>";
     if ($record_mail) {
         $ress = sql_query("SELECT avps.value_s AS userid, avps.value_i AS last_mail, avps.value_u AS mails, users.username FROM avps LEFT JOIN users ON avps.value_s=users.id WHERE avps.arg='inactivemail' LIMIT 1");
         $date = mysqli_fetch_assoc($ress);
