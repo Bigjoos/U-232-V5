@@ -62,18 +62,18 @@ $HTMLOUT = $searchin = $select_searchin = $where = $addparam = $new_button = $se
 $HTMLOUT .='<script type="text/javascript">
 /*<![CDATA[*/
 $(document).ready(function(){
-	$("#help_open").click(function(){
-	$("#help").slideToggle("slow", function() {
-	});
-	});
+    $("#help_open").click(function(){
+    $("#help").slideToggle("slow", function() {
+    });
+    });
 })
 /*]]>*/
 </script>';
 $search_help_boolean = '<div class="panel panel-default">
-	<div class="panel-heading">
+    <div class="panel-heading">
 <h2 class="text-center text-info">'.$lang['bool_01'].'</h2>
 </div><div class="panel">
-	<div class="panel-body">
+    <div class="panel-body">
  <p>   <span style="font-weight: bold;">+</span>'.$lang['bool_02'].'<br><br>
     <span style="font-weight: bold;">-</span>'.$lang['bool_03'].'<br><br>
        '.$lang['bool_04'].'<br><br>
@@ -201,7 +201,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
                 $addparam.= "c{$cat['id']}=1&amp;";
             }
         }
-        $addparam = "";
+        //$addparam = "";
     }
     if (count($wherecatina) < 1) {
         foreach ($cats as $cat) {
@@ -210,7 +210,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
             }
         }
         $wherea[] = 'category IN (' . join(', ', $wherecatina2) . ') ';
-        $addparam = "";
+        //$addparam = "";
     }
 
 if (count($wherecatina) > 1) $wherea[] = 'category IN (' . join(', ', $wherecatina) . ') ';
@@ -241,7 +241,7 @@ if (isset($cleansearchstr)) {
         if (preg_match('/^\"(.+)\"$/i', $searchstring, $matches)) $wherea[] = '`name` LIKE ' . sqlesc('%' . str_replace($s, $r, $matches[1]) . '%');
         elseif (strpos($searchstr, '*') !== false || strpos($searchstr, '?') !== false) $wherea[] = '`name` LIKE ' . sqlesc(str_replace($s, $r, $searchstr));
         elseif (preg_match('/^[A-Za-z0-9][a-zA-Z0-9()._-]+-[A-Za-z0-9_]*[A-Za-z0-9]$/iD', $searchstr)) $wherea[] = '`name` = ' . sqlesc($searchstr);
-        else $wherea[] = 'MATCH (`search_text`, `filename`) AGAINST (' . sqlesc($searchstr) . ' IN BOOLEAN MODE)';
+        else $wherea[] = 'MATCH (`search_text`, `filename`, `newgenre`) AGAINST (' . sqlesc($searchstr) . ' IN BOOLEAN MODE)';
         //......
         $orderby = 'ORDER BY id DESC';
         $searcha = explode(' ', $cleansearchstr);
@@ -360,10 +360,10 @@ $HTMLOUT.= "</div></div><br>
             <div class='modal-content'>
                 <div class='modal-header'>
                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>".$search_help_boolean."
-				</div>
-			</div>
-		</div>
-	</div></div>
+                </div>
+            </div>
+        </div>
+    </div></div>
 <div class='row'>
 <div class='form-group'>
 
@@ -409,7 +409,7 @@ if ($count) {
     $HTMLOUT.= "<br >";
     $HTMLOUT.= $pager['pagerbottom'];
     $HTMLOUT.= "<br >";
-	} else {
+    } else {
     if (isset($cleansearchstr)) {
         $HTMLOUT.= "<div class='row'><div class='col-md-6 col-md-offset-4'><h2>{$lang['browse_not_found']}</h2>";
         $HTMLOUT.= "{$lang['browse_tryagain']}</div></div>\n";

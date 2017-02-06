@@ -20,7 +20,7 @@ require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 
 require_once (INCL_DIR . 'user_functions.php');
 dbconn(false);
 loggedinorreturn();
-$lang = array_merge(load_language('global'));
+$lang = array_merge(load_language('global'), load_language('takelang'));
 $HTMLOUT = $out = '';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $lid = isset($_POST['language']) ? (int)$_POST['language'] : 1;

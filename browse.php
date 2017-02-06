@@ -204,7 +204,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
                 $addparam.= "c{$cat['id']}=1&amp;";
             }
         }
-        $addparam = "";
+        //$addparam = "";
     }
     if (count($wherecatina) < 1) {
         foreach ($cats as $cat) {
@@ -213,7 +213,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
             }
         }
         $wherea[] = 'category IN (' . join(', ', $wherecatina2) . ') ';
-        $addparam = "";
+        //$addparam = "";
     }
 
 if (count($wherecatina) > 1) $wherea[] = 'category IN (' . join(', ', $wherecatina) . ') ';
@@ -244,7 +244,7 @@ if (isset($cleansearchstr)) {
         if (preg_match('/^\"(.+)\"$/i', $searchstring, $matches)) $wherea[] = '`name` LIKE ' . sqlesc('%' . str_replace($s, $r, $matches[1]) . '%');
         elseif (strpos($searchstr, '*') !== false || strpos($searchstr, '?') !== false) $wherea[] = '`name` LIKE ' . sqlesc(str_replace($s, $r, $searchstr));
         elseif (preg_match('/^[A-Za-z0-9][a-zA-Z0-9()._-]+-[A-Za-z0-9_]*[A-Za-z0-9]$/iD', $searchstr)) $wherea[] = '`name` = ' . sqlesc($searchstr);
-        else $wherea[] = 'MATCH (`search_text`, `filename`) AGAINST (' . sqlesc($searchstr) . ' IN BOOLEAN MODE)';
+        else $wherea[] = 'MATCH (`search_text`, `filename`, `newgenre`) AGAINST (' . sqlesc($searchstr) . ' IN BOOLEAN MODE)';
         //......
         $searcha = explode(' ', $cleansearchstr);
         //==Memcache search cloud by putyn
