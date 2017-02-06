@@ -1282,128 +1282,139 @@ function write_bonus_log($userid, $amount, $type){
 function get_imdb($imdburl) {
     global $INSTALLER09, $mc1;
     $imdb_info['id'] = $imdb_info['title'] = $imdb_info['orig_title'] = $imdb_info['year'] = $imdb_info['rating'] = $imdb_info['votes'] = $imdb_info['gen'] = $imdb_info['runtime'] = $imdb_info['country'] = $imdb_info['lanuage'] = $imdb_info['director'] = $imdb_info['produce'] = $imdb_info['write'] = $imdb_info['compose'] = $imdb_info['plotoutline'] = $imdb_info['plot'] = $imdb_info['trailers'] = $imdb_info['comment'] = "";
-    require_once(IMDB_DIR.'imdb.class.php');
-    $rurl = trim($imdburl);
-    $thenumbers = ltrim(strrchr($rurl,'tt'),'tt'); 
-    $thenumbers = ($thenumbers[strlen($thenumbers)-1] == "/" ? substr($thenumbers,0,strlen($thenumbers)-1) : $thenumbers); 
-    $thenumbers = preg_replace("[^A-Za-z0-9]", "", $thenumbers);
-    if (($imdb_info = $mc1->get_value('imdb_info_'.$thenumbers)) === false) {
-    $movie = new imdb ($thenumbers); 
-    $movieid = $thenumbers;
-    $movie->setid ($movieid);
-    $cast = $movie->cast();
-    $imdb_info['id']  = $movieid ;
-    $imdb_info['title'] = $movie->title();
-    $imdb_info['orig_title'] = $movie->orig_title();
-    $imdb_info['year'] = $movie->year();
-    $mvotes = $movie->votes();
-    $mvrating = $movie->rating();
-    if (!empty($mvrating)) {
-    $imdb_info['rating'] = "$mvrating";
-    $imdb_info['votes'] = "$mvotes";
-    }else{
-    $imdb_info['rating'] = "N/A";
-    }
-    $gen = $movie->genres();
-    if (!empty($gen)) {
-    //Changed count($gen) for 4 to limit to only two genres to help keep it tidy on site
-    for ($i = 0; $i + 1 < count($gen); $i++) {
-    $imdb_info['gen'] .= "$gen[$i], ";
-    }
-    $imdb_info['gen'] .="$gen[$i]";
-    }
-    else $imdb_info['gen'] = "None Found";
-    $runtime = $movie->runtime();
-    if (!empty($runtime)) {
-    $imdb_info['runtime'] = "$runtime"; 
-    }else{
-    $imdb_info['runtime'] = "N/A";
-    }
+    if (preg_match('/tt\d+/i', $imdburl)) {
+        require_once IMDB_DIR . 'imdb.class.php';
+        $rurl = trim($imdburl);
+        $thenumbers = ltrim(strrchr($rurl, 'tt'), 'tt');
+        $thenumbers = ($thenumbers[strlen($thenumbers) - 1] == "/" ? substr($thenumbers, 0, strlen($thenumbers) - 1) : $thenumbers);
+        $thenumbers = preg_replace("[^A-Za-z0-9]", "", $thenumbers);
+        if (($imdb_info = $mc1->get_value('imdb_info_' . $thenumbers)) === false) {
+            $movie = new imdb($thenumbers);
+            $movieid = $thenumbers;
+            $movie->setid($movieid);
+            $cast = $movie->cast();
+            $imdb_info['id'] = $movieid;
+            $imdb_info['title'] = $movie->title();
+            $imdb_info['orig_title'] = $movie->orig_title();
+            $imdb_info['year'] = $movie->year();
+            $mvotes = $movie->votes();
+            $mvrating = $movie->rating();
+            if (!empty($mvrating)) {
+                $imdb_info['rating'] = "$mvrating";
+                $imdb_info['votes'] = "$mvotes";
+            } else {
+                $imdb_info['rating'] = "N/A";
+            }
+            $gen = $movie->genres();
+            if (!empty($gen)) {
+                //Changed count($gen) for 4 to limit to only two genres to help keep it tidy on site
+                for ($i = 0; $i + 1 < count($gen); $i++) {
+                    $imdb_info['gen'] .= "$gen[$i], ";
+                }
+                $imdb_info['gen'] .= "$gen[$i]";
+            } else {
+                $imdb_info['gen'] = "None Found";
+            }
 
-    $country = $movie->country ();
-    if (!empty($country)) {
-    for ($i = 0; $i + 1 < count ($country); $i++) {
-    $imdb_info['country'] .="$country[$i], ";
-    }
-    $imdb_info['country'] .= "$country[$i]";
-    }
-    else
-    $imdb_info['country'] = "None Available";
-    $mvlang = $movie->language();
-    if (!empty($mvlang)) {
-    $imdb_info['lanuage'] = "$mvlang";
-    }
-    else
-    $imdb_info['lanuage'] = "None Available";
-    $director = $movie->director();
-    if (!empty($director)) {
-    for ($i = 0; $i < count ($director); $i++) {
-    $imdb_info['director'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$director[$i]["imdb"]."" ."\">" . "".$director[$i]["name"]."" . "</a>, ";
-    }
-    $imdb_info['director'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$director[$i]["imdb"]."" ."\">" . "".   $director[$i]["name"]."" . "</a> ";
-    }
-    else
-    $imdb_info['director'] = "None Available";
-    $produce = $movie->producer();
-    if (!empty($produce)) {
-    for ($i = 0; $i < count ($produce); $i++) {
-    $imdb_info['produce'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$produce[$i]["imdb"]."" ." \">" . "".$produce[$i]["name"]."" . "</a>,";
-    }       
-    $imdb_info['produce'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$produce[$i]["imdb"]."" ." \">" . "".$produce[$i]["name"]."" . "</a>";
-    }
-    else
-    $imdb_info['produce'] = "None Available";
-    $write = $movie->writing();
-    if (!empty($write)) {
-    for ($i = 0; $i < count ($write); $i++) {
-    $imdb_info['write'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$write[$i]["imdb"]."" ."\">" . "".$write[$i]["name"]."" . "</a>, ";
-    }
-    $imdb_info['write'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$write[$i]["imdb"]."" ."\">" . "".$write[$i]["name"]."" . "</a> ";
-    }else{
-    $imdb_info['write'] = "None Available";
-    }
-    $compose = $movie->composer();
-    if (!empty($compose)) {
-    for ($i = 0; $i < count($compose); $i++) {
-    $imdb_info['compose'].= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "".$compose[$i]["imdb"]."" ." \">" . "".$compose[$i]["name"]."" . "</a>, "; 
-    }
-    }else{
-    $imdb_info['compose'].= "N/A"; 
-    }
-    $plotoutline = $movie->plotoutline();
-    if (!empty($plotoutline)) { 
-    $imdb_info['plotoutline']="".str_replace(array('<p>', '</p>','<a href="plotsummary">See full summary</a>'), array("",""), "$plotoutline")."";
-    }
-    else
-    $imdb_info['plotoutline'].= "No Summary Available";
-    $plot = $movie->plot ();
-    if (!empty($plot)) {
-    for ($i = 0; $i < count ($plot); $i++) {
-    $imdb_info['plot'].=str_replace(array("&", "<p>", "</p>"), array("&amp;","",""), "$plot[$i]<br /><br />");
-    }
-    }
-    else
-    $imdb_info['plot'].= "No Plot Available";
-    $trailers = $movie->trailers();
-    if (!empty($trailers)) {
-    for ($i = 0; $i < count ($trailers); $i++) {
-    $imdb_info['trailers'].= "<a href='".$trailers[$i]."' title='Trailer' target='_blank'>IMDB Trailer</a><br />";
-    }
-    $imdb_info['trailers'].= "<a href='".$trailers[$i]."' title='Trailer' target='_blank'>IMDB Trailer</a>";
-    }
-    else
-    $imdb_info['trailers'] = "None Available";
-    $comment = $movie->comment();
-    if (!empty($comment)) {
-    $imdb_info['comment']= "".str_replace(array("<p>", "</p>", "<br>","<a></a>"), array("<br />", "<br />","<br />",""), "$comment")."";
-    }
-    else
-    $imdb_info['comment'] = "No comments available";
-    if (($photo_url = $movie->photo_localurl() ) != false) {
-    $imdb_info['poster'] = $photo_url;
-    } 
-    $mc1->cache_value('imdb_info_'.$thenumbers, $imdb_info, 0);
-    }
+            $runtime = $movie->runtime();
+            if (!empty($runtime)) {
+                $imdb_info['runtime'] = "$runtime";
+            } else {
+                $imdb_info['runtime'] = "N/A";
+            }
+
+            $country = $movie->country();
+            if (!empty($country)) {
+                for ($i = 0; $i + 1 < count($country); $i++) {
+                    $imdb_info['country'] .= "$country[$i], ";
+                }
+                $imdb_info['country'] .= "$country[$i]";
+            } else {
+                $imdb_info['country'] = "None Available";
+            }
+
+            $mvlang = $movie->language();
+            if (!empty($mvlang)) {
+                $imdb_info['lanuage'] = "$mvlang";
+            } else {
+                $imdb_info['lanuage'] = "None Available";
+            }
+
+            $director = $movie->director();
+            if (!empty($director)) {
+                for ($i = 0; $i < count($director); $i++) {
+                    $imdb_info['director'] .= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "" . $director[$i]["imdb"] . "" . "\">" . "" . $director[$i]["name"] . "" . "</a>, ";
+                }
+                $imdb_info['director'] .= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "" . $director[$i]["imdb"] . "" . "\">" . "" . $director[$i]["name"] . "" . "</a> ";
+            } else {
+                $imdb_info['director'] = "None Available";
+            }
+
+            $produce = $movie->producer();
+            if (!empty($produce)) {
+                for ($i = 0; $i < count($produce); $i++) {
+                    $imdb_info['produce'] .= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "" . $produce[$i]["imdb"] . "" . " \">" . "" . $produce[$i]["name"] . "" . "</a>,";
+                }
+                $imdb_info['produce'] .= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "" . $produce[$i]["imdb"] . "" . " \">" . "" . $produce[$i]["name"] . "" . "</a>";
+            } else {
+                $imdb_info['produce'] = "None Available";
+            }
+
+            $write = $movie->writing();
+            if (!empty($write)) {
+                for ($i = 0; $i < count($write); $i++) {
+                    $imdb_info['write'] .= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "" . $write[$i]["imdb"] . "" . "\">" . "" . $write[$i]["name"] . "" . "</a>, ";
+                }
+                $imdb_info['write'] .= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "" . $write[$i]["imdb"] . "" . "\">" . "" . $write[$i]["name"] . "" . "</a> ";
+            } else {
+            	$imdb_info['write'] .= "N/A";
+            }
+            $compose = $movie->composer();
+            if (!empty($compose)) {
+                for ($i = 0; $i < count($compose); $i++) {
+                    $imdb_info['compose'] .= "<a target=\"_blank\" href=\"http://www.imdb.com/name/nm" . "" . $compose[$i]["imdb"] . "" . " \">" . "" . $compose[$i]["name"] . "" . "</a>, ";
+                }
+            } else {
+                $imdb_info['compose'] .= "N/A";
+            }
+            $plotoutline = $movie->plotoutline();
+            if (!empty($plotoutline)) {
+                $imdb_info['plotoutline'] = "" . str_replace(array('<p>', '</p>', '<a href="plotsummary">See full summary</a>'), array("", ""), "$plotoutline") . "";
+            } else {
+                $imdb_info['plotoutline'] .= "No Summary Available";
+            }
+
+            $plot = $movie->plot();
+            if (!empty($plot)) {
+                for ($i = 0; $i < count($plot); $i++) {
+                    $imdb_info['plot'] .= str_replace(array("&", "<p>", "</p>"), array("&amp;", "", ""), "$plot[$i]<br /><br />");
+                }
+            } else {
+                $imdb_info['plot'] .= "No Plot Available";
+            }
+
+            $trailers = $movie->trailers();
+            if (!empty($trailers)) {
+                for ($i = 0; $i < count($trailers); $i++) {
+                    $imdb_info['trailers'] .= "<a href='" . $trailers[$i] . "' title='Trailer' target='_blank'>IMDB Trailer</a><br />";
+                }
+                $imdb_info['trailers'] .= "<a href='" . $trailers[$i] . "' title='Trailer' target='_blank'>IMDB Trailer</a>";
+            } else {
+                $imdb_info['trailers'] = "None Available";
+            }
+
+            $comment = $movie->comment();
+            if (!empty($comment)) {
+                $imdb_info['comment'] = "" . str_replace(array("<p>", "</p>", "<br>", "<a></a>"), array("<br />", "<br />", "<br />", ""), "$comment") . "";
+            } else {
+                $imdb_info['comment'] = "No comments available";
+            }
+
+            if (($photo_url = $movie->photo_localurl()) != false) {
+                $imdb_info['poster'] = $photo_url;
+            }
+            $mc1->cache_value('imdb_info_' . $thenumbers, $imdb_info, 0);
+        }}
     return $imdb_info;
 }
 ?>
