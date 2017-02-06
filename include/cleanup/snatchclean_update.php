@@ -35,9 +35,8 @@ function docleanup($data)
     }
     $tcompletedres = sql_query("SELECT id, times_completed FROM torrents");
     while ($row2 = mysqli_fetch_assoc($tcompletedres)) {
-        if(!array_key_exists($row2['id'], $snatchedcounts)||(array_key_exists($row2['id'], $snatchedcounts) && $row2['times_completed'] != $snatchedcounts[$row2['id']])) {
+        if(array_key_exists($row2['id'], $snatchedcounts) && $row2['times_completed'] != $snatchedcounts[$row2['id']]) {
             sql_query("UPDATE torrents SET times_completed = ".$snatchedcounts[$row2['id']] . " WHERE id = " . $row2['id']);
-            ++$snatchedcounts;
         }
     }
 
