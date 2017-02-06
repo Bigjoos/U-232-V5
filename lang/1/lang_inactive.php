@@ -57,6 +57,9 @@ $lang = array(
     'inactive_email' => " Email",
     'inactive_on' => "on",
     'inactive_sent' => "sent !",
-    'inactive_noaccounts' => "No account inactive for longer than"
+    'inactive_noaccounts' => "No account inactive for longer than",
+    //add by yoooov
+    'inactive_chkall' => "Check all",
+    'inactive_unchk' => "Uncheck All"
 );
 ?>
