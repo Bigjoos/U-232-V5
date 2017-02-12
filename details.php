@@ -30,7 +30,7 @@ require_once (IMDB_DIR . 'imdb.class.php');
 require_once (INCL_DIR . 'getpre.php');
 dbconn(false);
 loggedinorreturn();
-$lang = array_merge(load_language('global'), load_language('details'));
+$lang = array_merge(load_language('global'), load_language('details'), load_language('free_details'));
 parked();
 $stdhead = array(
     /** include css **/
