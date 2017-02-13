@@ -182,8 +182,8 @@ $torrent['addfree'] = get_date($torrent['addedfree'], 'DATE');
 $torrent['idk'] = (TIME_NOW + 14 * 86400);
 $torrent['freeimg'] = '<img src="' . $INSTALLER09['pic_base_url'] . 'freedownload.gif" alt="" />';
 $torrent['doubleimg'] = '<img src="' . $INSTALLER09['pic_base_url'] . 'doubleseed.gif" alt="" />';
-$torrent['free_color'] = '#FF0000';
-$torrent['silver_color'] = 'silver';
+$torrent['free_color'] = 'danger';
+$torrent['silver_color'] = 'default';
 //==rep user query by pdq
 if (($torrent_cache['rep'] = $mc1->get_value('user_rep_' . $torrents['owner'])) === false) {
     $torrent_cache['rep'] = array();
