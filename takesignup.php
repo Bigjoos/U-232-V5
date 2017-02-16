@@ -169,7 +169,7 @@ $body = str_replace(array(
     "{$INSTALLER09['baseurl']}/confirm.php?id=$id&secret=$psecret"
 ) , $lang['takesignup_email_body']);
 
-if ($arr[0] || EMAIL_CONFIRM) 
+if ($arr[0] && EMAIL_CONFIRM) 
 mail($email, "{$INSTALLER09['site_name']} {$lang['takesignup_confirm']}", $body, "{$lang['takesignup_from']} {$INSTALLER09['site_email']}");
 else 
 logincookie($id, $wantpasshash);
