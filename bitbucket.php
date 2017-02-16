@@ -30,7 +30,7 @@ $HTMLOUT = "";
 // BITBUCKET_DIR Now defined in config.php
 //define('BITBUCKET_DIR', DIRECTORY_SEPARATOR.'var'.DIRECTORY_SEPARATOR.'bucket');
 /* Avatar folder located inside BITBUCKET_DIR */
-define('AVATAR_DIR', BITBUCKET_DIR.DIRECTORY_SEPARATOR.'avatar');
+define('AVATAR_DIR', BITBUCKET_DIR.DIRECTORY_SEPARATOR.'avatars');
 if (!is_dir(AVATAR_DIR)) {
     mkdir(AVATAR_DIR);
 }
@@ -49,7 +49,7 @@ $formats = array(
 );
 // path to bucket/avatar directories
 $bucketdir = (isset($_POST["avy"]) ? AVATAR_DIR.'/' : BITBUCKET_DIR.'/'.$folders.'/');
-$bucketlink = ((isset($_POST["avy"]) || (isset($_GET['images']) && $_GET['images'] == 2)) ? 'avatar/' : $folders.'/');
+$bucketlink = ((isset($_POST["avy"]) || (isset($_GET['images']) && $_GET['images'] == 2)) ? 'avatars/' : $folders.'/');
 $address = $INSTALLER09['baseurl'].'/';
 $PICSALT = md5($SaLt . $CURUSER['username']);
 //rename files and obscufate uploader
