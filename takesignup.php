@@ -63,6 +63,9 @@ if ($wantpassword != $passagain) stderr($lang['takesignup_user_error'], $lang['t
 if (strlen($wantpassword) < 6) stderr($lang['takesignup_user_error'], $lang['takesignup_pass_short']);
 if (strlen($wantpassword) > 40) stderr($lang['takesignup_user_error'], $lang['takesignup_pass_long']);
 if ($wantpassword == $wantusername) stderr($lang['takesignup_user_error'], $lang['takesignup_same']);
+$pincode = (int)$_POST['pin_code'];
+if ($pincode != $_POST['pin_code2']) stderr($lang['takesignup_user_error'], "Pin Codes don't match");
+if (strlen((string)$pincode) != 4) stderr($lang['takesignup_user_error'], "Pin Code must be 4 digits");
 if (!validemail($email)) stderr($lang['takesignup_user_error'], $lang['takesignup_validemail']);
 if (!validusername($wantusername)) stderr($lang['takesignup_user_error'], $lang['takesignup_invalidname']);
 if (!(isset($_POST['day']) || isset($_POST['month']) || isset($_POST['year']))) stderr($lang['takesignup_error'], $lang['takesignup_birthday']);
