@@ -45,7 +45,6 @@ $stdfoot = array(
     )
 ); }
 $lang = array_merge(load_language('global') , load_language('signup'));
-if (!$INSTALLER09['openreg']) stderr($lang['stderr_errorhead'],  "{$lang['signup_inviteonly']}<a href='" . $INSTALLER09['baseurl'] . "/invite_signup.php'><b>&nbsp;{$lang['signup_here']}</b></a>");
 $HTMLOUT = $year = $month = $day = $gender = '';
 $HTMLOUT.= "
     <script type='text/javascript'>
