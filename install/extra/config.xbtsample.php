@@ -16,7 +16,13 @@
 ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-error_reporting(E_ALL); //== turn off = 0 when live
+//==Error reporting... Turn off = 0 when live
+$INSTALLER09['error_reports']['debugmode'] = 1;
+if ($INSTALLER09['error_reports']['debugmode'] == 1) {
+    error_reporting(E_ALL); 
+}else { 
+    error_reporting(0); 
+}
 const REQUIRED_PHP = 70000, REQUIRED_PHP_VERSION = '7.0';
 if (PHP_VERSION_ID < REQUIRED_PHP)
 die('PHP '.REQUIRED_PHP_VERSION.' or higher is required.');
@@ -249,15 +255,9 @@ $INSTALLER09['movie_cats'] = array(
     10,
     11
 );
-$INSTALLER09['slider_cats'] = array(
-    3,
-    5,
-    6,
-    10,
+$INSTALLER09['tv_cats'] = array(
     11
 );
-$INSTALLER09['moviecats'] = "3,5,6,10,11";
-$INSTALLER09['tv_cats'] = "11";
 $youtube_pattern = "/^http(s)?\:\/\/www\.youtube\.com\/watch\?v\=[\w-]{11}/i";
 //== set this to size of user avatars
 $INSTALLER09['av_img_height'] = 100;

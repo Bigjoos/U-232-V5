@@ -62,7 +62,7 @@ foreach ($categorie as $key => $value) $change[$value['id']] = array(
     'image' => $value['image']
 );
 //== O9 Top 5 and last5 torrents with tooltip
-$HTMLOUT.= "<script src='{$INSTALLER09['baseurl']}./scripts/wz_tooltip.js'></script>";
+$HTMLOUT.= "<script src='{$INSTALLER09['baseurl']}/scripts/wz_tooltip.js'></script>";
 $HTMLOUT.="<div class='panel panel-default'>
 	<div class='panel-heading'>
 		<label for='checkbox_4' class='text-left'>{$lang['index_latest']}</label>

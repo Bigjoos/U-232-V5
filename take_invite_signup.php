@@ -64,6 +64,12 @@ else stderr('Error', 'You have to fill in your birthday correctly.');
 if ((date('Y') - $_POST['year']) < 17) stderr('Error', 'You must be at least 18 years old to register.');
 // make sure user agrees to everything...
 if ($_POST["rulesverify"] != "yes" || $_POST["faqverify"] != "yes" || $_POST["ageverify"] != "yes") stderr("Error", "Sorry, you're not qualified to become a member of this site.");
+if (!(isset($_POST['country']))) stderr($lang['takesignup_error'], $lang['takesignup_country']);
+$pincode = (int)$_POST['pin_code'];
+if ($pincode != $_POST['pin_code2']) stderr($lang['takesignup_user_error'], "Pin Codes don't match");
+if (strlen((string)$pincode) != 4) stderr($lang['takesignup_user_error'], "Pin Code must be 4 digits");
+$country = (((isset($_POST['country']) && is_valid_id($_POST['country'])) ? intval($_POST['country']) : 0));
+$gender = isset($_POST['gender']) && isset($_POST['gender']) ? htmlsafechars($_POST['gender']) : '';
 // check if email addy is already in use
 $a = (mysqli_fetch_row(sql_query('SELECT COUNT(id) FROM users WHERE email = ' . sqlesc($email)))) or sqlerr(__FILE__, __LINE__);
 if ($a[0] != 0) stderr('Error', 'The e-mail address <b>' . htmlsafechars($email) . '</b> is already in use.');
@@ -79,7 +85,7 @@ if (isset($_POST["user_timezone"]) && preg_match('#^\-?\d{1,2}(?:\.\d{1,2})?$#',
     $time_offset = isset($INSTALLER09['time_offset']) ? sqlesc($INSTALLER09['time_offset']) : '0';
 }
 // have a stab at getting dst parameter?
-$dst_in_use = localtime(TIME_NOW + ($time_offset * 3600) , true);
+$dst_in_use = localtime(TIME_NOW + ((int)$time_offset * 3600) , true);
 // TIMEZONE STUFF END
 $select_inv = sql_query('SELECT sender, receiver, status FROM invite_codes WHERE code = ' . sqlesc($invite)) or sqlerr(__FILE__, __LINE__);
 $rows = mysqli_num_rows($select_inv);
@@ -92,13 +98,16 @@ $editsecret = (!$arr[0] ? "" : make_passhash_login_key());
 $wanthintanswer = md5($hintanswer);
 check_banned_emails($email);
 $user_frees = (TIME_NOW + 14 * 86400);
-$emails = encrypt_email($email);
-$new_user = sql_query("INSERT INTO users (username, passhash, secret, passhint, hintanswer, editsecret, birthday, invitedby, email, added, last_access, last_login, time_offset, dst_in_use, free_switch) VALUES (" . implode(",", array_map("sqlesc", array(
+//$emails = encrypt_email($email);
+$new_user = sql_query("INSERT INTO users (username, passhash, secret, passhint, hintanswer, editsecret, birthday, country, gender, stylesheet, invitedby, email, added, last_access, last_login, time_offset, dst_in_use, free_switch, pin_code) VALUES (" . implode(",", array_map("sqlesc", array(
     $wantusername,
     $wantpasshash,
     $secret,
     $editsecret,
     $birthday,
+    $country,
+    $gender,
+    $INSTALLER09['stylesheet'],
     $passhint,
     $wanthintanswer,
     (int)$assoc['sender'],
@@ -108,7 +117,8 @@ $new_user = sql_query("INSERT INTO users (username, passhash, secret, passhint, 
     TIME_NOW,
     $time_offset,
     $dst_in_use['tm_isdst'],
-    $user_frees
+    $user_frees,
+    $pincode
 ))) . ")");
 sql_query("INSERT INTO usersachiev (id, username) VALUES (" . sqlesc($id) . ", " . sqlesc($wantusername) . ")") or sqlerr(__FILE__, __LINE__);
 sql_query("UPDATE usersachiev SET invited=invited+1 WHERE id =" . sqlesc($assoc['sender'])) or sqlerr(__FILE__, __LINE__);

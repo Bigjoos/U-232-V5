@@ -21,25 +21,25 @@ if (!defined('TBVERSION')) exit('No direct script access allowed');
 /** free addon start **/
 $is = $fl = '';
 $isfree['yep'] = $isfree['expires'] = 0;
-$freeimg = '<img src="' . $INSTALLER09['pic_base_url'] . 'freedownload.gif" border="0" alt="Free download" title="Free download" />';
-$silverimg = '<img src="' . $INSTALLER09['pic_base_url'] . 'silverdownload.gif" border="0" alt="Silver Torrent" title="Silver Torrent" />';
+$freeimg = '<img src="' . $INSTALLER09['pic_base_url'] . 'freedownload.gif" border="0" alt="' . $lang['mod_free_down'] .'" title="' . $lang['mod_free_down'] .'" />';
+$silverimg = '<img src="' . $INSTALLER09['pic_base_url'] . 'silverdownload.gif" border="0" alt="' . $lang['mod_free_tsilver'] .'" title="' . $lang['mod_free_tsilver'] .'" />';
 if (isset($free)) {
     foreach ($free as $fl) {
         switch ($fl['modifier']) {
         case 1:
-            $mode = 'All Torrents Free';
+            $mode = $lang['mod_free_alltfree'];
             break;
 
         case 2:
-            $mode = 'All Double Upload';
+            $mode = $lang['mod_free_dupload'];
             break;
 
         case 3:
-            $mode = 'All Torrents Free and Double Upload';
+            $mode = $lang['mod_free_tfree_dupload'];
             break;
 
         case 4:
-            $mode = 'All Torrents Silver';
+            $mode = $lang['mod_free_all_tsilver'];
             break;
 
         default:
@@ -49,10 +49,6 @@ if (isset($free)) {
         $isfree['expires'] = $fl['expires'];
     }
 }
-$HTMLOUT.= (($torrents['free'] != 0 || $torrents['silver'] != 0 || $CURUSER['free_switch'] != 0 || $isfree['yep']) ? '
-<tr><td align="right" class="heading">Free Status</td><td align="left">' . ($torrents['free'] != 0 ? $freeimg . '<b><font color="' . $torrent['free_color'] . '">Torrent FREE</font></b> ' . ($torrents['free'] > 1 ? 'Expires: ' . get_date($torrents['free'], 'DATE') . ' 
-(' . mkprettytime($torrents['free'] - TIME_NOW) . ' to go)<br />' : 'Unlimited<br />') : '') : '') . ($torrents['silver'] != 0 ? $silverimg . '&nbsp;<b><font color="' . $torrent['silver_color'] . '">Torrent SILVER</font></b> ' . ($torrents['silver'] > 1 ? 'Expires: ' . get_date($torrents['silver'], 'DATE') . ' 
-(' . mkprettytime($torrents['silver'] - TIME_NOW) . ' to go)<br />' : 'Unlimited<br />') : '') . ($CURUSER['free_switch'] != 0 ? $freeimg . '<b><font color="' . $torrent['free_color'] . '">Personal FREE Status</font></b> ' . ($CURUSER['free_switch'] > 1 ? 'Expires: ' . get_date($CURUSER['free_switch'], 'DATE') . ' 
-(' . mkprettytime($CURUSER['free_switch'] - TIME_NOW) . ' to go)<br />' : 'Unlimited<br />') : '') . ($isfree['yep'] ? $freeimg . '<b><font color="' . $torrent['free_color'] . '">' . $mode . '</font></b> ' . ($isfree['expires'] != 1 ? 'Expires: ' . get_date($isfree['expires'], 'DATE') . ' 
-(' . mkprettytime($isfree['expires'] - TIME_NOW) . ' to go)<br />' : 'Unlimited<br />') : '') . (($torrents['free'] != 0 || $torrents['silver'] != 0 || $CURUSER['free_switch'] != 0 || $isfree['yep']) ? '</td></tr>' : '') . '';
+$HTMLOUT.= (($torrents['free'] != 0 || $torrents['silver'] != 0 || $CURUSER['free_switch'] != 0 || $isfree['yep']) ? '<div class="row">' . '<div class="col-md-3"><span class="label label-' . $torrent['free_color'] . '">' . $lang['mod_free_fstatus'] . ($torrents['free'] != 0 ? $freeimg . '' . $lang['mod_free_torfree'] . ($torrents['free'] > 1 ? $lang['mod_free_expires'] . get_date($torrents['free'], 'DATE') . ' 
+(' . mkprettytime($torrents['free'] - TIME_NOW) . $lang['mod_free_togo'] . ')' : $lang['mod_free_unlimited']) . '</span></div>' : '') : '') . ($torrents['silver'] != 0 ? '<div class="col-md-3"><span class="label label-' . $torrent['silver_color'] . '">' . $silverimg . $lang['mod_free_torsilver'] . ($torrents['silver'] > 1 ? $lang['mod_free_expires'] . get_date($torrents['silver'], 'DATE') . mkprettytime($torrents['silver'] - TIME_NOW) . $lang['mod_free_togo'] : $lang['mod_free_unlimited'] . '</span></div>' ) : '') . '<span class="label label-' . $torrent['free_color'] . '">' . ($CURUSER['free_switch'] != 0 ? $freeimg . $lang['mod_free_pstatus'] . ($CURUSER['free_switch'] > 1 ? $lang['mod_free_expires'] . get_date($CURUSER['free_switch'], 'DATE') . '</span>' . mkprettytime($CURUSER['free_switch'] - TIME_NOW) . $lang['mod_free_togo'] : '<div class="col-md-6"><span class="label label-' . $torrent['free_color'] . '">' . $lang['mod_free_unlimited']. '</span></div>') : '') . ($isfree['yep'] ? $freeimg . $mode . ($isfree['expires'] != 1 ? $lang['mod_free_expires'] . get_date($isfree['expires'], 'DATE') . mkprettytime($isfree['expires'] - TIME_NOW) . $lang['mod_free_togo'] : $lang['mod_free_unlimited']) : '') . (($torrents['free'] != 0 || $torrents['silver'] != 0 || $CURUSER['free_switch'] != 0 || $isfree['yep']) ? '</div>' : '') . '';
 ?>

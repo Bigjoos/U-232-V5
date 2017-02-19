@@ -20,18 +20,19 @@
 function invincible($id, $invincible = true, $bypass_bans = true)
 {
     global $CURUSER, $mc1, $INSTALLER09;
+	$lang = load_language('invincible_function');
     $ip = '127.0.0.1';
     $setbits = $clrbits = 0;
     if ($invincible) {
-        $display = 'now';
+        $display = $lang['invincible_now'];
         $setbits|= bt_options::PERMS_NO_IP; // don't log IPs
         if ($bypass_bans) $setbits|= bt_options::PERMS_BYPASS_BAN; // bypass ban on
         else {
             $clrbits|= bt_options::PERMS_BYPASS_BAN; // bypass ban off
-            $display = 'now bypass bans off and';
+            $display = $lang['invincible_now_bypass'];
         }
     } else {
-        $display = 'no longer';
+        $display = $lang['invincible_no_longer'];
         $clrbits|= bt_options::PERMS_NO_IP; // log IPs
         $clrbits|= bt_options::PERMS_BYPASS_BAN; // bypass ban off
     }
@@ -49,7 +50,7 @@ function invincible($id, $invincible = true, $bypass_bans = true)
     $mc1->delete_value('ip_history_' . $id);
     $mc1->delete_value('u_passkey_' . $row['torrent_pass']);
     // update ip in db
-    $modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . ' invincible thanks to ' . $CURUSER['username'] . "\n" . $row['modcomment'];
+    $modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . $lang['invincible_thank_to'] . $CURUSER['username'] . "\n" . $row['modcomment'];
     //ipf = '.sqlesc($ip).',
     sql_query('UPDATE users SET ip = ' . sqlesc($ip) . ', modcomment = ' . sqlesc($modcomment) . '
               WHERE id = ' . sqlesc($id)) or sqlerr(__file__, __line__);
@@ -93,7 +94,7 @@ function invincible($id, $invincible = true, $bypass_bans = true)
         ));
         $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
     }
-    write_log('Member [b][url=userdetails.php?id=' . $id . ']' . (htmlsafechars($row['username'])) . '[/url][/b] is ' . $display . ' invincible thanks to [b]' . $CURUSER['username'] . '[/b]');
+    write_log(''.$lang['invincible_member'].'[b][url=userdetails.php?id=' . $id . ']' . (htmlsafechars($row['username'])) . '[/url][/b]' . $lang['invincible_is'] . ' ' . $display . ' ' . $lang['invincible_thanks_to1'] . ' [b]' . $CURUSER['username'] . '[/b]');
     // header ouput
     $mc1->cache_value('display_' . $CURUSER['id'], $display, 5);
     header('Location: userdetails.php?id=' . $id);
