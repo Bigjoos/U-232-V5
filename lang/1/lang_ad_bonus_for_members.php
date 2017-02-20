@@ -75,7 +75,8 @@ $lang = array(
 	'bonusmanager_freeslots_writelog1' => " members in all classes by ",
 	'bonusmanager_freeslots_writelog2' => " members by ",
 	'bonusmanager_freeslots_add' => "Add freeslots",
-	'bonusmanager_freeslots_freeslot' => " freeslot",      
+	'bonusmanager_freeslots_singular' => " freeslot", ///*Singular*///
+	'bonusmanager_freeslots_plural' => " freeslots", //Plural*///
 	'bonusmanager_freeslots_amount' => " select amount of freeslots to add.",      
 	///***Invite***///
 	'bonusmanager_invite_err' => "Invite Error",   
@@ -90,7 +91,8 @@ $lang = array(
 	'bonusmanager_invite_writelog1' => " members in all classes by ",
 	'bonusmanager_invite_writelog2' => " members by ",
 	'bonusmanager_invite_add' => "Add Invites",
-	'bonusmanager_invite' => " invite",
+	'bonusmanager_invite_singular' => " invite",  ///*Singular*///
+	'bonusmanager_invite_plural' => " invites",  ///*Plural*///
 	'bonusmanager_invite_amount' => " select amount of invites to add.",
 	///***PM***///
 	'bonusmanager_pm_err' => "Error",

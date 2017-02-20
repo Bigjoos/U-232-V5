@@ -535,7 +535,7 @@ $free_leech_slot_drop_down = '
         <option class="head" value="">' . $lang['bonusmanager_freeslots_add'] . '</option>';
 $i = 1;
 while ($i <= 50) {
-    $free_leech_slot_drop_down.= '<option class="body" value="' . $i . '.0">' . $i . $lang['bonusmanager_freeslots_freeslot'] . ($i !== 1 ? 's' : '') . '</option>';
+    $free_leech_slot_drop_down.= '<option class="body" value="' . $i . '.0">' . $i . '' . ($i !== 1 ? $lang['bonusmanager_freeslots_plural'] : $lang['bonusmanager_freeslots_singular']) . '</option>';
     $i = ($i < 10 ? $i = $i + 1 : $i = $i + 5);
 }
 $free_leech_slot_drop_down.= '</select>' . $lang['bonusmanager_freeslots_amount'] . ' ';
@@ -544,7 +544,7 @@ $invites_drop_down = '
         <option class="head" value="">' . $lang['bonusmanager_invite_add'] . '</option>';
 $i = 1;
 while ($i <= 50) {
-    $invites_drop_down.= '<option class="body" value="' . $i . '.0">' . $i . $lang['bonusmanager_invite_add'] . ($i !== 1 ? 's' : '') . '</option>';
+    $invites_drop_down.= '<option class="body" value="' . $i . '.0">' . $i . '' . ($i !== 1 ? $lang['bonusmanager_invite_plural'] : $lang['bonusmanager_invite_singular']) . '</option>';
     $i = ($i < 10 ? $i = $i + 1 : $i = $i + 5);
 }
 $invites_drop_down.= '</select>' . $lang['bonusmanager_invite_amount'] . '';

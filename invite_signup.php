@@ -17,14 +17,18 @@
  \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
-require_once (CACHE_DIR . 'timezones.php');
 require_once (CLASS_DIR . 'page_verify.php');
+require_once (CACHE_DIR . 'timezones.php');
 dbconn();
 global $CURUSER;
 if (!$CURUSER) {
     get_template();
+} else {
+    header("Location: {$INSTALLER09['baseurl']}/index.php");
+    exit();
 }
+ini_set('session.use_trans_sid', '0');
+if ($INSTALLER09['captcha_on'] === true){
 $stdfoot = array(
     /** include js **/
     'js' => array(
@@ -32,24 +36,16 @@ $stdfoot = array(
         'jquery.pstrength-min.1.2',
         'jquery.simpleCaptcha-0.2'
     )
-);
+); } else {
+$stdfoot = array(
+    /** include js **/
+    'js' => array(
+        'check',
+        'jquery.pstrength-min.1.2'
+    )
+); }
 $lang = array_merge(load_language('global') , load_language('signup'));
-$newpage = new page_verify();
-$newpage->create('tkIs');
-$res = sql_query("SELECT COUNT(*) FROM users") or sqlerr(__FILE__, __LINE__);
-$arr = mysqli_fetch_row($res);
-if ($arr[0] >= $INSTALLER09['invites']) stderr("Sorry", "The current user account limit (" . number_format($INSTALLER09['invites']) . ") has been reached. Inactive accounts are pruned all the time, please check back again later...");
-if (!$INSTALLER09['openreg_invites']) stderr('Sorry', 'Invite Signups are closed presently');
-//==timezone select
-$offset = (string)$INSTALLER09['time_offset'];
-$time_select = "<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><select class='form-control' name='user_timezone'>";
-foreach ($TZ as $off => $words) {
-    if (preg_match("/^time_(-?[\d\.]+)$/", $off, $match)) {
-        $time_select.= $match[1] == $offset ? "<option value='{$match[1]}' selected='selected'>$words</option>\n" : "<option value='{$match[1]}'>$words</option>\n";
-    }
-}
-$time_select.= "</select></div></div>";
-$HTMLOUT = $year = $month = $day = '';
+$HTMLOUT = $year = $month = $day = $gender = '';
 $HTMLOUT.= "
     <script type='text/javascript'>
     /*<![CDATA[*/
@@ -58,6 +54,37 @@ $HTMLOUT.= "
     });
     /*]]>*/
     </script>";
+$newpage = new page_verify();
+$newpage->create('tkIs');
+if (get_row_count('users') >= $INSTALLER09['maxusers']) stderr($lang['stderr_errorhead'], sprintf($lang['stderr_ulimit'], $INSTALLER09['maxusers']));
+//==timezone select
+$offset = (string)$INSTALLER09['time_offset'];
+$time_select = "<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><select class='form-control' name='user_timezone'>";
+foreach ($TZ as $off => $words) {
+    if (preg_match("/^time_(-?[\d\.]+)$/", $off, $match)) {
+        $time_select.= $match[1] == $offset ? "<option value='{$match[1]}' selected='selected'>$words</option>\n" : "<option value='{$match[1]}'>$words</option>\n";
+    }
+}
+$time_select.= "</select></div></div>";
+//==country by pdq
+function countries()
+{
+    global $mc1, $INSTALLER09;
+    if (($ret = $mc1->get_value('countries::arr')) === false) {
+        $res = sql_query("SELECT id, name, flagpic FROM countries ORDER BY name ASC") or sqlerr(__FILE__, __LINE__);
+        while ($row = mysqli_fetch_assoc($res)) $ret[] = $row;
+        $mc1->cache_value('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
+    }
+    return $ret;
+}
+$country = '';
+$countries = countries();
+foreach ($countries as $cntry) $country.= "<option value='" . (int)$cntry['id'] . "'" . ($CURUSER["country"] == $cntry['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($cntry['name']) . "</option>\n";
+$gender.= "<div class='form-group'><div class='col-sm-4'><select class='form-control' name=\"gender\">
+    <option value=\"Male\">{$lang['signup_male']}</option>
+    <option value=\"Female\">{$lang['signup_female']}</option>
+    <option value=\"NA\">{$lang['signup_na']}</option>
+    </select></div></div>";
 // Normal Entry Point...
 //== click X by Retro
 $value = array(
@@ -69,29 +96,35 @@ $value = array(
     '...'
 );
 $value[rand(1, count($value) - 1) ] = 'X';
-$HTMLOUT.= "<script type='text/javascript'>
+$HTMLOUT.= "".($INSTALLER09['captcha_on'] ? "<script type='text/javascript'>
 	  /*<![CDATA[*/
 	  $(document).ready(function () {
 	  $('#captchasignup').simpleCaptcha();
     });
     /*]]>*/
-    </script>
-<div style='width:75%; margin-left:12%;'>
-    <form class='form-horizontal well' role='form' method='post' title='signup' action='{$INSTALLER09['baseurl']}/take_invite_signup.php'>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><input  type='text' class='form-control'  placeholder='{$lang['signup_uname']}' name='wantusername' id='wantusername' onblur='checkit();'></div></div>
-<div class='form-group'><div id='namecheck' class='col-sm-10 col-sm-offset-1'></div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><input class='form-control' type='password' placeholder='{$lang['signup_pass']}' name='wantpassword'></div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><input type='password' class='form-control' placeholder='{$lang['signup_passa']}' name='passagain'></div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><input type='text' class='form-control' placeholder='{$lang['signup_invcode']}' name='invite'></div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><input type='text' class='form-control' placeholder='{$lang['signup_email']}' name='email'></div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><span style='font-size: 1em;'>{$lang['signup_valemail']}</span></div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><label>{$lang['signup_timez']}</label></div></div>
+    </script>" : "")."
+<div style='width:75%; margin:auto auto; margin-top:-4%;'>
+    <form class='col-md-12 form-horizontal panel inverse' style='padding-top:2%;' role='form' method='post' title='signup' action='take_invite_signup.php'>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input  type='text' class='form-control'  placeholder='{$lang['signup_uname']}' name='wantusername' id='wantusername' onblur='checkit();'></div></div>
+<div class='form-group'><div id='namecheck' class='col-sm-9 col-sm-offset-1'></div></div>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input class='form-control' type='password' placeholder='{$lang['signup_pass']}' name='wantpassword'></div></div>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='password' class='form-control' placeholder='{$lang['signup_passa']}' name='passagain'></div></div>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='text' class='form-control' placeholder='{$lang['signup_invcode']}' name='invite'></div></div>
+<div class='form-group'><div class='col-sm-5 col-sm-offset-1'><input type='text' class='form-control' placeholder='Choose a 4 digit Pin Code' name='pin_code'></div><div class='col-sm-4'><input type='text' class='form-control' placeholder='Repeat Pin Code' name='pin_code2'></div></div>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='text' class='form-control' placeholder='{$lang['signup_email']}' name='email'></div></div>
+
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><span style='font-size:100%;'>{$lang['signup_valemail']}</span></div></div>
+
+
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><label>{$lang['signup_timez']}</label></div></div>
 <div class='form-group'><div class='col-sm-12'>{$time_select}</div></div>";
+
+
 //==09 Birthday mod
 $year.= "<div class='col-sm-3'><select class='form-control' id='sel1' name=\"year\">";
 $year.= "<option value=\"0000\">{$lang['signup_year']}</option>";
 $i = "2020";
-while ($i >= 1950) {
+while ($i >= 1920) {
     $year.= "<option value=\"" . $i . "\">" . $i . "</option>";
     $i--;
 }
@@ -123,7 +156,7 @@ while ($i <= 31) {
     $i++;
 }
 $day.= "</select></div>";
-$HTMLOUT.= "<div class='form-group'><div class='col-sm-10 col-sm-offset-1'>{$lang['signup_birth']}<span style='color:red'>*</span></div></div><div class='row'><div class='form-group'><div class='col-sm-12 col-sm-offset-1'>" . $year . $month . $day . "</div></div></div>";
+$HTMLOUT.= "<div class='form-group'><div class='col-sm-9 col-sm-offset-1'>{$lang['signup_birth']}<span style='color:red'>*</span></div></div><div class='row'><div class='form-group'><div class='col-sm-12 col-sm-offset-1'>" . $year . $month . $day . "</div></div></div>";
 //==End
 //==Passhint
 $passhint = "";
@@ -157,18 +190,22 @@ foreach ($questions as $sph) {
     $passhint.= "<option value='" . $sph['id'] . "'>" . $sph['question'] . "</option>\n";
 }
 $HTMLOUT.= "
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'>{$lang['signup_select']}</div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><select class='form-control' name='passhint'>\n$passhint\n</select></div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-1'><input type='text' class='form-control' placeholder='Enter&nbsp;Your&nbsp;Hint&nbsp;Answer&nbsp;Here.{$lang['signup_this_answer']}{$lang['signup_this_answer1']}' name='hintanswer'></div></div>
-<div class='form-group'><div class='col-sm-10 col-sm-offset-4'>    
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'>{$lang['signup_select']}</div></div>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><select class='form-control' name='passhint'>\n$passhint\n</select></div></div><div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='text' class='form-control' placeholder='{$lang['signup_hint_here']}{$lang['signup_this_answer']}{$lang['signup_this_answer1']}' name='hintanswer'></div></div>
+<div class='form-group'>
+<div class='col-sm-5 col-sm-offset-1'>{$lang['signup_country']}<select class='form-control' name='country'>\n$country\n</select></div>
+&nbsp;&nbsp;&nbsp;&nbsp;{$lang['signup_gender']}$gender
+</div>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-4'>
 <div class='checkbox'><label><input type='checkbox' name='rulesverify' value='yes'> {$lang['signup_rules']}</label></div>
 <div class='checkbox'><label><input type='checkbox' name='faqverify' value='yes'> {$lang['signup_faq']}</label></div>
 <div class='checkbox'><label><input type='checkbox' name='ageverify' value='yes'> {$lang['signup_age']}</label></div>
-</div></div>" . ($INSTALLER09['captcha_on'] ? "<div class='form-group'><div class='col-sm-10 col-sm-offset-1' id='captchasignup'></div></div>" : "") . "
-<div class='form-group'><div class='col-sm-10 col-sm-offset-4'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$lang['signup_click']}<strong>{$lang['signup_x']}</strong>{$lang['signup_click1']}<br>";
+</div></div>" . ($INSTALLER09['captcha_on'] ? "<div class='form-group'><div class='col-sm-9 col-sm-offset-1' id='captchasignup'></div></div>" : "") . "
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1' style='text-align:center'>{$lang['signup_click']}&nbsp;<strong>{$lang['signup_x']}</strong>&nbsp;{$lang['signup_click1']}<br />
+    ";
 for ($i = 0; $i < count($value); $i++) {
     $HTMLOUT.= "<div style='display:inline-block;width:15px;'></div><span><input name=\"submitme\" type=\"submit\" value=\"" . $value[$i] . "\" class=\"btn\"></span>";
 }
 $HTMLOUT.= "</div></div></form></div>";
-echo stdhead('Invites') . $HTMLOUT . stdfoot($stdfoot);
+echo stdhead($lang['head_signup']) . $HTMLOUT . stdfoot($stdfoot);
 ?>

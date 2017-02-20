@@ -75,7 +75,8 @@ $lang = array(
 	'bonusmanager_freeslots_writelog1' => " membres de toutes les classes par ",
 	'bonusmanager_freeslots_writelog2' => " membres par ",
 	'bonusmanager_freeslots_add' => "Ajout des slots de Free Leech",
-	'bonusmanager_freeslots_freeslot' => " slots de Free Leech",      
+	'bonusmanager_freeslots_singular' => " slot de Free Leech", ///*Singular*///
+	'bonusmanager_freeslots_plural' => " slots de Free Leech", //Plural*///   
 	'bonusmanager_freeslots_amount' => " selectionner la quantité de slots de Free Leech à ajouter.",      
 	///***Invite***///
 	'bonusmanager_invite_err' => "Erreur d\'invitation",   
@@ -90,7 +91,8 @@ $lang = array(
 	'bonusmanager_invite_writelog1' => " membres de toutes les classes par ",
 	'bonusmanager_invite_writelog2' => " membres par ",
 	'bonusmanager_invite_add' => "Ajout des invitations",
-	'bonusmanager_invite' => " invitations",
+	'bonusmanager_invite_singular' => " invitation",  ///*Singular*///
+	'bonusmanager_invite_plural' => " invitations",  ///*Plural*///
 	'bonusmanager_invite_amount' => " selectionner la quantité d'invitations à ajouter.",
 	///***PM***///
 	'bonusmanager_pm_err' => "Erreur",

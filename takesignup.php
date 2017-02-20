@@ -63,6 +63,9 @@ if ($wantpassword != $passagain) stderr($lang['takesignup_user_error'], $lang['t
 if (strlen($wantpassword) < 6) stderr($lang['takesignup_user_error'], $lang['takesignup_pass_short']);
 if (strlen($wantpassword) > 40) stderr($lang['takesignup_user_error'], $lang['takesignup_pass_long']);
 if ($wantpassword == $wantusername) stderr($lang['takesignup_user_error'], $lang['takesignup_same']);
+$pincode = (int)$_POST['pin_code'];
+if ($pincode != $_POST['pin_code2']) stderr($lang['takesignup_user_error'], "Pin Codes don't match");
+if (strlen((string)$pincode) != 4) stderr($lang['takesignup_user_error'], "Pin Code must be 4 digits");
 if (!validemail($email)) stderr($lang['takesignup_user_error'], $lang['takesignup_validemail']);
 if (!validusername($wantusername)) stderr($lang['takesignup_user_error'], $lang['takesignup_invalidname']);
 if (!(isset($_POST['day']) || isset($_POST['month']) || isset($_POST['year']))) stderr($lang['takesignup_error'], $lang['takesignup_birthday']);
@@ -100,7 +103,7 @@ check_banned_emails($email);
 $psecret = $editsecret;
 //$emails = encrypt_email($email);
 
-$ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, birthday, country, gender, stylesheet, passhint, hintanswer, email, status, " . (!$arr[0] ? "class, " : "") . "added, last_access, time_offset, dst_in_use, free_switch) VALUES (" . implode(",", array_map("sqlesc", array(
+$ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, birthday, country, gender, pin_code, stylesheet, passhint, hintanswer, email, status, " . (!$arr[0] ? "class, " : "") . "added, last_access, time_offset, dst_in_use, free_switch) VALUES (" . implode(",", array_map("sqlesc", array(
     $wantusername,
     $wantpasshash,
     $secret,
@@ -108,6 +111,7 @@ $ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, bir
     $birthday,
     $country,
     $gender,
+    $pincode,
     $INSTALLER09['stylesheet'],
     $passhint,
     $wanthintanswer,
