@@ -193,6 +193,7 @@ $INSTALLER09['BBcode'] = 1; // 1/0 on/off
 $INSTALLER09['inviteusers'] = 10000;
 $INSTALLER09['flood_time'] = 900; //comment/forum/pm flood limit
 $INSTALLER09['readpost_expiry'] = 14 * 86400; // 14 days
+$INSTALLER09['shouts_to_show'] = 30;
 /** define dirs **/
 define('INCL_DIR', __DIR__ . DIRECTORY_SEPARATOR);
 define('ROOT_DIR', realpath(INCL_DIR . '..' . DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
