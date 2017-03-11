@@ -498,7 +498,7 @@ if (isset($_GET['staff_sent']) && ($_GET['staff_sent'] == "yes")) {
 }
 //== cache the data
 if (($shouts = $mc1->get_value('staff_shoutbox_')) === false) {
-    $res = sql_query("SELECT s.id, s.userid, s.date, s.text, s.to_user, s.staff_shout, u.username, u.pirate, u.king, u.class, u.donor, u.warned, u.leechwarn, u.enabled, u.chatpost, u.perms FROM shoutbox AS s LEFT JOIN users AS u ON s.userid=u.id WHERE s.staff_shout ='yes' ORDER BY s.id DESC LIMIT 30") or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT s.id, s.userid, s.date, s.text, s.to_user, s.staff_shout, u.username, u.pirate, u.king, u.class, u.donor, u.warned, u.leechwarn, u.enabled, u.chatpost, u.perms FROM shoutbox AS s LEFT JOIN users AS u ON s.userid=u.id WHERE s.staff_shout ='yes' ORDER BY s.id DESC LIMIT 150") or sqlerr(__FILE__, __LINE__);
     while ($shout = mysqli_fetch_assoc($res)) $shouts[] = $shout;
     $mc1->cache_value('staff_shoutbox_', $shouts, $INSTALLER09['expires']['staff_shoutbox']);
 }
