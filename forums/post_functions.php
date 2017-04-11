@@ -132,6 +132,8 @@ function insert_quick_jump_menu($currentforum = 0)
     document.compose.action = './forums.php?action=preview'
     document.compose.target = '_blank';
     document.compose.submit();
+    document.compose.action = '{$INSTALLER09['baseurl']}/forums.php';
+    document.compose.target = '_self';
     return true;
     }
     /*]]>*/
