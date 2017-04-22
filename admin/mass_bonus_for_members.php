@@ -116,7 +116,7 @@ case 'upload_credit':
             $count = count($users_buffer);
             if ($count > 0) {
                 sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $pm_buffer)) or sqlerr(__FILE__, __LINE__);
-                sql_query("INSERT INTO users (id, uploaded, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE uploaded=uploaded+values(uploaded),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
+                sql_query("INSERT INTO users (id, uploaded, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE uploaded=values(uploaded),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                 write_log($lang['bonusmanager_up_writelog'] . $count . $lang['bonusmanager_up_writelog1'] . $CURUSER['username']);
             }
             unset($users_buffer, $pm_buffer, $count);
@@ -155,7 +155,7 @@ case 'upload_credit':
                     $count = count($users_buffer);
                     if ($count > 0) {
                         sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $pm_buffer)) or sqlerr(__FILE__, __LINE__);
-                        sql_query("INSERT INTO users (id, uploaded, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE uploaded=uploaded+values(uploaded),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
+                        sql_query("INSERT INTO users (id, uploaded, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE uploaded=values(uploaded),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                         write_log($lang['bonusmanager_up_writelog'] . $count . $lang['bonusmanager_up_writelog2'] . $CURUSER['username']);
                     }
                     unset($users_buffer, $pm_buffer, $count);
@@ -202,7 +202,7 @@ case 'karma':
             $count = count($users_buffer);
             if ($count > 0) {
                 sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $pm_buffer)) or sqlerr(__FILE__, __LINE__);
-                sql_query("INSERT INTO users (id, seedbonus, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE seedbonus=seedbonus+values(seedbonus),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
+                sql_query("INSERT INTO users (id, seedbonus, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE seedbonus=values(seedbonus),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                 write_log($lang['bonusmanager_karma_writelog'] . $count . $lang['bonusmanager_karma_writelog1'] . $CURUSER['username']);
             }
             unset($users_buffer, $pm_buffer, $count);
@@ -241,7 +241,7 @@ case 'karma':
                     $count = count($users_buffer);
                     if ($count > 0) {
                         sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $pm_buffer)) or sqlerr(__FILE__, __LINE__);
-                        sql_query("INSERT INTO users (id, seedbonus, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE seedbonus=seedbonus+values(seedbonus),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
+                        sql_query("INSERT INTO users (id, seedbonus, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE seedbonus=values(seedbonus),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                         write_log($lang['bonusmanager_karma_writelog'] . $count . $lang['bonusmanager_karma_writelog2'] . $CURUSER['username']);
                     }
                     unset($users_buffer, $pm_buffer, $count);
@@ -292,7 +292,7 @@ case 'freeslots':
             $count = count($users_buffer);
             if ($count > 0) {
                 sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $pm_buffer)) or sqlerr(__FILE__, __LINE__);
-                sql_query("INSERT INTO users (id, freeslots, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE freeslots=freeslots+values(freeslots),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
+                sql_query("INSERT INTO users (id, freeslots, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE freeslots=values(freeslots),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                 write_log($lang['bonusmanager_freeslots_writelog'] . $count . $lang['bonusmanager_freeslots_writelog1'] . $CURUSER['username']);
             }
             unset($users_buffer, $pm_buffer, $count);
@@ -335,7 +335,7 @@ case 'freeslots':
                     $count = count($users_buffer);
                     if ($count > 0) {
                         sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $pm_buffer)) or sqlerr(__FILE__, __LINE__);
-                        sql_query("INSERT INTO users (id, freeslots, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE freeslots=freeslots+values(freeslots),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
+                        sql_query("INSERT INTO users (id, freeslots, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE freeslots=values(freeslots),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                         write_log($lang['bonusmanager_freeslots_writelog'] . $count . $lang['bonusmanager_freeslots_writelog2'] . $CURUSER['username']);
                     }
                     unset($users_buffer, $pm_buffer, $count);
@@ -386,7 +386,7 @@ case 'invite':
             $count = count($users_buffer);
             if ($count > 0) {
                 sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $pm_buffer)) or sqlerr(__FILE__, __LINE__);
-                sql_query("INSERT INTO users (id, invites, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE invites=invites+values(invites),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
+                sql_query("INSERT INTO users (id, invites, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE invites=values(invites),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                 write_log($lang['bonusmanager_invite_writelog'] . $count . $lang['bonusmanager_invite_writelog1'] . $CURUSER['username']);
             }
             unset($users_buffer, $pm_buffer, $count);
@@ -429,7 +429,7 @@ case 'invite':
                     $count = count($users_buffer);
                     if ($count > 0) {
                         sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $pm_buffer)) or sqlerr(__FILE__, __LINE__);
-                        sql_query("INSERT INTO users (id, invites, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE invites=invites+values(invites),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
+                        sql_query("INSERT INTO users (id, invites, modcomment) VALUES " . implode(', ', $users_buffer) . " ON DUPLICATE key UPDATE invites=values(invites),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                         write_log($lang['bonusmanager_invite_writelog'] . $count . $lang['bonusmanager_invite_writelog2'] . $CURUSER['username']);
                     }
                     unset($users_buffer, $pm_buffer, $count);
