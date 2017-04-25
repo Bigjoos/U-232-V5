@@ -39,7 +39,7 @@ if (isset($_POST['buttonval']) && $_POST['buttonval'] == 'Send') {
     $receiver = sqlesc(isset($_POST['receiver']) ? intval($_POST['receiver']) : 0);
     $subject = sqlesc(htmlsafechars($_POST['subject']));
     $body = sqlesc(trim($_POST['body']));
-    $save = ((isset($_POST['save']) && $_POST['save'] === 1) ? '1' : '0');
+    $save = ((isset($_POST['save']) && $_POST['save'] === 1) ? 'yes' : 'no');
     $delete = sqlesc((isset($_POST['delete']) && $_POST['delete'] !== 0) ? intval($_POST['delete']) : 0);
     $urgent = sqlesc((isset($_POST['urgent']) && $_POST['urgent'] == 'yes' && $CURUSER['class'] >= UC_STAFF) ? 'yes' : 'no');
     $returnto = htmlsafechars(isset($_POST['returnto']) ? $_POST['returnto'] : '');
