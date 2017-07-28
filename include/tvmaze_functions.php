@@ -48,7 +48,7 @@ function tvmaze(&$torrents) {
     global $mc1, $INSTALLER09;
     $tvmaze_data = '';
     $row_update = array();
-    if (preg_match("/^(.*)S\d+(E\d+)?/i", $torrents['name'], $tmp)) {
+    if (preg_match("/^(.*)(?:\.| |_)(?:(?:S\d{1,2}(?:E\d{1,2})?)|20\d\d\.\d\d\.\d\d|Part.\d|CHapters)/i", $torrents['name'], $tmp)) {
         $tvmaze = array(
             'name' => preg_replace('/ $/', '', str_replace(array('.', '_'), ' ', $tmp[1])),
         );

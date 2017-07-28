@@ -103,15 +103,15 @@ $new_user = sql_query("INSERT INTO users (username, passhash, secret, passhint, 
     $wantusername,
     $wantpasshash,
     $secret,
+    $passhint,
+    $wanthintanswer,
     $editsecret,
     $birthday,
     $country,
     $gender,
     $INSTALLER09['stylesheet'],
-    $passhint,
-    $wanthintanswer,
     (int)$assoc['sender'],
-    $emails,
+    $email,
     TIME_NOW,
     TIME_NOW,
     TIME_NOW,
@@ -119,7 +119,8 @@ $new_user = sql_query("INSERT INTO users (username, passhash, secret, passhint, 
     $dst_in_use['tm_isdst'],
     $user_frees,
     $pincode
-))) . ")");
+))) . ")") or sqlerr(__FILE__, __LINE__);
+$id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
 sql_query("INSERT INTO usersachiev (id, username) VALUES (" . sqlesc($id) . ", " . sqlesc($wantusername) . ")") or sqlerr(__FILE__, __LINE__);
 sql_query("UPDATE usersachiev SET invited=invited+1 WHERE id =" . sqlesc($assoc['sender'])) or sqlerr(__FILE__, __LINE__);
 $message = "Welcome New {$INSTALLER09['site_name']} Member : - " . htmlsafechars($wantusername) . "";
@@ -135,7 +136,6 @@ sql_query("INSERT INTO messages (sender, subject, receiver, msg, added) VALUES (
 $mc1->delete_value('inbox_new_' . $sender);
 $mc1->delete_value('inbox_new_sb_' . $sender);
 //////////////end/////////////////////
-$id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
 sql_query('UPDATE invite_codes SET receiver = ' . sqlesc($id) . ', status = "Confirmed" WHERE sender = ' . sqlesc((int)$assoc['sender']) . ' AND code = ' . sqlesc($invite)) or sqlerr(__FILE__, __LINE__);
 $latestuser_cache['id'] = (int)$id;
 $latestuser_cache['username'] = $wantusername;
