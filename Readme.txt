@@ -191,3 +191,5 @@ U-232 V5
 
 		6. Staff is automatically added to the same 2 files, but you have to make sure the member is offline before you promote them.
 
+Side note on Mysql 5.7: Mysql 5.7 And MariaDB 10.2 will not work with U-232, We recommend you use Mysql 5.5 or MariaDB 10.1 @ https://downloads.mariadb.org/mariadb/10.1.26/
+
