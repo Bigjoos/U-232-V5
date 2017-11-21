@@ -13,67 +13,53 @@
     ErrorDocument 404 /index.php
 </IfModule>
 
-# BEGIN Expire headers
-<ifModule mod_expires.c>
-  ExpiresActive On
-  ExpiresDefault &quot;access plus 600 seconds&quot;
-  ExpiresByType image/x-icon &quot;access plus 2592000 seconds&quot;
-  ExpiresByType image/jpeg &quot;access plus 2592000 seconds&quot;
-  ExpiresByType image/png &quot;access plus 2592000 seconds&quot;
-  ExpiresByType image/gif &quot;access plus 2592000 seconds&quot;
-  ##ExpiresByType application/x-shockwave-flash &quot;access plus 2592000 seconds&quot;
-  ExpiresByType text/css &quot;access plus 604800 seconds&quot;
-  ExpiresByType text/javascript &quot;access plus 216000 seconds&quot;
-  ExpiresByType application/javascript &quot;access plus 216000 seconds&quot;
-  ExpiresByType application/x-javascript &quot;access plus 216000 seconds&quot;
-  ExpiresByType text/html &quot;access plus 600 seconds&quot;
-  ExpiresByType application/xhtml+xml &quot;access plus 600 seconds&quot;
-</ifModule>
-# END Expire headers
-
 # BEGIN Cache-Control Headers
-<ifModule mod_headers.c>
-  <filesMatch &quot;\.(ico|jpe?g|png|gif)$&quot;>
-    Header set Cache-Control &quot;public&quot;
-  </filesMatch>
-  <filesMatch &quot;\.(css)$&quot;>
-    Header set Cache-Control &quot;public&quot;
-  </filesMatch>
-  <filesMatch &quot;\.(js)$&quot;>
-    Header set Cache-Control &quot;private&quot;
-  </filesMatch>
-  <filesMatch &quot;\.(x?html?|php)$&quot;>
-    Header set Cache-Control &quot;private, must-revalidate&quot;
-  </filesMatch>
-</ifModule>
+<IfModule mod_headers.c>
+    <filesMatch "\.(ico|jpe?g|png|gif)$">
+        Header set Cache-Control "public"
+    </filesMatch>
+    <filesMatch "\.(css)$">
+        Header set Cache-Control "public"
+    </filesMatch>
+    <filesMatch "\.(js)$">
+        Header set Cache-Control "private"
+    </filesMatch>
+    <filesMatch "\.(x?html?|php)$">
+        Header set Cache-Control "private, must-revalidate"
+    </filesMatch>
+</IfModule>
 # END Cache-Control Headers
 
 ## EXPIRES CACHING ##
 <IfModule mod_expires.c>
-ExpiresActive On
-ExpiresDefault "access plus 1 month"
-ExpiresByType text/css "access plus 1 year"
-ExpiresByType text/js "access plus 1 year"
-ExpiresByType text/javascript "access plus 1 year"
-ExpiresByType image/jpg "access plus 1 year"
-ExpiresByType image/jpeg "access plus 1 year"
-ExpiresByType image/gif "access plus 1 year"
-ExpiresByType image/png "access plus 1 year"
-##ExpiresByType application/pdf "access plus 1 month"
-##ExpiresByType application/x-shockwave-flash "access plus 1 month"
-ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType text/js "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ##ExpiresByType application/pdf "access plus 1 month"
+    ##ExpiresByType application/x-shockwave-flash "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType application/javascript "access plus 216000 seconds"
+    ExpiresByType application/x-javascript "access plus 216000 seconds"
+    ExpiresByType text/html "access plus 600 seconds"
+    ExpiresByType application/xhtml+xml "access plus 600 seconds"
 </IfModule>
 ## EXPIRES CACHING ##
 
 # BEGIN Gzip compression
-<ifModule mod_gzip.c>
-mod_gzip_on Yes
-mod_gzip_dechunk Yes
-mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
-mod_gzip_item_include handler ^cgi-script$
-mod_gzip_item_include mime ^text/.*
-mod_gzip_item_include mime ^application/x-javascript.*
-mod_gzip_item_exclude mime ^image/.*
-mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
-</ifModule>
+<IfModule mod_gzip.c>
+    mod_gzip_on Yes
+    mod_gzip_dechunk Yes
+    mod_gzip_item_include file .(html?|txt|css|js|php|pl)$
+    mod_gzip_item_include handler ^cgi-script$
+    mod_gzip_item_include mime ^text/.*
+    mod_gzip_item_include mime ^application/x-javascript.*
+    mod_gzip_item_exclude mime ^image/.*
+    mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+</IfModule>
 # END Gzip compression
