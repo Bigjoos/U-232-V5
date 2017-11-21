@@ -48,7 +48,8 @@
     ExpiresByType application/x-javascript "access plus 216000 seconds"
     ExpiresByType text/html "access plus 600 seconds"
     ExpiresByType application/xhtml+xml "access plus 600 seconds"
-</IfModule>## EXPIRES CACHING ##
+</IfModule>
+## EXPIRES CACHING ##
 
 # BEGIN Gzip compression
 <IfModule mod_gzip.c>
