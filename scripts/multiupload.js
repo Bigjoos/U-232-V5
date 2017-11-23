@@ -1,11 +1,9 @@
 /**
  * Created by danny on 20/07/2016.
  */
-var $j = jQuery.noConflict();
+$(document).ready(function(e){
 
-$j(document).ready(function(e){
-
-    $('.clone-torrent-form').on('click',function(e){
+    $('.clone-torrent-form').click(function(e){
         e.preventDefault();
 
         var original = $('.torrent-seperator.clone-me');
