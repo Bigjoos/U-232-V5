@@ -96,7 +96,7 @@ function getStats($user, $forced = false)
 {
     global $_settings, $countries;
     if (!file_exists($_settings . $user . ".set") || !is_array($var = unserialize(file_get_contents($_settings . $user . ".set")))) return false;
-    $query = sql_query("SELECT u.id, u.irctotal, u.last_login, u.onlinetime, u.reputation, u.hits, u.uploaded, u.downloaded, u.country, u.browser, count(p.id) as posts ,count(c.id) as comments FROM users as u LEFT JOIN posts as p ON u.id = p.userid LEFT JOIN comments as c ON c.user = u.id WHERE u.username = " . sqlesc($user) . " GROUP BY u.id") or sqlerr(__FILE__, __LINE__); //or die('Error Error Error! 1');
+    $query = sql_query("SELECT u.id, u.irctotal, u.last_login, u.onlinetime, u.reputation, u.hits, u.uploaded, u.downloaded, u.country, u.browser, count(p.id) as posts ,count(c.id) as comments FROM users as u LEFT JOIN posts as p ON u.id = p.user_id LEFT JOIN comments as c ON c.user = u.id WHERE u.username = " . sqlesc($user) . " GROUP BY u.id") or sqlerr(__FILE__, __LINE__); //or die('Error Error Error! 1');
     if (mysqli_num_rows($query) != 1) die('Error Error Error! 2');
     $a = mysqli_fetch_assoc($query);
     $ops = array(
