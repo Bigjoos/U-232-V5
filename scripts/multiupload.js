@@ -3,7 +3,7 @@
  */
 $(document).ready(function(e){
 
-    $('.clone-torrent-form').on('click',function(e){
+    $('.clone-torrent-form').click(function(e){
         e.preventDefault();
 
         var original = $('.torrent-seperator.clone-me');
