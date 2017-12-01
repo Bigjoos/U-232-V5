@@ -176,8 +176,8 @@ document.getElementById(id).select();
 if ($_FILES['file']['size'] == 0) stderr($lang['bitbucket_error'], $lang['bitbucket_upfail']);
 if ($_FILES['file']['size'] > $maxsize) stderr($lang['bitbucket_error'], $lang['bitbucket_to_large']);
 $file = preg_replace('`[^a-z0-9\-\_\.]`i', '', $_FILES['file']['name']);
-$allow = ','.join(',', $formats);
-if (false === stristr($allow, ','.substr($file, -4))) stderr($lang['bitbucket_err'], $lang['bitbucket_invalid']);
+
+if (false === in_array('.'.pathinfo($file, PATHINFO_EXTENSION), $formats)) stderr($lang['bitbucket_err'], $lang['bitbucket_invalid']);
 if (!function_exists('exif_imagetype')) {
     function exif_imagetype($filename)
     {
