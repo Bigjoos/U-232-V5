@@ -60,7 +60,7 @@ $lang = array_merge(load_language('global') , load_language('browse') , load_lan
 
 if (function_exists('parked')) parked();
 
-$HTMLOUT = $searchin = $select_searchin = $where = $addparam = $new_button = $search_help_boolean = '';
+$HTMLOUT = $searchin = $select_searchin = $where = $addparam = $new_button = $searchstr = $search_help_boolean = '';
 $HTMLOUT .='<script type="text/javascript">
 /*<![CDATA[*/
 $(document).ready(function(){
@@ -111,7 +111,11 @@ if (isset($_GET['searchin']) && isset($valid_searchin[$_GET['searchin']])) {
     $searchin = $valid_searchin[$_GET['searchin']];
     $select_searchin = $_GET['searchin'];
     $addparam.= sprintf('search=%s&amp;searchin=%s&amp;', $searchstr, $select_searchin);
-}
+} else {
+   $searchin = $valid_searchin[ key( $valid_searchin ) ];
+    $addparam.= sprintf( 'search=%s&amp;searchin=%s&amp;', $searchstr, key( $valid_searchin ) );
+ }
+//}
 if (isset($_GET['sort']) && isset($_GET['type'])) {
     $column = $ascdesc = '';
     $_valid_sort = array(
@@ -204,7 +208,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
                 $addparam.= "c{$cat['id']}=1&amp;";
             }
         }
-        //$addparam = "";
+        $addparam = "";
     }
     if (count($wherecatina) < 1) {
         foreach ($cats as $cat) {
@@ -213,7 +217,7 @@ $all = isset($_GET["all"]) ? $_GET["all"] : false;
             }
         }
         $wherea[] = 'category IN (' . join(', ', $wherecatina2) . ') ';
-        //$addparam = "";
+        $addparam = "";
     }
 
 if (count($wherecatina) > 1) $wherea[] = 'category IN (' . join(', ', $wherecatina) . ') ';
@@ -244,7 +248,7 @@ if (isset($cleansearchstr)) {
         if (preg_match('/^\"(.+)\"$/i', $searchstring, $matches)) $wherea[] = '`name` LIKE ' . sqlesc('%' . str_replace($s, $r, $matches[1]) . '%');
         elseif (strpos($searchstr, '*') !== false || strpos($searchstr, '?') !== false) $wherea[] = '`name` LIKE ' . sqlesc(str_replace($s, $r, $searchstr));
         elseif (preg_match('/^[A-Za-z0-9][a-zA-Z0-9()._-]+-[A-Za-z0-9_]*[A-Za-z0-9]$/iD', $searchstr)) $wherea[] = '`name` = ' . sqlesc($searchstr);
-        else $wherea[] = 'MATCH (`search_text`, `filename`, `newgenre`) AGAINST (' . sqlesc($searchstr) . ' IN BOOLEAN MODE)';
+        else $wherea[] = 'MATCH (`search_text`, `filename`,`newgenre`) AGAINST (' . sqlesc($searchstr) . ' IN BOOLEAN MODE)';
         //......
         $searcha = explode(' ', $cleansearchstr);
         //==Memcache search cloud by putyn
@@ -295,18 +299,18 @@ $HTMLOUT .= navigation_start();
 $HTMLOUT .="<a href='index.php'>" . $INSTALLER09["site_name"] . "</a>";
 $HTMLOUT .= navigation_active("Torrents");
 $HTMLOUT .= navigation_end();
-$HTMLOUT.= "<div class='row'><div class='col-md-10 col-md-offset-2'>";
+$HTMLOUT.= "<div class='row'><div class='col-md-12 col-md-offset-1'>";
 if ($CURUSER['opt1'] & user_options::VIEWSCLOUD) {
     $HTMLOUT.= "<div id='wrapper' style='width:80%;border:1px solid black;background-color:rgba(121,124,128,0.3);'>";
     //print out the tag cloud
     $HTMLOUT.= cloud() . "
     </div>";
 }
-$HTMLOUT.= "<br /><br />
+$HTMLOUT.= "<br /><br /><div class='table-responsive'>
     <form role='form' class='form-horizontal' method='get' action='browse.php'>
-    <table>
+    <table class='col-md-offset-1'>
     <tr>
-    <td >
+    <td>
     <table>
     <tr>";
 $i = 0;
@@ -341,7 +345,7 @@ $HTMLOUT.= "</tr>
     </table>
     </td>
     </tr>
-    </table><br />";
+    </table><br /></div>";
 //== clear new tag manually
 if ($CURUSER['opt1'] & user_options::CLEAR_NEW_TAG_MANUALLY) {
     $new_button = "<a href='?clear_new=1'><input type='submit' value='clear new tag' class='button' /></a><br>";

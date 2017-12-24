@@ -65,7 +65,7 @@ if ($action == "viewposts") {
     $HTMLOUT.= begin_frame();
     while ($arr = mysqli_fetch_assoc($res)) {
         $postid = (int)$arr["id"];
-        $posterid = (int)$arr["userid"];
+        $posterid = (int)$arr["user_id"];
         $topicid = (int)$arr["t_id"];
         $topicname = htmlsafechars($arr["topic_name"]);
         $forumid = (int)$arr["f_id"];
