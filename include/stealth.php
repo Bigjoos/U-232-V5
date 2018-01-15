@@ -22,10 +22,10 @@ function stealth($id, $stealth = true)
     global $CURUSER, $mc1, $INSTALLER09;
     $setbits = $clrbits = 0;
     if ($stealth) {
-        $display = 'is';
+        $display = 'is now';
         $setbits|= bt_options::PERMS_STEALTH; // stealth on
     } else {
-        $display = 'is not';
+        $display = 'is no longer';
         $clrbits|= bt_options::PERMS_STEALTH; // stealth off
     }
     // update perms
@@ -36,7 +36,12 @@ function stealth($id, $stealth = true)
                      WHERE id = ' . sqlesc($id) . ' LIMIT 1') or sqlerr(__file__, __line__);
     $row = mysqli_fetch_assoc($res);
     $row['perms'] = (int)$row['perms'];
-    $modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . ' in Stealth Mode thanks to ' . $CURUSER['username'] . "\n" . $row['modcomment'];
+    if ($stealth == 'yes') {
+		$modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . ' in Stealth Mode thanks to ' . $CURUSER['username'] . "\n" . $row['modcomment'];
+	} 
+	else  {
+		$modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . ' in Stealth Mode thanks to ' . $CURUSER['username'] . "\n" . $row['modcomment'];
+	}
     sql_query('UPDATE users SET modcomment = ' . sqlesc($modcomment) . ' WHERE id = ' . sqlesc($id)) or sqlerr(__file__, __line__);
     // update caches
     $mc1->begin_transaction('user' . $id);
