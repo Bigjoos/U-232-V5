@@ -50,7 +50,7 @@ function invincible($id, $invincible = true, $bypass_bans = true)
     $mc1->delete_value('ip_history_' . $id);
     $mc1->delete_value('u_passkey_' . $row['torrent_pass']);
     // update ip in db
-    $modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . $lang['invincible_thank_to'] . $CURUSER['username'] . "\n" . $row['modcomment'];
+    $modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . $lang['invincible_thanks_to'] . $CURUSER['username'] . "\n" . $row['modcomment'];
     //ipf = '.sqlesc($ip).',
     sql_query('UPDATE users SET ip = ' . sqlesc($ip) . ', modcomment = ' . sqlesc($modcomment) . '
               WHERE id = ' . sqlesc($id)) or sqlerr(__file__, __line__);
