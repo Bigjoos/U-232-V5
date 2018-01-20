@@ -78,7 +78,9 @@ if (!$count) {
     $HTMLOUT.= "{$lang['mytorrents_no_torrents']}";
     $HTMLOUT.= "{$lang['mytorrents_no_uploads']}";
 } else {
-    $pager = pager(20, $count, "mytorrents.php?{$pagerlink}");
+    $torrentsperpage = $CURUSER["torrentsperpage"];
+    if (!$torrentsperpage) $torrentsperpage = 20;
+    $pager = pager($torrentsperpage, $count, "mytorrents.php?{$pagerlink}");
     $res = sql_query("SELECT type, sticky, vip, descr, nuked, bump, nukereason, release_group, free, silver, comments, leechers, seeders, owner, IF(num_ratings < {$INSTALLER09['minvotes']}, NULL, ROUND(rating_sum / num_ratings, 1)) AS rating, id, name, save_as, numfiles, added, size, views, visible, hits, times_completed, category, description, username FROM torrents $where $orderby " . $pager['limit']);
     $HTMLOUT.= $pager['pagertop'];
     $HTMLOUT.= "<br />";
