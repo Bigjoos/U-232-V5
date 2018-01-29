@@ -73,6 +73,7 @@ $stdhead = array(
         'style2',
         'bbcode',
         'rating_style',
+	'forums'
     )
 );
 $stdfoot = array(
