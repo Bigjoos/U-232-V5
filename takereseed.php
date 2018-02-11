@@ -20,7 +20,7 @@
 require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
 dbconn();
 loggedinorreturn();
-global $INSTALLER09;
+global $INSTALLER09,$mc1;
 $pm_what = isset($_POST["pm_what"]) && $_POST["pm_what"] == "last10" ? "last10" : "owner";
 $reseedid = intval($_POST["reseedid"]);
 $uploader = intval($_POST["uploader"]);
@@ -33,10 +33,21 @@ $What_Table = (XBT_TRACKER == true ? 'xbt_files_users' : 'snatched');
 $What_TF = (XBT_TRACKER == true ? "active='1'" : "seeder='yes'");
 $pms = array();
 if ($pm_what == "last10") {
-    $res = sql_query("SELECT $What_Table.$What_user_id, $What_Table.$What_id FROM $What_Table WHERE $What_Table.$What_id =" . sqlesc($reseedid) . " AND $What_Table.$What_TF LIMIT 10") or sqlerr(__FILE__, __LINE__);
-    while ($row = mysqli_fetch_assoc($res)) $pms[] = "(0," . sqlesc($row["userid"]) . "," . TIME_NOW . "," . sqlesc($pm_msg) . ($use_subject ? "," . sqlesc($subject) : "") . ")";
-} elseif ($pm_what == "owner") $pms[] = "(0,$uploader," . TIME_NOW . "," . sqlesc($pm_msg) . ($use_subject ? "," . sqlesc($subject) : "") . ")";
-if (count($pms) > 0) sql_query("INSERT INTO messages (sender, receiver, added, msg " . ($use_subject ? ", subject" : "") . " ) VALUES " . join(",", $pms)) or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT $What_Table.$What_user_id as userid, $What_Table.$What_id FROM $What_Table WHERE $What_Table.$What_id =" . sqlesc($reseedid) . " AND $What_Table.$What_TF LIMIT 10") or sqlerr(__FILE__, __LINE__);
+    while ($row = mysqli_fetch_assoc($res)) {
+        $pms[] = "(0," . sqlesc($row["userid"]) . "," . TIME_NOW . "," . sqlesc($pm_msg) . ($use_subject ? "," . sqlesc($subject) : "") . ")";
+        $mc1->delete_value('inbox_new_' . $row["userid"]);
+        $mc1->delete_value('inbox_new_sb_' . $row["userid"]);
+    }
+} elseif ($pm_what == "owner") {
+    $pms[] = "(0,$uploader," . TIME_NOW . "," . sqlesc($pm_msg) . ($use_subject ? "," . sqlesc($subject) : "") . ")";
+    $mc1->delete_value('inbox_new_' . $uploader);
+    $mc1->delete_value('inbox_new_sb_' . $uploader);
+}
+if (count($pms) > 0) {
+    sql_query("INSERT INTO messages (sender, receiver, added, msg " . ($use_subject ? ", subject" : "") . " ) VALUES " . join(",", $pms)) or sqlerr(__FILE__, __LINE__);
+    $mc1->delete_value('shoutbox_');
+}
 sql_query("UPDATE torrents set last_reseed=" . TIME_NOW . " WHERE id=" . sqlesc($reseedid)) or sqlerr(__FILE__, __LINE__);
 $mc1->begin_transaction('torrent_details_' . $reseedid);
 $mc1->update_row(false, array(
