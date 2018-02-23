@@ -50,7 +50,7 @@ function failedloginscheck()
         stderr($lang['tlogin_locked'], "{$lang['tlogin_lockerr1']} . <b>(" . htmlsafechars($ip) . ")</b> . {$lang['tlogin_lockerr2']}");
     }
 } // End
-if (!mkglobal('username:password' . ($INSTALLER09['captcha_on'] ? (!$gotkey ? ":captchaSelection:" : "") : ":") . 'submitme')) die("{$lang['tlogin_sww']}");
+if (!mkglobal('username:password' . ($INSTALLER09['captcha_on'] ? (!$gotkey ? ":captchaSelection:" : ":") : ":") . 'submitme')) die("{$lang['tlogin_sww']}");
 if ($submitme != 'X') stderr($lang['tlogin_err1'], $lang['tlogin_err2']);
 if ($INSTALLER09['captcha_on'] && !$gotkey) {
     if (empty($captchaSelection) || $_SESSION['simpleCaptchaAnswer'] != $captchaSelection) {
