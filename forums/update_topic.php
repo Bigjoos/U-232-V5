@@ -79,7 +79,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
         if ($new_subject != $subject) {
             if (empty($new_subject))
                 stderr('Error...', 'Topic name cannot be empty.');
-            $updateset[] = 'subject='.sqlesc($new_subject);
+            $updateset[] = 'topic_name='.sqlesc($new_subject);
         }
         $new_forumid = (int)$_POST['new_forumid'];
         if (!is_valid_id($new_forumid))
@@ -92,7 +92,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
             $arr = mysqli_fetch_assoc($res);
             if ($CURUSER['class'] < (int)$arr['min_class_write'])
                 stderr('Error...', 'You are not allowed to move this topic into the selected forum.');
-            $updateset[] = 'forumid='.sqlesc($new_forumid);
+            $updateset[] = 'forum_id='.sqlesc($new_forumid);
             sql_query("UPDATE forums SET topic_count=topic_count-1, post_count=post_count-".sqlesc($post_count)." WHERE id=".sqlesc($forumid)) or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE forums SET topic_count=topic_count+1, post_count=post_count+".sqlesc($post_count)." WHERE id=".sqlesc($new_forumid)) or sqlerr(__FILE__, __LINE__);
             $returnto = $INSTALLER09['baseurl'].'/forums.php?action=viewforum&forumid='.$new_forumid;
