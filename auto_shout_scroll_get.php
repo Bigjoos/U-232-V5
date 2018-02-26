@@ -21,7 +21,6 @@ require_once (INCL_DIR . 'user_functions.php');
 require_once (INCL_DIR . 'bbcode_functions.php');
 dbconn(true);
 loggedinorreturn();
-
 echo "";
 //Check for Auto Shouts and cache it
 //$mc1->delete_value('auto_shoutbox_');

@@ -39,7 +39,7 @@ if (isset($_POST['buttonval']) && $_POST['buttonval'] == 'Send') {
     $receiver = sqlesc(isset($_POST['receiver']) ? intval($_POST['receiver']) : 0);
     $subject = sqlesc(htmlsafechars($_POST['subject']));
     $body = sqlesc(trim($_POST['body']));
-    $save = ((isset($_POST['save']) && $_POST['save'] === 1) ? '1' : '0');
+    $save = ((isset($_POST['save']) && $_POST['save'] === 1) ? 'yes' : 'no');
     $delete = sqlesc((isset($_POST['delete']) && $_POST['delete'] !== 0) ? intval($_POST['delete']) : 0);
     $urgent = sqlesc((isset($_POST['urgent']) && $_POST['urgent'] == 'yes' && $CURUSER['class'] >= UC_STAFF) ? 'yes' : 'no');
     $returnto = htmlsafechars(isset($_POST['returnto']) ? $_POST['returnto'] : '');
@@ -82,7 +82,7 @@ if (isset($_POST['buttonval']) && $_POST['buttonval'] == 'Send') {
     }
     //=== ok all is well... post the message :D
     sql_query('INSERT INTO messages (poster, sender, receiver, added, msg, subject, saved, location, urgent) VALUES 
-                            (' . sqlesc($CURUSER['id']) . ', ' . sqlesc($CURUSER['id']) . ', ' . sqlesc($receiver) . ', ' . TIME_NOW . ', ' . $body . ', ' . $subject . ', ' . $save . ', 1,' . $urgent . ')') or sqlerr(__FILE__, __LINE__);
+                            (' . sqlesc($CURUSER['id']) . ', ' . sqlesc($CURUSER['id']) . ', ' . sqlesc($receiver) . ', ' . TIME_NOW . ', ' . $body . ', ' . $subject . ', ' . sqlesc($save) . ', 1,' . $urgent . ')') or sqlerr(__FILE__, __LINE__);
     $mc1->delete_value('inbox_new_' . $receiver);
     $mc1->delete_value('inbox_new_sb_' . $receiver);
     $mc1->delete_value('shoutbox_');

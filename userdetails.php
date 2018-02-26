@@ -361,7 +361,7 @@ if (!(isset($_GET["hit"])) && $CURUSER["id"] <> $user["id"]) {
 }
 
 $HTMLOUT = $perms = $stealth = $suspended = $watched_user = $h1_thingie = '';
-if (($user['opt1'] & user_options::ANONYMOUS) && ($CURUSER['class'] < UC_STAFF && $user["id"] != $CURUSER["id"])) {
+if (($user['anonymous'] == 'yes') && ($CURUSER['class'] < UC_STAFF && $user["id"] != $CURUSER["id"])) {
     $HTMLOUT.= "<table>";
     $HTMLOUT.= "<tr><td colspan='2' align='center'>{$lang['userdetails_anonymous']}</td></tr>";
     if ($user["avatar"]) $HTMLOUT.= "<tr><td colspan='2' align='center'><img src='" . htmlsafechars($user["avatar"]) . "'></td></tr>\n";

@@ -34,6 +34,7 @@ exit();
 
 $HTMLOUT = "";
 $id = (int)$_GET["id"];
+
 if (!is_valid_id($id)) stderr($lang['achievement_history_err'], $lang['achievement_history_err1']);
 $res = sql_query("SELECT users.id, users.username, usersachiev.achpoints, usersachiev.spentpoints FROM users LEFT JOIN usersachiev ON users.id = usersachiev.id WHERE users.id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 $arr = mysqli_fetch_assoc($res);

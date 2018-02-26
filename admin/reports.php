@@ -191,9 +191,9 @@ else {
                 break;
 
             case "Post":
-                $res_who2 = sql_query("SELECT subject FROM topics WHERE id =" . sqlesc($arr_info['2nd_value']));
+                $res_who2 = sql_query("SELECT topic_name FROM topics WHERE id =" . sqlesc($arr_info['2nd_value']));
                 $arr_who2 = mysqli_fetch_assoc($res_who2);
-                $link_to_thing = "<b>{$lang['reports_post']}</b> <a class='altlink' href='forums.php?action=viewtopic&amp;topicid=" . (int)$arr_info['2nd_value'] . "&amp;page=last#" . (int)$arr_info['reporting_what'] . "'><b>" . htmlsafechars($arr_who2['subject']) . "</b></a>";
+                $link_to_thing = "<b>{$lang['reports_post']}</b> <a class='altlink' href='forums.php?action=viewtopic&amp;topicid=" . (int)$arr_info['2nd_value'] . "&amp;page=last#" . (int)$arr_info['reporting_what'] . "'><b>" . htmlsafechars($arr_who2['topic_name']) . "</b></a>";
                 break;
             }
         }

@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (!file_exists($INSTALLER09['flood_file']) || !is_array($limit = unserialize(file_get_contents($INSTALLER09['flood_file'])))) $limit = array();
     
 	//$out = begin_main_frame() . begin_frame($lang['floodlimit_editflood']);
-    
+    $out = '';
     $out.= '<div class="row"><div class="col-md-12"><h2>'. $lang["floodlimit_editflood"] .'</h2>';
     $out.= '<form method=\'post\' action=\'\' ><table class="table table-bordered"><tr><td>'.$lang['floodlimit_userclass'].'</td><td>'.$lang['floodlimit_limit'].'</td></tr>';
     for ($i = UC_MIN; $i <= UC_MAX; $i++) $out.= '<tr><td>' . get_user_class_name($i) . '</td><td><input name=\'limit[' . $i . ']\' type=\'text\' size=\'10\' value=\'' . (isset($limit[$i]) ? $limit[$i] : 0) . '\'/></td></tr>';

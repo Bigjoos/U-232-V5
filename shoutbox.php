@@ -90,7 +90,7 @@ width: 600px;
 background: #FBFCFA;
 font: 11px verdana, sans-serif;
 color: #000000;
-padding: 3px;	outline: none;
+padding: 3px;    outline: none;
 }
 #specialbox:focus{
 border: 1px solid black;
@@ -129,7 +129,7 @@ width: 600px;
 background: #FBFCFA;
 font: 11px verdana, sans-serif;
 color: #000000;
-padding: 3px;	outline: none;
+padding: 3px;    outline: none;
 }
 #specialbox:focus{
 border: 1px solid black;
@@ -474,7 +474,7 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                     $lang['shoutbox_words3_1']
                 ) ,
                 $lang['shoutbox_words4'] => array(
-					$lang['shoutbox_words4_1'],
+                    $lang['shoutbox_words4_1'],
                     $lang['shoutbox_words4_2'],
                     $lang['shoutbox_words4_3'],
                     $lang['shoutbox_words4_4']
@@ -482,7 +482,7 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $lang['shoutbox_words5'] => array(
                     $lang['shoutbox_words5_1'],
                     $lang['shoutbox_words5_2'],
-					$lang['shoutbox_words5_3']
+                    $lang['shoutbox_words5_3']
                 ) /*,
                  ':finger:'=>array(':finger:') */
             );
@@ -500,7 +500,7 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
 }
 //== cache the data
 if (($shouts = $mc1->get_value('shoutbox_')) === false) {
-    $res = sql_query("SELECT s.id, s.userid, s.date, s.text, s.to_user, s.staff_shout, s.autoshout, u.username, u.pirate, u.perms, u.king, u.class, u.donor, u.warned, u.leechwarn, u.enabled, u.chatpost FROM shoutbox AS s LEFT JOIN users AS u ON s.userid=u.id WHERE s.staff_shout ='no' AND s.autoshout='no' ORDER BY s.id DESC LIMIT 30") or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT s.id, s.userid, s.date, s.text, s.to_user, s.staff_shout, s.autoshout, u.username, u.pirate, u.perms, u.king, u.class, u.donor, u.warned, u.leechwarn, u.enabled, u.chatpost FROM shoutbox AS s LEFT JOIN users AS u ON s.userid=u.id WHERE s.staff_shout ='no' AND s.autoshout='no' ORDER BY s.id DESC LIMIT 150") or sqlerr(__FILE__, __LINE__);
     while ($shout = mysqli_fetch_assoc($res)) $shouts[] = $shout;
     $mc1->cache_value('shoutbox_', $shouts, $INSTALLER09['expires']['shoutbox']);
 }
@@ -516,8 +516,10 @@ if (count($shouts) > 0) {
         if ($CURUSER['perms'] & bt_options::NOFKNBEEP) {
             if (preg_match(sprintf("/%s/iU", $CURUSER['username']) , $shouts[0]['text']) && ($shouts[0]['date'] - TIME_NOW) < 60) $HTMLOUT.= "<audio autoplay=\"autoplay\"><source src=\"templates/{$CURUSER['stylesheet']}/beep.mp3\" type=\"audio/mp3\" /><source src=\"templates/{$CURUSER['stylesheet']}/beep.ogg\" type=\"audio/ogg\" /></audio>";
         }
+        $i = 0;
         foreach ($shouts as $arr) {
             if (($arr['to_user'] != $CURUSER['id'] && $arr['to_user'] != 0) && $arr['userid'] != $CURUSER['id']) continue;
+            if ($INSTALLER09['shouts_to_show'] == $i) break;
             $private = '';
             if ($arr['to_user'] == $CURUSER['id'] && $arr['to_user'] > 0) $private = "<a href=\"javascript:window.top.private_reply('" . htmlsafechars($arr['username']) . "','shbox','shbox_text')\"><img src=\"{$INSTALLER09['pic_base_url']}private-shout.png\" alt=\"Private shout\" title=\"Private shout! click to reply to " . htmlsafechars($arr['username']) . "\" width=\"16\" style=\"padding-left:2px;padding-right:2px;\" border=\"0\" /></a>";
             $edit = ($CURUSER['class'] >= UC_STAFF || ($arr['userid'] == $CURUSER['id']) && ($CURUSER['class'] >= UC_POWER_USER && $CURUSER['class'] <= UC_STAFF) ? "<a href='{$INSTALLER09['baseurl']}/shoutbox.php?edit=" . (int)$arr['id'] . "&amp;user=" . (int)$arr['userid'] . "'><img src='{$INSTALLER09['pic_base_url']}button_edit2.gif' alt=\"Edit Shout\"  title=\"Edit Shout\" /></a> " : "");
@@ -531,6 +533,7 @@ if (count($shouts) > 0) {
             $user_stuff['id'] = ($arr['perms'] & bt_options::PERMS_STEALTH ? "" . $user_stuff['id'] = $INSTALLER09['bot_id'] . "" : "" . $user_stuff['id'] = (int)$arr['userid'] . "");
             $user_stuff['username'] = ($arr['perms'] & bt_options::PERMS_STEALTH ? "" . $user_stuff['username'] = 'UnKn0wn' . "" : "" . $user_stuff['username'] = htmlsafechars($arr['username']) . "");
             $HTMLOUT.= "<tr style='background-color:$bg;'><td><span class='size1' style='color:$fontcolor;'>[$date]</span>\n$del$edit$pm$reply$private " . format_username($user_stuff, true) . "<span class='size2' style='color:$fontcolor;'>" . format_comment($arr["text"]) . "\n</span></td></tr>\n";
+            $i++;
         } 
         $HTMLOUT.= "</table>";
     } else {

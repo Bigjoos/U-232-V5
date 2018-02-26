@@ -79,8 +79,6 @@ $htmlout .='
         <link rel="stylesheet" href="templates/1/themeChanger/css/themeChanger.css" type="text/css">
       	<script type="text/javascript" src="templates/1/themeChanger/js/colorpicker.js"></script>
         <script type="text/javascript" src="templates/1/themeChanger/js/themeChanger.js"></script>
-	<!-- Forum CSS-->
-    <link rel="stylesheet" href="templates/1/css/forum.css" /> 
     <!-- global javascript-->
 	<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 	<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
