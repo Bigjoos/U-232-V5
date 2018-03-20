@@ -131,7 +131,7 @@ echo stdhead($CURUSER['username'] . $lang['bonus_user_kmbp'], true, $stdhead) . 
 } else {
 $HTMLOUT .="<table width='80%'><tr><td class='colhead' align='left' colspan='2'><h1>{$lang['bonus_success']}</h1></td></tr><tr>".
 "<td align='left' class='one'><img src='{$INSTALLER09['pic_base_url']}smilies/karma.gif' alt='good_karma' title='{$lang['bonus_goodk']}' /></td><td align='left' class='one'><span class='label label-success'>{$lang['bonus_congrats']}</span>
-{$CURUSER['username']}{$lang['bonus_settracker']}<b>{$lang['bonus_halfdown11']}</b> <img src='{$INSTALLER09['pic_base_url']}smilies/w00t.gif' alt='w00t' title='W00t' /><br />".
+{$CURUSER['username']}{$lang['bonus_settracker']}<b>{$lang['bonus_halfdown1']}</b> <img src='{$INSTALLER09['pic_base_url']}smilies/w00t.gif' alt='w00t' title='W00t' /><br />".
 "<br />{$lang['bonus_clickgbs']} <a class='altlink' href='{$INSTALLER09['baseurl']}/mybonus.php'>{$lang['bonus_kbp']}</a>{$lang['bonus_kbpp']}<br /><br />".
 "</td></tr></table>";
 echo stdhead($CURUSER['username'] . $lang['bonus_user_kmbp'], true, $stdhead) . $HTMLOUT . stdfoot();
@@ -186,7 +186,7 @@ $amt = '1 TB';
 $HTMLOUT .= "
 <div class='panel panel-default'>
 	<div class='panel-body'>
-		<div class='alert alert-success'>{$lang['bonus_congrats']}".format_username($CURUSER) . $lang['bonus_increaseup'] .$amt." {$lang['bonus_clickgb']}<a class='altlink' href='{$INSTALLER09['baseurl']}/mybonus.php'>{$lang['bonus_kbp']}</a>{$lang['bonus_kbpp']}
+		<div class='alert alert-success'>{$lang['bonus_congrats']}".format_username($CURUSER) . $lang['bonus_increaseup'] .$amt." {$lang['bonus_clickgbs']}<a class='altlink' href='{$INSTALLER09['baseurl']}/mybonus.php'>{$lang['bonus_kbp']}</a>{$lang['bonus_kbpp']}
 		</div>
 	</div>
 </div>";
