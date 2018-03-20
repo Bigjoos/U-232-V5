@@ -320,7 +320,7 @@ default:
 $HTMLOUT .="
 <div class='panel panel-default'>
 	<div class='panel-body'>
-		<div class='alert alert-success'>".format_username($CURUSER) .$lang['bonus_decreaseup'].$amt.""."{$lang['bonus_clickgbs']} "."<a class='altlink' href='{$INSTALLER09['baseurl']}/mybonus.php'>{$lang['bonus_kbp']}</a>{$lang['bonus_kbpp']}</div>
+		<div class='alert alert-success'>".format_username($CURUSER) .$lang['bonus_decreasedup'].$amt.""."{$lang['bonus_clickgbs']} "."<a class='altlink' href='{$INSTALLER09['baseurl']}/mybonus.php'>{$lang['bonus_kbp']}</a>{$lang['bonus_kbpp']}</div>
 	</div>
 </div>";
 echo stdhead($CURUSER['username'] . $lang['bonus_user_kmbp'], true, $stdhead) . $HTMLOUT . stdfoot();
