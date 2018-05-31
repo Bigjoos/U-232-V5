@@ -53,6 +53,8 @@ class CACHE extends Memcached {
     protected $Part = 0;
     public static $connected = false;
     private static $link = NULL;
+    protected $prefix = 'u232v5_';
+
     public function __construct() {
         parent::__construct();
         $this->addserver('127.0.0.1', 11211);
@@ -68,6 +70,9 @@ class CACHE extends Memcached {
         if (empty($Key)) {
             trigger_error("Cache insert failed for empty key");
         }
+        if (strpos($Key, $this->prefix) === false) {
+            $Key = $this->prefix . $Key;
+        }
         if (!$this->set($Key, $Value, $Duration)) {
             trigger_error("Cache insert failed for key $Key -- " . $this->getResultCode(), E_USER_ERROR);
         }
@@ -81,6 +86,7 @@ class CACHE extends Memcached {
         if (empty($Key)) {
             trigger_error("Cache insert failed for empty key");
         }
+        $Key = $this->prefix . $Key;
         $add = $this->add($Key, $Value, $Duration);
         $this->Time += (microtime(true) - $StartTime) * 1000;
         return $add;
@@ -90,6 +96,7 @@ class CACHE extends Memcached {
         if (empty($Key)) {
             trigger_error("Cache retrieval failed for empty key");
         }
+        $Key = $this->prefix . $Key;
         $Return = $this->get($Key);
         $this->Time += (microtime(true) - $StartTime) * 1000;
         return $Return;
@@ -99,6 +106,7 @@ class CACHE extends Memcached {
         if ($Duration != 0) {
             $Duration += time();
         }
+        $Key = $this->prefix . $Key;
         $this->replace($Key, $Value, false, $Duration);
         $this->Time += (microtime(true) - $StartTime) * 1000;
     }
@@ -108,12 +116,14 @@ class CACHE extends Memcached {
         if (empty($Key)) {
             trigger_error("Cache retrieval failed for empty key");
         }
+        $Key = $this->prefix . $Key;
         if (!$this->delete($Key, 0)) {
         }
         $this->Time += (microtime(true) - $StartTime) * 1000;
     }
     //---------- memcachedb functions ----------//
     public function begin_transaction($Key) {
+        $Key = $this->prefix . $Key;
         $Value = $this->get($Key);
         if (!is_array($Value)) {
             $this->InTransaction = false;
@@ -218,6 +228,7 @@ class CACHE extends Memcached {
 
         self::$count++;
         $time = microtime(true);
+        $key = $this->prefix . $key;
         $inc = self::$link->increment($key, $howmuch);
         self::$time += (microtime(true) - $time);
 
@@ -232,6 +243,7 @@ class CACHE extends Memcached {
 
         self::$count++;
         $time = microtime(true);
+        $key = $this->prefix . $key;
         $dec = self::$link->decrement($key, $howmuch);
         self::$time += (microtime(true) - $time);
 
