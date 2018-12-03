@@ -142,7 +142,7 @@ if ($Multi_forum['configs']['use_poll_mod'] && is_valid_id($pollid)) {
             $arr1["option18"],
             $arr1["option19"]
         );
-        $HTMLOUT .= "<table border='0' cellspacing='0' cellpadding='5' class='tborder tfixed'>
+        $HTMLOUT .= "<table border='0' cellspacing='0' cellpadding='5' class='table tborder tfixed'>
           <tr>
 <td colspan='2' class='thead' style='text-align: center;'><strong>Poll: {$question}</strong></td>
 </tr>
