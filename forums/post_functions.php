@@ -143,7 +143,7 @@ function insert_quick_jump_menu($currentforum = 0)
 	  <input type='hidden' name='action' value='post' />
 	  <input type='hidden' name='". ($newtopic ? 'forumid' : 'topicid')."' value='".$id."' />";
     //$htmlout .= begin_table(true);
-	$htmlout .="<table border='0' cellspacing='0' cellpadding='5' class='tborder'>
+	$htmlout .="<table border='0' cellspacing='0' cellpadding='5' class='table tborder'>
 	<tr>
 <td class='thead' colspan='2'><strong>Compose</strong></td>
 </tr>
