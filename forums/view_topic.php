@@ -531,15 +531,17 @@ $HTMLOUT .= "</div><br /><br /><br />";
 if ($locked) {
     $HTMLOUT .= "";
 } else {
-    $HTMLOUT .= "<div class='float_left' style='margin-top:-4em'>";
-    $HTMLOUT .= $pagemenu1 . $pmlb . $pagemenu2 . $pmlb . $pagemenu3;
-    if ($Multi_forum['configs']['use_poll_mod'] && (($userid == $t_userid || $CURUSER['class'] >= UC_STAFF || isMod($forumid, "forum")) && !is_valid_id($pollid))) {
-        $HTMLOUT .= "<form style='margin-top:-6em' method='post' action='forums.php'>
+   if ($Multi_forum['configs']['use_poll_mod'] && (($userid == $t_userid || $CURUSER['class'] >= UC_STAFF || isMod($forumid, "forum")) && !is_valid_id($pollid))) {
+        $HTMLOUT .= "<div style='display:block;height:2em;'></div>";
+	$HTMLOUT .= "<form style='margin-top:-6em' method='post' action='forums.php'>
 <input type='hidden' name='action' value='makepoll' />
   <input type='hidden' name='topicid' value='" . $topicid . "' />
   <input type='submit' class='btn btn-default' value='Add a Poll' />
   </form>";
     }
+
+    $HTMLOUT .= "<div class='float_left' style='margin-top:0em'>";
+    $HTMLOUT .= $pagemenu1 . $pmlb . $pagemenu2 . $pmlb . $pagemenu3;
     $HTMLOUT .= "</div>";
     $HTMLOUT .= "<h3>Quick Reply:</h3>" . insert_compose_frame($topicid, false, false, true);
     /**
