@@ -80,7 +80,8 @@ function countries()
 }
 $country = '';
 $countries = countries();
-foreach ($countries as $cntry) $country.= "<option value='" . (int)$cntry['id'] . "'" . ($CURUSER["country"] == $cntry['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($cntry['name']) . "</option>\n";
+$user_country = isset($CURUSER['country']) ? "{$CURUSER['country']}" : $INSTALLER09['country'];
+foreach ($countries as $cntry) $country.= "<option value='" . (int)$cntry['id'] . "'" . ($user_country == $cntry['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($cntry['name']) . "</option>\n";
 $gender.= "<div class='form-group'><div class='col-sm-4'><select class='form-control' name=\"gender\">
     <option value=\"Male\">{$lang['signup_male']}</option>
     <option value=\"Female\">{$lang['signup_female']}</option>
@@ -106,7 +107,7 @@ $HTMLOUT.= "".($INSTALLER09['captcha_on'] ? "<script type='text/javascript'>
     </script>" : "")."
 <div style='width:75%; margin:auto auto; margin-top:-4%;'>
     <form class='col-md-12 form-horizontal panel inverse' style='padding-top:2%;' role='form' method='post' title='signup' action='takesignup.php'>
-<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input  type='text' class='form-control'  placeholder='{$lang['signup_uname']}' name='wantusername' id='wantusername' onblur='checkit();'></div></div>
+<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input  type='text' class='form-control' placeholder='{$lang['signup_uname']}' name='wantusername' id='wantusername' onblur='checkit();'></div></div>
 <div class='form-group'><div id='namecheck' class='col-sm-9 col-sm-offset-1'></div></div>
 <div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input class='form-control' type='password' placeholder='{$lang['signup_pass']}' name='wantpassword'></div></div>
 <div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input type='password' class='form-control' placeholder='{$lang['signup_passa']}' name='passagain'></div></div>
