@@ -49,7 +49,7 @@ function make_password()
     $final_rand = md5($unique_id . $new_uniqueid);
     mt_srand();
     for ($i = 0; $i < 15; $i++) {
-        $pass.= $final_rand{mt_rand(0, 31) };
+        $pass.= $final_rand[mt_rand(0, 31) ];
     }
     return $pass;
 }

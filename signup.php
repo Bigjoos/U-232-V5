@@ -80,7 +80,8 @@ function countries()
 }
 $country = '';
 $countries = countries();
-foreach ($countries as $cntry) $country.= "<option value='" . (int)$cntry['id'] . "'" . ($CURUSER["country"] == $cntry['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($cntry['name']) . "</option>\n";
+$user_country = isset($CURUSER['country']) ? "{$CURUSER['country']}" : $INSTALLER09['country'];
+foreach ($countries as $cntry) $country.= "<option value='" . (int)$cntry['id'] . "'" . ($user_country == $cntry['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($cntry['name']) . "</option>\n";
 $gender.= "<div class='form-group'><div class='col-sm-4'><select class='form-control' name=\"gender\">
     <option value=\"Male\">{$lang['signup_male']}</option>
     <option value=\"Female\">{$lang['signup_female']}</option>

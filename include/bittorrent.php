@@ -56,17 +56,16 @@ if (preg_match('/(?:\< *(?:java|script)|script\:|\+document\.)/i', serialize($_C
   die('Forbidden');
 //==
 ////////Strip slashes by system//////////
-function cleanquotes(&$in)
+function cleanquotes($in)
 {
-    if (is_array($in)) return array_walk($in, 'cleanquotes');
-    return $in = stripslashes($in);
+	$in = is_array($in) ? array_map('cleanquotes', $in) : stripslashes($in);
+		return $in;
 }
-if (get_magic_quotes_gpc()) {
-    array_walk($_GET, 'cleanquotes');
-    array_walk($_POST, 'cleanquotes');
-    array_walk($_COOKIE, 'cleanquotes');
-    array_walk($_REQUEST, 'cleanquotes');
-}
+array_walk($_GET, 'cleanquotes');
+array_walk($_POST, 'cleanquotes');
+array_walk($_COOKIE, 'cleanquotes');
+array_walk($_REQUEST, 'cleanquotes');
+
 //== Updated 02/215
 function htmlsafechars($txt = '')
 {
@@ -463,12 +462,12 @@ function userlogin()
             {
             // No Main Result Set. Set last update to now...
             $add_set = ', curr_ann_last_check = '.sqlesc($dt);
-            $mc1->begin_transaction('user' . $CURUSER['id']);
+            //$mc1->begin_transaction('user' . $CURUSER['id']);
             $mc1->update_row(false, array(
             'curr_ann_last_check' => $dt
         ));
             $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
+            //$mc1->begin_transaction('MyUser_' . $CURUSER['id']);
             $mc1->update_row(false, array(
             'curr_ann_last_check' => $dt
         ));
@@ -655,7 +654,7 @@ function userlogin()
 function charset()
 {
     global $CURUSER, $INSTALLER09;
-    $lang_charset = $CURUSER['language'];
+    $lang_charset = isset($CURUSER['language']) ? "{$CURUSER['language']}" : $INSTALLER09['language'];
     switch ($lang_charset) {
     case ($lang_charset == 2):
         return "UTF-8";
@@ -674,12 +673,14 @@ function autoclean()
     $now = TIME_NOW;
     $sql = sql_query("SELECT * FROM cleanup WHERE clean_on = 1 AND clean_time <= {$now} ORDER BY clean_time ASC LIMIT 0,1");
     $row = mysqli_fetch_assoc($sql);
-    if ($row['clean_id']) {
-        $next_clean = intval($now + ($row['clean_increment'] ? $row['clean_increment'] : 15 * 60));
-        sql_query("UPDATE cleanup SET clean_time = ".sqlesc($next_clean)." WHERE clean_id = ".sqlesc($row['clean_id']));
-        if (file_exists(CLEAN_DIR . '' . $row['clean_file'])) {
+	$cleanid = isset($row['clean_id']) ? $row['clean_id'] : '';
+	$cleanfile = isset($row['clean_file']) ? $row['clean_file'] : '';
+    if ($cleanid) {
+        $next_clean = intval($now + (isset($row['clean_increment']) ? $row['clean_increment'] : 15 * 60));
+        sql_query("UPDATE cleanup SET clean_time = ".sqlesc($next_clean)." WHERE clean_id = ".sqlesc($cleanid));
+        if (file_exists(CLEAN_DIR . '' . $cleanfile)) {
             require_once (CLEAN_DIR . 'clean_log.php');
-            require_once (CLEAN_DIR . '' . $row['clean_file']);
+            require_once (CLEAN_DIR . '' . $cleanfile);
             if (function_exists('docleanup')) {
                 register_shutdown_function('docleanup', $row);
             }
@@ -832,7 +833,7 @@ function delete_id_keys($keys, $keyname = false)
 }
 function unesc($x)
 {
-    if (get_magic_quotes_gpc()) return stripslashes($x);
+	$x = is_array($x) ? array_map('unesc', $x) : stripslashes($x);
     return $x;
 }
 function mksize($bytes) {
@@ -867,13 +868,16 @@ function mkprettytime($s)
     if ($t["hour"]) return sprintf("%d:%02d:%02d", $t["hour"], $t["min"], $t["sec"]);
     return sprintf("%d:%02d", $t["min"], $t["sec"]);
 }
-function mkglobal($vars)
-{
-    if (!is_array($vars)) $vars = explode(":", $vars);
+function mkglobal($vars) {
+    if (!is_array($vars))
+        $vars = explode(":", $vars);
     foreach ($vars as $v) {
-        if (isset($_GET[$v])) $GLOBALS[$v] = unesc($_GET[$v]);
-        elseif (isset($_POST[$v])) $GLOBALS[$v] = unesc($_POST[$v]);
-        else return 0;
+        if (isset($_GET[$v]))
+            $GLOBALS[$v] = stripslashes($_GET[$v]);
+        elseif (isset($_POST[$v]))
+            $GLOBALS[$v] = stripslashes($_POST[$v]);
+        else
+            return 0;
     }
     return 1;
 }

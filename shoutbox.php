@@ -504,7 +504,7 @@ if (($shouts = $mc1->get_value('shoutbox_')) === false) {
     while ($shout = mysqli_fetch_assoc($res)) $shouts[] = $shout;
     $mc1->cache_value('shoutbox_', $shouts, $INSTALLER09['expires']['shoutbox']);
 }
-if (count($shouts) > 0) {
+if ($shouts && count($shouts) > 0) {
     $HTMLOUT.= "<table class='small text-left' style='clear:both; border-collapse:collapse; width:100%;'>\n";
     $shout_pm_alert = mysqli_fetch_assoc(sql_query(" SELECT count(id) AS pms FROM messages WHERE receiver = " . sqlesc($CURUSER['id']) . " AND unread = 'yes' AND location = '1'")) or sqlerr(__FILE__, __LINE__);
     $gotpm = 0;

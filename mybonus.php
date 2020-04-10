@@ -894,7 +894,7 @@ while($ar = mysqli_fetch_assoc($qr)){
    //$mc1->delete_value('inbox_new_sb_'.$pms);
    // end
 }
-if(count($update_users)) {
+if($update_users && count($update_users)) {
 	$new_bonus = $thief_bonus-$points;
 	$new_rep = $thief_rep+($user_limit*$rep_to_steal);
 	$update_users[] = '('.$thief_id.','.$new_rep.','.$new_bonus.')';
@@ -1563,7 +1563,7 @@ if(($halfdownload_counter = $mc1->get_value('halfdownload_counter')) === false) 
     $top_donators[] = $top_donator;
     $mc1->cache_value('top_donators_', $top_donators, 0);
     }
-    if (count($top_donators) > 0)
+    if ($top_donators && count($top_donators) > 0)
     {
     $top_donator = "<h4>Top 10 Contributors </h4>\n";
     if ($top_donators)
@@ -1590,7 +1590,7 @@ if(($halfdownload_counter = $mc1->get_value('halfdownload_counter')) === false) 
     $top_donators2[] = $top_donator2;
     $mc1->cache_value('top_donators2_', $top_donators2, 0);
     }
-    if (count($top_donators2) > 0)
+    if ($top_donators2 && count($top_donators2) > 0)
     {
     $top_donator2 = "<h4>Top 10 Contributors </h4>\n";
     if ($top_donators2)
@@ -1617,7 +1617,7 @@ if(($halfdownload_counter = $mc1->get_value('halfdownload_counter')) === false) 
     $top_donators3[] = $top_donator3;
     $mc1->cache_value('top_donators3_', $top_donators3, 0);
     }
-    if (count($top_donators3) > 0)
+    if ($top_donators3 && count($top_donators3) > 0)
     {
     $top_donator3 = "<h4>Top 10 Contributors </h4>\n";
     if ($top_donators3)

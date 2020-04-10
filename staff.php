@@ -41,7 +41,7 @@ function DoStaff($staff, $staffclass, $cols = 2)
     global $INSTALLER09;
     $htmlout = '';
     $dt = TIME_NOW - 180;
-    $counter = count($staff);
+    $counter = $staff && count($staff);
     $rows = ceil($counter / $cols);
     $cols = ($counter < $cols) ? $counter : $cols;
     $r = 0;

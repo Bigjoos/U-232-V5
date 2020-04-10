@@ -25,7 +25,7 @@ $HTMLOUT.= "";
 			while ($topic = mysqli_fetch_assoc($topicres)) $topics[] = $topic;
 			$mc1->cache_value('last_posts_b_' . $CURUSER['class'], $topics, $INSTALLER09['expires']['latestposts']);
 			}
-			if (count($topics) > 0) {
+			if ($topic && count($topics) > 0) {
 			$HTMLOUT.= "<div class='panel panel-default'>
 	<div class='panel-heading'>
 		<label for='checkbox_4' class='text-left'>{$lang['latestposts_title']}</label>
