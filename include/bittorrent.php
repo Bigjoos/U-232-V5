@@ -55,18 +55,16 @@ if (preg_match('/(?:\< *(?:java|script)|script\:|\+document\.)/i', serialize($_P
 if (preg_match('/(?:\< *(?:java|script)|script\:|\+document\.)/i', serialize($_COOKIE)))
   die('Forbidden');
 //==
-////////Strip slashes by system//////////
-function cleanquotes(&$in)
+
+function cleanquotes($in) //Strip slashes updated to php7.4 
 {
-    if (is_array($in)) return array_walk($in, 'cleanquotes');
-    return $in = stripslashes($in);
+    $in = is_array($in) ? array_map('cleanquotes', $in) : stripslashes($in);
+        return $in;
 }
-if (get_magic_quotes_gpc()) {
-    array_walk($_GET, 'cleanquotes');
-    array_walk($_POST, 'cleanquotes');
-    array_walk($_COOKIE, 'cleanquotes');
-    array_walk($_REQUEST, 'cleanquotes');
-}
+array_walk($_GET, 'cleanquotes');
+array_walk($_POST, 'cleanquotes');
+array_walk($_COOKIE, 'cleanquotes');
+array_walk($_REQUEST, 'cleanquotes');
 //== Updated 02/215
 function htmlsafechars($txt = '')
 {
@@ -830,9 +828,9 @@ function delete_id_keys($keys, $keyname = false)
     $mc1->delete_value($keyname . $id);
     return true;
 }
-function unesc($x)
+function unesc($x)   //updated to php 7.4
 {
-    if (get_magic_quotes_gpc()) return stripslashes($x);
+    $x = is_array($x) ? array_map('unesc', $x) : stripslashes($x);
     return $x;
 }
 function mksize($bytes) {
