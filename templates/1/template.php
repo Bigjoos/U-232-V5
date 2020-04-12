@@ -28,7 +28,9 @@ function stdhead($title = "", $msgalert = true, $stdhead = false)
         $INSTALLER09['categorie_icon'] = isset($CURUSER['categorie_icon']) ? "{$CURUSER['categorie_icon']}" : $INSTALLER09['categorie_icon'];
         $INSTALLER09['language'] = isset($CURUSER['language']) ? "{$CURUSER['language']}" : $INSTALLER09['language'];
     }
-    $salty = md5("Th15T3xtis5add3dto66uddy6he@water..." . $CURUSER['username'] . "");
+    $torrent_pass = isset($CURUSER['torrent_pass']) ? "{$CURUSER['torrent_pass']}" : "";
+    $salty_username = isset($CURUSER['username']) ? "{$CURUSER['username']}" : '';
+    $salty = md5("Th15T3xtis5add3dto66uddy6he@water...". $salty_username . "");
     /** ZZZZZZZZZZZZZZZZZZZZZZZZZZip it! */
 
 if (!isset($_NO_COMPRESS)) if (!ob_start('ob_gzhandler')) ob_start();
@@ -88,7 +90,7 @@ $htmlout .='
     <!-- <script src="scripts/html5shiv.js"  async></script>  -->
     <script src="scripts/respond.min.js"  async></script> <!-- used for IE8 and below-->
     <!-- <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>  -->    
-    <script type="application/rss+xml" title="Latest Torrents" src="/rss.php?torrent_pass='.$CURUSER["torrent_pass"].'"></script>';
+    <script type="application/rss+xml" title="Latest Torrents" src="/rss.php?torrent_pass='.$torrent_pass.'"></script>';
 	$htmlout .= "
     <style type='text/css'>#mlike{cursor:pointer;}</style>
     <script type='text/javascript'>
