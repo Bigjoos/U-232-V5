@@ -95,7 +95,7 @@ if (isset($_POST["user_timezone"]) && preg_match('#^\-?\d{1,2}(?:\.\d{1,2})?$#',
 $dst_in_use = localtime(TIME_NOW + ((int)$time_offset * 3600) , true);
 // TIMEZONE STUFF END
 $secret = mksecret();
-$wantpasshash = make_passhash($secret, md5($wantpassword));
+$wantpasshash = make_passhash($wantpassword);
 $editsecret = (!$arr[0] ? "" : EMAIL_CONFIRM ? make_passhash_login_key() : "");
 $wanthintanswer = md5($hintanswer);
 $user_frees = (XBT_TRACKER == true ? 0 : TIME_NOW + 14 * 86400);
@@ -176,6 +176,7 @@ $body = str_replace(array(
 if ($arr[0] || EMAIL_CONFIRM) 
 mail($email, "{$INSTALLER09['site_name']} {$lang['takesignup_confirm']}", $body, "{$lang['takesignup_from']} {$INSTALLER09['site_email']}");
 else 
-logincookie($id, $wantpasshash);
+$passh = md5($row["passhash"] . $_SERVER["REMOTE_ADDR"]);
+logincookie($row["id"], $passh);
 header("Refresh: 0; url=ok.php?type=". (!$arr[0]? "sysop" : (EMAIL_CONFIRM ? "signup&email=" . urlencode($email) : "confirm")));
 ?>
