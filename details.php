@@ -895,41 +895,64 @@ if (in_array($torrents['category'], $INSTALLER09['tv_cats'])) {
 }
 //== end tvmaze
 if ((in_array($torrents['category'], $INSTALLER09['movie_cats'])) && $torrents['url'] != '') {
+$IMDB = new IMDB($torrents['url']);
+    $country =($IMDB->getCountry());
+    $country = explode("/",$country);
+    $description = $IMDB->getDescription();
+    $director = $IMDB->getDirector();
+    $director = explode("/",$director);
+    $genre =$IMDB->getGenre();
+    $genre = explode("/",$genre);
+    $location =$IMDB->getLocation();
+    $location = explode(",",$location);
+    $plot =$IMDB->getPlot();
+    $poster =$IMDB->getPoster("small",true);
+    $runtime =$IMDB->getRuntime();
+    $title = $IMDB->getTitle();
+    $year = $IMDB->getYear();
+	$rating = $IMDB->getRating();
+	$writer = $IMDB->getWriter();
+	$trailer = $IMDB->getTrailerAsUrl($bEmbed = true);
+	$comment = $IMDB->getUserReview();
+	$soundmix =$IMDB->getSoundMix();
 $imdb = '';
-$imdb_info['id'] = $imdb_info['title'] = $imdb_info['orig_title'] = $imdb_info['year'] = $imdb_info['rating'] = $imdb_info['votes'] = $imdb_info['gen'] = $imdb_info['runtime'] = $imdb_info['country'] = $imdb_info['lanuage'] = $imdb_info['director'] = $imdb_info['produce'] = $imdb_info['write'] = $imdb_info['compose'] = $imdb_info['plotoutline'] = $imdb_info['plot'] = $imdb_info['trailers'] = $imdb_info['comment'] = "";
-
-$imdb_info = get_imdb($torrents['url']);
-
-//<strong><font color=\"red\">Country: </font></strong>".$imdb_info['country']."
 $imdb .= "<div class='imdb'>
 <div class='imdb_info'>
-<strong><font color=\"red\">{$lang['details_add_imdb01']}</font></strong> ".$imdb_info['year']." 
-<strong><font color=\"red\">{$lang['details_add_imdb02']}</font></strong> ".$imdb_info['gen']."
-<strong><font color=\"red\">{$lang['details_add_imdb03']}</font></strong> ".$imdb_info['runtime']." Mins  
-  
-<strong><font color=\"red\">{$lang['details_add_imdb04']}</font></strong>".$imdb_info['rating']."  
-<br />
-<strong><font color=\"red\">{$lang['details_add_imdb05']}</font></strong>".$imdb_info['director']." 
-<strong><font color=\"red\">{$lang['details_add_imdb06']}</font></strong> ".$imdb_info['produce']."  
-<br />
-<strong><font color=\"red\">{$lang['details_add_imdb07']}</font></strong>".$imdb_info['write']."  
-<strong><font color=\"red\">{$lang['details_add_imdb08']}</font></strong>".$imdb_info['compose']." 
-</div><!-- closing imdb info -->
+<br /><strong><font color=\"red\">{$lang['details_add_imdb01']}</font></strong> ".$year."";
+	$imdb .= "<br /><strong><font color=\"red\">{$lang['details_add_imdb02']}</font></strong>";
+	foreach ($genre as $gen) {
+		$imdb .= $gen . '/';
+}
+$imdb .= "<br /><strong><font color=\"red\">{$lang['details_add_imdb03']}</font></strong> ".$runtime." Mins   
+<br /><strong><font color=\"red\">{$lang['details_add_imdb04']}</font></strong>".$rating."  
+<br />";
+foreach ($director as $dir) {
+$imdb .= "<br /><strong><font color=\"red\">{$lang['details_add_imdb05']}</font></strong>".$dir."";
+} 
+foreach ($location as $loc) {
+$imdb .= "<br /><strong><font color=\"red\">{$lang['details_add_imdb06']}</font></strong>".$loc . ',';
+}
+$imdb .= "<br />
+<strong><font color=\"red\">{$lang['details_add_imdb07']}</font></strong>".$writer."";
+	foreach ($country as $cntry) {
+$imdb .= "<br /><strong><font color=\"red\">{$lang['details_add_imdb08']}</font></strong>" .$soundmix . ',';
+}
+$imdb .= "</div><!-- closing imdb info -->
 <br />";
 $imdb.= "
 <div class='imdb_summary'>
 <div style=\"background-color:transparent; border: none; width:100%;\"><div style=\"text-transform: uppercase; border-bottom: 1px solid #CCCCCC; margin-bottom: 3px; font-size: 0.8em; color: red; font-weight: bold; display: block;\"><span onclick=\"if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerHTML = '<b>{$lang['details_add_imdb10']}</b><a href=\'#\' onclick=\'return false;\'>{$lang['details_add_imdbhd']}</a>'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = '<b>{$lang['details_add_imdb10']}</b><a href=\'#\' onclick=\'return false;\'>{$lang['details_add_imdbsh']}</a>'; }\" ><font color='red'><b>{$lang['details_add_imdb10']}</b></font><a href=\"#\" onclick=\"return false;\">{$lang['details_add_imdbsh']}</a></span></div><div class=\"quotecontent\"><div style=\"display: none;\"><div style='background-color:transparent;width:100%;overflow: auto'>";
-$imdb.= "".$imdb_info['plotoutline']."";
+$imdb.= "".$description."";
 $imdb.="</div></div></div><!-- closing quote --></div></div><!-- closing imdb summary -->";
 
 $imdb.= "<div class='imdb_plot'>
 <div style=\"background-color:transparent; border: none; width:100%;\"><div style=\"text-transform: uppercase; border-bottom: 1px solid #CCCCCC; margin-bottom: 3px; font-size: 0.8em; color: red; font-weight: bold; display: block;\"><span onclick=\"if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerHTML = '<b>{$lang['details_add_imdb11']}</b><a href=\'#\' onclick=\'return false;\'>{$lang['details_add_imdbhd']}</a>'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = '<b>{$lang['details_add_imdb11']}</b><a href=\'#\' onclick=\'return false;\'>{$lang['details_add_imdbsh']}</a>'; }\" ><font color='red'><b>{$lang['details_add_imdb11']}</b></font><a href=\"#\" onclick=\"return false;\">{$lang['details_add_imdbsh']}</a></span></div><div class=\"quotecontent\"><div style=\"display: none;\"><div style='background-color:transparent;width:100%;overflow: auto'>";
-$imdb.= "".strip_tags($imdb_info['plot'])."";
+$imdb.= "".strip_tags($plot)."";
 $imdb.="</div></div></div></div></div><!-- closing plot -->";
 
 $imdb.= "<div class='imdb_trailers'>
 <div style=\"background-color:transparent; border: none; width:100%;\"><div style=\"text-transform: uppercase; border-bottom: 1px solid #CCCCCC; margin-bottom: 3px; font-size: 0.8em; color: red; font-weight: bold; display: block;\"><span onclick=\"if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerHTML = '<b>{$lang['details_add_imdb12']}</b><a href=\'#\' onclick=\'return false;\'>{$lang['details_add_imdbhd']}</a>'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = '<b>{$lang['details_add_imdb12']}</b><a href=\'#\' onclick=\'return false;\'>{$lang['details_add_imdbsh']}</a>'; }\" ><font color='red'><b>{$lang['details_add_imdb12']}</b></font><a href=\"#\" onclick=\"return false;\">{$lang['details_add_imdbsh']}</a></span></div><div class=\"quotecontent\"><div style=\"display: none;\"><div style='background-color:transparent;width:100%;overflow: auto'>";
-$imdb.= "<a href=\"movietrailer.php?movie=".$imdb_info['title']."&amp;year=".$imdb_info['year']."\" onclick=\"return popitup('movietrailer.php?movie=".$imdb_info['title']."&amp;year=".$imdb_info['year']."')\"    ><span class='imdb_titles'>{$lang['details_add_imdb14']}</span></a>
+$imdb.= "<a href=\"".$trailer."\" onclick=\"return popitup('".$trailer."')\"><span class='imdb_titles'>{$lang['details_add_imdb14']}</span></a>
 ";
 $imdb.="</div></div></div></div></div><!-- closing trailers -->";
 
@@ -937,7 +960,7 @@ $imdb.="</div></div></div></div></div><!-- closing trailers -->";
 //isset($imdb_info['comment']) ?: $imdb_info['comment'] = 'None Available';
 $imdb.= "<div class='imdb_comments'>
 <div style=\"background-color:transparent; border: none; width:100%;\"><div style=\"text-transform: uppercase; border-bottom: 1px solid #CCCCCC; margin-bottom: 3px; font-size: 0.8em; color: red; font-weight: bold; display: block;\"><span onclick=\"if (this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display != '') { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = ''; this.innerHTML = '<b>{$lang['details_add_imdb13']}</b><a href=\'#\' onclick=\'return false;\'>{$lang['details_add_imdbhd']}</a>'; } else { this.parentNode.parentNode.getElementsByTagName('div')[1].getElementsByTagName('div')[0].style.display = 'none'; this.innerHTML = '<b>Comments: </b><a href=\'#\' onclick=\'return false;\'>{$lang['details_add_imdbsh']}</a>'; }\" ><font color='red'><b>{$lang['details_add_imdb13']}</b></font><a href=\"#\" onclick=\"return false;\">{$lang['details_add_imdbsh']}</a></span></div><div class=\"quotecontent\"><div style=\"display: none;\"><div style='background-color:transparent;width:100%;overflow: auto'>";
-$imdb.= "".strip_tags($imdb_info['comment'])."";
+$imdb.= "".strip_tags($comment)."";
 $imdb.="</div></div></div></div></div><!-- closing comments -->";
 $imdb .="</div><!-- closing imdb -->";
 $HTMLOUT.= tr($lang['details_add_imdb'], $imdb, 1);
