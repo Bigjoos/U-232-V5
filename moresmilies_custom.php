@@ -22,7 +22,7 @@ require_once INCL_DIR . 'user_functions.php';
 dbconn(false);
 loggedinorreturn();
 $lang = array_merge(load_language('global'));
-if ($CURUSER['smile_until'] == '0') stderr("Error", "you do not have access!");
+if ($CURUSER['smile_until'] == '1') stderr("Error", "you do not have access!");
 $htmlout = '';
 $htmlout = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
 		\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
@@ -42,10 +42,10 @@ $htmlout = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
     }
     </script>
     <table class='list' width='100%' cellpadding='1' cellspacing='1'>";
-$count = 0;
+$count = count($customsmilies);
 $ctr = 0;
 global $customsmilies;
-while ((list($code, $url) = each($customsmilies))) {
+foreach($customsmilies as $code => $url) {
     if ($count % 3 == 0) $htmlout.= "<tr>";
     $htmlout.= "<td align='center'><a href=\"javascript: SmileIT('" . str_replace("'", "\'", $code) . "','" . htmlsafechars($_GET['form']) . "','" . htmlsafechars($_GET['text']) . "')\"><img border='0' src='./pic/smilies/" . $url . "' alt='' /></a></td>";
     $count++;
