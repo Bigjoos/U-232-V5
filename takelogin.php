@@ -80,7 +80,8 @@ if (!$row) {
     else sql_query("UPDATE failedlogins SET attempts = attempts + 1 where ip=$ip_escaped") or sqlerr(__FILE__, __LINE__);
     bark();
 }
-if ($row['passhash'] != make_passhash($row['secret'], md5($password))) {
+$pass_hash = password_verify($password, $row['passhash']);
+if (!$pass_hash) {
     $fail = (@mysqli_fetch_row(sql_query("SELECT COUNT(id) from failedlogins where ip=$ip_escaped"))) or sqlerr(__FILE__, __LINE__);
     if ($fail[0] == 0) sql_query("INSERT INTO failedlogins (ip, added, attempts) VALUES ($ip_escaped, $added, 1)") or sqlerr(__FILE__, __LINE__);
     else sql_query("UPDATE failedlogins SET attempts = attempts + 1 where ip=$ip_escaped") or sqlerr(__FILE__, __LINE__);
@@ -88,7 +89,7 @@ if ($row['passhash'] != make_passhash($row['secret'], md5($password))) {
     $subject = "{$lang['tlogin_log_err1']}";
     $msg = "[color=red]{$lang['tlogin_log_err2']}[/color]\n{$lang['tlogin_mess1']}" . (int)$row['id'] . "{$lang['tlogin_mess2']}" . htmlsafechars($username) . "{$lang['tlogin_mess3']}" . "{$lang['tlogin_mess4']}" . htmlsafechars($ip) . "{$lang['tlogin_mess5']}";
     $sql = "INSERT INTO messages (sender, receiver, msg, subject, added) VALUES('System', " . sqlesc($to) . ", " . sqlesc($msg) . ", " . sqlesc($subject) . ", $added);";
-    $res = sql_query($sql) or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SET SESSION sql_mode = ''", $sql) or sqlerr(__FILE__, __LINE__);
     $mc1->delete_value('inbox_new_' . $row['id']);
     $mc1->delete_value('inbox_new_sb_' . $row['id']);
     bark("<b>{$lang['gl_error']}</b>{$lang['tlogin_forgot']}");
