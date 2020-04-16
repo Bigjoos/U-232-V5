@@ -22,7 +22,7 @@ require_once INCL_DIR . 'user_functions.php';
 dbconn(false);
 loggedinorreturn();
 $lang = array_merge(load_language('global'));
-if ($CURUSER['smile_until'] == '1') stderr("Error", "you do not have access!");
+if ($CURUSER['smile_until'] == '0') stderr("Error", "you do not have access!");
 $htmlout = '';
 $htmlout = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
 		\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
