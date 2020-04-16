@@ -1275,7 +1275,7 @@ function write_bonus_log($userid, $amount, $type){
   sql_query("INSERT INTO bonuslog (id, donation, type, added_at) VALUES(".sqlesc($userid).", ".sqlesc($amount).", ".sqlesc($donation_type).", $added)") or sqlerr(__FILE__, __LINE__);
 }
 
-
+/*
 //IMDB Function with memcache
 function get_imdb($imdburl) {
     global $INSTALLER09, $mc1;
@@ -1415,4 +1415,5 @@ function get_imdb($imdburl) {
         }}
     return $imdb_info;
 }
+*/
 ?>
