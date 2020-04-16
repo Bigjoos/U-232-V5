@@ -42,10 +42,10 @@ $htmlout = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
     }
     </script>
     <table class='list' width='100%' cellpadding='1' cellspacing='1'>";
-$count = 0;
+$count = count($customsmilies);
 $ctr = 0;
 global $customsmilies;
-while ((list($code, $url) = each($customsmilies))) {
+foreach($customsmilies as $code => $url) {
     if ($count % 3 == 0) $htmlout.= "<tr>";
     $htmlout.= "<td align='center'><a href=\"javascript: SmileIT('" . str_replace("'", "\'", $code) . "','" . htmlsafechars($_GET['form']) . "','" . htmlsafechars($_GET['text']) . "')\"><img border='0' src='./pic/smilies/" . $url . "' alt='' /></a></td>";
     $count++;
