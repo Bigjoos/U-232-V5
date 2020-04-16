@@ -40,8 +40,8 @@ $htmlout = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
     }
     </script>
     <table class='list' width='100%' cellpadding='1' cellspacing='1'>";
-$count = '';
-while ((list($code, $url) = each($smilies))) {
+$count = count($smilies);
+foreach($smilies as $code => $url) {
     if ($count % 3 == 0) $htmlout.= " \n<tr>";
     $htmlout.= "\n\t<td class=\"list\" align=\"center\"><a href=\"javascript: SmileIT('" . str_replace("'", "\'", $code) . "','" . htmlsafechars($_GET["form"]) . "','" . htmlsafechars($_GET["text"]) . "')\"><img border='0' src='./pic/smilies/" . $url . "' alt='' /></a></td>";
     $count++;
