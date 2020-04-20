@@ -1,34 +1,34 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /****
-* Bleach Forums 
-* Rev u-232v5
-* Credits - Retro-Alex2005-Putyn-pdq-sir_snugglebunny-Bigjoos
-* Bigjoos 2015
-******
-*/
+ * Bleach Forums
+ * Rev u-232v5
+ * Credits - Retro-Alex2005-Putyn-pdq-sir_snugglebunny-Bigjoos
+ * Bigjoos 2015
+ ******
+ */
 if (!defined('IN_INSTALLER09_FORUM')) {
     $HTMLOUT = '';
     $HTMLOUT.= '<!DOCTYPE html>
         <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
         <head>
-        <meta charset="'.charset().'" />
+        <meta charset="' . charset() . '" />
         <title>ERROR</title>
         </head><body>
         <h1 style="text-align:center;">Error</h1>
@@ -39,12 +39,13 @@ if (!defined('IN_INSTALLER09_FORUM')) {
     exit();
 }
 // -------- Action: Quote
-        $topicid = (int)$_GET["topicid"];
-    if (!is_valid_id($topicid))
+        $topicid = (int) $_GET["topicid"];
+    if (!is_valid_id($topicid)) {
         stderr('Error', 'Invalid ID!');
-    if ($INSTALLER09['forums_online'] == 0)
-    $HTMLOUT .= stdmsg('Warning', 'Forums are currently in maintainance mode');
+    }
+    if ($INSTALLER09['forums_online'] == 0) {
+        $HTMLOUT .= stdmsg('Warning', 'Forums are currently in maintainance mode');
+    }
     $HTMLOUT .= insert_compose_frame($topicid, false, true);
     echo stdhead("Post quote", true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
     exit();
-?>

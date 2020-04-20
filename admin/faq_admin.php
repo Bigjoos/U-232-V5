@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -82,9 +82,10 @@ function Do_show()
 {
     global $INSTALLER09, $lang;
     $sql = sql_query("SELECT * FROM faq_cat") or sqlerr(__FILE__, __LINE__);
-    if (!mysqli_num_rows($sql))
+    if (!mysqli_num_rows($sql)) {
         stderr("Error", "There Are No Categories. <br /><br />
         <span class='btn'><a href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=faq_admin&amp;mode=cat_new'>Add Category</a></span>");
+    }
     $htmlout = '';
     $htmlout .= "      
 <div class='container'>
@@ -122,16 +123,18 @@ function Do_show()
 function Do_Faq_Delete()
 {
     global $mc1;
-    if (!isset($_POST['fdata']) OR !is_array($_POST['fdata']))
+    if (!isset($_POST['fdata']) or !is_array($_POST['fdata'])) {
         stderr("Error", "Bad data!");
-    $id = array();
+    }
+    $id = [];
     foreach ($_POST['fdata'] as $k => $v) {
-        if (isset($v['faq_id']) AND !empty($v['faq_id'])) {
+        if (isset($v['faq_id']) and !empty($v['faq_id'])) {
             $id[] = sqlesc(intval($v['faq_id']));
         }
     }
-    if (!count($id))
+    if (!count($id)) {
         stderr("Error", "No faq selected!");
+    }
     sql_query("DELETE FROM faq WHERE id IN( " . implode(',', $id) . " )") or sqlerr(__FILE__, __LINE__);
     $mc1 -> delete_value('faqs__');
     stderr("Info", "Faq successfully Deleted! <a href='staffpanel.php?tool=faq_admin'>Go Back To Faq Admin?</a>");
@@ -141,8 +144,9 @@ function Cat_Delete($chk = false)
 {
     global $mc1;
     $id = isset($_GET['catid']) ? (int) $_GET['catid'] : 0;
-    if (!is_valid_id($id))
+    if (!is_valid_id($id)) {
         stderr("Error", "Bad ID!");
+    }
     if (!$chk) {
         stderr("Sanity Check!", "You're about to delete a faq category, this will delete ALL content within that category! <br />
 <a href='staffpanel.php?tool=faq_admin&amp;catid={$id}&amp;mode=cat_delete_chk'><span style='font-weight: bold; color: green'>Continue?</span></a>
@@ -158,12 +162,14 @@ function Show_Cat_Edit_Form()
     global $lang, $CURUSER;
     $htmlout  = '';
     $maxclass = intval($CURUSER['class']);
-    if (!isset($_GET['catid']) || empty($_GET['catid']) || !is_valid_id($_GET['catid']))
+    if (!isset($_GET['catid']) || empty($_GET['catid']) || !is_valid_id($_GET['catid'])) {
         $htmlout .= Do_Error("Error", "No Section selected");
+    }
     $cat_id = (int) $_GET['catid'];
     $sql = sql_query("SELECT * FROM faq_cat WHERE id = " . sqlesc($cat_id)) or sqlerr(__FILE__, __LINE__);
-    if (!mysqli_num_rows($sql))
+    if (!mysqli_num_rows($sql)) {
         stderr("SQL Error", "Nothing doing here!");
+    }
     $htmlout .="<table class='table table-bordered table-striped'>
                 <tr>
                 <td class='colhead'>Name</td>
@@ -178,7 +184,7 @@ function Show_Cat_Edit_Form()
                     <td><input type='text' value='" . htmlsafechars($row['shortcut']) . "' name='shortcut' style='width:380px;' /></td>
                     <td><select name='min_view'>";
         for ($i = 0; $i <= $maxclass; ++$i) {
-            $htmlout .= '<option value="' . $i . '"'.($row['min_view'] == $i ? " selected='selected'" : "").'">' . get_user_class_name($i) . '</option>';
+            $htmlout .= '<option value="' . $i . '"' . ($row['min_view'] == $i ? " selected='selected'" : "") . '">' . get_user_class_name($i) . '</option>';
         }
         $htmlout .= "</select></td>
                      <td colspan='3'><input type='submit' name='submit' value='Edit' class='button' /></td>
@@ -193,12 +199,14 @@ function Show_Faq_Edit()
     global $lang, $CURUSER;
     $htmlout  = '';
     $maxclass = $CURUSER['class'];
-    if (!isset($_GET['catid']) || empty($_GET['catid']) || !is_valid_id($_GET['catid']))
+    if (!isset($_GET['catid']) || empty($_GET['catid']) || !is_valid_id($_GET['catid'])) {
         stderr("Error", "No Section selected");
+    }
     $cat_id = (int) $_GET['catid'];
     $sql = sql_query("SELECT * FROM faq WHERE type = " . sqlesc($cat_id)) or sqlerr(__FILE__, __LINE__);
-    if (!mysqli_num_rows($sql))
+    if (!mysqli_num_rows($sql)) {
         stderr("SQL Error", "Nothing doing here!");
+    }
     $htmlout .= "<form name='compose' method='post' action='staffpanel.php?tool=faq_admin'>";
 
     while ($row = mysqli_fetch_assoc($sql)) {
@@ -228,22 +236,21 @@ function Do_Faq_Update()
 {
     global $mc1;
     $time      = TIME_NOW;
-    $updateset = array();
-    if (!isset($_POST['fdata']) || !is_array($_POST['fdata']))
+    $updateset = [];
+    if (!isset($_POST['fdata']) || !is_array($_POST['fdata'])) {
         stderr("Error", "Don't leave any fields blank");
+    }
     foreach ($_POST['fdata'] as $k => $v) {
         $holder = '';
-        if (isset($v['faq_id']) AND !empty($v['faq_id'])) {
-            foreach (array(
+        if (isset($v['faq_id']) and !empty($v['faq_id'])) {
+            foreach ([
                 'title',
                 'text'
-            ) as $x) {
-
-                isset($v[$x]) AND !empty($v[$x]) ? $holder .= "{$x} = " . sqlesc($v[$x]) . ", " : stderr('Error', "{$x} is empty");
-              
+            ] as $x) {
+                isset($v[$x]) and !empty($v[$x]) ? $holder .= "{$x} = " . sqlesc($v[$x]) . ", " : stderr('Error', "{$x} is empty");
             }
             $holder = substr($holder, 0, -1);
-            $holder = rtrim($holder,',');
+            $holder = rtrim($holder, ',');
             $updateset[] = "UPDATE faq SET {$holder} WHERE id = " . sqlesc(intval($v['faq_id']));
         }
     }
@@ -251,8 +258,9 @@ function Do_Faq_Update()
     foreach ($updateset as $x) {
         sql_query($x) or sqlerr(__FILE__, __LINE__);
     }
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("SQL Error", "Update failed");
+    }
     $mc1 -> delete_value('faqs__');
     stderr("Info", "Updated successfully <a href='staffpanel.php?tool=faq_admin'>Go Back To Admin</a>");
 }
@@ -261,16 +269,20 @@ function Do_Cat_Update()
     global $mc1;
     $cat_id         = (int) $_POST['cat'];
     $min_view = sqlesc(intval($_POST['min_view']));
-    if (!is_valid_id($cat_id))
+    if (!is_valid_id($cat_id)) {
         stderr("Error", "No values");
-    if (empty($_POST['name']) || (strlen($_POST['name']) > 100))
+    }
+    if (empty($_POST['name']) || (strlen($_POST['name']) > 100)) {
         stderr("Error", "No value or value too big");
-    if (empty($_POST['shortcut']) || (strlen($_POST['shortcut']) > 100))
+    }
+    if (empty($_POST['shortcut']) || (strlen($_POST['shortcut']) > 100)) {
         stderr("Error", "No value or value too big");
+    }
     $sql = "UPDATE faq_cat SET name = " . sqlesc(strip_tags($_POST['name'])) . ", shortcut = " . sqlesc($_POST['shortcut']) . ", min_view=$min_view WHERE id=" . sqlesc($cat_id);
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("Warning", "Could not carry out that request");
+    }
     $mc1 -> delete_value('faqs__');
     stderr("Info", "Updated successfully <a href='staffpanel.php?tool=faq_admin'>Go Back To Admin</a>");
 }
@@ -278,17 +290,20 @@ function Do_Cat_Add()
 {
     global $INSTALLER09, $mc1;
     $htmlout = '';
-    if (empty($_POST['name']) || strlen($_POST['name']) > 100)
+    if (empty($_POST['name']) || strlen($_POST['name']) > 100) {
         stderr("Error", "Field is blank or length too long!");
-    if (empty($_POST['shortcut']) || strlen($_POST['shortcut']) > 100)
+    }
+    if (empty($_POST['shortcut']) || strlen($_POST['shortcut']) > 100) {
         stderr("Error", "Field is blank or length too long!");
+    }
     $cat_name       = sqlesc(strip_tags($_POST['name']));
     $cat_scut       = sqlesc($_POST['shortcut']);
     $min_view = sqlesc(strip_tags($_POST['min_view']));
     $sql            = "INSERT INTO faq_cat (name, shortcut, min_view) VALUES ($cat_name, $cat_scut, $min_view)";
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("Warning", "Couldn't forefill that request");
+    }
     $mc1 -> delete_value('faqs__');
     $htmlout .= New_Cat_Form(1);
     //return $htmlout;
@@ -299,16 +314,19 @@ function Do_Faq_Add()
 {
     global $lang, $mc1;
     $cat_id = sqlesc(intval($_POST['cat']));
-    if (!is_valid_id($cat_id))
+    if (!is_valid_id($cat_id)) {
         stderr("Error", "No id");
-    if (empty($_POST['title']) || empty($_POST['text']) || strlen($_POST['title']) > 100)
+    }
+    if (empty($_POST['title']) || empty($_POST['text']) || strlen($_POST['title']) > 100) {
         stderr("Error", "Field is blank or length too long! <a href='staffpanel.php?tool=faq_admin'>Go Back</a>");
+    }
     $title = sqlesc(strip_tags($_POST['title']));
     $text    = sqlesc($_POST['text']);
     $sql     = "INSERT INTO faq (type, title, text) VALUES ($cat_id, $title, $text)";
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1)
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("Warning", "Couldn't complete that request");
+    }
     $mc1 -> delete_value('faqs__');
     New_Faq_Form(1);
     exit();
@@ -341,9 +359,10 @@ function New_Faq_Form()
     global $CURUSER, $lang;
     $htmlout = '';
     $sql = sql_query("SELECT * FROM faq_cat") or sqlerr(__FILE__, __LINE__);
-    if (!mysqli_num_rows($sql))
+    if (!mysqli_num_rows($sql)) {
         stderr("Error", "There Are No Categories. <br /><br />
         <span class='btn'><a href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=faq_admin&amp;mode=cat_add'>Add Category</a></span>");
+    }
     $htmlout .= "
 <div class='container'>
 <div class='row'>

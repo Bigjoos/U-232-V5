@@ -48,36 +48,36 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'TCL',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [
         1 => '/(?<!\\\\)#(?:\\\\\\\\|\\\\\\n|.)*$/m',
         2 => '/{[^}\n]+}/'
-        ),
+    ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', "'"),
+    'QUOTEMARKS' => ['"', "'"],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /*
          * Set 1: reserved words
          * http://python.org/doc/current/ref/keywords.html
          */
-        1 => array(
+        1 => [
             'proc', 'global', 'upvar', 'if', 'then', 'else', 'elseif', 'for', 'foreach',
             'break', 'continue', 'while', 'set', 'eval', 'case', 'in', 'switch',
             'default', 'exit', 'error', 'return', 'uplevel', 'loop',
             'for_array_keys', 'for_recursive_glob', 'for_file', 'unwind_protect',
             'expr', 'catch', 'namespace', 'rename', 'variable',
             // itcl
-            'method', 'itcl_class', 'public', 'protected'),
+            'method', 'itcl_class', 'public', 'protected'],
 
         /*
          * Set 2: builtins
          * http://asps.activatestate.com/ASPN/docs/ActiveTcl/8.4/tcl/tcl_2_contents.htm
          */
-        2 => array(
+        2 => [
             // string handling
             'append', 'binary', 'format', 're_syntax', 'regexp', 'regsub',
             'scan', 'string', 'subst',
@@ -103,92 +103,90 @@ $language_data = array (
             '$auto_index', '$auto_oldpath', '$auto_path', '$env',
             '$tcl_interactive', '$tcl_libpath', '$tcl_library',
             '$tcl_pkgPath', '$tcl_platform', '$tcl_precision', '$tcl_traceExec',
-            ),
+        ],
 
         /*
          * Set 3: standard library
          */
-        3 => array(
+        3 => [
             'comment', 'filename', 'library', 'packagens', 'tcltest', 'tclvars',
-            ),
+        ],
 
         /*
          * Set 4: special methods
          */
-//        4 => array(
-//            )
+        //        4 => array(
+        //            )
 
-        ),
-    'SYMBOLS' => array(
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '$', '*', '&', '%', '!', ';', '<', '>', '?'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
         3 => true,
-//        4 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+        //        4 => true
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #ff7700;font-weight:bold;',    // Reserved
             2 => 'color: #008000;',                        // Built-ins + self
             3 => 'color: #dc143c;',                        // Standard lib
-//            4 => 'color: #0000cd;'                        // Special methods
-            ),
-        'COMMENTS' => array(
+            //            4 => 'color: #0000cd;'                        // Special methods
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             2 => 'color: #483d8b;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: black;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #483d8b;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #ff4500;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: black;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #ff3333;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
-//        4 => ''
-        ),
+        //        4 => ''
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '::'
-        ),
-    'REGEXPS' => array(
+    ],
+    'REGEXPS' => [
         //Special variables
         0 => '[\\$]+[a-zA-Z_][a-zA-Z0-9_]*',
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'COMMENTS' => array(
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+    'PARSER_CONTROL' => [
+        'COMMENTS' => [
             'DISALLOWED_BEFORE' => '\\'
-        )
-    )
-);
-
-?>
+        ]
+    ]
+];

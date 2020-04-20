@@ -41,15 +41,15 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'Liberty BASIC',
-    'COMMENT_SINGLE' => array(1 => '\''),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '\''],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'and', 'append', 'as', 'beep', 'bmpbutton', 'bmpsave', 'boolean',
             'button', 'byref', 'call', 'callback', 'calldll', 'callfn', 'case',
             'checkbox', 'close', 'cls', 'colordialog', 'combobox', 'confirm',
@@ -69,8 +69,8 @@ $language_data = array(
             'then', 'timer', 'titlebar', 'to', 'trace', 'ulong', 'unloadbmp',
             'until', 'ushort', 'void', 'wait', 'window', 'wend', 'while',
             'word', 'xor'
-            ),
-        2 => array(
+        ],
+        2 => [
             'abs', 'acs', 'asc', 'asn', 'atn', 'chr$', 'cos', 'date$',
             'dechex$', 'eof', 'eval', 'eval$', 'exp', 'hbmp', 'hexdec', 'hwnd',
             'inp', 'input$', 'inputto$', 'instr', 'int', 'left$', 'len', 'lof',
@@ -78,8 +78,8 @@ $language_data = array(
             'right$', 'rmdir', 'rnd', 'sin', 'space$', 'sqr', 'str$', 'tab',
             'tan', 'time$', 'trim$', 'txcount', 'upper$', 'using', 'val',
             'winstring', 'word$'
-            ),
-        3 => array(
+        ],
+        3 => [
             'BackgroundColor$', 'ComboboxColor$', 'CommandLine$', 'DefaultDir$',
             'DisplayHeight', 'DisplayWidth', 'Drives$', 'Err', 'Err$',
             'ForegroundColor$', 'Inkey$', 'Joy1x', 'Joy1y', 'Joy1z',
@@ -88,71 +88,69 @@ $language_data = array(
             'PrintCollate', 'PrintCopies', 'PrinterFont$', 'PrinterName$',
             'TextboxColor$', 'TexteditorColor$', 'Version$', 'WindowHeight',
             'WindowWidth', 'UpperLeftX', 'UpperLeftY'
-            )
-        ),
-    'SYMBOLS' => array(
-        1 => array(
+        ]
+    ],
+    'SYMBOLS' => [
+        1 => [
             '(', ')', '[', ']', '+', '-', '*', '/', '%', '=', '<', '>', ':', ',', '#'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000FF;',
             2 => 'color: #AD0080;',
             3 => 'color: #008080;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #008000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #FF0000;',
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #004000;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             1 => 'color: #339933;'
-            ),
-        'REGEXPS' => array(),
-        'SCRIPT' => array()
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [],
+        'SCRIPT' => []
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(),
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(),
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            2 => array(
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => [],
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            2 => [
                 //In LB, the second keyword list is a list of built-in functions,
                 //and their names should not be highlighted unless being used
                 //as a function name.
                 'DISALLOWED_AFTER' => '(?=\s*\()'
-            )
-        )
-    )
-);
-
-?>
+            ]
+        ]
+    ]
+];

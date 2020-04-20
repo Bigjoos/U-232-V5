@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //tvmaze functions converted from former tvrage functions
 define('TBUCKET_DIR', BITBUCKET_DIR . DIRECTORY_SEPARATOR . 'tvmaze');
@@ -22,8 +22,9 @@ if (!is_dir(TBUCKET_DIR)) {
     mkdir(TBUCKET_DIR);
 }
 
-function tvmaze_format($tvmaze_data, $tvmaze_type) {
-    $tvmaze_display['show'] = array(
+function tvmaze_format($tvmaze_data, $tvmaze_type)
+{
+    $tvmaze_display['show'] = [
         'name' => '<b>%s</b>',
         'url' => '%s',
         'premiered' => 'Started: %s',
@@ -33,29 +34,29 @@ function tvmaze_format($tvmaze_data, $tvmaze_type) {
         'summary' => 'Summary:<br/> %s',
         'runtime' => 'Runtime %s min',
         'genres2' => 'Genres: %s',
-    );
+    ];
     foreach ($tvmaze_display[$tvmaze_type] as $key => $value) {
         if (isset($tvmaze_data[$key])) {
             $tvmaze_display[$tvmaze_type][$key] = sprintf($value, $tvmaze_data[$key]);
         } else {
             $tvmaze_display[$tvmaze_type][$key] = sprintf($value, 'None Found');
         }
-
     }
     return join('<br/><br/>', $tvmaze_display[$tvmaze_type]);
 }
-function tvmaze(&$torrents) {
+function tvmaze(&$torrents)
+{
     global $mc1, $INSTALLER09;
     $tvmaze_data = '';
-    $row_update = array();
+    $row_update = [];
     if (preg_match("/^(.*)(?:\.| |_)(?:(?:S\d{1,2}(?:E\d{1,2})?)|20\d\d\.\d\d\.\d\d|Part.\d|CHapters)/i", $torrents['name'], $tmp)) {
-        $tvmaze = array(
-            'name' => preg_replace('/ $/', '', str_replace(array('.', '_'), ' ', $tmp[1])),
-        );
+        $tvmaze = [
+            'name' => preg_replace('/ $/', '', str_replace(['.', '_'], ' ', $tmp[1])),
+        ];
     } else {
-        $tvmaze = array(
-            'name' => preg_replace('/ $/', '', str_replace(array('.', '_'), ' ', $torrents['name'])),
-        );
+        $tvmaze = [
+            'name' => preg_replace('/ $/', '', str_replace(['.', '_'], ' ', $torrents['name'])),
+        ];
     }
 
     $memkey = 'tvmaze::' . strtolower(str_replace(' ', '', $tvmaze['name']));
@@ -69,7 +70,6 @@ function tvmaze(&$torrents) {
         } else {
             return false;
         }
-
     }
     $force_update = false;
     if (empty($torrents['newgenre']) || empty($torrents['poster'])) {
@@ -100,9 +100,9 @@ function tvmaze(&$torrents) {
         }
         //==The torrent cache
         $mc1->begin_transaction('torrent_details_' . $torrents['id']);
-        $mc1->update_row(false, array(
+        $mc1->update_row(false, [
             'newgenre' => ucwords($tvmaze_array['genres2']),
-        ));
+        ]);
         $mc1->commit_transaction(0);
         if (empty($torrents['poster'])) {
             $row_update[] = 'poster = ' . sqlesc($img);
@@ -110,9 +110,9 @@ function tvmaze(&$torrents) {
 
         //==The torrent cache
         $mc1->begin_transaction('torrent_details_' . $torrents['id']);
-        $mc1->update_row(false, array(
+        $mc1->update_row(false, [
             'poster' => $img,
-        ));
+        ]);
         $mc1->commit_transaction(0);
         if (count($row_update)) {
             sql_query('UPDATE torrents set ' . join(', ', $row_update) . ' WHERE id = ' . $torrents['id']) or sqlerr(__FILE__, __LINE__);
@@ -127,4 +127,3 @@ function tvmaze(&$torrents) {
     }
     return $tvmaze_data;
 }
-?>

@@ -30,4 +30,3 @@ $TZ['time_9.5'] = "(GMT + 9:30 hours) Adelaide, Darwin";
 $TZ['time_10'] = "(GMT + 10:00 hours) Melbourne, Papua New Guinea, Sydney";
 $TZ['time_11'] = "(GMT + 11:00 hours) Magadan, New Caledonia, Solomon Is.";
 $TZ['time_12'] = "(GMT + 12:00 hours) Auckland, Fiji, Marshall Island";
-?>

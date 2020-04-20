@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,11 +30,11 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'bbcode_functions.php');
-require_once (INCL_DIR . 'pager_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'bbcode_functions.php');
+require_once(INCL_DIR . 'pager_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_cloudview'));
@@ -68,7 +68,9 @@ $row = mysqli_fetch_array($search_count);
 $count = $row[0];
 $perpage = 15;
 $pager = pager($perpage, $count, "staffpanel.php?tool=cloudview&amp;action=cloudview&amp;");
-if ($count > $perpage) $HTMLOUT.= $pager['pagertop'];
+if ($count > $perpage) {
+    $HTMLOUT.= $pager['pagertop'];
+}
 $search_q = sql_query('SELECT id, searchedfor, ip, howmuch FROM searchcloud ORDER BY howmuch DESC ' . $pager['limit']) or sqlerr(__FILE__, __LINE__);
 $HTMLOUT.="<div class='row'><div class='col-md-12'><h2>{$lang['cloudview_overview']}</h2>";
 $HTMLOUT.= "
@@ -81,19 +83,20 @@ $HTMLOUT.= "
 <td class='colhead' width='1%'>{$lang['cloudview_del']}</td></tr>\n";
 while ($arr = mysqli_fetch_assoc($search_q)) {
     $search_phrase = htmlsafechars($arr['searchedfor']);
-    $hits = (int)$arr['howmuch'];
+    $hits = (int) $arr['howmuch'];
     $ip = htmlsafechars($arr['ip']);
     $HTMLOUT.= "<tr>
 <td class='one' align='left'>$search_phrase</td>
 <td class='two' align='left'>$hits</td>
 <td class='two' align='left'>$ip</td>
-<td class='one' align='center'><input type='checkbox' name='delcloud[]' title='{$lang['cloudview_mark']}' value='" . (int)$arr['id'] . "' /></td></tr>\n";
+<td class='one' align='center'><input type='checkbox' name='delcloud[]' title='{$lang['cloudview_mark']}' value='" . (int) $arr['id'] . "' /></td></tr>\n";
 }
 $HTMLOUT.= "<tr>
 <td colspan='4' class='colhead' align='right'>{$lang['cloudview_markall_search']}<input type='checkbox' title='{$lang['cloudview_markall']}' value='{$lang['cloudview_markall']}' onclick=\"this.value=check(form.elements);\" /></td></tr>
 <tr><td colspan='4' class='colhead' align='center'><input type='submit' value='{$lang['cloudview_del_terms']}' /></td></tr>";
 $HTMLOUT.= "</table></form>";
 $HTMLOUT.= "</div></div>";
-if ($count > $perpage) $HTMLOUT.= $pager['pagerbottom'];
+if ($count > $perpage) {
+    $HTMLOUT.= $pager['pagerbottom'];
+}
 echo stdhead($lang['cloudview_stdhead']) . $HTMLOUT . stdfoot();
-?>

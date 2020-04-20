@@ -39,17 +39,17 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Verilog',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'COMMENT_REGEXP' => array(1 => '/\/\/(?:\\\\\\\\|\\\\\\n|.)*$/m'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
+    'COMMENT_REGEXP' => [1 => '/\/\/(?:\\\\\\\\|\\\\\\n|.)*$/m'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         // keywords
-        1 => array('always', 'and', 'assign', 'begin', 'buf', 'bufif0', 'bufif1', 'case',
+        1 => ['always', 'and', 'assign', 'begin', 'buf', 'bufif0', 'bufif1', 'case',
             'casex', 'casez', 'cmos', 'deassign', 'default', 'defparam',
             'disable', 'edge', 'else', 'end', 'endcase', 'endfunction',
             'endmodule', 'endprimitive', 'endspecify', 'endtable', 'endtask',
@@ -65,9 +65,9 @@ $language_data = array (
             'time', 'tran', 'tranif0', 'tranif1', 'tri', 'tri0', 'tri1',
             'triand', 'trior', 'trireg', 'vectored', 'wait', 'wand', 'weak0',
             'weak1', 'while', 'wire', 'wor', 'xnor', 'xor'
-            ),
+        ],
         // system tasks
-        2 => array(
+        2 => [
             '$display', '$monitor',
             '$dumpall', '$dumpfile', '$dumpflush', '$dumplimit', '$dumpoff',
             '$dumpon', '$dumpvars',
@@ -79,95 +79,93 @@ $language_data = array (
             '$readmemb', '$readmemh', '$readmemx',
             '$signed', '$stime', '$stop',
             '$strobe', '$time', '$unsigned', '$write'
-            ),
+        ],
         // macros
-        3 => array(
+        3 => [
             '`default-net', '`define',
             '`celldefine', '`default_nettype', '`else', '`elsif', '`endcelldefine',
             '`endif', '`ifdef', '`ifndef', '`include', '`line', '`nounconnected_drive',
             '`resetall', '`timescale', '`unconnected_drive', '`undef'
-            ),
-        ),
-    'SYMBOLS' => array(
+        ],
+    ],
+    'SYMBOLS' => [
         '(', ')', '{', '}', '[', ']', '=', '+', '-', '*', '/', '!', '%',
         '^', '&', '|', '~',
         '?', ':',
         '#', '<<', '<<<',
         '>', '<', '>=', '<=',
         '@', ';', ','
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #A52A2A; font-weight: bold;',
             2 => 'color: #9932CC;',
             3 => 'color: #008800;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #00008B; font-style: italic;',
             'MULTI' => 'color: #00008B; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #9F79EE'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #9F79EE;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #FF00FF;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #ff0055;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #202020;',
             2 => 'color: #202020;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #5D478B;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #ff0055;',
             1 => 'color: #ff0055;',
-            ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => '',
             1 => '',
             2 => '',
             3 => ''
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => ''
-        ),
-    'REGEXPS' => array(
+    ],
+    'REGEXPS' => [
         // numbers
         0 => "\d'[bdh][0-9_a-fA-FxXzZ]+",
         // time -> 1, 10, or 100; s, ms, us, ns, ps, of fs
         1 => "1[0]{0,2}[munpf]?s"
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
+    'SCRIPT_DELIMITERS' => [
         1 => ''
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true,
         1 => true,
         2 => true,
         3 => true
-        ),
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $preview = '';
 //=== don't allow direct access
@@ -35,8 +35,12 @@ if (!defined('BUNNY_PM_SYSTEM')) {
 $save_or_edit = (isset($_POST['edit']) ? 'edit' : (isset($_GET['edit']) ? 'edit' : 'save'));
 if (isset($_POST['buttonval']) && $_POST['buttonval'] == 'save as draft') {
     //=== make sure they wrote something :P
-    if (empty($_POST['subject'])) stderr($lang['pm_error'], $lang['pm_draft_err']);
-    if (empty($_POST['body'])) stderr($lang['pm_error'], $lang['pm_draft_err1']);
+    if (empty($_POST['subject'])) {
+        stderr($lang['pm_error'], $lang['pm_draft_err']);
+    }
+    if (empty($_POST['body'])) {
+        stderr($lang['pm_error'], $lang['pm_draft_err1']);
+    }
     $body = sqlesc($_POST['body']);
     $subject = sqlesc(strip_tags($_POST['subject']));
     if ($save_or_edit === 'save') {
@@ -49,7 +53,9 @@ if (isset($_POST['buttonval']) && $_POST['buttonval'] == 'save as draft') {
         sql_query('UPDATE messages SET msg = ' . $body . ', subject = ' . $subject . ' WHERE id = ' . sqlesc($pm_id)) or sqlerr(__FILE__, __LINE__);
     }
     //=== Check if messages was saved as draft
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) stderr($lang[pm_error], $lang['pm_draft_wasnt']);
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) {
+        stderr($lang[pm_error], $lang['pm_draft_wasnt']);
+    }
     header('Location: /pm_system.php?action=view_mailbox&box=-2&new_draft=1');
     die();
 } //=== end save draft
@@ -99,4 +105,3 @@ $HTMLOUT.= '<legend>' . $lang['pm_draft_save_edit'] . '' . $subject . '</legend>
         <input type="submit" class="btn btn-primary" name="buttonval" value="save as draft" /></td>
     </tr>
     </table></form>';
-?>

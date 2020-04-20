@@ -42,102 +42,100 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Motorola 68000 Assembler',
-    'COMMENT_SINGLE' => array(1 => ';'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => ';'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /*CPU*/
-        1 => array(
-            'adc','add','ais','aix','and','asl','asr','bcc','bclr','bcs','beq',
-            'bge','bgt','bhcc','bhcs','bhi','bhs','bih','bil','bit','ble','blo',
-            'bls','blt','bmc','bmi','bms','bne','bpl','bra','brclr','brn',
-            'brset','bset','bsr','cbeq','clc','cli','clr','cmp','com','cphx',
-            'cpx','daa','dbnz','dec','div','eor','inc','jmp','jsr','lda','ldhx',
-            'ldx','lsl','lsr','mov','mul','neg','nop','nsa','ora','psha','pshh',
-            'pshx','pula','pulh','pulx','rol','ror','rsp','rti','rts','sbc',
-            'sec','sei','sta','sthx','stop','stx','sub','swi','tap','tax','tpa',
-            'tst','tsx','txa','txs','wait'
-        ),
+        1 => [
+            'adc', 'add', 'ais', 'aix', 'and', 'asl', 'asr', 'bcc', 'bclr', 'bcs', 'beq',
+            'bge', 'bgt', 'bhcc', 'bhcs', 'bhi', 'bhs', 'bih', 'bil', 'bit', 'ble', 'blo',
+            'bls', 'blt', 'bmc', 'bmi', 'bms', 'bne', 'bpl', 'bra', 'brclr', 'brn',
+            'brset', 'bset', 'bsr', 'cbeq', 'clc', 'cli', 'clr', 'cmp', 'com', 'cphx',
+            'cpx', 'daa', 'dbnz', 'dec', 'div', 'eor', 'inc', 'jmp', 'jsr', 'lda', 'ldhx',
+            'ldx', 'lsl', 'lsr', 'mov', 'mul', 'neg', 'nop', 'nsa', 'ora', 'psha', 'pshh',
+            'pshx', 'pula', 'pulh', 'pulx', 'rol', 'ror', 'rsp', 'rti', 'rts', 'sbc',
+            'sec', 'sei', 'sta', 'sthx', 'stop', 'stx', 'sub', 'swi', 'tap', 'tax', 'tpa',
+            'tst', 'tsx', 'txa', 'txs', 'wait'
+        ],
         /*registers*/
-        2 => array(
-            'a','h','x',
-            'hx','sp'
-            ),
+        2 => [
+            'a', 'h', 'x',
+            'hx', 'sp'
+        ],
         /*Directive*/
-        3 => array(
-            '#define','#endif','#else','#ifdef','#ifndef','#include','#undef',
-            '.db','.dd','.df','.dq','.dt','.dw','.end','.org','equ'
-            ),
-        ),
-    'SYMBOLS' => array(
+        3 => [
+            '#define', '#endif', '#else', '#ifdef', '#ifndef', '#include', '#undef',
+            '.db', '.dd', '.df', '.dq', '.dt', '.dw', '.end', '.org', 'equ'
+        ],
+    ],
+    'SYMBOLS' => [
         ','
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000ff; font-weight:bold;',
             2 => 'color: #0000ff;',
             3 => 'color: #46aa03; font-weight:bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #adadad; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #0000ff;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #7f007f;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #dd22dd;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #008000;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #22bbff;',
             1 => 'color: #22bbff;',
             2 => 'color: #993333;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
         //Hex numbers
         0 => '#?0[0-9a-fA-F]{1,32}[hH]',
         //Binary numbers
         1 => '\%[01]{1,64}[bB]',
         //Labels
         2 => '^[_a-zA-Z][_a-zA-Z0-9]*?\:'
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 8
-);
-
-?>
+];

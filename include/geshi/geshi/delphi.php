@@ -45,17 +45,17 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Delphi',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('(*' => '*)', '{' => '}'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['(*' => '*)', '{' => '}'],
     //Compiler directives
-    'COMMENT_REGEXP' => array(2 => '/{\\$.*?}|\\(\\*\\$.*?\\*\\)/U'),
+    'COMMENT_REGEXP' => [2 => '/{\\$.*?}|\\(\\*\\$.*?\\*\\)/U'],
     'CASE_KEYWORDS' => 0,
-    'QUOTEMARKS' => array("'"),
+    'QUOTEMARKS' => ["'"],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'Abstract', 'And', 'Array', 'As', 'Asm', 'At', 'Begin', 'Case',
             'Class', 'Const', 'Constructor', 'Contains', 'Destructor',
             'DispInterface', 'Div', 'Do', 'DownTo', 'Else', 'End', 'Except',
@@ -69,11 +69,11 @@ $language_data = array (
             'ThreadVar', 'To', 'Try', 'Type', 'Unit', 'Until', 'Uses', 'Var',
             'Virtual', 'While', 'With', 'Xor', 'assembler', 'far',
             'near', 'pascal', 'register', 'cdecl', 'safecall', 'stdcall', 'varargs'
-            ),
-        2 => array(
+        ],
+        2 => [
             'nil', 'false', 'self', 'true', 'var', 'type', 'const'
-            ),
-        3 => array(
+        ],
+        3 => [
             'Abs', 'AcquireExceptionObject', 'Addr', 'AnsiToUtf8', 'Append', 'ArcTan',
             'Assert', 'AssignFile', 'Assigned', 'BeginThread', 'BlockRead',
             'BlockWrite', 'Break', 'ChDir', 'Chr', 'Close', 'CloseFile',
@@ -196,8 +196,8 @@ $language_data = array (
             'SimpleRoundTo', 'SinCos', 'Sinh', 'StdDev', 'Sum', 'SumInt',
             'SumOfSquares', 'SumsAndSquares', 'Tan', 'Tanh', 'TotalVariance',
             'Variance'
-            ),
-        4 => array(
+        ],
+        4 => [
             'AnsiChar', 'AnsiString', 'Bool', 'Boolean', 'Byte', 'ByteBool', 'Cardinal', 'Char',
             'Comp', 'Currency', 'DWORD', 'Double', 'Extended', 'Int64', 'Integer', 'IUnknown',
             'LongBool', 'LongInt', 'LongWord', 'PAnsiChar', 'PAnsiString', 'PBool', 'PBoolean', 'PByte',
@@ -207,83 +207,81 @@ $language_data = array (
             'PWordArray', 'PWordBool', 'PWideChar', 'PWideString', 'Real', 'Real48', 'ShortInt', 'ShortString',
             'Single', 'SmallInt', 'String', 'TClass', 'TDate', 'TDateTime', 'TextFile', 'THandle',
             'TObject', 'TTime', 'Variant', 'WideChar', 'WideString', 'Word', 'WordBool'
-            ),
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false,
-        ),
-    'SYMBOLS' => array(
-        0 => array('(', ')', '[', ']'),
-        1 => array('.', ',', ':', ';'),
-        2 => array('@', '^'),
-        3 => array('=', '+', '-', '*', '/')
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'SYMBOLS' => [
+        0 => ['(', ')', '[', ']'],
+        1 => ['.', ',', ':', ';'],
+        2 => ['@', '^'],
+        3 => ['=', '+', '-', '*', '/']
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight: bold;',
             2 => 'color: #000000; font-weight: bold;',
             3 => 'color: #000066;',
             4 => 'color: #000066; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             2 => 'color: #008000; font-style: italic;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #ff0000; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000066;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #0000ff;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #006600;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #9ac;',
             1 => 'color: #ff0000;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000066;',
             1 => 'color: #000066;',
             2 => 'color: #000066;',
             3 => 'color: #000066;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
+    ],
+    'REGEXPS' => [
         //Hex numbers
         0 => '\$[0-9a-fA-F]+',
         //Characters
         1 => '\#\$?[0-9]{1,3}'
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 2
-);
-
-?>
+];

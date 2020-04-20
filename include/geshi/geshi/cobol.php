@@ -35,21 +35,21 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'COBOL',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(1 => '/^\*.*?$/m'),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [1 => '/^\*.*?$/m'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', "'"),
+    'QUOTEMARKS' => ['"', "'"],
     'ESCAPE_CHAR' => '\\',
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC |
         GESHI_NUMBER_FLT_NONSCI |
         GESHI_NUMBER_FLT_SCI_SHORT |
         GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
-        1 => array( //Compiler Directives
+    'KEYWORDS' => [
+        1 => [ //Compiler Directives
             'ANSI', 'BLANK', 'NOBLANK', 'CALL-SHARED', 'CANCEL', 'NOCANCEL',
             'CHECK', 'CODE', 'NOCODE', 'COLUMNS', 'COMPACT', 'NOCOMPACT',
             'COMPILE', 'CONSULT', 'NOCONSULT', 'CROSSREF', 'NOCROSSREF',
@@ -67,8 +67,8 @@ $language_data = array (
             'SQLMEM', 'SUBSET', 'SUBTYPE', 'SUPPRESS', 'NOSUPPRESS', 'SYMBOLS',
             'NOSYMBOLS', 'SYNTAX', 'TANDEM', 'TRAP2', 'NOTRAP2', 'TRAP2-74',
             'NOTRAP2-74', 'UL', 'WARN', 'NOWARN'
-            ),
-        2 => array( //Statement Keywords
+        ],
+        2 => [ //Statement Keywords
             'ACCEPT', 'ADD', 'TO', 'GIVING', 'CORRESPONDING', 'ALTER', 'CALL',
             'CHECKPOINT', 'CLOSE', 'COMPUTE', 'CONTINUE', 'COPY',
             'DELETE', 'DISPLAY', 'DIVIDE', 'INTO', 'REMAINDER', 'ENTER',
@@ -76,8 +76,8 @@ $language_data = array (
             'TALLYING', 'REPLACING', 'CONVERTING', 'LOCKFILE', 'MERGE', 'MOVE',
             'MULTIPLY', 'OPEN', 'PERFORM', 'TIMES',
             'UNTIL', 'VARYING', 'RETURN',
-            ),
-        3 => array( //Reserved in some contexts
+        ],
+        3 => [ //Reserved in some contexts
             'ACCESS', 'ADDRESS', 'ADVANCING', 'AFTER', 'ALL',
             'ALPHABET', 'ALPHABETIC', 'ALPHABETIC-LOWER', 'ALPHABETIC-UPPER',
             'ALPHANUMERIC', 'ALPHANUMERIC-EDITED', 'ALSO', 'ALTERNATE',
@@ -143,8 +143,8 @@ $language_data = array (
             'UNLOCKRECORD', 'UNSTRING', 'UP', 'UPON', 'USAGE', 'USE',
             'USING', 'VALUE', 'VALUES', 'WHEN', 'WITH', 'WORDS',
             'WORKING-STORAGE', 'WRITE', 'ZERO', 'ZEROES'
-            ),
-        4 => array( //Standard functions
+        ],
+        4 => [ //Standard functions
             'ACOS', 'ANNUITY', 'ASIN', 'ATAN', 'CHAR', 'COS', 'CURRENT-DATE',
             'DATE-OF-INTEGER', 'DAY-OF-INTEGER', 'FACTORIAL', 'INTEGER',
             'INTEGER-OF-DATE', 'INTEGER-OF-DAY', 'INTEGER-PART', 'LENGTH',
@@ -153,8 +153,8 @@ $language_data = array (
             'PRESENT-VALUE', 'RANDOM', 'RANGE', 'REM', 'REVERSE', 'SIN', 'SQRT',
             'STANDARD-DEVIATION', 'SUM', 'TAN', 'UPPER-CASE', 'VARIANCE',
             'WHEN-COMPILED'
-            ),
-        5 => array( //Privileged Built-in Functions
+        ],
+        5 => [ //Privileged Built-in Functions
             '#IN', '#OUT', '#TERM', '#TEMP', '#DYNAMIC', 'COBOL85^ARMTRAP',
             'COBOL85^COMPLETION', 'COBOL_COMPLETION_', 'COBOL_CONTROL_',
             'COBOL_GETENV_', 'COBOL_PUTENV_', 'COBOL85^RETURN^SORT^ERRORS',
@@ -169,76 +169,74 @@ $language_data = array (
             'DELETESTARTUP', 'GETASSIGNTEXT', 'GETASSIGNVALUE', 'GETBACKUPCPU',
             'GETPARAMTEXT', 'GETSTARTUPTEXT', 'PUTASSIGNTEXT', 'PUTASSIGNVALUE',
             'PUTPARAMTEXT', 'PUTSTARTUPTEXT'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         //Avoid having - in identifiers marked as symbols
         ' + ', ' - ', ' * ', ' / ', ' ** ',
         '.', ',',
         '=',
         '(', ')', '[', ']'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false,
         5 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000080; font-weight: bold;',
             2 => 'color: #000000; font-weight: bold;',
             3 => 'color: #008000; font-weight: bold;',
             4 => 'color: #000080;',
             5 => 'color: #008000;',
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #a0a0a0; font-style: italic;',
             'MULTI' => 'color: #a0a0a0; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #339933;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #993399;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #202020;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000066;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => '',
         5 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4
-    );
-
-?>
+];

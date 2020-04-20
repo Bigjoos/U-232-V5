@@ -1,29 +1,29 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //stderr//stdmsg
     'std_error' => "Erreur",
     'std_error_id' => "Mauvaise ID.",
     'std_error_form' => "Il manque des données.",
     'std_error_select_another' => "Numéro de rang OverForum déjà utilisé. Merci d'en choisir un autre!",
     'std_nf' => "Rien trouvé!",
-    'std_invalid' => "ID invalide!", 
+    'std_invalid' => "ID invalide!",
     'std_sorry' => "Désolé",
     //Texts
     'ad_over_forum' => "OverForum",
@@ -38,11 +38,10 @@ $lang = array(
     'ad_over_modify' => "Modifier",
     'ad_over_minview1' => "Classe minimun pour consulter",
     'ad_over_makenew' => "Créer un nouvel OverForumm",
-	'ad_over_editfor' => "editer OverForum: ",
-	'ad_over_editbut' => "Editer OverForum",
-	'ad_over_edit' => "Editer",
-	'ad_over_delete' => "Supprimer",
-	'ad_over_makebutton' => "Créer un OverForum",
-	'ad_over_stdhead' => "Gestionnaire d'OverForum"
-);
-?>
+    'ad_over_editfor' => "editer OverForum: ",
+    'ad_over_editbut' => "Editer OverForum",
+    'ad_over_edit' => "Editer",
+    'ad_over_delete' => "Supprimer",
+    'ad_over_makebutton' => "Créer un OverForum",
+    'ad_over_stdhead' => "Gestionnaire d'OverForum"
+];

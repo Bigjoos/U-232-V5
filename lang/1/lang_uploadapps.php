@@ -1,25 +1,25 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //uploadapps errors
     'uploadapps_error' => "Error",
-	'uploadapps_ruffian' => "A ruffian that will swear, drink, dance, revel the night, rob, murder and commit the oldest of ins the newest kind of ways.",
+    'uploadapps_ruffian' => "A ruffian that will swear, drink, dance, revel the night, rob, murder and commit the oldest of ins the newest kind of ways.",
     //main body
     'uploadapps_hide' => "Hide accepted/rejected",
     'uploadapps_show' => "Show accepted/rejected",
@@ -54,32 +54,31 @@ $lang = array(
     'uploadapps_create' => "I know how to create, upload and seed torrents",
     'uploadapps_seeding' => "I understand that I have to keep seeding my torrents until there are at least two other seeders",
     'uploadapps_noid' => "It appears that there is no uploader application with that ID.",
-	'uploadapps_note' => "Note: (optional)",
-	'uploadapps_accept' => "Accept",
-	'uploadapps_reason' => "Reason: (optional)",
-	'uploadapps_reject' => "Reject",
-	'uploadapps_comm' => "Comment: ",
-	'uploadapps_return' => "Return to uploader applications page",
-	'uploadapps_subject' => "Uploader Promotion",
-	'uploadapps_msg' => "Congratulations, your uploader application has been accepted! You have been promoted to Uploader and you are now able to upload torrents. Please make sure you have read the [url={$INSTALLER09['baseurl']}/rules.php]guidelines on uploading[/url] before you do.",
-	'uploadapps_msg_note' => "Note: ",
-	'uploadapps_msg_user' => "User",
-	'uploadapps_msg_been' => "has been promoted to Uploader by",
-	'uploadapps_modcomment' => " - Promoted to 'Uploader' by ",
-	'uploadapps_app_accepted' => "Application accepted",
-	'uploadapps_app_msg' => "The application was succesfully accepted. The user has been promoted and has been sent a PM notification.",
-	'uploadapps_app_click' => "Click",
-	'uploadapps_app_here' => "Here",
-	'uploadapps_app_return' => " to return to the upload applications page.",
-	'uploadapps_no_up' => "It appears that there is no uploader application with that ID.",
-	'uploadapps_rej_no' => "Sorry, your uploader application has been rejected. It appears that you are not qualified enough to become uploader.",
-	'uploadapps_rej_reason' => "Reason:",
-	'uploadapps_app_rej' => "Application rejected",
-	'uploadapps_app_rejbeen' => "The application was succesfully rejected. The user has been sent a PM notification.",
-	'uploadapps_silly' => "Silly Rabbit",
-	'uploadapps_twix' => "Twix are for kids.. Check at least one application stupid...You cant delete nothing !'",
-	'uploadapps_deleted' => "Deleted",
-	'uploadapps_deletedsuc' => "The upload applications were succesfully deleted.",
-	'uploadapps_stdhead' => "Uploader application page"
-);
-?>
+    'uploadapps_note' => "Note: (optional)",
+    'uploadapps_accept' => "Accept",
+    'uploadapps_reason' => "Reason: (optional)",
+    'uploadapps_reject' => "Reject",
+    'uploadapps_comm' => "Comment: ",
+    'uploadapps_return' => "Return to uploader applications page",
+    'uploadapps_subject' => "Uploader Promotion",
+    'uploadapps_msg' => "Congratulations, your uploader application has been accepted! You have been promoted to Uploader and you are now able to upload torrents. Please make sure you have read the [url={$INSTALLER09['baseurl']}/rules.php]guidelines on uploading[/url] before you do.",
+    'uploadapps_msg_note' => "Note: ",
+    'uploadapps_msg_user' => "User",
+    'uploadapps_msg_been' => "has been promoted to Uploader by",
+    'uploadapps_modcomment' => " - Promoted to 'Uploader' by ",
+    'uploadapps_app_accepted' => "Application accepted",
+    'uploadapps_app_msg' => "The application was succesfully accepted. The user has been promoted and has been sent a PM notification.",
+    'uploadapps_app_click' => "Click",
+    'uploadapps_app_here' => "Here",
+    'uploadapps_app_return' => " to return to the upload applications page.",
+    'uploadapps_no_up' => "It appears that there is no uploader application with that ID.",
+    'uploadapps_rej_no' => "Sorry, your uploader application has been rejected. It appears that you are not qualified enough to become uploader.",
+    'uploadapps_rej_reason' => "Reason:",
+    'uploadapps_app_rej' => "Application rejected",
+    'uploadapps_app_rejbeen' => "The application was succesfully rejected. The user has been sent a PM notification.",
+    'uploadapps_silly' => "Silly Rabbit",
+    'uploadapps_twix' => "Twix are for kids.. Check at least one application stupid...You cant delete nothing !'",
+    'uploadapps_deleted' => "Deleted",
+    'uploadapps_deletedsuc' => "The upload applications were succesfully deleted.",
+    'uploadapps_stdhead' => "Uploader application page"
+];

@@ -52,30 +52,30 @@
  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'DCS',
-    'COMMENT_SINGLE' => array(
+    'COMMENT_SINGLE' => [
         1 => ';'
-        ),
-    'COMMENT_MULTI' => array(
-        ),
-    'HARDQUOTE' => array(
-        ),
+    ],
+    'COMMENT_MULTI' => [
+    ],
+    'HARDQUOTE' => [
+    ],
     'HARDESCAPE' => '',
-    'COMMENT_REGEXP' => array(
+    'COMMENT_REGEXP' => [
         // Highlight embedded C code in a separate color:
         2 => '/\bINSERT_C_CODE\b.*?\bEND_C_CODE\b/ims'
-        ),
+    ],
     'CASE_KEYWORDS' => GESHI_CAPS_UPPER,
-    'QUOTEMARKS' => array(
+    'QUOTEMARKS' => [
         '"'
-        ),
+    ],
     'ESCAPE_CHAR' => '',
     'ESCAPE_REGEXP' => '',
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC | GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'abs', 'ascii_value', 'bit_value', 'blank_date', 'calc_unit_values', 'cm',
             'complete_months', 'complete_years', 'correct', 'create_input_file', 'cy',
             'date_convert', 'day', 'del_output_separator',
@@ -104,8 +104,8 @@ $language_data = array (
             'summarise_units_record', 'suppress_record', 'table_correct',
             'table_validate', 'terminate', 'time', 'today', 'trim', 'ubound', 'year',
             'years_add', 'years_sub'
-            ),
-        2 => array(
+        ],
+        2 => [
             'and', 'as', 'begin', 'boolean', 'byref', 'byval', 'call', 'case', 'date',
             'default', 'do', 'else', 'elseif', 'end_c_code', 'endfor', 'endfunction',
             'endif', 'endproc', 'endswitch', 'endwhile', 'eq',
@@ -113,73 +113,71 @@ $language_data = array (
             'if', 'insert_c_code', 'integer', 'le', 'loop', 'lt', 'ne', 'not',
             'number', 'or', 'private', 'proc', 'public', 'quitloop', 'return',
             'short', 'step', 'switch', 'text', 'then', 'to', 'true', 'while'
-            ),
-        3 => array(
+        ],
+        3 => [
             // These keywords are not highlighted by the DCS IDE but we may as well
             // keep track of them anyway:
             'mp_file', 'odbc_file'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']',
         '=', '<', '>',
         '+', '-', '*', '/', '^',
         ':', ','
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: red;',
             2 => 'color: blue;',
             3 => 'color: black;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: black; background-color: silver;',
             // Colors for highlighting embedded C code:
             2 => 'color: maroon; background-color: pink;'
-            ),
-        'ESCAPE_CHAR' => array(
-            ),
-        'BRACKETS' => array(
+        ],
+        'ESCAPE_CHAR' => [
+        ],
+        'BRACKETS' => [
             0 => 'color: black;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: green;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: green;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: black;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            ),
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ],
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

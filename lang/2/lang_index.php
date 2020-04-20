@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //index
     'index_announce' => "News du Site",
     'index_latest' => "Derniers Torrents",
@@ -121,78 +121,78 @@ $lang = array(
     'foot_disclaimer' => "Aucun des fichiers dont les liens sont listés ici n’est hébergé sur ce site. L'administrateur du site (%s) ne peut pas être tenu pour responsable des actions comme du comportement des membres, ou de ce que les utilisateurs postent.
 Vous n'avez absolument pas le droit de télécharger des fichiers dont vous n'avez pas la licence ou les droits. Afin de pouvoir télécharger un fichier, vous devez posséder l'oeuvre originale correspondante (VHS, DVD, BLUERAY, CD, etc …).
 Vous agréez en totalité ce qui a été énoncé ci-avant et avez donc l'entière responsabilité de vos agissements.",
-	//last24 
-	'index_last24_nousers' => "Il&nbsp;n'y&nbsp;a eu&nbsp;aucun&nbsp;membre actif&nbsp;ces&nbsp;dernières&nbsp;15&nbsp;minutes.",
-	'index_last24_list' => "&nbsp;-&nbsp;Liste&nbsp;mise à jour&nbsp;chaque heure",
-	'index_last24_during' => " ont visité le site durant ces dernières 24hrs",
-	'index_last24_most' => "Le plus grand nombre de visites en 24hrs a été de ",
-	'index_last24_on' => " le ",
-	//global show hide
-	'index_hide_show' => "[Cacher/Montrer]",
-	'index_click_more' => "Cliquez pour plus d'infos",
-	//irc users
-	'index_irc_days' => "jours",
-	'index_irc_hrs' => "heures",
-	'index_irc_min' => "minutes",
-	'index_irc_nousers' => "Il n'y a eu aucun membre actif sur IRC ces 15 dernières minutes.",
-	//birthday users
-	'index_birthday_no' => "Aucun anniversaire de membre aujourd'hui.",
-	//active users
-	'index_active_users_no' => "Il n'y a eu aucun membre actif ces 15 dernières minutes.",
-	//advertise
-	'index_advertise_t' => "U-232",
-	//announcement
-	'index_ann_title' => "News du Site",
-	'index_ann_click' => "Cliquez ",
-	'index_ann_here' => "ici",
-	'index_ann_clear' => " pour supprimer cette News.",
-	//forum_posts
-	'index_fposts_anonymous' => "Anonyme",
-	'index_fposts_unknow' => "Inconnu",
-	'index_fposts_system' => "System",
-	'index_fposts_sticky' => "Epinglé",
-	'index_fposts_stickyt' => "Sujet épinglé",
-	'index_fposts_locked' => "Verrouillé",
-	'index_fposts_lockedt' => "Sujet verrouillé",
-	'index_fposts_in' => "dans ",
-	//xmas gift
-	'index_xmas_gift' => "Cadeau Xmas",
-	//ie user
-	'index_ie_warn' => "Attention - Navigateur Internet Explorer",
-	'index_ie_not' => " Vous semblez utiliser Internet Explorer comme navigateur, ce site <b>n'est pas adapté</b> à internet explorer, il y a des risques pour que l'affichage ne soit pas optimal et qu'il ne fonctionne pas correctement.",
-	'index_ie_suggest' => " suggère que vous ",
-	'index_ie_bhappy' => "naviguiez convenablement",
-	'index_ie_consider' => " et pensez à utiliser un navigateur alternatif.",
-	'index_ie_firefox' => "Utilisez Firefox!",
-	'index_ie_get' => "Utilisez un navigateur sûr !",
-	///Latest Torrents
-	'index_ltst_name' => "Nom:",
-	'index_ltst_seeder' => "Seeders:",
-	'index_ltst_leecher' => "Leechers:",
-	//Latest Member
-	'index_lmember' => "Dernier Membre Enregistré",
-	'index_wmember' => "Bienvenue à notre nouveau membre ",
-	//movie of the week
-	'index_mow_title' => "Film de la Semaine",
-	'index_mow_type' => "Type",
-	'index_mow_name' => "Nom",
-	'index_mow_snatched' => "Complété",
-	'index_mow_seeder' => "Seeders",
-	'index_mow_leecher' => "Leechers",
-	'index_mow_no' => "Le Film de la Semaine est inactif!",
-	//news
-	'index_news_title' => "&nbsp;&nbsp;Ajouter / Editer",
-	'index_news_ed' => "Editer les news",
-	'index_news_del' => "Supprimer les news",
-	'index_news_added' => "&nbsp;-&nbsp;Ajouté par ",
-	'index_news_anon' => "Anonyme",
-	'index_news_not' => "Silence radio :-P",
-	'index_news_txt' => "&nbsp;-&nbsp;",
-	//shoutbox
-	'index_shoutbox_general' => "ShoutBox - Clavardage général",
-	//torrent freak
-	'index_torr_freak' => " News de la scène Torrent",
-    //polls 
+    //last24
+    'index_last24_nousers' => "Il&nbsp;n'y&nbsp;a eu&nbsp;aucun&nbsp;membre actif&nbsp;ces&nbsp;dernières&nbsp;15&nbsp;minutes.",
+    'index_last24_list' => "&nbsp;-&nbsp;Liste&nbsp;mise à jour&nbsp;chaque heure",
+    'index_last24_during' => " ont visité le site durant ces dernières 24hrs",
+    'index_last24_most' => "Le plus grand nombre de visites en 24hrs a été de ",
+    'index_last24_on' => " le ",
+    //global show hide
+    'index_hide_show' => "[Cacher/Montrer]",
+    'index_click_more' => "Cliquez pour plus d'infos",
+    //irc users
+    'index_irc_days' => "jours",
+    'index_irc_hrs' => "heures",
+    'index_irc_min' => "minutes",
+    'index_irc_nousers' => "Il n'y a eu aucun membre actif sur IRC ces 15 dernières minutes.",
+    //birthday users
+    'index_birthday_no' => "Aucun anniversaire de membre aujourd'hui.",
+    //active users
+    'index_active_users_no' => "Il n'y a eu aucun membre actif ces 15 dernières minutes.",
+    //advertise
+    'index_advertise_t' => "U-232",
+    //announcement
+    'index_ann_title' => "News du Site",
+    'index_ann_click' => "Cliquez ",
+    'index_ann_here' => "ici",
+    'index_ann_clear' => " pour supprimer cette News.",
+    //forum_posts
+    'index_fposts_anonymous' => "Anonyme",
+    'index_fposts_unknow' => "Inconnu",
+    'index_fposts_system' => "System",
+    'index_fposts_sticky' => "Epinglé",
+    'index_fposts_stickyt' => "Sujet épinglé",
+    'index_fposts_locked' => "Verrouillé",
+    'index_fposts_lockedt' => "Sujet verrouillé",
+    'index_fposts_in' => "dans ",
+    //xmas gift
+    'index_xmas_gift' => "Cadeau Xmas",
+    //ie user
+    'index_ie_warn' => "Attention - Navigateur Internet Explorer",
+    'index_ie_not' => " Vous semblez utiliser Internet Explorer comme navigateur, ce site <b>n'est pas adapté</b> à internet explorer, il y a des risques pour que l'affichage ne soit pas optimal et qu'il ne fonctionne pas correctement.",
+    'index_ie_suggest' => " suggère que vous ",
+    'index_ie_bhappy' => "naviguiez convenablement",
+    'index_ie_consider' => " et pensez à utiliser un navigateur alternatif.",
+    'index_ie_firefox' => "Utilisez Firefox!",
+    'index_ie_get' => "Utilisez un navigateur sûr !",
+    ///Latest Torrents
+    'index_ltst_name' => "Nom:",
+    'index_ltst_seeder' => "Seeders:",
+    'index_ltst_leecher' => "Leechers:",
+    //Latest Member
+    'index_lmember' => "Dernier Membre Enregistré",
+    'index_wmember' => "Bienvenue à notre nouveau membre ",
+    //movie of the week
+    'index_mow_title' => "Film de la Semaine",
+    'index_mow_type' => "Type",
+    'index_mow_name' => "Nom",
+    'index_mow_snatched' => "Complété",
+    'index_mow_seeder' => "Seeders",
+    'index_mow_leecher' => "Leechers",
+    'index_mow_no' => "Le Film de la Semaine est inactif!",
+    //news
+    'index_news_title' => "&nbsp;&nbsp;Ajouter / Editer",
+    'index_news_ed' => "Editer les news",
+    'index_news_del' => "Supprimer les news",
+    'index_news_added' => "&nbsp;-&nbsp;Ajouté par ",
+    'index_news_anon' => "Anonyme",
+    'index_news_not' => "Silence radio :-P",
+    'index_news_txt' => "&nbsp;-&nbsp;",
+    //shoutbox
+    'index_shoutbox_general' => "ShoutBox - Clavardage général",
+    //torrent freak
+    'index_torr_freak' => " News de la scène Torrent",
+    //polls
     'index_poll_title' => "Ajouter / Editer",
     'index_poll_name' => "Sondage",
     //add terms stats by yoooov
@@ -223,5 +223,4 @@ Vous agréez en totalité ce qui a été énoncé ci-avant et avez donc l'entiè
     'req_off_pend' => "En attente...",
     'req_off_den' => "Rejeté",
     'req_off_nooff' => "Aucune Offre trouvée"
-);
-?>
+];

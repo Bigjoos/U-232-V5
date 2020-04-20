@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //stderr
     'stderr_errorhead' => "Error",
     'stderr_error1' => "What the hell are you trying to do? You are already logged in!",
@@ -42,7 +42,7 @@ $lang = array(
     //captcha
     'captcha_spam' => "NO SPAM! Wait 10 seconds and then refresh page",
     //main
-	'main_header' => "Reset Lost Password",
+    'main_header' => "Reset Lost Password",
     'main_question' => "Question",
     'main_question1' => "Mother's birthplace",
     'main_question2' => "Best childhood friend",
@@ -52,7 +52,7 @@ $lang = array(
     'main_question6' => "Grandfather's occupation",
     'main_sec_answer' => "Secret Answer",
     'main_next' => "Next",
-	'main_changepass' => "Change your password",
+    'main_changepass' => "Change your password",
     'main_new_pass' => "New password",
     'main_new_pass_confirm' => "Confirm password",
     'main_message' => "somebody (probably you), tried to set a new password for this account by question & secret answer method but failed!",
@@ -66,5 +66,4 @@ $lang = array(
     'main_captcha' => "Captcha",
     'main_pin' => "Pin",
     'main_recover' => "Recover"
-);
-?>
+];

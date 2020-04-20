@@ -1,33 +1,35 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //==Error reporting... Turn off = 0 when live
 $INSTALLER09['error_reports']['debugmode'] = 1;
 if ($INSTALLER09['error_reports']['debugmode'] == 1) {
-    error_reporting(E_ALL); 
-}else { 
-    error_reporting(0); 
+    error_reporting(E_ALL);
+} else {
+    error_reporting(0);
 }
 const REQUIRED_PHP = 70000, REQUIRED_PHP_VERSION = '7.0';
-if (PHP_VERSION_ID < REQUIRED_PHP)
-die('PHP '.REQUIRED_PHP_VERSION.' or higher is required.');
-if (PHP_INT_SIZE < 8)
-die('A 64bit or higher OS + Processor is required.');
+if (PHP_VERSION_ID < REQUIRED_PHP) {
+    die('PHP ' . REQUIRED_PHP_VERSION . ' or higher is required.');
+}
+if (PHP_INT_SIZE < 8) {
+    die('A 64bit or higher OS + Processor is required.');
+}
 define('EMAIL_CONFIRM', true);
 define('SQL_DEBUG', 1);
 define('XBT_TRACKER', false);
@@ -37,10 +39,11 @@ if (ini_get('default_charset') != $INSTALLER09['char_set']) {
     ini_set('default_charset', $INSTALLER09['char_set']);
 }
 //== Windows fix
-if( !function_exists( 'sys_getloadavg' ) ){
-  function sys_getloadavg(){
-  return array( 0, 0, 0 );
-  }
+if (!function_exists('sys_getloadavg')) {
+    function sys_getloadavg()
+    {
+        return [ 0, 0, 0 ];
+    }
 }
 /* Compare php version for date/time stuff etc! */
 date_default_timezone_set('Europe/London');
@@ -205,7 +208,7 @@ define('BLOCK_DIR', ROOT_DIR . 'blocks' . DIRECTORY_SEPARATOR);
 define('IMDB_DIR', ROOT_DIR . 'imdb' . DIRECTORY_SEPARATOR);
 define('CLASS_DIR', INCL_DIR . 'class' . DIRECTORY_SEPARATOR);
 define('CLEAN_DIR', INCL_DIR . 'cleanup' . DIRECTORY_SEPARATOR);
-define('BITBUCKET_DIR', DIRECTORY_SEPARATOR.'var'.DIRECTORY_SEPARATOR.'bucket');
+define('BITBUCKET_DIR', DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'bucket');
 $INSTALLER09['cache'] = ROOT_DIR . 'cache';
 $INSTALLER09['backup_dir'] = INCL_DIR . 'backup';
 $INSTALLER09['sub_up_dir'] = ROOT_DIR . 'uploadsub';
@@ -217,16 +220,18 @@ $INSTALLER09['happyhour'] = CACHE_DIR . 'happyhour' . DIRECTORY_SEPARATOR . 'hap
 $INSTALLER09['sql_error_log'] = ROOT_DIR . 'sqlerr_logs' . DIRECTORY_SEPARATOR . 'sql_err_' . date('M_D_Y') . '.log';
 //== XBT or PHP announce
 if (XBT_TRACKER == true) {
-$INSTALLER09['xbt_prefix'] = '#announce_urls:2710/';  
-$INSTALLER09['xbt_suffix'] = '/announce';
-$INSTALLER09['announce_urls'][] = '#announce_urls:2710/announce';
+    $INSTALLER09['xbt_prefix'] = '#announce_urls:2710/';
+    $INSTALLER09['xbt_suffix'] = '/announce';
+    $INSTALLER09['announce_urls'][] = '#announce_urls:2710/announce';
 } else {
-$INSTALLER09['announce_urls'] = array();
-$INSTALLER09['announce_urls'][] = '#announce_urls';
-$INSTALLER09['announce_urls'][] = '#announce_https';
+    $INSTALLER09['announce_urls'] = [];
+    $INSTALLER09['announce_urls'][] = '#announce_urls';
+    $INSTALLER09['announce_urls'][] = '#announce_https';
 }
-if (isset($_SERVER["HTTP_HOST"]) &&  $_SERVER["HTTP_HOST"] == "") $_SERVER["HTTP_HOST"] = $_SERVER["SERVER_NAME"];
-$INSTALLER09['baseurl'] = 'http' . (isset($_SERVER['HTTPS']) && (bool)$_SERVER['HTTPS'] == true ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
+if (isset($_SERVER["HTTP_HOST"]) &&  $_SERVER["HTTP_HOST"] == "") {
+    $_SERVER["HTTP_HOST"] = $_SERVER["SERVER_NAME"];
+}
+$INSTALLER09['baseurl'] = 'http' . (isset($_SERVER['HTTPS']) && (bool) $_SERVER['HTTPS'] == true ? 's' : '') . '://' . $_SERVER['HTTP_HOST'];
 //== Email for sender/return path.
 $INSTALLER09['sub_max_size'] = 500 * 1024;
 $INSTALLER09['site_email'] = '#site_email';
@@ -241,20 +246,20 @@ $INSTALLER09['logo'] = "./pic/banner.png";
 $INSTALLER09['stylesheet'] = 1;
 $INSTALLER09['categorie_icon'] = 1;
 $INSTALLER09['comment_min_class'] = 4; //minim class to be checked when posting comments
-$INSTALLER09['comment_check'] = 1; //set it to 0 if you wanna allow commenting with out staff checking 
+$INSTALLER09['comment_check'] = 1; //set it to 0 if you wanna allow commenting with out staff checking
 $INSTALLER09['requests']['req_limit'] = 10;
 $INSTALLER09['offers']['off_limit'] = 10;
 //for subs & youtube mode
-$INSTALLER09['movie_cats'] = array(
+$INSTALLER09['movie_cats'] = [
     3,
     5,
     6,
     10,
     11
-);
-$INSTALLER09['tv_cats'] = array(
+];
+$INSTALLER09['tv_cats'] = [
     11
-);
+];
 $youtube_pattern = "/^http(s)?\:\/\/www\.youtube\.com\/watch\?v\=[\w-]{11}/i";
 //== set this to size of user avatars
 $INSTALLER09['av_img_height'] = 100;
@@ -263,12 +268,12 @@ $INSTALLER09['av_img_width'] = 100;
 $INSTALLER09['sig_img_height'] = 100;
 $INSTALLER09['sig_img_width'] = 500;
 $INSTALLER09['bucket_allowed'] = 0;
-$INSTALLER09['allowed_ext'] = array(
+$INSTALLER09['allowed_ext'] = [
     'image/gif',
     'image/png',
     'image/jpg',
     'image/jpeg'
-);
+];
 $INSTALLER09['bucket_maxsize'] = 500 * 1024; //max size set to 500kb
 //==Class check by pdq
 $INSTALLER09['site']['owner'] = 1;
@@ -280,10 +285,9 @@ $INSTALLER09['staff']['staff_pin'] = 'uFie0y3Ihjkij8'; // should be mix of u/l c
 $INSTALLER09['staff']['owner_pin'] = 'jjko4kuogqhjj0'; // should be mix of u/l case and min 12 chars length
 //== Staff forum ID for autopost
 $INSTALLER09['staff']['forumid'] = 2; // this forum ID should exist and be a staff forum
-$INSTALLER09['staff_forums'] = array(
+$INSTALLER09['staff_forums'] = [
     1,
     2
-); // these forum ID's' should exist and be a staff forum's to stop autoshouts
+]; // these forum ID's' should exist and be a staff forum's to stop autoshouts
 $INSTALLER09['variant'] = 'U-232 V5';
 define('TBVERSION', $INSTALLER09['variant']);
-?>

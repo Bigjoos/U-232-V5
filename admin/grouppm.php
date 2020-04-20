@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //== Group pm - putyn
 if (!defined('IN_INSTALLER09_ADMIN')) {
@@ -31,27 +31,29 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_grouppm'));
 $HTMLOUT = '';
-$err = array();
+$err = [];
 $FSCLASS = UC_STAFF; //== First staff class;
 $LSCLASS = UC_MAX; //== Last staff class;
 $FUCLASS = UC_MIN; //== First users class;
 $LUCLASS = UC_STAFF - 1; //== Last users class;
-$sent2classes = array();
+$sent2classes = [];
 function classes2name($min, $max)
 {
-    GLOBAL $sent2classes;
-    for ($i = $min; $i < $max + 1; $i++) $sent2classes[] = get_user_class_name($i);
+    global $sent2classes;
+    for ($i = $min; $i < $max + 1; $i++) {
+        $sent2classes[] = get_user_class_name($i);
+    }
 }
 function mkint($x)
 {
-    return (int)$x;
+    return (int) $x;
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $groups = isset($_POST["groups"]) ? $_POST["groups"] : "";
@@ -60,12 +62,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $msg = isset($_POST["message"]) ? htmlsafechars($_POST["message"]) : "";
     $msg = str_replace("&amp", "&", $_POST["message"]);
     $sender = isset($_POST["system"]) && $_POST["system"] == "yes" ? 0 : $CURUSER["id"];
-    if (empty($subject)) $err[] = $lang['grouppm_nosub'];
-    if (empty($msg)) $err[] = $lang['grouppm_nomsg'];
+    if (empty($subject)) {
+        $err[] = $lang['grouppm_nosub'];
+    }
+    if (empty($msg)) {
+        $err[] = $lang['grouppm_nomsg'];
+    }
     //$msg .= "\n This is a group message !";
-    if (empty($groups)) $err[] = $lang['grouppm_nogrp'];
+    if (empty($groups)) {
+        $err[] = $lang['grouppm_nogrp'];
+    }
     if (sizeof($err) == 0) {
-        $where = $classes = $ids = array();
+        $where = $classes = $ids = [];
         foreach ($groups as $group) {
             if (is_string($group)) {
                 switch ($group) {
@@ -81,17 +89,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 case "fls":
                     $where[] = "u.support='yes'";
-                    $sent2classes[] = ''.$lang['grouppm_fls'].'';
+                    $sent2classes[] = '' . $lang['grouppm_fls'] . '';
                     break;
 
                 case "donor":
                     $where[] = "u.donor = 'yes'";
-                    $sent2classes[] = ''.$lang['grouppm_donor'].'';
+                    $sent2classes[] = '' . $lang['grouppm_donor'] . '';
                     break;
 
                 case "all_friends":
                     {$fq = sql_query("SELECT friendid FROM friends WHERE userid=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
-                        if (mysqli_num_rows($fq)) while ($fa = mysqli_fetch_row($fq)) $ids[] = $fa[0];
+                        if (mysqli_num_rows($fq)) {
+                            while ($fa = mysqli_fetch_row($fq)) {
+                                $ids[] = $fa[0];
+                            }
+                        }
                     }
                     break;
                 }
@@ -101,47 +113,67 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sent2classes[] = get_user_class_name($group);
             }
         }
-        if (sizeof($classes) > 0) $where[] = "u.class IN (" . join(",", $classes) . ")";
+        if (sizeof($classes) > 0) {
+            $where[] = "u.class IN (" . join(",", $classes) . ")";
+        }
         if (sizeof($where) > 0) {
             $q1 = sql_query("SELECT u.id FROM users AS u WHERE " . join(" OR ", $where)) or sqlerr(__FILE__, __LINE__);
-            if (mysqli_num_rows($q1) > 0) while ($a = mysqli_fetch_row($q1)) $ids[] = $a[0];
+            if (mysqli_num_rows($q1) > 0) {
+                while ($a = mysqli_fetch_row($q1)) {
+                    $ids[] = $a[0];
+                }
+            }
         }
         $ids = array_unique($ids);
         if (sizeof($ids) > 0) {
-            $pms = array();
+            $pms = [];
             $msg.= $lang['grouppm_this'] . join(', ', $sent2classes);
-            foreach ($ids as $rid) $pms[] = "(" . $sender . "," . $rid . "," . TIME_NOW . "," . sqlesc($msg) . "," . sqlesc($subject) . ")";
-            if (sizeof($pms) > 0) $r = sql_query("INSERT INTO messages(sender,receiver,added,msg,subject) VALUES " . join(",", $pms)) or sqlerr(__FILE__, __LINE__);
+            foreach ($ids as $rid) {
+                $pms[] = "(" . $sender . "," . $rid . "," . TIME_NOW . "," . sqlesc($msg) . "," . sqlesc($subject) . ")";
+            }
+            if (sizeof($pms) > 0) {
+                $r = sql_query("INSERT INTO messages(sender,receiver,added,msg,subject) VALUES " . join(",", $pms)) or sqlerr(__FILE__, __LINE__);
+            }
             $mc1->delete_value('inbox_new_' . $rid);
             $mc1->delete_value('inbox_new_sb_' . $rid);
             $err[] = ($r ? $lang['grouppm_sent'] : $lang['grouppm_again']);
-        } else $err[] = $lang['grouppm_nousers'];
+        } else {
+            $err[] = $lang['grouppm_nousers'];
+        }
     }
 }
-$groups = array();
-$groups['staff'] = array("opname" => $lang['grouppm_staff'],
-        "minclass" => UC_USER);
-for ($i = $FSCLASS; $i <= $LSCLASS; $i++) $groups['staff']['ops'][$i] = get_user_class_name($i);
+$groups = [];
+$groups['staff'] = ["opname" => $lang['grouppm_staff'],
+    "minclass" => UC_USER];
+for ($i = $FSCLASS; $i <= $LSCLASS; $i++) {
+    $groups['staff']['ops'][$i] = get_user_class_name($i);
+}
 $groups['staff']['ops']['fls'] = $lang['grouppm_fls'];
 $groups['staff']['ops']['all_staff'] = $lang['grouppm_allstaff'];
-$groups['members'] = array();
-$groups['members'] = array("opname" => $lang['grouppm_mem'],
-        "minclass" => UC_STAFF);
-for ($i = $FUCLASS; $i <= $LUCLASS; $i++) $groups['members']['ops'][$i] = get_user_class_name($i);
+$groups['members'] = [];
+$groups['members'] = ["opname" => $lang['grouppm_mem'],
+    "minclass" => UC_STAFF];
+for ($i = $FUCLASS; $i <= $LUCLASS; $i++) {
+    $groups['members']['ops'][$i] = get_user_class_name($i);
+}
 $groups['members']['ops']['donor'] = $lang['grouppm_donor'];
 $groups['members']['ops']['all_users'] = $lang['grouppm_allusers'];
-$groups['friends'] = array("opname" => $lang['grouppm_related'],
-        "minclass" => UC_USER,
-        "ops" => array("all_friends" => $lang['grouppm_friends']));
+$groups['friends'] = ["opname" => $lang['grouppm_related'],
+    "minclass" => UC_USER,
+    "ops" => ["all_friends" => $lang['grouppm_friends']]];
 function dropdown()
 {
     global $CURUSER, $groups;
     $r = "<select class='form-control' multiple=\"multiple\" name=\"groups[]\"  size=\"11\" style=\"padding:5px; width:180px;\">";
     foreach ($groups as $group) {
-        if ($group["minclass"] >= $CURUSER["class"]) continue;
+        if ($group["minclass"] >= $CURUSER["class"]) {
+            continue;
+        }
         $r.= "<optgroup label=\"" . $group["opname"] . "\">";
         $ops = $group["ops"];
-        foreach ($ops as $k => $v) $r.= "<option value=\"" . $k . "\">" . $v . "</option>";
+        foreach ($ops as $k => $v) {
+            $r.= "<option value=\"" . $k . "\">" . $v . "</option>";
+        }
         $r.= "</optgroup>";
     }
     $r.= "</select>";
@@ -177,4 +209,3 @@ $HTMLOUT.= "<fieldset style='border:1px solid #333333; padding:5px;'>
 	</fieldset>";
 $HTMLOUT.= "</div></div><br>";
 echo stdhead($lang['grouppm_stdhead']) . $HTMLOUT . stdfoot();
-?>

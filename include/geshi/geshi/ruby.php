@@ -36,191 +36,189 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Ruby',
-    'COMMENT_SINGLE' => array(1 => "#"),
-    'COMMENT_MULTI' => array("=begin" => "=end"),
+    'COMMENT_SINGLE' => [1 => "#"],
+    'COMMENT_MULTI' => ["=begin" => "=end"],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', '`','\''),
+    'QUOTEMARKS' => ['"', '`', '\''],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
-                'alias', 'and', 'begin', 'break', 'case', 'class',
-                'def', 'defined', 'do', 'else', 'elsif', 'end',
-                'ensure', 'for', 'if', 'in', 'module', 'while',
-                'next', 'not', 'or', 'redo', 'rescue', 'yield',
-                'retry', 'super', 'then', 'undef', 'unless',
-                'until', 'when', 'BEGIN', 'END', 'include'
-            ),
-        2 => array(
-                '__FILE__', '__LINE__', 'false', 'nil', 'self', 'true',
-                'return'
-            ),
-        3 => array(
-                'Array', 'Float', 'Integer', 'String', 'at_exit',
-                'autoload', 'binding', 'caller', 'catch', 'chop', 'chop!',
-                'chomp', 'chomp!', 'eval', 'exec', 'exit', 'exit!', 'fail',
-                'fork', 'format', 'gets', 'global_variables', 'gsub', 'gsub!',
-                'iterator?', 'lambda', 'load', 'local_variables', 'loop',
-                'open', 'p', 'print', 'printf', 'proc', 'putc', 'puts',
-                'raise', 'rand', 'readline', 'readlines', 'require', 'select',
-                'sleep', 'split', 'sprintf', 'srand', 'sub', 'sub!', 'syscall',
-                'system', 'trace_var', 'trap', 'untrace_var'
-            ),
-        4 => array(
-                'Abbrev', 'ArgumentError', 'Base64', 'Benchmark',
-                'Benchmark::Tms', 'Bignum', 'Binding', 'CGI', 'CGI::Cookie',
-                'CGI::HtmlExtension', 'CGI::QueryExtension',
-                'CGI::Session', 'CGI::Session::FileStore',
-                'CGI::Session::MemoryStore', 'Class', 'Comparable', 'Complex',
-                'ConditionVariable', 'Continuation', 'Data',
-                'Date', 'DateTime', 'Delegator', 'Dir', 'EOFError', 'ERB',
-                'ERB::Util', 'Enumerable', 'Enumerable::Enumerator', 'Errno',
-                'Exception', 'FalseClass', 'File',
-                'File::Constants', 'File::Stat', 'FileTest', 'FileUtils',
-                'FileUtils::DryRun', 'FileUtils::NoWrite',
-                'FileUtils::StreamUtils_', 'FileUtils::Verbose', 'Find',
-                'Fixnum', 'FloatDomainError', 'Forwardable', 'GC', 'Generator',
-                'Hash', 'IO', 'IOError', 'Iconv', 'Iconv::BrokenLibrary',
-                'Iconv::Failure', 'Iconv::IllegalSequence',
-                'Iconv::InvalidCharacter', 'Iconv::InvalidEncoding',
-                'Iconv::OutOfRange', 'IndexError', 'Interrupt', 'Kernel',
-                'LoadError', 'LocalJumpError', 'Logger', 'Logger::Application',
-                'Logger::Error', 'Logger::Formatter', 'Logger::LogDevice',
-                'Logger::LogDevice::LogDeviceMutex', 'Logger::Severity',
-                'Logger::ShiftingError', 'Marshal', 'MatchData',
-                'Math', 'Matrix', 'Method', 'Module', 'Mutex', 'NameError',
-                'NameError::message', 'NilClass', 'NoMemoryError',
-                'NoMethodError', 'NotImplementedError', 'Numeric', 'Object',
-                'ObjectSpace', 'Observable', 'PStore', 'PStore::Error',
-                'Pathname', 'Precision', 'Proc', 'Process', 'Process::GID',
-                'Process::Status', 'Process::Sys', 'Process::UID', 'Queue',
-                'Range', 'RangeError', 'Rational', 'Regexp', 'RegexpError',
-                'RuntimeError', 'ScriptError', 'SecurityError', 'Set',
-                'Shellwords', 'Signal', 'SignalException', 'SimpleDelegator',
-                'SingleForwardable', 'Singleton', 'SingletonClassMethods',
-                'SizedQueue', 'SortedSet', 'StandardError', 'StringIO',
-                'StringScanner', 'StringScanner::Error', 'Struct', 'Symbol',
-                'SyncEnumerator', 'SyntaxError', 'SystemCallError',
-                'SystemExit', 'SystemStackError', 'Tempfile',
-                'Test::Unit::TestCase', 'Test::Unit', 'Test', 'Thread',
-                'ThreadError', 'ThreadGroup',
-                'ThreadsWait', 'Time', 'TrueClass', 'TypeError', 'URI',
-                'URI::BadURIError', 'URI::Error', 'URI::Escape', 'URI::FTP',
-                'URI::Generic', 'URI::HTTP', 'URI::HTTPS',
-                'URI::InvalidComponentError', 'URI::InvalidURIError',
-                'URI::LDAP', 'URI::MailTo', 'URI::REGEXP',
-                'URI::REGEXP::PATTERN', 'UnboundMethod', 'Vector', 'YAML',
-                'ZeroDivisionError', 'Zlib',
-                'Zlib::BufError', 'Zlib::DataError', 'Zlib::Deflate',
-                'Zlib::Error', 'Zlib::GzipFile', 'Zlib::GzipFile::CRCError',
-                'Zlib::GzipFile::Error', 'Zlib::GzipFile::LengthError',
-                'Zlib::GzipFile::NoFooter', 'Zlib::GzipReader',
-                'Zlib::GzipWriter', 'Zlib::Inflate', 'Zlib::MemError',
-                'Zlib::NeedDict', 'Zlib::StreamEnd', 'Zlib::StreamError',
-                'Zlib::VersionError',
-                'Zlib::ZStream',
-                'HTML::Selector', 'HashWithIndifferentAccess', 'Inflector',
-                'Inflector::Inflections', 'Mime', 'Mime::Type',
-                'OCI8AutoRecover', 'TimeZone', 'XmlSimple'
-            ),
-        ),
-    'SYMBOLS' => array(
+    'KEYWORDS' => [
+        1 => [
+            'alias', 'and', 'begin', 'break', 'case', 'class',
+            'def', 'defined', 'do', 'else', 'elsif', 'end',
+            'ensure', 'for', 'if', 'in', 'module', 'while',
+            'next', 'not', 'or', 'redo', 'rescue', 'yield',
+            'retry', 'super', 'then', 'undef', 'unless',
+            'until', 'when', 'BEGIN', 'END', 'include'
+        ],
+        2 => [
+            '__FILE__', '__LINE__', 'false', 'nil', 'self', 'true',
+            'return'
+        ],
+        3 => [
+            'Array', 'Float', 'Integer', 'String', 'at_exit',
+            'autoload', 'binding', 'caller', 'catch', 'chop', 'chop!',
+            'chomp', 'chomp!', 'eval', 'exec', 'exit', 'exit!', 'fail',
+            'fork', 'format', 'gets', 'global_variables', 'gsub', 'gsub!',
+            'iterator?', 'lambda', 'load', 'local_variables', 'loop',
+            'open', 'p', 'print', 'printf', 'proc', 'putc', 'puts',
+            'raise', 'rand', 'readline', 'readlines', 'require', 'select',
+            'sleep', 'split', 'sprintf', 'srand', 'sub', 'sub!', 'syscall',
+            'system', 'trace_var', 'trap', 'untrace_var'
+        ],
+        4 => [
+            'Abbrev', 'ArgumentError', 'Base64', 'Benchmark',
+            'Benchmark::Tms', 'Bignum', 'Binding', 'CGI', 'CGI::Cookie',
+            'CGI::HtmlExtension', 'CGI::QueryExtension',
+            'CGI::Session', 'CGI::Session::FileStore',
+            'CGI::Session::MemoryStore', 'Class', 'Comparable', 'Complex',
+            'ConditionVariable', 'Continuation', 'Data',
+            'Date', 'DateTime', 'Delegator', 'Dir', 'EOFError', 'ERB',
+            'ERB::Util', 'Enumerable', 'Enumerable::Enumerator', 'Errno',
+            'Exception', 'FalseClass', 'File',
+            'File::Constants', 'File::Stat', 'FileTest', 'FileUtils',
+            'FileUtils::DryRun', 'FileUtils::NoWrite',
+            'FileUtils::StreamUtils_', 'FileUtils::Verbose', 'Find',
+            'Fixnum', 'FloatDomainError', 'Forwardable', 'GC', 'Generator',
+            'Hash', 'IO', 'IOError', 'Iconv', 'Iconv::BrokenLibrary',
+            'Iconv::Failure', 'Iconv::IllegalSequence',
+            'Iconv::InvalidCharacter', 'Iconv::InvalidEncoding',
+            'Iconv::OutOfRange', 'IndexError', 'Interrupt', 'Kernel',
+            'LoadError', 'LocalJumpError', 'Logger', 'Logger::Application',
+            'Logger::Error', 'Logger::Formatter', 'Logger::LogDevice',
+            'Logger::LogDevice::LogDeviceMutex', 'Logger::Severity',
+            'Logger::ShiftingError', 'Marshal', 'MatchData',
+            'Math', 'Matrix', 'Method', 'Module', 'Mutex', 'NameError',
+            'NameError::message', 'NilClass', 'NoMemoryError',
+            'NoMethodError', 'NotImplementedError', 'Numeric', 'Object',
+            'ObjectSpace', 'Observable', 'PStore', 'PStore::Error',
+            'Pathname', 'Precision', 'Proc', 'Process', 'Process::GID',
+            'Process::Status', 'Process::Sys', 'Process::UID', 'Queue',
+            'Range', 'RangeError', 'Rational', 'Regexp', 'RegexpError',
+            'RuntimeError', 'ScriptError', 'SecurityError', 'Set',
+            'Shellwords', 'Signal', 'SignalException', 'SimpleDelegator',
+            'SingleForwardable', 'Singleton', 'SingletonClassMethods',
+            'SizedQueue', 'SortedSet', 'StandardError', 'StringIO',
+            'StringScanner', 'StringScanner::Error', 'Struct', 'Symbol',
+            'SyncEnumerator', 'SyntaxError', 'SystemCallError',
+            'SystemExit', 'SystemStackError', 'Tempfile',
+            'Test::Unit::TestCase', 'Test::Unit', 'Test', 'Thread',
+            'ThreadError', 'ThreadGroup',
+            'ThreadsWait', 'Time', 'TrueClass', 'TypeError', 'URI',
+            'URI::BadURIError', 'URI::Error', 'URI::Escape', 'URI::FTP',
+            'URI::Generic', 'URI::HTTP', 'URI::HTTPS',
+            'URI::InvalidComponentError', 'URI::InvalidURIError',
+            'URI::LDAP', 'URI::MailTo', 'URI::REGEXP',
+            'URI::REGEXP::PATTERN', 'UnboundMethod', 'Vector', 'YAML',
+            'ZeroDivisionError', 'Zlib',
+            'Zlib::BufError', 'Zlib::DataError', 'Zlib::Deflate',
+            'Zlib::Error', 'Zlib::GzipFile', 'Zlib::GzipFile::CRCError',
+            'Zlib::GzipFile::Error', 'Zlib::GzipFile::LengthError',
+            'Zlib::GzipFile::NoFooter', 'Zlib::GzipReader',
+            'Zlib::GzipWriter', 'Zlib::Inflate', 'Zlib::MemError',
+            'Zlib::NeedDict', 'Zlib::StreamEnd', 'Zlib::StreamError',
+            'Zlib::VersionError',
+            'Zlib::ZStream',
+            'HTML::Selector', 'HashWithIndifferentAccess', 'Inflector',
+            'Inflector::Inflections', 'Mime', 'Mime::Type',
+            'OCI8AutoRecover', 'TimeZone', 'XmlSimple'
+        ],
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '%', '&', '*', '|', '/', '<', '>',
         '+', '-', '=>', '<<'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color:#9966CC; font-weight:bold;',
             2 => 'color:#0000FF; font-weight:bold;',
             3 => 'color:#CC0066; font-weight:bold;',
             4 => 'color:#CC00FF; font-weight:bold;',
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color:#008000; font-style:italic;',
             'MULTI' => 'color:#000080; font-style:italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color:#000099;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color:#006600; font-weight:bold;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color:#996600;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color:#006666;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color:#9900CC;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color:#006600; font-weight:bold;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color:#ff6633; font-weight:bold;',
             1 => 'color:#0066ff; font-weight:bold;',
             2 => 'color:#6666ff; font-weight:bold;',
             3 => 'color:#ff3333; font-weight:bold;'
-            ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => '',
             1 => '',
             2 => '',
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        0 => array(//Variables
+    ],
+    'REGEXPS' => [
+        0 => [//Variables
             GESHI_SEARCH => "([[:space:]])(\\$[a-zA-Z_][a-zA-Z0-9_]*)",
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
-        1 => array(//Arrays
+        ],
+        1 => [//Arrays
             GESHI_SEARCH => "([[:space:]])(@[a-zA-Z_][a-zA-Z0-9_]*)",
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
-        2 => "([A-Z][a-zA-Z0-9_]*::)+[A-Z][a-zA-Z0-9_]*",//Static OOP symbols
-        3 => array(
+        ],
+        2 => "([A-Z][a-zA-Z0-9_]*::)+[A-Z][a-zA-Z0-9_]*", //Static OOP symbols
+        3 => [
             GESHI_SEARCH => "([[:space:]]|\[|\()(:[a-zA-Z_][a-zA-Z0-9_]*)",
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            )
-        ),
+        ]
+    ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(
-        0 => array(
+    'SCRIPT_DELIMITERS' => [
+        0 => [
             '<%' => '%>'
-            )
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+        ]
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true,
-        ),
+    ],
     'TAB_WIDTH' => 2
-);
-
-?>
+];

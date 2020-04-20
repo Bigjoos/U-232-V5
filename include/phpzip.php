@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //
 // PHPZip v1.2 by Sext (sext@neud.net) 2002-11-18
@@ -28,7 +28,7 @@
 //
 class PHPZip
 {
-    function Zip($dir, $zipfilename)
+    public function Zip($dir, $zipfilename)
     {
         if (@function_exists('gzcompress')) {
             $curdir = getcwd();
@@ -37,15 +37,20 @@ class PHPZip
             } else {
                 $filelist = $this->GetFileList($dir);
             }
-            if ((!empty($dir)) && (!is_array($dir)) && (file_exists($dir))) chdir($dir);
-            else chdir($curdir);
+            if ((!empty($dir)) && (!is_array($dir)) && (file_exists($dir))) {
+                chdir($dir);
+            } else {
+                chdir($curdir);
+            }
             if (count($filelist) > 0) {
                 foreach ($filelist as $filename) {
                     if (is_file($filename)) {
                         $fd = fopen($filename, "r");
                         $content = fread($fd, filesize($filename));
                         fclose($fd);
-                        if (is_array($dir)) $filename = basename($filename);
+                        if (is_array($dir)) {
+                            $filename = basename($filename);
+                        }
                         $this->addFile($content, $filename);
                     }
                 }
@@ -56,9 +61,11 @@ class PHPZip
                 fclose($fp);
             }
             return 1;
-        } else return 0;
+        } else {
+            return 0;
+        }
     }
-    function GetFileList($dir)
+    public function GetFileList($dir)
     {
         if (file_exists($dir)) {
             $args = func_get_args();
@@ -71,28 +78,31 @@ class PHPZip
                         chdir($dir . $files);
                         $file = array_merge($file, $this->GetFileList("", "$pref$files/"));
                         chdir($curdir);
-                    } else $file[] = $pref . $files;
+                    } else {
+                        $file[] = $pref . $files;
+                    }
                 }
             }
             closedir($dh);
         }
         return $file;
     }
-    var $datasec = array();
-    var $ctrl_dir = array();
-    var $eof_ctrl_dir = "\x50\x4b\x05\x06\x00\x00\x00\x00";
-    var $old_offset = 0;
+    public $datasec = [];
+    public $ctrl_dir = [];
+    public $eof_ctrl_dir = "\x50\x4b\x05\x06\x00\x00\x00\x00";
+    public $old_offset = 0;
     /**
      * Converts an Unix timestamp to a four byte DOS date and time format (date
      * in high two bytes, time in low two bytes allowing magnitude comparison).
      *
-     * @param  integer  the current Unix timestamp
+     * @param  int  the current Unix timestamp
+     * @param mixed $unixtime
      *
-     * @return integer  the current date in a four byte DOS format
+     * @return int the current date in a four byte DOS format
      *
      * @access private
      */
-    function unix2DosTime($unixtime = 0)
+    public function unix2DosTime($unixtime = 0)
     {
         $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
         if ($timearray['year'] < 1980) {
@@ -110,11 +120,14 @@ class PHPZip
      *
      * @param  string   file contents
      * @param  string   name of the file in the archive (may contains the path)
-     * @param  integer  the current timestamp
+     * @param  int  the current timestamp
+     * @param mixed $data
+     * @param mixed $name
+     * @param mixed $time
      *
      * @access public
      */
-    function addFile($data, $name, $time = 0)
+    public function addFile($data, $name, $time = 0)
     {
         $name = str_replace('\\', '/', $name);
         $dtime = dechex($this->unix2DosTime($time));
@@ -130,7 +143,7 @@ class PHPZip
         $crc = crc32($data);
         $zdata = gzcompress($data);
         $c_len = strlen($zdata);
-        $zdata = substr(substr($zdata, 0, strlen($zdata) - 4) , 2); // fix crc bug
+        $zdata = substr(substr($zdata, 0, strlen($zdata) - 4), 2); // fix crc bug
         $fr.= pack('V', $crc); // crc32
         $fr.= pack('V', $c_len); // compressed filesize
         $fr.= pack('V', $unc_len); // uncompressed filesize
@@ -173,11 +186,11 @@ class PHPZip
     /**
      * Dumps out file
      *
-     * @return  string  the zipped file
+     * @return string the zipped file
      *
      * @access public
      */
-    function file()
+    public function file()
     {
         $data = implode('', $this->datasec);
         $ctrldir = implode('', $this->ctrl_dir);
@@ -187,7 +200,7 @@ class PHPZip
         pack('V', strlen($data)) . // offset to start of central dir
         "\x00\x00"; // .zip file comment length
     } // end of the 'file()' method
-    function forceDownload($archiveName)
+    public function forceDownload($archiveName)
     {
         $headerInfo = '';
         if (ini_get('zlib.output_compression')) {
@@ -213,4 +226,3 @@ class PHPZip
         readfile("$archiveName");
     }
 } // end of the 'PHPZip' class
-?>

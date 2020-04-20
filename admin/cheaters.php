@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,16 +30,18 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (INCL_DIR . 'pager_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(INCL_DIR . 'pager_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('cheaters'));
 $HTMLOUT = "";
 if (isset($_POST["nowarned"]) && $_POST["nowarned"] == "nowarned") {
-    if (empty($_POST["desact"]) && empty($_POST["remove"])) stderr($lang['cheaters_err'], $lang['cheaters_seluser']);
+    if (empty($_POST["desact"]) && empty($_POST["remove"])) {
+        stderr($lang['cheaters_err'], $lang['cheaters_seluser']);
+    }
     if (!empty($_POST["remove"])) {
         sql_query("DELETE FROM cheaters WHERE id IN (" . implode(", ", array_map("sqlesc", $_POST["remove"])) . ")") or sqlerr(__FILE__, __LINE__);
     }
@@ -92,7 +94,9 @@ return 'Check All Remove'; }
 }
 /*]]>*/
 </script>";
-if ($count > $perpage) $HTMLOUT.= $pager['pagertop'];
+if ($count > $perpage) {
+    $HTMLOUT.= $pager['pagertop'];
+}
 $HTMLOUT.= "<table class='table table-bordered'>
 <tr>
 <td>#</td>
@@ -103,15 +107,15 @@ $res = sql_query("SELECT c.id as cid, c.added, c.userid, c.torrentid, c.client, 
 while ($arr = mysqli_fetch_assoc($res)) {
     $torrname = htmlsafechars(CutName($arr["tname"], 80));
     $users = $arr;
-    $users['id'] = (int)$arr['userid'];
-    $cheater = "<b><a href='{$INSTALLER09['baseurl']}/userdetails.php?id=" . (int)$arr['id'] . "'>" . format_username($users) . "</a></b>{$lang['cheaters_hbcc']}<br />
-    <b>{$lang['cheaters_torrent']} <a href='{$INSTALLER09['baseurl']}/details.php?id=" . (int)$arr['tid'] . "' title='{$torrname}'>{$torrname}</a></b>
-<br />{$lang['cheaters_upped']} <b>" . mksize((int)$arr['upthis']) . "</b><br />{$lang['cheaters_speed']} <b>" . mksize((int)$arr['rate']) . "/s</b><br />{$lang['cheaters_within']} <b>" . (int)$arr['timediff'] . " {$lang['cheaters_sec']}</b><br />{$lang['cheaters_uc']} <b>" . htmlsafechars($arr['client']) . "</b><br />{$lang['cheaters_ipa']} <b>" . htmlsafechars($arr['userip']) . "</b>";
-    $HTMLOUT.= "<tr><td>" . (int)$arr['cid'] . "</td>
-    <td>" . format_username($users) . "<a href=\"javascript:klappe('a1" . (int)$arr['cid'] . "')\"> {$lang['cheaters_added']}" . get_date($arr['added'], 'DATE') . "</a>
-    <div id=\"ka1" . (int)$arr['cid'] . "\" style=\"display: none;\"><font color=\"black\">{$cheater}</font></div></td>
-    <td><input type=\"checkbox\" name=\"desact[]\" value=\"" . (int)$arr["id"] . "\"/></td>
-    <td><input type=\"checkbox\" name=\"remove[]\" value=\"" . (int)$arr["cid"] . "\"/></td></tr>";
+    $users['id'] = (int) $arr['userid'];
+    $cheater = "<b><a href='{$INSTALLER09['baseurl']}/userdetails.php?id=" . (int) $arr['id'] . "'>" . format_username($users) . "</a></b>{$lang['cheaters_hbcc']}<br />
+    <b>{$lang['cheaters_torrent']} <a href='{$INSTALLER09['baseurl']}/details.php?id=" . (int) $arr['tid'] . "' title='{$torrname}'>{$torrname}</a></b>
+<br />{$lang['cheaters_upped']} <b>" . mksize((int) $arr['upthis']) . "</b><br />{$lang['cheaters_speed']} <b>" . mksize((int) $arr['rate']) . "/s</b><br />{$lang['cheaters_within']} <b>" . (int) $arr['timediff'] . " {$lang['cheaters_sec']}</b><br />{$lang['cheaters_uc']} <b>" . htmlsafechars($arr['client']) . "</b><br />{$lang['cheaters_ipa']} <b>" . htmlsafechars($arr['userip']) . "</b>";
+    $HTMLOUT.= "<tr><td>" . (int) $arr['cid'] . "</td>
+    <td>" . format_username($users) . "<a href=\"javascript:klappe('a1" . (int) $arr['cid'] . "')\"> {$lang['cheaters_added']}" . get_date($arr['added'], 'DATE') . "</a>
+    <div id=\"ka1" . (int) $arr['cid'] . "\" style=\"display: none;\"><font color=\"black\">{$cheater}</font></div></td>
+    <td><input type=\"checkbox\" name=\"desact[]\" value=\"" . (int) $arr["id"] . "\"/></td>
+    <td><input type=\"checkbox\" name=\"remove[]\" value=\"" . (int) $arr["cid"] . "\"/></td></tr>";
 }
 $HTMLOUT.= "<tr>
 <td>
@@ -119,8 +123,9 @@ $HTMLOUT.= "<tr>
 </td>
 </tr>
 </table></form>";
-if ($count > $perpage) $HTMLOUT.= $pager['pagerbottom'];
+if ($count > $perpage) {
+    $HTMLOUT.= $pager['pagerbottom'];
+}
 $HTMLOUT.= "</div></div>";
 echo stdhead($lang['cheaters_stdhead']) . $HTMLOUT . stdfoot();
 die;
-?>

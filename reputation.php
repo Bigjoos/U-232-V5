@@ -1,36 +1,36 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
-require_once (CLASS_DIR . 'class_user_options.php');
-require_once (CLASS_DIR . 'class_user_options_2.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(CLASS_DIR . 'class_user_options.php');
+require_once(CLASS_DIR . 'class_user_options_2.php');
 dbconn(false);
 loggedinorreturn();
 $lang = load_language('reputation');
 define('TIMENOW', time());
 // mod or not?
-$is_mod = ($CURUSER['class'] >= UC_STAFF) ? TRUE : FALSE;
+$is_mod = ($CURUSER['class'] >= UC_STAFF) ? true : false;
 //$CURUSER['class'] = 2;
 //$rep_maxperday = 10;
 //$rep_repeat = 20;
-$closewindow = TRUE;
-require_once (CACHE_DIR . 'rep_settings_cache.php');
+$closewindow = true;
+require_once(CACHE_DIR . 'rep_settings_cache.php');
 //print_r($GVARS);
 if (!$GVARS['rep_is_online']) {
     exit($lang["info_reputation_offline"]);
@@ -42,7 +42,6 @@ if (isset($_POST) || isset($_GET)) {
     $input = array_merge($_GET, $_POST);
     //print_r($input);
     //die;
-    
 }
 //$input['reputation'] = 'pos';
 //$input['reason'] = 'la di da di di la';
@@ -57,12 +56,12 @@ if (isset($input['done'])) {
 ///////////////////////////////////////////////
 /// weeeeeeeeee =]
 $check = isset($input['pid']) ? is_valid_id(intval($input['pid'])) : false;
-$locales = array(
+$locales = [
     'posts',
     'comments',
     'torrents',
     'users'
-);
+];
 $rep_locale = (isset($input['locale']) && (in_array($input['locale'], $locales)) ? htmlsafechars($input['locale']) : 'posts');
 if (!$check) {
     rep_output('Incorrect Access');
@@ -77,7 +76,7 @@ FROM posts
 LEFT JOIN topics ON topic_id = topics.id
 LEFT JOIN forums ON topics.forum_id = forums.id
 LEFT JOIN users ON posts.user_id = users.id
-WHERE posts.id =".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
+WHERE posts.id =" . sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
 } elseif ($rep_locale == 'comments') {
     ///////////////////////////////////////////////
     // check the comment actually exists!
@@ -88,7 +87,7 @@ WHERE posts.id =".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
      users.username, users.reputation
      FROM comments
      LEFT JOIN users ON comments.user = users.id
-     WHERE comments.id = ".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
+     WHERE comments.id = " . sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
 } elseif ($rep_locale == 'torrents') {
     ///////////////////////////////////////////////
     // check the uploader actually exists!
@@ -97,12 +96,12 @@ WHERE posts.id =".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
     users.username, users.reputation
     FROM torrents
     LEFT JOIN users ON torrents.owner = users.id
-    WHERE torrents.id =".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
+    WHERE torrents.id =" . sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
 } elseif ($rep_locale == 'users') {
     ///////////////////////////////////////////////
     // check the user actually exists!
     ///////////////////////////////////////////////
-    $forum = sql_query("SELECT id AS userid, username, reputation, opt1, opt2 FROM users WHERE id =".sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
+    $forum = sql_query("SELECT id AS userid, username, reputation, opt1, opt2 FROM users WHERE id =" . sqlesc($input['pid'])) or sqlerr(__FILE__, __LINE__);
 } // end
 switch ($rep_locale) {
 case 'comments':
@@ -121,26 +120,26 @@ default:
     $this_rep = 'Post';
 }
 // does it or don't it?
-if (!mysqli_num_rows($forum)) rep_output($this_rep . ' Does Not Exist - Incorrect Access');
+if (!mysqli_num_rows($forum)) {
+    rep_output($this_rep . ' Does Not Exist - Incorrect Access');
+}
 ///////////////////////////////////////////////
 // ok, lets proceed
 ///////////////////////////////////////////////
 $res = mysqli_fetch_assoc($forum);
-if (isset($res['minclassread'])) // 'posts'
-if ($CURUSER['class'] < $res['minclassread'])
-// check permissions! Dun want sneaky pests lookin!
-{
-    rep_output('Wrong Permissions');
+if (isset($res['minclassread'])) { // 'posts'
+    if ($CURUSER['class'] < $res['minclassread']) {
+        // check permissions! Dun want sneaky pests lookin!
+        rep_output('Wrong Permissions');
+    }
 }
 ///////////////////////////////////////////////
 //	Does the user have memory loss? Have they already rep'd?
 ///////////////////////////////////////////////
-$repeat = sql_query("SELECT postid FROM reputation WHERE postid =".sqlesc($input['pid'])." AND whoadded=".sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
+$repeat = sql_query("SELECT postid FROM reputation WHERE postid =" . sqlesc($input['pid']) . " AND whoadded=" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
 //$repres = mysql_fetch_assoc( $forum ) or sqlerr(__LINE__,__FILE__);
-if (mysqli_num_rows($repeat) > 0 && $rep_locale != 'users') // blOOdy eedjit check!
-{
+if (mysqli_num_rows($repeat) > 0 && $rep_locale != 'users') { // blOOdy eedjit check!
     rep_output('You have already added Rep to this ' . $this_rep . '!'); // Is insane!
-    
 }
 ///////////////////////////////////////////////
 // 	Is a mod or gone over the limit?
@@ -154,12 +153,11 @@ if (!$is_mod) {
     ///////////////////////////////////////////////
     //	Some trivial flood checking
     ///////////////////////////////////////////////
-    $flood = sql_query("SELECT dateadd, userid FROM reputation WHERE whoadded = ".sqlesc($CURUSER['id'])." ORDER BY dateadd DESC LIMIT 0 , ".sqlesc($klimit)) or sqlerr(__FILE__, __LINE__);
+    $flood = sql_query("SELECT dateadd, userid FROM reputation WHERE whoadded = " . sqlesc($CURUSER['id']) . " ORDER BY dateadd DESC LIMIT 0 , " . sqlesc($klimit)) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($flood)) {
         $i = 0;
         while ($check = mysqli_fetch_assoc($flood)) {
-            if (($i < $GVARS['rep_repeat']) && ($check['userid'] == $CURUSER['id'])) //$res['userid'] ) )
-            {
+            if (($i < $GVARS['rep_repeat']) && ($check['userid'] == $CURUSER['id'])) { //$res['userid'] ) )
                 rep_output($lang["info_cannot_rate_own"]);
             }
             if ((($i + 1) == $GVARS['rep_maxperday']) && (($check['dateadd'] + 86400) > TIMENOW)) {
@@ -174,7 +172,7 @@ if (!$is_mod) {
 ///////////////////////////////////////////////
 // Note: if you use another forum type, you may already have this GLOBAL available
 // So you can save a query here, else...
-$r = sql_query("SELECT COUNT(*) FROM posts WHERE user_id = ".sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
+$r = sql_query("SELECT COUNT(*) FROM posts WHERE user_id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
 $a = mysqli_fetch_row($r);
 $CURUSER['posts'] = intval($a[0]);
 ///////////////////////////////////////////////
@@ -198,25 +196,24 @@ if (isset($input['reason']) && !empty($input['reason'])) {
 //	Are we adding a rep or what?
 ///////////////////////////////////////////////
 if (isset($input['do']) && $input['do'] == 'addrep') {
-    if ($res['userid'] == $CURUSER['id']) // sneaky bastiges!
-    {
+    if ($res['userid'] == $CURUSER['id']) { // sneaky bastiges!
         rep_output($lang["info_cannot_rate_own"]);
     }
     $score = fetch_reppower($CURUSER, $input['reputation']);
     $res['reputation']+= $score;
     sql_query("UPDATE users set reputation=" . sqlesc(intval($res['reputation'])) . " WHERE id=" . sqlesc($res['userid'])) or sqlerr(__FILE__, __LINE__);
     $mc1->begin_transaction('MyUser_' . $res['userid']);
-    $mc1->update_row(false, array(
+    $mc1->update_row(false, [
         'reputation' => $res['reputation']
-    ));
+    ]);
     $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
     $mc1->begin_transaction('user' . $res['userid']);
-    $mc1->update_row(false, array(
+    $mc1->update_row(false, [
         'reputation' => $res['reputation']
-    ));
+    ]);
     $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
     $mc1->delete_value('user_rep_' . $res['userid']);
-    $save = array(
+    $save = [
         'reputation' => sqlesc($score),
         'whoadded' => sqlesc($CURUSER['id']),
         'reason' => sqlesc($reason) ,
@@ -224,24 +221,23 @@ if (isset($input['do']) && $input['do'] == 'addrep') {
         'locale' => sqlesc($rep_locale) ,
         'postid' => sqlesc(intval($input['pid'])),
         'userid' => sqlesc(intval($res['userid']))
-    );
+    ];
     //print( join( ',', $save) );
     //print( join(',', array_keys($save)));
     sql_query("INSERT INTO reputation (" . join(',', array_keys($save)) . ") VALUES (" . join(',', $save) . ")") or sqlerr(__FILE__, __LINE__);
-    header("Location: {$INSTALLER09['baseurl']}/reputation.php?pid=".intval($input['pid'])."&done=1");
+    header("Location: {$INSTALLER09['baseurl']}/reputation.php?pid=" . intval($input['pid']) . "&done=1");
 } // Move along, nothing to see here!
 else {
-    if ($res['userid'] == $CURUSER['id']) // same as him!
-    {
+    if ($res['userid'] == $CURUSER['id']) { // same as him!
         // check for fish!
         $query1 = sql_query("SELECT r.*, leftby.id AS leftby_id, leftby.username AS leftby_name
                                         FROM reputation r
                                         LEFT JOIN users leftby ON leftby.id=r.whoadded
-                                        WHERE postid=".sqlesc($input['pid'])."
+                                        WHERE postid=" . sqlesc($input['pid']) . "
                                         AND r.locale = " . sqlesc($input['locale']) . "
                                         ORDER BY dateadd DESC") or sqlerr(__FILE__, __LINE__);
         $reasonbits = '';
-        if (false !== mysqli_num_rows($query1)) {
+        if (mysqli_num_rows($query1) !== false) {
             $total = 0;
             while ($postrep = mysqli_fetch_assoc($query1)) {
                 $total+= $postrep['reputation'];
@@ -253,11 +249,11 @@ else {
                     $posneg = 'balance';
                 }
                 if ($GVARS['g_rep_seeown']) {
-                    $postrep['reason'] = htmlsafechars($postrep['reason']) . " <span class='desc'>{$lang["rep_left_by"]} <a href=\"{$INSTALLER09['baseurl']}/userdetails.php?id=".intval($postrep['leftby_id'])."\" target='_blank'>".htmlspecialchars($postrep['leftby_name'])."</a></span>";
+                    $postrep['reason'] = htmlsafechars($postrep['reason']) . " <span class='desc'>{$lang["rep_left_by"]} <a href=\"{$INSTALLER09['baseurl']}/userdetails.php?id=" . intval($postrep['leftby_id']) . "\" target='_blank'>" . htmlspecialchars($postrep['leftby_name']) . "</a></span>";
                 }
                 $reasonbits.= "<tr>
 	<td class='row2' width='1%'><img src='./pic/rep/reputation_$posneg.gif' border='0' alt='' /></td>
-	<td class='row2'>".htmlspecialchars($postrep['reason'])."</td>
+	<td class='row2'>" . htmlspecialchars($postrep['reason']) . "</td>
 </tr>";
             }
             ///////////////////////////////////////////////
@@ -284,7 +280,6 @@ else {
             }
         } else {
             $rep = $lang["rep_even"]; //Ok, dunno what to do, so just make it quits!
-            
         }
         switch ($rep_locale) {
         case 'comments':
@@ -308,7 +303,7 @@ else {
         ///////////////////////////////////////////////
         //$rep_info = sprintf("".$lang["info_your_rep_on"]." <a href='{$INSTALLER09['baseurl']}/forums.php?action=viewtopic&amp;topicid=%d&amp;page=p%d#%d' target='_blank'>".$lang["info_this_post"]."</a> ".$lang["info_is"]." %s.", $res['topicid'], $input['pid'], $input['pid'], $rep );
         $rep_points = sprintf("" . $lang["info_you_have"] . " %d " . $lang["info_reputation_points"] . "", $CURUSER['reputation']);
-        $html = "<tr><td class='darkrow1'>".htmlsafechars($rep_info)."</td></tr>
+        $html = "<tr><td class='darkrow1'>" . htmlsafechars($rep_info) . "</td></tr>
 						<tr>
 							<td class='row2'>
 							<div class='tablepad'>";
@@ -331,8 +326,8 @@ else {
         ///////////////////////////////////////////////
         $res['anon'] = (isset($res['anon']) ? $res['anon'] : 'no');
         $rep_text = sprintf("What do you think of %s's " . $this_rep . "?", ($res['anon'] == 'yes' ? 'Anonymous' : htmlsafechars($res['username'])));
-        $negativerep = ($is_mod || $GVARS['g_rep_negative']) ? TRUE : FALSE;
-        $closewindow = FALSE;
+        $negativerep = ($is_mod || $GVARS['g_rep_negative']) ? true : false;
+        $closewindow = false;
         $html = "<tr><td class='darkrow1'>{$lang["info_add_rep"]} <b>" . htmlsafechars($res['username']) . "</b></td></tr>
 						<tr>
 							<td class='row2'>
@@ -362,8 +357,8 @@ else {
 					<div align='center' style='margin-top:3px;'>
 						<input type='hidden' name='act' value='reputation' />
 						<input type='hidden' name='do' value='addrep' />
-						<input type='hidden' name='pid' value='".intval($input['pid'])."' />
-						<input type='hidden' name='locale' value='".htmlsafechars($input['locale'])."' />
+						<input type='hidden' name='pid' value='" . intval($input['pid']) . "' />
+						<input type='hidden' name='locale' value='" . htmlsafechars($input['locale']) . "' />
 						<input type='submit' value='" . $lang["info_add_rep"] . "' class='button' accesskey='s' />
 						<input type='button' value='Close Window' class='button' accesskey='c' onclick='self.close()' />
 					</div>	
@@ -372,7 +367,6 @@ else {
 				</tr>";
     }
     rep_output("", $html); // send to spewer-outer function
-    
 } // END
 ///////////////////////////////////////////////
 //	Reputation output function
@@ -384,8 +378,7 @@ function rep_output($msg = "", $html = "")
     global $closewindow, $lang, $CURUSER, $INSTALLER09;
     if ($msg && empty($html)) {
         $html = "<tr><td class='row'>$msg</td></tr>";
-    }
-?>
+    } ?>
     <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 		<head>
@@ -422,7 +415,7 @@ function rep_output($msg = "", $html = "")
 //	$user -> array all about the user
 //	$rep -> string what kind of rep this user has
 ///////////////////////////////////////////////
-function fetch_reppower($user = array() , $rep = 'pos')
+function fetch_reppower($user = [], $rep = 'pos')
 {
     global $GVARS, $is_mod;
     $reppower = '';
@@ -430,11 +423,10 @@ function fetch_reppower($user = array() , $rep = 'pos')
     if (!$GVARS['g_rep_negative']) {
         $rep = 'pos';
     }
-    if (!$GVARS['g_rep_use']) // allowed to rep at all?
-    {
+    if (!$GVARS['g_rep_use']) { // allowed to rep at all?
         $rep = 0;
-    } elseif ($is_mod && $GVARS['rep_adminpower']) // is a mod and has loadsa power?
-    { //work out positive or negative admin power
+    } elseif ($is_mod && $GVARS['rep_adminpower']) { // is a mod and has loadsa power?
+        //work out positive or negative admin power
         $reppower = ($rep != 'pos') ? intval($GVARS['rep_adminpower'] * -1) : intval($GVARS['rep_adminpower']);
     } elseif (($user['posts'] < $GVARS['rep_minpost']) || ($user['reputation'] < $GVARS['rep_minrep'])) { // not an admin, then work out postal based power
         $reppower = 0;

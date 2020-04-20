@@ -1,34 +1,35 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /* Chmod class
  * Original idea from here http://gr.php.net/manual/en/function.chmod.php#77163
  *
  * Changed accordingly and improved for a mod on TBDEV.NET by Alex2005
-*/
+ */
 class Chmod
 {
-    private $_dir, $_modes = array(
+    private $_dir;
+    private $_modes = [
         'owner' => 0,
         'group' => 0,
         'public' => 0
-    );
-    public function Chmod($dir, $OwnerModes = array() , $GroupModes = array() , $PublicModes = array())
+    ];
+    public function Chmod($dir, $OwnerModes = [], $GroupModes = [], $PublicModes = [])
     {
         $this->_dir = $dir;
         $this->setOwnerModes($OwnerModes[0], $OwnerModes[1], $OwnerModes[2]);
@@ -54,32 +55,41 @@ class Chmod
     private function setMode($read, $write, $execute)
     {
         $mode = 0;
-        if ($read) $mode+= 4;
-        if ($write) $mode+= 2;
-        if ($execute) $mode+= 1;
+        if ($read) {
+            $mode+= 4;
+        }
+        if ($write) {
+            $mode+= 2;
+        }
+        if ($execute) {
+            $mode+= 1;
+        }
         return $mode;
     }
     private function returnValue($dir)
     {
-        return (is_dir($dir) ? array(
+        return (is_dir($dir) ? [
             'chmod',
             @chmod($dir, $this->getMode()) ,
             $this->getMode() ,
             $dir
-        ) : array(
+        ] : [
             'mkdir',
             @mkdir($dir, $this->getMode()) ,
             $this->getMode() ,
             $dir
-        ));
+        ]);
     }
     public function setChmod()
     {
         if (is_array($this->_dir)) {
-            $return = array();
-            foreach ($this->_dir as $dir) $return[] = $this->returnValue($dir);
+            $return = [];
+            foreach ($this->_dir as $dir) {
+                $return[] = $this->returnValue($dir);
+            }
             return $return;
-        } else return $this->returnValue($this->_dir);
+        } else {
+            return $this->returnValue($this->_dir);
+        }
     }
 }
-?>

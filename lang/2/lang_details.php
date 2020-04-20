@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //Details freepoll
     'details_freepoll_vote' => "Vote",
     'details_freepoll_voted' => "Déjà voté",
@@ -140,129 +140,128 @@ $lang = array(
     'details_bal1_free2' => " until ",
     'details_bal1_free3' => " and can be resumed or started over using the
 			regular download link. Doing so will result in one Freeleech Slot being taken away from your total.",
-	'details_bal2_free1' => "Once chosen this torrent will be Doubleseed ",
+    'details_bal2_free1' => "Once chosen this torrent will be Doubleseed ",
     'details_bal3_free1' => "Remember to show your gratitude and Thank the Uploader. ",
-	//343
-	'details_add_slots1' => "Slots",
-	'details_add_slots2' => "Freeleech Slot In Use!",
-	'details_add_slots3' => " (only upload stats are recorded) - Expires: 12:01AM ",
-	'details_add_slots4' => "Use: ",
-	'details_add_slots5' => "Are you sure you want to use a doubleseed slot?",
-	'details_add_slots5f' => "Are you sure you want to use a freeleech slot?",
-	'details_add_slots6' => "Doubleseed Slot",
-	'details_add_slots6f' => "Freeleech Slot",
-	'details_add_slots7' => " Slots Remaining. ",
-	'details_add_slots8' => "Doubleseed Slot In Use!",
-	'details_add_slots9' => "Freeleech and Doubleseed Slots In Use!",
-	'details_add_slots10' => " (upload stats x2 and no download stats are recorded)<p>Freeleech Expires: 12:01AM ",
-	'details_add_slots11' => " and Doubleseed Expires: 12:01AM ",
-	//368
-	'details_add_men1' => "Télécharger le Torrent",
-	'details_add_men2' => "Description & Torrents Similaires",
-	'details_add_men3' => "NFO & Autres Informations",
-	'details_add_men4' => "Snatched",
-	'details_add_men5' => "YouTube / Imdb / TVMaze",
-	'details_add_nodscrp' => "Aucune description sommaire trouvée",
-	//432
-	'details_add_karma1' => "Points Karma",
-	'details_add_karma2' => "Au total ",
-	'details_add_karma3' => " Points Karma donnés à ce torrent dont ",
-	'details_add_karma4' => " venant de vous.",
-	'details_add_kar10' => "10 Points",
-	'details_add_kar20' => "20 Points",
-	'details_add_kar50' => "50 Points",
-	'details_add_kar100' => "100 Points",
-	'details_add_kar200' => "200 Points",
-	'details_add_kar500' => "500 Points",
-	'details_add_kar1000' => "1000 Points",
-	'details_add_karma' => "En cliquant sur les pièces vous pouvez donner des Points Karma à l'uploader de ce torrent.",
-	//479
-	'details_add_ratio1' => "Ratio après Download",
-	'details_add_ratio2' => "Ratio après download du torrent.",
-	'details_add_ratio3' => "[FREE]",
-	'details_add_ratio4' => "&nbsp;(les stats d'upload sont comptées)",
-	//493
-	'details_err_down1' => "Download désactivé!!",
-	'details_err_down2' => "Vous n'êtes pas autorisé à downloader!!",
-	'details_add_inf1' => "Nom",
-	'details_add_inf2' => "Seeders",
-	'details_add_inf3' => "Leechers",
-	'details_sim_no1' => "Nothing similiar to ",
-	'details_sim_no2' => " found.",
-	//569
-	'details_add_sub1' => "Subtitles",
-	'details_add_nuk1' => "Nuked",
-	'details_add_nuk2' => "Nuke-Reason",
-	'details_add_none' => "Rien",
-	'details_add_rate' => "Note",
-	'details_add_pre1' => "Aucun Pre-time fixé.",
-	'details_add_pre2' => " ago",
-	'details_add_pre3' => "Uploadé ",
-	'details_add_pre4' => " après le pre.",
-	'details_add_pre5' => "Pre-Time",
-	//
-	'details_add_statupd1' => "MàJ Status",
-	'details_add_statupd2' => "Go!",
-	'details_add_rprt1' => "Signalement Torrent",
-	'details_add_rprt2' => "Signaler ce Torrent",
-	'details_add_rprt3' => "Pour avoir enfreint les&nbsp;",
-	'details_add_rprt4' => "règles",
-	'details_add_reput1' => "Réputation",
-	'details_add_reput2' => " (comptabilisé pour la réputation de l'uploader)",
-	//
-	'details_add_byup' => "Uploadé par",
-	'details_add_bychk1' => "Vérifié par",
-	'details_add_bychk2' => "[Re-vérifier ce torrent]",
-	'details_add_bychk3' => "[In-vérifier ce torrent]",
-	'details_add_bychk4' => "* STAFF seulement *",
-	'details_add_bychk5' => "Vérifié le : ",
-	'details_add_bychk6' => "NON VERIFIE!",
-	'details_add_bychk7' => "[Vérifier ce torrent]",
-	//708
-	'details_add_sd' => " seeder(s), ",
-	'details_add_lc' => " leecher(s) = ",
-	'details_add_reseed1' => "10 derniers",
-	'details_add_reseed2' => "uploadeur",
-	'details_add_reseed3' => "Envoyer un PM",
-	'details_add_reseed4' => "Demande de Re-seed",
-	'details_add_snatch1' => "Snatched pour le torrent ",
-	'details_add_snatch2' => "Actuellement ",
-	'details_add_snatch3' => " snatch",
-	//830
-	'details_add_yes' => "Oui",
-	'details_add_no' => "Non",
-	//832
-	'details_add_snatch4' => "Torrents Snatched",
-	'details_add_snatch5' => "Actuellement aucun snatched.",
-	////////////////////866
-	'details_add_ytube' => "Aucune donnée Youtube trouvée",
-	//911 IMDB
-	'details_add_imdb01' => "Année: ",
-	'details_add_imdb02' => "Genre: ",
-	'details_add_imdb03' => "Durée: ",
-	'details_add_imdb04' => "Note: ",
-	'details_add_imdb05' => "Réalisateur: ",
-	'details_add_imdb06' => "Producteurs: ",
-	'details_add_imdb07' => "Scénariste: ",
-	'details_add_imdb08' => "Musique: ",
-	'details_add_imdb10' => "Synopsis: ",
-	'details_add_imdb11' => "Intrigue: ",
-	'details_add_imdb12' => "Trailers: ",
-	'details_add_imdb13' => "Commentaires: ",
-	'details_add_imdb14' => "Voir le Trailer",
-	'details_add_imdbsh' => "Afficher",
-	'details_add_imdbhd' => "Masquer",
-	'details_add_imdb' => "IMDB",
-	'details_add_noimdb' => "Pas d'infos IMDB ou TVMaze.",
-	//1014
-	'details_add_TY' => "Merci",
-	'details_add_openclose' => "Afficher / Masquer les Commentaires",
-	///readme.md
-	'details_readme' => "README.md",
+    //343
+    'details_add_slots1' => "Slots",
+    'details_add_slots2' => "Freeleech Slot In Use!",
+    'details_add_slots3' => " (only upload stats are recorded) - Expires: 12:01AM ",
+    'details_add_slots4' => "Use: ",
+    'details_add_slots5' => "Are you sure you want to use a doubleseed slot?",
+    'details_add_slots5f' => "Are you sure you want to use a freeleech slot?",
+    'details_add_slots6' => "Doubleseed Slot",
+    'details_add_slots6f' => "Freeleech Slot",
+    'details_add_slots7' => " Slots Remaining. ",
+    'details_add_slots8' => "Doubleseed Slot In Use!",
+    'details_add_slots9' => "Freeleech and Doubleseed Slots In Use!",
+    'details_add_slots10' => " (upload stats x2 and no download stats are recorded)<p>Freeleech Expires: 12:01AM ",
+    'details_add_slots11' => " and Doubleseed Expires: 12:01AM ",
+    //368
+    'details_add_men1' => "Télécharger le Torrent",
+    'details_add_men2' => "Description & Torrents Similaires",
+    'details_add_men3' => "NFO & Autres Informations",
+    'details_add_men4' => "Snatched",
+    'details_add_men5' => "YouTube / Imdb / TVMaze",
+    'details_add_nodscrp' => "Aucune description sommaire trouvée",
+    //432
+    'details_add_karma1' => "Points Karma",
+    'details_add_karma2' => "Au total ",
+    'details_add_karma3' => " Points Karma donnés à ce torrent dont ",
+    'details_add_karma4' => " venant de vous.",
+    'details_add_kar10' => "10 Points",
+    'details_add_kar20' => "20 Points",
+    'details_add_kar50' => "50 Points",
+    'details_add_kar100' => "100 Points",
+    'details_add_kar200' => "200 Points",
+    'details_add_kar500' => "500 Points",
+    'details_add_kar1000' => "1000 Points",
+    'details_add_karma' => "En cliquant sur les pièces vous pouvez donner des Points Karma à l'uploader de ce torrent.",
+    //479
+    'details_add_ratio1' => "Ratio après Download",
+    'details_add_ratio2' => "Ratio après download du torrent.",
+    'details_add_ratio3' => "[FREE]",
+    'details_add_ratio4' => "&nbsp;(les stats d'upload sont comptées)",
+    //493
+    'details_err_down1' => "Download désactivé!!",
+    'details_err_down2' => "Vous n'êtes pas autorisé à downloader!!",
+    'details_add_inf1' => "Nom",
+    'details_add_inf2' => "Seeders",
+    'details_add_inf3' => "Leechers",
+    'details_sim_no1' => "Nothing similiar to ",
+    'details_sim_no2' => " found.",
+    //569
+    'details_add_sub1' => "Subtitles",
+    'details_add_nuk1' => "Nuked",
+    'details_add_nuk2' => "Nuke-Reason",
+    'details_add_none' => "Rien",
+    'details_add_rate' => "Note",
+    'details_add_pre1' => "Aucun Pre-time fixé.",
+    'details_add_pre2' => " ago",
+    'details_add_pre3' => "Uploadé ",
+    'details_add_pre4' => " après le pre.",
+    'details_add_pre5' => "Pre-Time",
+    //
+    'details_add_statupd1' => "MàJ Status",
+    'details_add_statupd2' => "Go!",
+    'details_add_rprt1' => "Signalement Torrent",
+    'details_add_rprt2' => "Signaler ce Torrent",
+    'details_add_rprt3' => "Pour avoir enfreint les&nbsp;",
+    'details_add_rprt4' => "règles",
+    'details_add_reput1' => "Réputation",
+    'details_add_reput2' => " (comptabilisé pour la réputation de l'uploader)",
+    //
+    'details_add_byup' => "Uploadé par",
+    'details_add_bychk1' => "Vérifié par",
+    'details_add_bychk2' => "[Re-vérifier ce torrent]",
+    'details_add_bychk3' => "[In-vérifier ce torrent]",
+    'details_add_bychk4' => "* STAFF seulement *",
+    'details_add_bychk5' => "Vérifié le : ",
+    'details_add_bychk6' => "NON VERIFIE!",
+    'details_add_bychk7' => "[Vérifier ce torrent]",
+    //708
+    'details_add_sd' => " seeder(s), ",
+    'details_add_lc' => " leecher(s) = ",
+    'details_add_reseed1' => "10 derniers",
+    'details_add_reseed2' => "uploadeur",
+    'details_add_reseed3' => "Envoyer un PM",
+    'details_add_reseed4' => "Demande de Re-seed",
+    'details_add_snatch1' => "Snatched pour le torrent ",
+    'details_add_snatch2' => "Actuellement ",
+    'details_add_snatch3' => " snatch",
+    //830
+    'details_add_yes' => "Oui",
+    'details_add_no' => "Non",
+    //832
+    'details_add_snatch4' => "Torrents Snatched",
+    'details_add_snatch5' => "Actuellement aucun snatched.",
+    ////////////////////866
+    'details_add_ytube' => "Aucune donnée Youtube trouvée",
+    //911 IMDB
+    'details_add_imdb01' => "Année: ",
+    'details_add_imdb02' => "Genre: ",
+    'details_add_imdb03' => "Durée: ",
+    'details_add_imdb04' => "Note: ",
+    'details_add_imdb05' => "Réalisateur: ",
+    'details_add_imdb06' => "Producteurs: ",
+    'details_add_imdb07' => "Scénariste: ",
+    'details_add_imdb08' => "Musique: ",
+    'details_add_imdb10' => "Synopsis: ",
+    'details_add_imdb11' => "Intrigue: ",
+    'details_add_imdb12' => "Trailers: ",
+    'details_add_imdb13' => "Commentaires: ",
+    'details_add_imdb14' => "Voir le Trailer",
+    'details_add_imdbsh' => "Afficher",
+    'details_add_imdbhd' => "Masquer",
+    'details_add_imdb' => "IMDB",
+    'details_add_noimdb' => "Pas d'infos IMDB ou TVMaze.",
+    //1014
+    'details_add_TY' => "Merci",
+    'details_add_openclose' => "Afficher / Masquer les Commentaires",
+    ///readme.md
+    'details_readme' => "README.md",
     'details_view_readme' => "Voir le README.md",
     ////allociné
     'text_die' => "Erreur",
     'details_allo_menu' => "Informations du site Allociné",
     'details_allo_no' => "*** Aucune Information Allociné ***"
-);
-?>
+];

@@ -1,20 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $data
  */
 function docleanup($data)
 {
@@ -40,21 +42,22 @@ function docleanup($data)
     $gender_na = get_row_count('users', "WHERE gender='NA'");
     $gender_male = get_row_count('users', "WHERE gender='Male'");
     $gender_female = get_row_count('users', "WHERE gender='Female'");
-    $powerusers = get_row_count('users', "WHERE class='".UC_POWER_USER."'");
+    $powerusers = get_row_count('users', "WHERE class='" . UC_POWER_USER . "'");
     $disabled = get_row_count('users', "WHERE enabled='no'");
-    $uploaders = get_row_count('users', "WHERE class='".UC_UPLOADER."'");
-    $moderators = get_row_count('users', "WHERE class='".UC_MODERATOR."'");
-    $administrators = get_row_count('users', "WHERE class='".UC_ADMINISTRATOR."'");
-    $sysops = get_row_count('users', "WHERE class='".UC_SYSOP."'");
-    $seeders = (int)$XBT_Seeder['seeders'];
-    $leechers = (int)$XBT_Leecher['leechers'];
+    $uploaders = get_row_count('users', "WHERE class='" . UC_UPLOADER . "'");
+    $moderators = get_row_count('users', "WHERE class='" . UC_MODERATOR . "'");
+    $administrators = get_row_count('users', "WHERE class='" . UC_ADMINISTRATOR . "'");
+    $sysops = get_row_count('users', "WHERE class='" . UC_SYSOP . "'");
+    $seeders = (int) $XBT_Seeder['seeders'];
+    $leechers = (int) $XBT_Leecher['leechers'];
     sql_query("UPDATE stats SET regusers = '$registered', unconusers = '$unverified', torrents = '$torrents', seeders = '$seeders', leechers = '$leechers', unconnectables = '$unconnectables', torrentstoday = '$torrentstoday', donors = '$donors', forumposts = '$forumposts', forumtopics = '$forumtopics', numactive = '$numactive', torrentsmonth = '$torrentsmonth', gender_na = '$gender_na', gender_male = '$gender_male', gender_female = '$gender_female', powerusers = '$powerusers', disabled = '$disabled', uploaders = '$uploaders', moderators = '$moderators', administrators = '$administrators', sysops = '$sysops' WHERE id = '1' LIMIT 1");
-    if ($queries > 0) write_log("Stats clean-------------------- Stats cleanup Complete using $queries queries --------------------");
-    if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
+    if ($queries > 0) {
+        write_log("Stats clean-------------------- Stats cleanup Complete using $queries queries --------------------");
+    }
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
         $data['clean_desc'] = mysqli_affected_rows($GLOBALS["___mysqli_ston"]) . " items updated";
     }
     if ($data['clean_log']) {
         cleanup_log($data);
     }
 }
-?>

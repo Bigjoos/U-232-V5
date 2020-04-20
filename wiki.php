@@ -1,35 +1,35 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (INCL_DIR . 'bbcode_functions.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(INCL_DIR . 'bbcode_functions.php');
 dbconn();
 loggedinorreturn();
 $lang = array_merge(load_language('global'), load_language('wiki'));
 //$stdhead = array(/** include js **/'js' => array(''));
-$stdhead = array(
+$stdhead = [
     /** include css **/
-    'css' => array(
+    'css' => [
         'wiki'
-    )
-);
+    ]
+];
 $HTMLOUT = "";
 global $CURUSER;
 function newmsg($heading = '', $text = '', $div = 'success', $htmlstrip = false)
@@ -48,7 +48,9 @@ function newerr($heading = '', $text = '', $die = true, $div = 'error', $htmlstr
     $htmlout = '';
     $htmlout.= newmsg($heading, $text, $div, $htmlstrip);
     echo stdhead() . $htmlout . stdfoot();
-    if ($die) die;
+    if ($die) {
+        die;
+    }
 }
 function datetimetransform($input)
 {
@@ -79,10 +81,10 @@ function datetimetransform($input)
 }
 function navmenu()
 {
-	global $lang;
-$ret = '<div class="row"><div class="col-md-10 col-md-offset-2 "><a href="wiki.php">' . $lang['wiki_index'] . '</a> - <a href="wiki.php?action=add">' . $lang['wiki_add'] . '</a><form action="wiki.php" method="post">';
-   
-$ret.= "\n" . '<a href="wiki.php?action=sort&amp;letter=a">A</a>';
+    global $lang;
+    $ret = '<div class="row"><div class="col-md-10 col-md-offset-2 "><a href="wiki.php">' . $lang['wiki_index'] . '</a> - <a href="wiki.php?action=add">' . $lang['wiki_add'] . '</a><form action="wiki.php" method="post">';
+
+    $ret.= "\n" . '<a href="wiki.php?action=sort&amp;letter=a">A</a>';
     for ($i = 0; $i < 25; $i++) {
         $ret.= "\n- " . '<a href="wiki.php?action=sort&amp;letter=' . chr($i + 98) . '">' . chr($i + 66) . '</a>';
     }
@@ -96,28 +98,28 @@ function articlereplace($input)
 }
 function wikisearch($input)
 {
-	global $lang;
-    return str_replace(array(
+    global $lang;
+    return str_replace([
         "%",
         "_"
-    ) , array(
+    ], [
         "\\%",
         "\\_"
-    ) , ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $input) : ((trigger_error($lang['wiki_error'], E_USER_ERROR)) ? "" : "")));
+    ], ((isset($GLOBALS["___mysqli_ston"]) && is_object($GLOBALS["___mysqli_ston"])) ? mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $input) : ((trigger_error($lang['wiki_error'], E_USER_ERROR)) ? "" : "")));
 }
 function wikireplace($input)
 {
-    return preg_replace(array(
+    return preg_replace([
         '/\[\[(.+?)\]\]/i',
         '/\=\=\ (.+?)\ \=\=/i'
-    ) , array(
+    ], [
         '<a href="wiki.php?action=article&name=$1">$1</a>',
         '<div id="$1" style="border-bottom: 1px solid grey; font-weight: bold; width: 100%; font-size: 14px;">$1</div>'
-    ) , $input);
+    ], $input);
 }
 function wikimenu()
 {
-	global $lang;
+    global $lang;
     $res2 = sql_query("SELECT name FROM wiki ORDER BY id DESC LIMIT 1");
     $latest = mysqli_fetch_assoc($res2);
     $latestarticle = articlereplace(htmlsafechars($latest["name"]));
@@ -144,7 +146,7 @@ VALUES (" . sqlesc($name) . ", " . sqlesc($body) . ", " . sqlesc($CURUSER["id"])
         $HTMLOUT.= "<meta http-equiv=\"refresh\" content=\"0; url=wiki.php?action=article&name=" . htmlsafechars($_POST["article-name"]) . "\">";
     }
     if (isset($_POST["article-edit"])) {
-        $id = (int)$_POST["article-id"];
+        $id = (int) $_POST["article-id"];
         $name = htmlsafechars($_POST["article-name"]);
         $body = htmlsafechars($_POST["article-body"]);
         sql_query("UPDATE wiki SET name = " . sqlesc($name) . ", body =" . sqlesc($body) . ", lastedit = '" . TIME_NOW . "', lastedituser =" . sqlesc($CURUSER["id"]) . " WHERE id = " . sqlesc($id));
@@ -169,10 +171,14 @@ if (isset($_GET["action"])) {
     }
     if (isset($_GET["id"])) {
         $mode = "id";
-        $id = (int)$_GET["id"];
-        if (!is_valid_id($id)) die();
+        $id = (int) $_GET["id"];
+        if (!is_valid_id($id)) {
+            die();
+        }
     }
-    if (isset($_GET["letter"])) $letter = htmlsafechars($_GET["letter"]);
+    if (isset($_GET["letter"])) {
+        $letter = htmlsafechars($_GET["letter"]);
+    }
 } else {
     $action = "article";
     $mode = "name";
@@ -190,15 +196,15 @@ if ($action == "article") {
             if ($wiki['lastedit']) {
                 $check = sql_query("SELECT username FROM users WHERE id = " . sqlesc($wiki['lastedituser']));
                 $checkit = mysqli_fetch_assoc($check);
-                $edit = "<i>Last Updated by: <a href=\"userdetails.php?id=" . (int)$wiki['userid'] . "\">" . htmlsafechars($checkit['username']) . "</a> - " . datetimetransform($wiki['lastedit']) . "</i>";
+                $edit = "<i>Last Updated by: <a href=\"userdetails.php?id=" . (int) $wiki['userid'] . "\">" . htmlsafechars($checkit['username']) . "</a> - " . datetimetransform($wiki['lastedit']) . "</i>";
             }
             $check = sql_query("SELECT username FROM users WHERE id =" . sqlesc($wiki['userid']));
             $author = mysqli_fetch_assoc($check);
             $HTMLOUT.= "
 				<div id=\"wiki-content-left\" align=\"right\">
 					<div id=\"name\"><b><a href=\"wiki.php?action=article&amp;name=" . htmlsafechars($wiki['name']) . "\">" . htmlsafechars($wiki['name']) . "</a></b></div>
-					<div id=\"content\">" . ($wiki['userid'] > 0 ? "<i>{$lang['wiki_added_by_art']}<a href=\"userdetails.php?id=" . (int)$wiki['userid'] . "\"><b>" . htmlsafechars($author['username']) . "</b></a></i><br /><br />" : "") . wikireplace(format_comment($wiki["body"])) . "";
-            $HTMLOUT.= "<div align=\"right\">" . ($edit ? "$edit" : "") . ($CURUSER['class'] >= UC_STAFF || $CURUSER["id"] == $wiki["userid"] ? " - <a href=\"wiki.php?action=edit&amp;id=" . (int)$wiki['id'] . "\">{$lang['wiki_edit']}</a>" : "") . "</div>";
+					<div id=\"content\">" . ($wiki['userid'] > 0 ? "<i>{$lang['wiki_added_by_art']}<a href=\"userdetails.php?id=" . (int) $wiki['userid'] . "\"><b>" . htmlsafechars($author['username']) . "</b></a></i><br /><br />" : "") . wikireplace(format_comment($wiki["body"])) . "";
+            $HTMLOUT.= "<div align=\"right\">" . ($edit ? "$edit" : "") . ($CURUSER['class'] >= UC_STAFF || $CURUSER["id"] == $wiki["userid"] ? " - <a href=\"wiki.php?action=edit&amp;id=" . (int) $wiki['id'] . "\">{$lang['wiki_edit']}</a>" : "") . "</div>";
             $HTMLOUT.= "</div></div>";
         }
         $HTMLOUT.= wikimenu();
@@ -209,9 +215,11 @@ if ($action == "article") {
         if (mysqli_num_rows($search) > 0) {
             $HTMLOUT.= "Search results for: <b>" . htmlsafechars($name) . "</b>";
             while ($wiki = mysqli_fetch_array($search)) {
-                if ($wiki["userid"] !== 0) $wikiname = mysqli_fetch_assoc(sql_query("SELECT username FROM users WHERE id =" . sqlesc($wiki['userid'])));
- $HTMLOUT.= "<div class=\"wiki-search\">
-	<b><a href=\"wiki.php?action=article&amp;name=" . articlereplace(htmlsafechars($wiki["name"])) . "\">" . htmlsafechars($wiki['name']) . "</a></b>{$lang['wiki_added_by']}<a href=\"userdetails.php?id=" . (int)$wiki['userid'] . "\">" . htmlsafechars($wikiname['username']) . "</a></div>";
+                if ($wiki["userid"] !== 0) {
+                    $wikiname = mysqli_fetch_assoc(sql_query("SELECT username FROM users WHERE id =" . sqlesc($wiki['userid'])));
+                }
+                $HTMLOUT.= "<div class=\"wiki-search\">
+	<b><a href=\"wiki.php?action=article&amp;name=" . articlereplace(htmlsafechars($wiki["name"])) . "\">" . htmlsafechars($wiki['name']) . "</a></b>{$lang['wiki_added_by']}<a href=\"userdetails.php?id=" . (int) $wiki['userid'] . "\">" . htmlsafechars($wikiname['username']) . "</a></div>";
             }
         } else {
             $HTMLOUT.= newerr($lang['wiki_error'], $lang['wiki_no_art_found']);
@@ -236,7 +244,7 @@ if ($action == "edit") {
     $res = sql_query("SELECT * FROM wiki WHERE id = " . sqlesc($id));
     $rescheck = sql_query("SELECT userid FROM wiki WHERE id =" . sqlesc($id));
     $wikicheck = mysqli_fetch_assoc($rescheck);
-    if (($CURUSER['class'] >= UC_STAFF) OR ($CURUSER["id"] == $wikicheck["userid"])) {
+    if (($CURUSER['class'] >= UC_STAFF) or ($CURUSER["id"] == $wikicheck["userid"])) {
         $HTMLOUT.= navmenu();
         $HTMLOUT.= "<div id=\"wiki-container\">
   <div id=\"wiki-row\">";
@@ -244,7 +252,7 @@ if ($action == "edit") {
             $HTMLOUT.= "
 				<div id=\"wiki-content-left\" align=\"right\">
 					<form method=\"post\" action=\"wiki.php\">
-					<div><input type=\"hidden\" name=\"article-id\" value=\"" . (int)$wiki['id'] . "\" />
+					<div><input type=\"hidden\" name=\"article-id\" value=\"" . (int) $wiki['id'] . "\" />
 					<input type=\"text\" name=\"article-name\" id=\"name\" value=\"" . htmlsafechars($wiki['name']) . "\" /></div>
 					<div id=\"content-add\"><table class=\"table table bordered\"><tr><td><textarea name=\"article-body\" rows=\"70\" cols=\"10\" id=\"body\">" . htmlsafechars($wiki['body']) . "</textarea>
 					<div align=\"center\"><input type=\"submit\" name=\"article-edit\" value=\"{$lang['wiki_edit']}\" /></div></td></tr></table>";
@@ -253,7 +261,9 @@ if ($action == "edit") {
         $HTMLOUT.= wikimenu();
         $HTMLOUT.= "</div>";
         $HTMLOUT.= "</div><br>";
-    } else $HTMLOUT.= newerr($lang['wiki_error'], $lang['wiki_access_denied']);
+    } else {
+        $HTMLOUT.= newerr($lang['wiki_error'], $lang['wiki_access_denied']);
+    }
 }
 if ($action == "sort") {
     $sortres = sql_query("SELECT * FROM wiki WHERE name LIKE '$letter%' ORDER BY name");
@@ -261,10 +271,12 @@ if ($action == "sort") {
         $HTMLOUT.= navmenu();
         $HTMLOUT.= "{$lang['wiki_art_found_starting']}<b>" . htmlsafechars($letter) . "</b>";
         while ($wiki = mysqli_fetch_array($sortres)) {
-            if ($wiki["userid"] !== 0) $wikiname = mysqli_fetch_assoc(sql_query("SELECT username FROM users WHERE id = " . sqlesc($wiki['userid'])));
+            if ($wiki["userid"] !== 0) {
+                $wikiname = mysqli_fetch_assoc(sql_query("SELECT username FROM users WHERE id = " . sqlesc($wiki['userid'])));
+            }
             $HTMLOUT.= "
 				<div class=\"wiki-search\">
-					<b><a href=\"wiki.php?action=article&amp;name=" . articlereplace(htmlsafechars($wiki["name"])) . "\">" . htmlsafechars($wiki['name']) . "</a></b>{$lang['wiki_added_by1']}<a href=\"userdetails.php?id=" . (int)$wiki['userid'] . "\">" . htmlsafechars($wikiname['username']) . "</a></div>";
+					<b><a href=\"wiki.php?action=article&amp;name=" . articlereplace(htmlsafechars($wiki["name"])) . "\">" . htmlsafechars($wiki['name']) . "</a></b>{$lang['wiki_added_by1']}<a href=\"userdetails.php?id=" . (int) $wiki['userid'] . "\">" . htmlsafechars($wikiname['username']) . "</a></div>";
         }
     } else {
         $HTMLOUT.= navmenu();
@@ -274,4 +286,3 @@ if ($action == "sort") {
 $HTMLOUT.= "</div>";
 $HTMLOUT.= "</div></div></div></div><br>";
 echo stdhead($lang['wiki_title'], true, $stdhead) . $HTMLOUT . stdfoot();
-?>

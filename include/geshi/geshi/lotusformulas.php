@@ -39,15 +39,15 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Lotus Notes @Formulas',
-    'COMMENT_SINGLE' => array(1 => "'"),
-    'COMMENT_MULTI' => array('REM' => ';'),
+    'COMMENT_SINGLE' => [1 => "'"],
+    'COMMENT_MULTI' => ['REM' => ';'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array (
+    'KEYWORDS' => [
+        1 => [
             '[ZoomPreview]', '[WorkspaceStackReplicaIcons]',
             '[WorkspaceProperties]', '[WindowWorkspace]',
             '[WindowTile]', '[WindowRestore]', '[WindowNext]',
@@ -192,8 +192,8 @@ $language_data = array (
             '[AdminCrossCertifyIDFile]', '[AdminCreateGroup]', '[AdminCertify]',
             '[AddToIMContactList]', '[AddDatabaseRepID]', '[AddDatabase]',
             '[AddBookmark]'
-            ),
-        2 => array(
+        ],
+        2 => [
             'SELECT', 'FIELD', 'ENVIRONMENT', 'DEFAULT', '@Zone ', '@Yesterday',
             '@Yes', '@Year', '@Word', '@Wide', '@While', '@Weekday',
             '@WebDbName', '@ViewTitle', '@ViewShowThisUnread', '@Version',
@@ -256,63 +256,61 @@ $language_data = array (
             '@AllDescendants', '@AllChildren', '@All', '@AdminECLIsLocked',
             '@Adjust', '@AddToFolder', '@ACos', '@Accessed', '@AbstractSimple',
             '@Abstract', '@Abs'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #800000;',
             2 => 'color: #0000FF;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #008000;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #FF00FF;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #FF00FF;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #0000AA;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 2
-    );
-
-?>
+];

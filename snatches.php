@@ -1,27 +1,27 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
 require_once INCL_DIR . 'pager_functions.php';
 dbconn();
 loggedinorreturn();
-$lang = array_merge(load_language('global') , load_language('snatches'));
+$lang = array_merge(load_language('global'), load_language('snatches'));
 $HTMLOUT = "";
 if (empty($_GET['id'])) {
     $HTMLOUT = '';
@@ -38,19 +38,27 @@ if (empty($_GET['id'])) {
     exit();
 }
 $id = 0 + $_GET["id"];
-if (!is_valid_id($id)) stderr("Error", "It appears that you have entered an invalid id.");
+if (!is_valid_id($id)) {
+    stderr("Error", "It appears that you have entered an invalid id.");
+}
 $res = sql_query("SELECT id, name FROM torrents WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 $arr = mysqli_fetch_assoc($res);
-if (!$arr) stderr("Error", "It appears that there is no torrent with that id.");
+if (!$arr) {
+    stderr("Error", "It appears that there is no torrent with that id.");
+}
 $res = sql_query("SELECT COUNT(id) FROM snatched WHERE complete_date !=0 AND torrentid =" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 $row = mysqli_fetch_row($res);
 $count = $row[0];
 $perpage = 15;
 $pager = pager($perpage, $count, "snatches.php?id=$id&amp;");
-if (!$count) stderr("No snatches", "It appears that there are currently no snatches for the torrent <a href='details.php?id=" . (int)$arr['id'] . "'>" . htmlsafechars($arr['name']) . "</a>.");
-$HTMLOUT.= "<h1>Snatches for torrent <a href='{$INSTALLER09['baseurl']}/details.php?id=" . (int)$arr['id'] . "'>" . htmlsafechars($arr['name']) . "</a></h1>\n";
+if (!$count) {
+    stderr("No snatches", "It appears that there are currently no snatches for the torrent <a href='details.php?id=" . (int) $arr['id'] . "'>" . htmlsafechars($arr['name']) . "</a>.");
+}
+$HTMLOUT.= "<h1>Snatches for torrent <a href='{$INSTALLER09['baseurl']}/details.php?id=" . (int) $arr['id'] . "'>" . htmlsafechars($arr['name']) . "</a></h1>\n";
 $HTMLOUT.= "<h2>Currently {$row['0']} snatch" . ($row[0] == 1 ? "" : "es") . "</h2>\n";
-if ($count > $perpage) $HTMLOUT.= $pager['pagertop'];
+if ($count > $perpage) {
+    $HTMLOUT.= $pager['pagertop'];
+}
 $HTMLOUT.= "<table class='table table-bordered'>
 <tr>
 <td class='colhead' align='left'>{$lang['snatches_username']}</td>
@@ -75,8 +83,8 @@ while ($arr = mysqli_fetch_assoc($res)) {
     $downspeed = ($arr["downspeed"] > 0 ? mksize($arr["downspeed"]) : ($arr["leechtime"] > 0 ? mksize($arr["downloaded"] / $arr["leechtime"]) : mksize(0)));
     $ratio = ($arr["downloaded"] > 0 ? number_format($arr["uploaded"] / $arr["downloaded"], 3) : ($arr["uploaded"] > 0 ? "Inf." : "---"));
     $completed = sprintf("%.2f%%", 100 * (1 - ($arr["to_go"] / $arr["size"])));
-    $snatchuser = (isset($arr['username2']) ? ("<a href='userdetails.php?id=" . (int)$arr['userid'] . "'><b>" . htmlsafechars($arr['username2']) . "</b></a>") : "{$lang['snatches_unknown']}");
-    $username = (($arr['anonymous2'] == 'yes' OR $arr['paranoia'] >= 2) ? ($CURUSER['class'] < UC_STAFF && $arr['userid'] != $CURUSER['id'] ? '' : $snatchuser . ' - ') . "<i>{$lang['snatches_anon']}</i>" : $snatchuser);
+    $snatchuser = (isset($arr['username2']) ? ("<a href='userdetails.php?id=" . (int) $arr['userid'] . "'><b>" . htmlsafechars($arr['username2']) . "</b></a>") : "{$lang['snatches_unknown']}");
+    $username = (($arr['anonymous2'] == 'yes' or $arr['paranoia'] >= 2) ? ($CURUSER['class'] < UC_STAFF && $arr['userid'] != $CURUSER['id'] ? '' : $snatchuser . ' - ') . "<i>{$lang['snatches_anon']}</i>" : $snatchuser);
     //if($arr['owner'] != $arr['su']){
     $HTMLOUT.= "<tr>
   <td align='left'>{$username}</td>
@@ -92,13 +100,14 @@ while ($arr = mysqli_fetch_assoc($res)) {
   <td align='center'>" . get_date($arr["last_action"], '', 0, 1) . "</td>
   <td align='center'>" . get_date($arr["complete_date"], '', 0, 1) . "</td>
   <td align='center'>" . htmlsafechars($arr["agent"]) . "</td>
-  <td align='center'>" . (int)$arr["port"] . "</td>
-  <td align='center'>" . (int)$arr["timesann"] . "</td>
+  <td align='center'>" . (int) $arr["port"] . "</td>
+  <td align='center'>" . (int) $arr["timesann"] . "</td>
   </tr>\n";
 }
 //}
 $HTMLOUT.= "</table>\n";
-if ($count > $perpage) $HTMLOUT.= $pager['pagerbottom'];
+if ($count > $perpage) {
+    $HTMLOUT.= $pager['pagerbottom'];
+}
 echo stdhead('Snatches') . $HTMLOUT . stdfoot();
 die;
-?>

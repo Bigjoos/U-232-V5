@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,16 +30,20 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'bbcode_functions.php');
-require_once (INCL_DIR . 'pager_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'bbcode_functions.php');
+require_once(INCL_DIR . 'pager_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 class_check(UC_MAX);
 $lang = array_merge($lang, load_language('ad_sysoplog'));
 $HTMLOUT = $where = '';
 $search = isset($_POST['search']) ? strip_tags($_POST['search']) : '';
-if(isset($_GET['search'])) $search = strip_tags($_GET['search']);
-if (!empty($search)) $where = "WHERE txt LIKE " . sqlesc("%$search%") . "";
+if (isset($_GET['search'])) {
+    $search = strip_tags($_GET['search']);
+}
+if (!empty($search)) {
+    $where = "WHERE txt LIKE " . sqlesc("%$search%") . "";
+}
 //== Delete items older than 1 month
 $secs = 30 * 86400;
 sql_query("DELETE FROM infolog WHERE " . TIME_NOW . " - added > $secs") or sqlerr(__FILE__, __LINE__);
@@ -62,7 +66,9 @@ $HTMLOUT.= "<table class='table table-bordered'>\n
 			 <input type='text' name='search' size='40' value='' />\n
 			 <input type='submit' value='{$lang['sysoplog_search']}' style='height: 20px' />\n
 			 </form></td></tr></table>";
-if ($count > $perpage) $HTMLOUT.= $pager['pagertop'];
+if ($count > $perpage) {
+    $HTMLOUT.= $pager['pagertop'];
+}
 if (mysqli_num_rows($res) == 0) {
     $HTMLOUT.= "<b>{$lang['sysoplog_norecord']}</b>";
 } else {
@@ -74,21 +80,51 @@ if (mysqli_num_rows($res) == 0) {
       </tr>";
     while ($arr = mysqli_fetch_assoc($res)) {
         $color = '#FF4763';
-        if (strpos($arr['txt'], $lang['sysoplog_warned'])) $color = "#FF0000";
-        if (strpos($arr['txt'], $lang['sysoplog_leechw'])) $color = "#9ED9D0";
-        if (strpos($arr['txt'], $lang['sysoplog_down'])) $color = "#62D962";
-        if (strpos($arr['txt'], $lang['sysoplog_imun'])) $color = "#FFFF00";
-        if (strpos($arr['txt'], $lang['sysoplog_enable'])) $color = "#47FFE3";
-        if (strpos($arr['txt'], $lang['sysoplog_donor'])) $color = "#FF8112";
-        if (strpos($arr['txt'], $lang['sysoplog_paranoia'])) $color = "#E8001F";
-        if (strpos($arr['txt'], $lang['sysoplog_uptotal'])) $color = "#14ED00";
-        if (strpos($arr['txt'], $lang['sysoplog_downtotal'])) $color = "#5A63C7";
-        if (strpos($arr['txt'], $lang['sysoplog_invitet'])) $color = "#54ACBA";
-        if (strpos($arr['txt'], $lang['sysoplog_seed'])) $color = "#BA6154";
-        if (strpos($arr['txt'], $lang['sysoplog_rep'])) $color = "#57AD00";
-        if (strpos($arr['txt'], $lang['sysoplog_prom'])) $color = "#E01E00";
-        if (strpos($arr['txt'], $lang['sysoplog_dem'])) $color = "#BA5480";
-        if (strpos($arr['txt'], $lang['sysoplog_web'])) $color = "#00CFA2";
+        if (strpos($arr['txt'], $lang['sysoplog_warned'])) {
+            $color = "#FF0000";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_leechw'])) {
+            $color = "#9ED9D0";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_down'])) {
+            $color = "#62D962";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_imun'])) {
+            $color = "#FFFF00";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_enable'])) {
+            $color = "#47FFE3";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_donor'])) {
+            $color = "#FF8112";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_paranoia'])) {
+            $color = "#E8001F";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_uptotal'])) {
+            $color = "#14ED00";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_downtotal'])) {
+            $color = "#5A63C7";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_invitet'])) {
+            $color = "#54ACBA";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_seed'])) {
+            $color = "#BA6154";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_rep'])) {
+            $color = "#57AD00";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_prom'])) {
+            $color = "#E01E00";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_dem'])) {
+            $color = "#BA5480";
+        }
+        if (strpos($arr['txt'], $lang['sysoplog_web'])) {
+            $color = "#00CFA2";
+        }
         $date = get_date($arr['added'], 'DATE');
         $time = get_date($arr['added'], 'LONG', 0, 1);
         $HTMLOUT.= "<tr class='tableb'><td style='background-color:$color'><font color='black'>{$date}</font></td>
@@ -97,8 +133,9 @@ if (mysqli_num_rows($res) == 0) {
     }
     $HTMLOUT.= "</table>";
 }
-if ($count > $perpage) $HTMLOUT.= $pager['pagerbottom']."<br>";
+if ($count > $perpage) {
+    $HTMLOUT.= $pager['pagerbottom'] . "<br>";
+}
 $HTMLOUT.= "<p>{$lang['sysoplog_times']}</p>\n";
 $HTMLOUT.= "</div></div>";
 echo stdhead($lang['sysoplog_sys']) . $HTMLOUT . stdfoot();
-?>

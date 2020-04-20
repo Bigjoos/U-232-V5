@@ -38,49 +38,49 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Smalltalk',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array('"' => '"'),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => ['"' => '"'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'"),
+    'QUOTEMARKS' => ["'"],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array('self','super','true','false','nil')
-        ),
-    'SYMBOLS' => array(
+    'KEYWORDS' => [
+        1 => ['self', 'super', 'true', 'false', 'nil']
+    ],
+    'SYMBOLS' => [
         '[', ']', '=' , ':=', '(', ')', '#'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #7f007f;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             'MULTI' => 'color: #007f00; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => ''
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #7f0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #7f0000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => ''
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000066; font-weight:bold;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #0000ff;',
             1 => 'color: #7f0000;',
             2 => 'color: #7f0000;',
@@ -88,73 +88,71 @@ $language_data = array (
             4 => 'color: #7f007f;',
             5 => 'color: #00007f;',
             6 => 'color: #00007f;'
-            ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => ''
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        0 => array(
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+        0 => [
             GESHI_SEARCH => '([^a-zA-Z0-9_#<])([A-Z]+[a-zA-Z0-9_]*)(?!>)', //class names
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
-        1 => array(
+        ],
+        1 => [
             GESHI_SEARCH => '(#+)([a-zA-Z0-9_]+)', //symbols
             GESHI_REPLACE => '\\1\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        2 => array(
+        ],
+        2 => [
             GESHI_SEARCH => '(#\s*\([^)]*\))', //array symbols
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        3 => array(
+        ],
+        3 => [
             GESHI_SEARCH => '<PIPE>([a-zA-Z0-9_\s]+)<PIPE>', //temporary variables
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '|',
             GESHI_AFTER => '|'
-            ),
-        4 => array(
+        ],
+        4 => [
             GESHI_SEARCH => '(self|super|true|false|nil)', //keywords again (to avoid matching in next regexp)
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        5 => array(
+        ],
+        5 => [
             GESHI_SEARCH => '([:(,=[.*\/+-]\s*)([a-zA-Z0-9_]+)', //message parameters, message receivers
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => 's',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
-        6 => array(
+        ],
+        6 => [
             GESHI_SEARCH => '([a-zA-Z0-9_]+)(\s*:=)', //assignment targets
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => '\\2'
-            )
-        ),
+        ]
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

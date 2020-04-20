@@ -44,23 +44,23 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'MySQL',
     //'COMMENT_SINGLE' => array(1 =>'--', 2 => '#'),    // '--' MUST be folowed by whitespace,not necessarily a space
-    'COMMENT_SINGLE' => array(
+    'COMMENT_SINGLE' => [
         1 =>'-- ',
         2 => '#'
-        ),
-    'COMMENT_REGEXP' => array(
+    ],
+    'COMMENT_REGEXP' => [
         1 => "/(?:--\s).*?$/",                          // double dash followed by any whitespace
-        ),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    ],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,            // @@@ would be nice if this could be defined per group!
-    'QUOTEMARKS' => array("'", '"', '`'),
+    'QUOTEMARKS' => ["'", '"', '`'],
     'ESCAPE_CHAR' => '\\',                              // by default only, can be specified
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         1 => "/[_%]/",                                  // search wildcards
-        ),
+    ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC |
         GESHI_NUMBER_OCT_PREFIX |
@@ -68,237 +68,237 @@ $language_data = array (
         GESHI_NUMBER_FLT_NONSCI |
         GESHI_NUMBER_FLT_SCI_SHORT |
         GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             // Mix: statement keywords and keywords that don't fit in any other
             // category, or have multiple usage/meanings
-            'ACTION','ADD','AFTER','ALGORITHM','ALL','ALTER','ANALYZE','ANY',
-            'ASC','AS','BDB','BEGIN','BERKELEYDB','BINARY','BTREE','CALL',
-            'CASCADED','CASCADE','CHAIN','CHECK','COLUMNS','COLUMN','COMMENT',
-            'COMMIT','COMMITTED','CONSTRAINT','CONTAINS SQL','CONSISTENT',
-            'CONVERT','CREATE','CROSS','DATA','DATABASES',
-            'DECLARE','DEFINER','DELAYED','DELETE','DESCRIBE','DESC',
-            'DETERMINISTIC','DISABLE','DISCARD','DISTINCTROW','DISTINCT','DO',
-            'DROP','DUMPFILE','DUPLICATE KEY','ENABLE','ENCLOSED BY','ENGINE',
-            'ERRORS','ESCAPED BY','EXISTS','EXPLAIN','EXTENDED','FIELDS',
-            'FIRST','FOR EACH ROW','FORCE','FOREIGN KEY','FROM','FULL',
-            'FUNCTION','GLOBAL','GRANT','GROUP BY','HANDLER','HASH','HAVING',
-            'HELP','HIGH_PRIORITY','IF NOT EXISTS','IGNORE','IMPORT','INDEX',
-            'INFILE','INNER','INNODB','INOUT','INTO','INVOKER',
-            'ISOLATION LEVEL','JOIN','KEYS','KEY','KILL','LANGUAGE SQL','LAST',
-            'LIMIT','LINES','LOAD','LOCAL','LOCK','LOW_PRIORITY',
-            'MASTER_SERVER_ID','MATCH','MERGE','MIDDLEINT','MODIFIES SQL DATA',
-            'MODIFY','MRG_MYISAM','NATURAL','NEXT','NO SQL','NO','ON',
-            'OPTIMIZE','OPTIONALLY','OPTION','ORDER BY','OUTER','OUTFILE','OUT',
-            'PARTIAL','PREV','PRIMARY KEY','PRIVILEGES','PROCEDURE','PURGE',
-            'QUICK','READS SQL DATA','READ','REFERENCES','RELEASE','RENAME',
-            'REPEATABLE','REQUIRE','RESTRICT','RETURNS','REVOKE',
-            'ROLLBACK','ROUTINE','RTREE','SAVEPOINT','SELECT',
-            'SERIALIZABLE','SESSION','SET','SHARE MODE','SHOW','SIMPLE',
-            'SNAPSHOT','SOME','SONAME','SQL SECURITY','SQL_BIG_RESULT',
-            'SQL_BUFFER_RESULT','SQL_CACHE','SQL_CALC_FOUND_ROWS',
-            'SQL_NO_CACHE','SQL_SMALL_RESULT','SSL','START','STARTING BY',
-            'STATUS','STRAIGHT_JOIN','STRIPED','TABLESPACE','TABLES','TABLE',
-            'TEMPORARY','TEMPTABLE','TERMINATED BY','TO','TRANSACTIONS',
-            'TRANSACTION','TRIGGER','TYPES','TYPE','UNCOMMITTED','UNDEFINED',
-            'UNION','UNLOCK_TABLES','UPDATE','USAGE','USE','USER_RESOURCES',
-            'USING','VALUES','VALUE','VIEW','WARNINGS','WHERE','WITH ROLLUP',
-            'WITH','WORK','WRITE',
-            ),
-        2 => array(     //No ( must follow
+            'ACTION', 'ADD', 'AFTER', 'ALGORITHM', 'ALL', 'ALTER', 'ANALYZE', 'ANY',
+            'ASC', 'AS', 'BDB', 'BEGIN', 'BERKELEYDB', 'BINARY', 'BTREE', 'CALL',
+            'CASCADED', 'CASCADE', 'CHAIN', 'CHECK', 'COLUMNS', 'COLUMN', 'COMMENT',
+            'COMMIT', 'COMMITTED', 'CONSTRAINT', 'CONTAINS SQL', 'CONSISTENT',
+            'CONVERT', 'CREATE', 'CROSS', 'DATA', 'DATABASES',
+            'DECLARE', 'DEFINER', 'DELAYED', 'DELETE', 'DESCRIBE', 'DESC',
+            'DETERMINISTIC', 'DISABLE', 'DISCARD', 'DISTINCTROW', 'DISTINCT', 'DO',
+            'DROP', 'DUMPFILE', 'DUPLICATE KEY', 'ENABLE', 'ENCLOSED BY', 'ENGINE',
+            'ERRORS', 'ESCAPED BY', 'EXISTS', 'EXPLAIN', 'EXTENDED', 'FIELDS',
+            'FIRST', 'FOR EACH ROW', 'FORCE', 'FOREIGN KEY', 'FROM', 'FULL',
+            'FUNCTION', 'GLOBAL', 'GRANT', 'GROUP BY', 'HANDLER', 'HASH', 'HAVING',
+            'HELP', 'HIGH_PRIORITY', 'IF NOT EXISTS', 'IGNORE', 'IMPORT', 'INDEX',
+            'INFILE', 'INNER', 'INNODB', 'INOUT', 'INTO', 'INVOKER',
+            'ISOLATION LEVEL', 'JOIN', 'KEYS', 'KEY', 'KILL', 'LANGUAGE SQL', 'LAST',
+            'LIMIT', 'LINES', 'LOAD', 'LOCAL', 'LOCK', 'LOW_PRIORITY',
+            'MASTER_SERVER_ID', 'MATCH', 'MERGE', 'MIDDLEINT', 'MODIFIES SQL DATA',
+            'MODIFY', 'MRG_MYISAM', 'NATURAL', 'NEXT', 'NO SQL', 'NO', 'ON',
+            'OPTIMIZE', 'OPTIONALLY', 'OPTION', 'ORDER BY', 'OUTER', 'OUTFILE', 'OUT',
+            'PARTIAL', 'PREV', 'PRIMARY KEY', 'PRIVILEGES', 'PROCEDURE', 'PURGE',
+            'QUICK', 'READS SQL DATA', 'READ', 'REFERENCES', 'RELEASE', 'RENAME',
+            'REPEATABLE', 'REQUIRE', 'RESTRICT', 'RETURNS', 'REVOKE',
+            'ROLLBACK', 'ROUTINE', 'RTREE', 'SAVEPOINT', 'SELECT',
+            'SERIALIZABLE', 'SESSION', 'SET', 'SHARE MODE', 'SHOW', 'SIMPLE',
+            'SNAPSHOT', 'SOME', 'SONAME', 'SQL SECURITY', 'SQL_BIG_RESULT',
+            'SQL_BUFFER_RESULT', 'SQL_CACHE', 'SQL_CALC_FOUND_ROWS',
+            'SQL_NO_CACHE', 'SQL_SMALL_RESULT', 'SSL', 'START', 'STARTING BY',
+            'STATUS', 'STRAIGHT_JOIN', 'STRIPED', 'TABLESPACE', 'TABLES', 'TABLE',
+            'TEMPORARY', 'TEMPTABLE', 'TERMINATED BY', 'TO', 'TRANSACTIONS',
+            'TRANSACTION', 'TRIGGER', 'TYPES', 'TYPE', 'UNCOMMITTED', 'UNDEFINED',
+            'UNION', 'UNLOCK_TABLES', 'UPDATE', 'USAGE', 'USE', 'USER_RESOURCES',
+            'USING', 'VALUES', 'VALUE', 'VIEW', 'WARNINGS', 'WHERE', 'WITH ROLLUP',
+            'WITH', 'WORK', 'WRITE',
+        ],
+        2 => [     //No ( must follow
             // Mix: statement keywords distinguished from functions by the same name
             "CURRENT_USER", "DATABASE", "IN", "INSERT", "DEFAULT", "REPLACE", "SCHEMA", "TRUNCATE"
-            ),
-        3 => array(
+        ],
+        3 => [
             // Values (Constants)
-            'FALSE','NULL','TRUE',
-            ),
-        4 => array(
+            'FALSE', 'NULL', 'TRUE',
+        ],
+        4 => [
             // Column Data Types
-            'BIGINT','BIT','BLOB','BOOLEAN','BOOL','CHARACTER VARYING',
-            'CHAR VARYING','DATETIME','DECIMAL','DEC','DOUBLE PRECISION',
-            'DOUBLE','ENUM','FIXED','FLOAT','GEOMETRYCOLLECTION','GEOMETRY',
-            'INTEGER','INT','LINESTRING','LONGBLOB','LONGTEXT','MEDIUMBLOB',
-            'MEDIUMINT','MEDIUMTEXT','MULTIPOINT','MULTILINESTRING',
-            'MULTIPOLYGON','NATIONAL CHARACTER','NATIONAL CHARACTER VARYING',
-            'NATIONAL CHAR VARYING','NATIONAL VARCHAR','NCHAR VARCHAR','NCHAR',
-            'NUMERIC','POINT','POLYGON','REAL','SERIAL',
-            'SMALLINT','TEXT','TIMESTAMP','TINYBLOB','TINYINT',
-            'TINYTEXT','VARBINARY','VARCHARACTER','VARCHAR',
-            ),
-        5 => array(     //No ( must follow
+            'BIGINT', 'BIT', 'BLOB', 'BOOLEAN', 'BOOL', 'CHARACTER VARYING',
+            'CHAR VARYING', 'DATETIME', 'DECIMAL', 'DEC', 'DOUBLE PRECISION',
+            'DOUBLE', 'ENUM', 'FIXED', 'FLOAT', 'GEOMETRYCOLLECTION', 'GEOMETRY',
+            'INTEGER', 'INT', 'LINESTRING', 'LONGBLOB', 'LONGTEXT', 'MEDIUMBLOB',
+            'MEDIUMINT', 'MEDIUMTEXT', 'MULTIPOINT', 'MULTILINESTRING',
+            'MULTIPOLYGON', 'NATIONAL CHARACTER', 'NATIONAL CHARACTER VARYING',
+            'NATIONAL CHAR VARYING', 'NATIONAL VARCHAR', 'NCHAR VARCHAR', 'NCHAR',
+            'NUMERIC', 'POINT', 'POLYGON', 'REAL', 'SERIAL',
+            'SMALLINT', 'TEXT', 'TIMESTAMP', 'TINYBLOB', 'TINYINT',
+            'TINYTEXT', 'VARBINARY', 'VARCHARACTER', 'VARCHAR',
+        ],
+        5 => [     //No ( must follow
             // Column data types distinguished from functions by the same name
             "CHAR", "DATE", "TIME"
-            ),
-        6 => array(
+        ],
+        6 => [
             // Table, Column & Index Attributes
-            'AUTO_INCREMENT','AVG_ROW_LENGTH','BOTH','CHECKSUM','CONNECTION',
-            'DATA DIRECTORY','DEFAULT NULL','DELAY_KEY_WRITE','FULLTEXT',
-            'INDEX DIRECTORY','INSERT_METHOD','LEADING','MAX_ROWS','MIN_ROWS',
-            'NOT NULL','PACK_KEYS','ROW_FORMAT','SERIAL DEFAULT VALUE','SIGNED',
-            'SPATIAL','TRAILING','UNIQUE','UNSIGNED','ZEROFILL'
-            ),
-        7 => array(     //No ( must follow
+            'AUTO_INCREMENT', 'AVG_ROW_LENGTH', 'BOTH', 'CHECKSUM', 'CONNECTION',
+            'DATA DIRECTORY', 'DEFAULT NULL', 'DELAY_KEY_WRITE', 'FULLTEXT',
+            'INDEX DIRECTORY', 'INSERT_METHOD', 'LEADING', 'MAX_ROWS', 'MIN_ROWS',
+            'NOT NULL', 'PACK_KEYS', 'ROW_FORMAT', 'SERIAL DEFAULT VALUE', 'SIGNED',
+            'SPATIAL', 'TRAILING', 'UNIQUE', 'UNSIGNED', 'ZEROFILL'
+        ],
+        7 => [     //No ( must follow
             // Column attribute distinguished from function by the same name
             "CHARSET"
-            ),
-        8 => array(
+        ],
+        8 => [
             // Date and Time Unit Specifiers
-            'DAY_HOUR','DAY_MICROSECOND','DAY_MINUTE','DAY_SECOND',
-            'HOUR_MICROSECOND','HOUR_MINUTE','HOUR_SECOND',
-            'MINUTE_MICROSECOND','MINUTE_SECOND',
-            'SECOND_MICROSECOND','YEAR_MONTH'
-            ),
-        9 => array(     //No ( must follow
+            'DAY_HOUR', 'DAY_MICROSECOND', 'DAY_MINUTE', 'DAY_SECOND',
+            'HOUR_MICROSECOND', 'HOUR_MINUTE', 'HOUR_SECOND',
+            'MINUTE_MICROSECOND', 'MINUTE_SECOND',
+            'SECOND_MICROSECOND', 'YEAR_MONTH'
+        ],
+        9 => [     //No ( must follow
             // Date-time unit specifiers distinguished from functions by the same name
             "DAY", "HOUR", "MICROSECOND", "MINUTE", "MONTH", "QUARTER", "SECOND", "WEEK", "YEAR"
-            ),
-        10 => array(
+        ],
+        10 => [
             // Operators (see also Symbols)
-            'AND','BETWEEN','CHARACTER SET','COLLATE','DIV','IS NOT NULL',
-            'IS NOT','IS NULL','IS','LIKE','NOT','OFFSET','OR','REGEXP','RLIKE',
-            'SOUNDS LIKE','XOR'
-            ),
-        11 => array(     //No ( must follow
+            'AND', 'BETWEEN', 'CHARACTER SET', 'COLLATE', 'DIV', 'IS NOT NULL',
+            'IS NOT', 'IS NULL', 'IS', 'LIKE', 'NOT', 'OFFSET', 'OR', 'REGEXP', 'RLIKE',
+            'SOUNDS LIKE', 'XOR'
+        ],
+        11 => [     //No ( must follow
             // Operator distinghuished from function by the same name
             "INTERVAL"
-            ),
-        12 => array(
+        ],
+        12 => [
             // Control Flow (functions)
-            'CASE','ELSE','END','IFNULL','IF','NULLIF','THEN','WHEN',
-            ),
-        13 => array(
+            'CASE', 'ELSE', 'END', 'IFNULL', 'IF', 'NULLIF', 'THEN', 'WHEN',
+        ],
+        13 => [
             // String Functions
-            'ASCII','BIN','BIT_LENGTH','CHAR_LENGTH','CHARACTER_LENGTH',
-            'CONCAT_WS','CONCAT','ELT','EXPORT_SET','FIELD',
-            'FIND_IN_SET','FORMAT','HEX','INSTR','LCASE','LEFT','LENGTH',
-            'LOAD_FILE','LOCATE','LOWER','LPAD','LTRIM','MAKE_SET','MID',
-            'OCTET_LENGTH','ORD','POSITION','QUOTE','REPEAT','REVERSE',
-            'RIGHT','RPAD','RTRIM','SOUNDEX','SPACE','STRCMP','SUBSTRING_INDEX',
-            'SUBSTRING','TRIM','UCASE','UNHEX','UPPER',
-            ),
-        14 => array(     //A ( must follow
+            'ASCII', 'BIN', 'BIT_LENGTH', 'CHAR_LENGTH', 'CHARACTER_LENGTH',
+            'CONCAT_WS', 'CONCAT', 'ELT', 'EXPORT_SET', 'FIELD',
+            'FIND_IN_SET', 'FORMAT', 'HEX', 'INSTR', 'LCASE', 'LEFT', 'LENGTH',
+            'LOAD_FILE', 'LOCATE', 'LOWER', 'LPAD', 'LTRIM', 'MAKE_SET', 'MID',
+            'OCTET_LENGTH', 'ORD', 'POSITION', 'QUOTE', 'REPEAT', 'REVERSE',
+            'RIGHT', 'RPAD', 'RTRIM', 'SOUNDEX', 'SPACE', 'STRCMP', 'SUBSTRING_INDEX',
+            'SUBSTRING', 'TRIM', 'UCASE', 'UNHEX', 'UPPER',
+        ],
+        14 => [     //A ( must follow
             // String functions distinguished from other keywords by the same name
             "INSERT", "REPLACE", "CHAR"
-            ),
-        15 => array(
+        ],
+        15 => [
             // Numeric Functions
-            'ABS','ACOS','ASIN','ATAN2','ATAN','CEILING','CEIL',
-            'CONV','COS','COT','CRC32','DEGREES','EXP','FLOOR','LN','LOG10',
-            'LOG2','LOG','MOD','OCT','PI','POWER','POW','RADIANS','RAND',
-            'ROUND','SIGN','SIN','SQRT','TAN',
-            ),
-        16 => array(     //A ( must follow
+            'ABS', 'ACOS', 'ASIN', 'ATAN2', 'ATAN', 'CEILING', 'CEIL',
+            'CONV', 'COS', 'COT', 'CRC32', 'DEGREES', 'EXP', 'FLOOR', 'LN', 'LOG10',
+            'LOG2', 'LOG', 'MOD', 'OCT', 'PI', 'POWER', 'POW', 'RADIANS', 'RAND',
+            'ROUND', 'SIGN', 'SIN', 'SQRT', 'TAN',
+        ],
+        16 => [     //A ( must follow
             // Numeric function distinguished from other keyword by the same name
             "TRUNCATE"
-            ),
-        17 => array(
+        ],
+        17 => [
             // Date and Time Functions
-            'ADDDATE','ADDTIME','CONVERT_TZ','CURDATE','CURRENT_DATE',
-            'CURRENT_TIME','CURRENT_TIMESTAMP','CURTIME','DATE_ADD',
-            'DATE_FORMAT','DATE_SUB','DATEDIFF','DAYNAME','DAYOFMONTH',
-            'DAYOFWEEK','DAYOFYEAR','EXTRACT','FROM_DAYS','FROM_UNIXTIME',
-            'GET_FORMAT','LAST_DAY','LOCALTIME','LOCALTIMESTAMP','MAKEDATE',
-            'MAKETIME','MONTHNAME','NOW','PERIOD_ADD',
-            'PERIOD_DIFF','SEC_TO_TIME','STR_TO_DATE','SUBDATE','SUBTIME',
-            'SYSDATE','TIME_FORMAT','TIME_TO_SEC',
-            'TIMESTAMPADD','TIMESTAMPDIFF','TO_DAYS',
-            'UNIX_TIMESTAMP','UTC_DATE','UTC_TIME','UTC_TIMESTAMP','WEEKDAY',
-            'WEEKOFYEAR','YEARWEEK',
-            ),
-        18 => array(     //A ( must follow
+            'ADDDATE', 'ADDTIME', 'CONVERT_TZ', 'CURDATE', 'CURRENT_DATE',
+            'CURRENT_TIME', 'CURRENT_TIMESTAMP', 'CURTIME', 'DATE_ADD',
+            'DATE_FORMAT', 'DATE_SUB', 'DATEDIFF', 'DAYNAME', 'DAYOFMONTH',
+            'DAYOFWEEK', 'DAYOFYEAR', 'EXTRACT', 'FROM_DAYS', 'FROM_UNIXTIME',
+            'GET_FORMAT', 'LAST_DAY', 'LOCALTIME', 'LOCALTIMESTAMP', 'MAKEDATE',
+            'MAKETIME', 'MONTHNAME', 'NOW', 'PERIOD_ADD',
+            'PERIOD_DIFF', 'SEC_TO_TIME', 'STR_TO_DATE', 'SUBDATE', 'SUBTIME',
+            'SYSDATE', 'TIME_FORMAT', 'TIME_TO_SEC',
+            'TIMESTAMPADD', 'TIMESTAMPDIFF', 'TO_DAYS',
+            'UNIX_TIMESTAMP', 'UTC_DATE', 'UTC_TIME', 'UTC_TIMESTAMP', 'WEEKDAY',
+            'WEEKOFYEAR', 'YEARWEEK',
+        ],
+        18 => [     //A ( must follow
             // Date-time functions distinguished from other keywords by the same name
             "DATE", "DAY", "HOUR", "MICROSECOND", "MINUTE", "MONTH", "QUARTER",
             "SECOND", "TIME", "WEEK", "YEAR"
-            ),
-        19 => array(
+        ],
+        19 => [
             // Comparison Functions
-            'COALESCE','GREATEST','ISNULL','LEAST',
-            ),
-        20 => array(     //A ( must follow
+            'COALESCE', 'GREATEST', 'ISNULL', 'LEAST',
+        ],
+        20 => [     //A ( must follow
             // Comparison functions distinguished from other keywords by the same name
             "IN", "INTERVAL"
-            ),
-        21 => array(
+        ],
+        21 => [
             // Encryption and Compression Functions
-            'AES_DECRYPT','AES_ENCRYPT','COMPRESS','DECODE','DES_DECRYPT',
-            'DES_ENCRYPT','ENCODE','ENCRYPT','MD5','OLD_PASSWORD','PASSWORD',
-            'SHA1','SHA','UNCOMPRESS','UNCOMPRESSED_LENGTH',
-            ),
-        22 => array(
+            'AES_DECRYPT', 'AES_ENCRYPT', 'COMPRESS', 'DECODE', 'DES_DECRYPT',
+            'DES_ENCRYPT', 'ENCODE', 'ENCRYPT', 'MD5', 'OLD_PASSWORD', 'PASSWORD',
+            'SHA1', 'SHA', 'UNCOMPRESS', 'UNCOMPRESSED_LENGTH',
+        ],
+        22 => [
             // GROUP BY (aggregate) Functions
-            'AVG','BIT_AND','BIT_OR','BIT_XOR','COUNT','GROUP_CONCAT',
-            'MAX','MIN','STDDEV_POP','STDDEV_SAMP','STDDEV','STD','SUM',
-            'VAR_POP','VAR_SAMP','VARIANCE',
-            ),
-        23 => array(
+            'AVG', 'BIT_AND', 'BIT_OR', 'BIT_XOR', 'COUNT', 'GROUP_CONCAT',
+            'MAX', 'MIN', 'STDDEV_POP', 'STDDEV_SAMP', 'STDDEV', 'STD', 'SUM',
+            'VAR_POP', 'VAR_SAMP', 'VARIANCE',
+        ],
+        23 => [
             // Information Functions
-            'BENCHMARK','COERCIBILITY','COLLATION','CONNECTION_ID',
-            'FOUND_ROWS','LAST_INSERT_ID','ROW_COUNT',
-            'SESSION_USER','SYSTEM_USER','USER','VERSION',
-            ),
-        24 => array(     //A ( must follow
+            'BENCHMARK', 'COERCIBILITY', 'COLLATION', 'CONNECTION_ID',
+            'FOUND_ROWS', 'LAST_INSERT_ID', 'ROW_COUNT',
+            'SESSION_USER', 'SYSTEM_USER', 'USER', 'VERSION',
+        ],
+        24 => [     //A ( must follow
             // Information functions distinguished from other keywords by the same name
             "CURRENT_USER", "DATABASE", "SCHEMA", "CHARSET"
-            ),
-        25 => array(
+        ],
+        25 => [
             // Miscellaneous Functions
-            'ExtractValue','BIT_COUNT','GET_LOCK','INET_ATON','INET_NTOA',
-            'IS_FREE_LOCK','IS_USED_LOCK','MASTER_POS_WAIT','NAME_CONST',
-            'RELEASE_LOCK','SLEEP','UpdateXML','UUID',
-            ),
-        26 => array(     //A ( must follow
+            'ExtractValue', 'BIT_COUNT', 'GET_LOCK', 'INET_ATON', 'INET_NTOA',
+            'IS_FREE_LOCK', 'IS_USED_LOCK', 'MASTER_POS_WAIT', 'NAME_CONST',
+            'RELEASE_LOCK', 'SLEEP', 'UpdateXML', 'UUID',
+        ],
+        26 => [     //A ( must follow
             // Miscellaneous function distinguished from other keyword by the same name
             "DEFAULT"
-            ),
-        27 => array(
+        ],
+        27 => [
             // Geometry Functions
-            'Area','AsBinary','AsText','AsWKB','AsWKT','Boundary','Buffer',
-            'Centroid','Contains','ConvexHull','Crosses',
-            'Difference','Dimension','Disjoint','Distance',
-            'EndPoint','Envelope','Equals','ExteriorRing',
-            'GLength','GeomCollFromText','GeomCollFromWKB','GeomFromText',
-            'GeomFromWKB','GeometryCollectionFromText',
-            'GeometryCollectionFromWKB','GeometryFromText','GeometryFromWKB',
-            'GeometryN','GeometryType',
-            'InteriorRingN','Intersection','Intersects','IsClosed','IsEmpty',
-            'IsRing','IsSimple',
-            'LineFromText','LineFromWKB','LineStringFromText',
+            'Area', 'AsBinary', 'AsText', 'AsWKB', 'AsWKT', 'Boundary', 'Buffer',
+            'Centroid', 'Contains', 'ConvexHull', 'Crosses',
+            'Difference', 'Dimension', 'Disjoint', 'Distance',
+            'EndPoint', 'Envelope', 'Equals', 'ExteriorRing',
+            'GLength', 'GeomCollFromText', 'GeomCollFromWKB', 'GeomFromText',
+            'GeomFromWKB', 'GeometryCollectionFromText',
+            'GeometryCollectionFromWKB', 'GeometryFromText', 'GeometryFromWKB',
+            'GeometryN', 'GeometryType',
+            'InteriorRingN', 'Intersection', 'Intersects', 'IsClosed', 'IsEmpty',
+            'IsRing', 'IsSimple',
+            'LineFromText', 'LineFromWKB', 'LineStringFromText',
             'LineStringFromWKB',
-            'MBRContains','MBRDisjoint','MBREqual','MBRIntersects',
-            'MBROverlaps','MBRTouches','MBRWithin','MLineFromText',
-            'MLineFromWKB','MPointFromText','MPointFromWKB','MPolyFromText',
-            'MPolyFromWKB','MultiLineStringFromText','MultiLineStringFromWKB',
-            'MultiPointFromText','MultiPointFromWKB','MultiPolygonFromText',
+            'MBRContains', 'MBRDisjoint', 'MBREqual', 'MBRIntersects',
+            'MBROverlaps', 'MBRTouches', 'MBRWithin', 'MLineFromText',
+            'MLineFromWKB', 'MPointFromText', 'MPointFromWKB', 'MPolyFromText',
+            'MPolyFromWKB', 'MultiLineStringFromText', 'MultiLineStringFromWKB',
+            'MultiPointFromText', 'MultiPointFromWKB', 'MultiPolygonFromText',
             'MultiPolygonFromWKB',
-            'NumGeometries','NumInteriorRings','NumPoints',
+            'NumGeometries', 'NumInteriorRings', 'NumPoints',
             'Overlaps',
-            'PointFromText','PointFromWKB','PointN','PointOnSurface',
-            'PolyFromText','PolyFromWKB','PolygonFromText','PolygonFromWKB',
-            'Related','SRID','StartPoint','SymDifference',
+            'PointFromText', 'PointFromWKB', 'PointN', 'PointOnSurface',
+            'PolyFromText', 'PolyFromWKB', 'PolygonFromText', 'PolygonFromWKB',
+            'Related', 'SRID', 'StartPoint', 'SymDifference',
             'Touches',
             'Union',
             'Within',
             'X',
             'Y',
-            ),
-        ),
-    'SYMBOLS' => array(
-        1 => array(
+        ],
+    ],
+    'SYMBOLS' => [
+        1 => [
             /* Operators */
             '=', ':=',                                      // assignment operators
             '||', '&&', '!',                                // locical operators
             '=', '<=>', '>=', '>', '<=', '<', '<>', '!=',   // comparison operators
             '|', '&', '^', '~', '<<', '>>',                 // bitwise operators
             '-', '+', '*', '/', '%',                        // numerical operators
-            ),
-        2 => array(
+        ],
+        2 => [
             /* Other syntactical symbols */
             '(', ')',
             ',', ';',
-            ),
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -328,9 +328,9 @@ $language_data = array (
         25 => false,
         26 => false,
         27 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #990099; font-weight: bold;',      // mix
             2 => 'color: #990099; font-weight: bold;',      // mix
             3 => 'color: #9900FF; font-weight: bold;',      // constants
@@ -360,37 +360,37 @@ $language_data = array (
             25 => 'color: #000099;',     // miscellaneous functions
             26 => 'color: #000099;',     // miscellaneous functions
             27 => 'color: #00CC00;',     // geometry functions
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             'MULTI' => 'color: #808000; font-style: italic;',
             1 => 'color: #808080; font-style: italic;',
             2 => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #004000; font-weight: bold;',
             1 => 'color: #008080; font-weight: bold;'       // search wildcards
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #FF00FF;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #008000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #008080;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             1 => 'color: #CC0099;',         // operators
             2 => 'color: #000033;',         // syntax
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => 'http://search.mysql.com/search?site=refman-51&amp;q={FNAME}&amp;lr=lang_en',
         2 => 'http://search.mysql.com/search?site=refman-51&amp;q={FNAME}&amp;lr=lang_en',
         3 => 'http://search.mysql.com/search?site=refman-51&amp;q={FNAME}&amp;lr=lang_en',
@@ -420,56 +420,54 @@ $language_data = array (
         25 => 'http://dev.mysql.com/doc/refman/5.1/en/func-op-summary-ref.html',
         26 => 'http://dev.mysql.com/doc/refman/5.1/en/func-op-summary-ref.html',
         27 => 'http://dev.mysql.com/doc/refman/5.1/en/analysing-spatial-information.html',
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            2 => array(
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            2 => [
                 'DISALLOWED_AFTER' => '(?![\(\w])'
-                ),
-            5 => array(
+            ],
+            5 => [
                 'DISALLOWED_AFTER' => '(?![\(\w])'
-                ),
-            7 => array(
+            ],
+            7 => [
                 'DISALLOWED_AFTER' => '(?![\(\w])'
-                ),
-            9 => array(
+            ],
+            9 => [
                 'DISALLOWED_AFTER' => '(?![\(\w])'
-                ),
-            11 => array(
+            ],
+            11 => [
                 'DISALLOWED_AFTER' => '(?![\(\w])'
-                ),
+            ],
 
-            14 => array(
+            14 => [
                 'DISALLOWED_AFTER' => '(?=\()'
-                ),
-            16 => array(
+            ],
+            16 => [
                 'DISALLOWED_AFTER' => '(?=\()'
-                ),
-            18 => array(
+            ],
+            18 => [
                 'DISALLOWED_AFTER' => '(?=\()'
-                ),
-            20 => array(
+            ],
+            20 => [
                 'DISALLOWED_AFTER' => '(?=\()'
-                ),
-            24 => array(
+            ],
+            24 => [
                 'DISALLOWED_AFTER' => '(?=\()'
-                ),
-            26 => array(
+            ],
+            26 => [
                 'DISALLOWED_AFTER' => '(?=\()'
-                )
-            )
-        )
-);
-
-?>
+            ]
+        ]
+    ]
+];

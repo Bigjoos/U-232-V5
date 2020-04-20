@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /*
 +------------------------------------------------
@@ -23,51 +23,53 @@
 |   $Author$ Bigjoos, Roguesurfer
 |   $URL$
 |   $usercp
-|   
+|
 +------------------------------------------------
 */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (CLASS_DIR . 'class_user_options.php');
-require_once (CLASS_DIR . 'class_user_options_2.php');
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (INCL_DIR . 'bbcode_functions.php');
-require_once (CLASS_DIR . 'page_verify.php');
-require_once (CACHE_DIR . 'timezones.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(CLASS_DIR . 'class_user_options.php');
+require_once(CLASS_DIR . 'class_user_options_2.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(INCL_DIR . 'bbcode_functions.php');
+require_once(CLASS_DIR . 'page_verify.php');
+require_once(CACHE_DIR . 'timezones.php');
 dbconn(false);
 loggedinorreturn();
-$stdfoot = array(
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'keyboard',
-    )
-);
-$stdhead = array(
+    ]
+];
+$stdhead = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'custom-form-elements'
-    ),
+    ],
     /** include css **/
-    'css' => array(
-         'usercp'
-    )
-);
+    'css' => [
+        'usercp'
+    ]
+];
 //echo user_options::CLEAR_NEW_TAG_MANUALLY;
 //die();
-$lang = array_merge(load_language('global') , load_language('usercp'));
+$lang = array_merge(load_language('global'), load_language('usercp'));
 $newpage = new page_verify();
 $newpage->create('tkepe');
 $HTMLOUT = $stylesheets = $wherecatina = '';
 $templates = sql_query("SELECT id, name FROM stylesheets ORDER BY id");
 while ($templ = mysqli_fetch_assoc($templates)) {
-    if (file_exists("templates/".intval($templ['id'])."/template.php")) $stylesheets.= "<option value='" . (int)$templ['id'] . "'" . ($templ['id'] == $CURUSER['stylesheet'] ? " selected='selected'" : "") . ">" . htmlsafechars($templ['name']) . "</option>";
+    if (file_exists("templates/" . intval($templ['id']) . "/template.php")) {
+        $stylesheets.= "<option value='" . (int) $templ['id'] . "'" . ($templ['id'] == $CURUSER['stylesheet'] ? " selected='selected'" : "") . ">" . htmlsafechars($templ['name']) . "</option>";
+    }
 }
 $countries = "<option value='0'>---- {$lang['usercp_none']} ----</option>\n";
 $ct_r = sql_query("SELECT id,name FROM countries ORDER BY name") or sqlerr(__FILE__, __LINE__);
 while ($ct_a = mysqli_fetch_assoc($ct_r)) {
-    $countries.= "<option value='" . (int)$ct_a['id'] . "'" . ($CURUSER["country"] == $ct_a['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($ct_a['name']) . "</option>\n";
+    $countries.= "<option value='" . (int) $ct_a['id'] . "'" . ($CURUSER["country"] == $ct_a['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($ct_a['name']) . "</option>\n";
 }
-$offset = ($CURUSER['time_offset'] != "") ? (string)$CURUSER['time_offset'] : (string)$INSTALLER09['time_offset'];
+$offset = ($CURUSER['time_offset'] != "") ? (string) $CURUSER['time_offset'] : (string) $INSTALLER09['time_offset'];
 $time_select = "<select name='user_timezone'>";
 foreach ($TZ as $off => $words) {
     if (preg_match("/^time_(-?[\d\.]+)$/", $off, $match)) {
@@ -112,7 +114,7 @@ $HTMLOUT.= '
     });
     /*]]>*/
     </script>';
-$possible_actions = array(
+$possible_actions = [
     'avatar',
     'signature',
     'social',
@@ -122,12 +124,16 @@ $possible_actions = array(
     'torrents',
     'personal',
     'default'
-);
+];
 $action = isset($_GET["action"]) ? htmlsafechars(trim($_GET["action"])) : '';
-if (!in_array($action, $possible_actions)) stderr('<br /><div class="alert alert-error span11">'.$lang['usercp_err1'].'</div>');
+if (!in_array($action, $possible_actions)) {
+    stderr('<br /><div class="alert alert-error span11">' . $lang['usercp_err1'] . '</div>');
+}
 if (isset($_GET["edited"])) {
     $HTMLOUT.= "<br /><div class='alert alert-success span11'>{$lang['usercp_updated']}!</div><br />";
-    if (isset($_GET["mailsent"])) $HTMLOUT.= "<h2>{$lang['usercp_mail_sent']}!</h2>\n";
+    if (isset($_GET["mailsent"])) {
+        $HTMLOUT.= "<h2>{$lang['usercp_mail_sent']}!</h2>\n";
+    }
 } elseif (isset($_GET["emailch"])) {
     $HTMLOUT.= "<h1>{$lang['usercp_emailch']}!</h1>\n";
 }
@@ -136,7 +142,7 @@ $HTMLOUT.= "
 <div class='container-fluid'>
 	<div class='row'>
        <div class='col-md-12'>
-<fieldset><legend>{$lang['usercp_welcome']}<a href='userdetails.php?id=" . (int)$CURUSER['id'] . "'>" . htmlsafechars($CURUSER['username']) . "</a> !</legend>\n
+<fieldset><legend>{$lang['usercp_welcome']}<a href='userdetails.php?id=" . (int) $CURUSER['id'] . "'>" . htmlsafechars($CURUSER['username']) . "</a> !</legend>\n
 </div>
 </div>
 <div class='row'>
@@ -162,11 +168,14 @@ $HTMLOUT.= "
 <div class='row'>
 <div class='col-md-2'>
 		<table class='table table-bordered'>";
-if (!empty($CURUSER['avatar']) && $CURUSER['av_w'] > 5 && $CURUSER['av_h'] > 5) $HTMLOUT.= "
+if (!empty($CURUSER['avatar']) && $CURUSER['av_w'] > 5 && $CURUSER['av_h'] > 5) {
+    $HTMLOUT.= "
 		<tr><td><img class='img-polaroid' src='{$CURUSER['avatar']}' width='{$CURUSER['av_w']}' height='{$CURUSER['av_h']}' alt='' /></td></tr></table></div>";
-else $HTMLOUT.= "<tr><td><img class='img-polaroid' src='{$INSTALLER09['pic_base_url']}forumicons/default_avatar.gif' alt='' /></td></tr>
+} else {
+    $HTMLOUT.= "<tr><td><img class='img-polaroid' src='{$INSTALLER09['pic_base_url']}forumicons/default_avatar.gif' alt='' /></td></tr>
 		</table>
 	</div>";
+}
 
 //== Avatar
 if ($action == "avatar") {
@@ -177,7 +186,7 @@ if ($action == "avatar") {
 	<td><input type='hidden' name='action' value='avatar' />{$lang['usercp_av_opt']}</td>
 	</tr>";
     //==Disable avatar selection
-    if (!($CURUSER["avatarpos"] == 0 OR $CURUSER["avatarpos"] != 1)) {
+    if (!($CURUSER["avatarpos"] == 0 or $CURUSER["avatarpos"] != 1)) {
         $HTMLOUT.= "<tr><td class='rowhead'>{$lang['usercp_avatar']}</td><td><input name='avatar' size='50' value='" . htmlsafechars($CURUSER["avatar"]) . "' /><br />
     <font class='small'>{$lang['usercp_av_mess1']}\n<br />
     {$lang['usercp_av_mess2']} <a href='{$INSTALLER09['baseurl']}/avatar/index.php'>{$lang['usercp_av_mess3']}</a>.<br />
@@ -189,19 +198,18 @@ if ($action == "avatar") {
     }
     //==End
     //=== adding avatar stuff - snuggs :D
-    $HTMLOUT.= tr(''.$lang['usercp_av_viewon'].'', '<input type="radio" name="offensive_avatar" '.($CURUSER['offensive_avatar'] == 'yes' ? 'checked="checked"' : '').' value="yes" />'.$lang['usercp_av_yes1'].'
-     <input type="radio" name="offensive_avatar" '.($CURUSER['offensive_avatar'] == 'no' ? 'checked="checked"' : '').' value="no" />'.$lang['usercp_av_no1'].'', 1);
+    $HTMLOUT.= tr('' . $lang['usercp_av_viewon'] . '', '<input type="radio" name="offensive_avatar" ' . ($CURUSER['offensive_avatar'] == 'yes' ? 'checked="checked"' : '') . ' value="yes" />' . $lang['usercp_av_yes1'] . '
+     <input type="radio" name="offensive_avatar" ' . ($CURUSER['offensive_avatar'] == 'no' ? 'checked="checked"' : '') . ' value="no" />' . $lang['usercp_av_no1'] . '', 1);
     //$HTMLOUT.= tr('Is your avatar offensive', '<input class="styled" type="checkbox" name="offensive_avatar"' . (($CURUSER['opt1'] & user_options::OFFENSIVE_AVATAR) ? ' checked="checked"' : '') . ' value="yes" /> (Enable to hide avatar)', 1);
-    $HTMLOUT.= tr(''.$lang['usercp_av_viewoff'].'', '<input type="radio" name="view_offensive_avatar" '.($CURUSER['view_offensive_avatar'] == 'yes' ? 'checked="checked"' : '').' value="yes" />'.$lang['usercp_av_yes1'].'
-     <input type="radio" name="view_offensive_avatar" '.($CURUSER['view_offensive_avatar'] == 'no' ? 'checked="checked"' : '').' value="no" />'.$lang['usercp_av_no1'].'', 1);
+    $HTMLOUT.= tr('' . $lang['usercp_av_viewoff'] . '', '<input type="radio" name="view_offensive_avatar" ' . ($CURUSER['view_offensive_avatar'] == 'yes' ? 'checked="checked"' : '') . ' value="yes" />' . $lang['usercp_av_yes1'] . '
+     <input type="radio" name="view_offensive_avatar" ' . ($CURUSER['view_offensive_avatar'] == 'no' ? 'checked="checked"' : '') . ' value="no" />' . $lang['usercp_av_no1'] . '', 1);
     //$HTMLOUT.= tr('View offensive avatars', '<input class="styled" type="checkbox" name="view_offensive_avatar"' . (($CURUSER['opt1'] & user_options::VIEW_OFFENSIVE_AVATAR) ? ' checked="checked"' : '') . ' value="yes" /> (Check to disable viewing of offensive avatars)', 1);
-    $HTMLOUT.= tr(''.$lang['usercp_av_viewav'].'', '<input type="radio" name="avatars" '.($CURUSER['avatars'] == 'yes' ? 'checked="checked"' : '').' value="yes" />'.$lang['usercp_av_yes2'].'
-     <input type="radio" name="avatars" '.($CURUSER['avatars'] == 'no' ? 'checked="checked"' : '').' value="no" />'.$lang['usercp_av_no1'].'', 1);
+    $HTMLOUT.= tr('' . $lang['usercp_av_viewav'] . '', '<input type="radio" name="avatars" ' . ($CURUSER['avatars'] == 'yes' ? 'checked="checked"' : '') . ' value="yes" />' . $lang['usercp_av_yes2'] . '
+     <input type="radio" name="avatars" ' . ($CURUSER['avatars'] == 'no' ? 'checked="checked"' : '') . ' value="no" />' . $lang['usercp_av_no1'] . '', 1);
     //$HTMLOUT.= tr('View avatars', '<input class="styled" type="checkbox" name="avatars"' . (($CURUSER['opt1'] & user_options::AVATARS) ? ' checked="checked"' : '') . ' value="yes" /> (Low bandwidth user may want to disable this)', 1);
     $HTMLOUT.= "<tr><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
 
-$HTMLOUT.="</div>";
-
+    $HTMLOUT.="</div>";
 }
 //== Signature
 elseif ($action == "signature") {
@@ -209,14 +217,14 @@ elseif ($action == "signature") {
 	<table class='table table-bordered'>";
     $HTMLOUT.= "<tr><td><input type='hidden' name='action' value='signature' />{$lang['usercp_sign_opt']}</td></tr>";
     //=== signature stuff
-    $HTMLOUT.= tr(''.$lang['usercp_sign_view'].'', '<input type="radio" name="signatures" '.($CURUSER['signatures'] == 'yes' ? 'checked="checked"' : '').' value="yes" />'.$lang['usercp_av_yes1'].'
-     <input type="radio" name="signatures" '.($CURUSER['signatures'] == 'no' ? 'checked="checked"' : '').' value="no" />'.$lang['usercp_av_no1'].'', 1);
+    $HTMLOUT.= tr('' . $lang['usercp_sign_view'] . '', '<input type="radio" name="signatures" ' . ($CURUSER['signatures'] == 'yes' ? 'checked="checked"' : '') . ' value="yes" />' . $lang['usercp_av_yes1'] . '
+     <input type="radio" name="signatures" ' . ($CURUSER['signatures'] == 'no' ? 'checked="checked"' : '') . ' value="no" />' . $lang['usercp_av_no1'] . '', 1);
     //$HTMLOUT.= tr('View Signatures', '<input class="styled" type="checkbox" name="signatures"' . (($CURUSER['opt1'] & user_options::SIGNATURES) ? ' checked="checked"' : '') . ' value="yes" /> (Check to view signatures)', 1);
-    $HTMLOUT.= tr(''.$lang['usercp_sign_tit'].'', '<textarea name="signature" cols="50" rows="4">' . htmlsafechars($CURUSER['signature'], ENT_QUOTES) . '</textarea><br />'.$lang['usercp_sign_BB'].'', 1);
+    $HTMLOUT.= tr('' . $lang['usercp_sign_tit'] . '', '<textarea name="signature" cols="50" rows="4">' . htmlsafechars($CURUSER['signature'], ENT_QUOTES) . '</textarea><br />' . $lang['usercp_sign_BB'] . '', 1);
     $HTMLOUT.= tr($lang['usercp_info'], "<textarea name='info' cols='50' rows='4'>" . htmlsafechars($CURUSER["info"], ENT_QUOTES) . "</textarea><br />{$lang['usercp_tags']}", 1);
     $HTMLOUT.= "<tr ><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
 
-$HTMLOUT.="</div>";
+    $HTMLOUT.="</div>";
 }
 //== Social
 elseif ($action == "social") {
@@ -225,10 +233,10 @@ elseif ($action == "social") {
 	<table class='table table-bordered'>";
     $HTMLOUT.= "<tr><td><input type='hidden' name='action' value='social' />{$lang['usercp_soc_ial']}</td></tr>";
     //=== social stuff
-    $HTMLOUT.= tr(''.$lang['usercp_soc_www'].'', '<img src="pic/social_media/www.gif" alt="www" title="www" width="16px" height="16px" /><input type="text" size="30" name="website"  value="' . htmlsafechars($CURUSER['website']) . '" />', 1);
+    $HTMLOUT.= tr('' . $lang['usercp_soc_www'] . '', '<img src="pic/social_media/www.gif" alt="www" title="www" width="16px" height="16px" /><input type="text" size="30" name="website"  value="' . htmlsafechars($CURUSER['website']) . '" />', 1);
     $HTMLOUT.= "<tr ><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
 
-$HTMLOUT.="</div>";
+    $HTMLOUT.="</div>";
 }
 //== Location
 elseif ($action == "location") {
@@ -250,7 +258,7 @@ elseif ($action == "location") {
 //    <option value='2'" . ($CURUSER['language'] == '2' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc2']}</option>
 //    <option value='3'" . ($CURUSER['language'] == '3' ? " selected='selected'" : "") . ">{$lang['usercp_loc_loc3']}</option>
     $HTMLOUT.= "<tr ><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
-$HTMLOUT.="</div>";
+    $HTMLOUT.="</div>";
 }
 //== links
 elseif ($action == "links") {
@@ -294,18 +302,22 @@ elseif ($action == "security") {
                 <option value='3' " . ($CURUSER['ssluse'] == 3 ? 'selected=\'selected\'' : '') . ">{$lang['usercp_secu_down']}</option>
         </select>
     <br/><small>{$lang['usercp_secu_inf']}</small></fieldset>", 1);
-    if (get_parked() == '1') $HTMLOUT.= tr($lang['usercp_acc_parked'], "<input type='radio' name='parked'".($CURUSER["parked"] == "yes" ? " checked='checked'" : "")." value='yes' />".$lang['usercp_av_yes1']."
-    <input type='radio' name='parked'".($CURUSER["parked"] == "no" ? " checked='checked'" : "")." value='no' />".$lang['usercp_av_no1']."
+    if (get_parked() == '1') {
+        $HTMLOUT.= tr($lang['usercp_acc_parked'], "<input type='radio' name='parked'" . ($CURUSER["parked"] == "yes" ? " checked='checked'" : "") . " value='yes' />" . $lang['usercp_av_yes1'] . "
+    <input type='radio' name='parked'" . ($CURUSER["parked"] == "no" ? " checked='checked'" : "") . " value='no' />" . $lang['usercp_av_no1'] . "
     <br /><font class='small' size='1'>{$lang['usercp_acc_parked_message']}<br />{$lang['usercp_acc_parked_message1']}</font>", 1);
+    }
     /*$HTMLOUT.= tr($lang['usercp_acc_parked'], "<input type='checkbox' name='parked'" . (($CURUSER['opt1'] & user_options::PARKED) ? " checked='checked'" : "") . " value='yes' />
     <br /><font class='small' size='1'>{$lang['usercp_acc_parked_message']}<br />{$lang['usercp_acc_parked_message1']}</font>", 1);*/
-    if (get_anonymous() != '0') $HTMLOUT.= tr($lang['usercp_anonymous'], "<input type='checkbox' name='anonymous'".($CURUSER["anonymous"] == "yes" ? " checked='checked'" : "")." /> {$lang['usercp_default_anonymous']}", 1);
-     $HTMLOUT.= tr("{$lang['usercp_secu_curr']}", "<input type='radio' name='hidecur'".($CURUSER["hidecur"] == "yes" ? " checked='checked'" : "")." value='yes' />".$lang['usercp_av_yes1']."<input type='radio' name='hidecur'".($CURUSER["hidecur"] == "no" ? " checked='checked'" : "")." value='no' />".$lang['usercp_av_no1']."", 1);
+    if (get_anonymous() != '0') {
+        $HTMLOUT.= tr($lang['usercp_anonymous'], "<input type='checkbox' name='anonymous'" . ($CURUSER["anonymous"] == "yes" ? " checked='checked'" : "") . " /> {$lang['usercp_default_anonymous']}", 1);
+    }
+    $HTMLOUT.= tr("{$lang['usercp_secu_curr']}", "<input type='radio' name='hidecur'" . ($CURUSER["hidecur"] == "yes" ? " checked='checked'" : "") . " value='yes' />" . $lang['usercp_av_yes1'] . "<input type='radio' name='hidecur'" . ($CURUSER["hidecur"] == "no" ? " checked='checked'" : "") . " value='no' />" . $lang['usercp_av_no1'] . "", 1);
     /*$HTMLOUT.= tr($lang['usercp_anonymous'], "<input type='checkbox' name='anonymous'" . (($CURUSER['opt1'] & user_options::ANONYMOUS) ? " checked='checked'" : "") . " /> {$lang['usercp_default_anonymous']}", 1);
     $HTMLOUT.= tr("Hide current seed and leech", "<input type='checkbox' name='hidecur'" . (($CURUSER['opt1'] & user_options::HIDECUR) ? " checked='checked'" : "") . " value='yes' />(Hide your snatch lists)", 1);*/
     //=== paranoia level sir_snugglebunny
     if ($CURUSER['class'] > UC_USER) {
-        $HTMLOUT.= tr(''.$lang['usercp_parano_my'].'', "<select name='paranoia'>
+        $HTMLOUT.= tr('' . $lang['usercp_parano_my'] . '', "<select name='paranoia'>
 	  <option value='0'" . ($CURUSER['paranoia'] == 0 ? " selected='selected'" : "") . ">{$lang['usercp_parano_mood1']}</option>
 	  <option value='1'" . ($CURUSER['paranoia'] == 1 ? " selected='selected'" : "") . ">{$lang['usercp_parano_mood2']}</option>
 	  <option value='2'" . ($CURUSER['paranoia'] == 2 ? " selected='selected'" : "") . ">{$lang['usercp_parano_mood3']}</option>
@@ -326,47 +338,47 @@ elseif ($action == "security") {
     $HTMLOUT.= tr($lang['usercp_email'], "<input type='text' name='email' size='50' value='" . htmlsafechars($CURUSER["email"]) . "' /><br />{$lang['usercp_email_pass']}<br /><input type='password' name='chmailpass' size='50' class='keyboardInput' onkeypress='showkwmessage();return false;' />", 1);
     $HTMLOUT.= "<tr><td colspan='2' align='left'>{$lang['usercp_note']}</td></tr>\n";
     //=== email forum stuff
-    $HTMLOUT.= tr($lang['usercp_email_shw'], '<input type="radio" name="show_email" '.($CURUSER['show_email'] == 'yes' ? ' checked="checked"' : '').' value="yes" />'.$lang['usercp_av_yes1'].'
-    <input type="radio" name="show_email" '.($CURUSER['show_email'] == 'no' ? ' checked="checked"' : '').' value="no" />'.$lang['usercp_av_no1'].'<br />
-    '.$lang['usercp_email_visi'].'', 1);
+    $HTMLOUT.= tr($lang['usercp_email_shw'], '<input type="radio" name="show_email" ' . ($CURUSER['show_email'] == 'yes' ? ' checked="checked"' : '') . ' value="yes" />' . $lang['usercp_av_yes1'] . '
+    <input type="radio" name="show_email" ' . ($CURUSER['show_email'] == 'no' ? ' checked="checked"' : '') . ' value="no" />' . $lang['usercp_av_no1'] . '<br />
+    ' . $lang['usercp_email_visi'] . '', 1);
     /*$HTMLOUT.= tr('Show Email', '<input class="styled" type="checkbox" name="show_email"' . (($CURUSER['opt1'] & user_options::SHOW_EMAIL) ? ' checked="checked"' : '') . ' value="yes" /> Yes<br />
-	  Do you wish to have your email address visible on the forums?', 1);*/
+      Do you wish to have your email address visible on the forums?', 1);*/
     $HTMLOUT.= tr($lang['usercp_chpass'], "<input type='password' name='chpassword' size='50' class='keyboardInput' onkeypress='showkwmessage();return false;' />", 1);
     $HTMLOUT.= tr($lang['usercp_pass_again'], "<input type='password' name='passagain' size='50' class='keyboardInput' onkeypress='showkwmessage();return false;' />", 1);
     $secretqs = "<option value='0'>{$lang['usercp_none_select']}</option>\n";
-    $questions = array(
-        array(
+    $questions = [
+        [
             "id" => "1",
             "question" => "{$lang['usercp_q1']}"
-        ) ,
-        array(
+        ] ,
+        [
             "id" => "2",
             "question" => "{$lang['usercp_q2']}"
-        ) ,
-        array(
+        ] ,
+        [
             "id" => "3",
             "question" => "{$lang['usercp_q3']}"
-        ) ,
-        array(
+        ] ,
+        [
             "id" => "4",
             "question" => "{$lang['usercp_q4']}"
-        ) ,
-        array(
+        ] ,
+        [
             "id" => "5",
             "question" => "{$lang['usercp_q5']}"
-        ) ,
-        array(
+        ] ,
+        [
             "id" => "6",
             "question" => "{$lang['usercp_q6']}"
-        )
-    );
+        ]
+    ];
     foreach ($questions as $sctq) {
         $secretqs.= "<option value='" . $sctq['id'] . "'" . ($CURUSER["passhint"] == $sctq['id'] ? " selected='selected'" : "") . ">" . $sctq['question'] . "</option>\n";
     }
     $HTMLOUT.= tr($lang['usercp_question'], "<select name='changeq'>\n$secretqs\n</select>", 1);
     $HTMLOUT.= tr($lang['usercp_sec_answer'], "<input type='text' name='secretanswer' size='40' />", 1);
     $HTMLOUT.= "<tr ><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
-$HTMLOUT.="</div>";
+    $HTMLOUT.="</div>";
 }
 //== Torrents
 elseif ($action == "torrents") {
@@ -404,21 +416,24 @@ elseif ($action == "torrents") {
      </select>", $CURUSER['categorie_icon']);
     $HTMLOUT.= tr($lang['usercp_tor_perpage'], "<input type='text' size='10' name='torrentsperpage' value='{$CURUSER['torrentsperpage']}' /> {$lang['usercp_default']}", 1);
     $HTMLOUT.= "<tr><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
-$HTMLOUT.="</div>";
-
+    $HTMLOUT.="</div>";
 }
 //== Personal
 elseif ($action == "personal") {
     $HTMLOUT.= "<div class='col-md-8'>
 	<table class='table table-bordered'>";
     $HTMLOUT.= "<tr><td><input type='hidden' name='action' value='personal' />{$lang['usercp_pers_opt']}</td></tr>";
-    if ($CURUSER['class'] >= UC_VIP) $HTMLOUT.= tr($lang['usercp_title'], "<input size='50' value='" . htmlsafechars($CURUSER["title"]) . "' name='title' /><br />", 1);
+    if ($CURUSER['class'] >= UC_VIP) {
+        $HTMLOUT.= tr($lang['usercp_title'], "<input size='50' value='" . htmlsafechars($CURUSER["title"]) . "' name='title' /><br />", 1);
+    }
     //==status mod
     $CURUSER['archive'] = unserialize($CURUSER['archive']);
     $HTMLOUT.= "<tr><td class='rowhead'><div style='float:right'>{$lang['usercp_pers_onstat']}</div></td><td><fieldset><legend><strong>{$lang['usercp_pers_upstat']}</strong></legend></fieldset>";
-    if (isset($CURUSER['last_status'])) $HTMLOUT.= "<div id='current_holder'>
+    if (isset($CURUSER['last_status'])) {
+        $HTMLOUT.= "<div id='current_holder'>
     <small style='font-weight:bold;'>{$lang['usercp_pers_custat']}</small>
     <h2 id='current_status' title='{$lang['usercp_pers_edit']}' onclick='status_pedit()'>" . format_urls($CURUSER["last_status"]) . "</h2></div>";
+    }
     $HTMLOUT.= "<small style='font-weight:bold;'>{$lang['usercp_pers_updt']}</small>
     <textarea name='status' id='status' onkeyup='status_count()' cols='50' rows='4'></textarea>
     <div style='width:390px;'>
@@ -431,17 +446,21 @@ elseif ($action == "personal") {
     <div style='float:right;cursor:pointer' id='status_archive_click' onclick='status_slide()'>+</div>
     <div style='clear:both;'></div>
     <div id='status_archive' style='padding-left:15px;display:none;'>";
-        if (is_array($CURUSER['archive'])) foreach (array_reverse($CURUSER['archive'], true) as $a_id => $sa) $HTMLOUT.= '<div id="status_' . $a_id . '">
+        if (is_array($CURUSER['archive'])) {
+            foreach (array_reverse($CURUSER['archive'], true) as $a_id => $sa) {
+                $HTMLOUT.= '<div id="status_' . $a_id . '">
     <div style="float:left">' . htmlsafechars($sa['status']) . '
     <small>added ' . get_date($sa['date'], '', 0, 1) . '</small></div>
     <div style="float:right;cursor:pointer;"><span onclick="status_delete(' . $a_id . ')"></span></div>
     <div style="clear:both;border:1px solid #222;border-width:1px 0 0 0;margin-bottom:3px;"></div></div>';
+            }
+        }
         $HTMLOUT.= "</div></div>";
     }
     $HTMLOUT.= "</td></tr>";
     $HTMLOUT.= tr($lang['usercp_top_perpage'], "<input type='text' size='10' name='topicsperpage' value='$CURUSER[topicsperpage]' /> {$lang['usercp_default']}", 1);
     $HTMLOUT.= tr($lang['usercp_post_perpage'], "<input type='text' size='10' name='postsperpage' value='$CURUSER[postsperpage]' /> {$lang['usercp_default']}", 1);
-    $HTMLOUT.= tr($lang['usercp_pers_list'], "<input type='radio' name='forum_sort' ".($CURUSER["forum_sort"] == "ASC" ? " checked='checked'" : "")." value='ASC' />{$lang['usercp_pers_bot']}<input type='radio' name='forum_sort' ".($CURUSER["forum_sort"] != "ASC" ? " checked='checked'" : "")." value='DESC' />{$lang['usercp_pers_top']}<br />{$lang['usercp_pers_order']}", 1);
+    $HTMLOUT.= tr($lang['usercp_pers_list'], "<input type='radio' name='forum_sort' " . ($CURUSER["forum_sort"] == "ASC" ? " checked='checked'" : "") . " value='ASC' />{$lang['usercp_pers_bot']}<input type='radio' name='forum_sort' " . ($CURUSER["forum_sort"] != "ASC" ? " checked='checked'" : "") . " value='DESC' />{$lang['usercp_pers_top']}<br />{$lang['usercp_pers_order']}", 1);
     $HTMLOUT.= tr($lang['usercp_stylesheet'], "<select name='stylesheet'>\n$stylesheets\n</select>", 1);
     $HTMLOUT.= tr($lang['usercp_gender'], "<input type='radio' name='gender'" . ($CURUSER["gender"] == "Male" ? " checked='checked'" : "") . " value='Male' />{$lang['usercp_male']}
     <input type='radio' name='gender'" . ($CURUSER["gender"] == "Female" ? " checked='checked'" : "") . " value='Female' />{$lang['usercp_female']}
@@ -453,7 +472,7 @@ elseif ($action == "personal") {
     $birthday = $CURUSER["birthday"];
     $birthday = date("Y-m-d", strtotime($birthday));
     list($year1, $month1, $day1) = explode('-', $birthday);
-    if ($CURUSER['birthday'] == '0000-00-00' OR $CURUSER['birthday'] == '1801-01-01') {
+    if ($CURUSER['birthday'] == '0000-00-00' or $CURUSER['birthday'] == '1801-01-01') {
         $year.= "<select name=\"year\"><option value=\"0000\">--</option>\n";
         $i = "1920";
         while ($i <= (date('Y', TIME_NOW) - 13)) {
@@ -461,7 +480,7 @@ elseif ($action == "personal") {
             $i++;
         }
         $year.= "</select>\n";
-        $birthmonths = array(
+        $birthmonths = [
             "01" => "{$lang['usercp_pers_month1']}",
             "02" => "{$lang['usercp_pers_month2']}",
             "03" => "{$lang['usercp_pers_month3']}",
@@ -474,7 +493,7 @@ elseif ($action == "personal") {
             "10" => "{$lang['usercp_pers_month10']}",
             "11" => "{$lang['usercp_pers_month11']}",
             "12" => "{$lang['usercp_pers_month12']}",
-        );
+        ];
         $month = "<select name=\"month\"><option value=\"00\">--</option>\n";
         foreach ($birthmonths as $month_no => $show_month) {
             $month.= "<option value=\"$month_no\">$show_month</option>\n";
@@ -497,26 +516,27 @@ elseif ($action == "personal") {
     $HTMLOUT.= "<tr><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
 } else {
     //== Default Pms
-    if ($action == "default") $HTMLOUT.= "<div class='col-md-8'>
+    if ($action == "default") {
+        $HTMLOUT.= "<div class='col-md-8'>
 	<table class='table table-bordered'>";
+    }
     $HTMLOUT.= "<tr><td><input type='hidden' name='action' value='default' />{$lang['usercp_pm_opt']}</td></tr>";
     $HTMLOUT.= tr($lang['usercp_accept_pm'], "<input type='radio' name='acceptpms'" . ($CURUSER["acceptpms"] == "yes" ? " checked='checked'" : "") . " value='yes' />{$lang['usercp_except_blocks']}
     <input type='radio' name='acceptpms'" . ($CURUSER["acceptpms"] == "friends" ? " checked='checked'" : "") . " value='friends' />{$lang['usercp_only_friends']}
     <input type='radio' name='acceptpms'" . ($CURUSER["acceptpms"] == "no" ? " checked='checked'" : "") . " value='no' />{$lang['usercp_only_staff']}", 1);
-    $HTMLOUT.= tr($lang['usercp_delete_pms'], "<input type='checkbox' name='deletepms'".($CURUSER["deletepms"] == "yes" ? " checked='checked'" : "")." /> {$lang['usercp_default_delete']}", 1);
+    $HTMLOUT.= tr($lang['usercp_delete_pms'], "<input type='checkbox' name='deletepms'" . ($CURUSER["deletepms"] == "yes" ? " checked='checked'" : "") . " /> {$lang['usercp_default_delete']}", 1);
     //$HTMLOUT.= tr($lang['usercp_delete_pms'], "<input type='checkbox' name='deletepms'" . (($CURUSER['opt1'] & user_options::DELETEPMS) ? " checked='checked'" : "") . " /> {$lang['usercp_default_delete']}", 1);
-    $HTMLOUT.= tr($lang['usercp_save_pms'], "<input type='checkbox' name='savepms'".($CURUSER["savepms"] == "yes" ? " checked='checked'" : "")." /> {$lang['usercp_default_save']}", 1);
+    $HTMLOUT.= tr($lang['usercp_save_pms'], "<input type='checkbox' name='savepms'" . ($CURUSER["savepms"] == "yes" ? " checked='checked'" : "") . " /> {$lang['usercp_default_save']}", 1);
     //$HTMLOUT.= tr($lang['usercp_save_pms'], "<input type='checkbox' name='savepms'" . (($CURUSER['opt1'] & user_options::SAVEPMS) ? " checked='checked'" : "") . " /> {$lang['usercp_default_save']}", 1);
-    $HTMLOUT.= tr($lang['usercp_pm_fopm'], "<input type='radio' name='subscription_pm' ".($CURUSER["subscription_pm"] == "yes" ? " checked='checked'" : "")." value='yes' />".$lang['usercp_av_yes1']." <input type='radio' name='subscription_pm' ".($CURUSER["subscription_pm"] == "no" ? " checked='checked'" : "")." value='no' />".$lang['usercp_av_no1']."<br />".$lang['usercp_pm_pm01']."", 1);
+    $HTMLOUT.= tr($lang['usercp_pm_fopm'], "<input type='radio' name='subscription_pm' " . ($CURUSER["subscription_pm"] == "yes" ? " checked='checked'" : "") . " value='yes' />" . $lang['usercp_av_yes1'] . " <input type='radio' name='subscription_pm' " . ($CURUSER["subscription_pm"] == "no" ? " checked='checked'" : "") . " value='no' />" . $lang['usercp_av_no1'] . "<br />" . $lang['usercp_pm_pm01'] . "", 1);
     //$HTMLOUT.= tr("Forum Subscribe Pm", "<input type='checkbox' name='subscription_pm'" . (($CURUSER['opt1'] & user_options::SUBSCRIPTION_PM) ? " checked='checked'" : "") . " value='yes' />(When someone posts in a subscribed thread, you will be PMed)", 1);
-    $HTMLOUT.= tr($lang['usercp_pm_topm'], "<input type='radio' name='pm_on_delete' ".($CURUSER["pm_on_delete"] == "yes" ? " checked='checked'" : "")." value='yes' />".$lang['usercp_av_yes1']." <input type='radio' name='pm_on_delete' ".($CURUSER["pm_on_delete"] == "no" ? " checked='checked'" : "")." value='no' />".$lang['usercp_av_no1']."<br />".$lang['usercp_pm_pm02']."", 1);
+    $HTMLOUT.= tr($lang['usercp_pm_topm'], "<input type='radio' name='pm_on_delete' " . ($CURUSER["pm_on_delete"] == "yes" ? " checked='checked'" : "") . " value='yes' />" . $lang['usercp_av_yes1'] . " <input type='radio' name='pm_on_delete' " . ($CURUSER["pm_on_delete"] == "no" ? " checked='checked'" : "") . " value='no' />" . $lang['usercp_av_no1'] . "<br />" . $lang['usercp_pm_pm02'] . "", 1);
     //$HTMLOUT.= tr("Torrent deletion Pm", "<input type='checkbox' name='pm_on_delete'" . (($CURUSER['opt2'] & user_options_2::PM_ON_DELETE) ? " checked='checked'" : "") . " value='yes' />(When any of your uploaded torrents are deleted, you will be PMed)", 1);
-    $HTMLOUT.= tr($lang['usercp_pm_copm'], "<input type='radio' name='commentpm' ".($CURUSER["commentpm"] == "yes" ? " checked='checked'" : "")." value='yes' />".$lang['usercp_av_yes1']." <input type='radio' name='commentpm' ".($CURUSER["commentpm"] == "no" ? " checked='checked'" : "")." value='no' />".$lang['usercp_av_no1']."<br />".$lang['usercp_pm_pm03']."", 1);
+    $HTMLOUT.= tr($lang['usercp_pm_copm'], "<input type='radio' name='commentpm' " . ($CURUSER["commentpm"] == "yes" ? " checked='checked'" : "") . " value='yes' />" . $lang['usercp_av_yes1'] . " <input type='radio' name='commentpm' " . ($CURUSER["commentpm"] == "no" ? " checked='checked'" : "") . " value='no' />" . $lang['usercp_av_no1'] . "<br />" . $lang['usercp_pm_pm03'] . "", 1);
     //$HTMLOUT.= tr("Torrent comment Pm", "<input type='checkbox' name='commentpm'" . (($CURUSER['opt2'] & user_options_2::COMMENTPM) ? " checked='checked'" : "") . " value='yes' />(When any of your uploaded torrents are commented on, you will be PMed)", 1);
-    $HTMLOUT.= tr($lang['usercp_pm_force'], "<input type='radio' name='pm_forced' ".($CURUSER["pm_forced"] == "yes" ? " checked='checked'" : "")." value='yes' />".$lang['usercp_av_yes1']." <input type='radio' name='pm_forced' ".($CURUSER["pm_forced"] == "no" ? " checked='checked'" : "")." value='no' />".$lang['usercp_av_no1']."<br />".$lang['usercp_pm_pm04']."", 1);
-$HTMLOUT.= "<tr><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
-$HTMLOUT.="</div>";
+    $HTMLOUT.= tr($lang['usercp_pm_force'], "<input type='radio' name='pm_forced' " . ($CURUSER["pm_forced"] == "yes" ? " checked='checked'" : "") . " value='yes' />" . $lang['usercp_av_yes1'] . " <input type='radio' name='pm_forced' " . ($CURUSER["pm_forced"] == "no" ? " checked='checked'" : "") . " value='no' />" . $lang['usercp_av_no1'] . "<br />" . $lang['usercp_pm_pm04'] . "", 1);
+    $HTMLOUT.= "<tr><td align='center' colspan='2'><input class='btn btn-primary' type='submit' value='{$lang['usercp_sign_sub']}' style='height: 40px' /></td></tr>";
+    $HTMLOUT.="</div>";
 }
 $HTMLOUT.= "</table></div></form></div><!--</div>--></fieldset></div></div>";
 echo stdhead(htmlsafechars($CURUSER["username"], ENT_QUOTES) . "{$lang['usercp_stdhead']} ", true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
-?>

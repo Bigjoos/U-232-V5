@@ -37,20 +37,20 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'C++ (QT)',
-    'COMMENT_SINGLE' => array(1 => '//', 2 => '#'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [1 => '//', 2 => '#'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
+    'COMMENT_REGEXP' => [
         //Multiline-continued single-line comments
         1 => '/\/\/(?:\\\\\\\\|\\\\\\n|.)*$/m',
         //Multiline-continued preprocessor define
         2 => '/#(?:\\\\\\\\|\\\\\\n|.)*$/m'
-        ),
+    ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         //Simple Single Char Escapes
         1 => "#\\\\[abfnrtv\\'\"?\n]#i",
         //Hexadecimal Char Specs
@@ -61,17 +61,17 @@ $language_data = array (
         4 => "#\\\\U[\da-fA-F]{8}#",
         //Octal Char Specs
         5 => "#\\\\[0-7]{1,3}#"
-        ),
+    ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC | GESHI_NUMBER_INT_CSTYLE | GESHI_NUMBER_BIN_PREFIX_0B |
         GESHI_NUMBER_OCT_PREFIX | GESHI_NUMBER_HEX_PREFIX | GESHI_NUMBER_FLT_NONSCI |
         GESHI_NUMBER_FLT_NONSCI_F | GESHI_NUMBER_FLT_SCI_SHORT | GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'case', 'continue', 'default', 'do', 'else', 'for', 'goto', 'if', 'return',
             'switch', 'while', 'delete', 'new', 'this'
-            ),
-        2 => array(
+        ],
+        2 => [
             'NULL', 'false', 'break', 'true', 'enum', 'errno', 'EDOM',
             'ERANGE', 'FLT_RADIX', 'FLT_ROUNDS', 'FLT_DIG', 'DBL_DIG', 'LDBL_DIG',
             'FLT_EPSILON', 'DBL_EPSILON', 'LDBL_EPSILON', 'FLT_MANT_DIG', 'DBL_MANT_DIG',
@@ -87,9 +87,9 @@ $language_data = array (
             'virtual', 'public', 'private', 'protected', 'template', 'using', 'namespace',
             'try', 'catch', 'inline', 'dynamic_cast', 'const_cast', 'reinterpret_cast',
             'static_cast', 'explicit', 'friend', 'wchar_t', 'typename', 'typeid', 'class' ,
-            'foreach','connect', 'Q_OBJECT' , 'slots' , 'signals'
-            ),
-        3 => array(
+            'foreach', 'connect', 'Q_OBJECT' , 'slots' , 'signals'
+        ],
+        3 => [
             'cin', 'cerr', 'clog', 'cout',
             'printf', 'fprintf', 'snprintf', 'sprintf', 'assert',
             'isalnum', 'isalpha', 'isdigit', 'iscntrl', 'isgraph', 'islower', 'isprint',
@@ -110,139 +110,139 @@ $language_data = array (
             'strpbrk', 'strstr', 'strlen', 'strerror', 'strtok', 'strxfrm', 'memcpy',
             'memmove', 'memcmp', 'memchr', 'memset', 'clock', 'time', 'difftime', 'mktime',
             'asctime', 'ctime', 'gmtime', 'localtime', 'strftime'
-            ),
-        4 => array(
+        ],
+        4 => [
             'auto', 'bool', 'char', 'const', 'double', 'float', 'int', 'long', 'longint',
             'register', 'short', 'shortint', 'signed', 'static', 'struct',
             'typedef', 'union', 'unsigned', 'void', 'volatile', 'extern', 'jmp_buf',
             'signal', 'raise', 'va_list', 'ptrdiff_t', 'size_t', 'FILE', 'fpos_t',
             'div_t', 'ldiv_t', 'clock_t', 'time_t', 'tm',
-            ),
-        5 => array(
-            'QAbstractButton','QDir','QIntValidator','QRegExpValidator','QTabWidget','QAbstractEventDispatcher',
-            'QDirectPainter','QIODevice','QRegion','QTcpServer','QAbstractExtensionFactory','QDirModel',
-            'QItemDelegate','QResizeEvent','QTcpSocket','QAbstractExtensionManager','QDockWidget',
-            'QItemEditorCreatorBase','QResource','QTemporaryFile','QAbstractFileEngine','QDomAttr',
-            'QItemEditorFactory','QRubberBand','QTestEventList','QAbstractFileEngineHandler','QDomCDATASection',
-            'QItemSelection','QScreen','QTextBlock','QAbstractFormBuilder','QDomCharacterData','QItemSelectionModel',
-            'QScreenCursor','QTextBlockFormat','QAbstractGraphicsShapeItem','QDomComment','QItemSelectionRange',
-            'QScreenDriverFactory','QTextBlockGroup','QAbstractItemDelegate','QDomDocument','QKbdDriverFactory',
-            'QScreenDriverPlugin','QTextBlockUserData','QAbstractItemModel','QDomDocumentFragment','QKbdDriverPlugin',
-            'QScrollArea','QTextBrowser','QAbstractItemView','QDomDocumentType','QKeyEvent','QScrollBar',
-            'QTextCharFormat','QAbstractListModel','QDomElement','QKeySequence','QSemaphore','QTextCodec',
-            'QAbstractPrintDialog','QDomEntity','QLabel','QSessionManager','QTextCodecPlugin','QAbstractProxyModel',
-            'QDomEntityReference','QLatin1Char','QSet','QTextCursor','QAbstractScrollArea','QDomImplementation',
-            'QLatin1String','QSetIterator','QTextDecoder','QAbstractSlider','QDomNamedNodeMap','QLayout','QSettings',
-            'QTextDocument','QAbstractSocket','QDomNode','QLayoutItem','QSharedData','QTextDocumentFragment',
-            'QAbstractSpinBox','QDomNodeList','QLCDNumber','QSharedDataPointer','QTextEdit','QAbstractTableModel',
-            'QDomNotation','QLibrary','QShortcut','QTextEncoder','QAbstractTextDocumentLayout',
-            'QDomProcessingInstruction','QLibraryInfo','QShortcutEvent','QTextFormat','QAccessible','QDomText',
-            'QLine','QShowEvent','QTextFragment','QAccessibleBridge','QDoubleSpinBox','QLinearGradient',
-            'QSignalMapper','QTextFrame','QAccessibleBridgePlugin','QDoubleValidator','QLineEdit','QSignalSpy',
-            'QTextFrameFormat','QAccessibleEvent','QDrag','QLineF','QSize','QTextImageFormat','QAccessibleInterface',
-            'QDragEnterEvent','QLinkedList','QSizeF','QTextInlineObject','QAccessibleObject','QDragLeaveEvent',
-            'QLinkedListIterator','QSizeGrip','QTextLayout','QAccessiblePlugin','QDragMoveEvent','QLinuxFbScreen',
-            'QSizePolicy','QTextLength','QAccessibleWidget','QDropEvent','QList','QSlider','QTextLine','QAction',
-            'QDynamicPropertyChangeEvent','QListIterator','QSocketNotifier','QTextList','QActionEvent','QErrorMessage',
-            'QListView','QSortFilterProxyModel','QTextListFormat','QActionGroup','QEvent','QListWidget','QSound',
-            'QTextObject','QApplication','QEventLoop','QListWidgetItem','QSpacerItem','QTextOption','QAssistantClient',
-            'QExtensionFactory','QLocale','QSpinBox','QTextStream','QAxAggregated','QExtensionManager',
-            'QMacPasteboardMime','QSplashScreen','QTextTable','QAxBase','QFile','QMacStyle','QSplitter',
-            'QTextTableCell','QAxBindable','QFileDialog','QMainWindow','QSplitterHandle','QTextTableFormat',
-            'QAxFactory','QFileIconProvider','QMap','QSqlDatabase','QThread','QAxObject','QFileInfo','QMapIterator',
-            'QSqlDriver','QThreadStorage','QAxScript','QFileOpenEvent','QMatrix','QSqlDriverCreator','QTime',
-            'QAxScriptEngine','QFileSystemWatcher','QMenu','QSqlDriverCreatorBase','QTimeEdit','QAxScriptManager',
-            'QFlag','QMenuBar','QSqlDriverPlugin','QTimeLine','QAxWidget','QFlags','QMessageBox','QSqlError','QTimer',
-            'QBasicTimer','QFocusEvent','QMetaClassInfo','QSqlField','QTimerEvent','QBitArray','QFocusFrame',
-            'QMetaEnum','QSqlIndex','QToolBar','QBitmap','QFont','QMetaMethod','QSqlQuery','QToolBox','QBoxLayout',
-            'QFontComboBox','QMetaObject','QSqlQueryModel','QToolButton','QBrush','QFontDatabase','QMetaProperty',
-            'QSqlRecord','QToolTip','QBuffer','QFontDialog','QMetaType','QSqlRelation','QTransformedScreen',
-            'QButtonGroup','QFontInfo','QMimeData','QSqlRelationalDelegate','QTranslator','QByteArray','QFontMetrics',
-            'QMimeSource','QSqlRelationalTableModel','QTreeView','QByteArrayMatcher','QFontMetricsF','QModelIndex',
-            'QSqlResult','QTreeWidget','QCache','QFormBuilder','QMotifStyle','QSqlTableModel','QTreeWidgetItem',
-            'QCalendarWidget','QFrame','QMouseDriverFactory','QStack','QTreeWidgetItemIterator','QCDEStyle',
-            'QFSFileEngine','QMouseDriverPlugin','QStackedLayout','QUdpSocket','QChar','QFtp','QMouseEvent',
-            'QStackedWidget','QUiLoader','QCheckBox','QGenericArgument','QMoveEvent','QStandardItem','QUndoCommand',
-            'QChildEvent','QGenericReturnArgument','QMovie','QStandardItemEditorCreator','QUndoGroup',
-            'QCleanlooksStyle','QGLColormap','QMultiHash','QStandardItemModel','QUndoStack','QClipboard',
-            'QGLContext','QMultiMap','QStatusBar','QUndoView','QCloseEvent','QGLFormat','QMutableHashIterator',
-            'QStatusTipEvent','QUrl','QColor','QGLFramebufferObject','QMutableLinkedListIterator','QString',
-            'QUrlInfo','QColorDialog','QGLPixelBuffer','QMutableListIterator','QStringList','QUuid','QColormap',
-            'QGLWidget','QMutableMapIterator','QStringListModel','QValidator','QComboBox','QGradient',
-            'QMutableSetIterator','QStringMatcher','QVariant','QCommonStyle','QGraphicsEllipseItem',
-            'QMutableVectorIterator','QStyle','QVarLengthArray','QCompleter','QGraphicsItem','QMutex',
-            'QStyleFactory','QVBoxLayout','QConicalGradient','QGraphicsItemAnimation','QMutexLocker',
-            'QStyleHintReturn','QVector','QContextMenuEvent','QGraphicsItemGroup','QNetworkAddressEntry',
-            'QStyleHintReturnMask','QVectorIterator','QCopChannel','QGraphicsLineItem','QNetworkInterface',
-            'QStyleOption','QVFbScreen','QCoreApplication','QGraphicsPathItem','QNetworkProxy','QStyleOptionButton',
-            'QVNCScreen','QCursor','QGraphicsPixmapItem','QObject','QStyleOptionComboBox','QWaitCondition',
-            'QCustomRasterPaintDevice','QGraphicsPolygonItem','QObjectCleanupHandler','QStyleOptionComplex',
-            'QWhatsThis','QDataStream','QGraphicsRectItem','QPageSetupDialog','QStyleOptionDockWidget',
-            'QWhatsThisClickedEvent','QDataWidgetMapper','QGraphicsScene','QPaintDevice','QStyleOptionFocusRect',
-            'QWheelEvent','QDate','QGraphicsSceneContextMenuEvent','QPaintEngine','QStyleOptionFrame','QWidget',
-            'QDateEdit','QGraphicsSceneEvent','QPaintEngineState','QStyleOptionFrameV2','QWidgetAction','QDateTime',
-            'QGraphicsSceneHoverEvent','QPainter','QStyleOptionGraphicsItem','QWidgetItem','QDateTimeEdit',
-            'QGraphicsSceneMouseEvent','QPainterPath','QStyleOptionGroupBox','QWindowsMime','QDBusAbstractAdaptor',
-            'QGraphicsSceneWheelEvent','QPainterPathStroker','QStyleOptionHeader','QWindowsStyle',
-            'QDBusAbstractInterface','QGraphicsSimpleTextItem','QPaintEvent','QStyleOptionMenuItem',
-            'QWindowStateChangeEvent','QDBusArgument','QGraphicsSvgItem','QPair','QStyleOptionProgressBar',
-            'QWindowsXPStyle','QDBusConnection','QGraphicsTextItem','QPalette','QStyleOptionProgressBarV2',
-            'QWorkspace','QDBusConnectionInterface','QGraphicsView','QPen','QStyleOptionQ3DockWindow','QWriteLocker',
-            'QDBusError','QGridLayout','QPersistentModelIndex','QStyleOptionQ3ListView','QWSCalibratedMouseHandler',
-            'QDBusInterface','QGroupBox','QPicture','QStyleOptionQ3ListViewItem','QWSClient','QDBusMessage','QHash',
-            'QPictureFormatPlugin','QStyleOptionRubberBand','QWSEmbedWidget','QDBusObjectPath','QHashIterator',
-            'QPictureIO','QStyleOptionSizeGrip','QWSEvent','QDBusReply','QHBoxLayout','QPixmap','QStyleOptionSlider',
-            'QWSInputMethod','QDBusServer','QHeaderView','QPixmapCache','QStyleOptionSpinBox','QWSKeyboardHandler',
-            'QDBusSignature','QHelpEvent','QPlastiqueStyle','QStyleOptionTab','QWSMouseHandler','QDBusVariant',
-            'QHideEvent','QPluginLoader','QStyleOptionTabBarBase','QWSPointerCalibrationData','QDecoration',
-            'QHostAddress','QPoint','QStyleOptionTabV2','QWSScreenSaver','QDecorationFactory','QHostInfo','QPointer',
-            'QStyleOptionTabWidgetFrame','QWSServer','QDecorationPlugin','QHoverEvent','QPointF','QStyleOptionTitleBar',
-            'QWSTslibMouseHandler','QDesignerActionEditorInterface','QHttp','QPolygon','QStyleOptionToolBar','QWSWindow',
-            'QDesignerContainerExtension','QHttpHeader','QPolygonF','QStyleOptionToolBox','QWSWindowSurface',
-            'QDesignerCustomWidgetCollectionInterface','QHttpRequestHeader','QPrintDialog','QStyleOptionToolButton',
-            'QX11EmbedContainer','QDesignerCustomWidgetInterface','QHttpResponseHeader','QPrintEngine',
-            'QStyleOptionViewItem','QX11EmbedWidget','QDesignerFormEditorInterface','QIcon','QPrinter',
-            'QStyleOptionViewItemV2','QX11Info','QDesignerFormWindowCursorInterface','QIconDragEvent','QProcess',
-            'QStylePainter','QXmlAttributes','QDesignerFormWindowInterface','QIconEngine','QProgressBar',
-            'QStylePlugin','QXmlContentHandler','QDesignerFormWindowManagerInterface','QIconEnginePlugin',
-            'QProgressDialog','QSvgRenderer','QXmlDeclHandler','QDesignerMemberSheetExtension','QImage',
-            'QProxyModel','QSvgWidget','QXmlDefaultHandler','QDesignerObjectInspectorInterface','QImageIOHandler',
-            'QPushButton','QSyntaxHighlighter','QXmlDTDHandler','QDesignerPropertyEditorInterface','QImageIOPlugin',
-            'QQueue','QSysInfo','QXmlEntityResolver','QDesignerPropertySheetExtension','QImageReader','QRadialGradient',
-            'QSystemLocale','QXmlErrorHandler','QDesignerTaskMenuExtension','QImageWriter','QRadioButton',
-            'QSystemTrayIcon','QXmlInputSource','QDesignerWidgetBoxInterface','QInputContext','QRasterPaintEngine',
-            'QTabBar','QXmlLexicalHandler','QDesktopServices','QInputContextFactory','QReadLocker','QTabletEvent',
-            'QXmlLocator','QDesktopWidget','QInputContextPlugin','QReadWriteLock','QTableView','QXmlNamespaceSupport',
-            'QDial','QInputDialog','QRect','QTableWidget','QXmlParseException','QDialog','QInputEvent','QRectF',
-            'QTableWidgetItem','QXmlReader','QDialogButtonBox','QInputMethodEvent','QRegExp',
-            'QTableWidgetSelectionRange','QXmlSimpleReader'
-            )
-        ),
-    'SYMBOLS' => array(
+        ],
+        5 => [
+            'QAbstractButton', 'QDir', 'QIntValidator', 'QRegExpValidator', 'QTabWidget', 'QAbstractEventDispatcher',
+            'QDirectPainter', 'QIODevice', 'QRegion', 'QTcpServer', 'QAbstractExtensionFactory', 'QDirModel',
+            'QItemDelegate', 'QResizeEvent', 'QTcpSocket', 'QAbstractExtensionManager', 'QDockWidget',
+            'QItemEditorCreatorBase', 'QResource', 'QTemporaryFile', 'QAbstractFileEngine', 'QDomAttr',
+            'QItemEditorFactory', 'QRubberBand', 'QTestEventList', 'QAbstractFileEngineHandler', 'QDomCDATASection',
+            'QItemSelection', 'QScreen', 'QTextBlock', 'QAbstractFormBuilder', 'QDomCharacterData', 'QItemSelectionModel',
+            'QScreenCursor', 'QTextBlockFormat', 'QAbstractGraphicsShapeItem', 'QDomComment', 'QItemSelectionRange',
+            'QScreenDriverFactory', 'QTextBlockGroup', 'QAbstractItemDelegate', 'QDomDocument', 'QKbdDriverFactory',
+            'QScreenDriverPlugin', 'QTextBlockUserData', 'QAbstractItemModel', 'QDomDocumentFragment', 'QKbdDriverPlugin',
+            'QScrollArea', 'QTextBrowser', 'QAbstractItemView', 'QDomDocumentType', 'QKeyEvent', 'QScrollBar',
+            'QTextCharFormat', 'QAbstractListModel', 'QDomElement', 'QKeySequence', 'QSemaphore', 'QTextCodec',
+            'QAbstractPrintDialog', 'QDomEntity', 'QLabel', 'QSessionManager', 'QTextCodecPlugin', 'QAbstractProxyModel',
+            'QDomEntityReference', 'QLatin1Char', 'QSet', 'QTextCursor', 'QAbstractScrollArea', 'QDomImplementation',
+            'QLatin1String', 'QSetIterator', 'QTextDecoder', 'QAbstractSlider', 'QDomNamedNodeMap', 'QLayout', 'QSettings',
+            'QTextDocument', 'QAbstractSocket', 'QDomNode', 'QLayoutItem', 'QSharedData', 'QTextDocumentFragment',
+            'QAbstractSpinBox', 'QDomNodeList', 'QLCDNumber', 'QSharedDataPointer', 'QTextEdit', 'QAbstractTableModel',
+            'QDomNotation', 'QLibrary', 'QShortcut', 'QTextEncoder', 'QAbstractTextDocumentLayout',
+            'QDomProcessingInstruction', 'QLibraryInfo', 'QShortcutEvent', 'QTextFormat', 'QAccessible', 'QDomText',
+            'QLine', 'QShowEvent', 'QTextFragment', 'QAccessibleBridge', 'QDoubleSpinBox', 'QLinearGradient',
+            'QSignalMapper', 'QTextFrame', 'QAccessibleBridgePlugin', 'QDoubleValidator', 'QLineEdit', 'QSignalSpy',
+            'QTextFrameFormat', 'QAccessibleEvent', 'QDrag', 'QLineF', 'QSize', 'QTextImageFormat', 'QAccessibleInterface',
+            'QDragEnterEvent', 'QLinkedList', 'QSizeF', 'QTextInlineObject', 'QAccessibleObject', 'QDragLeaveEvent',
+            'QLinkedListIterator', 'QSizeGrip', 'QTextLayout', 'QAccessiblePlugin', 'QDragMoveEvent', 'QLinuxFbScreen',
+            'QSizePolicy', 'QTextLength', 'QAccessibleWidget', 'QDropEvent', 'QList', 'QSlider', 'QTextLine', 'QAction',
+            'QDynamicPropertyChangeEvent', 'QListIterator', 'QSocketNotifier', 'QTextList', 'QActionEvent', 'QErrorMessage',
+            'QListView', 'QSortFilterProxyModel', 'QTextListFormat', 'QActionGroup', 'QEvent', 'QListWidget', 'QSound',
+            'QTextObject', 'QApplication', 'QEventLoop', 'QListWidgetItem', 'QSpacerItem', 'QTextOption', 'QAssistantClient',
+            'QExtensionFactory', 'QLocale', 'QSpinBox', 'QTextStream', 'QAxAggregated', 'QExtensionManager',
+            'QMacPasteboardMime', 'QSplashScreen', 'QTextTable', 'QAxBase', 'QFile', 'QMacStyle', 'QSplitter',
+            'QTextTableCell', 'QAxBindable', 'QFileDialog', 'QMainWindow', 'QSplitterHandle', 'QTextTableFormat',
+            'QAxFactory', 'QFileIconProvider', 'QMap', 'QSqlDatabase', 'QThread', 'QAxObject', 'QFileInfo', 'QMapIterator',
+            'QSqlDriver', 'QThreadStorage', 'QAxScript', 'QFileOpenEvent', 'QMatrix', 'QSqlDriverCreator', 'QTime',
+            'QAxScriptEngine', 'QFileSystemWatcher', 'QMenu', 'QSqlDriverCreatorBase', 'QTimeEdit', 'QAxScriptManager',
+            'QFlag', 'QMenuBar', 'QSqlDriverPlugin', 'QTimeLine', 'QAxWidget', 'QFlags', 'QMessageBox', 'QSqlError', 'QTimer',
+            'QBasicTimer', 'QFocusEvent', 'QMetaClassInfo', 'QSqlField', 'QTimerEvent', 'QBitArray', 'QFocusFrame',
+            'QMetaEnum', 'QSqlIndex', 'QToolBar', 'QBitmap', 'QFont', 'QMetaMethod', 'QSqlQuery', 'QToolBox', 'QBoxLayout',
+            'QFontComboBox', 'QMetaObject', 'QSqlQueryModel', 'QToolButton', 'QBrush', 'QFontDatabase', 'QMetaProperty',
+            'QSqlRecord', 'QToolTip', 'QBuffer', 'QFontDialog', 'QMetaType', 'QSqlRelation', 'QTransformedScreen',
+            'QButtonGroup', 'QFontInfo', 'QMimeData', 'QSqlRelationalDelegate', 'QTranslator', 'QByteArray', 'QFontMetrics',
+            'QMimeSource', 'QSqlRelationalTableModel', 'QTreeView', 'QByteArrayMatcher', 'QFontMetricsF', 'QModelIndex',
+            'QSqlResult', 'QTreeWidget', 'QCache', 'QFormBuilder', 'QMotifStyle', 'QSqlTableModel', 'QTreeWidgetItem',
+            'QCalendarWidget', 'QFrame', 'QMouseDriverFactory', 'QStack', 'QTreeWidgetItemIterator', 'QCDEStyle',
+            'QFSFileEngine', 'QMouseDriverPlugin', 'QStackedLayout', 'QUdpSocket', 'QChar', 'QFtp', 'QMouseEvent',
+            'QStackedWidget', 'QUiLoader', 'QCheckBox', 'QGenericArgument', 'QMoveEvent', 'QStandardItem', 'QUndoCommand',
+            'QChildEvent', 'QGenericReturnArgument', 'QMovie', 'QStandardItemEditorCreator', 'QUndoGroup',
+            'QCleanlooksStyle', 'QGLColormap', 'QMultiHash', 'QStandardItemModel', 'QUndoStack', 'QClipboard',
+            'QGLContext', 'QMultiMap', 'QStatusBar', 'QUndoView', 'QCloseEvent', 'QGLFormat', 'QMutableHashIterator',
+            'QStatusTipEvent', 'QUrl', 'QColor', 'QGLFramebufferObject', 'QMutableLinkedListIterator', 'QString',
+            'QUrlInfo', 'QColorDialog', 'QGLPixelBuffer', 'QMutableListIterator', 'QStringList', 'QUuid', 'QColormap',
+            'QGLWidget', 'QMutableMapIterator', 'QStringListModel', 'QValidator', 'QComboBox', 'QGradient',
+            'QMutableSetIterator', 'QStringMatcher', 'QVariant', 'QCommonStyle', 'QGraphicsEllipseItem',
+            'QMutableVectorIterator', 'QStyle', 'QVarLengthArray', 'QCompleter', 'QGraphicsItem', 'QMutex',
+            'QStyleFactory', 'QVBoxLayout', 'QConicalGradient', 'QGraphicsItemAnimation', 'QMutexLocker',
+            'QStyleHintReturn', 'QVector', 'QContextMenuEvent', 'QGraphicsItemGroup', 'QNetworkAddressEntry',
+            'QStyleHintReturnMask', 'QVectorIterator', 'QCopChannel', 'QGraphicsLineItem', 'QNetworkInterface',
+            'QStyleOption', 'QVFbScreen', 'QCoreApplication', 'QGraphicsPathItem', 'QNetworkProxy', 'QStyleOptionButton',
+            'QVNCScreen', 'QCursor', 'QGraphicsPixmapItem', 'QObject', 'QStyleOptionComboBox', 'QWaitCondition',
+            'QCustomRasterPaintDevice', 'QGraphicsPolygonItem', 'QObjectCleanupHandler', 'QStyleOptionComplex',
+            'QWhatsThis', 'QDataStream', 'QGraphicsRectItem', 'QPageSetupDialog', 'QStyleOptionDockWidget',
+            'QWhatsThisClickedEvent', 'QDataWidgetMapper', 'QGraphicsScene', 'QPaintDevice', 'QStyleOptionFocusRect',
+            'QWheelEvent', 'QDate', 'QGraphicsSceneContextMenuEvent', 'QPaintEngine', 'QStyleOptionFrame', 'QWidget',
+            'QDateEdit', 'QGraphicsSceneEvent', 'QPaintEngineState', 'QStyleOptionFrameV2', 'QWidgetAction', 'QDateTime',
+            'QGraphicsSceneHoverEvent', 'QPainter', 'QStyleOptionGraphicsItem', 'QWidgetItem', 'QDateTimeEdit',
+            'QGraphicsSceneMouseEvent', 'QPainterPath', 'QStyleOptionGroupBox', 'QWindowsMime', 'QDBusAbstractAdaptor',
+            'QGraphicsSceneWheelEvent', 'QPainterPathStroker', 'QStyleOptionHeader', 'QWindowsStyle',
+            'QDBusAbstractInterface', 'QGraphicsSimpleTextItem', 'QPaintEvent', 'QStyleOptionMenuItem',
+            'QWindowStateChangeEvent', 'QDBusArgument', 'QGraphicsSvgItem', 'QPair', 'QStyleOptionProgressBar',
+            'QWindowsXPStyle', 'QDBusConnection', 'QGraphicsTextItem', 'QPalette', 'QStyleOptionProgressBarV2',
+            'QWorkspace', 'QDBusConnectionInterface', 'QGraphicsView', 'QPen', 'QStyleOptionQ3DockWindow', 'QWriteLocker',
+            'QDBusError', 'QGridLayout', 'QPersistentModelIndex', 'QStyleOptionQ3ListView', 'QWSCalibratedMouseHandler',
+            'QDBusInterface', 'QGroupBox', 'QPicture', 'QStyleOptionQ3ListViewItem', 'QWSClient', 'QDBusMessage', 'QHash',
+            'QPictureFormatPlugin', 'QStyleOptionRubberBand', 'QWSEmbedWidget', 'QDBusObjectPath', 'QHashIterator',
+            'QPictureIO', 'QStyleOptionSizeGrip', 'QWSEvent', 'QDBusReply', 'QHBoxLayout', 'QPixmap', 'QStyleOptionSlider',
+            'QWSInputMethod', 'QDBusServer', 'QHeaderView', 'QPixmapCache', 'QStyleOptionSpinBox', 'QWSKeyboardHandler',
+            'QDBusSignature', 'QHelpEvent', 'QPlastiqueStyle', 'QStyleOptionTab', 'QWSMouseHandler', 'QDBusVariant',
+            'QHideEvent', 'QPluginLoader', 'QStyleOptionTabBarBase', 'QWSPointerCalibrationData', 'QDecoration',
+            'QHostAddress', 'QPoint', 'QStyleOptionTabV2', 'QWSScreenSaver', 'QDecorationFactory', 'QHostInfo', 'QPointer',
+            'QStyleOptionTabWidgetFrame', 'QWSServer', 'QDecorationPlugin', 'QHoverEvent', 'QPointF', 'QStyleOptionTitleBar',
+            'QWSTslibMouseHandler', 'QDesignerActionEditorInterface', 'QHttp', 'QPolygon', 'QStyleOptionToolBar', 'QWSWindow',
+            'QDesignerContainerExtension', 'QHttpHeader', 'QPolygonF', 'QStyleOptionToolBox', 'QWSWindowSurface',
+            'QDesignerCustomWidgetCollectionInterface', 'QHttpRequestHeader', 'QPrintDialog', 'QStyleOptionToolButton',
+            'QX11EmbedContainer', 'QDesignerCustomWidgetInterface', 'QHttpResponseHeader', 'QPrintEngine',
+            'QStyleOptionViewItem', 'QX11EmbedWidget', 'QDesignerFormEditorInterface', 'QIcon', 'QPrinter',
+            'QStyleOptionViewItemV2', 'QX11Info', 'QDesignerFormWindowCursorInterface', 'QIconDragEvent', 'QProcess',
+            'QStylePainter', 'QXmlAttributes', 'QDesignerFormWindowInterface', 'QIconEngine', 'QProgressBar',
+            'QStylePlugin', 'QXmlContentHandler', 'QDesignerFormWindowManagerInterface', 'QIconEnginePlugin',
+            'QProgressDialog', 'QSvgRenderer', 'QXmlDeclHandler', 'QDesignerMemberSheetExtension', 'QImage',
+            'QProxyModel', 'QSvgWidget', 'QXmlDefaultHandler', 'QDesignerObjectInspectorInterface', 'QImageIOHandler',
+            'QPushButton', 'QSyntaxHighlighter', 'QXmlDTDHandler', 'QDesignerPropertyEditorInterface', 'QImageIOPlugin',
+            'QQueue', 'QSysInfo', 'QXmlEntityResolver', 'QDesignerPropertySheetExtension', 'QImageReader', 'QRadialGradient',
+            'QSystemLocale', 'QXmlErrorHandler', 'QDesignerTaskMenuExtension', 'QImageWriter', 'QRadioButton',
+            'QSystemTrayIcon', 'QXmlInputSource', 'QDesignerWidgetBoxInterface', 'QInputContext', 'QRasterPaintEngine',
+            'QTabBar', 'QXmlLexicalHandler', 'QDesktopServices', 'QInputContextFactory', 'QReadLocker', 'QTabletEvent',
+            'QXmlLocator', 'QDesktopWidget', 'QInputContextPlugin', 'QReadWriteLock', 'QTableView', 'QXmlNamespaceSupport',
+            'QDial', 'QInputDialog', 'QRect', 'QTableWidget', 'QXmlParseException', 'QDialog', 'QInputEvent', 'QRectF',
+            'QTableWidgetItem', 'QXmlReader', 'QDialogButtonBox', 'QInputMethodEvent', 'QRegExp',
+            'QTableWidgetSelectionRange', 'QXmlSimpleReader'
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '{', '}', '[', ']', '=', '+', '-', '*', '/', '!', '%', '^', '&', ':', ',', ';', '|', '<', '>'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
         3 => true,
         4 => true,
         5 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight:bold;',
             2 => 'color: #0057AE;',
             3 => 'color: #2B74C7;',
             4 => 'color: #0057AE;',
             5 => 'color: #22aadd;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #888888;',
             2 => 'color: #006E28;',
             'MULTI' => 'color: #888888; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;',
             1 => 'color: #000099; font-weight: bold;',
             2 => 'color: #660099; font-weight: bold;',
@@ -250,14 +250,14 @@ $language_data = array (
             4 => 'color: #660099; font-weight: bold;',
             5 => 'color: #006699; font-weight: bold;',
             'HARD' => '',
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #006E28;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #BF0303;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #B08000;',
             GESHI_NUMBER_BIN_PREFIX_0B => 'color: #208080;',
             GESHI_NUMBER_OCT_PREFIX => 'color: #208080;',
@@ -266,50 +266,48 @@ $language_data = array (
             GESHI_NUMBER_FLT_SCI_ZERO => 'color:#800080;',
             GESHI_NUMBER_FLT_NONSCI_F => 'color:#800080;',
             GESHI_NUMBER_FLT_NONSCI => 'color:#800080;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #2B74C7;',
             2 => 'color: #2B74C7;',
             3 => 'color: #2B74C7;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #006E28;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => '',
         5 => 'http://doc.trolltech.com/latest/{FNAMEL}.html'
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.',
         2 => '::',
         3 => '-&gt;',
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
             'DISALLOWED_BEFORE' => "(?<![a-zA-Z0-9\$_\|\#>|^])",
             'DISALLOWED_AFTER' => "(?![a-zA-Z0-9_<\|%\\-])"
-        ),
-        'OOLANG' => array(
+        ],
+        'OOLANG' => [
             'MATCH_AFTER' => '~?[a-zA-Z][a-zA-Z0-9_]*',
-        )
-    )
-);
-
-?>
+        ]
+    ]
+];

@@ -43,52 +43,52 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'ESCAPE_CHAR' => null,
     'LANG_NAME' => 'MagikSF',
-    'COMMENT_SINGLE' => array(1 => '##', 2 => '#%', 3 => '#'),
-    'COMMENT_MULTI' => array("_pragma(" => ")"),
+    'COMMENT_SINGLE' => [1 => '##', 2 => '#%', 3 => '#'],
+    'COMMENT_MULTI' => ["_pragma(" => ")"],
     //Multiline-continued single-line comments
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             '_block', '_endblock', '_proc', '_endproc', '_loop', '_endloop',
             '_method', '_endmethod',
             '_protect', '_endprotect', '_protection', '_locking',
             '_continue',
-            ),
-        2 => array(
+        ],
+        2 => [
             '_self', '_thisthread', '_pragma', '_private', '_abstract',
             '_local', '_global', '_dynamic', '_package', '_constant',
             '_import', '_iter', '_lock', '_optional', '_recursive', '_super'
-            ),
-        3 => array(
+        ],
+        3 => [
             '_if', '_endif', '_then', '_else', '_elif', '_orif', '_andif', '_for', '_over',
             '_try', '_endtry', '_when', '_throw', '_catch', '_endcatch', '_handling',
             '_finally', '_loopbody', '_return', '_leave', '_with'
-            ),
-        4 => array(
+        ],
+        4 => [
             '_false', '_true', '_maybe', '_unset', '_no_way'
-            ),
-        5 => array(
+        ],
+        5 => [
             '_mod', '_div', '_or', '_and', '_cf', '_is', '_isnt', '_not', '_gather', '_scatter',
             '_allresults', '_clone', '_xor'
-            ),
-        6 => array(
+        ],
+        6 => [
             'def_slotted_exemplar', 'write_string', 'write', 'condition',
             'record_transaction', 'gis_program_manager', 'perform', 'define_shared_constant',
             'property_list', 'rope', 'def_property', 'def_mixin'
-            ),
-        ),
-    'SYMBOLS' => array(
+        ],
+    ],
+    'SYMBOLS' => [
         '(', ')', '{', '}', '[', ']',
         '+', '-', '*', '/', '**',
         '=', '<', '>', '<<', '>>',
         ',', '$',
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -96,98 +96,96 @@ $language_data = array (
         4 => false,
         5 => false,
         6 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight: bold;',
             2 => 'color: #ff3f3f;',
             3 => 'color: #3f7f3f; font-weight: bold;',
             4 => 'color: #cc66cc;',
             5 => 'color: #ff3fff; font-weight: bold;',
             6 => 'font-weight: bold;',
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #339933; font-weight: bold;',
             2 => 'color: #993333;',
             3 => 'color: #339933;',
             'MULTI' => 'color: #7f7f7f; font-style: italic',
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #ff3f3f;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #202020;',
             2 => 'color: #202020;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #ff3f3f;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             1 => 'color: #3f3fff;',
             2 => 'color: #3f3fff;',
             3 => 'color: #cc66cc;',
             4 => 'color: #7f3f7f; font-style: italic;',
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => '',
         5 => '',
         6 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        1 => array(
+    ],
+    'REGEXPS' => [
+        1 => [
             GESHI_SEARCH => '\b[a-zA-Z0-9_]+:', // package identifiers
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        2 => array(
+        ],
+        2 => [
             GESHI_SEARCH => ':(?:[a-zA-Z0-9!?_]+|(?:[<pipe>].*?[<pipe>]))*', //symbols
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        3 => array(
+        ],
+        3 => [
             GESHI_SEARCH => '%space|%tab|%newline|%.', //characters
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        4 => array(
+        ],
+        4 => [
             GESHI_SEARCH => '@(?:[a-zA-Z0-9!?_]+|(?:[<pipe>].*?[<pipe>]))*', //symbols
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        ),
+        ],
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

@@ -34,19 +34,19 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Apt sources',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array(),
+    'QUOTEMARKS' => [],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /*keywords*/
-        1 => array(
+        1 => [
             'deb-src', 'deb'
-            ),
-        2 => array(
+        ],
+        2 => [
             //Generic
             'stable', 'old-stable', 'testing', 'testing-proposed-updates',
             'unstable', 'unstable-proposed-updates', 'experimental',
@@ -66,65 +66,65 @@ $language_data = array (
             'gutsy', 'gutsy-updates', 'gutsy-security', 'gutsy-proposed', 'gutsy-backports',
             'hardy', 'hardy-updates', 'hardy-security', 'hardy-proposed', 'hardy-backports',
             'intrepid', 'intrepid-updates', 'intrepid-security', 'intrepid-proposed', 'intrepid-backports'
-            ),
-        3 => array(
+        ],
+        3 => [
             'main', 'restricted', 'preview', 'contrib', 'non-free',
             'commercial', 'universe', 'multiverse'
-            )
-    ),
-    'REGEXPS' => array(
+        ]
+    ],
+    'REGEXPS' => [
         0 => "(((http|ftp):\/\/|file:\/)[^\s]+)|(cdrom:\[[^\]]*\][^\s]*)",
-        ),
-    'SYMBOLS' => array(
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'SYMBOLS' => [
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => true,
         3 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #00007f;',
             2 => 'color: #b1b100;',
             3 => 'color: #b16000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #adadad; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
-            ),
-        'BRACKETS' => array(
-            ),
-        'STRINGS' => array(
-            ),
-        'NUMBERS' => array(
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
-            ),
-        'REGEXPS' => array(
+        ],
+        'ESCAPE_CHAR' => [
+        ],
+        'BRACKETS' => [
+        ],
+        'STRINGS' => [
+        ],
+        'NUMBERS' => [
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
+        ],
+        'REGEXPS' => [
             0 => 'color: #009900;',
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'ENABLE_FLAGS' => array(
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+    'PARSER_CONTROL' => [
+        'ENABLE_FLAGS' => [
             'NUMBERS' => GESHI_NEVER,
             'METHODS' => GESHI_NEVER,
             'SCRIPT' => GESHI_NEVER,
@@ -132,13 +132,11 @@ $language_data = array (
             'ESCAPE_CHAR' => GESHI_NEVER,
             'BRACKETS' => GESHI_NEVER,
             'STRINGS' => GESHI_NEVER,
-        ),
-        'KEYWORDS' => array(
+        ],
+        'KEYWORDS' => [
             'DISALLOWED_BEFORE' => '(?<![a-zA-Z0-9\$_\|\#;>|^\/])',
             'DISALLOWED_AFTER' => '(?![a-zA-Z0-9_\|%\\-&\.])'
-        )
-    ),
+        ]
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

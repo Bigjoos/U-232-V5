@@ -38,19 +38,19 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Io',
-    'COMMENT_SINGLE' => array(1 => '//', 2 => '#'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//', 2 => '#'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'and', 'break', 'else', 'elseif', 'exit', 'for', 'foreach', 'if', 'ifFalse', 'ifNil',
             'ifTrue', 'or', 'pass', 'raise', 'return', 'then', 'try', 'wait', 'while', 'yield'
-            ),
-        2 => array(
+        ],
+        2 => [
             'activate', 'activeCoroCount', 'asString', 'block', 'catch', 'clone', 'collectGarbage',
             'compileString', 'continue', 'do', 'doFile', 'doMessage', 'doString', 'forward',
             'getSlot', 'getenv', 'hasSlot', 'isActive', 'isNil', 'isResumable', 'list', 'message',
@@ -59,8 +59,8 @@ $language_data = array (
             'sender', 'setSchedulerSleepSeconds', 'setSlot', 'shallowCopy', 'slotNames', 'super',
             'system', 'thisBlock', 'thisContext', 'thisMessage', 'type', 'uniqueId', 'updateSlot',
             'write'
-            ),
-        3 => array(
+        ],
+        3 => [
             'Array', 'AudioDevice', 'AudioMixer', 'Block', 'Box', 'Buffer', 'CFunction', 'CGI',
             'Color', 'Curses', 'DBM', 'DNSResolver', 'DOConnection', 'DOProxy', 'DOServer',
             'Date', 'Directory', 'Duration', 'DynLib', 'Error', 'Exception', 'FFT', 'File',
@@ -71,68 +71,66 @@ $language_data = array (
             'Regex', 'SGMLTag', 'SQLite', 'Server', 'ShowMessage', 'SleepyCat', 'SleepyCatCursor',
             'Socket', 'SocketManager', 'Sound', 'Soup', 'Store', 'String', 'Tree', 'UDPSender',
             'UDPReceiver', 'URL', 'User', 'Warning', 'WeakLink'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '!', '@', '%', '&', '*', '|', '/', '<', '>'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #b1b100;',
             2 => 'color: #000000; font-weight: bold;',
             3 => 'color: #000066;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             2 => 'color: #808080; font-style: italic;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #006600;',
             2 => 'color: #006600;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
             0 => ''
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

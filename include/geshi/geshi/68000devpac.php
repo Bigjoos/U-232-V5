@@ -37,16 +37,16 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Motorola 68000 - HiSoft Devpac ST 2 Assembler format',
-    'COMMENT_SINGLE' => array(1 => ';'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => ';'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /* Directives. */
-        1 => array(
+        1 => [
             'end', 'include', 'incbin', 'opt', 'even', 'cnop', 'dc.b', 'dc.w',
             'dc.l', 'ds.b', 'ds.w', 'ds.l', 'dcb.b', 'dcb.w', 'dcb.l',
             'fail', 'output', '__g2', 'rept', 'endr', 'list', 'nolist', 'plen',
@@ -56,9 +56,9 @@ $language_data = array (
             'ifd', 'ifnd', 'ifc', 'ifnc', 'elseif', 'iif', 'macro', 'endm', 'mexit',
             'narg', '\@', 'section', 'text', 'data', 'bss', 'xdef', 'xref', 'org',
             'offset', '__lk', 'comment',
-            ),
+        ],
         /* 68000 Opcodes. */
-        2 => array(
+        2 => [
             'abcd',    'add', 'adda', 'addi', 'addq', 'addx',  'and', 'andi',
             'asl',     'asr',  'bcc', 'bchg', 'bclr',  'bcs',  'beq',  'bge',
             'bgt',     'bhi',  'ble',  'bls',  'blt',  'bmi',  'bne',  'bpl',
@@ -66,103 +66,101 @@ $language_data = array (
             'cmp',    'cmpa', 'cmpi', 'cmpm', 'dbcc', 'dbcs', 'dbeq',  'dbf',
             'dbge',   'dbgt', 'dbhi', 'dble', 'dbls', 'dblt', 'dbmi', 'dbne',
             'dbpl',   'dbra',  'dbt', 'dbvc', 'dbvs', 'divs', 'divu',  'eor',
-            'eori',    'exg',  'ext','illegal','jmp',  'jsr',  'lea', 'link',
-            'lsl',     'lsr', 'move','movea','movem','movep','moveq', 'muls',
+            'eori',    'exg',  'ext', 'illegal', 'jmp',  'jsr',  'lea', 'link',
+            'lsl',     'lsr', 'move', 'movea', 'movem', 'movep', 'moveq', 'muls',
             'mulu',   'nbcd',  'neg', 'negx',  'nop',  'not',   'or',  'ori',
             'pea',   'reset',  'rol',  'ror', 'roxl', 'roxr',  'rte',  'rtr',
             'rts',    'sbcd',  'scc',  'scs',  'seq',   'sf',  'sge',  'sgt',
             'shi',     'sle',  'sls',  'slt',  'smi',  'sne',  'spl',   'st',
             'stop',    'sub', 'suba', 'subi', 'subq', 'subx',  'svc',  'svs',
-            'swap',    'tas', 'trap','trapv',  'tst', 'unlk',
-            ),
+            'swap',    'tas', 'trap', 'trapv',  'tst', 'unlk',
+        ],
         /* oprand sizes. */
-        3 => array(
+        3 => [
             'b', 'w', 'l' , 's'
-            ),
+        ],
         /* 68000 Registers. */
-        4 => array(
+        4 => [
             'd0', 'd1', 'd2', 'd3', 'd4', 'd5', 'd6', 'd7',
             'a0', 'a1', 'a2', 'a3', 'a4', 'a5', 'a6', 'a7', 'sp', 'usp', 'ssp',
             'pc', 'ccr', 'sr',
-            ),
-        ),
-    'SYMBOLS' => array(
-//        '[', ']', '(', ')', '{', '}',    // These are already defined by GeSHi as BRACKETS.
+        ],
+    ],
+    'SYMBOLS' => [
+        //        '[', ']', '(', ')', '{', '}',    // These are already defined by GeSHi as BRACKETS.
         '+', '-', '~', '<<', '>>', '&',
         '!', '^', '*', '/', '=', '<', '>',
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #f08; font-weight:bold;',
             2 => 'color: #00f; font-weight:bold;',
             3 => 'color: #00f; font-weight:bold;',
             4 => 'color: #080; font-weight:bold;',
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #999; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #009; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #080;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             GESHI_NUMBER_INT_BASIC          => 'color: #f00;',
             GESHI_NUMBER_HEX_PREFIX_DOLLAR  => 'color: #f00;',
             GESHI_NUMBER_BIN_PREFIX_PERCENT => 'color: #f00;',
             GESHI_NUMBER_OCT_PREFIX_AT      => 'color: #f00;',
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #080;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #933;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => '',
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC |
         GESHI_NUMBER_HEX_PREFIX_DOLLAR |
         GESHI_NUMBER_OCT_PREFIX_AT |
         GESHI_NUMBER_BIN_PREFIX_PERCENT,
-    'REGEXPS' => array(
+    'REGEXPS' => [
         //Labels may end in a colon.
         0 => '(?<=\A\x20|\r|\n|^)[\._a-zA-Z][\._a-zA-Z0-9]*[\:]?[\s]'
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 8,
-    'PARSER_CONTROL' => array(
-        'NUMBERS' => array(
+    'PARSER_CONTROL' => [
+        'NUMBERS' => [
             'PRECHECK_RX' => '/[\da-fA-F\.\$\%\@]/'
-            )
-        )
-);
-
-?>
+        ]
+    ]
+];

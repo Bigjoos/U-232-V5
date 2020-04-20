@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //invite errors
     'invites_error' => "Error",
     'invites_deny' => "Denied",
@@ -55,16 +55,16 @@ $lang = array(
     'invites_sure2' => "\'s account? Click ",
     'invites_sure3' => "HERE",
     'invites_sure4' => " to confirm it or ",
-    'invites_sure5' => " to go back.",    
+    'invites_sure5' => " to go back.",
     'invites_err1' => "Sorry",
     'invites_err2' => "Your account is suspended",
     'invites_invits' => "Invites",
     ///
     'invites_mail_email' => "Email",
-    'invites_mail_send' => "Send Email",    
+    'invites_mail_send' => "Send Email",
     'invites_mail_err' => "This email address is already in use!",
     'invites_send_emailpart1' => "You have been invited to {$INSTALLER09['site_name']} by",
-    'invites_send_emailpart2' => "\n\nThey have specified this address ", 
+    'invites_send_emailpart2' => "\n\nThey have specified this address ",
     'invites_send_emailpart3' => " as your email.\n
 If you do not know this person, please ignore this email.\n
 Please do not reply.
@@ -84,15 +84,15 @@ To confirm your invitation, you have to follow this link and type the invite cod
 {$INSTALLER09['baseurl']}/invite_signup.php
  
 Invite Code: ",
-        'invites_send_emailpart4' => "\n
+    'invites_send_emailpart4' => "\n
 ------------------------------------------------------------
  
 After you do this, your inviter need's to confirm your account. 
 We urge you to read the RULES and FAQ before you start using {$INSTALLER09['site_name']}.",
-        ///
-        'invites_send_email1_ema' => "You have been invited to {$INSTALLER09['site_name']}",
-        'invites_send_email1_bod' => "From: {$INSTALLER09['site_email']}",
-        ///
+    ///
+    'invites_send_email1_ema' => "You have been invited to {$INSTALLER09['site_name']}",
+    'invites_send_email1_bod' => "From: {$INSTALLER09['site_email']}",
+    ///
     'invites_send_email2' => "Hey there :wave:
 Welcome to {$INSTALLER09['site_name']}!\n
 We have made many changes to the site, and we hope you enjoy them!\n 
@@ -105,7 +105,6 @@ Just for kicks, we've started you out with 200.0 Karma Bonus  Points, and a coup
 so, enjoy\n  
 cheers,\n 
 {$INSTALLER09['site_name']} Staff.\n",
-        ///
-        'invites_send_email2_sub' => "Welcome to {$INSTALLER09['site_name']} !"
-);
-?>
+    ///
+    'invites_send_email2_sub' => "Welcome to {$INSTALLER09['site_name']} !"
+];

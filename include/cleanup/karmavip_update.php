@@ -1,20 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $data
  */
 function docleanup($data)
 {
@@ -23,7 +25,7 @@ function docleanup($data)
     ignore_user_abort(1);
     //=== Updated remove karma vip by Bigjoos/pdq - change class number '1' in the users_buffer and $update[class'] to whatever is under your vip class number
     $res = sql_query("SELECT id, modcomment FROM users WHERE vip_added='yes' AND vip_until < " . TIME_NOW . "") or sqlerr(__FILE__, __LINE__);
-    $msgs_buffer = $users_buffer = array();
+    $msgs_buffer = $users_buffer = [];
     if (mysqli_num_rows($res) > 0) {
         $subject = "VIP status expired.";
         $msg = "Your VIP status has timed out and has been auto-removed by the system. Become a VIP again by donating to {$INSTALLER09['site_name']} , or exchanging some Karma Bonus Points. Cheers !\n";
@@ -34,23 +36,23 @@ function docleanup($data)
             $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ',1, \'no\', \'0\' , ' . $modcom . ')';
             $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, array(
+            $mc1->update_row(false, [
                 'class' => 1,
                 'vip_added' => 'no',
                 'vip_until' => 0
-            ));
+            ]);
             $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
             $mc1->begin_transaction('user_stats' . $arr['id']);
-            $mc1->update_row(false, array(
+            $mc1->update_row(false, [
                 'modcomment' => $modcomment
-            ));
+            ]);
             $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
             $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, array(
+            $mc1->update_row(false, [
                 'class' => 1,
                 'vip_added' => 'no',
                 'vip_until' => 0
-            ));
+            ]);
             $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
             $mc1->delete_value('inbox_new_' . $arr['id']);
             $mc1->delete_value('inbox_new_sb_' . $arr['id']);
@@ -63,15 +65,15 @@ function docleanup($data)
         }
         unset($users_buffer, $msgs_buffer, $count);
         status_change($arr['id']); //== For Retros announcement mod
-        
     }
     //==
-    if ($queries > 0) write_log("Karma Vip Clean -------------------- Karma Vip cleanup Complete using $queries queries --------------------");
-    if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
+    if ($queries > 0) {
+        write_log("Karma Vip Clean -------------------- Karma Vip cleanup Complete using $queries queries --------------------");
+    }
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
         $data['clean_desc'] = mysqli_affected_rows($GLOBALS["___mysqli_ston"]) . " items deleted/updated";
     }
     if ($data['clean_log']) {
         cleanup_log($data);
     }
 }
-?>

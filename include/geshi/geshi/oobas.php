@@ -41,95 +41,93 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'OpenOffice.org Basic',
-    'COMMENT_SINGLE' => array(1 => "'"),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => "'"],
+    'COMMENT_MULTI' => [],
     //Single-Line comments using REM keyword
-    'COMMENT_REGEXP' => array(2 => '/\bREM.*?$/i'),
+    'COMMENT_REGEXP' => [2 => '/\bREM.*?$/i'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
-            'dim','private','public','global','as','if','redim','true','set','byval',
-            'false','bool','double','integer','long','object','single','variant',
-            'msgbox','print','inputbox','green','blue','red','qbcolor',
-            'rgb','open','close','reset','freefile','get','input','line',
-            'put','write','loc','seek','eof','lof','chdir','chdrive',
-            'curdir','dir','fileattr','filecopy','filedatetime','fileexists',
-            'filelen','getattr','kill','mkdir','name','rmdir','setattr',
-            'dateserial','datevalue','day','month','weekday','year','cdatetoiso',
-            'cdatefromiso','hour','minute','second','timeserial','timevalue',
-            'date','now','time','timer','erl','err','error','on','goto','resume',
-            'and','eqv','imp','not','or','xor','mod','atn','cos','sin','tan','log',
-            'exp','rnd','randomize','sqr','fix','int','abs','sgn','hex','oct',
-            'it','then','else','select','case','iif','do','loop','for','next','to',
-            'while','wend','gosub','return','call','choose','declare',
-            'end','exit','freelibrary','function','rem','stop','sub','switch','with',
-            'cbool','cdate','cdbl','cint','clng','const','csng','cstr','defbool',
-            'defdate','defdbl','defint','deflng','asc','chr','str','val','cbyte',
-            'space','string','format','lcase','left','lset','ltrim','mid','right',
-            'rset','rtrim','trim','ucase','split','join','converttourl','convertfromurl',
-            'instr','len','strcomp','beep','shell','wait','getsystemticks','environ',
-            'getsolarversion','getguitype','twipsperpixelx','twipsperpixely',
-            'createunostruct','createunoservice','getprocessservicemanager',
-            'createunodialog','createunolistener','createunovalue','thiscomponent',
+    'KEYWORDS' => [
+        1 => [
+            'dim', 'private', 'public', 'global', 'as', 'if', 'redim', 'true', 'set', 'byval',
+            'false', 'bool', 'double', 'integer', 'long', 'object', 'single', 'variant',
+            'msgbox', 'print', 'inputbox', 'green', 'blue', 'red', 'qbcolor',
+            'rgb', 'open', 'close', 'reset', 'freefile', 'get', 'input', 'line',
+            'put', 'write', 'loc', 'seek', 'eof', 'lof', 'chdir', 'chdrive',
+            'curdir', 'dir', 'fileattr', 'filecopy', 'filedatetime', 'fileexists',
+            'filelen', 'getattr', 'kill', 'mkdir', 'name', 'rmdir', 'setattr',
+            'dateserial', 'datevalue', 'day', 'month', 'weekday', 'year', 'cdatetoiso',
+            'cdatefromiso', 'hour', 'minute', 'second', 'timeserial', 'timevalue',
+            'date', 'now', 'time', 'timer', 'erl', 'err', 'error', 'on', 'goto', 'resume',
+            'and', 'eqv', 'imp', 'not', 'or', 'xor', 'mod', 'atn', 'cos', 'sin', 'tan', 'log',
+            'exp', 'rnd', 'randomize', 'sqr', 'fix', 'int', 'abs', 'sgn', 'hex', 'oct',
+            'it', 'then', 'else', 'select', 'case', 'iif', 'do', 'loop', 'for', 'next', 'to',
+            'while', 'wend', 'gosub', 'return', 'call', 'choose', 'declare',
+            'end', 'exit', 'freelibrary', 'function', 'rem', 'stop', 'sub', 'switch', 'with',
+            'cbool', 'cdate', 'cdbl', 'cint', 'clng', 'const', 'csng', 'cstr', 'defbool',
+            'defdate', 'defdbl', 'defint', 'deflng', 'asc', 'chr', 'str', 'val', 'cbyte',
+            'space', 'string', 'format', 'lcase', 'left', 'lset', 'ltrim', 'mid', 'right',
+            'rset', 'rtrim', 'trim', 'ucase', 'split', 'join', 'converttourl', 'convertfromurl',
+            'instr', 'len', 'strcomp', 'beep', 'shell', 'wait', 'getsystemticks', 'environ',
+            'getsolarversion', 'getguitype', 'twipsperpixelx', 'twipsperpixely',
+            'createunostruct', 'createunoservice', 'getprocessservicemanager',
+            'createunodialog', 'createunolistener', 'createunovalue', 'thiscomponent',
             'globalscope'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '='
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #b1b100;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080;',
             2 => 'color: #808080;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #006600;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

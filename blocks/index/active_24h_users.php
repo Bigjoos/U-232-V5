@@ -1,25 +1,25 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //== Last24 start - pdq
 $keys['last24'] = 'last24';
 if (($last24_cache = $mc1->get_value($keys['last24'])) === false) {
-    $last24_cache = array();
+    $last24_cache = [];
     $time24 = $_SERVER['REQUEST_TIME'] - 86400;
     $activeusers24 = '';
     $arr = mysqli_fetch_assoc(sql_query('SELECT * FROM avps WHERE arg = "last24"'));
@@ -34,7 +34,9 @@ if (($last24_cache = $mc1->get_value($keys['last24'])) === false) {
         sql_query('UPDATE avps SET value_s = 0, ' . 'value_i = ' . sqlesc($last24) . ', ' . 'value_u = ' . sqlesc($period) . ' ' . 'WHERE arg = "last24"') or sqlerr(__FILE__, __LINE__);
     }
     while ($arr = mysqli_fetch_assoc($res)) {
-        if ($activeusers24) $activeusers24.= ",\n";
+        if ($activeusers24) {
+            $activeusers24.= ",\n";
+        }
         $activeusers24.= '<b>' . format_username($arr) . '</b>';
     }
     $last24_cache['activeusers24'] = $activeusers24;
@@ -44,9 +46,14 @@ if (($last24_cache = $mc1->get_value($keys['last24'])) === false) {
     $last24_cache['ss24'] = $_ss24;
     $mc1->cache_value($keys['last24'], $last24_cache, $INSTALLER09['expires']['last24']);
 }
-if (!$last24_cache['activeusers24']) $last24_cache['activeusers24'] = $lang['index_last24_nousers'];
-if ($last24_cache['totalonline24'] != 1) $last24_cache['ss24'] = $lang['gl_members'];
-		else $last24_cache['ss24'] = $lang['gl_member'];
+if (!$last24_cache['activeusers24']) {
+    $last24_cache['activeusers24'] = $lang['index_last24_nousers'];
+}
+if ($last24_cache['totalonline24'] != 1) {
+    $last24_cache['ss24'] = $lang['gl_members'];
+} else {
+    $last24_cache['ss24'] = $lang['gl_member'];
+}
 $last_24 = '<div class="panel panel-default">
 	<div class="panel-heading">
 		<label for="checkbox_4" class="text-left">' . $lang['index_active24'] . '&nbsp;&nbsp;<span class="badge btn btn-success disabled" style="color:#fff">' . $last24_cache['totalonline24'] . '</span>&nbsp;&nbsp;' . $lang['index_last24_list'] . '</label>

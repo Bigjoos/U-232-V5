@@ -1,42 +1,44 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /* new offer system based on the new request system I just coded for BTDev 2010ish nov. 24 2010 - snuggs */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
 require_once INCL_DIR . 'user_functions.php';
 dbconn(false);
 loggedinorreturn();
 $lang = array_merge(load_language('global'));
-$stdhead = array(
+$stdhead = [
     /** include css **/
-    'css' => array(
-    )
-);
-$stdfoot = array(
+    'css' => [
+    ]
+];
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'jquery.validate.min',
         'check_selected',
         'shout'
-    )
-);
+    ]
+];
 $HTMLOUT = $count2 = '';
-if ($CURUSER['class'] < UC_POWER_USER) stderr('Error!', 'Sorry, power user and up only!');
+if ($CURUSER['class'] < UC_POWER_USER) {
+    stderr('Error!', 'Sorry, power user and up only!');
+}
 //=== possible stuff to be $_GETting lol
 $id = (isset($_GET['id']) ? intval($_GET['id']) : (isset($_POST['id']) ? intval($_POST['id']) : 0));
 $comment_id = (isset($_GET['comment_id']) ? intval($_GET['comment_id']) : (isset($_POST['comment_id']) ? intval($_POST['comment_id']) : 0));
@@ -45,7 +47,7 @@ $offered_by_id = isset($_GET['offered_by_id']) ? intval($_GET['offered_by_id']) 
 $vote = isset($_POST['vote']) ? intval($_POST['vote']) : 0;
 $posted_action = strip_tags((isset($_GET['action']) ? $_GET['action'] : (isset($_POST['action']) ? $_POST['action'] : '')));
 //=== add all possible actions here and check them to be sure they are ok
-$valid_actions = array(
+$valid_actions = [
     'add_new_offer',
     'delete_offer',
     'edit_offer',
@@ -55,7 +57,7 @@ $valid_actions = array(
     'edit_comment',
     'delete_comment',
     'alter_status'
-);
+];
 //=== check posted action, and if no action was posted, show the default page
 $action = (in_array($posted_action, $valid_actions) ? $posted_action : 'default');
 //=== top menu :D
@@ -66,7 +68,9 @@ case 'vote':
     //==================================    let them vote on it!    ==========================================//
     //===========================================================================================//
     //=== kill if nasty
-    if (!isset($id) || !is_valid_id($id) || !isset($vote) || !is_valid_id($vote)) stderr('USER ERROR', 'Bad id / bad vote');
+    if (!isset($id) || !is_valid_id($id) || !isset($vote) || !is_valid_id($vote)) {
+        stderr('USER ERROR', 'Bad id / bad vote');
+    }
     //=== see if they voted yet
     $res_did_they_vote = sql_query('SELECT vote FROM offer_votes WHERE user_id = ' . sqlesc($CURUSER['id']) . ' AND offer_id = ' . sqlesc($id));
     $row_did_they_vote = mysqli_fetch_row($res_did_they_vote);
@@ -76,7 +80,9 @@ case 'vote':
         sql_query('UPDATE offers SET ' . ($yes_or_no == 'yes' ? 'vote_yes_count = vote_yes_count + 1' : 'vote_no_count = vote_no_count + 1') . ' WHERE id = ' . sqlesc($id));
         header('Location: /offers.php?action=offer_details&voted=1&id=' . $id);
         die();
-    } else stderr('USER ERROR', 'You have voted on this offer before.');
+    } else {
+        stderr('USER ERROR', 'You have voted on this offer before.');
+    }
     break;
 
 case 'default':
@@ -89,8 +95,8 @@ case 'default':
     $count_query = sql_query('SELECT COUNT(id) FROM offers');
     $count_arr = mysqli_fetch_row($count_query);
     $count = $count_arr[0];
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 0;
-    $perpage = isset($_GET['perpage']) ? (int)$_GET['perpage'] : 20;
+    $page = isset($_GET['page']) ? (int) $_GET['page'] : 0;
+    $perpage = isset($_GET['perpage']) ? (int) $_GET['perpage'] : 20;
     list($menu, $LIMIT) = pager_new($count, $perpage, $page, 'offers.php?' . ($perpage == 20 ? '' : '&amp;perpage=' . $perpage));
     $main_query_res = sql_query('SELECT o.id AS offer_id, o.offer_name, o.category, o.added, o.offered_by_user_id, o.vote_yes_count, o.vote_no_count, o.comments, o.status,
                                                     u.id, u.username, u.warned, u.suspended, u.enabled, u.donor, u.class, u.leechwarn, u.chatpost, u.pirate, u.king,
@@ -99,7 +105,9 @@ case 'default':
                                                     LEFT JOIN categories AS c ON o.category = c.id
                                                     LEFT JOIN users AS u ON o.offered_by_user_id = u.id
                                                     ORDER BY o.added DESC ' . $LIMIT);
-    if ($count = 0) stderr('Error!', 'Sorry, there are no current offers!');
+    if ($count = 0) {
+        stderr('Error!', 'Sorry, there are no current offers!');
+    }
     $HTMLOUT.= (isset($_GET['new']) ? '<h1>Offer Added!</h1>' : '') . (isset($_GET['offer_deleted']) ? '<h1>Offer Deleted!</h1>' : '') . $top_menu . '' . $menu . '<br />';
     $HTMLOUT.= '<table class="table table-hover table-bordered">
        <tr>
@@ -135,12 +143,14 @@ case 'default':
     //===========================================================================================//
     //==============================the details page for the offer! ========================================//
     //===========================================================================================//
-    
+
 case 'offer_details':
     require_once INCL_DIR . 'bbcode_functions.php';
     require_once INCL_DIR . 'pager_new.php';
     //=== kill if nasty
-    if (!isset($id) || !is_valid_id($id)) stderr('USER ERROR', 'Bad id');
+    if (!isset($id) || !is_valid_id($id)) {
+        stderr('USER ERROR', 'Bad id');
+    }
     $res = sql_query('SELECT o.id AS offer_id, o.offer_name, o.category, o.added, o.offered_by_user_id, o.vote_yes_count, o.status,
                             o.vote_no_count, o.image, o.link, o.description, o.comments,
                             u.id, u.username, u.warned, u.suspended, u.enabled, u.donor, u.class, u.uploaded, u.downloaded, u.leechwarn, u.chatpost, u.pirate, u.king,
@@ -225,30 +235,32 @@ case 'offer_details':
     </table>';
     $HTMLOUT.= '<h1>Comments for ' . htmlsafechars($arr['offer_name'], ENT_QUOTES) . '</h1><p><a name="startcomments"></a></p>';
     $commentbar = '<p align="center"><a class="index" href="offers.php?action=add_comment&amp;id=' . $id . '">Add a comment</a></p>';
-    $count = (int)$arr['comments'];
+    $count = (int) $arr['comments'];
     if (!$count) {
         $HTMLOUT.= '<h2>No comments yet</h2>';
     } else {
         //=== get stuff for the pager
-        $page = isset($_GET['page']) ? (int)$_GET['page'] : 0;
-        $perpage = isset($_GET['perpage']) ? (int)$_GET['perpage'] : 20;
+        $page = isset($_GET['page']) ? (int) $_GET['page'] : 0;
+        $perpage = isset($_GET['perpage']) ? (int) $_GET['perpage'] : 20;
         list($menu, $LIMIT) = pager_new($count, $perpage, $page, 'offers.php?action=offer_details&amp;id=' . $id, ($perpage == 20 ? '' : '&amp;perpage=' . $perpage) . '#comments');
         $subres = sql_query('SELECT c.offer, c.id AS comment_id, c.text, c.added, c.editedby, c.editedat, 
                                     u.id, u.username, u.warned, u.suspended, u.enabled, u.donor, u.class, u.avatar, u.offensive_avatar, u.title, u.leechwarn, u.chatpost, u.pirate, u.king FROM comments AS c LEFT JOIN users AS u ON c.user = u.id WHERE c.offer = ' . sqlesc($id) . ' ORDER BY c.id ' . $LIMIT) or sqlerr(__FILE__, __LINE__);
-        $allrows = array();
-        while ($subrow = mysqli_fetch_assoc($subres)) $allrows[] = $subrow;
+        $allrows = [];
+        while ($subrow = mysqli_fetch_assoc($subres)) {
+            $allrows[] = $subrow;
+        }
         $HTMLOUT.= $commentbar . '<a name="comments"></a>';
         $HTMLOUT.= ($count > $perpage) ? '<p>' . $menu . '<br /></p>' : '<br />';
         $HTMLOUT.= comment_table($allrows);
         $HTMLOUT.= ($count > $perpage) ? '<p>' . $menu . '<br /></p>' : '<br />';
     }
     $HTMLOUT.= $commentbar;
-    echo stdhead('Offer details for: ' . htmlsafechars($arr['offer_name'], ENT_QUOTES) , true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
+    echo stdhead('Offer details for: ' . htmlsafechars($arr['offer_name'], ENT_QUOTES), true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
     break;
     //===========================================================================================//
     //====================================    add new offer      ========================================//
     //===========================================================================================//
-    
+
 case 'add_new_offer':
     require_once INCL_DIR . 'bbcode_functions.php';
     $offer_name = strip_tags(isset($_POST['offer_name']) ? trim($_POST['offer_name']) : '');
@@ -259,7 +271,7 @@ case 'add_new_offer':
     $category_drop_down = '<select name="category" class="required"><option class="body" value="">Select Offer Category</option>';
     $cats = genrelist();
     foreach ($cats as $row) {
-        $category_drop_down.= '<option class="body" value="' . (int)$row['id'] . '"' . ($category == $row['id'] ? ' selected="selected"' : '') . '>' . htmlsafechars($row['name'], ENT_QUOTES) . '</option>';
+        $category_drop_down.= '<option class="body" value="' . (int) $row['id'] . '"' . ($category == $row['id'] ? ' selected="selected"' : '') . '>' . htmlsafechars($row['name'], ENT_QUOTES) . '</option>';
     }
     $category_drop_down.= '</select>';
     if (isset($_POST['category'])) {
@@ -337,7 +349,7 @@ case 'add_new_offer':
     </tr>
     <tr>
     <td class="two" align="right">description:</td>
-    <td align="left" class="two">'. textbbcode('offers','descr').'</td>
+    <td align="left" class="two">' . textbbcode('offers', 'descr') . '</td>
     </tr>
     <tr>
     <td colspan="2" align="center" class="two">
@@ -359,13 +371,19 @@ case 'add_new_offer':
     //===========================================================================================//
     //====================================      delete  offer      ========================================//
     //===========================================================================================
-    
+
 case 'delete_offer':
-    if (!isset($id) || !is_valid_id($id)) stderr('Error', 'Bad ID.');
+    if (!isset($id) || !is_valid_id($id)) {
+        stderr('Error', 'Bad ID.');
+    }
     $res = sql_query('SELECT offer_name, offered_by_user_id FROM offers WHERE id =' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
-    if (!$arr) stderr('Error', 'Invalid ID.');
-    if ($arr['offered_by_user_id'] !== $CURUSER['id'] && $CURUSER['class'] < UC_STAFF) stderr('Error', 'Permission denied.');
+    if (!$arr) {
+        stderr('Error', 'Invalid ID.');
+    }
+    if ($arr['offered_by_user_id'] !== $CURUSER['id'] && $CURUSER['class'] < UC_STAFF) {
+        stderr('Error', 'Permission denied.');
+    }
     if (!isset($_GET['do_it'])) {
         stderr('Sanity check...', 'are you sure you would like to delete the offer <b>"' . htmlsafechars($arr['offer_name'], ENT_QUOTES) . '"</b>? If so click 
         <a class="altlink" href="offers.php?action=delete_offer&id=' . $id . '&amp;do_it=666" >HERE</a>.');
@@ -381,13 +399,17 @@ case 'delete_offer':
     //===========================================================================================//
     //====================================          edit offer      ========================================//
     //===========================================================================================//
-    
+
 case 'edit_offer':
     require_once INCL_DIR . 'bbcode_functions.php';
-    if (!isset($id) || !is_valid_id($id)) stderr('Error', 'Bad ID.');
+    if (!isset($id) || !is_valid_id($id)) {
+        stderr('Error', 'Bad ID.');
+    }
     $edit_res = sql_query('SELECT offer_name, image, description, category, offered_by_user_id, link FROM offers WHERE id =' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $edit_arr = mysqli_fetch_assoc($edit_res);
-    if ($CURUSER['class'] < UC_STAFF && $CURUSER['id'] !== $edit_arr['offered_by_user_id']) stderr('Error!', 'This is not your offer to edit!');
+    if ($CURUSER['class'] < UC_STAFF && $CURUSER['id'] !== $edit_arr['offered_by_user_id']) {
+        stderr('Error!', 'This is not your offer to edit!');
+    }
     $offer_name = strip_tags(isset($_POST['offer_name']) ? trim($_POST['offer_name']) : $edit_arr['offer_name']);
     $image = strip_tags(isset($_POST['image']) ? trim($_POST['image']) : $edit_arr['image']);
     $body = (isset($_POST['descr']) ? trim($_POST['descr']) : $edit_arr['description']);
@@ -397,7 +419,7 @@ case 'edit_offer':
     $category_drop_down = '<select name="category" class="required"><option class="body" value="">Select Offer Category</option>';
     $cats = genrelist();
     foreach ($cats as $row) {
-        $category_drop_down.= '<option class="body" value="' . (int)$row['id'] . '"' . ($category == $row['id'] ? ' selected="selected"' : '') . '>' . htmlsafechars($row['name'], ENT_QUOTES) . '</option>';
+        $category_drop_down.= '<option class="body" value="' . (int) $row['id'] . '"' . ($category == $row['id'] ? ' selected="selected"' : '') . '>' . htmlsafechars($row['name'], ENT_QUOTES) . '</option>';
     }
     $category_drop_down.= '</select>';
     $cat_res = sql_query('SELECT id AS cat_id, name AS cat_name, image AS cat_image FROM categories WHERE id = ' . sqlesc($category));
@@ -466,7 +488,7 @@ case 'edit_offer':
     </tr>
     <tr>
     <td class="two" align="right">description:</td>
-    <td class="two" align="left">'. textbbcode('offers','descr', $edit_arr['description']).'</td>
+    <td class="two" align="left">' . textbbcode('offers', 'descr', $edit_arr['description']) . '</td>
     </tr>
     <tr>
     <td colspan="2" align="center" class="two">
@@ -488,18 +510,24 @@ case 'edit_offer':
     //===========================================================================================//
     //====================================    add comment          ========================================//
     //===========================================================================================//
-    
+
 case 'add_comment':
     require_once INCL_DIR . 'bbcode_functions.php';
     require_once INCL_DIR . 'pager_new.php';
     //=== kill if nasty
-    if (!isset($id) || !is_valid_id($id)) stderr('USER ERROR', 'Bad id');
+    if (!isset($id) || !is_valid_id($id)) {
+        stderr('USER ERROR', 'Bad id');
+    }
     $res = sql_query('SELECT offer_name FROM offers WHERE id = ' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
-    if (!$arr) stderr('Error', 'No offer with that ID.');
+    if (!$arr) {
+        stderr('Error', 'No offer with that ID.');
+    }
     if (isset($_POST['button']) && $_POST['button'] == 'Save') {
         $body = htmlsafechars(trim($_POST['descr']));
-        if (!$body) stderr('Error', 'Comment body cannot be empty!');
+        if (!$body) {
+            stderr('Error', 'Comment body cannot be empty!');
+        }
         sql_query("INSERT INTO comments (user, offer, added, text, ori_text) VALUES (" . sqlesc($CURUSER['id']) . ", " . sqlesc($id) . ", " . TIME_NOW . ", " . sqlesc($body) . "," . sqlesc($body) . ")");
         $newid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
         sql_query('UPDATE offers SET comments = comments + 1 WHERE id = ' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
@@ -523,7 +551,7 @@ case 'add_comment':
     </tr>
 	 <tr>
     <td align="right" valign="top" class="two"><b>Comment:</b></td>
-    <td align="left" class="two">'. textbbcode('offers','descr').'</td>
+    <td align="left" class="two">' . textbbcode('offers', 'descr') . '</td>
     </tr>
 	 <tr>
     <td align="center" colspan="2" class="two"> 
@@ -532,8 +560,10 @@ case 'add_comment':
     </tr>
 	 </table></form>';
     $res = sql_query('SELECT c.offer, c.id AS comment_id, c.text, c.added, c.editedby, c.editedat, u.id, u.username, u.warned, u.suspended, u.enabled, u.donor, u.class, u.avatar, u.offensive_avatar, u.title, u.leechwarn, u.chatpost, u.pirate, u.king FROM comments AS c LEFT JOIN users AS u ON c.user = u.id WHERE offer = ' . sqlesc($id) . ' ORDER BY c.id DESC LIMIT 5');
-    $allrows = array();
-    while ($row = mysqli_fetch_assoc($res)) $allrows[] = $row;
+    $allrows = [];
+    while ($row = mysqli_fetch_assoc($res)) {
+        $allrows[] = $row;
+    }
     if (count($allrows)) {
         $HTMLOUT.= '<h2>Most recent comments, in reverse order</h2>';
         $HTMLOUT.= comment_table($allrows);
@@ -543,17 +573,25 @@ case 'add_comment':
     //===========================================================================================//
     //==================================    edit comment    =============================================//
     //===========================================================================================//
-    
+
 case 'edit_comment':
     require_once INCL_DIR . 'bbcode_functions.php';
-    if (!isset($comment_id) || !is_valid_id($comment_id)) stderr('Error', 'Bad ID.');
+    if (!isset($comment_id) || !is_valid_id($comment_id)) {
+        stderr('Error', 'Bad ID.');
+    }
     $res = sql_query('SELECT c.*, o.offer_name FROM comments AS c LEFT JOIN offers AS o ON c.offer = o.id WHERE c.id=' . sqlesc($comment_id)) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
-    if (!$arr) stderr('Error', 'Invalid ID.');
-    if ($arr['user'] != $CURUSER['id'] && $CURUSER['class'] < UC_STAFF) stderr('Error', 'Permission denied.');
+    if (!$arr) {
+        stderr('Error', 'Invalid ID.');
+    }
+    if ($arr['user'] != $CURUSER['id'] && $CURUSER['class'] < UC_STAFF) {
+        stderr('Error', 'Permission denied.');
+    }
     $body = htmlsafechars((isset($_POST['descr']) ? $_POST['descr'] : $arr['text']));
     if (isset($_POST['button']) && $_POST['button'] == 'Edit') {
-        if ($body == '') stderr('Error', 'Comment body cannot be empty!');
+        if ($body == '') {
+            stderr('Error', 'Comment body cannot be empty!');
+        }
         sql_query('UPDATE comments SET text=' . sqlesc($body) . ', editedat=' . TIME_NOW . ', editedby=' . sqlesc($CURUSER['id']) . ' WHERE id=' . sqlesc($comment_id)) or sqlerr(__FILE__, __LINE__);
         header('Location: /offers.php?action=offer_details&id=' . $id . '&viewcomm=' . $comment_id . '#comm' . $comment_id);
         die();
@@ -582,7 +620,7 @@ case 'edit_comment':
     </tr>
 	 <tr>
     <td align="right" valign="top" class="two"><b>Comment:</b></td>
-    <td align="left" class="two">'. textbbcode('offers','descr', $arr['text']).'</td>
+    <td align="left" class="two">' . textbbcode('offers', 'descr', $arr['text']) . '</td>
     </tr>
 	 <tr>
     <td align="center" colspan="2" class="two">
@@ -595,16 +633,22 @@ case 'edit_comment':
     //===========================================================================================//
     //==================================    delete comment    =============================================//
     //===========================================================================================//
-    
+
 case 'delete_comment':
-    if (!isset($comment_id) || !is_valid_id($comment_id)) stderr('Error', 'Bad ID.');
+    if (!isset($comment_id) || !is_valid_id($comment_id)) {
+        stderr('Error', 'Bad ID.');
+    }
     $res = sql_query('SELECT user, offer FROM comments WHERE id=' . sqlesc($comment_id)) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
-    if (!$arr) stderr('Error', 'Invalid ID.');
-    if ($arr['user'] != $CURUSER['id'] && $CURUSER['class'] < UC_STAFF) stderr('Error', 'Permission denied.');
+    if (!$arr) {
+        stderr('Error', 'Invalid ID.');
+    }
+    if ($arr['user'] != $CURUSER['id'] && $CURUSER['class'] < UC_STAFF) {
+        stderr('Error', 'Permission denied.');
+    }
     if (!isset($_GET['do_it'])) {
         stderr('Sanity check...', 'are you sure you would like to delete this comment? If so click 
-        <a class="altlink" href="offers.php?action=delete_comment&amp;id=' . (int)$arr['offer'] . '&amp;comment_id=' . $comment_id . '&amp;do_it=666" >HERE</a>.');
+        <a class="altlink" href="offers.php?action=delete_comment&amp;id=' . (int) $arr['offer'] . '&amp;comment_id=' . $comment_id . '&amp;do_it=666" >HERE</a>.');
     } else {
         sql_query('DELETE FROM comments WHERE id=' . sqlesc($comment_id));
         sql_query('UPDATE offers SET comments = comments - 1 WHERE id = ' . sqlesc($arr['offer']));
@@ -615,20 +659,23 @@ case 'delete_comment':
     //===========================================================================================//
     //================================   alter status staff only    ==========================================//
     //===========================================================================================//
-    
+
 case 'alter_status':
-    if ($CURUSER['class'] < UC_STAFF) stderr('Error', 'Permission denied.');
+    if ($CURUSER['class'] < UC_STAFF) {
+        stderr('Error', 'Permission denied.');
+    }
     $set_status = strip_tags(isset($_POST['set_status']) ? $_POST['set_status'] : '');
     //=== add all possible status' check them to be sure they are ok
-    $ok_stuff = array(
+    $ok_stuff = [
         'approved',
         'pending',
         'denied'
-    );
+    ];
     //=== check it
     $change_it = (in_array($set_status, $ok_stuff) ? $set_status : 'poop');
-    if ($change_it == 'poop') //=== ok, so I had a bit of fun with that *blush
-    stderr('Error', 'Nice try Mr. Fancy Pants!');
+    if ($change_it == 'poop') { //=== ok, so I had a bit of fun with that *blush
+        stderr('Error', 'Nice try Mr. Fancy Pants!');
+    }
     //=== get torrent name :P
     $res_name = sql_query('SELECT offer_name, offered_by_user_id FROM offers WHERE id = ' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $arr_name = mysqli_fetch_assoc($res_name);
@@ -666,14 +713,14 @@ function comment_table($rows)
         if ($row['editedby']) {
             $res_user = sql_query('SELECT username FROM users WHERE id=' . sqlesc($row['editedby'])) or sqlerr(__FILE__, __LINE__);
             $arr_user = mysqli_fetch_assoc($res_user);
-            $text.= '<p><font size="1" class="small">Last edited by <a href="userdetails.php?id=' . (int)$row['editedby'] . '">
+            $text.= '<p><font size="1" class="small">Last edited by <a href="userdetails.php?id=' . (int) $row['editedby'] . '">
         <b>' . htmlsafechars($arr_user['username']) . '</b></a> at ' . get_date($row['editedat'], 'DATE') . '</font></p>';
         }
-        $top_comment_stuff = (int)$row['comment_id'] . ' by ' . (isset($row['username']) ? print_user_stuff($row) . ($row['title'] !== '' ? ' [ ' . htmlsafechars($row['title']) . ' ] ' : ' [ ' . get_user_class_name($row['class']) . ' ]  ') : ' M.I.A. ') . get_date($row['added'], '') . ($row['id'] == $CURUSER['id'] || $CURUSER['class'] >= UC_STAFF ? '
-     - [<a href="offers.php?action=edit_comment&amp;id=' . (int)$row['offer'] . '&amp;comment_id=' . (int)$row['comment_id'] . '">Edit</a>]' : '') . ($CURUSER['class'] >= UC_STAFF ? '
-     - [<a href="offers.php?action=delete_comment&amp;id=' . (int)$row['offer'] . '&amp;comment_id=' . (int)$row['comment_id'] . '">Delete</a>]' : '') . ($row['editedby'] && $CURUSER['class'] >= UC_STAFF ? '
-     - [<a href="comment.php?action=vieworiginal&amp;cid=' . (int)$row['id'] . '">View original</a>]' : '') . ' 
-     - [<a href="report.php?type=Offer_Comment&amp;id_2=' . (int)$row['offer'] . '&amp;id=' . (int)$row['comment_id'] . '">Report</a>]';
+        $top_comment_stuff = (int) $row['comment_id'] . ' by ' . (isset($row['username']) ? print_user_stuff($row) . ($row['title'] !== '' ? ' [ ' . htmlsafechars($row['title']) . ' ] ' : ' [ ' . get_user_class_name($row['class']) . ' ]  ') : ' M.I.A. ') . get_date($row['added'], '') . ($row['id'] == $CURUSER['id'] || $CURUSER['class'] >= UC_STAFF ? '
+     - [<a href="offers.php?action=edit_comment&amp;id=' . (int) $row['offer'] . '&amp;comment_id=' . (int) $row['comment_id'] . '">Edit</a>]' : '') . ($CURUSER['class'] >= UC_STAFF ? '
+     - [<a href="offers.php?action=delete_comment&amp;id=' . (int) $row['offer'] . '&amp;comment_id=' . (int) $row['comment_id'] . '">Delete</a>]' : '') . ($row['editedby'] && $CURUSER['class'] >= UC_STAFF ? '
+     - [<a href="comment.php?action=vieworiginal&amp;cid=' . (int) $row['id'] . '">View original</a>]' : '') . ' 
+     - [<a href="report.php?type=Offer_Comment&amp;id_2=' . (int) $row['offer'] . '&amp;id=' . (int) $row['comment_id'] . '">Report</a>]';
         $comment_table.= '
     <table class="table table-hover table-bordered">
     <tr>
@@ -688,4 +735,3 @@ function comment_table($rows)
     $comment_table.= '</td></tr></table>';
     return $comment_table;
 }
-?>

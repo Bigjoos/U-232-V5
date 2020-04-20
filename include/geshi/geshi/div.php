@@ -38,89 +38,87 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'DIV',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_UPPER,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
-            'while','until','to','switch','step','return','repeat','loop','if','from','frame','for','end','elseif',
-            'else','default','debug','continue','clone','case','break','begin'
-            ),
-        2 => array(
-            'xor','whoami','type','sizeof','pointer','or','offset','not','neg','mod','id','dup','and','_ne','_lt',
-            '_le','_gt','_ge','_eq'
-            ),
-        3 => array(
-            'setup_program','program','process','private','local','import','global','function','const',
+    'KEYWORDS' => [
+        1 => [
+            'while', 'until', 'to', 'switch', 'step', 'return', 'repeat', 'loop', 'if', 'from', 'frame', 'for', 'end', 'elseif',
+            'else', 'default', 'debug', 'continue', 'clone', 'case', 'break', 'begin'
+        ],
+        2 => [
+            'xor', 'whoami', 'type', 'sizeof', 'pointer', 'or', 'offset', 'not', 'neg', 'mod', 'id', 'dup', 'and', '_ne', '_lt',
+            '_le', '_gt', '_ge', '_eq'
+        ],
+        3 => [
+            'setup_program', 'program', 'process', 'private', 'local', 'import', 'global', 'function', 'const',
             'compiler_options'
-            ),
-        4 => array(
-            'word','struct','string','int','byte'
-            ),
-        ),
-    'SYMBOLS' => array(
-        '(',')','[',']','=','+','-','*','/','!','%','^','&',':',';',',','<','>'
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+        4 => [
+            'word', 'struct', 'string', 'int', 'byte'
+        ],
+    ],
+    'SYMBOLS' => [
+        '(', ')', '[', ']', '=', '+', '-', '*', '/', '!', '%', '^', '&', ':', ';', ',', '<', '>'
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0040b1;',
             2 => 'color: #000000;',
             3 => 'color: #000066; font-weight: bold;',
             4 => 'color: #993333;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #44aa44;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #202020;',
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #44aa44;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

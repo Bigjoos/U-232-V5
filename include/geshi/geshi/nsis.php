@@ -47,21 +47,21 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'NSIS',
-    'COMMENT_SINGLE' => array(1 => ';', 2 => '#'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => ';', 2 => '#'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'",'"','`'),
+    'QUOTEMARKS' => ["'", '"', '`'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             '!appendfile', '!addIncludeDir', '!addplugindir', '!cd', '!define', '!delfile', '!echo', '!else',
             '!endif', '!error', '!execute', '!ifdef', '!ifmacrodef', '!ifmacrondef', '!ifndef', '!include',
             '!insertmacro', '!macro', '!macroend', '!packhdr', '!tempfile', '!system', '!undef', '!verbose',
             '!warning'
-            ),
-        2 => array(
+        ],
+        2 => [
             'AddBrandingImage', 'AllowRootDirInstall', 'AutoCloseWindow', 'BGFont',
             'BGGradient', 'BrandingText', 'Caption', 'ChangeUI', 'CheckBitmap', 'CompletedText', 'ComponentText',
             'CRCCheck', 'DetailsButtonText', 'DirShow', 'DirText', 'DirVar', 'DirVerify', 'FileErrorText',
@@ -73,14 +73,14 @@ $language_data = array (
             'ShowUninstDetails', 'SilentInstall', 'SilentUnInstall', 'SpaceTexts', 'SubCaption', 'SubSection',
             'SubSectionEnd', 'UninstallButtonText', 'UninstallCaption', 'UninstallIcon', 'UninstallSubCaption',
             'UninstallText', 'UninstPage', 'Var', 'VIAddVersionKey', 'VIProductVersion', 'WindowIcon', 'XPStyle'
-            ),
-        3 => array(
+        ],
+        3 => [
             'AddSize', 'AllowSkipFiles', 'FileBufSize', 'GetInstDirError', 'PageCallbacks',
             'SectionIn', 'SetCompress', 'SetCompressionLevel', 'SetCompressorDictSize',
             'SetDatablockOptimize', 'SetDateSave', 'SetOverwrite', 'SetPluginUnload'
-            ),
-        4 => array(
-            'Abort', 'BringToFront', 'Call', 'CallInstDLL', 'ClearErrors', 'CopyFiles','CreateDirectory',
+        ],
+        4 => [
+            'Abort', 'BringToFront', 'Call', 'CallInstDLL', 'ClearErrors', 'CopyFiles', 'CreateDirectory',
             'CreateFont', 'CreateShortCut', 'Delete', 'DeleteINISec', 'DeleteINIStr', 'DeleteRegKey',
             'DeleteRegValue', 'DetailPrint', 'EnableWindow', 'EnumRegKey', 'EnumRegValue', 'Exch', 'Exec',
             'ExecShell', 'ExecWait', 'ExpandEnvStrings', 'File', 'FileClose', 'FileOpen', 'FileRead',
@@ -98,8 +98,8 @@ $language_data = array (
             'SetOutPath', 'SetRebootFlag', 'SetShellVarContext', 'SetSilent', 'ShowWindow', 'Sleep', 'StrCmp',
             'StrCpy', 'StrLen', 'UnRegDLL', 'WriteINIStr', 'WriteRegBin', 'WriteRegDWORD', 'WriteRegExpandStr',
             'WriteRegStr', 'WriteUninstaller'
-            ),
-        5 => array(
+        ],
+        5 => [
             'all', 'alwaysoff', 'ARCHIVE', 'auto', 'both', 'bzip2', 'checkbox', 'components', 'current',
             'custom', 'directory', 'false', 'FILE_ATTRIBUTE_ARCHIVE', 'FILE_ATTRIBUTE_HIDDEN', 'FILE_ATTRIBUTE_NORMAL',
             'FILE_ATTRIBUTE_OFFLINE', 'FILE_ATTRIBUTE_READONLY', 'FILE_ATTRIBUTE_SYSTEM,TEMPORARY',
@@ -113,19 +113,19 @@ $language_data = array (
             'none', 'normal', 'off', 'OFFLINE', 'on', 'radiobuttons', 'READONLY', 'RO', 'SHCTX', 'SHELL_CONTEXT', 'show',
             'silent', 'silentlog', 'SW_HIDE', 'SW_SHOWMAXIMIZED', 'SW_SHOWMINIMIZED', 'SW_SHOWNORMAL', 'SYSTEM',
             'textonly', 'true', 'try', 'uninstConfirm', 'zlib'
-            ),
-        6 => array(
+        ],
+        6 => [
             '/a', '/components', '/COMPONENTSONLYONCUSTOM', '/CUSTOMSTRING', '/e', '/FILESONLY', '/FINAL', '/gray', '/GLOBAL',
             '/ifempty', '/IMGID', '/ITALIC', '/lang', '/NOCUSTOM', '/nonfatal', '/NOUNLOAD', '/oname', '/r', '/REBOOTOK',
             '/RESIZETOFIT', '/SOLID', '/SD', '/SHORT', '/silent', '/STRIKE', '/TIMEOUT', '/TRIMCENTER', '/TRIMLEFT',
             '/TRIMRIGHT', '/UNDERLINE', '/windows', '/x'
-            ),
-        7 => array(
+        ],
+        7 => [
             '.onGUIEnd', '.onGUIInit', '.onInit', '.onInstFailed', '.onInstSuccess', '.onMouseOverSection',
             '.onRebootFailed', '.onSelChange', '.onUserAbort', '.onVerifyInstDir', 'un.onGUIEnd', 'un.onGUIInit',
             'un.onInit', 'un.onRebootFailed', 'un.onUninstFailed', 'un.onUninstSuccess', 'un.onUserAbort'
-            ),
-        8 => array(
+        ],
+        8 => [
             'MUI.nsh', '"${NSISDIR}\Contrib\Modern UI\System.nsh"', 'MUI_SYSVERSION', 'MUI_ICON', 'MUI_UNICON',
             'MUI_HEADERIMAGE', 'MUI_HEADERIMAGE_BITMAP', 'MUI_HEADERIMAGE_BITMAP_NOSTRETCH', 'MUI_HEADERIMAGE_BITMAP_RTL',
             'MUI_HEADERIMAGE_BITMAP_RTL_NOSTRETCH', 'MUI_HEADERIMAGE_UNBITMAP', 'MUI_HEADERIMAGE_UNBITMAP_NOSTRETCH',
@@ -174,8 +174,8 @@ $language_data = array (
             'MUI_CUSTOMFUNCTION_ABORT', 'MUI_CUSTOMFUNCTION_UNABORT',
             'MUI_PAGE_CUSTOMFUNCTION_PRE', 'MUI_PAGE_CUSTOMFUNCTION_SHOW', 'MUI_PAGE_CUSTOMFUNCTION_LEAVE',
             'MUI_WELCOMEFINISHPAGE_CUSTOMFUNCTION_INIT'
-            ),
-        9 => array(
+        ],
+        9 => [
             'LogicLib.nsh', '${LOGICLIB}', 'LOGICLIB_STRCMP', 'LOGICLIB_INT64CMP', 'LOGICLIB_SECTIONCMP', '${If}', '${Unless}',
             '${ElseIf}', '${ElseUnless}', '${Else}', '${EndIf}', '${EndUnless}', '${AndIf}', '${AndUnless}',
             '${OrIf}', '${OrUnless}', '${IfThen}', '${IfCmd}', '${Select}', '${Case2}', '${Case3}',
@@ -186,15 +186,15 @@ $language_data = array (
             '${FileExists}', '${Cmd}', '${SectionIsSelected}', '${SectionIsSectionGroup}',
             '${SectionIsSectionGroupEnd}', '${SectionIsBold}', '${SectionIsReadOnly}',
             '${SectionIsExpanded}', '${SectionIsPartiallySelected}'
-            ),
-        10 => array(
+        ],
+        10 => [
             'StrFunc.nsh', '${STRFUNC}', '${StrCase}', '${StrClb}', '${StrIOToNSIS}', '${StrLoc}', '${StrNSISToIO}', '${StrRep}',
             '${StrSort}', '${StrStr}', '${StrStrAdv}', '${StrTok}', '${StrTrimNewLines}'
-            ),
-        11 => array(
+        ],
+        11 => [
             'UpgradeDLL.nsh', 'UPGRADEDLL_INCLUDED', 'UpgradeDLL'
-            ),
-        12 => array(
+        ],
+        12 => [
             'Sections.nsh', 'SECTIONS_INCLUDED', '${SF_SELECTED}', '${SF_SECGRP}', '${SF_SUBSEC}', '${SF_SECGRPEND}',
             '${SF_SUBSECEND}', '${SF_BOLD}', '${SF_RO}', '${SF_EXPAND}', '${SF_PSELECTED}', '${SF_TOGGLED}',
             '${SF_NAMECHG}', '${SECTION_OFF}', 'SelectSection', 'UnselectSection', 'ReverseSection',
@@ -205,23 +205,23 @@ $language_data = array (
             '${INSTTYPE_21}', '${INSTTYPE_22}', '${INSTTYPE_23}', '${INSTTYPE_24}', '${INSTTYPE_25}', '${INSTTYPE_26}',
             '${INSTTYPE_27}', '${INSTTYPE_28}', '${INSTTYPE_29}', '${INSTTYPE_30}', '${INSTTYPE_31}', '${INSTTYPE_32}',
             'SetSectionInInstType', 'ClearSectionInInstType', 'SetSectionFlag', 'ClearSectionFlag', 'SectionFlagIsSet'
-            ),
-        13 => array(
+        ],
+        13 => [
             'Colors.nsh', 'WHITE', 'BLACK', 'YELLOW', 'RED', 'GREEN', 'BLUE', 'MAGENTA', 'CYAN', 'rgb2hex'
-            ),
-        14 => array(
+        ],
+        14 => [
             'FileFunc.nsh', '${Locate}', '${GetSize}', '${DriveSpace}', '${GetDrives}', '${GetTime}', '${GetFileAttributes}', '${GetFileVersion}', '${GetExeName}', '${GetExePath}', '${GetParameters}', '${GetOptions}', '${GetRoot}', '${GetParent}', '${GetFileName}', '${GetBaseName}', '${GetFileExt}', '${BannerTrimPath}', '${DirState}', '${RefreshShellIcons}'
-            ),
-        15 => array(
+        ],
+        15 => [
             'TextFunc.nsh', '${LineFind}', '${LineRead}', '${FileReadFromEnd}', '${LineSum}', '${FileJoin}', '${TextCompare}', '${ConfigRead}', '${ConfigWrite}', '${FileRecode}', '${TrimNewLines}'
-            ),
-        16 => array(
+        ],
+        16 => [
             'WordFunc.nsh', '${WordFind}', '${WordFind2X}', '${WordFind3X}', '${WordReplace}', '${WordAdd}', '${WordInsert}', '${StrFilter}', '${VersionCompare}', '${VersionConvert}'
-            )
-        ),
-    'SYMBOLS' => array(
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'SYMBOLS' => [
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -239,9 +239,9 @@ $language_data = array (
         14 => false,
         15 => false,
         16 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000066; font-weight:bold;',
             2 => 'color: #000066;',
             3 => 'color: #003366;',
@@ -258,31 +258,31 @@ $language_data = array (
             14 => 'color: #006600;',
             15 => 'color: #006600;',
             16 => 'color: #006600;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             2 => 'color: #666666; font-style: italic;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #660066; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => ''
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #660066;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => ''
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => ''
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => ''
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #660000;',
             1 => 'color: #660000;',
             2 => 'color: #660000;',
@@ -292,12 +292,12 @@ $language_data = array (
             6 => 'color: #660000;',
             7 => 'color: #000099;',
             8 => 'color: #003399;'
-            ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => ''
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -314,11 +314,11 @@ $language_data = array (
         14 => '',
         15 => '',
         16 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
         0 => '\$\$',
         1 => '\$\\r',
         2 => '\$\\n',
@@ -326,26 +326,24 @@ $language_data = array (
         4 => '\$[a-zA-Z0-9_]+',
         5 => '\$\{.{1,256}\}',
         6 => '\$\\\(.{1,256}\\\)',
-        7 => array(
+        7 => [
             GESHI_SEARCH => '([^:\/\\\*\?\"\<\>(?:<PIPE>)\s]*?)(::)([^:\/\\\*\?\"\<\>(?:<PIPE>)\s]*?)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => '\\2\\3'
-            ),
-        8 => array(
+        ],
+        8 => [
             GESHI_SEARCH => '([^:\/\\\*\?\"\<\>(?:<PIPE>)\s]*?)(::)([^:\/\\\*\?\"\<\>(?:<PIPE>)]*?\s)',
             GESHI_REPLACE => '\\3',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1\\2',
             GESHI_AFTER => ''
-            )
-        ),
+        ]
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

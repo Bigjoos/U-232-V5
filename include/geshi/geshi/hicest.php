@@ -37,72 +37,70 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'HicEst',
-    'COMMENT_SINGLE' => array(1 => '!'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '!'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', '\''),
+    'QUOTEMARKS' => ['"', '\''],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             '$cmd_line', 'abs', 'acos', 'alarm', 'alias', 'allocate', 'appendix', 'asin', 'atan', 'axis', 'beep',
             'call', 'ceiling', 'char', 'character', 'com', 'continue', 'cos', 'cosh', 'data', 'diffeq', 'dimension', 'dlg', 'dll',
             'do', 'edit', 'else', 'elseif', 'end', 'enddo', 'endif', 'exp', 'floor', 'function', 'fuz', 'goto', 'iand', 'ichar',
             'ieor', 'if', 'index', 'init', 'int', 'intpol', 'ior', 'key', 'len', 'len_trim', 'line', 'lock', 'log', 'max', 'maxloc',
             'min', 'minloc', 'mod', 'nint', 'not', 'open', 'pop', 'ran', 'read', 'real', 'return', 'rgb', 'roots', 'sign', 'sin',
             'sinh', 'solve', 'sort', 'subroutine', 'sum', 'system', 'tan', 'tanh', 'then', 'time', 'use', 'window', 'write', 'xeq'
-            )
-        ),
-    'SYMBOLS' => array(
-        1 => array(
+        ]
+    ],
+    'SYMBOLS' => [
+        1 => [
             '(', ')', '+', '-', '*', '/', '=', '<', '>', '!', '^', ':', ','
-            ),
-        2 => array(
+        ],
+        2 => [
             '$', '$$'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #ff0000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #0000ff;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;',
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #004000;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             1 => 'color: #339933;',
             2 => 'color: #ff0000;'
-            ),
-        'REGEXPS' => array(),
-        'SCRIPT' => array()
-        ),
-    'URLS' => array(1 => ''),
+        ],
+        'REGEXPS' => [],
+        'SCRIPT' => []
+    ],
+    'URLS' => [1 => ''],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(),
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => []
+];

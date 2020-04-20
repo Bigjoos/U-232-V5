@@ -1,20 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $data
  */
 function docleanup($data)
 {
@@ -23,10 +25,10 @@ function docleanup($data)
     ignore_user_abort(1);
     // Updated Avatar Setter Achievement
     $res = sql_query("SELECT id, avatarset FROM usersachiev WHERE avatarset = '1' AND avatarach = '0'") or sqlerr(__FILE__, __LINE__);
-    $msg_buffer = $usersachiev_buffer = $achievements_buffer = array();
+    $msg_buffer = $usersachiev_buffer = $achievements_buffer = [];
     if (mysqli_num_rows($res) > 0) {
         $subject = sqlesc("New Achievement Earned!");
-        $msg = sqlesc("Congratulations, you have just earned the [b]Avatar Setter[/b] achievement. :) [img]".$INSTALLER09['baseurl']."/pic/achievements/piratesheep.png[/img]");
+        $msg = sqlesc("Congratulations, you have just earned the [b]Avatar Setter[/b] achievement. :) [img]" . $INSTALLER09['baseurl'] . "/pic/achievements/piratesheep.png[/img]");
         while ($arr = mysqli_fetch_assoc($res)) {
             $dt = TIME_NOW;
             $points = rand(1, 3);
@@ -42,16 +44,16 @@ function docleanup($data)
             sql_query("INSERT INTO messages (sender,receiver,added,msg,subject) VALUES " . implode(', ', $msgs_buffer)) or sqlerr(__FILE__, __LINE__);
             sql_query("INSERT INTO achievements (userid, date, achievement, icon, description) VALUES " . implode(', ', $achievements_buffer) . " ON DUPLICATE key UPDATE date=values(date),achievement=values(achievement),icon=values(icon),description=values(description)") or sqlerr(__FILE__, __LINE__);
             sql_query("INSERT INTO usersachiev (id, avatarach, achpoints) VALUES " . implode(', ', $usersachiev_buffer) . " ON DUPLICATE key UPDATE avatarach=values(avatarach), achpoints=achpoints+values(achpoints)") or sqlerr(__FILE__, __LINE__);
-            if ($queries > 0) write_log("Achievements Cleanup: Achievements Avatar Setter Completed using $queries queries. Avatar Achievements awarded to - " . $count . " Member(s)");
+            if ($queries > 0) {
+                write_log("Achievements Cleanup: Achievements Avatar Setter Completed using $queries queries. Avatar Achievements awarded to - " . $count . " Member(s)");
+            }
         }
         unset($usersachiev_buffer, $achievement_buffer, $msgs_buffer, $count);
     }
-    if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
         $data['clean_desc'] = mysqli_affected_rows($GLOBALS["___mysqli_ston"]) . " items updated";
     }
     if ($data['clean_log']) {
         cleanup_log($data);
     }
 }
-
-?>

@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     'hnrwarn_stderror'  =>  "Err",
     'hnrwarn_nouser'    =>  "Looks like you didn't select any user!",
     'hnrwarn_wrong'     =>  "Something went wrong!",
@@ -24,9 +24,9 @@ $lang = array(
     'hnrwarn_success'   =>  "Success",
     'hnrwarn_disable'   =>  " disabled!",
     'hnrwarn_user'      =>  " user",
-	'hnrwarn_s' => "s",
-	'hnrwarn_deleted' => " deleted!",
-	'hnrwarn_wrong3' => "Something went wrong 3!",
+    'hnrwarn_s' => "s",
+    'hnrwarn_deleted' => " deleted!",
+    'hnrwarn_wrong3' => "Something went wrong 3!",
     'hnrwarn_removed'   =>  "Hit and Run Warn removed",
     'hnrwarn_msg1'      =>  "Hey, your Hit and Run warning was removed by ",
     'hnrwarn_msg2'      =>  "\nPlease keep in your best behaviour from now on.",
@@ -47,11 +47,10 @@ $lang = array(
     'hnrwarn_form_join'     =>  "Joined",
     'hnrwarn_tip1'      =>  "Hit and run Warned for: ",
     'hnrwarn_tip2'      =>  "Disabled for ",
-	'hnrwarn_d' => "D: ",
-	'hnrwarn_u' => "U:",
+    'hnrwarn_d' => "D: ",
+    'hnrwarn_u' => "U:",
     'hnrwarn_unwarn'    =>   "Unwarn",
     'hnrwarn_disable2'  =>  "Disable",
     'hnrwarn_delete'    =>  "Delete",
     'hnrwarn_apply'     =>  "Apply"
-);
-?>
+];

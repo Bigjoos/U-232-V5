@@ -51,21 +51,21 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Java',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
+    'COMMENT_REGEXP' => [
         //Import and Package directives (Basic Support only)
         2 => '/(?:(?<=import[\\n\\s])|(?<=package[\\n\\s]))[\\n\\s]*([a-zA-Z0-9_]+\\.)*([a-zA-Z0-9_]+|\*)(?=[\n\s;])/i',
         // javadoc comments
         3 => '#/\*\*(?![\*\/]).*\*/#sU'
-        ),
+    ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'for', 'foreach', 'if', 'else', 'while', 'do',
             'switch', 'case',  'return', 'public',
             'private', 'protected', 'extends', 'break', 'class',
@@ -74,11 +74,11 @@ $language_data = array (
             'abstract', 'transient', 'instanceof', 'assert', 'continue',
             'default', 'enum', 'package', 'static', 'strictfp', 'super',
             'volatile', 'const', 'goto', 'import'
-            ),
-        2 => array(
+        ],
+        2 => [
             'null', 'false', 'true'
-            ),
-        3 => array(
+        ],
+        3 => [
             'AbstractAction', 'AbstractBorder', 'AbstractButton',
             'AbstractCellEditor', 'AbstractCollection',
             'AbstractColorChooserPanel', 'AbstractDocument',
@@ -904,80 +904,78 @@ $language_data = array (
             '_BindingIteratorImplBase', '_BindingIteratorStub',
             '_IDLTypeStub', '_NamingContextImplBase',
             '_NamingContextStub', '_PolicyStub', '_Remote_Stub'
-            ),
-        4 => array(
+        ],
+        4 => [
             'void', 'double', 'int', 'boolean', 'byte', 'short', 'long', 'char', 'float'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}',
         '+', '-', '*', '/', '%',
         '!', '&', '|', '^',
         '<', '>', '=',
         '?', ':', ';',
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => true,
         4 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight: bold;',
             2 => 'color: #000066; font-weight: bold;',
             3 => 'color: #003399;',
             4 => 'color: #000066; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             2 => 'color: #006699;',
             3 => 'color: #008000; font-style: italic; font-weight: bold;',
             3 => 'color: #008000; font-style: italic; font-weight: bold;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #0000ff;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #006633;',
             2 => 'color: #006633;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #339933;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => 'http://www.google.com/search?hl=en&amp;q=allinurl%3A{FNAMEL}+java.sun.com&amp;btnI=I%27m%20Feeling%20Lucky',
         4 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

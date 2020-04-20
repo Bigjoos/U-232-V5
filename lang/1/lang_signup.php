@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //head
     'head_signup' => "Signup",
     //captcha
@@ -28,8 +28,8 @@ $lang = array(
     'stderr_errorhead' => "Sorry",
     'stderr_ulimit' => "The current user account limit (%u) has been reached. Inactive accounts are pruned all the time, please check back again later...",
     //signup
-	'signup_inviteonly' => "Invite only - Signups are closed presently if you have an invite code click",
-	'signup_here' => "Here",
+    'signup_inviteonly' => "Invite only - Signups are closed presently if you have an invite code click",
+    'signup_here' => "Here",
     'signup_cookies' => "Note: You need cookies enabled to sign up or log in.",
     'signup_noscript' => "Javascript must be enabled to login and use this site.",
     'signup_year' => "Year",
@@ -86,5 +86,4 @@ $lang = array(
     'signup_gender' => 'Gender',
     //add terms by yoooov
     'signup_hint_here' => "Enter&nbsp;Your&nbsp;Hint&nbsp;Answer&nbsp;Here."
-);
-?>
+];

@@ -37,16 +37,16 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'MOS 6502 (6510) TASM/64TASS 1.46 Assembler format',
-    'COMMENT_SINGLE' => array(1 => ';'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => ';'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /* 6502/6510 Opcodes. */
-        1 => array(
+        1 => [
             'adc', 'and', 'asl', 'bcc', 'bcs', 'beq', 'bit', 'bmi',
             'bne', 'bpl', 'brk', 'bvc', 'bvs', 'clc', 'cld', 'cli',
             'clv', 'cmp', 'cpx', 'cpy', 'dec', 'dex', 'dey', 'eor',
@@ -54,14 +54,14 @@ $language_data = array (
             'lsr', 'nop', 'ora', 'pha', 'php', 'pla', 'plp', 'rol',
             'ror', 'rti', 'rts', 'sbc', 'sec', 'sed', 'sei', 'sta',
             'stx', 'sty', 'tax', 'tay', 'tsx', 'txa', 'txs', 'tya',
-            ),
+        ],
         /* Index Registers, yes the 6502 has other registers by they are only
-        * accessable by specific opcodes. The 65816 also has access to the stack pointer S. */
-        2 => array(
+         * accessable by specific opcodes. The 65816 also has access to the stack pointer S. */
+        2 => [
             'x', 'y', 's'
-            ),
+        ],
         /* Directives. */
-        3 => array(
+        3 => [
             '.al', '.align', '.as', '.assert', '.binary', '.byte', '.cerror', '.char',
             '.comment', '.cpu', '.cwarn', '.databank', '.dpage', '.else', '.elsif',
             '.enc', '.endc', '.endif', '.endm', '.endp', '.error', '.fi', '.fill',
@@ -69,45 +69,45 @@ $language_data = array (
             '.include', '.int', '.logical', '.long', '.macro', '.next', '.null', '.offs',
             '.page', '.pend', '.proc', '.rept', '.rta', '.shift', '.text', '.warn', '.word',
             '.xl', '.xs',
-//            , '*='        // Not a valid keyword (uses both * and = signs) moved to symbols instead.
-            ),
+            //            , '*='        // Not a valid keyword (uses both * and = signs) moved to symbols instead.
+        ],
 
         /* 6502/6510 undocumented opcodes (often referred to as illegal instructions).
-        *  These are present in the 6502/6510 but NOT in the newer CMOS revisions of the 65C02 or 65816.
-        *  As they are undocumented instructions there are no "official" names for them, these are the names
-        *  used by 64TASS V1.46.
-        */
-        4 => array(
+         *  These are present in the 6502/6510 but NOT in the newer CMOS revisions of the 65C02 or 65816.
+         *  As they are undocumented instructions there are no "official" names for them, these are the names
+         *  used by 64TASS V1.46.
+         */
+        4 => [
             'ahx', 'alr', 'anc', 'ane', 'arr', 'asr', 'axs', 'dcm',
             'dcp', 'ins', 'isb', 'isc', 'jam', 'lae', 'las', 'lax',
             'lds', 'lxa', 'rla', 'rra', 'sax', 'sbx', 'sha', 'shs',
             'shx', 'shy', 'slo', 'sre', 'tas', 'xaa',
-            ),
+        ],
         /* 65c02 instructions, MOS added a few (much needed) instructions in the
-        *  CMOS version of the 6502, but stupidly removed the undocumented/illegal opcodes.  */
-        5 => array(
+         *  CMOS version of the 6502, but stupidly removed the undocumented/illegal opcodes.  */
+        5 => [
             'bra', 'dea', 'gra', 'ina', 'phx', 'phy', 'plx', 'ply',
             'stz', 'trb', 'tsb',
-            ),
+        ],
         /* 65816 instructions. */
-        6 => array(
+        6 => [
             'brl', 'cop', 'jml', 'jsl', 'mvn', 'mvp', 'pea', 'pei',
             'per', 'phb', 'phd', 'phk', 'plb', 'pld', 'rep', 'rtl',
             'sep', 'stp', 'swa', 'tad', 'tcd', 'tcs', 'tda',
             'tdc', 'tsa', 'tsc', 'txy', 'tyx', 'wai', 'xba', 'xce',
-            ),
+        ],
         /* Deprecated directives (or yet to be implemented). */
-        7 => array(
+        7 => [
             '.global', '.check'
-            ),
-        ),
-    'SYMBOLS' => array(
-//        '[', ']', '(', ')', '{', '}',    // These are already defined by GeSHi as BRACKETS.
+        ],
+    ],
+    'SYMBOLS' => [
+        //        '[', ']', '(', ')', '{', '}',    // These are already defined by GeSHi as BRACKETS.
         '*=', '#', '<', '>', '`', '=', '<', '>',
         '!=', '>=', '<=', '+', '-', '*', '/', '//', '|',
         '^', '&', '<<', '>>', '-', '~', '!',
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -116,9 +116,9 @@ $language_data = array (
         5 => false,
         6 => false,
         7 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #00f; font-weight:bold;',
             2 => 'color: #00f; font-weight:bold;',
             3 => 'color: #080; font-weight:bold;',
@@ -126,35 +126,35 @@ $language_data = array (
             5 => 'color: #80f; font-weight:bold;',
             6 => 'color: #f08; font-weight:bold;',
             7 => 'color: #a04; font-weight:bold; font-style: italic;',
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #999; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #009; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #080;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             GESHI_NUMBER_INT_BASIC          => 'color: #f00;',
             GESHI_NUMBER_HEX_PREFIX_DOLLAR  => 'color: #f00;',
             GESHI_NUMBER_BIN_PREFIX_PERCENT => 'color: #f00;',
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #080;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -162,28 +162,26 @@ $language_data = array (
         5 => '',
         6 => '',
         7 => '',
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC |
         GESHI_NUMBER_HEX_PREFIX_DOLLAR |
         GESHI_NUMBER_BIN_PREFIX_PERCENT,
-        // AMCE Octal format not support and gets picked up as Decimal unfortunately.
-    'REGEXPS' => array(
-        ),
+    // AMCE Octal format not support and gets picked up as Decimal unfortunately.
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 8,
-    'PARSER_CONTROL' => array(
-        'NUMBERS' => array(
+    'PARSER_CONTROL' => [
+        'NUMBERS' => [
             'PRECHECK_RX' => '/[\da-fA-F\.\$\%]/'
-            )
-        )
-);
-
-?>
+        ]
+    ]
+];

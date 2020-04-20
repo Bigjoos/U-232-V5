@@ -38,23 +38,23 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'Formula One',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('{' => '}'),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['{' => '}'],
+    'COMMENT_REGEXP' => [
         //Nested Comments
         2 =>  "/(\{(?:\{.*\}|[^\{])*\})/m"
-        ),
+    ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'",'"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         //Simple Single Char Escapes
         1 => "#\\\\[\\\\nrt\'\"?\n]#i",
         //Hexadecimal Char Specs (Utf16 codes, Unicode versions only)
         2 => "#\\\\u[\da-fA-F]{4}#",
-        ),
+    ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC | GESHI_NUMBER_INT_CSTYLE |
         GESHI_NUMBER_BIN_PREFIX_0B |
@@ -62,90 +62,88 @@ $language_data = array(
         GESHI_NUMBER_HEX_PREFIX |
         GESHI_NUMBER_FLT_NONSCI |
         GESHI_NUMBER_FLT_SCI_SHORT | GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
-        1 => array(
-            'pred','proc','subr','else','elsif','iff','if','then','false','true',
-            'case','of','use','local','mod','end','list','file','all','one','max','min','rel',
-            'external','Nil','_stdcall','_cdecl','_addressof','_pred','_file','_line'
-            ),
-        2 => array(
-            'Ascii','Bin','I','L','P','R','S','U'
-            ),
-        3 => array(
-            'Append','in','Dupl','Len','Print','_AllDifferent','_AllAscending',
-            '_AllDescending','_Ascending','_Descending'
-            )
-        ),
-    'SYMBOLS' => array(
-        0 => array('(', ')', '[', ']'),
-        1 => array('<', '>','='),
-        2 => array('+', '-', '*', '/'),
-        3 => array('&', '|'),
-        4 => array(':', ';')
-        ),
-    'CASE_SENSITIVE' => array(
+    'KEYWORDS' => [
+        1 => [
+            'pred', 'proc', 'subr', 'else', 'elsif', 'iff', 'if', 'then', 'false', 'true',
+            'case', 'of', 'use', 'local', 'mod', 'end', 'list', 'file', 'all', 'one', 'max', 'min', 'rel',
+            'external', 'Nil', '_stdcall', '_cdecl', '_addressof', '_pred', '_file', '_line'
+        ],
+        2 => [
+            'Ascii', 'Bin', 'I', 'L', 'P', 'R', 'S', 'U'
+        ],
+        3 => [
+            'Append', 'in', 'Dupl', 'Len', 'Print', '_AllDifferent', '_AllAscending',
+            '_AllDescending', '_Ascending', '_Descending'
+        ]
+    ],
+    'SYMBOLS' => [
+        0 => ['(', ')', '[', ']'],
+        1 => ['<', '>', '='],
+        2 => ['+', '-', '*', '/'],
+        3 => ['&', '|'],
+        4 => [':', ';']
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
         3 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000ff;',
             2 => 'color: #000080;',
             3 => 'color: #000080;',
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #008000; font-style: italic;',
             2 => 'color: #008000; font-style: italic;',
             'MULTI' => 'color: #008000; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;',
             1 => 'color: #000099; font-weight: bold;',
             2 => 'color: #009999; font-weight: bold;',
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #800000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #202020;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000000;',
             1 => 'color: #000000;',
             2 => 'color: #000000;',
             3 => 'color: #000000;',
             4 => 'color: #000000;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => 'http://www.f1compiler.com/f1helponline/f1_runtime_library.html#{FNAME}'
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

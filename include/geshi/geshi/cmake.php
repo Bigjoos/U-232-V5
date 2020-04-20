@@ -39,21 +39,21 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'CMake',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         // Quoted variables ${...}
         1 => "/\\$(ENV)?\\{[^\\n\\}]*?\\}/i",
         // Quoted registry keys [...]
         2 => "/\\[HKEY[^\n\\]]*?]/i"
-        ),
-    'KEYWORDS' => array(
-        1 => array(
+    ],
+    'KEYWORDS' => [
+        1 => [
             'add_custom_command', 'add_custom_target', 'add_definitions',
             'add_dependencies', 'add_executable', 'add_library',
             'add_subdirectory', 'add_test', 'aux_source_directory', 'break',
@@ -77,16 +77,16 @@ $language_data = array (
             'set_tests_properties', 'site_name', 'source_group', 'string',
             'target_link_libraries', 'try_compile', 'try_run', 'unset',
             'variable_watch', 'while'
-            ),
-        2 => array(
+        ],
+        2 => [
             // Deprecated commands
             'build_name', 'exec_program', 'export_library_dependencies',
             'install_files', 'install_programs', 'install_targets',
             'link_libraries', 'make_directory', 'remove', 'subdir_depends',
             'subdirs', 'use_mangled_mesa', 'utility_source',
             'variable_requires', 'write_file'
-            ),
-        3 => array(
+        ],
+        3 => [
             // Special command arguments, this list is not comprehesive.
             'AND', 'APPEND', 'ASCII', 'BOOL', 'CACHE', 'COMMAND', 'COMMENT',
             'COMPARE', 'CONFIGURE', 'DEFINED', 'DEPENDS', 'DIRECTORY',
@@ -103,79 +103,77 @@ $language_data = array (
             'STRLESS', 'SUBSTRING', 'TARGET', 'TEST', 'TOLOWER', 'TOUPPER',
             'TRUE', 'VERBATIM', 'VERSION', 'VERSION_EQUAL', 'VERSION_GREATOR',
             'VERSION_LESS', 'WORKING_DIRECTORY',
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => true
-        ),
-    'SYMBOLS' => array(
-        0 => array('(', ')')
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'SYMBOLS' => [
+        0 => ['(', ')']
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #1f3f81; font-style: bold;',
             2 => 'color: #1f3f81;',
             3 => 'color: #077807; font-sytle: italic;'
-            ),
-        'BRACKETS' => array(),
-        'COMMENTS' => array(
+        ],
+        'BRACKETS' => [],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;',
             1 => 'color: #b08000;',
             2 => 'color: #0000cd;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #912f11;',
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #197d8b;'
-            ),
-        'NUMBERS' => array(),
-        'METHODS' => array(),
-        'REGEXPS' => array(
+        ],
+        'NUMBERS' => [],
+        'METHODS' => [],
+        'REGEXPS' => [
             0 => 'color: #b08000;',
             1 => 'color: #0000cd;'
-            ),
-        'SCRIPT' => array()
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => []
+    ],
+    'URLS' => [
         1 => 'http://www.cmake.org/cmake/help/cmake2.6docs.html#command:{FNAMEL}',
         2 => 'http://www.cmake.org/cmake/help/cmake2.6docs.html#command:{FNAMEL}',
         3 => '',
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [
         // Unquoted variables
         0 => "\\$(ENV)?\\{[^\\n}]*?\\}",
         // Unquoted registry keys
         1 => "\\[HKEY[^\n\\]]*?]"
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(),
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => [],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
             // These keywords cannot come after a open paren
-            1 => array(
+            1 => [
                 'DISALLOWED_AFTER' =>  '(?= *\()'
-                ),
-            2 => array(
+            ],
+            2 => [
                 'DISALLOWED_AFTER' =>  '(?= *\()'
-                )
-            ),
-        'ENABLE_FLAGS' => array(
+            ]
+        ],
+        'ENABLE_FLAGS' => [
             'BRACKETS' => GESHI_NEVER,
             'METHODS' => GESHI_NEVER,
             'NUMBERS' => GESHI_NEVER
-            )
-        )
-);
-
-?>
+        ]
+    ]
+];

@@ -1,0 +1,23 @@
+{
+    "require": {
+        "matthiasmullie/scrapbook": "^1.4"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "cleanup": [
+            "vendor/friendsofphp/php-cs-fixer/php-cs-fixer fix --show-progress=dots -vvv"
+        ],
+        "post-install-cmd": [
+            "composer dump-autoload -a"
+        ],
+        "post-update-cmd": [
+            "composer dump-autoload -a"
+        ]
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "^2.14",
+        "symfony/var-dumper": "^5.0"
+    }
+}

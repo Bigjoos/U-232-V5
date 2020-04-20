@@ -1,20 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $no_data
  */
 function tables($no_data = "")
 {
@@ -22,10 +24,14 @@ function tables($no_data = "")
     if (!empty($no_data));
     $no_data = explode("|", $no_data);
     $r = sql_query("SHOW TABLES") or sqlerr(__FILE__, __LINE__);
-    while ($a = mysqli_fetch_assoc($r)) $temp[] = $a;
+    while ($a = mysqli_fetch_assoc($r)) {
+        $temp[] = $a;
+    }
     foreach ($temp as $k => $tname) {
         $tn = $tname["Tables_in_{$INSTALLER09['mysql_db']}"];
-        if (in_array($tn, $no_data)) continue;
+        if (in_array($tn, $no_data)) {
+            continue;
+        }
         $tables[] = $tn;
     }
     return join(" ", $tables);
@@ -46,16 +52,19 @@ function docleanup($data)
     system($c);
     $files = glob($bdir . "/db_*");
     foreach ($files as $file) {
-        if ((TIME_NOW - filemtime($file)) > 3 * 86400) unlink($file);
+        if ((TIME_NOW - filemtime($file)) > 3 * 86400) {
+            unlink($file);
+        }
     }
     $ext = "db_" . date("m_d_y", TIME_NOW) . ".sql.bz2";
     sql_query("INSERT INTO dbbackup (name, added, userid) VALUES (" . sqlesc($ext) . ", " . TIME_NOW . ", " . $INSTALLER09['site']['owner'] . ")") or sqlerr(__FILE__, __LINE__);
-    if ($queries > 0) write_log("Auto-dbbackup----------------------Auto Back Up Complete using $queries queries---------------------");
-    if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
+    if ($queries > 0) {
+        write_log("Auto-dbbackup----------------------Auto Back Up Complete using $queries queries---------------------");
+    }
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
         $data['clean_desc'] = mysqli_affected_rows($GLOBALS["___mysqli_ston"]) . " items deleted/updated";
     }
     if ($data['clean_log']) {
         cleanup_log($data);
     }
 }
-?>

@@ -38,146 +38,144 @@
  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  *
-*******************************************************************************/
+ *******************************************************************************/
 
 // http://en.wikipedia.org/wiki/BibTeX
 // http://www.fb10.uni-bremen.de/anglistik/langpro/bibliographies/jacobsen-bibtex.html
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'BibTeX',
     'OOLANG' => false,
-    'COMMENT_SINGLE' => array(
+    'COMMENT_SINGLE' => [
         1 => '%%'
-        ),
-    'COMMENT_MULTI' => array(),
+    ],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array(),
+    'QUOTEMARKS' => [],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        0 => array(
-            '@comment','@preamble','@string'
-            ),
+    'KEYWORDS' => [
+        0 => [
+            '@comment', '@preamble', '@string'
+        ],
         // Standard entry types
-        1 => array(
-            '@article','@book','@booklet','@conference','@inbook',
-            '@incollection','@inproceedings','@manual','@mastersthesis',
-            '@misc','@phdthesis','@proceedings','@techreport','@unpublished'
-            ),
+        1 => [
+            '@article', '@book', '@booklet', '@conference', '@inbook',
+            '@incollection', '@inproceedings', '@manual', '@mastersthesis',
+            '@misc', '@phdthesis', '@proceedings', '@techreport', '@unpublished'
+        ],
         // Custom entry types
-        2 => array(
-            '@collection','@patent','@webpage'
-            ),
+        2 => [
+            '@collection', '@patent', '@webpage'
+        ],
         // Standard entry field names
-        3 => array(
-            'address','annote','author','booktitle','chapter','crossref',
-            'edition','editor','howpublished','institution','journal','key',
-            'month','note','number','organization','pages','publisher','school',
-            'series','title','type','volume','year'
-            ),
+        3 => [
+            'address', 'annote', 'author', 'booktitle', 'chapter', 'crossref',
+            'edition', 'editor', 'howpublished', 'institution', 'journal', 'key',
+            'month', 'note', 'number', 'organization', 'pages', 'publisher', 'school',
+            'series', 'title', 'type', 'volume', 'year'
+        ],
         // Custom entry field names
-        4 => array(
-            'abstract','affiliation','chaptername','cited-by','cites',
-            'contents','copyright','date-added','date-modified','doi','eprint',
-            'isbn','issn','keywords','language','lccn','lib-congress',
-            'location','price','rating','read','size','source','url'
-            )
-        ),
-    'URLS' => array(
+        4 => [
+            'abstract', 'affiliation', 'chaptername', 'cited-by', 'cites',
+            'contents', 'copyright', 'date-added', 'date-modified', 'doi', 'eprint',
+            'isbn', 'issn', 'keywords', 'language', 'lccn', 'lib-congress',
+            'location', 'price', 'rating', 'read', 'size', 'source', 'url'
+        ]
+    ],
+    'URLS' => [
         0 => '',
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
-    'SYMBOLS' => array(
+    ],
+    'SYMBOLS' => [
         '{', '}', '#', '=', ','
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         1 => false,
         2 => false,
         3 => false,
         4 => false,
         GESHI_COMMENTS => false,
-        ),
+    ],
     // Define the colors for the groups listed above
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #C02020;', // Standard entry types
             2 => 'color: #C02020;', // Custom entry types
             3 => 'color: #C08020;', // Standard entry field names
             4 => 'color: #C08020;'  // Custom entry field names
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #2C922C; font-style: italic;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #2020C0;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 =>  'color: #E02020;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             1 => 'color: #2020C0;', // {...}
             2 => 'color: #C08020;',  // BibDesk fields
             3 => 'color: #800000;'   // LaTeX commands
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 =>  'color: #000000; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 =>  'color: #E02020;'
-            ),
-        'NUMBERS' => array(
-            ),
-        'METHODS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'REGEXPS' => array(
+        ],
+        'NUMBERS' => [
+        ],
+        'METHODS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'REGEXPS' => [
         // {parameters}
-        1 => array(
+        1 => [
             GESHI_SEARCH => "(?<=\\{)(?:\\{(?R)\\}|[^\\{\\}])*(?=\\})",
             GESHI_REPLACE => '\0',
             GESHI_MODIFIERS => 's',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        2 => array(
+        ],
+        2 => [
             GESHI_SEARCH => "\bBdsk-(File|Url)-\d+",
             GESHI_REPLACE => '\0',
             GESHI_MODIFIERS => 'Us',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        3 => array(
+        ],
+        3 => [
             GESHI_SEARCH => "\\\\[A-Za-z0-9]*+",
             GESHI_REPLACE => '\0',
             GESHI_MODIFIERS => 'Us',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'OBJECT_SPLITTERS' => array(
-        ),
+        ],
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+    'OBJECT_SPLITTERS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'ENABLE_FLAGS' => array(
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'PARSER_CONTROL' => [
+        'ENABLE_FLAGS' => [
             'NUMBERS' => GESHI_NEVER
-            ),
-        'KEYWORDS' => array(
-            3 => array(
+        ],
+        'KEYWORDS' => [
+            3 => [
                 'DISALLOWED_AFTER' => '(?=\s*=)'
-                ),
-            4 => array(
+            ],
+            4 => [
                 'DISALLOWED_AFTER' => '(?=\s*=)'
-                ),
-            )
-        )
-);
-
-?>
+            ],
+        ]
+    ]
+];

@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //=== don't allow direct access
 if (!defined('BUNNY_PM_SYSTEM')) {
@@ -32,7 +32,7 @@ if (!defined('BUNNY_PM_SYSTEM')) {
     exit();
 }
 /********************************************************************************
-why I used a different method for delete and move I have no idea... 
+why I used a different method for delete and move I have no idea...
 must have combined two scripts at one point but now it's just funny...
 I'll have to change that before the next version :o)
 oxo,
@@ -51,7 +51,9 @@ if (isset($_POST['move'])) {
         sql_query('UPDATE messages SET saved = \'yes\', location = ' . sqlesc($mailbox) . ' WHERE id IN (' . implode(', ', array_map('sqlesc', $pm_messages)) . ') AND receiver =' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
     }
     //=== Check if messages were moved
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) stderr($lang['pm_error'], $lang['pm_move_err']);
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) {
+        stderr($lang['pm_error'], $lang['pm_move_err']);
+    }
     header('Location: ?action=view_mailbox&multi_move=1&box=' . $mailbox);
     die();
 }
@@ -63,7 +65,9 @@ if (isset($_POST['delete'])) {
         $res = sql_query('SELECT * FROM messages WHERE id=' . sqlesc($id));
         $message = mysqli_fetch_assoc($res);
         //=== make sure they aren't deleting a staff message...
-        if ($message['receiver'] == $CURUSER['id'] && $message['urgent'] == 'yes' && $message['unread'] == 'yes') stderr($lang['pm_error'], '' . $lang['pm_delete_err'] . '<a class="altlink" href="pm_system.php?action=view_message&id=' . $pm_id . '">' . $lang['pm_delete_back'] . '</a>' . $lang['pm_delete_msg'] . '');
+        if ($message['receiver'] == $CURUSER['id'] && $message['urgent'] == 'yes' && $message['unread'] == 'yes') {
+            stderr($lang['pm_error'], '' . $lang['pm_delete_err'] . '<a class="altlink" href="pm_system.php?action=view_message&id=' . $pm_id . '">' . $lang['pm_delete_back'] . '</a>' . $lang['pm_delete_msg'] . '');
+        }
         //=== make sure message isn't saved before deleting it, or just update location
         if ($message['receiver'] == $CURUSER['id'] && $message['saved'] == 'no' || $message['sender'] == $CURUSER['id'] && $message['location'] == PM_DELETED) {
             sql_query('DELETE FROM messages WHERE id=' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
@@ -80,9 +84,13 @@ if (isset($_POST['delete'])) {
         }
     }
     //=== Check if messages were deleted
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) stderr($lang['pm_error'], $lang['pm_delete_err_multi']);
-    if (isset($_POST['draft_section'])) header('Location: pm_system.php?action=viewdrafts&multi_delete=1');
-    else header('Location: pm_system.php?action=view_mailbox&multi_delete=1&box=' . $mailbox);
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) {
+        stderr($lang['pm_error'], $lang['pm_delete_err_multi']);
+    }
+    if (isset($_POST['draft_section'])) {
+        header('Location: pm_system.php?action=viewdrafts&multi_delete=1');
+    } else {
+        header('Location: pm_system.php?action=view_mailbox&multi_delete=1&box=' . $mailbox);
+    }
     die();
 }
-?>

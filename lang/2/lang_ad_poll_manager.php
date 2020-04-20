@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //delete_poll
     'poll_dp_usr_err'   =>  "ERREUR",
     'poll_dp_no_poll'   =>  "Aucun Sondage avec cette ID!",
@@ -79,7 +79,7 @@ $lang = array(
     'poll_pb_remove_q'  =>  "Enlever la Question",
     'poll_pb_add_new'   =>  "Ajouter un nouveau",
     'poll_pb_multiple'  =>  "Question à choix multiple? (Permet au membre de sélectionner plus d'un choix)",
-	'poll_pb_rem_choice'	=>	"Enlever le Choix",
+    'poll_pb_rem_choice'	=>	"Enlever le Choix",
     'poll_pb_confirm'   =>  "Merci de confirmer cette action",
     'poll_pb_allowed'   =>  "Vous pouvez ajouter",
     'poll_pb_more'      =>  "autre(s) question(s) avec",
@@ -90,5 +90,4 @@ $lang = array(
     'poll_pb_content'   =>  "Contenu du Sondage",
     'poll_pb_info'      =>  "Info du Sondage",
     'poll_pb_post'      =>  "Poster le Sondage"
-);
-?>
+];

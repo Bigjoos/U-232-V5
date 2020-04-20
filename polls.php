@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 function parse_poll()
 {
@@ -22,11 +22,11 @@ function parse_poll()
     $htmlout = "";
     $check = 0;
     $poll_footer = "";
-    $GVARS = array(
+    $GVARS = [
         'allow_creator_vote' => 1,
         'allow_result_view' => 1,
         'allow_poll_tags' => 1
-    ); // move this elsewhere later!
+    ]; // move this elsewhere later!
     if (($poll_data = $mc1->get_value('poll_data_' . $CURUSER['id'])) === false) {
         //$poll_data = array();
         //search for a poll with given ID
@@ -37,7 +37,7 @@ function parse_poll()
                             LIMIT 1");
         //Did we find the poll?
         if (!mysqli_num_rows($query)) {
-            return "Nothing to vote on right now!"; 
+            return "Nothing to vote on right now!";
         }
         while ($row = mysqli_fetch_assoc($query)) {
             $poll_data = $row;
@@ -117,7 +117,7 @@ function parse_poll()
             $htmlout.= poll_show_rendered_question($id, $question, $choice_html);
         }
         $htmlout.= show_total_votes($tv_poll);
-    } else if ($check == 2) {
+    } elseif ($check == 2) {
         // only for guests when view before vote is off
         $htmlout = poll_header($poll_data['pid'], htmlsafechars($poll_data['poll_question'], ENT_QUOTES));
         $htmlout.= poll_show_no_guest_view();
@@ -142,7 +142,7 @@ function parse_poll()
                 if ($GVARS['allow_poll_tags']) {
                     $choice = $s = preg_replace("/\[url=([^()<>\s]+?)\]((\s|.)+?)\[\/url\]/i", "<a href=\"\\1\">\\2</a>", $choice);
                 }
-                if (isset($data['multi']) AND $data['multi'] == 1) {
+                if (isset($data['multi']) and $data['multi'] == 1) {
                     $choice_html.= poll_show_form_choice_multi($choice_id, $votes, $id, $choice);
                 } else {
                     $choice_html.= poll_show_form_choice($choice_id, $votes, $id, $choice);
@@ -159,15 +159,15 @@ function parse_poll()
     } else {
         if ($GVARS['allow_result_view'] == 1) {
             if (isset($_GET['mode']) && $_GET['mode'] == 'show') {
-                $htmlout = str_replace("<!--SHOW-->", button_show_voteable() , $htmlout);
+                $htmlout = str_replace("<!--SHOW-->", button_show_voteable(), $htmlout);
             } else {
-                $htmlout = str_replace("<!--SHOW-->", button_show_results() , $htmlout);
-                $htmlout = str_replace("<!--VOTE-->", button_vote() , $htmlout);
+                $htmlout = str_replace("<!--SHOW-->", button_show_results(), $htmlout);
+                $htmlout = str_replace("<!--VOTE-->", button_vote(), $htmlout);
             }
         } else {
             //this section not for reviewing votes!
-            $htmlout = str_replace("<!--VOTE-->", button_vote() , $htmlout);
-            $htmlout = str_replace("<!--SHOW-->", button_null_vote() , $htmlout);
+            $htmlout = str_replace("<!--VOTE-->", button_vote(), $htmlout);
+            $htmlout = str_replace("<!--SHOW-->", button_null_vote(), $htmlout);
         }
     }
     return $htmlout;
@@ -199,13 +199,13 @@ function poll_header($pid = "", $poll_q = "")
     return $htmlout;
 }
   function poll_footer()
-{
-    $htmlout= "<span><!--VOTE-->&nbsp;<!--SHOW--></span>
+  {
+      $htmlout= "<span><!--VOTE-->&nbsp;<!--SHOW--></span>
           <span><!-- no content --></span>
 
     </form>";
-    return $htmlout;
-}
+      return $htmlout;
+  }
 function poll_show_rendered_choice($choice_id = "", $votes = "", $id = "", $answer = "", $percentage = "", $width = "")
 {
     global $INSTALLER09;
@@ -276,4 +276,3 @@ function button_null_vote()
     $htmlout= "<input class='btn btn-default' type='submit' name='nullvote' value='View Results (Null Vote)' title='View results, but forfeit your vote in this poll' />";
     return $htmlout;
 }
-?>

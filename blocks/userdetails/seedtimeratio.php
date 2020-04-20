@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //=== testing concept of "share ratio"
 $What_Cache = (XBT_TRACKER == true ? 'share_ratio_xbt_' : 'share_ratio_');
@@ -22,26 +22,26 @@ $What_Table = (XBT_TRACKER == true ? 'xbt_files_users' : 'snatched');
 $What_String = (XBT_TRACKER == true ? 'fid' : 'id');
 $What_User_String = (XBT_TRACKER == true ? 'uid' : 'userid');
 $What_Expire = (XBT_TRACKER == true ? $INSTALLER09['expires']['share_ratio_xbt'] : $INSTALLER09['expires']['share_ratio']);
-if (($cache_share_ratio = $mc1->get_value($What_Cache.$id)) === false) {
+if (($cache_share_ratio = $mc1->get_value($What_Cache . $id)) === false) {
     $cache_share_ratio = mysqli_fetch_assoc(sql_query("SELECT SUM(seedtime) AS seed_time_total, COUNT($What_String) AS total_number FROM $What_Table WHERE seedtime > '0' AND $What_User_String =" . sqlesc($user['id'])));
-    $cache_share_ratio['total_number'] = (int)$cache_share_ratio['total_number'];
-    $cache_share_ratio['seed_time_total'] = (int)$cache_share_ratio['seed_time_total'];
-    $mc1->cache_value($What_Cache.$id, $cache_share_ratio, $What_Expire);
+    $cache_share_ratio['total_number'] = (int) $cache_share_ratio['total_number'];
+    $cache_share_ratio['seed_time_total'] = (int) $cache_share_ratio['seed_time_total'];
+    $mc1->cache_value($What_Cache . $id, $cache_share_ratio, $What_Expire);
 }
 //=== get times per class
 switch (true) {
     //===  member
-    
+
 case ($user['class'] == UC_USER):
     $days = 2;
     break;
     //=== Member +
-    
+
 case ($user['class'] == UC_POWER_USER):
     $days = 1.5;
     break;
     //=== Member ++
-    
+
 case ($user['class'] == UC_VIP || $user['class'] == UC_UPLOADER || $user['class'] == UC_STAFF || $user['class'] == UC_ADMINISTRATOR || $user['class'] == UC_SYSOP):
     $days = 0.5;
     break;

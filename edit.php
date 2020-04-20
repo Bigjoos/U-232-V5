@@ -1,61 +1,69 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
 require_once INCL_DIR . 'html_functions.php';
 require_once INCL_DIR . 'bbcode_functions.php';
 require_once CLASS_DIR . 'page_verify.php';
 global $CURUSER;
-if (!mkglobal("id")) die();
+if (!mkglobal("id")) {
+    die();
+}
 $id = 0 + $id;
-if (!$id) die();
+if (!$id) {
+    die();
+}
 /** who is modding by pdq **/
 if ((isset($_GET['unedit']) && $_GET['unedit'] == 1) && $CURUSER['class'] >= UC_STAFF) {
     $returl = "details.php?id=$id";
-    if (isset($_POST["returnto"])) $returl.= "&returnto=" . urlencode($_POST["returnto"]);
+    if (isset($_POST["returnto"])) {
+        $returl.= "&returnto=" . urlencode($_POST["returnto"]);
+    }
     header("Refresh: 1; url=$returl");
     $mc1->delete_value('editedby_' . $id);
     exit();
 }
 dbconn();
 loggedinorreturn();
-$lang = array_merge(load_language('global') , load_language('edit'), load_language('ad_artefact'));
-$stdfoot = array(
+$lang = array_merge(load_language('global'), load_language('edit'), load_language('ad_artefact'));
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'shout',
         'FormManager'
-    )
-);
-$stdhead = array(
+    ]
+];
+$stdhead = [
     /** include css **/
-    'css' => array(
+    'css' => [
         'style2',
         'bbcode',
         'shout'
-    )
-);
+    ]
+];
 $newpage = new page_verify();
 $newpage->create('teit');
 $res = sql_query("SELECT * FROM torrents WHERE id = " . sqlesc($id));
 $row = mysqli_fetch_assoc($res);
-if (!$row) stderr($lang['edit_user_error'], $lang['edit_no_torrent']);
+if (!$row) {
+    stderr($lang['edit_user_error'], $lang['edit_no_torrent']);
+}
 if (!isset($CURUSER) || ($CURUSER["id"] != $row["owner"] && $CURUSER["class"] < UC_STAFF)) {
     stderr($lang['edit_user_error'], sprintf($lang['edit_no_permission'], urlencode($_SERVER['REQUEST_URI'])));
 }
@@ -70,12 +78,13 @@ if ($CURUSER['class'] >= UC_STAFF) {
         $mod_cache_name = $CURUSER['username'];
         $mc1->add_value('editedby_' . $id, $mod_cache_name, $INSTALLER09['expires']['ismoddin']);
     }
-    $HTMLOUT.= '<div class="row"><div class="col-sm-4 col-sm-offset-1"><h1><font size="+1"><font color="#FF0000">' . $mod_cache_name . '</font>'.$lang['edit_curr'].'</font></h1></div></div>';
+    $HTMLOUT.= '<div class="row"><div class="col-sm-4 col-sm-offset-1"><h1><font size="+1"><font color="#FF0000">' . $mod_cache_name . '</font>' . $lang['edit_curr'] . '</font></h1></div></div>';
 }
-$ismodd = '<div class="row"><div class="col-sm-12"><b>'.$lang['edit_stdhead'].'</b> ' . (($CURUSER['class'] > UC_UPLOADER) ? '<small><a href="edit.php?id=' . $id . '&amp;unedit=1">'.$lang['edit_clkhere'].'</a>'.$lang['edit_clktemp'].'</small>' : '') . '</div></div>';
+$ismodd = '<div class="row"><div class="col-sm-12"><b>' . $lang['edit_stdhead'] . '</b> ' . (($CURUSER['class'] > UC_UPLOADER) ? '<small><a href="edit.php?id=' . $id . '&amp;unedit=1">' . $lang['edit_clkhere'] . '</a>' . $lang['edit_clktemp'] . '</small>' : '') . '</div></div>';
 $HTMLOUT.= "<form method='post' name='edit' action='takeedit.php' enctype='multipart/form-data'><input type='hidden' name='id' value='$id' />";
-if (isset($_GET["returnto"])) 
-$HTMLOUT.= "<input type='hidden' name='returnto' value='" . htmlsafechars($_GET["returnto"]) . "' />";
+if (isset($_GET["returnto"])) {
+    $HTMLOUT.= "<input type='hidden' name='returnto' value='" . htmlsafechars($_GET["returnto"]) . "' />";
+}
 $HTMLOUT .="<div class='panel inverse' style='width:82%; margin-left:9%;'>
 <div class='row'><div class='col-sm-12'>$ismodd</div></div>
 <div class='row'><div class='col-sm-12'><input class='form-control' placeholder='{$lang['edit_imdb_url']}' type='text' name='url' value='" . htmlsafechars($row["url"]) . "'></div></div><br>
@@ -95,24 +104,26 @@ if ((strpos($row["ori_descr"], "<") === false) || (strpos($row["ori_descr"], "&l
     $c = " checked";
 }
 $HTMLOUT.="
-<div class='row'><div class='col-sm-12'>{$lang['edit_description']} ". textbbcode("edit","descr","".htmlspecialchars($row['ori_descr'])."")."<br />{$lang['edit_tags']}</div></div><br>";
+<div class='row'><div class='col-sm-12'>{$lang['edit_description']} " . textbbcode("edit", "descr", "" . htmlspecialchars($row['ori_descr']) . "") . "<br />{$lang['edit_tags']}</div></div><br>";
 $s = "<br><select class='form-control' name='type'>";
 $cats = genrelist();
 foreach ($cats as $subrow) {
-    $s.= "<option value='" . (int)$subrow["id"] . "'";
-    if ($subrow["id"] == $row["category"]) $s.= " selected='selected'";
+    $s.= "<option value='" . (int) $subrow["id"] . "'";
+    if ($subrow["id"] == $row["category"]) {
+        $s.= " selected='selected'";
+    }
     $s.= ">" . htmlsafechars($subrow["name"]) . "</option>\n";
 }
 $s.= "</select>\n";
 $HTMLOUT.="<div class='row'>
 <div class='col-sm-3'>{$lang['edit_type']}:$s</div>";
-require_once (CACHE_DIR . 'subs.php');
+require_once(CACHE_DIR . 'subs.php');
 $subs_list = '';
 $subs_list.= "";
 $i = 0;
 foreach ($subs as $s) {
     $subs_list.= ($i && $i % 4 == 0) ? "" : "";
-    $subs_list.= "<label class='checkbox-inline'><input name=\"subs[]\" " . (strpos($row["subs"], $s["id"]) !== false ? " checked='checked'" : "") . "  type=\"checkbox\" value=\"" . (int)$s["id"] . "\" />" . htmlsafechars($s["name"]) . "</label>\n";
+    $subs_list.= "<label class='checkbox-inline'><input name=\"subs[]\" " . (strpos($row["subs"], $s["id"]) !== false ? " checked='checked'" : "") . "  type=\"checkbox\" value=\"" . (int) $s["id"] . "\" />" . htmlsafechars($s["name"]) . "</label>\n";
     ++$i;
 }
 $subs_list.= "";
@@ -124,8 +135,9 @@ $HTMLOUT.= "<br><div class='row'>
 <div class='col-sm-6'>";
 $HTMLOUT.= tr($lang['edit_visible'], "<input type='checkbox' name='visible'" . (($row["visible"] == "yes") ? " checked='checked'" : "") . " value='1' /> {$lang['edit_visible_mainpage']}<br /><table border='0' cellspacing='0' cellpadding='0' width='420'><tr><td class='embedded'><font class='small'>{$lang['edit_visible_info']}</font></td></tr></table>", 1);
 $HTMLOUT.="</div>";
-if ($CURUSER['class'] >= UC_STAFF) 
-$HTMLOUT.= "<div class='col-sm-3'>{$lang['edit_banned2']}<input type='checkbox' name='banned'" . (($row["banned"] == "yes") ? " checked='checked'" : "") . " value='1' />{$lang['edit_banned']}</div>";
+if ($CURUSER['class'] >= UC_STAFF) {
+    $HTMLOUT.= "<div class='col-sm-3'>{$lang['edit_banned2']}<input type='checkbox' name='banned'" . (($row["banned"] == "yes") ? " checked='checked'" : "") . " value='1' />{$lang['edit_banned']}</div>";
+}
 $HTMLOUT.= "<div class='col-sm-3'>{$lang['edit_recommend_torrent']}<input type='radio' name='recommended' " . (($row["recommended"] == "yes") ? "checked='checked'" : "") . " value='yes' />{$lang['edit_yes']}<input type='radio' name='recommended' " . ($row["recommended"] == "no" ? "checked='checked'" : "") . " value='no' />{$lang['edit_no']}<br/><font class='small'>{$lang['edit_recommend']}</font></div>";
 $HTMLOUT.= "</div>";
 $HTMLOUT.= "<br><div class='row'><div class='col-sm-12'></div></div>";
@@ -146,16 +158,17 @@ if ($CURUSER['class'] >= UC_STAFF && XBT_TRACKER == false) {
     <option value='4'>{$lang['edit_add_week4']}</option>
     <option value='8'>{$lang['edit_add_week8']}</option>
     <option value='255'>{$lang['edit_add_unltd']}</option>
-    </select>") , 1);
-    if ($row['free'] != 0) {$HTMLOUT.="<br>";
+    </select>"), 1);
+    if ($row['free'] != 0) {
+        $HTMLOUT.="<br>";
         $HTMLOUT.= tr("{$lang['edit_free_dur1']}", ($row['free'] != 1 ? "{$lang['edit_until']}" . get_date($row['free'], 'DATE') . " 
-		 (" . mkprettytime($row['free'] - TIME_NOW) . " to go)" : 'Unlimited') , 1);
+		 (" . mkprettytime($row['free'] - TIME_NOW) . " to go)" : 'Unlimited'), 1);
     }
-$HTMLOUT.= "</div>";
+    $HTMLOUT.= "</div>";
 
-$HTMLOUT.= "<div class='col-sm-4'>";
+    $HTMLOUT.= "<div class='col-sm-4'>";
 
-$HTMLOUT.= tr("{$lang['edit_add_silver']}", ($row['silver'] != 0 ? "<input type='checkbox' name='slvr' value='1' />{$lang['edit_add_nosilver']}" : "
+    $HTMLOUT.= tr("{$lang['edit_add_silver']}", ($row['silver'] != 0 ? "<input type='checkbox' name='slvr' value='1' />{$lang['edit_add_nosilver']}" : "
     <select name='half_length'>
     <option value='0'>------</option>
     <option value='42'>{$lang['edit_add_sday1']}</option>
@@ -164,18 +177,21 @@ $HTMLOUT.= tr("{$lang['edit_add_silver']}", ($row['silver'] != 0 ? "<input type=
     <option value='4'>{$lang['edit_add_sweek4']}</option>
     <option value='8'>{$lang['edit_add_sweek8']}</option>
     <option value='255'>{$lang['edit_add_unltd']}</option>
-    </select>") , 1);
+    </select>"), 1);
     if ($row['silver'] != 0) {
         $HTMLOUT.= tr("{$lang['edit_silv_dur1']}", ($row['silver'] != 1 ? "{$lang['edit_until']}" . get_date($row['silver'], 'DATE') . " 
-		 (" . mkprettytime($row['silver'] - TIME_NOW) . " to go)" : 'Unlimited') , 1);
+		 (" . mkprettytime($row['silver'] - TIME_NOW) . " to go)" : 'Unlimited'), 1);
     }
 }
 $HTMLOUT.= "</div>";
 
 // ===09 Allow Comments
 if ($CURUSER['class'] >= UC_STAFF && $CURUSER['class'] == UC_MAX) {
-    if ($row["allow_comments"] == "yes") $messc = "&nbsp;<br>{$lang['edit_com_allow']}";
-    else $messc = "&nbsp;<br>{$lang['edit_com_only']}";
+    if ($row["allow_comments"] == "yes") {
+        $messc = "&nbsp;<br>{$lang['edit_com_allow']}";
+    } else {
+        $messc = "&nbsp;<br>{$lang['edit_com_only']}";
+    }
     $HTMLOUT.= "<div class='col-sm-4'><font color='red'>&nbsp;*&nbsp;</font><b>&nbsp;{$lang['edit_comment']}</b>
     <select name='allow_comments'>
     <option value='" . htmlsafechars($row["allow_comments"]) . "'>" . htmlsafechars($row["allow_comments"]) . "</option>
@@ -186,20 +202,22 @@ $HTMLOUT.="</div></div>";
 $HTMLOUT.= "<br><div class='row'><div class='col-sm-12'></div></div>";
 $HTMLOUT.="<div class='row'>";
 if ($CURUSER['class'] >= UC_STAFF) {
-$HTMLOUT.="<div class='col-sm-4'>";
+    $HTMLOUT.="<div class='col-sm-4'>";
     $HTMLOUT.= tr($lang['edit_stick1'], "<input type='checkbox' name='sticky'" . (($row["sticky"] == "yes") ? " checked='checked'" : "") . " value='yes' />{$lang['edit_stick2']}", 1);
-$HTMLOUT.= "</div>";
-$HTMLOUT.="<div class='col-sm-4'>";    
-	$HTMLOUT.= tr($lang['edit_anonymous'], "<input type='checkbox' name='anonymous'" . (($row["anonymous"] == "yes") ? " checked='checked'" : "") . " value='1' />{$lang['edit_anonymous1']}", 1);
-$HTMLOUT.= "</div>"; 
-$HTMLOUT.="<div class='col-sm-4'> ";  
-	if (XBT_TRACKER == false) {
+    $HTMLOUT.= "</div>";
+    $HTMLOUT.="<div class='col-sm-4'>";
+    $HTMLOUT.= tr($lang['edit_anonymous'], "<input type='checkbox' name='anonymous'" . (($row["anonymous"] == "yes") ? " checked='checked'" : "") . " value='1' />{$lang['edit_anonymous1']}", 1);
+    $HTMLOUT.= "</div>";
+    $HTMLOUT.="<div class='col-sm-4'> ";
+    if (XBT_TRACKER == false) {
         $HTMLOUT.= tr($lang['edit_vip1'], "<input type='checkbox' name='vip'" . (($row["vip"] == 1) ? " checked='checked'" : "") . " value='1' />{$lang['edit_vip2']}", 1);
-$HTMLOUT.= "</div>";    }
-$HTMLOUT.="<div class='col-sm-4'>";
+        $HTMLOUT.= "</div>";
+    }
+    $HTMLOUT.="<div class='col-sm-4'>";
     if (XBT_TRACKER == true) {
         $HTMLOUT.= tr($lang['edit_add_free'], "<input type='checkbox' name='freetorrent'" . (($row["freetorrent"] == 1) ? " checked='checked'" : "") . " value='1' />{$lang['edit_makefree']}", 1);
- $HTMLOUT.= "</div>";   }
+        $HTMLOUT.= "</div>";
+    }
 }
 $HTMLOUT.="</div>";
 $HTMLOUT.= "<br><div class='row'><div class='col-sm-12'></div></div>";
@@ -222,7 +240,7 @@ $HTMLOUT.= "<br><div class='row'>
     <td colspan='4' style='border:none'>
     <label style='margin-bottom: 1em; padding-bottom: 1em; border-bottom: 3px silver groove;'>
     <input type='hidden' class='Depends on genre being movie or genre being music' /></label>";
-$movie = array(
+$movie = [
     $lang['movie_mv1'],
     $lang['movie_mv2'],
     $lang['movie_mv3'],
@@ -230,32 +248,32 @@ $movie = array(
     $lang['movie_mv5'],
     $lang['movie_mv6'],
     $lang['movie_mv7']
-);
+];
 for ($x = 0; $x < count($movie); $x++) {
     $HTMLOUT.= "<label><input type=\"checkbox\" value=\"$movie[$x]\"  name=\"movie[]\" class=\"DEPENDS ON genre BEING movie\" />$movie[$x]</label>";
 }
-$music = array(
+$music = [
     $lang['music_m1'],
     $lang['music_m2'],
     $lang['music_m3'],
     $lang['music_m4'],
     $lang['music_m5'],
     $lang['music_m6']
-);
+];
 for ($x = 0; $x < count($music); $x++) {
     $HTMLOUT.= "<label><input type=\"checkbox\" value=\"$music[$x]\" name=\"music[]\" class=\"DEPENDS ON genre BEING music\" />$music[$x]</label>";
 }
-$game = array(
+$game = [
     $lang['game_g1'],
     $lang['game_g2'],
     $lang['game_g3'],
     $lang['game_g4'],
     $lang['game_g5']
-);
+];
 for ($x = 0; $x < count($game); $x++) {
     $HTMLOUT.= "<label><input type=\"checkbox\" value=\"$game[$x]\" name=\"game[]\" class=\"DEPENDS ON genre BEING game\" />$game[$x]</label>";
 }
-$apps = array(
+$apps = [
     $lang['app_mv1'],
     $lang['app_mv2'],
     $lang['app_mv3'],
@@ -263,7 +281,7 @@ $apps = array(
     $lang['app_mv5'],
     $lang['app_mv6'],
     $lang['app_mv7']
-);
+];
 for ($x = 0; $x < count($apps); $x++) {
     $HTMLOUT.= "<label><input type=\"checkbox\" value=\"$apps[$x]\" name=\"apps[]\" class=\"DEPENDS ON genre BEING apps\" />$apps[$x]</label>";
 }
@@ -302,4 +320,3 @@ $HTMLOUT.= "<tr><td colspan='2' align='center'><input type='submit' value='{$lan
     </form></div></div>";
 //////////////////////////// HTML OUTPIT ////////////////////////////////
 echo stdhead("{$lang['edit_stdhead']} '{$row["name"]}'", true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
-?>

@@ -37,47 +37,47 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'jQuery',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     //Regular Expressions
-    'COMMENT_REGEXP' => array(2 => "/(?<=[\\s^])s\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[gimsu]*(?=[\\s$\\.\\;])|(?<=[\\s^(=])m?\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[gimsu]*(?=[\\s$\\.\\,\\;\\)])/iU"),
+    'COMMENT_REGEXP' => [2 => "/(?<=[\\s^])s\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[gimsu]*(?=[\\s$\\.\\;])|(?<=[\\s^(=])m?\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[gimsu]*(?=[\\s$\\.\\,\\;\\)])/iU"],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'as', 'break', 'case', 'catch', 'continue', 'decodeURI', 'delete', 'do',
             'else', 'encodeURI', 'eval', 'finally', 'for', 'if', 'in', 'is', 'item',
             'instanceof', 'return', 'switch', 'this', 'throw', 'try', 'typeof', 'void',
             'while', 'write', 'with'
-            ),
-        2 => array(
+        ],
+        2 => [
             'class', 'const', 'default', 'debugger', 'export', 'extends', 'false',
             'function', 'import', 'namespace', 'new', 'null', 'package', 'private',
             'protected', 'public', 'super', 'true', 'use', 'var'
-            ),
-        3 => array(
+        ],
+        3 => [
             // common functions for Window object
             'alert', 'back', 'close', 'confirm', 'forward', 'home',
             'name', 'navigate', 'onblur', 'onerror', 'onfocus', 'onload', 'onmove',
             'onresize', 'onunload', 'open', 'print', 'prompt', 'status',
             //'blur', 'focus', 'scroll', // Duplicate with kw9
             //'stop', //Duplicate with kw10
-            ),
-        4 => array(
+        ],
+        4 => [
             // jQuery Core Functions
             'jQuery', 'each', 'size', 'length', 'selector', 'context', 'eq',
             'index', 'data', 'removeData', 'queue', 'dequeue', 'noConflict'
             //'get', //Duplicate with kw11
-            ),
-        5 => array(
+        ],
+        5 => [
             // jQuery Attribute Functions
             'attr', 'removeAttr', 'addClass', 'hasClass', 'removeClass', 'toggleClass',
             'html', 'text', 'val',
-            ),
-        6 => array(
+        ],
+        6 => [
             // jQuery Traversing Functions
             'filter', 'not', 'slice', 'add', 'children', 'closest',
             'contents', 'find', 'next', 'nextAll', 'parent', 'parents',
@@ -85,19 +85,19 @@ $language_data = array (
             //'is',  //Dup with kw1
             //'offsetParent', //Duplicate with kw8
             //'map', //Duplicate with kw12
-            ),
-        7 => array(
+        ],
+        7 => [
             // jQuery Manipulation Functions
             'append', 'appendTo', 'prepend', 'prependTo', 'after', 'before', 'insertAfter',
             'insertBefore', 'wrap', 'wrapAll', 'wrapInner', 'replaceWith', 'replaceAll',
             'empty', 'remove', 'clone',
-            ),
-        8 => array(
+        ],
+        8 => [
             // jQuery CSS Functions
             'css', 'offset', 'offsetParent', 'position', 'scrollTop', 'scrollLeft',
             'height', 'width', 'innerHeight', 'innerWidth', 'outerHeight', 'outerWidth',
-            ),
-        9 => array(
+        ],
+        9 => [
             // jQuery Events Functions
             'ready', 'bind', 'one', 'trigger', 'triggerHandler', 'unbind', 'live',
             'die', 'hover', 'blur', 'change', 'click', 'dblclick', 'error',
@@ -106,38 +106,38 @@ $language_data = array (
             'scroll', 'select', 'submit', 'unload',
             //'toggle', //Duplicate with kw10
             //'load', //Duplicate with kw11
-            ),
-        10 => array(
+        ],
+        10 => [
             // jQuery Effects Functions
             'show', 'hide', 'toggle', 'slideDown', 'slideUp', 'slideToggle', 'fadeIn',
             'fadeOut', 'fadeTo', 'animate', 'stop',
-            ),
-        11 => array(
+        ],
+        11 => [
             // jQuery Ajax Functions
             'ajax', 'load', 'get', 'getJSON', 'getScript', 'post', 'ajaxComplete',
             'ajaxError', 'ajaxSend', 'ajaxStart', 'ajaxStop', 'ajaxSuccess', 'ajaxSetup',
             'serialize', 'serializeArray',
-            ),
-        12 => array(
+        ],
+        12 => [
             // jQuery Utility Functions
             'support', 'browser', 'version', 'boxModal', 'extend', 'grep', 'makeArray',
             'map', 'inArray', 'merge', 'unique', 'isArray', 'isFunction', 'trim',
             'param',
-            ),
-        ),
-    'SYMBOLS' => array(
-        0 => array(
+        ],
+    ],
+    'SYMBOLS' => [
+        0 => [
             '(', ')', '[', ']', '{', '}',
             '+', '-', '*', '/', '%',
             '!', '@', '&', '|', '^',
             '<', '>', '=',
             ',', ';', '?', ':'
-            ),
-        1 => array(
+        ],
+        1 => [
             '$'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -151,9 +151,9 @@ $language_data = array (
         10 => false,
         11 => false,
         12 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000066; font-weight: bold;',
             2 => 'color: #003366; font-weight: bold;',
             3 => 'color: #000066;',
@@ -166,41 +166,41 @@ $language_data = array (
             10 => 'color: #000066;',
             11 => 'color: #000066;',
             12 => 'color: #000066;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #006600; font-style: italic;',
             2 => 'color: #009966; font-style: italic;',
             'MULTI' => 'color: #006600; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #3366CC;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #CC0000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #660066;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #339933;',
             1 => 'color: #000066;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
             0 => '',
             1 => '',
             2 => '',
             3 => ''
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -213,26 +213,24 @@ $language_data = array (
         10 => 'http://docs.jquery.com/Effects/{FNAME}',
         11 => 'http://docs.jquery.com/Ajax/{FNAME}',
         12 => 'http://docs.jquery.com/Utilities/{FNAME}'
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(
-        0 => array(
+    'SCRIPT_DELIMITERS' => [
+        0 => [
             '<script type="text/javascript">' => '</script>'
-            ),
-        1 => array(
+        ],
+        1 => [
             '<script language="javascript">' => '</script>'
-            )
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+        ]
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true,
         1 => true
-        )
-);
-
-?>
+    ]
+];

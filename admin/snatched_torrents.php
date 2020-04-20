@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,10 +30,10 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
 require_once INCL_DIR . 'pager_functions.php';
-require_once (CLASS_DIR . 'class_check.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_snatched_torrents'));
@@ -112,7 +112,9 @@ $row = mysqli_fetch_row($res);
 $count = $row[0];
 $snatchedperpage = 15;
 $pager = pager($snatchedperpage, $count, "staffpanel.php?tool=snatched_torrents&amp;action=snatched_torrents&amp;");
-if ($count > $snatchedperpage) $HTMLOUT.= $pager['pagertop'];
+if ($count > $snatchedperpage) {
+    $HTMLOUT.= $pager['pagertop'];
+}
 if (XBT_TRACKER == true) {
     $sql = "SELECT x.uid, x.fid, x.announced, x.completedtime, x.leechtime, x.seedtime, x.uploaded, x.downloaded, x.started, u.username, t.seeders, t.name " . "FROM xbt_files_users AS x " . "LEFT JOIN users AS u ON u.id=x.uid " . "LEFT JOIN torrents AS t ON t.id=x.fid WHERE completedtime != '0'" . " ORDER BY x.completedtime DESC " . $pager['limit'];
 } else {
@@ -152,24 +154,27 @@ if (mysqli_num_rows($result) != 0) {
 </tr>";
     }
     while ($row = mysqli_fetch_assoc($result)) {
-        $smallname = substr(htmlsafechars($row["name"]) , 0, 25);
+        $smallname = substr(htmlsafechars($row["name"]), 0, 25);
         if ($smallname != htmlsafechars($row["name"])) {
             $smallname.= '...';
         }
         if (XBT_TRACKER == true) {
-            $HTMLOUT.= "<tr><td><a href='/userdetails.php?id=" . (int)$row['uid'] . "'><b>" . htmlsafechars($row['username']) . "</b></a></td>
-<td align='center'><a href='/details.php?id=" . (int)$row['fid'] . "'><b>" . $smallname . "</b></a></td>
+            $HTMLOUT.= "<tr><td><a href='/userdetails.php?id=" . (int) $row['uid'] . "'><b>" . htmlsafechars($row['username']) . "</b></a></td>
+<td align='center'><a href='/details.php?id=" . (int) $row['fid'] . "'><b>" . $smallname . "</b></a></td>
 <td align='center'><b>" . htmlsafechars($row['announced']) . "</b></td>
 <td align='center'><b>" . mksize($row['uploaded']) . "</b></td>
 " . ($INSTALLER09['ratio_free'] ? "" : "<td align='center'><b>" . mksize($row['downloaded']) . "</b></td>") . "
 <td align='center'><b>" . get_snatched_color($row["seedtime"]) . "</b></td>
 <td align='center'><b>" . mkprettytime($row["leechtime"]) . "</b></td><td align='center'><b>" . get_date($row['started'], 'LONG', 0, 1) . "</b></td>";
-            if ($row['completedtime'] > 0) $HTMLOUT.= "<td align='center'><b>" . get_date($row['completedtime'], 'LONG', 0, 1) . "</b></td>";
-            else $HTMLOUT.= "<td align='center'><b><font color='red'>{$lang['ad_snatched_torrents_ncomplete']}</font></b></td>";
+            if ($row['completedtime'] > 0) {
+                $HTMLOUT.= "<td align='center'><b>" . get_date($row['completedtime'], 'LONG', 0, 1) . "</b></td>";
+            } else {
+                $HTMLOUT.= "<td align='center'><b><font color='red'>{$lang['ad_snatched_torrents_ncomplete']}</font></b></td>";
+            }
             $HTMLOUT.= "<td align='center'>" . ($row['seeders'] >= 1 ? "<img src='" . $INSTALLER09['pic_base_url'] . "aff_tick.gif' alt='{$lang['ad_snatched_torrents_yes']}' title='{$lang['ad_snatched_torrents_yes']}' />" : "<img src='" . $INSTALLER09['pic_base_url'] . "aff_cross.gif' alt='{$lang['ad_snatched_torrents_no']}' title='{$lang['ad_snatched_torrents_no']}' />") . "</td></tr>";
         } else {
-            $HTMLOUT.= "<tr><td><a href='/userdetails.php?id=" . (int)$row['userid'] . "'><b>" . htmlsafechars($row['username']) . "</b></a></td>
-<td align='center'><a href='/details.php?id=" . (int)$row['torrentid'] . "'><b>" . $smallname . "</b></a></td>
+            $HTMLOUT.= "<tr><td><a href='/userdetails.php?id=" . (int) $row['userid'] . "'><b>" . htmlsafechars($row['username']) . "</b></a></td>
+<td align='center'><a href='/details.php?id=" . (int) $row['torrentid'] . "'><b>" . $smallname . "</b></a></td>
 <td align='center'><b>" . get_date($row['hit_and_run'], 'LONG', 0, 1) . "</b></td>
 <td align='center'><b>" . htmlsafechars($row['mark_of_cain']) . "</b></td>
 <td align='center'><b>" . htmlsafechars($row['timesann']) . "</b></td>
@@ -178,15 +183,21 @@ if (mysqli_num_rows($result) != 0) {
 <td align='center'><b>" . get_snatched_color($row["seedtime"]) . "</b></td>
 <td align='center'><b>" . mkprettytime($row["leechtime"]) . "</b></td>
 <td align='center'><b>" . get_date($row['start_date'], 'LONG', 0, 1) . "</b></td>";
-            if ($row['complete_date'] > 0) $HTMLOUT.= "<td align='center'><b>" . get_date($row['complete_date'], 'LONG', 0, 1) . "</b></td>";
-            else $HTMLOUT.= "<td align='center'><b><font color='red'>{$lang['ad_snatched_torrents_ncomplete']}</font></b></td></tr>";
+            if ($row['complete_date'] > 0) {
+                $HTMLOUT.= "<td align='center'><b>" . get_date($row['complete_date'], 'LONG', 0, 1) . "</b></td>";
+            } else {
+                $HTMLOUT.= "<td align='center'><b><font color='red'>{$lang['ad_snatched_torrents_ncomplete']}</font></b></td></tr>";
+            }
             $HTMLOUT.= "<td align='center'><b>" . ($row['seeder'] == 'yes' ? "<img src='" . $INSTALLER09['pic_base_url'] . "aff_tick.gif' alt='{$lang['ad_snatched_torrents_yes']}' title='{$lang['ad_snatched_torrents_yes']}' />" : "<img src='" . $INSTALLER09['pic_base_url'] . "aff_cross.gif' alt='{$lang['ad_snatched_torrents_no']}' title='{$lang['ad_snatched_torrents_no']}' />") . "</b></td></tr>";
         }
     }
     $HTMLOUT.= "</table>";
-} else $HTMLOUT.= "{$lang['ad_snatched_torrents_nothing']}";
-if ($count > $snatchedperpage) $HTMLOUT.= $pager['pagerbottom']."<br>";
+} else {
+    $HTMLOUT.= "{$lang['ad_snatched_torrents_nothing']}";
+}
+if ($count > $snatchedperpage) {
+    $HTMLOUT.= $pager['pagerbottom'] . "<br>";
+}
 $HTMLOUT.= "</div></div><br>";
 echo stdhead($lang['ad_snatched_torrents_stdhead']) . $HTMLOUT . stdfoot();
 die;
-?>

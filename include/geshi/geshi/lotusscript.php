@@ -39,15 +39,15 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'LotusScript',
-    'COMMENT_SINGLE' => array(1 => "'"),
-    'COMMENT_MULTI' => array('%REM' => '%END REM'),
+    'COMMENT_SINGLE' => [1 => "'"],
+    'COMMENT_MULTI' => ['%REM' => '%END REM'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"' , "|"),
+    'QUOTEMARKS' => ['"' , "|"],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array (
+    'KEYWORDS' => [
+        1 => [
             'Yield', 'Year', 'Xor', 'Write', 'With', 'Width', 'While', 'Wend',
             'Weekday', 'VarType', 'Variant', 'Val', 'UString', 'UString$',
             'UseLSX', 'Use', 'Until', 'Unlock', 'Unicode', 'Uni', 'UChr',
@@ -100,8 +100,8 @@ $language_data = array (
             'ArrayGetIndex', 'ArrayAppend', 'Append', 'AppActivate', 'Any',
             'And', 'Alias', 'ActivateApp', 'ACos', 'Access', 'Abs', '%Include',
             '%If', '%END', '%ElseIf', '%Else'
-            ),
-        2 => array (
+        ],
+        2 => [
             'NotesXSLTransformer', 'NotesXMLProcessor', 'NotesViewNavigator',
             'NotesViewEntryCollection', 'NotesViewEntry', 'NotesViewColumn',
             'NotesView', 'NotesUIWorkspace', 'NotesUIView', 'NotesUIScheduler',
@@ -129,63 +129,61 @@ $language_data = array (
             'NotesDatabase', 'NotesColorObject', 'NotesAgent',
             'NotesAdministrationProcess', 'NotesACLEntry', 'NotesACL',
             'Navigator', 'Field', 'Button'
-            )
-        ) ,
-    'SYMBOLS' => array(
+        ]
+    ] ,
+    'SYMBOLS' => [
         '(', ')'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000FF;',
             2 => 'color: #0000EE;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #008000;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #000000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #FF00FF;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #0000AA;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #006600;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 2
-);
-
-?>
+];

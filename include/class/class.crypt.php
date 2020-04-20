@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /**
  * Implements AES128 encryption/decryption.
@@ -34,7 +34,7 @@ class McryptCipher
      */
     private $password;
 
-    function __construct($password)
+    public function __construct($password)
     {
         $this->password = $password;
     }
@@ -46,12 +46,13 @@ class McryptCipher
      * This implementation of PBKDF2 was originally created by https://defuse.ca
      * With improvements by http://www.variations-of-shadow.com
      *
-     * @param string $algorithm The hash algorithm to use. Recommended: SHA256
-     * @param string $password The password
-     * @param string $salt A salt that is unique to the password
-     * @param int $count Iteration count. Higher is better, but slower. Recommended: At least 1000
-     * @param int $key_length The length of the derived key in bytes
-     * @param bool $raw_output If true, the key is returned in raw binary format. Hex encoded otherwise
+     * @param string $algorithm  The hash algorithm to use. Recommended: SHA256
+     * @param string $password   The password
+     * @param string $salt       A salt that is unique to the password
+     * @param int    $count      Iteration count. Higher is better, but slower. Recommended: At least 1000
+     * @param int    $key_length The length of the derived key in bytes
+     * @param bool   $raw_output If true, the key is returned in raw binary format. Hex encoded otherwise
+     *
      * @return string A $key_length-byte key derived from the password and salt
      *
      * @see https://defuse.ca/php-pbkdf2.htm
@@ -97,7 +98,8 @@ class McryptCipher
         }
     }
 
-    private function pbkfd2Hash($password, $salt) {
+    private function pbkfd2Hash($password, $salt)
+    {
         return base64_encode(
             $this->pbkdf2(self::PBKDF2_HASH_ALGORITHM, $password, $salt, self::PBKDF2_ITERATIONS, self::PBKDF2_HASH_BYTE_SIZE, true)
         );
@@ -107,9 +109,10 @@ class McryptCipher
      * Encrypt the input text
      *
      * @param string $input
+     *
      * @return string Format: pbkdf2Salt:iv:encryptedText
      */
-    function encrypt($input)
+    public function encrypt($input)
     {
         // Create secure PBKDF2 derivative out of password.
         $pbkdf2Salt = base64_encode(
@@ -124,23 +127,23 @@ class McryptCipher
         // That is why here /dev/urandom is used.
         $iv = mcrypt_create_iv($mcryptIvSize, MCRYPT_DEV_URANDOM);
 
-        return implode(':', array(
+        return implode(':', [
             $pbkdf2Salt,
             base64_encode($iv),
             base64_encode(
                 mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $pbkdf2SecureKey, $input, MCRYPT_MODE_CBC, $iv)
             )
-        ));
-
+        ]);
     }
 
     /**
      * Decrypt the input text.
      *
      * @param string $input Format: pbkdf2Salt:iv:encryptedText
+     *
      * @return string
      */
-    function decrypt($input)
+    public function decrypt($input)
     {
         list($pbkdf2Salt, $iv, $encryptedText) = explode(':', $input);
 
@@ -153,41 +156,36 @@ class McryptCipher
             "\0"
         );
     }
-
 }
 
 
 
 $c = new McryptCipher($INSTALLER09['cipher_key']['key']);
 
-function encrypt_ip($ip) {
- 
-         global $INSTALLER09, $c;
-         $ip = $c -> encrypt($ip);
-         return $ip;
+function encrypt_ip($ip)
+{
+    global $INSTALLER09, $c;
+    $ip = $c -> encrypt($ip);
+    return $ip;
 }
 
-function decrypt_ip($ip) {
- 
-         global $INSTALLER09, $c;
-         $ip = $c -> decrypt($ip);
-         return $ip;
-         
+function decrypt_ip($ip)
+{
+    global $INSTALLER09, $c;
+    $ip = $c -> decrypt($ip);
+    return $ip;
 }
 
-function encrypt_email($email) {
- 
-         global $INSTALLER09, $c;
-         $email = $c -> encrypt($email);
-         return $email;
+function encrypt_email($email)
+{
+    global $INSTALLER09, $c;
+    $email = $c -> encrypt($email);
+    return $email;
 }
 
-function decrypt_email($email) {
- 
-         global $INSTALLER09, $c;
-         $email = $c -> decrypt($email);
-         return $email;
-         
+function decrypt_email($email)
+{
+    global $INSTALLER09, $c;
+    $email = $c -> decrypt($email);
+    return $email;
 }
-
-?>

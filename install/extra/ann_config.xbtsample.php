@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 error_reporting(E_ALL);
 ////////////////// GLOBAL VARIABLES /////////////////////////////////////
@@ -28,12 +28,12 @@ define('CACHE_DIR', ROOT_DIR . 'cache' . DIRECTORY_SEPARATOR);
 define('CLASS_DIR', INCL_DIR . 'class' . DIRECTORY_SEPARATOR);
 define('XBT_TRACKER', true);
 $INSTALLER09['cache'] = ROOT_DIR . 'cache';
-require_once (CLASS_DIR . 'class_cache.php');
-require_once (CLASS_DIR . 'class_bt_options.php');
+require_once(CLASS_DIR . 'class_cache.php');
+require_once(CLASS_DIR . 'class_bt_options.php');
 $INSTALLER09['pic_base_url'] = "./pic/";
-require_once (CACHE_DIR . 'class_config.php');
+require_once(CACHE_DIR . 'class_config.php');
 date_default_timezone_set('Europe/London');
-$mc1 = NEW CACHE();
+$mc1 = new CACHE();
 //$mc1->MemcachePrefix = 'u232_3_';
 define('TIME_NOW', time());
 define('ANN_SQL_DEBUG', 1);
@@ -62,5 +62,3 @@ $INSTALLER09['expires']['happyhour'] = 43200; // 43200 1/2 day
 $INSTALLER09['expires']['sitepot'] = 86400; // 86400 1 day
 $INSTALLER09['expires']['torrent_announce'] = 86400; // 86400 1 day
 $INSTALLER09['expires']['torrent_details'] = 30 * 86400; // = 30 days
-
-?>

@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,9 +30,9 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_rep_ad'));
@@ -42,14 +42,14 @@ $now_date = "";
 $reputationid = 0;
 $time_offset = 0;
 $a = explode(",", gmdate("Y,n,j,G,i,s", TIME_NOW + $time_offset));
-$now_date = array(
+$now_date = [
     'year' => $a[0],
     'mon' => $a[1],
     'mday' => $a[2],
     'hours' => $a[3],
     'minutes' => $a[4],
     'seconds' => $a[5]
-);
+];
 switch ($input['mode']) {
 case 'modify':
     show_level();
@@ -105,7 +105,7 @@ default:
 }
 function show_level()
 {
-	global $lang;
+    global $lang;
     $title = $lang['rep_ad_show_title'];
     $html = "<p>{$lang['rep_ad_show_html1']}<br />{$lang['rep_ad_show_html2']}</p><br />";
     $query = sql_query('SELECT * FROM reputationlevel ORDER BY minimumreputation ASC');
@@ -161,7 +161,7 @@ function show_form($type = 'edit')
     $replevid = isset($res['reputationlevelid']) ? $res['reputationlevelid'] : '';
     $replevel = isset($res['level']) ? $res['level'] : '';
     $minrep = isset($res['minimumreputation']) ? $res['minimumreputation'] : '';
-	$html.= "<div class='row'><div class='col-md-12'>";
+    $html.= "<div class='row'><div class='col-md-12'>";
     $html.= "<form action='staffpanel.php?tool=reputation_ad' name='show_rep_form' method='post'>
 				<input name='reputationlevelid' value='{$replevid}' type='hidden' />
 				<input name='mode' value='{$mode}' type='hidden' />";
@@ -175,7 +175,7 @@ function show_form($type = 'edit')
     $html.= "<tr><td colspan='2' align='center'><input type='submit' value='$button' accesskey='s' class='btn' /> <input type='reset' value='{$lang['rep_ad_show_reset']}' accesskey='r' class='btn' /><br>$extra</td></tr>";
     $html.= "</table>";
     $html.= "</form>";
-	$html.= "</div></div>";
+    $html.= "</div></div>";
     html_out($html, $title);
 }
 /////////////////////////////////////
@@ -195,7 +195,7 @@ function do_update($type = "")
         }
         $level = sqlesc($level);
         $minrep = sqlesc(intval($input['minimumreputation']));
-        $redirect = '' . $lang['rep_ad_update_saved'] . ' <i>' . htmlsafechars($input['level'], ENT_QUOTES) . '</i> ' . $lang['rep_ad_update_success'] .'';
+        $redirect = '' . $lang['rep_ad_update_saved'] . ' <i>' . htmlsafechars($input['level'], ENT_QUOTES) . '</i> ' . $lang['rep_ad_update_success'] . '';
     }
     // what we gonna do?
     if ($type == 'new') {
@@ -203,7 +203,9 @@ function do_update($type = "")
 							VALUES  ($minrep, $level )");
     } elseif ($type == 'edit') {
         $levelid = intval($input['reputationlevelid']);
-        if (!is_valid_id($levelid)) stderr('', $lang['rep_ad_update_err3']);
+        if (!is_valid_id($levelid)) {
+            stderr('', $lang['rep_ad_update_err3']);
+        }
         // check it's a valid rep id
         $query = sql_query("SELECT reputationlevelid FROM reputationlevel WHERE 
 									reputationlevelid={$levelid}");
@@ -232,7 +234,9 @@ function do_update($type = "")
 function do_delete()
 {
     global $input, $lang;
-    if (!isset($input['reputationlevelid']) || !is_valid_id($input['reputationlevelid'])) stderr('', 'No valid ID.');
+    if (!isset($input['reputationlevelid']) || !is_valid_id($input['reputationlevelid'])) {
+        stderr('', 'No valid ID.');
+    }
     $levelid = intval($input['reputationlevelid']);
     // check the id is valid within db
     $query = sql_query("SELECT reputationlevelid FROM reputationlevel WHERE reputationlevelid=$levelid");
@@ -250,7 +254,9 @@ function do_delete()
 function show_form_rep()
 {
     global $input, $lang;
-    if (!isset($input['reputationid']) || !is_valid_id($input['reputationid'])) stderr('', $lang['rep_ad_rep_form_nothing']);
+    if (!isset($input['reputationid']) || !is_valid_id($input['reputationid'])) {
+        stderr('', $lang['rep_ad_rep_form_nothing']);
+    }
     $title = $lang['rep_ad_rep_form_title'];
     $query = sql_query("SELECT r.*, p.topic_id, t.topic_name, leftfor.username as leftfor_name, 
 					leftby.username as leftby_name
@@ -285,7 +291,7 @@ function view_list()
 {
     global $now_date, $time_offset, $input, $lang;
     $title = $lang['rep_ad_view_title'];
-	$html = "<div class='row'><div class='col-md-12'>";
+    $html = "<div class='row'><div class='col-md-12'>";
     $html = "<h2>{$lang['rep_ad_view_view']}</h2>";
     $html.= "<p>{$lang['rep_ad_view_page']}</p>";
     $html.= "<form action='staffpanel.php?tool=reputation_ad' name='list_form' method='post'>
@@ -312,14 +318,14 @@ function view_list()
     $html.= "<tr><td class='tdrow2' colspan='2'><div class='desctext'>{$lang['rep_ad_view_end_select']}</div></td></tr>";
     $html.= "<tr><td colspan='2' align='center'><input type='submit' value='{$lang['rep_ad_view_search']}' accesskey='s' class='btn' tabindex='5' /> <input type='reset' value='{$lang['rep_ad_view_reset']}' accesskey='r' class='btn' tabindex='6' /></td></tr>";
     $html.= "</table></form>";
-	$html.= "</div></div>";	
+    $html.= "</div></div>";
     //echo $html; exit;
     // I hate work, but someone has to do it!
     if (isset($input['dolist'])) {
         $links = "";
         $input['orderby'] = isset($input['orderby']) ? $input['orderby'] : '';
         //$cond = ''; //experiment
-        $who = isset($input['who']) ? (int)$input['who'] : 0;
+        $who = isset($input['who']) ? (int) $input['who'] : 0;
         $user = isset($input['user']) ? $input['user'] : 0;
         $first = isset($input['page']) ? intval($input['page']) : 0;
         $cond = $who ? "r.whoadded=" . sqlesc($who) : '';
@@ -396,12 +402,12 @@ function view_list()
         $links = "<span style=\"background: #F0F5FA; border: 1px solid #072A66;padding: 1px 3px 1px 3px;\">{$total['cnt']}&nbsp;{$lang['rep_ad_view_records']}</span>";
         if ($total['cnt'] > $deflimit) {
             require_once INCL_DIR . 'pager_functions.php';
-            $links = pager_rep(array(
+            $links = pager_rep([
                 'count' => $total['cnt'],
                 'perpage' => $deflimit,
                 'start_value' => $first,
                 'url' => "staffpanel.php?tool=reputation_ad&amp;mode=list&amp;dolist=1&amp;who=" . intval($who) . "&amp;user=" . intval($user) . "&amp;orderby=$orderby&amp;startstamp=$start&amp;endstamp=$end"
-            ));
+            ]);
         }
         // mofo query!
         $query = sql_query("SELECT r.*, p.topic_id, leftfor.id as leftfor_id, 
@@ -412,7 +418,9 @@ function view_list()
 									left join users leftfor on leftfor.id=r.userid 
 									left join users leftby on leftby.id=r.whoadded 
 									WHERE $cond ORDER BY $order LIMIT $first,$deflimit");
-        if (!mysqli_num_rows($query)) stderr($lang['rep_ad_view_err3'], $lang['rep_ad_view_err5']);
+        if (!mysqli_num_rows($query)) {
+            stderr($lang['rep_ad_view_err3'], $lang['rep_ad_view_err5']);
+        }
         while ($r = mysqli_fetch_assoc($query)) {
             $r['dateadd'] = date("M j, Y, g:i a", $r['dateadd']);
             $html.= "<tr><td>#{$r['reputationid']}</td>";
@@ -425,7 +433,7 @@ function view_list()
         }
         $html.= "</table>";
         $html.= "<br /><div>$links</div>";
-	$html.= "</div></div>";
+        $html.= "</div></div>";
     }
     html_out($html, $title);
 }
@@ -435,11 +443,13 @@ function view_list()
 function do_delete_rep()
 {
     global $input, $lang;
-    if (!is_valid_id($input['reputationid'])) stderr($lang['rep_ad_delete_rep_err1'], $lang['rep_ad_delete_rep_err2']);
+    if (!is_valid_id($input['reputationid'])) {
+        stderr($lang['rep_ad_delete_rep_err1'], $lang['rep_ad_delete_rep_err2']);
+    }
     // check it's a valid ID.
     $query = sql_query("SELECT reputationid, reputation, userid FROM reputation WHERE reputationid=" . intval($input['reputationid']));
-    if (false === ($r = mysqli_fetch_assoc($query))) {
-        stderr($lang['rep_ad_delete_rep_err3'] ,$lang['rep_ad_delete_rep_err4']);
+    if (($r = mysqli_fetch_assoc($query)) === false) {
+        stderr($lang['rep_ad_delete_rep_err3'], $lang['rep_ad_delete_rep_err4']);
     }
     $sql = sql_query('SELECT reputation ' . 'FROM users ' . 'WHERE id = ' . sqlesc($input['reputationid'])) or sqlerr(__FILE__, __LINE__);
     $User = mysqli_fetch_assoc($sql);
@@ -448,14 +458,14 @@ function do_delete_rep()
     sql_query("UPDATE users SET reputation = (reputation-{$r['reputation']} ) WHERE id=" . intval($r['userid']));
     $update['rep'] = ($User['reputation'] - $r['reputation']);
     $mc1->begin_transaction('MyUser_' . $r['userid']);
-    $mc1->update_row(false, array(
+    $mc1->update_row(false, [
         'reputation' => $update['rep']
-    ));
+    ]);
     $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
     $mc1->begin_transaction('user' . $r['userid']);
-    $mc1->update_row(false, array(
+    $mc1->update_row(false, [
         'reputation' => $update['rep']
-    ));
+    ]);
     $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
     redirect("staffpanel.php?tool=reputation_ad&amp;mode=list", $lang['rep_ad_delete_rep_success'], 5);
 }
@@ -492,14 +502,14 @@ function do_edit_rep()
         @sql_query("UPDATE users SET reputation = (reputation-{$diff}) WHERE id=" . intval($r['userid']));
         $update['rep'] = ($User['reputation'] - $diff);
         $mc1->begin_transaction('MyUser_' . $r['userid']);
-        $mc1->update_row(false, array(
+        $mc1->update_row(false, [
             'reputation' => $update['rep']
-        ));
+        ]);
         $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
         $mc1->begin_transaction('user' . $r['userid']);
-        $mc1->update_row(false, array(
+        $mc1->update_row(false, [
             'reputation' => $update['rep']
-        ));
+        ]);
         $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
         $mc1->delete_value('MyUser_' . $r['userid']);
         $mc1->delete_value('user' . $r['userid']);
@@ -513,7 +523,7 @@ function do_edit_rep()
 ///////////////////////////////////////////////
 function html_out($html = "", $title = "")
 {
-	global $lang;
+    global $lang;
     if (empty($html)) {
         stderr($lang['rep_ad_html_error'], $lang['rep_ad_html_nothing']);
     }
@@ -554,7 +564,7 @@ function get_month_dropdown($i = 0)
 {
     global $now_date, $lang;
     $return = '';
-    $month = array(
+    $month = [
         '----',
         $lang['rep_ad_month_jan'],
         $lang['rep_ad_month_feb'],
@@ -568,7 +578,7 @@ function get_month_dropdown($i = 0)
         $lang['rep_ad_month_oct'],
         $lang['rep_ad_month_nov'],
         $lang['rep_ad_month_dec']
-    );
+    ];
     foreach ($month as $k => $m) {
         $return.= "\t<option value='" . $k . "'";
         $return.= (($k + $i) == $now_date['mon']) ? " selected='selected'" : "";
@@ -582,7 +592,9 @@ function get_month_dropdown($i = 0)
 function rep_cache()
 {
     $query = @sql_query("SELECT * FROM reputationlevel");
-    if (!mysqli_num_rows($query)) stderr($lang['rep_ad_cache_cache'], $lang['rep_ad_cache_none']);
+    if (!mysqli_num_rows($query)) {
+        stderr($lang['rep_ad_cache_cache'], $lang['rep_ad_cache_none']);
+    }
     $rep_cache_file = "{$INSTALLER09['baseurl']}/cache/rep_cache.php";
     $rep_out = "<" . "?php\n\n\$reputations = array(\n";
     while ($row = mysqli_fetch_assoc($query)) {
@@ -597,4 +609,3 @@ function rep_cache()
         fclose($filenum);
     }
 }
-?>

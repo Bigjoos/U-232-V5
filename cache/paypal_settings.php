@@ -1,8 +1,8 @@
 <?php
 /**
-This file created on Jul 15 2016 18:16:31.
-Site paypal shits /U-232v4.
-**/
+ * This file created on Jul 15 2016 18:16:31.
+ * Site paypal shits /U-232v4.
+ **/
 $INSTALLER09['paypal_config']['email'] = '';
 $INSTALLER09['paypal_config']['gb'] = 3;
 $INSTALLER09['paypal_config']['weeks'] = 4;
@@ -71,5 +71,3 @@ $INSTALLER09['paypal_config']['inv_amt_3'] = 3;
 $INSTALLER09['paypal_config']['inv_amt_4'] = 4;
 $INSTALLER09['paypal_config']['inv_amt_5'] = 5;
 $INSTALLER09['paypal_config']['inv_amt_6'] = 6;
-
-?>

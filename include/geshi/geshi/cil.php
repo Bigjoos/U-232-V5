@@ -37,23 +37,23 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'CIL',
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'COMMENT_SINGLE' => array('//'),
-    'COMMENT_MULTI' => array(),
-    'QUOTEMARKS' => array('"'),
+    'COMMENT_SINGLE' => ['//'],
+    'COMMENT_MULTI' => [],
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(//Dotted
+    'KEYWORDS' => [
+        1 => [//Dotted
             '.zeroinit', '.vtfixup', '.vtentry', '.vtable', '.ver', '.try', '.subsystem', '.size', '.set', '.removeon',
             '.publickeytoken', '.publickey', '.property', '.permissionset', '.permission', '.pdirect', '.param', '.pack',
             '.override', '.other', '.namespace', '.mresource', '.module', '.method', '.maxstack', '.manifestres', '.locals',
             '.localized', '.locale', '.line', '.language', '.import', '.imagebase', '.hash', '.get', '.fire', '.file', '.field',
             '.export', '.event', '.entrypoint', '.emitbyte', '.data', '.custom', '.culture', '.ctor', '.corflags', '.class',
             '.cctor', '.assembly', '.addon'
-            ),
-        2 => array(//Attributes
+        ],
+        2 => [//Attributes
             'wrapper', 'with', 'winapi', 'virtual', 'vector', 'vararg', 'value', 'userdefined', 'unused', 'unmanagedexp',
             'unmanaged', 'unicode', 'to', 'tls', 'thiscall', 'synchronized', 'struct', 'strict', 'storage', 'stdcall',
             'static', 'specialname', 'special', 'serializable', 'sequential', 'sealed', 'runtime', 'rtspecialname', 'request',
@@ -68,21 +68,21 @@ $language_data = array (
             'error', 'enum', 'endmac', 'deny', 'demand', 'default', 'custom', 'compilercontrolled', 'clsid', 'class', 'cil',
             'cf', 'cdecl', 'catch', 'beforefieldinit', 'autochar', 'auto', 'at', 'assert', 'assembly', 'as', 'any', 'ansi',
             'alignment', 'algorithm', 'abstract'
-            ),
-        3 => array(//Types
+        ],
+        3 => [//Types
             'wchar', 'void', 'variant', 'unsigned', 'valuetype', 'typedref', 'tbstr', 'sysstring', 'syschar', 'string',
             'streamed_object', 'stream', 'stored_object', 'safearray', 'objectref', 'object', 'nullref', 'method', 'lpwstr',
             'lpvoid', 'lptstr', 'lpstruct', 'lpstr', 'iunknown', 'int64', 'int32', 'int16', 'int8', 'int', 'idispatch',
             'hresult', 'float64', 'float32', 'float', 'decimal', 'date', 'currency', 'char', 'carray', 'byvalstr',
             'bytearray', 'boxed', 'bool', 'blob_object', 'blob', 'array'
-            ),
-        4 => array(//Prefix
+        ],
+        4 => [//Prefix
             'volatile', 'unaligned', 'tail', 'readonly', 'no', 'constrained'
-            ),
-        5 => array(//Suffix
+        ],
+        5 => [//Suffix
             'un', 'u8', 'u4', 'u2', 'u1', 'u', 's', 'ref', 'r8', 'r4', 'm1', 'i8', 'i4', 'i2', 'i1', 'i'#, '.8', '.7', '.6', '.5', '.4', '.3', '.2', '.1', '.0'
-            ),
-        6 => array(//Base
+        ],
+        6 => [//Base
             'xor', 'switch', 'sub', 'stloc',
             'stind', 'starg',
             'shr', 'shl', 'ret', 'rem', 'pop', 'or', 'not', 'nop', 'neg', 'mul',
@@ -93,27 +93,27 @@ $language_data = array (
             'call', 'brzero', 'brtrue', 'brnull', 'brinst',
             'brfalse', 'break', 'br', 'bne', 'blt', 'ble', 'bgt', 'bge', 'beq', 'arglist',
             'and', 'add'
-            ),
-        7 => array(//Object
+        ],
+        7 => [//Object
             'unbox.any', 'unbox', 'throw', 'stsfld', 'stobj', 'stfld', 'stelem', 'sizeof', 'rethrow', 'refanyval', 'refanytype', 'newobj',
             'newarr', 'mkrefany', 'ldvirtftn', 'ldtoken', 'ldstr', 'ldsflda', 'ldsfld', 'ldobj', 'ldlen', 'ldflda', 'ldfld',
             'ldelema', 'ldelem', 'isinst', 'initobj', 'cpobj', 'castclass',
             'callvirt', 'callmostderived', 'box'
-            ),
-        8 => array(//Other
+        ],
+        8 => [//Other
             'prefixref', 'prefix7', 'prefix6', 'prefix5', 'prefix4', 'prefix3', 'prefix2', 'prefix1', 'prefix0'
-            ),
-        9 => array(//Literal
+        ],
+        9 => [//Literal
             'true', 'null', 'false'
-            ),
-        10 => array(//Comment-like
+        ],
+        10 => [//Comment-like
             '#line', '^THE_END^'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '!', '!!'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -125,9 +125,9 @@ $language_data = array (
         8 => true,
         9 => true,
         10 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color:maroon;font-weight:bold;',
             2 => 'color:blue;font-weight:bold;',
             3 => 'color:purple;font-weight:bold;',
@@ -138,35 +138,35 @@ $language_data = array (
             8 => 'color:blue;',
             9 => 'color:00008B',
             10 => 'color:gray'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             0 => 'color:gray;font-style:italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #008000; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #006400;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #008000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #00008B;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #000033;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #006400;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color:blue;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -177,20 +177,18 @@ $language_data = array (
         8 => '',
         9 => '',
         10 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '::'
-        ),
-    'REGEXPS' => array(
+    ],
+    'REGEXPS' => [
         0 => '(?<=ldc\\.i4\\.)[0-8]|(?<=(?:ldarg|ldloc|stloc)\\.)[0-3]' # Pickup the opcodes that end with integers
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

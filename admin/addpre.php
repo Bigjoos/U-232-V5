@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,22 +30,28 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR.'user_functions.php');
-require_once (CLASS_DIR.'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 class_check(UC_STAFF);
 $lang = array_merge($lang, load_language('ad_addpre'));
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tid = trim(htmlsafechars($_POST["id"]));
     $time = trim(htmlsafechars($_POST["time"]));
-    if (!$tid || !$time) stderr("{$lang['text_error']}", "{$lang['text_please']}");
-    $res = sql_query("SELECT * FROM torrents WHERE id=".sqlesc($tid)) or sqlerr(__FILE__, __LINE__);
-    if (mysqli_num_rows($res) != 1) stderr("{$lang['text_error']}", "{$lang['text_bad']}");
+    if (!$tid || !$time) {
+        stderr("{$lang['text_error']}", "{$lang['text_please']}");
+    }
+    $res = sql_query("SELECT * FROM torrents WHERE id=" . sqlesc($tid)) or sqlerr(__FILE__, __LINE__);
+    if (mysqli_num_rows($res) != 1) {
+        stderr("{$lang['text_error']}", "{$lang['text_bad']}");
+    }
     $arr = mysqli_fetch_assoc($res);
     $name = $arr['name'];
-    $res = sql_query("INSERT INTO releases (releasename, time, releasetime, section) VALUES (".sqlesc($name).", ".sqlesc($time).", ".sqlesc($time).", 'Site add')") or sqlerr(__FILE__, __LINE__);
-    
-    $mc1->delete_value('torrent_pretime_'.$tid);
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) != 1) stderr("{$lang['text_error']}", "{$lang['text_unable']}");
+    $res = sql_query("INSERT INTO releases (releasename, time, releasetime, section) VALUES (" . sqlesc($name) . ", " . sqlesc($time) . ", " . sqlesc($time) . ", 'Site add')") or sqlerr(__FILE__, __LINE__);
+
+    $mc1->delete_value('torrent_pretime_' . $tid);
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) != 1) {
+        stderr("{$lang['text_error']}", "{$lang['text_unable']}");
+    }
     stderr("{$lang['stderr_success']}", "{$lang['text_success']}");
 }
 $HTMLOUT = "
@@ -65,6 +71,6 @@ $HTMLOUT = "
       </tr>
     </table>
     </form>";
-echo stdhead("{$lang['stdhead_addpre']}").$HTMLOUT.stdfoot();
+echo stdhead("{$lang['stdhead_addpre']}") . $HTMLOUT . stdfoot();
 ?>
 ?>

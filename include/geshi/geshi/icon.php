@@ -41,25 +41,25 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'Icon',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', '\''),
+    'QUOTEMARKS' => ['"', '\''],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'break', 'case', 'continue', 'create', 'default', 'do', 'else',
             'end', 'every', 'fail', 'for', 'if', 'import', 'initial',
             'initially', 'invocable', 'link', 'next', 'not', 'of', 'package',
             'procedure', 'record', 'repeat', 'return', 'switch', 'suspend',
             'then', 'to', 'until', 'while'
-            ),
-        2 => array(
+        ],
+        2 => [
             'global', 'local', 'static'
-            ),
-        3 => array(
+        ],
+        3 => [
             'allocated', 'ascii', 'clock', 'collections',
             'column', 'cset', 'current', 'date', 'dateline', 'digits',
             'dump', 'e', 'error', 'errornumber', 'errortext',
@@ -72,8 +72,8 @@ $language_data = array(
             'ldrag', 'lpress', 'lrelease', 'mdrag', 'meta', 'mpress',
             'mrelease', 'rdrag', 'resize', 'row', 'rpress', 'rrelease',
             'shift', 'window', 'x', 'y'
-            ),
-        4 => array(
+        ],
+        4 => [
             'abs', 'acos', 'any', 'args', 'asin', 'atan', 'bal', 'center', 'char',
             'chmod', 'close', 'cofail', 'collect', 'copy', 'cos', 'cset', 'ctime', 'delay', 'delete',
             'detab', 'display', 'dtor', 'entab', 'errorclear', 'event', 'eventmask', 'EvGet', 'exit',
@@ -87,8 +87,8 @@ $language_data = array(
             'setenv', 'sort', 'sortf', 'sql', 'sqrt', 'stat', 'stop', 'string', 'system', 'tab',
             'table', 'tan', 'trap', 'trim', 'truncate', 'type', 'upto', 'utime', 'variable', 'where',
             'write', 'writes'
-            ),
-        5 => array(
+        ],
+        5 => [
             'Active', 'Alert', 'Bg', 'Clip', 'Clone', 'Color', 'ColorValue',
             'CopyArea', 'Couple', 'DrawArc', 'DrawCircle', 'DrawCurve', 'DrawCylinder', 'DrawDisk',
             'DrawImage', 'DrawLine', 'DrawPoint', 'DrawPolygon', 'DrawRectangle', 'DrawSegment',
@@ -99,12 +99,12 @@ $language_data = array(
             'PushScale', 'PushTranslate', 'QueryPointer', 'Raise', 'ReadImage', 'Refresh', 'Rotate',
             'Scale', 'Texcoord', 'TextWidth', 'Texture', 'Translate', 'Uncouple', 'WAttrib',
             'WDefault', 'WFlush', 'WindowContents', 'WriteImage', 'WSync'
-            ),
-        6 => array(
+        ],
+        6 => [
             'define', 'include', 'ifdef', 'ifndef', 'else', 'endif', 'error',
             'line', 'undef'
-            ),
-        7 => array(
+        ],
+        7 => [
             '_V9', '_AMIGA', '_ACORN', '_CMS', '_MACINTOSH', '_MSDOS_386',
             '_MS_WINDOWS_NT', '_MSDOS', '_MVS', '_OS2', '_POR', 'T', '_UNIX', '_POSIX', '_DBM',
             '_VMS', '_ASCII', '_EBCDIC', '_CO_EXPRESSIONS', '_CONSOLE_WINDOW', '_DYNAMIC_LOADING',
@@ -112,21 +112,21 @@ $language_data = array(
             '_MULTITASKING', '_PIPES', '_RECORD_IO', '_SYSTEM_FUNCTION', '_MESSAGING', '_GRAPHICS',
             '_X_WINDOW_SYSTEM', '_MS_WINDOWS', '_WIN32', '_PRESENTATION_MGR', '_ARM_FUNCTIONS',
             '_DOS_FUNCTIONS'
-            ),
-        8 => array(
+        ],
+        8 => [
             'line'
-            )
-        ),
-    'SYMBOLS' => array(
-        1 => array(
+        ]
+    ],
+    'SYMBOLS' => [
+        1 => [
             '(', ')', '{', '}', '[', ']', '+', '-', '*', '/', '\\', '%', '=', '<', '>', '!', '^',
             '&', '|', '?', ':', ';', ',', '.', '~', '@'
-            ),
-        2 => array(
+        ],
+        2 => [
             '$(', '$)', '$<', '$>', '$'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -136,9 +136,9 @@ $language_data = array(
         6 => true,
         7 => true,
         8 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #b1b100;',
             2 => 'color: #b1b100;',
             3 => 'color: #b1b100;',
@@ -147,34 +147,34 @@ $language_data = array(
             6 => 'color: #b1b100;',
             7 => 'color: #b1b100;',
             8 => 'color: #b1b100;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #0000ff;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;',
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #004000;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             1 => 'color: #339933;',
             2 => 'color: #b1b100;'
-            ),
-        'REGEXPS' => array(),
-        'SCRIPT' => array()
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [],
+        'SCRIPT' => []
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -183,30 +183,28 @@ $language_data = array(
         6 => '',
         7 => '',
         8 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(1 => '.'),
-    'REGEXPS' => array(),
+    'OBJECT_SPLITTERS' => [1 => '.'],
+    'REGEXPS' => [],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(),
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            3 => array(
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => [],
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            3 => [
                 'DISALLOWED_BEFORE' => '(?<=&amp;)'
-                ),
-            4 => array(
+            ],
+            4 => [
                 'DISALLOWED_BEFORE' => "(?<![a-zA-Z0-9_\"\'])",
                 'DISALLOWED_AFTER' => "(?![a-zA-Z0-9_\"\'])"
-                ),
-            6 => array(
+            ],
+            6 => [
                 'DISALLOWED_BEFORE' => '(?<=\$)'
-                ),
-            8 => array(
+            ],
+            8 => [
                 'DISALLOWED_BEFORE' => '(?<=#)'
-                )
-            )
-        )
-);
-
-?>
+            ]
+        ]
+    ]
+];

@@ -36,29 +36,29 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'GNU make',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_REGEXP' => [
         //Escaped String Starters
         2 => "/\\\\['\"]/siU"
-        ),
-    'COMMENT_MULTI' => array(),
+    ],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             // core
             'ifeq', 'else', 'endif', 'ifneq', 'ifdef', 'ifndef',
             'include', 'vpath', 'export', 'unexport', 'override',
             'info', 'warning', 'error'
-            ),
-        2 => array(
+        ],
+        2 => [
             // macros, literals
             '.SUFFIXES', '.PHONY', '.DEFAULT', '.PRECIOUS', '.IGNORE', '.SILENT', '.EXPORT_ALL_VARIABLES', '.KEEP_STATE',
             '.LIBPATTERNS', '.NOTPARALLEL', '.DELETE_ON_ERROR', '.INTERMEDIATE', '.POSIX', '.SECONDARY'
-            ),
+        ],
         /*
         3 => array(
             // funcs - see regex
@@ -66,86 +66,85 @@ $language_data = array (
             //'findstring', 'firstword', 'foreach', 'if', 'join', 'notdir', 'origin', 'patsubst', 'shell', 'sort', 'strip',
             //'suffix', 'warning', 'wildcard', 'word', 'wordlist', 'words'
             )*/
-        ),
-    'SYMBOLS' => array(
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}',
         '!', '@', '%', '&', '|', '/',
         '<', '>',
         '=', '-', '+', '*',
         '.', ':', ',', ';',
         '$'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         //3 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #666622; font-weight: bold;',
             2 => 'color: #990000;',
             //3 => 'color: #000000; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #339900; font-style: italic;',
             2 => 'color: #000099; font-weight: bold;',
             'MULTI' => ''
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(  # keep same as symbols so as to make ${} and $() equiv.
+        ],
+        'BRACKETS' => [  # keep same as symbols so as to make ${} and $() equiv.
             0 => 'color: #004400;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #CC2200;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #CC2200;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #004400;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #000088; font-weight: bold;',
             1 => 'color: #0000CC; font-weight: bold;',
             2 => 'color: #000088;'
-            ),
-        'SCRIPT' => array(),
-        'METHODS' => array()
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [],
+        'METHODS' => []
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         //3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [
         //Simple variables
         0 => "\\$(?:[^{(&]|&(?:amp|lt|gt);)",
         //Complex variables/functions [built-ins]
-        1 => array(
+        1 => [
             GESHI_SEARCH => '(\\$[({])(subst|addprefix|addsuffix|basename|call|dir|error|eval|filter-out|filter,|findstring|firstword|foreach|if|join|notdir|origin|patsubst|shell|sort|strip,|suffix|warning|wildcard|word|wordlist|words)([ })])',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
-            //Complex variables/functions [others]
-        2 => array(
+        ],
+        //Complex variables/functions [others]
+        2 => [
             GESHI_SEARCH => '(\\$[({])([A-Za-z_][A-Za-z_0-9]*)([ })])',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
-        ),
+        ],
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(),
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => [],
     'TAB_WIDTH' => 8
-// vim: set sw=4 sts=4 :
-);
-?>
+    // vim: set sw=4 sts=4 :
+];

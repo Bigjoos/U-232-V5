@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //=== mass bonus stuff for members coded for TB sites 2011 ~ snuggs
 if (!defined('IN_INSTALLER09_ADMIN')) {
@@ -34,42 +34,42 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
 }
 require_once INCL_DIR . 'user_functions.php';
 require_once INCL_DIR . 'bbcode_functions.php';
-require_once (CLASS_DIR . 'class_check.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 //=== all the defaults
 $lang = array_merge($lang, load_language('ad_bonus_for_members'));
 
-$stdhead = array(
+$stdhead = [
     /** include css **/
-    'css' => array(
+    'css' => [
         'style2',
         'bbcode'
-    )/*,
+    ]/*,
     /** include js **/
     /*'js' => array(
         'popup',
         'shout'
     )*/
-);
-$stdfoot = array(
+];
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'shout',
         'browse',
         'check_selected'
-    )
-);
+    ]
+];
 $h1_thingie = $HTMLOUT = '';
 //=== check if action_2 is sent ($_POST) if so make sure it's what you want it to be
 $action_2 = (isset($_POST['action_2']) ? htmlsafechars($_POST['action_2']) : 'no_action');
-$good_stuff = array(
+$good_stuff = [
     'upload_credit',
     'karma',
     'freeslots',
     'invite',
     'pm'
-);
+];
 $action = (($action_2 && in_array($action_2, $good_stuff, true)) ? $action_2 : '');
 //=== see if the credit is for all classes or selected classes all_or_selected_classes
 if (isset($_POST['all_or_selected_classes'])) {
@@ -82,17 +82,18 @@ if (isset($_POST['all_or_selected_classes'])) {
 switch ($action) {
 case 'upload_credit':
     $GB = isset($_POST['GB']) ? 0 + $_POST['GB'] : 0;
-    if ($GB < 1073741824 || $GB > 53687091200) //=== forgot to enter GB or wrong numbers
-    stderr($lang['bonusmanager_up_err'], $lang['bonusmanager_up_err1']);
+    if ($GB < 1073741824 || $GB > 53687091200) { //=== forgot to enter GB or wrong numbers
+        stderr($lang['bonusmanager_up_err'], $lang['bonusmanager_up_err1']);
+    }
     $bonus_added = ($GB / 1073741824);
     //=== if for all classes
     if ($free_for_classes === 1) {
         $res_GB = sql_query('SELECT id, uploaded, modcomment FROM users WHERE enabled = \'yes\' AND suspended = \'no\'') or sqlerr(__FILE__, __LINE__);
-        $pm_buffer = $users_buffer = array();
+        $pm_buffer = $users_buffer = [];
         if (mysqli_num_rows($res_GB) > 0) {
             $subject = sqlesc($lang['bonusmanager_up_added']);
-            $msg = sqlesc($lang['bonusmanager_up_addedmsg'] . $bonus_added . $lang['bonusmanager_up_addedmsg1'] . $INSTALLER09['site_name'] . "{$lang['bonusmanager_up_addedmsg2']}{$lang['bonusmanager_up_addedmsg22']}" . $GB . " " . $GB_new."");
-		while ($arr_GB = mysqli_fetch_assoc($res_GB)) {
+            $msg = sqlesc($lang['bonusmanager_up_addedmsg'] . $bonus_added . $lang['bonusmanager_up_addedmsg1'] . $INSTALLER09['site_name'] . "{$lang['bonusmanager_up_addedmsg2']}{$lang['bonusmanager_up_addedmsg22']}" . $GB . " " . $GB_new . "");
+            while ($arr_GB = mysqli_fetch_assoc($res_GB)) {
                 $GB_new = ($arr_GB['uploaded'] + $GB);
                 $modcomment = $arr_GB['modcomment'];
                 $modcomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $bonus_added . $lang['bonusmanager_up_modcomment'] . $modcomment;
@@ -100,15 +101,15 @@ case 'upload_credit':
                 $pm_buffer[] = '(0, ' . $arr_GB['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                 $users_buffer[] = '(' . $arr_GB['id'] . ', ' . $GB_new . ', ' . $modcom . ')';
                 $mc1->begin_transaction('user_stats_' . $arr_GB['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'uploaded' => $GB_new,
                     'modcomment' => $modcomment
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
                 $mc1->begin_transaction('userstats_' . $arr_GB['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'uploaded' => $GB_new
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
                 $mc1->delete_value('inbox_new_' . $arr_GB['id']);
                 $mc1->delete_value('inbox_new_sb_' . $arr_GB['id']);
@@ -127,7 +128,7 @@ case 'upload_credit':
         foreach ($free_for as $class) {
             if (ctype_digit($class)) {
                 $res_GB = sql_query('SELECT id, uploaded, modcomment FROM users WHERE enabled = \'yes\' AND suspended = \'no\' AND class = ' . $class);
-                $pm_buffer = $users_buffer = array();
+                $pm_buffer = $users_buffer = [];
                 if (mysqli_num_rows($res_GB) > 0) {
                     $subject = sqlesc($lang['bonusmanager_up_added']);
                     $msg = sqlesc($lang['bonusmanager_up_addedmsg'] . $bonus_added . $lang['bonusmanager_up_addedmsg3'] . $INSTALLER09['site_name'] . $lang['bonusmanager_up_addedmsg2']);
@@ -139,15 +140,15 @@ case 'upload_credit':
                         $pm_buffer[] = '(0, ' . $arr_GB['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                         $users_buffer[] = '(' . $arr_GB['id'] . ', ' . $GB_new . ', ' . $modcom . ')';
                         $mc1->begin_transaction('user_stats_' . $arr_GB['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'uploaded' => $GB_new,
                             'modcomment' => $modcomment
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
                         $mc1->begin_transaction('userstats_' . $arr_GB['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'uploaded' => $GB_new
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
                         $mc1->delete_value('inbox_new_' . $arr_GB['id']);
                         $mc1->delete_value('inbox_new_sb_' . $arr_GB['id']);
@@ -169,12 +170,13 @@ case 'upload_credit':
 
 case 'karma':
     $karma = isset($_POST['karma']) ? 0 + $_POST['karma'] : 0;
-    if ($karma < 100 || $karma > 5000) //=== forgot to enter karma or wrong numbers
-    stderr($lang['bonusmanager_karma_err'],$lang['bonusmanager_karma_err1']);
+    if ($karma < 100 || $karma > 5000) { //=== forgot to enter karma or wrong numbers
+        stderr($lang['bonusmanager_karma_err'], $lang['bonusmanager_karma_err1']);
+    }
     //=== if for all classes
     if ($free_for_classes === 1) {
         $res_karma = sql_query('SELECT id, seedbonus, modcomment FROM users WHERE enabled = \'yes\' AND suspended = \'no\'') or sqlerr(__FILE__, __LINE__);
-        $pm_buffer = $users_buffer = array();
+        $pm_buffer = $users_buffer = [];
         if (mysqli_num_rows($res_karma) > 0) {
             $subject = sqlesc($lang['bonusmanager_karma_added']);
             $msg = sqlesc($lang['bonusmanager_karma_addedmsg'] . $karma . $lang['bonusmanager_karma_addedmsg1'] . $INSTALLER09['site_name'] . $lang['bonusmanager_karma_addedmsg2']);
@@ -186,15 +188,15 @@ case 'karma':
                 $pm_buffer[] = '(0, ' . $arr_karma['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                 $users_buffer[] = '(' . $arr_karma['id'] . ', ' . $karma_new . ', ' . $modcom . ')';
                 $mc1->begin_transaction('user_stats_' . $arr_karma['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'seedbonus' => $karma_new,
                     'modcomment' => $modcomment
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
                 $mc1->begin_transaction('userstats_' . $arr_karma['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'seedbonus' => $karma_new
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
                 $mc1->delete_value('inbox_new_' . $arr_karma['id']);
                 $mc1->delete_value('inbox_new_sb_' . $arr_karma['id']);
@@ -213,7 +215,7 @@ case 'karma':
         foreach ($free_for as $class) {
             if (ctype_digit($class)) {
                 $res_karma = sql_query('SELECT id, seedbonus, modcomment FROM users WHERE enabled = \'yes\' AND suspended = \'no\' AND class = ' . $class);
-                $pm_buffer = $users_buffer = array();
+                $pm_buffer = $users_buffer = [];
                 if (mysqli_num_rows($res_karma) > 0) {
                     $subject = sqlesc($lang['bonusmanager_karma_added']);
                     $msg = sqlesc($lang['bonusmanager_karma_addedmsg'] . $karma . $lang['bonusmanager_karma_addedmsg3'] . $INSTALLER09['site_name'] . $lang['bonusmanager_karma_addedmsg2']);
@@ -225,15 +227,15 @@ case 'karma':
                         $pm_buffer[] = '(0, ' . $arr_karma['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                         $users_buffer[] = '(' . $arr_karma['id'] . ', ' . $karma_new . ', ' . $modcom . ')';
                         $mc1->begin_transaction('user_stats_' . $arr_karma['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'seedbonus' => $karma_new,
                             'modcomment' => $modcomment
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
                         $mc1->begin_transaction('userstats_' . $arr_karma['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'seedbonus' => $karma_new
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
                         $mc1->delete_value('inbox_new_' . $arr_karma['id']);
                         $mc1->delete_value('inbox_new_sb_' . $arr_karma['id']);
@@ -255,12 +257,13 @@ case 'karma':
 
 case 'freeslots':
     $freeslots = isset($_POST['freeslots']) ? 0 + $_POST['freeslots'] : 0;
-    if ($freeslots < 1 || $freeslots > 50) //=== forgot to enter freeslots or wrong numbers
-    stderr($lang['bonusmanager_freeslots_err'], $lang['bonusmanager_freeslots_err1']);
+    if ($freeslots < 1 || $freeslots > 50) { //=== forgot to enter freeslots or wrong numbers
+        stderr($lang['bonusmanager_freeslots_err'], $lang['bonusmanager_freeslots_err1']);
+    }
     //=== if for all classes
     if ($free_for_classes === 1) {
         $res_freeslots = sql_query('SELECT id, freeslots, modcomment FROM users WHERE enabled = \'yes\' AND suspended = \'no\'') or sqlerr(__FILE__, __LINE__);
-        $pm_buffer = $users_buffer = array();
+        $pm_buffer = $users_buffer = [];
         if (mysqli_num_rows($res_freeslots) > 0) {
             $subject = sqlesc($lang['bonusmanager_freeslots_added']);
             $msg = sqlesc($lang['bonusmanager_freeslots_addedmsg'] . $freeslots . $lang['bonusmanager_freeslots_addedmsg1'] . $INSTALLER09['site_name'] . $lang['bonusmanager_freeslots_addedmsg2']);
@@ -272,19 +275,19 @@ case 'freeslots':
                 $pm_buffer[] = '(0, ' . $arr_freeslots['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                 $users_buffer[] = '(' . $arr_freeslots['id'] . ', ' . $freeslots_new . ', ' . $modcom . ')';
                 $mc1->begin_transaction('MyUser_' . $arr_freeslots['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'freeslots' => $freeslots_new
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
                 $mc1->begin_transaction('user' . $arr_freeslots['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'freeslots' => $freeslots_new
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
                 $mc1->begin_transaction('user_stats_' . $arr_freeslots['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'modcomment' => $modcomment
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
                 $mc1->delete_value('inbox_new_' . $arr_freeslots['id']);
                 $mc1->delete_value('inbox_new_sb_' . $arr_freeslots['id']);
@@ -303,7 +306,7 @@ case 'freeslots':
         foreach ($free_for as $class) {
             if (ctype_digit($class)) {
                 $res_freeslots = sql_query('SELECT id, freeslots, modcomment FROM users WHERE enabled = \'yes\' AND suspended = \'no\' AND class = ' . $class);
-                $pm_buffer = $users_buffer = array();
+                $pm_buffer = $users_buffer = [];
                 if (mysqli_num_rows($res_freeslots) > 0) {
                     $subject = sqlesc($lang['bonusmanager_freeslots_added']);
                     $msg = sqlesc($lang['bonusmanager_freeslots_addedmsg'] . $freeslots . $lang['bonusmanager_freeslots_addedmsg3'] . $INSTALLER09['site_name'] . $lang['bonusmanager_freeslots_addedmsg2']);
@@ -315,19 +318,19 @@ case 'freeslots':
                         $pm_buffer[] = '(0, ' . $arr_freeslots['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                         $users_buffer[] = '(' . $arr_freeslots['id'] . ', ' . $freeslots_new . ', ' . $modcom . ')';
                         $mc1->begin_transaction('MyUser_' . $arr_freeslots['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'freeslots' => $freeslots_new
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
                         $mc1->begin_transaction('user' . $arr_freeslots['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'freeslots' => $freeslots_new
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
                         $mc1->begin_transaction('user_stats_' . $arr_freeslots['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'modcomment' => $modcomment
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
                         $mc1->delete_value('inbox_new_' . $arr_freeslots['id']);
                         $mc1->delete_value('inbox_new_sb_' . $arr_freeslots['id']);
@@ -349,12 +352,13 @@ case 'freeslots':
 
 case 'invite':
     $invites = isset($_POST['invites']) ? 0 + $_POST['invites'] : 0;
-    if ($invites < 1 || $invites > 50) //=== forgot to enter invites or wrong numbers
-    stderr($lang['bonusmanager_invite_err'], $lang['bonusmanager_invite_err1']);
+    if ($invites < 1 || $invites > 50) { //=== forgot to enter invites or wrong numbers
+        stderr($lang['bonusmanager_invite_err'], $lang['bonusmanager_invite_err1']);
+    }
     //=== if for all classes
     if ($free_for_classes === 1) {
         $res_invites = sql_query('SELECT id, invites, modcomment FROM users WHERE enabled = \'yes\' AND suspended = \'no\' AND invite_on = \'yes\'');
-        $pm_buffer = $users_buffer = array();
+        $pm_buffer = $users_buffer = [];
         if (mysqli_num_rows($res_invites) > 0) {
             $subject = sqlesc($lang['bonusmanager_invite_added']);
             $msg = sqlesc($lang['bonusmanager_invite_addedmsg'] . $invites . $lang['bonusmanager_invite_addedmsg1'] . $INSTALLER09['site_name'] . $lang['bonusmanager_invite_addedmsg2']);
@@ -366,19 +370,19 @@ case 'invite':
                 $pm_buffer[] = '(0, ' . $arr_invites['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                 $users_buffer[] = '(' . $arr_invites['id'] . ', ' . $invites_new . ', ' . $modcom . ')';
                 $mc1->begin_transaction('MyUser_' . $arr_invites['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'invites' => $invites_new
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
                 $mc1->begin_transaction('user' . $arr_invites['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'invites' => $invites_new
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
                 $mc1->begin_transaction('user_stats_' . $arr_invites['id']);
-                $mc1->update_row(false, array(
+                $mc1->update_row(false, [
                     'modcomment' => $modcomment
-                ));
+                ]);
                 $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
                 $mc1->delete_value('inbox_new_' . $arr_invites['id']);
                 $mc1->delete_value('inbox_new_sb_' . $arr_invites['id']);
@@ -397,7 +401,7 @@ case 'invite':
         foreach ($free_for as $class) {
             if (ctype_digit($class)) {
                 $res_invites = sql_query('SELECT id, invites, modcomment FROM users WHERE enabled = \'yes\' AND suspended = \'no\' AND invite_on = \'yes\' AND class = ' . $class);
-                $pm_buffer = $users_buffer = array();
+                $pm_buffer = $users_buffer = [];
                 if (mysqli_num_rows($res_invites) > 0) {
                     $subject = sqlesc($lang['bonusmanager_invite_added']);
                     $msg = sqlesc($lang['bonusmanager_invite_addedmsg'] . $invites . $lang['bonusmanager_invite_addedmsg3'] . $INSTALLER09['site_name'] . $lang['bonusmanager_invite_addedmsg2']);
@@ -409,19 +413,19 @@ case 'invite':
                         $pm_buffer[] = '(0, ' . $arr_invites['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                         $users_buffer[] = '(' . $arr_invites['id'] . ', ' . $invites_new . ', ' . $modcom . ')';
                         $mc1->begin_transaction('MyUser_' . $arr_invites['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'invites' => $invites_new
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
                         $mc1->begin_transaction('user' . $arr_invites['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'invites' => $invites_new
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
                         $mc1->begin_transaction('user_stats_' . $arr_invites['id']);
-                        $mc1->update_row(false, array(
+                        $mc1->update_row(false, [
                             'modcomment' => $modcomment
-                        ));
+                        ]);
                         $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
                         $mc1->delete_value('inbox_new_' . $arr_invites['id']);
                         $mc1->delete_value('inbox_new_sb_' . $arr_invites['id']);
@@ -439,13 +443,18 @@ case 'invite':
         header('Location: staffpanel.php?tool=mass_bonus_for_members&action=mass_bonus_for_members&invites=2');
         die();
     }
+    // no break
 case 'pm':
-    if (!isset($_POST['subject'])) stderr($lang['bonusmanager_pm_err'], $lang['bonusmanager_pm_err1']);
-    if (!isset($_POST['body'])) stderr($lang['bonusmanager_pm_err'], $lang['bonusmanager_pm_err2']);
+    if (!isset($_POST['subject'])) {
+        stderr($lang['bonusmanager_pm_err'], $lang['bonusmanager_pm_err1']);
+    }
+    if (!isset($_POST['body'])) {
+        stderr($lang['bonusmanager_pm_err'], $lang['bonusmanager_pm_err2']);
+    }
     //=== if for all classes
     if ($free_for_classes === 1) {
         $res_pms = sql_query('SELECT id FROM users WHERE enabled = \'yes\' AND suspended = \'no\'');
-        $pm_buffer = array();
+        $pm_buffer = [];
         if (mysqli_num_rows($res_pms) > 0) {
             $subject = sqlesc(htmlsafechars($_POST['subject']));
             $body = sqlesc(htmlsafechars($_POST['body']));
@@ -467,7 +476,7 @@ case 'pm':
         foreach ($free_for as $class) {
             if (ctype_digit($class)) {
                 $res_pms = sql_query('SELECT id FROM users WHERE enabled = \'yes\' AND suspended = \'no\' AND class = ' . $class);
-                $pm_buffer = array();
+                $pm_buffer = [];
                 if (mysqli_num_rows($res_pms) > 0) {
                     $subject = sqlesc(htmlsafechars($_POST['subject']));
                     $body = sqlesc(htmlsafechars($_POST['body']));
@@ -504,23 +513,23 @@ for ($i = UC_MIN; $i <= UC_MAX; ++$i) {
 }
 $all_classes_check_boxes.= ($count == 0 ? '</table>' : '<tr><td colspan="' . (7 - $count) . '" class="one"></td></tr></table>') . '';
 $bonus_GB = '<select class="form-control" name="GB">
-        <option class="head" value="">'.$lang['bonusmanager_up_add'].'</option>
-        <option class="body" value="1073741824">'.$lang['bonusmanager_up_1gb' ].'</option>
-        <option class="body" value="2147483648">'.$lang['bonusmanager_up_2gb' ].'</option>
-        <option class="body" value="3221225472">'.$lang['bonusmanager_up_3gb' ].'</option>
-        <option class="body" value="4294967296">'.$lang['bonusmanager_up_4gb' ].'</option>
-        <option class="body" value="5368709120">'.$lang['bonusmanager_up_5gb' ].'</option>
-        <option class="body" value="6442450944">'.$lang['bonusmanager_up_6gb' ].'</option>
-        <option class="body" value="7516192768">'.$lang['bonusmanager_up_7gb' ].'</option>
-        <option class="body" value="8589934592">'.$lang['bonusmanager_up_8gb' ].'</option>
-        <option class="body" value="9663676416">'.$lang['bonusmanager_up_9gb' ].'</option>
-        <option class="body" value="10737418240">'.$lang['bonusmanager_up_10gb' ].'</option>
-        <option class="body" value="16106127360">'.$lang['bonusmanager_up_15gb' ].'</option>
-        <option class="body" value="21474836480">'.$lang['bonusmanager_up_20gb' ].'</option>
-        <option class="body" value="26843545600">'.$lang['bonusmanager_up_25gb' ].'</option>
-        <option class="body" value="32212254720">'.$lang['bonusmanager_up_30gb' ].'</option>
-        <option class="body" value="53687091200">'.$lang['bonusmanager_up_50gb' ].'</option>
-        </select>'.$lang['bonusmanager_up_amount' ].' ';
+        <option class="head" value="">' . $lang['bonusmanager_up_add'] . '</option>
+        <option class="body" value="1073741824">' . $lang['bonusmanager_up_1gb' ] . '</option>
+        <option class="body" value="2147483648">' . $lang['bonusmanager_up_2gb' ] . '</option>
+        <option class="body" value="3221225472">' . $lang['bonusmanager_up_3gb' ] . '</option>
+        <option class="body" value="4294967296">' . $lang['bonusmanager_up_4gb' ] . '</option>
+        <option class="body" value="5368709120">' . $lang['bonusmanager_up_5gb' ] . '</option>
+        <option class="body" value="6442450944">' . $lang['bonusmanager_up_6gb' ] . '</option>
+        <option class="body" value="7516192768">' . $lang['bonusmanager_up_7gb' ] . '</option>
+        <option class="body" value="8589934592">' . $lang['bonusmanager_up_8gb' ] . '</option>
+        <option class="body" value="9663676416">' . $lang['bonusmanager_up_9gb' ] . '</option>
+        <option class="body" value="10737418240">' . $lang['bonusmanager_up_10gb' ] . '</option>
+        <option class="body" value="16106127360">' . $lang['bonusmanager_up_15gb' ] . '</option>
+        <option class="body" value="21474836480">' . $lang['bonusmanager_up_20gb' ] . '</option>
+        <option class="body" value="26843545600">' . $lang['bonusmanager_up_25gb' ] . '</option>
+        <option class="body" value="32212254720">' . $lang['bonusmanager_up_30gb' ] . '</option>
+        <option class="body" value="53687091200">' . $lang['bonusmanager_up_50gb' ] . '</option>
+        </select>' . $lang['bonusmanager_up_amount' ] . ' ';
 $karma_drop_down = '
         <select name="karma" class="form-control">
         <option class="head" value="">' . $lang['bonusmanager_karma_add'] . '</option>';
@@ -563,7 +572,7 @@ $pm_drop_down = '<form name="pm" method="post" action="mass_bonus_for_members.ph
                  </tr>
                  <tr>
                  <td align="right" class="one"><span style="font-weight: bold;">' . $lang['bonusmanager_pm_body'] . '</span></td>
-                 <td align="left" class="one">'.textbbcode('pm', 'body', $body).'</td>
+                 <td align="left" class="one">' . textbbcode('pm', 'body', $body) . '</td>
                  </tr>
                  </table></form>';
 $drop_down = '
@@ -636,4 +645,3 @@ $("#all_or_selected_classes").click(function() {
 /*]]>*/
 </script>';
 echo stdhead($lang['bonusmanager_h1_upload'], true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
-?>

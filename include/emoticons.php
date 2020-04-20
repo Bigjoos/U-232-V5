@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$smilies = array(
+$smilies = [
     ":-)" => "smile1.gif",
     ":smile:" => "smile2.gif",
     ":-D" => "grin.gif",
@@ -219,8 +219,8 @@ $smilies = array(
     ":maxlocked:" => "maxlocked.gif",
     ":hslocked:" => "hslocked.gif",
     ":thankyou:" => "thankyou.gif",
-);
-$staff_smilies = array(
+];
+$staff_smilies = [
     ":Boozer:" => "alcoholic.gif",
     ":deadhorse:" => "deadhorse.gif",
     ":bump:" => "halo.gif",
@@ -237,8 +237,8 @@ $staff_smilies = array(
     ":locked:" => "locked.gif",
     ":censoredpic:" => "boucher-censored.jpg",
     ":dabunnies:" => "bunnies3.gif",
-);
-$customsmilies = array(
+];
+$customsmilies = [
     ":congrat:" => "clapping2.gif",
     ":thedevil:" => "diablo.gif",
     ":drinks2:" => "drinks2.gif",
@@ -424,5 +424,4 @@ $customsmilies = array(
     ":undecided_skull:" => "undecided_skull.gif",
     ":wink_skull:" => "wink_skull.gif",
     ":fart4:" => "fart4.gif"
-);
-?>
+];

@@ -38,15 +38,15 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'X++',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array( // Primitive types
+    'KEYWORDS' => [
+        1 => [ // Primitive types
             'void',
             'str',
             'real',
@@ -56,8 +56,8 @@ $language_data = array (
             'container',
             'boolean',
             'anytype'
-            ),
-        2 => array( // Keywords
+        ],
+        2 => [ // Keywords
             'window',
             'while',
             'try',
@@ -101,8 +101,8 @@ $language_data = array (
             'break',
             'at',
             'abstract'
-            ),
-        3 => array( // Functions within the Axapta kernel
+        ],
+        3 => [ // Functions within the Axapta kernel
             'year',
             'wkofyr',
             'webwebpartstr',
@@ -305,8 +305,8 @@ $language_data = array (
             'ansi2ascii',
             'acos',
             'abs'
-            ),
-        4 => array( // X++ SQL stuff
+        ],
+        4 => [ // X++ SQL stuff
             'where',
             'update_recordset',
             'ttsCommit',
@@ -346,9 +346,9 @@ $language_data = array (
             'count',
             'avg',
             'asc'
-            )
-        ),
-    'SYMBOLS' => array( // X++ symbols
+        ]
+    ],
+    'SYMBOLS' => [ // X++ symbols
         '!',
         '&',
         '(',
@@ -370,67 +370,65 @@ $language_data = array (
         ']',
         '{',
         '}'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000ff;',
             2 => 'color: #0000ff;',
             3 => 'color: #0000ff;',
             4 => 'color: #0000ff;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #007f00;',
             'MULTI' => 'color: #007f00; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000000;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #000000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #000000;',
             2 => 'color: #000000;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #00007f;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.',
         2 => '::'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

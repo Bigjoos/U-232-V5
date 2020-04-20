@@ -36,117 +36,115 @@
  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ************************************************************************************/
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'LOLcode',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [
         1 => "/\bBTW\b.*$/im",
         2 => "/(^|\b)(?:OBTW\b.+?\bTLDR|LOL\b.+?\/LOL)(\b|$)/si"
-        ),
+    ],
     'CASE_KEYWORDS' => GESHI_CAPS_UPPER,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         1 => '/:[)>o":]/',
         2 => '/:\([\da-f]+\)/i',
         3 => '/:\{\w+\}/i',
         4 => '/:\[\w+\]/i',
-        ),
-    'KEYWORDS' => array(
+    ],
+    'KEYWORDS' => [
         //Statements
-        1 => array(
+        1 => [
             'VISIBLE', 'HAI', 'KTHX', 'KTHXBYE', 'SMOOSH', 'GIMMEH', 'PLZ',
             'ON', 'INVISIBLE', 'R', 'ITZ', 'GTFO', 'COMPLAIN', 'GIMME',
 
             'OPEN', 'FILE', 'I HAS A', 'AWSUM THX', 'O NOES', 'CAN', 'HAS', 'HAZ',
             'HOW DOES I', 'IF U SAY SO', 'FOUND YR', 'BORROW', 'OWN', 'ALONG',
             'WITH', 'WIT', 'LOOK', 'AT', 'AWSUM', 'THX'
-            ),
+        ],
         //Conditionals
-        2 => array(
+        2 => [
             'IZ', 'YARLY', 'NOWAI', 'WTF?', 'MEBBE', 'OMG', 'OMGWTF',
             'ORLY?', 'OF', 'NOPE', 'SO', 'IM', 'MAI',
 
             'O RLY?', 'SUM', 'BOTH SAEM', 'DIFFRINT', 'BOTH', 'EITHER', 'WON',
             'DIFF', 'PRODUKT', 'QUOSHUNT', 'MOD', 'MKAY', 'OK', 'THING',
             'BIGNESS'
-            ),
+        ],
         //Repetition
-        3 => array(
+        3 => [
             'IN', 'OUTTA', 'LOOP', 'WHILE'
-            ),
+        ],
         //Operators \Math
-        4 => array(
+        4 => [
             'AN', 'AND', 'NOT', 'UP', 'YR', 'UPPIN', 'NERF', 'NERFIN', 'NERFZ',
             'SMASHING', 'UR', 'KINDA', 'LIKE', 'SAEM', 'BIG', 'SMALL',
             'BIGGR', 'SMALLR', 'BIGGER', 'SMALLER', 'GOOD', 'CUTE', 'THAN'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '.', ',', '?',
         '!!'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #008000;',
             2 => 'color: #000080;',
             3 => 'color: #000080;',
             4 => 'color: #800000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; style: italic;',
             2 => 'color: #666666; style: italic;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'NUMBERS' => [
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'ESCAPE_CHAR' => array(
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'ESCAPE_CHAR' => [
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
             'SPACE_AS_WHITESPACE' => true
-            )
-        ),
+        ]
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

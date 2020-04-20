@@ -54,38 +54,38 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'ActionScript 3',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'with', 'while', 'void', 'undefined', 'typeof', 'try', 'true',
             'throw', 'this', 'switch', 'super', 'set', 'return', 'public', 'protected',
             'private', 'null', 'new', 'is', 'internal', 'instanceof', 'in',
             'import', 'if', 'get', 'for', 'false', 'else', 'each', 'do',
             'delete', 'default', 'continue', 'catch', 'case', 'break', 'as'
-            ),
-        2 => array(
+        ],
+        2 => [
             'var'
-            ),
-        3 => array(
+        ],
+        3 => [
             'function'
-            ),
-        4 => array(
+        ],
+        4 => [
             'class', 'package'
-            ),
-        6 => array(
+        ],
+        6 => [
             'flash.xml', 'flash.utils', 'flash.ui', 'flash.text',
             'flash.system', 'flash.profiler', 'flash.printing', 'flash.net',
             'flash.media', 'flash.geom', 'flash.filters', 'flash.external',
             'flash.events', 'flash.errors', 'flash.display',
             'flash.accessibility'
-            ),
-        7 => array(
+        ],
+        7 => [
             'zoom', 'year', 'y', 'xmlDecl', 'x', 'writeUnsignedInt',
             'writeUTFBytes', 'writeUTF', 'writeShort', 'writeObject',
             'writeMultiByte', 'writeInt', 'writeFloat', 'writeExternal',
@@ -286,8 +286,8 @@ $language_data = array (
             'addEventListener', 'addChildAt', 'addChild', 'addCallback', 'add',
             'activityLevel', 'activity', 'active', 'activating', 'activate',
             'actionScriptVersion', 'acos', 'accessibilityProperties', 'abs'
-            ),
-        8 => array(
+        ],
+        8 => [
             'WRAP', 'VERTICAL', 'VARIABLES',
             'UTC', 'UPLOAD_COMPLETE_DATA', 'UP', 'UNLOAD', 'UNKNOWN',
             'UNIQUESORT', 'TOP_RIGHT', 'TOP_LEFT', 'TOP', 'TIMER_COMPLETE',
@@ -336,11 +336,11 @@ $language_data = array (
             'AMF0', 'ALWAYS', 'ALPHANUMERIC_HALF', 'ALPHANUMERIC_FULL', 'ALPHA',
             'ADVANCED', 'ADDED_TO_STAGE', 'ADDED', 'ADD', 'ACTIVITY',
             'ACTIONSCRIPT3', 'ACTIONSCRIPT2'
-            ),
+        ],
         //FIX: Must be last in order to avoid conflicts with keywords present
         //in other keyword groups, that might get highlighted as part of the URL.
         //I know this is not a proper work-around, but should do just fine.
-        5 => array(
+        5 => [
             'uint', 'int', 'arguments', 'XMLSocket', 'XMLNodeType', 'XMLNode',
             'XMLList', 'XMLDocument', 'XML', 'Video', 'VerifyError',
             'URLVariables', 'URLStream', 'URLRequestMethod', 'URLRequestHeader',
@@ -387,12 +387,12 @@ $language_data = array (
             'ArgumentError', 'ApplicationDomain', 'AntiAliasType',
             'ActivityEvent', 'ActionScriptVersion', 'AccessibilityProperties',
             'Accessibility', 'AVM1Movie'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '!', '%', '&', '*', '|', '/', '<', '>', '^', '-', '+', '~', '?', ':'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -402,9 +402,9 @@ $language_data = array (
         6 => true,
         7 => true,
         8 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0033ff; font-weight: bold;',
             2 => 'color: #6699cc; font-weight: bold;',
             3 => 'color: #339966; font-weight: bold;',
@@ -413,35 +413,35 @@ $language_data = array (
             6 => 'color: #004993;',
             7 => 'color: #004993;',
             8 => 'color: #004993;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #009900;',
             'MULTI' => 'color: #3f5fbf;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #990000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #000000; font-weight:bold;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #000000;',
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000000; font-weight: bold;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -450,18 +450,16 @@ $language_data = array (
         6 => '',
         7 => '',
         8 => ''
-        ),
-    'OOLANG' => false,//Save some time as OO identifiers aren't used
-    'OBJECT_SPLITTERS' => array(
+    ],
+    'OOLANG' => false, //Save some time as OO identifiers aren't used
+    'OBJECT_SPLITTERS' => [
         // commented out because it's not very relevant for AS, as all properties, methods and constants are dot-accessed.
         // I believe it's preferable to have package highlighting for example, which is not possible with this enabled.
         // 0 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => []
+];

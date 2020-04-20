@@ -37,102 +37,100 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Cuesheet',
-    'COMMENT_SINGLE' => array(1 => ';'),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [1 => ';'],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [
         //Single-Line Comments using REM command
         1 => "/(?<=\bREM\b).*?$/im",
-        ),
+    ],
     'CASE_KEYWORDS' => GESHI_CAPS_UPPER,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
-            'CATALOG','CDTEXTFILE','FILE','FLAGS','INDEX','ISRC','PERFORMER',
-            'POSTGAP','PREGAP','REM','SONGWRITER','TITLE','TRACK'
-            ),
-        2 => array(
+    'KEYWORDS' => [
+        1 => [
+            'CATALOG', 'CDTEXTFILE', 'FILE', 'FLAGS', 'INDEX', 'ISRC', 'PERFORMER',
+            'POSTGAP', 'PREGAP', 'REM', 'SONGWRITER', 'TITLE', 'TRACK'
+        ],
+        2 => [
             'AIFF', 'BINARY', 'MOTOROLA', 'MP3', 'WAVE'
-            ),
-        3 => array(
+        ],
+        3 => [
             '4CH', 'DCP', 'PRE', 'SCMS'
-            ),
-        4 => array(
+        ],
+        4 => [
             'AUDIO', 'CDG', 'MODE1/2048', 'MODE1/2336', 'MODE2/2336',
             'MODE2/2352', 'CDI/2336', 'CDI/2352'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         ':'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight: bold;',
             2 => 'color: #000066; font-weight: bold;',
             3 => 'color: #000066; font-weight: bold;',
             4 => 'color: #000066; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080;',
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #0000ff;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #0000ff;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #006600;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000066;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
             1 => 'color: #000099;',
             2 => 'color: #009900;',
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => 'http://digitalx.org/cuesheetsyntax.php#{FNAMEL}',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
         2 => '\b[A-Za-z0-9]{5}\d{7}\b',
         1 => '(?<=[\s:]|^)\d+(?=[\s:]|$)',
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 2,
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
             'DISALLOWED_BEFORE' => '(?<![\w\.])',
             'DISALLOWED_AFTER' => '(?![\w\.])',
-            )
-        )
-);
-
-?>
+        ]
+    ]
+];

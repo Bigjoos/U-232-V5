@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //upload errors
     'upload_sorry' => "Sorry...",
     'upload_no_auth' => "You are not authorized to upload torrents.  (See <a href='faq.php#up'>Uploading</a> in the FAQ.)",
@@ -53,7 +53,7 @@ $lang = array(
     'upload_tags' => "Tags",
     'upload_tag_info' => "Multiple tags must be seperated by a comma like tag1,tag2",
     'upload_bitbucket_1' => '(Note* the upload is handled by the bitbucket and the image will be hosted on the server)',
-     //addition terms by yoooov
+    //addition terms by yoooov
     'upload_add_fill' => "If you are filling a request,select it here so interested members can be notified.",
     'upload_add_noreq' => "Currently no requests",
     'upload_add_offer' => "You have no approved offers yet",
@@ -84,5 +84,4 @@ $lang = array(
     'upload_add_sweek8' => "Silver for 8 weeks",
     'upload_add_vip' => "Vip Torrent ",
     'upload_add_vipchk' => "If this one is checked, only Vip's can download this torrent"
-);
-?>
+];

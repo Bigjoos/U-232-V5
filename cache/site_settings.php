@@ -1,8 +1,8 @@
 <?php
 /**
-This file created on Aug 05 2016 18:31:35.
-Site Config mod by stoner with a little help from pdq for U-232.
-**/
+ * This file created on Aug 05 2016 18:31:35.
+ * Site Config mod by stoner with a little help from pdq for U-232.
+ **/
 $INSTALLER09['site_online'] = 1;
 $INSTALLER09['autoshout_on'] = 1;
 $INSTALLER09['seedbonus_on'] = 1;
@@ -26,4 +26,3 @@ $INSTALLER09['bonus_per_post'] = 5;
 $INSTALLER09['bonus_per_delete'] = 15;
 $INSTALLER09['bonus_per_thanks'] = 5;
 $INSTALLER09['bonus_per_reseed'] = 10;
-?>

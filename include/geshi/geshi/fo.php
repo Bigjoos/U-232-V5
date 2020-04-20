@@ -38,43 +38,43 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'FO (abas-ERP)',
-    'COMMENT_SINGLE' => array(1 => '..'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '..'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         //Control Flow
-        1 => array(
+        1 => [
             /* see http://www.abas.de/sub_de/kunden/help/hd/html/9.html */
 
             /* fo keywords, part 1: control flow */
             '.weiter', '.continue'
 
             /* this language works with goto's only*/
-            ),
+        ],
 
         //FO Keywords
-        2 => array(
+        2 => [
             /* fo keywords, part 2 */
             '.fo', '.formel', '.formula',
             '.zuweisen', '.assign',
             '.fehler', '.error',
             '.ende', '.end'
-            ),
+        ],
 
         //Java Keywords
-        3 => array(
+        3 => [
             /* Java keywords, part 3: primitive data types */
             '.art', '.type',
             'integer', 'real', 'bool', 'text', 'datum', 'woche', 'termin', 'zeit',
             'mehr', 'MEHR'
-            ),
+        ],
 
         //Reserved words in fo literals
-        4 => array(
+        4 => [
             /* other reserved words in fo literals */
             /* should be styled to look similar to numbers and Strings */
             'false', 'null', 'true',
@@ -88,15 +88,15 @@ $language_data = array (
             'PC',
             'MASKE', 'SCREEN',
             'ZEILE', 'LINE'
-            ),
+        ],
 
         // interpreter settings
-        5 => array (
+        5 => [
             '..!INTERPRETER', 'DEBUG'
-            ),
+        ],
 
         // database commands
-        6 => array (
+        6 => [
             '.hole', '.hol', '.select',
             '.lade', '.load',
             '.aktion', '.action',
@@ -152,10 +152,10 @@ $language_data = array (
             'AUFZAEHLTYP', 'ENUMERATION-TYPE',
             'AUSGABE', 'OUTPUT',
             'DEZPUNKT', 'DECPOINT'
-            ),
+        ],
 
         // output settings
-        7 => array (
+        7 => [
             '.absatz', '.para',
             '.blocksatz', '.justified',
             '.flattersatz', '.unjustified',
@@ -172,18 +172,18 @@ $language_data = array (
             '.tabellensatz', '.tablerecord',
             '.trenner', '.separator',
             'ARCHIV'
-            ),
+        ],
 
         // text commands
-        8 => array (
+        8 => [
             '.text',
             '.atext',
             '.println',
             '.uebersetzen', '.translate'
-            ),
+        ],
 
         // I/O commands
-        9 => array (
+        9 => [
             '.aus', '.ausgabe', '.output',
             '.ein', '.eingabe', '.input',
             '.datei', '.file',
@@ -193,10 +193,10 @@ $language_data = array (
             '-TEST',
             '-LESEN', '-READ',
             'VON', 'FROM'
-            ),
+        ],
 
         //system
-        10 => array (
+        10 => [
             '.browser',
             '.kommando', '.command',
             '.system', '.dde',
@@ -212,10 +212,10 @@ $language_data = array (
             'DOPPELPUNKT', 'COLON',
             'ERSETZUNG', 'REPLACEMENT',
             'WARTEN', 'PARALLEL'
-            ),
+        ],
 
         //fibu/accounting specific commands
-        11 => array (
+        11 => [
             '.budget',
             '.chart',
             'VKZ',
@@ -225,10 +225,10 @@ $language_data = array (
             'WAEHRUNGSKURS', 'EXCHANGERATE',
             'AUSWAEHR', 'FORCURR',
             'BUCHUNGSKREIS', 'SET OF BOOKS'
-            ),
+        ],
 
         // efop - extended flexible surface
-        12 => array (
+        12 => [
             '.cursor',
             '.farbe', '.colour',
             '.fenster', '.window',
@@ -242,21 +242,21 @@ $language_data = array (
             'SOFORT', 'IMMEDIATELY',
             'AKTUALISIEREN', 'UPDATE',
             'FENSTERSCHLIESSEN', 'CLOSEWINDOWS'
-            ),
-        ),
-    'SYMBOLS' => array(
-        0 => array('(', ')', '[', ']', '{', '}', '*', '&', '%', ';', '<', '>'),
-        1 => array('?', '!')
-        ),
-    'CASE_SENSITIVE' => array(
+        ],
+    ],
+    'SYMBOLS' => [
+        0 => ['(', ')', '[', ']', '{', '}', '*', '&', '%', ';', '<', '>'],
+        1 => ['?', '!']
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         /* all fo keywords are case sensitive, don't have to but I like this type of coding */
         1 => true, 2 => true, 3 => true, 4 => true,
         5 => true, 6 => true, 7 => true, 8 => true, 9 => true,
         10 => true, 11 => true, 12 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight: bold;',
             2 => 'color: #000000; font-weight: bold;',
             3 => 'color: #006600; font-weight: bold;',
@@ -269,38 +269,38 @@ $language_data = array (
             10 => 'color: #003399; font-weight: bold;',
             11 => 'color: #003399; font-weight: bold;',
             12 => 'color: #003399; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             //2 => 'color: #006699;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #0000ff;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #006633;',
             2 => 'color: #006633;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #339933;',
             1 => 'color: #000000; font-weight: bold;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -313,15 +313,14 @@ $language_data = array (
         10 => '',
         11 => '',
         12 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

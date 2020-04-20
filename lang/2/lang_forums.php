@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //forum errors
     'forums_sorry' => "Désolé...",
     'forums_no_auth' => "Vous n'êtes pas autorisés à poster.  (Contacter le staff pour en connaitre la raison.)",
@@ -203,41 +203,40 @@ $lang = array(
     'forum_mngr_add' => "Ajouter Over Forum",
     'forum_mngr_confirm' => "Etes-vous sûr de vouloir supprimer cet Over Forum?",
     'forum_mngr_succ'    =>  "Succès",
-	'forum_mngr_rdct1'    =>  "Le Forum a été supprimé! Patientez vous allez être redirigé.",
-	'forum_mngr_rdct2'    =>  "Le Forum a été ajouté! Patientez vous allez être redirigé.",
-	'forum_mngr_rdct3'    =>  "Le Forum a été édité! Patientez vous allez être redirigé.",
-	'forum_mngr_err1'    =>  "Erreur",
-	'forum_mngr_err2'    =>  "Erreur MySQL",
-	'forum_mngr_err3'    =>  "Vous devez remplir tous les champs!",
-	'forum_mngr_err4'    =>  "Erreur. Il n'y a aucun Over Forum, vous devriez en ajouter un!",
-	'forum_mngr_warn3'    =>  "Humm, qu'êtes-vous en train de faire?",
-	'forum_mngr_warn4'    =>  "Erreur. L'Over Forum que vous recherchez n'existe pas!",
-	//AND MORE	
-	'forum_mngr_warn1'    =>  "You missed something!",
-	'forum_mngr_warn2'    =>  "Something was wrong",
-	'forum_sub_mng'    =>  "Gestionnaire de Sous-Forum",
-	'forum_sub_sub'    =>  "Sous-Forum",
-	'forum_sub_sub1'    =>  "Nom du Sous-Forum:",
-	'forum_sub_par'    =>  "Forum parent",
-	'forum_sub_per'    =>  "Permissions",
-	'forum_sub_per1'    =>  "Permissions:",
-	'forum_sub_mod'    =>  "Modifier",
-	'forum_sub_add'    =>  "Sous-Forum ajouté",
-	'forum_sub_rd'    =>  "Lire",
-	'forum_sub_wr'    =>  "Ecrire",
-	'forum_sub_cr'    =>  "Créer",
-	'forum_sub_in'    =>  "Sous-Forum dans:",
-	'forum_sub_desc'    =>  "Description:",
-	'forum_sub_ads'    =>  "Ajouter!",
-	//ADDITIONED TERMS FORUM.PHP
-	'forum_pg_inf1'    =>  "Information",
-	'forum_pg_inf2'    =>  "Les forums sont pour l'instant hors-ligne, travaux de maintenance...",
-	'forum_pg_warn1'    =>  "Attention",
-	'forum_pg_warn2'    =>  "Les Forums sont en cours de maintenance...",
-	'forum_pg_srch'    =>  "Recherche Forums",
-	'forum_pg_new'    =>  "Nouvelles Publications",
-	'forum_pg_24h'    =>  "Publications du Jour [dernières 24h]",
-	'forum_pg_mark'    =>  "Tout marquer comme lu",
-	'forum_pg_deary'    =>  "Oh mon Dieu \0/"
-);
-?>
+    'forum_mngr_rdct1'    =>  "Le Forum a été supprimé! Patientez vous allez être redirigé.",
+    'forum_mngr_rdct2'    =>  "Le Forum a été ajouté! Patientez vous allez être redirigé.",
+    'forum_mngr_rdct3'    =>  "Le Forum a été édité! Patientez vous allez être redirigé.",
+    'forum_mngr_err1'    =>  "Erreur",
+    'forum_mngr_err2'    =>  "Erreur MySQL",
+    'forum_mngr_err3'    =>  "Vous devez remplir tous les champs!",
+    'forum_mngr_err4'    =>  "Erreur. Il n'y a aucun Over Forum, vous devriez en ajouter un!",
+    'forum_mngr_warn3'    =>  "Humm, qu'êtes-vous en train de faire?",
+    'forum_mngr_warn4'    =>  "Erreur. L'Over Forum que vous recherchez n'existe pas!",
+    //AND MORE
+    'forum_mngr_warn1'    =>  "You missed something!",
+    'forum_mngr_warn2'    =>  "Something was wrong",
+    'forum_sub_mng'    =>  "Gestionnaire de Sous-Forum",
+    'forum_sub_sub'    =>  "Sous-Forum",
+    'forum_sub_sub1'    =>  "Nom du Sous-Forum:",
+    'forum_sub_par'    =>  "Forum parent",
+    'forum_sub_per'    =>  "Permissions",
+    'forum_sub_per1'    =>  "Permissions:",
+    'forum_sub_mod'    =>  "Modifier",
+    'forum_sub_add'    =>  "Sous-Forum ajouté",
+    'forum_sub_rd'    =>  "Lire",
+    'forum_sub_wr'    =>  "Ecrire",
+    'forum_sub_cr'    =>  "Créer",
+    'forum_sub_in'    =>  "Sous-Forum dans:",
+    'forum_sub_desc'    =>  "Description:",
+    'forum_sub_ads'    =>  "Ajouter!",
+    //ADDITIONED TERMS FORUM.PHP
+    'forum_pg_inf1'    =>  "Information",
+    'forum_pg_inf2'    =>  "Les forums sont pour l'instant hors-ligne, travaux de maintenance...",
+    'forum_pg_warn1'    =>  "Attention",
+    'forum_pg_warn2'    =>  "Les Forums sont en cours de maintenance...",
+    'forum_pg_srch'    =>  "Recherche Forums",
+    'forum_pg_new'    =>  "Nouvelles Publications",
+    'forum_pg_24h'    =>  "Publications du Jour [dernières 24h]",
+    'forum_pg_mark'    =>  "Tout marquer comme lu",
+    'forum_pg_deary'    =>  "Oh mon Dieu \0/"
+];

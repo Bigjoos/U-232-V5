@@ -38,15 +38,15 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'dot',
-    'COMMENT_SINGLE' => array(1 => '//', 2 => '#'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//', 2 => '#'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'URL', 'arrowhead', 'arrowsize', 'arrowtail', 'bb', 'bgcolor', 'bottomlabel',
             'center', 'clusterrank', 'color', 'comment', 'constraint', 'decorate',
             'dir', 'distortion', 'fillcolor', 'fixedsize', 'fontcolor',
@@ -58,11 +58,11 @@ $language_data = array (
             'ranksep', 'ratio', 'regular', 'rotate', 'samehead', 'sametail', 'searchsize',
             'shape', 'shapefile', 'showboxes', 'sides', 'size', 'skew', 'style',
             'tailclip', 'taillabel', 'tailport', 'toplabel', 'weight', 'width'
-            ),
-        2 => array(
+        ],
+        2 => [
             'node', 'graph', 'digraph', 'strict', 'edge', 'subgraph'
-            ),
-        3 => array(
+        ],
+        3 => [
             'Mcircle', 'Mdiamond', 'Mrecord', 'Msquare', 'TRUE', 'auto', 'back',
             'bold', 'both', 'box', 'circle', 'compress', 'dashed', 'diamond', 'dot',
             'dotted', 'doublecircle', 'doubleoctagon', 'egg', 'ellipse', 'epsf', 'false',
@@ -71,8 +71,8 @@ $language_data = array (
             'min', 'none', 'normal', 'octagon', 'odot', 'out', 'parallelogram', 'plaintext',
             'polygon', 'record', 'same', 'solid', 'trapezium', 'triangle', 'tripleoctagon',
             'true'
-            ),
-        4 => array(
+        ],
+        4 => [
             'aliceblue', 'antiquewhite', 'aquamarine', 'azure', 'beige', 'bisque', 'black',
             'blanchedalmond', 'blue', 'blueviolet', 'brown', 'burlywood', 'cadetblue',
             'chartreuse', 'chocolate', 'coral', 'cornflowerblue', 'cornsilk', 'crimson',
@@ -96,69 +96,67 @@ $language_data = array (
             'seagreen', 'seashell', 'sienna', 'skyblue', 'slateblue', 'slategray', 'snow',
             'springgreen', 'steelblue', 'tan', 'thistle', 'tomato', 'turquoise', 'violet',
             'violetred', 'wheat', 'white', 'whitesmoke', 'yellow', 'yellowgreen'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '[', ']', '{', '}', '-', '+', '*', '/', '<', '>', '!', '~', '%', '&', '|', '='
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000066;',
             2 => 'color: #000000; font-weight: bold;',
             3 => 'color: #993333;',
             4 => 'color: #b1b100;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             2 => 'color: #339933;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #af624d; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'METHODS' => array(
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            ),
-        ),
-    'URLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ],
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(),
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true,
         1 => true,
         2 => true,
         3 => true
-        )
-);
-
-?>
+    ]
+];
