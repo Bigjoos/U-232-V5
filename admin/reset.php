@@ -52,18 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $CURUSER['id']
     ]);
     $res = sql_query('UPDATE users SET secret=' . sqlesc($secret) . ', passhash=' . sqlesc($passhash) . ' WHERE username=' . sqlesc($username) . ' AND id=' . sqlesc($uid) . ' AND class<' . $CURUSER['class']) or sqlerr(__file__, __line__);
-    $mc1->begin_transaction('MyUser_' . $uid);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $uid,  [
         'secret' => $secret,
         'passhash' => $passhash
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $uid);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $uid,  [
         'secret' => $secret,
         'passhash' => $passhash
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) != 1) {
         stderr($lang['reset_stderr'], $lang['reset_stderr1']);
     }

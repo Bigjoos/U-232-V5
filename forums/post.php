@@ -100,7 +100,7 @@ if (!defined('IN_INSTALLER09_FORUM')) {
         sql_query("INSERT INTO posts (topic_id, user_id, added, body, anonymous, icon) VALUES(" . sqlesc($topicid) . ", " . sqlesc($userid) . ", $added, $body, " . sqlesc($anonymous) . "," . sqlesc($posticon) . ")") or sqlerr(__FILE__, __LINE__);
         $postid = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res) or stderr("Error", "No post ID returned!");
         update_topic_last_post($topicid);
-        $mc1->delete_value('last_posts_b_' . $CURUSER['class']);
+        $cache->delete('last_posts_b_' . $CURUSER['class']);
         if ($INSTALLER09['autoshout_on'] == 1) {
             if ($anonymous == 'yes') {
                 $message = "[Anonymous*] Created a new forum thread [url={$INSTALLER09['baseurl']}/forums.php?action=viewtopic&topicid=$topicid&page=last]{$subject}[/url]";
@@ -109,22 +109,18 @@ if (!defined('IN_INSTALLER09_FORUM')) {
             }
             if (!in_array($forumid, $INSTALLER09['staff_forums'])) {
                 autoshout($message);
-                $mc1->delete_value('shoutbox_');
+                $cache->delete('shoutbox_');
             }
         }
         if ($INSTALLER09['seedbonus_on'] == 1) {
             sql_query("UPDATE users SET seedbonus = seedbonus+" . sqlesc($INSTALLER09['bonus_per_topic']) . " WHERE id =  " . sqlesc($CURUSER['id'] . "")) or sqlerr(__FILE__, __LINE__);
             $update['seedbonus'] = ($CURUSER['seedbonus'] + $INSTALLER09['bonus_per_topic']);
-            $mc1->begin_transaction('userstats_' . $CURUSER["id"]);
-            $mc1->update_row(false, [
+            $cache->update_row('userstats_' . $CURUSER["id"],  [
                 'seedbonus' => $update['seedbonus']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $CURUSER["id"]);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $CURUSER["id"],  [
                 'seedbonus' => $update['seedbonus']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
         }
     } else {
         //---- Make sure topic exists and is unlocked
@@ -168,25 +164,21 @@ if (!defined('IN_INSTALLER09_FORUM')) {
                 } else {
                     $message = $CURUSER['username'] . " replied to the thread [url={$INSTALLER09['baseurl']}/forums.php?action=viewtopic&topicid=$topicid&page=last]{$subject}[/url]";
                 }
-                $mc1->delete_value('last_posts_b_' . $CURUSER['class']);
+                $cache->delete('last_posts_b_' . $CURUSER['class']);
                 if (!in_array($forumid, $INSTALLER09['staff_forums'])) {
                     autoshout($message);
-                    $mc1->delete_value('shoutbox_');
+                    $cache->delete('shoutbox_');
                 }
             }
             if ($INSTALLER09['seedbonus_on'] == 1) {
                 sql_query("UPDATE users SET seedbonus = seedbonus+" . sqlesc($INSTALLER09['bonus_per_post']) . " WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
                 $update['seedbonus'] = ($CURUSER['seedbonus'] + $INSTALLER09['bonus_per_post']);
-                $mc1->begin_transaction('userstats_' . $CURUSER["id"]);
-                $mc1->update_row(false, [
+                $cache->update_row('userstats_' . $CURUSER["id"],  [
                     'seedbonus' => $update['seedbonus']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->begin_transaction('user_stats_' . $CURUSER["id"]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->update_row('user_stats_' . $CURUSER["id"],  [
                     'seedbonus' => $update['seedbonus']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
             }
 
             update_topic_last_post($topicid);

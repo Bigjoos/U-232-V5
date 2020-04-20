@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     // ===Clear funds after one month
@@ -28,7 +28,7 @@ function docleanup($data)
     $dt = sqlesc(TIME_NOW - $secs);
     sql_query("DELETE FROM funds WHERE added < $dt");
     //if (mysqli_affected_rows() > 0)
-    $mc1->delete_value('totalfunds_');
+    $cache->delete('totalfunds_');
     // ===End
     //== Donation Progress Mod Updated For Tbdev 2009/2010 by Bigjoos/pdq
     $res = sql_query("SELECT id, modcomment, vipclass_before FROM users WHERE donor='yes' AND donoruntil < " . TIME_NOW . " AND donoruntil <> '0'") or sqlerr(__FILE__, __LINE__);
@@ -43,27 +43,21 @@ function docleanup($data)
             $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ',' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ',' . $arr['vipclass_before'] . ',\'no\',\'0\', ' . $modcom . ')';
             $update['class'] = ($arr['vipclass_before']);
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('user' . $arr['id'],  [
                 'class' => $update['class'],
                 'donor' => 'no',
                 'donoruntil' => 0
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('user_stats_' . $arr['id'],  [
                 'modcomment' => $modcomment
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_stats']);
+            $cache->update_row('MyUser_' . $arr['id'],  [
                 'class' => $update['class'],
                 'donor' => 'no',
                 'donoruntil' => 0
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->delete_value('inbox_new_' . $arr['id']);
-            $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->delete('inbox_new_' . $arr['id']);
+            $cache->delete('inbox_new_sb_' . $arr['id']);
         }
         $count = count($users_buffer);
         if ($count > 0) {

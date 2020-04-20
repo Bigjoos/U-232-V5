@@ -85,7 +85,7 @@ foreach ($categorie as $key => $value) {
         'min_class' => $value['min_class']
     ];
 }
-if (($torrents = $mc1->get_value('torrent_details_' . $id)) === false) {
+if (($torrents = $cache->get('torrent_details_' . $id)) === false) {
     $tor_fields_ar_int = [
         'id',
         'leechers',
@@ -146,47 +146,45 @@ if (($torrents = $mc1->get_value('torrent_details_' . $id)) === false) {
     foreach ($tor_fields_ar_str as $i) {
         $torrents[$i] = $torrents[$i];
     }
-    $mc1->cache_value('torrent_details_' . $id, $torrents, $INSTALLER09['expires']['torrent_details']);
+    $cache->set('torrent_details_' . $id, $torrents, $INSTALLER09['expires']['torrent_details']);
 }
    if ($change[$torrents['category']]['min_class'] > $CURUSER['class']) {
        stderr("{$lang['details_user_error']}", "{$lang['details_bad_id']}");
    }
 //==
-if (($torrents_xbt = $mc1->get_value('torrent_xbt_data_' . $id)) === false && XBT_TRACKER == true) {
+if (($torrents_xbt = $cache->get('torrent_xbt_data_' . $id)) === false && XBT_TRACKER == true) {
     $torrents_xbt = mysqli_fetch_assoc(sql_query("SELECT seeders, leechers, times_completed FROM torrents WHERE id =" . sqlesc($id))) or sqlerr(__FILE__, __LINE__);
-    $mc1->cache_value('torrent_xbt_data_' . $id, $torrents_xbt, $INSTALLER09['expires']['torrent_xbt_data']);
+    $cache->set('torrent_xbt_data_' . $id, $torrents_xbt, $INSTALLER09['expires']['torrent_xbt_data']);
 }
 //==
-if (($torrents_txt = $mc1->get_value('torrent_details_txt' . $id)) === false) {
+if (($torrents_txt = $cache->get('torrent_details_txt' . $id)) === false) {
     $torrents_txt = mysqli_fetch_assoc(sql_query("SELECT descr FROM torrents WHERE id =" . sqlesc($id))) or sqlerr(__FILE__, __LINE__);
-    $mc1->cache_value('torrent_details_txt' . $id, $torrents_txt, $INSTALLER09['expires']['torrent_details_text']);
+    $cache->set('torrent_details_txt' . $id, $torrents_txt, $INSTALLER09['expires']['torrent_details_text']);
 }
 //Memcache Pretime
-if (($pretime = $mc1->get_value('torrent_pretime_' . $id)) === false) {
+if (($pretime = $cache->get('torrent_pretime_' . $id)) === false) {
     $prename = htmlsafechars($torrents['name']);
     $pre_q = sql_query("SELECT time FROM releases WHERE releasename = " . sqlesc($prename)) or sqlerr(__FILE__, __LINE__);
     $pret = mysqli_fetch_assoc($pre_q);
     $pretime['time'] = strtotime($pret['time']);
-    $mc1->cache_value('torrent_pretime_' . $id, $pretime, $INSTALLER09['expires']['torrent_pretime']);
+    $cache->set('torrent_pretime_' . $id, $pretime, $INSTALLER09['expires']['torrent_pretime']);
 }
 //==
 if (isset($_GET["hit"])) {
     sql_query("UPDATE torrents SET views = views + 1 WHERE id =" . sqlesc($id));
     $update['views'] = ($torrents['views'] + 1);
-    $mc1->begin_transaction('torrent_details_' . $id);
-    $mc1->update_row(false, [
+    $cache->update_row('torrent_details_' . $id,  [
         'views' => $update['views']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
+    ], $INSTALLER09['expires']['torrent_details']);
     header("Location: {$INSTALLER09['baseurl']}/details.php?id=$id");
     exit();
 }
 $What_String = (XBT_TRACKER == true ? 'mtime' : 'last_action');
 $What_String_Key = (XBT_TRACKER == true ? 'last_action_xbt_' : 'last_action_');
-if (($l_a = $mc1->get_value($What_String_Key . $id)) === false) {
+if (($l_a = $cache->get($What_String_Key . $id)) === false) {
     $l_a = mysqli_fetch_assoc(sql_query('SELECT ' . $What_String . ' AS lastseed ' . 'FROM torrents ' . 'WHERE id = ' . sqlesc($id))) or sqlerr(__FILE__, __LINE__);
     $l_a['lastseed'] = (int) $l_a['lastseed'];
-    $mc1->add_value('last_action_' . $id, $l_a, 1800);
+    $cache->set('last_action_' . $id, $l_a, 1800);
 }
 /** seeders/leechers/completed caches pdq**/
 $torrents['times_completed'] = ((XBT_TRACKER === false || $torrents_xbt['times_completed'] === false || $torrents_xbt['times_completed'] === 0 || $torrents_xbt['times_completed'] === false) ? $torrents['times_completed'] : $torrents_xbt['times_completed']);
@@ -199,12 +197,12 @@ $torrent['doubleimg'] = '<img src="' . $INSTALLER09['pic_base_url'] . 'doublesee
 $torrent['free_color'] = 'danger';
 $torrent['silver_color'] = 'default';
 //==rep user query by pdq
-if (($torrent_cache['rep'] = $mc1->get_value('user_rep_' . $torrents['owner'])) === false) {
+if (($torrent_cache['rep'] = $cache->get('user_rep_' . $torrents['owner'])) === false) {
     $torrent_cache['rep'] = [];
     $us = sql_query("SELECT reputation FROM users WHERE id =" . sqlesc($torrents['owner'])) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($us)) {
         $torrent_cache['rep'] = mysqli_fetch_assoc($us);
-        $mc1->add_value('user_rep_' . $torrents['owner'], $torrent_cache['rep'], 14 * 86400);
+        $cache->set('user_rep_' . $torrents['owner'], $torrent_cache['rep'], 14 * 86400);
     }
 }
 $HTMLOUT.= "<script type='text/javascript'>
@@ -277,35 +275,29 @@ if (isset($_GET["uploaded"])) {
 if ($CURUSER['class'] >= UC_STAFF) {
     if (isset($_GET["checked"]) && $_GET["checked"] == 1) {
         sql_query("UPDATE torrents SET checked_by = " . sqlesc($CURUSER['username']) . ",checked_when = " . TIME_NOW . " WHERE id =" . sqlesc($id) . " LIMIT 1") or sqlerr(__FILE__, __LINE__);
-        $mc1->begin_transaction('torrent_details_' . $id);
-        $mc1->update_row(false, [
+        $cache->update_row('torrent_details_' . $id,  [
             'checked_by' => $CURUSER['username'],
             'checked_when' => TIME_NOW
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
-        $mc1->delete_value('checked_by_' . $id);
+        ], $INSTALLER09['expires']['torrent_details']);
+        $cache->delete('checked_by_' . $id);
         write_log("Torrent <a href={$INSTALLER09['baseurl']}/details.php?id=$id>(" . htmlsafechars($torrents['name']) . ")</a>{$lang['details_add_chk']}{$CURUSER['username']}");
         header("Location: {$INSTALLER09["baseurl"]}/details.php?id=$id&checked=done#Success");
     } elseif (isset($_GET["rechecked"]) && $_GET["rechecked"] == 1) {
         sql_query("UPDATE torrents SET checked_by = " . sqlesc($CURUSER['username']) . ",checked_when = " . TIME_NOW . " WHERE id =" . sqlesc($id) . " LIMIT 1") or sqlerr(__FILE__, __LINE__);
-        $mc1->begin_transaction('torrent_details_' . $id);
-        $mc1->update_row(false, [
+        $cache->update_row('torrent_details_' . $id,  [
             'checked_by' => $CURUSER['username'],
             'checked_when' => TIME_NOW
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
-        $mc1->delete_value('checked_by_' . $id);
+        ], $INSTALLER09['expires']['torrent_details']);
+        $cache->delete('checked_by_' . $id);
         write_log("Torrent <a href={$INSTALLER09['baseurl']}/details.php?id=$id>(" . htmlsafechars($torrents['name']) . ")</a>{$lang['details_add_rchk']}{$CURUSER['username']}");
         header("Location: {$INSTALLER09["baseurl"]}/details.php?id=$id&rechecked=done#Success");
     } elseif (isset($_GET["clearchecked"]) && $_GET["clearchecked"] == 1) {
         sql_query("UPDATE torrents SET checked_by = '', checked_when='' WHERE id =" . sqlesc($id) . " LIMIT 1") or sqlerr(__FILE__, __LINE__);
-        $mc1->begin_transaction('torrent_details_' . $id);
-        $mc1->update_row(false, [
+        $cache->update_row('torrent_details_' . $id,  [
             'checked_by' => '',
             'checked_when' => ''
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
-        $mc1->delete_value('checked_by_' . $id);
+        ], $INSTALLER09['expires']['torrent_details']);
+        $cache->delete('checked_by_' . $id);
         write_log("Torrent <a href={$INSTALLER09["baseurl"]}/details.php?id=$id>(" . htmlsafechars($torrents['name']) . ")</a>{$lang['details_add_uchk']}{$CURUSER['username']}");
         header("Location: {$INSTALLER09["baseurl"]}/details.php?id=$id&clearchecked=done#Success");
     }
@@ -334,10 +326,10 @@ if ($torrents["id"] != $torrents["min_id"]) {
         $HTMLOUT .= "<br />";
 $HTMLOUT.= "<h2><a href='random.php'>" . (!isset($_GET['random']) ? '[Random Any]' : '<span style="color:#3366FF;">' . $lang['details_add_rand'] . '</span>') . "</a></h2>";
 //Thumbs Up
-if (($thumbs = $mc1->get_value('thumbs_up_' . $id)) === false) {
+if (($thumbs = $cache->get('thumbs_up_' . $id)) === false) {
     $thumbs = mysqli_num_rows(sql_query("SELECT id, type, torrentid, userid FROM thumbsup WHERE torrentid = " . sqlesc($torrents['id'])));
     $thumbs = (int) $thumbs;
-    $mc1->add_value('thumbs_up_' . $id, $thumbs, 0);
+    $cache->set('thumbs_up_' . $id, $thumbs, 0);
 }
 $HTMLOUT.= "</div><!-- closing pull left -->
     <div class='pull-right'>
@@ -453,7 +445,7 @@ if (!($CURUSER["downloadpos"] == 0 && $CURUSER["id"] != $torrents["owner"] or $C
         </tr>";
     /**  Mod by dokty, rewrote by pdq  **/
     $my_points = 0;
-    if (($torrent['torrent_points_'] = $mc1->get_value('coin_points_' . $id)) === false) {
+    if (($torrent['torrent_points_'] = $cache->get('coin_points_' . $id)) === false) {
         $sql_points = sql_query('SELECT userid, points FROM coins WHERE torrentid=' . sqlesc($id));
         $torrent['torrent_points_'] = [];
         if (mysqli_num_rows($sql_points) !== 0) {
@@ -461,7 +453,7 @@ if (!($CURUSER["downloadpos"] == 0 && $CURUSER["id"] != $torrents["owner"] or $C
                 $torrent['torrent_points_'][$points_cache['userid']] = $points_cache['points'];
             }
         }
-        $mc1->add_value('coin_points_' . $id, $torrent['torrent_points_'], 0);
+        $cache->set('coin_points_' . $id, $torrent['torrent_points_'], 0);
     }
     $my_points = (isset($torrent['torrent_points_'][$CURUSER['id']]) ? (int) $torrent['torrent_points_'][$CURUSER['id']] : 0);
     $HTMLOUT.= '<tr>
@@ -549,12 +541,12 @@ $HTMLOUT.= "<div class='row'>
 $searchname = substr($torrents['name'], 0, 6);
 $query1 = str_replace(" ", ".", sqlesc("%" . $searchname . "%"));
 $query2 = str_replace(".", " ", sqlesc("%" . $searchname . "%"));
-if (($sim_torrents = $mc1->get_value('similiar_tor_' . $id)) === false) {
+if (($sim_torrents = $cache->get('similiar_tor_' . $id)) === false) {
     $r = sql_query("SELECT id, name, size, added, seeders, leechers, category FROM torrents WHERE name LIKE {$query1} AND id <> " . sqlesc($id) . " OR name LIKE {$query2} AND id <> " . sqlesc($id) . " ORDER BY name") or sqlerr(__FILE__, __LINE__);
     while ($sim_torrent = mysqli_fetch_assoc($r)) {
         $sim_torrents[] = $sim_torrent;
     }
-    $mc1->cache_value('similiar_tor_' . $id, $sim_torrents, 86400);
+    $cache->set('similiar_tor_' . $id, $sim_torrents, 86400);
 }
 if (count($sim_torrents) > 0) {
     $sim_torrent = "<table class='table  table-bordered'>\n" . "
@@ -710,9 +702,9 @@ $HTMLOUT.= tr("{$lang['details_add_byup']}", $uprow, 1);
 //==pdq's Torrent Moderation
 if ($CURUSER['class'] >= UC_STAFF) {
     if (!empty($torrents['checked_by'])) {
-        if (($checked_by = $mc1->get_value('checked_by_' . $id)) === false) {
+        if (($checked_by = $cache->get('checked_by_' . $id)) === false) {
             $checked_by = mysqli_fetch_assoc(sql_query("SELECT id FROM users WHERE username=" . sqlesc($torrents['checked_by']))) or sqlerr(__FILE__, __LINE__);
-            $mc1->add_value('checked_by_' . $id, $checked_by, 30 * 86400);
+            $cache->set('checked_by_' . $id, $checked_by, 30 * 86400);
         }
         $HTMLOUT.= "<tr>
     <td class='rowhead'>{$lang['details_add_bychk1']}</td>
@@ -792,10 +784,10 @@ if ($CURUSER['class'] >= UC_POWER_USER) {
     $Which_Key_ID = (XBT_TRACKER == true ? 'snatched_count_xbt_' : 'snatched_count_');
     $keys['Snatched_Count'] = $Which_Key_ID . $id;
 
-    if (($Row_Count = $mc1->get_value($keys['Snatched_Count'])) === false) {
+    if (($Row_Count = $cache->get($keys['Snatched_Count'])) === false) {
         $Count_Q = sql_query("SELECT COUNT($Which_ID) FROM $What_Table $What_Value AND $Which_T_ID =" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         $Row_Count = mysqli_fetch_row($Count_Q);
-        $mc1->cache_value($keys['Snatched_Count'], $Row_Count, $INSTALLER09['expires']['details_snatchlist']);
+        $cache->set($keys['Snatched_Count'], $Row_Count, $INSTALLER09['expires']['details_snatchlist']);
     }
     $Count = $Row_Count[0];
     $perpage = 15;
@@ -803,7 +795,7 @@ if ($CURUSER['class'] >= UC_POWER_USER) {
     $HTMLOUT.= "
 <h3 class='text-center'>{$lang['details_add_snatch1']}<a href='{$INSTALLER09['baseurl']}/details.php?id=" . (int) $torrents['id'] . "'>" . htmlsafechars($torrents['name']) . "</a><br />{$lang['details_add_snatch2']}{$Row_Count['0']}{$lang['details_add_snatch3']}" . ($Row_Count[0] == 1 ? "" : "es") . "</h3>\n";
 
-    if (($Detail_Snatch = $mc1->get_value($What_cache . $id)) === false) {
+    if (($Detail_Snatch = $cache->get($What_cache . $id)) === false) {
         if (XBT_TRACKER == true) {
             //== \\0//
             $Main_Q = sql_query("SELECT x.*, x.uid AS su, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, owner FROM xbt_files_users AS x INNER JOIN users ON x.uid = users.id INNER JOIN torrents ON x.fid = torrents.id WHERE completedtime !=0 AND fid = " . sqlesc($id) . " ORDER BY completedtime DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
@@ -813,7 +805,7 @@ if ($CURUSER['class'] >= UC_POWER_USER) {
         while ($snatched_torrent = mysqli_fetch_assoc($Main_Q)) {
             $Detail_Snatch[] = $snatched_torrent;
         }
-        $mc1->cache_value($What_cache . $id, $Detail_Snatch, $INSTALLER09['expires']['details_snatchlist']);
+        $cache->set($What_cache . $id, $Detail_Snatch, $INSTALLER09['expires']['details_snatchlist']);
     }
 
     if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {

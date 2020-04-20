@@ -128,16 +128,12 @@ elseif ($do == 'create_invite') {
     sql_query('INSERT INTO invite_codes (sender, invite_added, code) VALUES (' . sqlesc((int) $CURUSER['id']) . ', ' . TIME_NOW . ', ' . sqlesc($invite) . ')') or sqlerr(__FILE__, __LINE__);
     sql_query('UPDATE users SET invites = invites - 1 WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
     $update['invites'] = ($CURUSER['invites'] - 1);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'invites' => $update['invites']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']); // 15 mins
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']); // 15 mins
+    $cache->update_row('user' . $CURUSER['id'],  [
         'invites' => $update['invites']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']); // 15 mins
+    ], $INSTALLER09['expires']['user_cache']); // 15 mins
     header("Location: ?do=view_page");
 }
 /**
@@ -193,16 +189,12 @@ elseif ($do == 'delete_invite') {
     sql_query('DELETE FROM invite_codes WHERE id = ' . sqlesc($id) . ' AND sender =' . sqlesc($CURUSER['id'] . ' AND status = "Pending"')) or sqlerr(__FILE__, __LINE__);
     sql_query('UPDATE users SET invites = invites + 1 WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
     $update['invites'] = ($CURUSER['invites'] + 1);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'invites' => $update['invites']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']); // 15 mins
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']); // 15 mins
+    $cache->update_row('user' . $CURUSER['id'],  [
         'invites' => $update['invites']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']); // 15 mins
+    ], $INSTALLER09['expires']['user_cache']); // 15 mins
     header("Location: ?do=view_page");
 }
 /**
@@ -223,16 +215,12 @@ elseif ($do = 'confirm_account') {
         stderr($lang['invites_confirm1'], $lang['invites_sure1'] . ' ' . htmlsafechars($assoc['username']) . ' ' . $lang['invites_sure2'] . ' <a href="?do=confirm_account&amp;userid=' . $userid . '&amp;sender=' . (int) $CURUSER['id'] . '&amp;sure=yes">' . $lang['invites_sure3'] . '</a>' . $lang['invites_sure4'] . '<a href="?do=view_page">' . $lang['invites_sure3'] . '</a>' . $lang['invites_sure5'] . '');
     }
     sql_query('UPDATE users SET status = "confirmed" WHERE id = ' . sqlesc($userid) . ' AND invitedby = ' . sqlesc($CURUSER['id']) . ' AND status="pending"') or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('MyUser_' . $userid);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $userid,  [
         'status' => 'confirmed'
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']); // 15 mins
-    $mc1->begin_transaction('user' . $userid);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']); // 15 mins
+    $cache->update_row('user' . $userid,  [
         'status' => 'confirmed'
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']); // 15 mins
+    ], $INSTALLER09['expires']['user_cache']); // 15 mins
     //==pm to new invitee/////
     $msg = sqlesc("" . $lang['invites_send_email2'] . "");
     $id = (int) $assoc["id"];

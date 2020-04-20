@@ -67,36 +67,26 @@ $update['points'] = ($row['points'] + $points);
 $update['seedbonus_uploader'] = ($User['seedbonus'] + $points);
 $update['seedbonus_donator'] = ($CURUSER['seedbonus'] - $points);
 //==The torrent
-$mc1->begin_transaction('torrent_details_' . $id);
-$mc1->update_row(false, [
+$cache->update_row('torrent_details_' . $id,  [
     'points' => $update['points']
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
+], $INSTALLER09['expires']['torrent_details']);
 //==The uploader
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, [
+$cache->update_row('userstats_' . $userid,  [
     'seedbonus' => $update['seedbonus_uploader']
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, [
+], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  [
     'seedbonus' => $update['seedbonus_uploader']
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+], $INSTALLER09['expires']['user_stats']);
 //==The donator
-$mc1->begin_transaction('userstats_' . $CURUSER["id"]);
-$mc1->update_row(false, [
+$cache->update_row('userstats_' . $CURUSER["id"],  [
     'seedbonus' => $update['seedbonus_donator']
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $CURUSER["id"]);
-$mc1->update_row(false, [
+], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $CURUSER["id"],  [
     'seedbonus' => $update['seedbonus_donator']
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+], $INSTALLER09['expires']['user_stats']);
 //== delete the pm keys
-$mc1->delete_value('inbox_new_' . $userid);
-$mc1->delete_value('inbox_new_sb_' . $userid);
-$mc1->delete_value('coin_points_' . $id);
+$cache->delete('inbox_new_' . $userid);
+$cache->delete('inbox_new_sb_' . $userid);
+$cache->delete('coin_points_' . $id);
 header("Refresh: 3; url=details.php?id=$id");
 stderr($lang['coins_done'], $lang['coins_successfully_gave_points_to_this_torrent']);

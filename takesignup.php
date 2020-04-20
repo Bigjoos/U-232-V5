@@ -150,7 +150,7 @@ check_banned_emails($email);
 $psecret = $editsecret;
 //$emails = encrypt_email($email);
 
-$ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, birthday, country, gender, pin_code, stylesheet, passhint, hintanswer, email, status, " . (!$arr[0] ? "class, " : "") . "added, last_access, time_offset, dst_in_use, free_switch) VALUES (" . implode(",", array_map("sqlesc", [
+$sql = "INSERT INTO users (username, passhash, secret, editsecret, birthday, country, gender, pin_code, stylesheet, passhint, hintanswer, email, status, " . (!$arr[0] ? "class, " : "") . "added, last_access, time_offset, dst_in_use, free_switch) VALUES (" . implode(",", array_map("sqlesc", [
     $wantusername,
     $wantpasshash,
     $secret,
@@ -164,10 +164,9 @@ $ret = sql_query("INSERT INTO users (username, passhash, secret, editsecret, bir
     $wanthintanswer,
     $email,
     (!$arr[0] || !EMAIL_CONFIRM ? 'confirmed' : 'pending')
-])) . ", " . (!$arr[0] ? UC_SYSOP . ", " : "") . "" . TIME_NOW . "," . TIME_NOW . " , $time_offset, {$dst_in_use['tm_isdst']}, $user_frees)") or sqlerr(__FILE__, __LINE__);
-
-$mc1->delete_value('birthdayusers');
-
+])) . ", " . (!$arr[0] ? UC_SYSOP . ", " : "") . "" . TIME_NOW . "," . TIME_NOW . " , $time_offset, {$dst_in_use['tm_isdst']}, $user_frees)";
+$res = sql_query($sql) or sqlerr(__FILE__, __LINE__);
+$cache->delete('birthdayusers');
 $message = "{$lang['takesignup_welcome']} {$INSTALLER09['site_name']} {$lang['takesignup_member']} " . htmlsafechars($wantusername) . "";
 
 if (!$ret) {
@@ -201,13 +200,13 @@ $latestuser_cache['chatpost'] = 1;
 $latestuser_cache['leechwarn'] = 0;
 $latestuser_cache['pirate'] = 0;
 $latestuser_cache['king'] = 0;
-$mc1->cache_value('latestuser', $latestuser_cache, $INSTALLER09['expires']['latestuser']);
+$cache->set('latestuser', $latestuser_cache, $INSTALLER09['expires']['latestuser']);
 
 write_log("User account " . (int) $id . " (" . htmlsafechars($wantusername) . ") was created");
 
 if ($INSTALLER09['autoshout_on'] == 1) {
     autoshout($message);
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
 }
 
 $body = str_replace([

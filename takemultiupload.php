@@ -305,7 +305,7 @@ foreach ($file_list as $key=>$f) {
     if ($INSTALLER09['autoshout_on'] == 1) {
         autoshout($message);
         ircbot($messages);
-        $mc1->delete_value('shoutbox_');
+        $cache->delete('shoutbox_');
     }
 
     /* RSS feeds */
@@ -332,10 +332,10 @@ foreach ($file_list as $key=>$f) {
 }
 
 
-$mc1->delete_value('MyPeers_' . $CURUSER['id']);
-//$mc1->delete_value('lastest_tor_');  //
-$mc1->delete_value('last5_tor_');
-$mc1->delete_value('scroll_tor_');
+$cache->delete('MyPeers_' . $CURUSER['id']);
+//$cache->delete('lastest_tor_');  //
+$cache->delete('last5_tor_');
+$cache->delete('scroll_tor_');
 
 //==
 
@@ -346,16 +346,12 @@ if ($INSTALLER09['seedbonus_on'] == 1) {
     sql_query("UPDATE users SET seedbonus=seedbonus+" . sqlesc($bonus_val) . ", numuploads=numuploads+1 WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
     //===end
     $update['seedbonus'] = ($CURUSER['seedbonus'] + $bonus_val);
-    $mc1->begin_transaction('userstats_' . $CURUSER["id"]);
-    $mc1->update_row(false, [
+    $cache->update_row('userstats_' . $CURUSER["id"],  [
         'seedbonus' => $update['seedbonus']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $CURUSER["id"]);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $CURUSER["id"],  [
         'seedbonus' => $update['seedbonus']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+    ], $INSTALLER09['expires']['user_stats']);
 }
 
 

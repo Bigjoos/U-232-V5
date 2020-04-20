@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(0);
     ignore_user_abort(1);
     // *Updated* Upload Achievements Mod by MelvinMeow
@@ -38,9 +38,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL1\', \'ul1.png\' , \'Uploaded at least 1 torrent to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',1, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 50 && $ul == 1) {
@@ -48,9 +48,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL2\', \'ul2.png\' , \'Uploaded at least 50 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',2, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 100 && $ul == 2) {
@@ -58,9 +58,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL3\', \'ul3.png\' , \'Uploaded at least 100 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',3, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 200 && $ul == 3) {
@@ -68,9 +68,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL4\', \'ul4.png\' , \'Uploaded at least 200 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',4, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 300 && $ul == 4) {
@@ -78,9 +78,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL5\', \'ul5.png\' , \'Uploaded at least 300 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',5, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 500 && $ul == 5) {
@@ -88,9 +88,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL6\', \'ul6.png\' , \'Uploaded at least 500 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',6, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 800 && $ul == 6) {
@@ -98,9 +98,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL7\', \'ul7.png\' , \'Uploaded at least 800 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',7, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 1000 && $ul == 7) {
@@ -108,9 +108,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL8\', \'ul8.png\' , \'Uploaded at least 1000 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',8, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 1500 && $ul == 8) {
@@ -118,9 +118,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL9\', \'ul9.png\' , \'Uploaded at least 1500 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',9, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
             if ($uploads >= 2000 && $ul == 9) {
@@ -128,9 +128,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Uploader LVL10\', \'ul10.png\' , \'Uploaded at least 2000 torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',10, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'ul';
             }
         }

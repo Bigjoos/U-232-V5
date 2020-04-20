@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(0);
     ignore_user_abort(1);
     //=== Clean free
@@ -29,11 +29,9 @@ function docleanup($data)
     if (mysqli_num_rows($res) > 0) {
         while ($arr = mysqli_fetch_assoc($res)) {
             $Free_buffer[] = '(' . $arr['id'] . ', \'0\')';
-            $mc1->begin_transaction('torrent_details_' . $arr['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('torrent_details_' . $arr['id'],  [
                 'free' => 0
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
+            ], $INSTALLER09['expires']['torrent_details']);
         }
         $count = count($Free_buffer);
         if ($count > 0) {

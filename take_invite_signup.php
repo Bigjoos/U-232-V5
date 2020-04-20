@@ -190,8 +190,8 @@ $added = TIME_NOW;
 $msg = sqlesc("Hey there [you] ! :wave:\nIt seems that someone you invited to {$INSTALLER09['site_name']} has arrived ! :clap2: \n\n Please go to your [url={$INSTALLER09['baseurl']}/invite.php]Invite page[/url] to confirm them so they can log in.\n\ncheers\n");
 $subject = sqlesc("Someone you invited has arrived!");
 sql_query("INSERT INTO messages (sender, subject, receiver, msg, added) VALUES (0, $subject, " . sqlesc($sender) . ", $msg, $added)") or sqlerr(__FILE__, __LINE__);
-$mc1->delete_value('inbox_new_' . $sender);
-$mc1->delete_value('inbox_new_sb_' . $sender);
+$cache->delete('inbox_new_' . $sender);
+$cache->delete('inbox_new_sb_' . $sender);
 //////////////end/////////////////////
 sql_query('UPDATE invite_codes SET receiver = ' . sqlesc($id) . ', status = "Confirmed" WHERE sender = ' . sqlesc((int) $assoc['sender']) . ' AND code = ' . sqlesc($invite)) or sqlerr(__FILE__, __LINE__);
 $latestuser_cache['id'] = (int) $id;
@@ -207,8 +207,8 @@ $latestuser_cache['king'] = '0';
 //$latestuser_cache['perms'] =  (int)$arr['perms'];
 
 /** OOPs **/
-$mc1->cache_value('latestuser', $latestuser_cache, 0, $INSTALLER09['expires']['latestuser']);
-$mc1->delete_value('birthdayusers');
+$cache->set('latestuser', $latestuser_cache, 0, $INSTALLER09['expires']['latestuser']);
+$cache->delete('birthdayusers');
 write_log('User account ' . htmlsafechars($wantusername) . ' was created!');
 if ($INSTALLER09['autoshout_on'] == 1) {
     autoshout($message);

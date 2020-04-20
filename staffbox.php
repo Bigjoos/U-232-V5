@@ -54,7 +54,7 @@ switch ($do) {
 case 'delete':
     if ($id > 0) {
         if (sql_query('DELETE FROM staffmessages WHERE id IN (' . join(',', $id) . ')')) {
-            $mc1->delete_value('staff_mess_');
+            $cache->delete('staff_mess_');
             header('Refresh: 2; url=' . $_SERVER['PHP_SELF']);
             stderr($lang['staffbox_success'], $lang['staffbox_delete_ids']);
         } else {
@@ -74,11 +74,11 @@ case 'setanswered':
         $a = mysqli_fetch_assoc($q1);
         $response = htmlsafechars($message) . "\n---" . htmlsafechars($a['username']) . " wrote ---\n" . htmlsafechars($a['msg']);
         sql_query('INSERT INTO messages(sender,receiver,added,subject,msg) VALUES(' . sqlesc($CURUSER['id']) . ',' . sqlesc($a['sender']) . ',' . TIME_NOW . ',' . sqlesc('RE: ' . $a['subject']) . ',' . sqlesc($response) . ')') or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('inbox_new_' . $a['sender']);
-        $mc1->delete_value('inbox_new_sb_' . $a['sender']);
+        $cache->delete('inbox_new_' . $a['sender']);
+        $cache->delete('inbox_new_sb_' . $a['sender']);
         $message = ', answer=' . sqlesc($message);
         if (sql_query('UPDATE staffmessages SET answered=\'1\', answeredby=' . sqlesc($CURUSER['id']) . ' ' . $message . ' WHERE id IN (' . join(',', $id) . ')')) {
-            $mc1->delete_value('staff_mess_');
+            $cache->delete('staff_mess_');
             header('Refresh: 2; url=' . $_SERVER['PHP_SELF']);
             stderr($lang['staffbox_success'], $lang['staffbox_setanswered_ids']);
         } else {
@@ -126,7 +126,7 @@ case 'view':
 case 'restart':
     if ($id > 0) {
         if (sql_query('UPDATE staffmessages SET answered=\'0\', answeredby=\'0\' WHERE id IN (' . join(',', $id) . ')')) {
-            $mc1->delete_value('staff_mess_');
+            $cache->delete('staff_mess_');
             header('Refresh: 2; url=' . $_SERVER['PHP_SELF']);
             stderr($lang['staffbox_success'], $lang['staffbox_restart_ids']);
         } else {

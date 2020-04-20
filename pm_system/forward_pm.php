@@ -84,8 +84,8 @@ $first_from = (validusername($_POST['first_from']) ? htmlsafechars($_POST['first
 $body = "\n\n" . $_POST['body'] . "\n\n{$lang['pm_forwardpm_0']}[b]" . $first_from . "{$lang['pm_forwardpm_1']}[/b] \"" . htmlsafechars($message['subject']) . "\"{$lang['pm_forwardpm_2']}" . $message['msg'] . "\n";
 sql_query('INSERT INTO `messages` (`sender`, `receiver`, `added`, `subject`, `msg`, `unread`, `location`, `saved`, `poster`, `urgent`) 
                         VALUES (' . sqlesc($CURUSER['id']) . ', ' . sqlesc($to_username['id']) . ', ' . TIME_NOW . ', ' . sqlesc($subject) . ', ' . sqlesc($body) . ', \'yes\', 1, ' . sqlesc($save) . ', 0, ' . sqlesc($urgent) . ')') or sqlerr(__FILE__, __LINE__);
-$mc1->delete_value('inbox_new_' . $to_username['id']);
-$mc1->delete_value('inbox_new_sb_' . $to_username['id']);
+$cache->delete('inbox_new_' . $to_username['id']);
+$cache->delete('inbox_new_sb_' . $to_username['id']);
 //=== Check if message was forwarded
 if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) {
     stderr($lang['pm_error'], $lang['pm_forwardpm_msg_fwd']);

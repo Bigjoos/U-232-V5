@@ -20,8 +20,8 @@
  */
 function searchcloud($limit = 50)
 {
-    global $mc1, $INSTALLER09;
-    if (!($return = $mc1->get_value('searchcloud'))) {
+    global $cache, $INSTALLER09;
+    if (!($return = $cache->get('searchcloud'))) {
         $search_q = sql_query('SELECT searchedfor,howmuch FROM searchcloud ORDER BY id DESC ' . ($limit > 0 ? 'LIMIT ' . $limit : '')) or sqlerr(__FILE__, __LINE__);
         if (mysqli_num_rows($search_q)) {
             $return = [];
@@ -29,7 +29,7 @@ function searchcloud($limit = 50)
                 $return[$search_a['searchedfor']] = $search_a['howmuch'];
             }
             ksort($return);
-            $mc1->cache_value('searchcloud', $return, 0);
+            $cache->set('searchcloud', $return, 0);
             return $return;
         }
         return [];
@@ -39,19 +39,17 @@ function searchcloud($limit = 50)
 }
 function searchcloud_insert($word)
 {
-    global $mc1, $INSTALLER09;
+    global $cache, $INSTALLER09;
     $searchcloud = searchcloud();
     $ip = getip();
     $howmuch = isset($searchcloud[$word]) ? $searchcloud[$word] + 1 : 1;
     if (!count($searchcloud) || !isset($searchcloud[$word])) {
         $searchcloud[$word] = $howmuch;
-        $mc1->cache_value('searchcloud', $searchcloud, 0);
+        $cache->set('searchcloud', $searchcloud, 0);
     } else {
-        $mc1->begin_transaction('searchcloud');
-        $mc1->update_row(false, [
+        $cache->update_row('searchcloud',  [
             $word => $howmuch
-        ]);
-        $mc1->commit_transaction(0);
+        ], 0);
     }
     sql_query('INSERT INTO searchcloud(searchedfor,howmuch,ip) VALUES (' . sqlesc($word) . ',1,' . sqlesc($ip) . ') ON DUPLICATE KEY UPDATE howmuch=howmuch+1') or sqlerr(__FILE__, __LINE__);
 }

@@ -44,18 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $seedbonus_new = $CURUSER['seedbonus'] - ($tickets * $lottery_config['ticket_amount']);
         $What_Cache = (XBT_TRACKER == true ? 'userstats_xbt_' : 'userstats_');
         $What_Expire = (XBT_TRACKER == true ? $INSTALLER09['expires']['u_stats_xbt'] : $INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction($What_Cache . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row($What_Cache . $CURUSER['id'],  [
             'seedbonus' => $seedbonus_new
-        ]);
-        $mc1->commit_transaction($What_Expire);
+        ], $What_Expire);
         $What_Cache = (XBT_TRACKER == true ? 'user_stats_xbt_' : 'user_stats_');
         $What_Expire = (XBT_TRACKER == true ? $INSTALLER09['expires']['user_stats_xbt'] : $INSTALLER09['expires']['user_stats']);
-        $mc1->begin_transaction($What_Cache . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row($What_Cache . $CURUSER['id'],  [
             'seedbonus' => $seedbonus_new
-        ]);
-        $mc1->commit_transaction($What_Expire);
+        ], $What_Expire);
         stderr('Success', 'You bought <b>' . $tickets . '</b>, your new amount is <b>' . ($tickets + $user_tickets) . '</b>');
     } else {
         stderr('Errr', 'There was an error with the update query, mysql error: ' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));

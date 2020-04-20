@@ -50,16 +50,12 @@ if (isset($_POST['action2'])) {
     case 'change_pm':
         $change_pm_number = (isset($_POST['change_pm_number']) ? intval($_POST['change_pm_number']) : 20);
         sql_query('UPDATE users SET pms_per_page = ' . sqlesc($change_pm_number) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-        $mc1->begin_transaction('user' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('user' . $CURUSER['id'],  [
             'pms_per_page' => $change_pm_number
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-        $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['user_cache']);
+        $cache->update_row('MyUser_' . $CURUSER['id'],  [
             'pms_per_page' => $change_pm_number
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+        ], $INSTALLER09['expires']['curuser']);
         header('Location: pm_system.php?action=edit_mailboxes&pm=1');
         die();
         break;
@@ -79,8 +75,8 @@ if (isset($_POST['action2'])) {
             if (validusername($add_it) && $add_it !== '') {
                 $name = htmlsafechars($add_it);
                 sql_query('INSERT INTO pmboxes (userid, name, boxnumber) VALUES (' . sqlesc($CURUSER['id']) . ', ' . sqlesc($name) . ', ' . sqlesc($box) . ')') or sqlerr(__FILE__, __LINE__);
-                $mc1->delete_value('get_all_boxes' . $CURUSER['id']);
-                $mc1->delete_value('insertJumpTo' . $CURUSER['id']);
+                $cache->delete('get_all_boxes' . $CURUSER['id']);
+                $cache->delete('insertJumpTo' . $CURUSER['id']);
             }
             ++$box;
             $worked = '&boxes=1';
@@ -102,8 +98,8 @@ if (isset($_POST['action2'])) {
             if (validusername($_POST['edit' . $row['id']]) && $_POST['edit' . $row['id']] !== '' && $_POST['edit' . $row['id']] !== $row['name']) {
                 $name = htmlsafechars($_POST['edit' . $row['id']]);
                 sql_query('UPDATE pmboxes SET name=' . sqlesc($name) . ' WHERE id=' . sqlesc($row['id']) . ' LIMIT 1') or sqlerr(__FILE__, __LINE__);
-                $mc1->delete_value('get_all_boxes' . $CURUSER['id']);
-                $mc1->delete_value('insertJumpTo' . $CURUSER['id']);
+                $cache->delete('get_all_boxes' . $CURUSER['id']);
+                $cache->delete('insertJumpTo' . $CURUSER['id']);
                 $worked = '&name=1';
             }
             //=== if name is empty, delete the box(es) and send the PMs back to the inbox..
@@ -116,8 +112,8 @@ if (isset($_POST['action2'])) {
                 }
                 //== delete the box
                 sql_query('DELETE FROM pmboxes WHERE id=' . sqlesc($row['id']) . '  LIMIT 1') or sqlerr(__FILE__, __LINE__);
-                $mc1->delete_value('get_all_boxes' . $CURUSER['id']);
-                $mc1->delete_value('insertJumpTo' . $CURUSER['id']);
+                $cache->delete('get_all_boxes' . $CURUSER['id']);
+                $cache->delete('insertJumpTo' . $CURUSER['id']);
                 $deleted = '&box_delete=1';
             }
         }
@@ -167,14 +163,10 @@ if (isset($_POST['action2'])) {
         $curuser_cache['notifs'] = $notifs;
         $user_cache['notifs'] = $notifs;
         if ($curuser_cache) {
-            $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-            $mc1->update_row(false, $curuser_cache);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+            $cache->update_row('MyUser_' . $CURUSER['id'],  $curuser_cache, $INSTALLER09['expires']['curuser']);
         }
         if ($user_cache) {
-            $mc1->begin_transaction('user' . $CURUSER['id']);
-            $mc1->update_row(false, $user_cache);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+            $cache->update_row('user' . $CURUSER['id'],  $user_cache, $INSTALLER09['expires']['user_cache']);
         }
         sql_query('UPDATE users SET ' . implode(', ', $updateset) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
         $worked = '&pms=1';

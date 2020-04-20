@@ -42,7 +42,7 @@ $HTMLOUT = '';
 if (isset($_POST["delcloud"])) {
     $do = "DELETE FROM searchcloud WHERE id IN (" . implode(", ", array_map("sqlesc", $_POST['delcloud'])) . ")";
     $res = sql_query($do);
-    $mc1->delete_value('searchcloud');
+    $cache->delete('searchcloud');
     header("Refresh: 3; url=staffpanel.php?tool=cloudview&action=cloudview");
     stderr("{$lang['cloudview_success']}", "{$lang['cloudview_success_del']}");
 }

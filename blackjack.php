@@ -182,47 +182,31 @@ if ($game) {
                     $update['bjwins'] = ($User['bjwins'] + 1);
                     $update['bjlosses'] = ($a['bjlosses'] + 1);
                     //==stats
-                    $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-                    $mc1->update_row(false, [
+                    $cache->update_row('userstats_' . $CURUSER['id'],  [
                         'uploaded' => $update['uploaded']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                    $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['u_stats']);
+                    $cache->update_row('user_stats_' . $CURUSER['id'],  [
                         'uploaded' => $update['uploaded']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                    $mc1->begin_transaction('userstats_' . $a['userid']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['user_stats']);
+                    $cache->update_row('userstats_' . $a['userid'],  [
                         'uploaded' => $update['uploaded_loser']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                    $mc1->begin_transaction('user_stats_' . $a['userid']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['u_stats']);
+                    $cache->update_row('user_stats_' . $a['userid'],  [
                         'uploaded' => $update['uploaded_loser']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                    ], $INSTALLER09['expires']['user_stats']);
                     //== curuser values
-                    $mc1->begin_transaction('MyUser' . $CURUSER['id']);
-                    $mc1->update_row(false, [
+                    $cache->update_row('MyUser' . $CURUSER['id'],  [
                         'bjwins' => $update['bjwins']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                    $mc1->begin_transaction('user' . $CURUSER['id']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['curuser']);
+                    $cache->update_row('user' . $CURUSER['id'],  [
                         'bjwins' => $update['bjwins']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                    $mc1->begin_transaction('MyUser' . $a['userid']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['user_cache']);
+                    $cache->update_row('MyUser' . $a['userid'],  [
                         'bjlosses' => $update['bjlosses']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                    $mc1->begin_transaction('user' . $a['userid']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['curuser']);
+                    $cache->update_row('user' . $a['userid'],  [
                         'bjlosses' => $update['bjlosses']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                    ], $INSTALLER09['expires']['user_cache']);
                     $msg = sqlesc("{$lang['bj_you_loss_to']} " . $CURUSER['username'] . " ({$lang['bj_you_had']} " . $a['points'] . " {$lang['bj_points2']}, " . $CURUSER['username'] . " {$lang['bj_had_21_points']}).\n\n");
                 } else {
                     $subject = sqlesc($lang['bj_blackjack_results']);
@@ -230,8 +214,8 @@ if ($game) {
                     $msg = sqlesc("{$lang['bj_you_tied_with']} " . $CURUSER['username'] . " ({$lang['bj_you_both_had']} " . $a['points'] . " points).\n\n");
                 }
                 sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) VALUES(0, " . sqlesc($a['userid']) . ", $now, $msg, $subject)");
-                $mc1->delete_value('inbox_new_' . $a['userid']);
-                $mc1->delete_value('inbox_new_sb_' . $a['userid']);
+                $cache->delete('inbox_new_' . $a['userid']);
+                $cache->delete('inbox_new_sb_' . $a['userid']);
                 sql_query("DELETE FROM blackjack WHERE userid IN (" . sqlesc($CURUSER['id']) . ", " . sqlesc($a['userid']) . ")");
                 $HTMLOUT .= "<tr><td align='center'>{$lang['bj_your_opp_was']} " . htmlsafechars($a["username"]) . ", {$lang['bj_he_she_had']} " . htmlsafechars($a['points']) . " {$lang['bj_points2']}, $winorlose.<br /><br /><b><a href='/blackjack.php'>{$lang['bj_play_again']}</a></b></td></tr>";
             } else {
@@ -258,52 +242,36 @@ if ($game) {
                     $update['bjwins'] = ($a['bjwins'] + 1);
                     $update['bjlosses'] = ($User['bjlosses'] + 1);
                     //==stats
-                    $mc1->begin_transaction('userstats_' . $a['userid']);
-                    $mc1->update_row(false, [
+                    $cache->update_row('userstats_' . $a['userid'],  [
                         'uploaded' => $update['uploaded']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                    $mc1->begin_transaction('user_stats_' . $a['userid']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['u_stats']);
+                    $cache->update_row('user_stats_' . $a['userid'],  [
                         'uploaded' => $update['uploaded']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                    $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['user_stats']);
+                    $cache->update_row('userstats_' . $CURUSER['id'],  [
                         'uploaded' => $update['uploaded_loser']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                    $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['u_stats']);
+                    $cache->update_row('user_stats_' . $CURUSER['id'],  [
                         'uploaded' => $update['uploaded_loser']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                    ], $INSTALLER09['expires']['user_stats']);
                     //== curuser values
-                    $mc1->begin_transaction('MyUser' . $a['userid']);
-                    $mc1->update_row(false, [
+                    $cache->update_row('MyUser' . $a['userid'],  [
                         'bjwins' => $update['bjwins']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                    $mc1->begin_transaction('user' . $a['userid']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['curuser']);
+                    $cache->update_row('user' . $a['userid'],  [
                         'bjwins' => $update['bjwins']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                    $mc1->begin_transaction('MyUser' . $CURUSER['id']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['user_cache']);
+                    $cache->update_row('MyUser' . $CURUSER['id'],  [
                         'bjlosses' => $update['bjlosses']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                    $mc1->begin_transaction('user' . $CURUSER['id']);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['curuser']);
+                    $cache->update_row('user' . $CURUSER['id'],  [
                         'bjlosses' => $update['bjlosses']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                    ], $INSTALLER09['expires']['user_cache']);
                     $msg = sqlesc("{$lang['bj_you_beat']} " . $CURUSER['username'] . " ({$lang['bj_you_had']} " . $a['points'] . " {$lang['bj_points2']}, " . $CURUSER['username'] . " had $points points).\n\n");
                 }
                 sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) VALUES(0, " . $a['userid'] . ", $now, $msg, $subject)");
-                $mc1->delete_value('inbox_new_' . $a['userid']);
-                $mc1->delete_value('inbox_new_sb_' . $a['userid']);
+                $cache->delete('inbox_new_' . $a['userid']);
+                $cache->delete('inbox_new_sb_' . $a['userid']);
                 sql_query("DELETE FROM blackjack WHERE userid IN (" . sqlesc($CURUSER['id']) . ", " . sqlesc($a['userid']) . ")");
                 $HTMLOUT .= "<tr><td align='center'>{$lang['bj_your_opp_was']} " . htmlsafechars($a["username"]) . ", {$lang['bj_he_she_had']} " . htmlsafechars($a['points']) . " {$lang['bj_points2']}, $winorlose.<br /><br /><b><a href='blackjack.php'>{$lang['bj_play_again']}</a></b></td></tr>";
             } else {
@@ -369,51 +337,35 @@ if ($game) {
                 $update['bjwins'] = ($a['bjwins'] + 1);
                 $update['bjlosses'] = ($User['bjlosses'] + 1);
                 //==stats
-                $mc1->begin_transaction('userstats_' . $a['userid']);
-                $mc1->update_row(false, [
+                $cache->update_row('userstats_' . $a['userid'],  [
                     'uploaded' => $update['uploaded']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->begin_transaction('user_stats_' . $a['userid']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->update_row('user_stats_' . $a['userid'],  [
                     'uploaded' => $update['uploaded']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('userstats_' . $CURUSER['id'],  [
                     'uploaded' => $update['uploaded_loser']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->update_row('user_stats_' . $CURUSER['id'],  [
                     'uploaded' => $update['uploaded_loser']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
                 //== curuser values
-                $mc1->begin_transaction('MyUser' . $a['userid']);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser' . $a['userid'],  [
                     'bjwins' => $update['bjwins']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $a['userid']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $a['userid'],  [
                     'bjwins' => $update['bjwins']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('MyUser' . $CURUSER['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('MyUser' . $CURUSER['id'],  [
                     'bjlosses' => $update['bjlosses']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $CURUSER['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $CURUSER['id'],  [
                     'bjlosses' => $update['bjlosses']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                ], $INSTALLER09['expires']['user_cache']);
             }
             sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) VALUES(0, " . $a['userid'] . ", $now, $msg, $subject)");
-            $mc1->delete_value('inbox_new_' . $a['userid']);
-            $mc1->delete_value('inbox_new_sb_' . $a['userid']);
+            $cache->delete('inbox_new_' . $a['userid']);
+            $cache->delete('inbox_new_sb_' . $a['userid']);
             sql_query("DELETE FROM blackjack WHERE userid IN (" . sqlesc($CURUSER['id']) . ", " . sqlesc($a['userid']) . ")");
             $HTMLOUT .= "<tr><td align='center'>{$lang['bj_your_opp_was']} " . htmlsafechars($a["username"]) . ", {$lang['bj_he_she_had']} " . htmlsafechars($a['points']) . " {$lang['bj_points2']}, $winorlose.<br /><br /><b><a href='/blackjack.php'>{$lang['bj_play_again']}</a></b></td></tr>";
         } else {

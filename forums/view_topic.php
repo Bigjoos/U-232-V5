@@ -287,7 +287,7 @@ sql_query('DELETE FROM now_viewing WHERE user_id =' . sqlesc($CURUSER['id']));
 sql_query('INSERT INTO now_viewing (user_id, forum_id, topic_id, added) VALUES(' . sqlesc($CURUSER['id']) . ', ' . sqlesc($forumid) . ', ' . sqlesc($topicid) . ', ' . TIME_NOW . ')');
 //=== now_viewing
 $keys['now_viewing'] = 'now_viewing_topic';
-if (($topic_users_cache = $mc1->get_value($keys['now_viewing'])) === false) {
+if (($topic_users_cache = $cache->get($keys['now_viewing'])) === false) {
     $topicusers        = '';
     $topic_users_cache = [];
     $res = sql_query('SELECT n_v.user_id, u.id, u.username, u.class, u.donor, u.suspended, u.warned, u.enabled, u.chatpost, u.leechwarn, u.pirate, u.king, u.perms FROM now_viewing AS n_v LEFT JOIN users AS u ON n_v.user_id = u.id WHERE topic_id = ' . sqlesc($topicid)) or sqlerr(__FILE__, __LINE__);
@@ -300,7 +300,7 @@ if (($topic_users_cache = $mc1->get_value($keys['now_viewing'])) === false) {
     }
     $topic_users_cache['topic_users'] = $topicusers;
     $topic_users_cache['actcount']    = $actcount;
-    $mc1->add_value($keys['now_viewing'], $topic_users_cache, $INSTALLER09['expires']['forum_users']);
+    $cache->set($keys['now_viewing'], $topic_users_cache, $INSTALLER09['expires']['forum_users']);
 }
 
 if (!$topic_users_cache['topic_users']) {

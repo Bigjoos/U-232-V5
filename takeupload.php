@@ -383,10 +383,10 @@ if (XBT_TRACKER == false) {
     remove_torrent($infohash);
 }
 $id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
-$mc1->delete_value('MyPeers_' . $CURUSER['id']);
-//$mc1->delete_value('lastest_tor_');  //
-$mc1->delete_value('last5_tor_');
-$mc1->delete_value('scroll_tor_');
+$cache->delete('MyPeers_' . $CURUSER['id']);
+//$cache->delete('lastest_tor_');  //
+$cache->delete('last5_tor_');
+$cache->delete('scroll_tor_');
 
 sql_query("DELETE FROM files WHERE torrent = " . sqlesc($id));
 function file_list($arr, $id)
@@ -414,8 +414,8 @@ if ($offer > 0) {
     while ($arr_offer = mysqli_fetch_assoc($res_offer)) {
         sql_query('INSERT INTO messages (sender, receiver, added, msg, subject, saved, location) 
     VALUES(0, ' . sqlesc($arr_offer['user_id']) . ', ' . TIME_NOW . ', ' . $message . ', ' . $subject . ', \'yes\', 1)') or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('inbox_new_' . $arr_offer['user_id']);
-        $mc1->delete_value('inbox_new_sb_' . $arr_offer['user_id']);
+        $cache->delete('inbox_new_' . $arr_offer['user_id']);
+        $cache->delete('inbox_new_sb_' . $arr_offer['user_id']);
     }
     write_log('Offered torrent ' . $id . ' (' . htmlsafechars($torrent) . ') was uploaded by ' . $CURUSER['username']);
     $filled = 1;
@@ -429,8 +429,8 @@ if ($request > 0) {
     while ($arr_req = mysqli_fetch_assoc($res_req)) {
         sql_query('INSERT INTO messages (sender, receiver, added, msg, subject, saved, location) 
     VALUES(0, ' . sqlesc($arr_req['user_id']) . ', ' . TIME_NOW . ', ' . $message . ', ' . $subject . ', \'yes\', 1)') or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('inbox_new_' . $arr_req['user_id']);
-        $mc1->delete_value('inbox_new_sb_' . $arr_req['user_id']);
+        $cache->delete('inbox_new_' . $arr_req['user_id']);
+        $cache->delete('inbox_new_sb_' . $arr_req['user_id']);
     }
     sql_query('UPDATE requests SET filled_by_user_id = ' . sqlesc($CURUSER['id']) . ', filled_torrent_id = ' . sqlesc($id) . ' WHERE id = ' . sqlesc($request)) or sqlerr(__FILE__, __LINE__);
     sql_query("UPDATE usersachiev SET reqfilled = reqfilled + 1 WHERE id =" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
@@ -486,21 +486,17 @@ if ($INSTALLER09['seedbonus_on'] == 1) {
     sql_query("UPDATE users SET seedbonus=seedbonus+" . sqlesc($INSTALLER09['bonus_per_upload']) . ", numuploads=numuploads+1 WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
     //===end
     $update['seedbonus'] = ($CURUSER['seedbonus'] + $INSTALLER09['bonus_per_upload']);
-    $mc1->begin_transaction('userstats_' . $CURUSER["id"]);
-    $mc1->update_row(false, [
+    $cache->update_row('userstats_' . $CURUSER["id"],  [
         'seedbonus' => $update['seedbonus']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $CURUSER["id"]);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $CURUSER["id"],  [
         'seedbonus' => $update['seedbonus']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+    ], $INSTALLER09['expires']['user_stats']);
 }
 if ($INSTALLER09['autoshout_on'] == 1) {
     autoshout($message);
     ircbot($messages);
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
 }
 /* Email notifs */
 /*******************

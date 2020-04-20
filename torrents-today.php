@@ -31,12 +31,8 @@ dbconn(false);
 loggedinorreturn();
 if (isset($_GET['clear_new']) && $_GET['clear_new'] == 1) {
     sql_query("UPDATE users SET last_browse=" . TIME_NOW . " WHERE id=" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, ['last_browse' => TIME_NOW]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, ['last_browse' => TIME_NOW]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $CURUSER['id'],  ['last_browse' => TIME_NOW], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'],  ['last_browse' => TIME_NOW], $INSTALLER09['expires']['user_cache']);
     header("Location: {$INSTALLER09['baseurl']}/torrents-today.php");
 }
 $stdfoot = [
@@ -189,11 +185,11 @@ if (isset($cleansearchstr)) {
 }
 $where = count($wherea) ? 'WHERE ' . join(' AND ', $wherea) : '';
 $where_key = 'todaywhere::' . sha1($where);
-if (($count = $mc1->get_value($where_key)) === false) {
+if (($count = $cache->get($where_key)) === false) {
     $res = sql_query("SELECT COUNT(id) FROM torrents $where") or sqlerr(__FILE__, __LINE__);
     $row = mysqli_fetch_row($res);
     $count = (int) $row[0];
-    $mc1->cache_value($where_key, $count, $INSTALLER09['expires']['browse_where']);
+    $cache->set($where_key, $count, $INSTALLER09['expires']['browse_where']);
 }
 $torrentsperpage = $CURUSER["torrentsperpage"];
 if (!$torrentsperpage) {
@@ -216,7 +212,7 @@ if ($count) {
 
     /*
     $INSTALLER09['expires']['torrent_browse'] = 30;
-    if (($torrents = $mc1->get_value('torrent_browse_' . $CURUSER['class'])) === false) {
+    if (($torrents = $cache->get('torrent_browse_' . $CURUSER['class'])) === false) {
     $tor_fields_ar_int = array(
         'id',
         'leechers',
@@ -270,7 +266,7 @@ if ($count) {
     $torrents = mysqli_fetch_assoc($result);
     foreach ($tor_fields_ar_int as $i) $torrents[$i] = (int)$torrents[$i];
     foreach ($tor_fields_ar_str as $i) $torrents[$i] = $torrents[$i];
-    $mc1->cache_value('torrent_browse_' . $CURUSER['class'], $torrents, $INSTALLER09['expires']['torrent_browse']);
+    $cache->set('torrent_browse_' . $CURUSER['class'], $torrents, $INSTALLER09['expires']['torrent_browse']);
     }
     */
     $query = "SELECT id, search_text, category, leechers, seeders, bump, release_group, subs, name, times_completed, size, added, poster, descr, type, free, silver, comments, numfiles, filename, anonymous, sticky, nuked, vip, nukereason, newgenre, description, owner, username, youtube, checked_by, IF(nfo <> '', 1, 0) as nfoav," . "IF(num_ratings < {$INSTALLER09['minvotes']}, NULL, ROUND(rating_sum / num_ratings, 1)) AS rating " . "FROM torrents {$where} {$orderby} {$pager['limit']}";
@@ -339,12 +335,8 @@ if ($CURUSER['opt1'] & user_options::CLEAR_NEW_TAG_MANUALLY) {
 
     //== clear new tag automatically
     sql_query("UPDATE users SET last_browse=" . TIME_NOW . " where id=" . $CURUSER['id']);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, ['last_browse' => TIME_NOW]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, ['last_browse' => TIME_NOW]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $CURUSER['id'],  ['last_browse' => TIME_NOW], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'],  ['last_browse' => TIME_NOW], $INSTALLER09['expires']['user_cache']);
 }
 $HTMLOUT.= "<br />
     <table width='1000' class='main' border='0' cellspacing='0' cellpadding='0'><tr><td class='embedded'>
@@ -402,10 +394,10 @@ if (!$no_log_ip) {
     $res = sql_query("SELECT * FROM ips WHERE ip = " . sqlesc($ip) . " AND userid = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($res) == 0) {
         sql_query("INSERT INTO ips (userid, ip, lastbrowse, type) VALUES (" . sqlesc($userid) . ", " . sqlesc($ip) . ", $added, 'Browse')") or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('ip_history_' . $userid);
+        $cache->delete('ip_history_' . $userid);
     } else {
         sql_query("UPDATE ips SET lastbrowse = $added WHERE ip=" . sqlesc($ip) . " AND userid = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('ip_history_' . $userid);
+        $cache->delete('ip_history_' . $userid);
     }
 }
 

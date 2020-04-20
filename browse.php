@@ -31,16 +31,12 @@ require_once(TEMPLATE_DIR . '' . $CURUSER['stylesheet'] . '' . DIRECTORY_SEPARAT
 require_once(TEMPLATE_DIR . '' . $CURUSER['stylesheet'] . '' . DIRECTORY_SEPARATOR . 'html_functions' . DIRECTORY_SEPARATOR . 'navigation_html_functions.php');
 if (isset($_GET['clear_new']) && $_GET['clear_new'] == 1) {
     sql_query("UPDATE users SET last_browse=" . TIME_NOW . " WHERE id=" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'last_browse' => TIME_NOW
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'],  [
         'last_browse' => TIME_NOW
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     header("Location: {$INSTALLER09['baseurl']}/browse.php");
 }
 $stdfoot = [
@@ -283,11 +279,11 @@ if (isset($cleansearchstr)) {
 
 $where = count($wherea) ? 'WHERE ' . join(' AND ', $wherea) : '';
 $where_key = 'where::' . sha1($where);
-if (($count = $mc1->get_value($where_key)) === false) {
+if (($count = $cache->get($where_key)) === false) {
     $res = sql_query("SELECT COUNT(id) FROM torrents $where") or sqlerr(__FILE__, __LINE__);
     $row = mysqli_fetch_row($res);
     $count = (int) $row[0];
-    $mc1->cache_value($where_key, $count, $INSTALLER09['expires']['browse_where']);
+    $cache->set($where_key, $count, $INSTALLER09['expires']['browse_where']);
 }
 $torrentsperpage = $CURUSER["torrentsperpage"];
 if (!$torrentsperpage) {
@@ -377,16 +373,12 @@ if ($CURUSER['opt1'] & user_options::CLEAR_NEW_TAG_MANUALLY) {
 } else {
     //== clear new tag automatically
     sql_query("UPDATE users SET last_browse=" . TIME_NOW . " where id=" . $CURUSER['id']);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'last_browse' => TIME_NOW
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'],  [
         'last_browse' => TIME_NOW
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
 }
 $HTMLOUT.= "</div></div><br>
 <div class='container'>
@@ -469,10 +461,10 @@ if (!$no_log_ip) {
     $res = sql_query("SELECT * FROM ips WHERE ip = " . sqlesc($ip) . " AND userid = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($res) == 0) {
         sql_query("INSERT INTO ips (userid, ip, lastbrowse, type) VALUES (" . sqlesc($userid) . ", " . sqlesc($ip) . ", $added, 'Browse')") or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('ip_history_' . $userid);
+        $cache->delete('ip_history_' . $userid);
     } else {
         sql_query("UPDATE ips SET lastbrowse = $added WHERE ip=" . sqlesc($ip) . " AND userid = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('ip_history_' . $userid);
+        $cache->delete('ip_history_' . $userid);
     }
 }
 //== End Ip logger

@@ -40,7 +40,7 @@ if ($CURUSER['got_blocks'] == 'no') {
     stderr($lang['gl_error'], $lang['user_b_err1']);
     die;
 }
-    //$mc1->delete_value('blocks::' . $id);
+    //$cache->delete('blocks::' . $id);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $updateset = [];
@@ -405,7 +405,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (count($updateset)) {
         sql_query('UPDATE user_blocks SET ' . implode(',', $updateset) . ' WHERE userid = ' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     }
-    $mc1->delete_value('blocks::' . $id);
+    $cache->delete('blocks::' . $id);
     header('Location: ' . $INSTALLER09['baseurl'] . '/user_blocks.php');
     exit();
 }

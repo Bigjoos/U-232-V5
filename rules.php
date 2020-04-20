@@ -30,12 +30,12 @@ $HTMLOUT.= "<table class='table table-bordered table-striped'><tr><td class='emb
  <ul id='myTab' class='nav nav-pills'>";
 $count = 0;
 $rules = [];
-if (($rules = $mc1->get_value('rules__')) === false) {
+if (($rules = $cache->get('rules__')) === false) {
     $q = sql_query("SELECT rules_cat.id, rules_cat.name, rules_cat.shortcut, rules_cat.min_view, rules.type, rules.title, rules.text FROM rules_cat LEFT JOIN rules ON rules.type=rules_cat.id WHERE rules_cat.min_view <=" . sqlesc($CURUSER['class']));
     while ($item = mysqli_fetch_assoc($q)) {
         $rules[] = $item;
     }
-    $mc1->cache_value('rules__', $rules, $INSTALLER09['expires']['rules']);
+    $cache->set('rules__', $rules, $INSTALLER09['expires']['rules']);
 }
 foreach ($rules as $row) {
     if ($count == 6) {

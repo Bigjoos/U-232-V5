@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $update[$c_name] = '(' . sqlesc($c_name) . ',' . sqlesc(is_array($value) ? join('|', $value) : $value) . ',' . sqlesc(is_array($classname) ? join('|', $classname) : $classname) . ',' . sqlesc(is_array($classcolor) ? join('|', $classcolor) : $classcolor) . ',' . sqlesc(is_array($classpic) ? join('|', $classpic) : $classpic) . ')';
             }
         }
-        $mc1->delete_value('is_staffs_');
+        $cache->delete('is_staffs_');
         if (sql_query('INSERT INTO class_config(name,value,classname,classcolor,classpic) VALUES ' . join(',', $update) . ' ON DUPLICATE KEY update value=values(value),classname=values(classname),classcolor=values(classcolor),classpic=values(classpic)')) { // need to change strut
             $t = 'define(';
             $configfile = "<" . $lang['classcfg_file_created'] . date('M d Y H:i:s') . $lang['classcfg_user_cfg'];
@@ -146,19 +146,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($value > UC_MAX) {
                 sql_query("UPDATE users SET class = class +1 where class = $old_max") or sqlerr(__FILE__, __LINE__);
                 $result = sql_query("SELECT id, class FROM users") or sqlerr(__FILE__, __LINE__);
-                $mc1->delete_value('shoutbox_');
-                $mc1->delete_value('staff_shoutbox_');
+                $cache->delete('shoutbox_');
+                $cache->delete('staff_shoutbox_');
                 $result = sql_query("SELECT id, class FROM users") or sqlerr(__FILE__, __LINE__);
                 while ($row = mysqli_fetch_assoc($result)) {
                     $row1 = [];
                     $row1[]= $row;
                     foreach ($row1 as $row2) {
-                        $mc1->begin_transaction('MyUser_' . $row2['id']);
-                        $mc1->update_row(false, ['class' => $row2['class']]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                        $mc1->begin_transaction('user' . $row2['id']);
-                        $mc1->update_row(false, ['class' => $row2['class']]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                        $cache->update_row('MyUser_' . $row2['id'],  ['class' => $row2['class']], $INSTALLER09['expires']['curuser']);
+                        $cache->update_row('user' . $row2['id'],  ['class' => $row2['class']], $INSTALLER09['expires']['user_cache']);
                     }
                 }
             }
@@ -172,19 +168,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $i--;
                 }
 
-                $mc1->delete_value('shoutbox_');
-                $mc1->delete_value('staff_shoutbox_');
+                $cache->delete('shoutbox_');
+                $cache->delete('staff_shoutbox_');
                 $result = sql_query("SELECT id, class FROM users") or sqlerr(__FILE__, __LINE__);
                 while ($row = mysqli_fetch_assoc($result)) {
                     $row1 = [];
                     $row1[]= $row;
                     foreach ($row1 as $row2) {
-                        $mc1->begin_transaction('MyUser_' . $row2['id']);
-                        $mc1->update_row(false, ['class' => $row2['class']]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                        $mc1->begin_transaction('user' . $row2['id']);
-                        $mc1->update_row(false, ['class' => $row2['class']]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                        $cache->update_row('MyUser_' . $row2['id'],  ['class' => $row2['class']], $INSTALLER09['expires']['curuser']);
+                        $cache->update_row('user' . $row2['id'],  ['class' => $row2['class']], $INSTALLER09['expires']['user_cache']);
                     }
                 }
             }
@@ -210,7 +202,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ftruncate($filenum, 0);
                 fwrite($filenum, $configfile);
                 fclose($filenum);
-                $mc1->delete_value('is_staffs_');
+                $cache->delete('is_staffs_');
                 stderr($lang['classcfg_success'], $lang['classcfg_success_save']);
             } else {
                 stderr($lang['classcfg_error'], $lang['classcfg_error_query2']);
@@ -251,22 +243,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         while ($i <= $old_max) {
             sql_query("UPDATE users SET class = class -1 where class = $i") or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE staffpanel SET av_class = av_class -1 where av_class = $i") or sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('is_staffs_');
+            $cache->delete('is_staffs_');
             $i++;
         }
-        $mc1->delete_value('shoutbox_');
-        $mc1->delete_value('staff_shoutbox_');
+        $cache->delete('shoutbox_');
+        $cache->delete('staff_shoutbox_');
         $result = sql_query("SELECT id, class FROM users") or sqlerr(__FILE__, __LINE__);
         while ($row = mysqli_fetch_assoc($result)) {
             $row1 = [];
             $row1[]= $row;
             foreach ($row1 as $row2) {
-                $mc1->begin_transaction('MyUser_' . $row2['id']);
-                $mc1->update_row(false, ['class' => $row2['class']]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $row2['id']);
-                $mc1->update_row(false, ['class' => $row2['class']]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                $cache->update_row('MyUser_' . $row2['id'],  ['class' => $row2['class']], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $row2['id'],  ['class' => $row2['class']], $INSTALLER09['expires']['user_cache']);
             }
         }
         if (sql_query("DELETE FROM class_config WHERE name = " . sqlesc($name) . "")) {

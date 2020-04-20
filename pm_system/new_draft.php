@@ -44,8 +44,8 @@ if (isset($_POST['buttonval']) && $_POST['buttonval'] == 'save draft') {
     $subject = sqlesc(strip_tags($_POST['subject']));
     sql_query('INSERT INTO messages (sender, receiver, added, msg, subject, location, draft, unread, saved) VALUES  
                                                                         (' . sqlesc($CURUSER['id']) . ', ' . sqlesc($CURUSER['id']) . ',' . TIME_NOW . ', ' . $body . ', ' . $subject . ', \'-2\', \'yes\',\'no\',\'yes\')') or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('inbox_new_' . $CURUSER['id']);
-    $mc1->delete_value('inbox_new_sb_' . $CURUSER['id']);
+    $cache->delete('inbox_new_' . $CURUSER['id']);
+    $cache->delete('inbox_new_sb_' . $CURUSER['id']);
     $new_draft_id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
     //=== Check if messages was saved as draft
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) {

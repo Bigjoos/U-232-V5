@@ -112,22 +112,16 @@ if ($action == 'add') {
                 sql_query("UPDATE users SET seedbonus = seedbonus+" . sqlesc($INSTALLER09['bonus_per_comment']) . " WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
             }
             $update['comments'] = ($arr['comments'] + 1);
-            $mc1->begin_transaction('torrent_details_' . $id);
-            $mc1->update_row(false, [
+            $cache->update_row('torrent_details_' . $id,  [
                 'comments' => $update['comments']
-            ]);
-            $mc1->commit_transaction(0);
+            ], 0);
             $update['seedbonus'] = ($CURUSER['seedbonus'] + $INSTALLER09['bonus_per_comment']);
-            $mc1->begin_transaction('userstats_' . $CURUSER["id"]);
-            $mc1->update_row(false, [
+            $cache->update_row('userstats_' . $CURUSER["id"],  [
                 'seedbonus' => $update['seedbonus']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $CURUSER["id"]);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $CURUSER["id"],  [
                 'seedbonus' => $update['seedbonus']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
             //===end
         }
         // --- pm if new comment mod---//
@@ -255,22 +249,16 @@ if ($action == 'add') {
         }
         $arr['comments'] = (isset($arr['comments']) ? $arr['comments'] : 0);
         $update['comments'] = ($arr['comments'] - 1);
-        $mc1->begin_transaction('torrent_details_' . $id);
-        $mc1->update_row(false, [
+        $cache->update_row('torrent_details_' . $id,  [
             'comments' => $update['comments']
-        ]);
-        $mc1->commit_transaction(0);
+        ], 0);
         $update['seedbonus'] = ($CURUSER['seedbonus'] - 3);
-        $mc1->begin_transaction('userstats_' . $CURUSER["id"]);
-        $mc1->update_row(false, [
+        $cache->update_row('userstats_' . $CURUSER["id"],  [
             'seedbonus' => $update['seedbonus']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER["id"]);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER["id"],  [
             'seedbonus' => $update['seedbonus']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
         //===end
     }
     header("Refresh: 0; url=$locale_link.php?id=$tid$extra_link");

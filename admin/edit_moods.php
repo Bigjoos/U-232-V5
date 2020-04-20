@@ -36,20 +36,20 @@ $edit_mood['bonus'] = (isset($edit_params['bonus']) ? (int) $edit_params['bonus'
 if ($edit_mood['action'] == 'added') {
     if ($edit_mood['name'] && $edit_mood['name'] && $edit_mood['name'] && ($edit_mood['name'] != '' . $lang['moods_example'] . '' && $edit_mood['image'] != 'smile1.gif')) {
         sql_query('INSERT INTO moods (name, image, bonus) VALUES (' . sqlesc($edit_mood['name']) . ', ' . sqlesc($edit_mood['image']) . ', ' . sqlesc($edit_mood['bonus']) . ')') or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('topmoods');
+        $cache->delete('topmoods');
         write_log('<b>' . $lang['moods_added'] . '</b> ' . htmlsafechars($CURUSER['username']) . ' - ' . htmlsafechars($edit_mood['name']) . '<img src="' . $INSTALLER09['pic_base_url'] . 'smilies/' . htmlsafechars($edit_mood['image']) . '" alt="" />');
     }
 } elseif ($edit_mood['action'] == 'edited') {
     if ($edit_mood['name'] && $edit_mood['name'] && $edit_mood['name']) {
         sql_query('UPDATE moods SET name = ' . sqlesc($edit_mood['name']) . ', image = ' . sqlesc($edit_mood['image']) . ', bonus = ' . sqlesc($edit_mood['bonus']) . ' WHERE id = ' . sqlesc($edit_mood['id'])) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('topmoods');
+        $cache->delete('topmoods');
         write_log('<b>' . $lang['moods_edited'] . '</b> ' . htmlsafechars($CURUSER['username']) . ' - ' . htmlsafechars($edit_mood['name']) . '<img src="' . $INSTALLER09['pic_base_url'] . 'smilies/' . htmlsafechars($edit_mood['image']) . '" alt="" />');
     }
 }
 /*
 elseif ($edit_mood['action'] == 'remove') {
    sql_query('DELETE FROM moods WHERE id = '.$edit_mood['id'].' LIMIT 1') or sqlerr(__FILE__, __LINE__);
-   $mc1->del_value('topmoods');
+   $cache->delete('topmoods');
    write_log2('<b>'.$lang['moods_deleted'].'</b> '.$CURUSER['username'].' - '.$edit_mood['id']);
 }
 */

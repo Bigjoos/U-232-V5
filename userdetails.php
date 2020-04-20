@@ -54,7 +54,7 @@ $id = (int) $_GET["id"];
 if (!is_valid_id($id)) {
     stderr($lang['userdetails_error'], "{$lang['userdetails_bad_id']}");
 }
-if (($user = $mc1->get_value('user' . $id)) === false) {
+if (($user = $cache->get('user' . $id)) === false) {
     $user_fields_ar_int = [
         'id',
         'added',
@@ -223,14 +223,14 @@ if (($user = $mc1->get_value('user' . $id)) === false) {
     foreach ($user_fields_ar_str as $i) {
         $user[$i] = $user[$i];
     }
-    $mc1->cache_value('user' . $id, $user, $INSTALLER09['expires']['user_cache']);
+    $cache->set('user' . $id, $user, $INSTALLER09['expires']['user_cache']);
 }
 if ($user["status"] == "pending") {
     stderr($lang['userdetails_error'], $lang['userdetails_pending']);
 }
 // user stats
 $What_Cache = (XBT_TRACKER == true ? 'user_stats_xbt_' : 'user_stats_');
-if (($user_stats = $mc1->get_value($What_Cache . $id)) === false) {
+if (($user_stats = $cache->get($What_Cache . $id)) === false) {
     $What_Expire = (XBT_TRACKER == true ? $INSTALLER09['expires']['user_stats_xbt'] : $INSTALLER09['expires']['user_stats']);
     $stats_fields_ar_int = [
         'uploaded',
@@ -255,9 +255,9 @@ if (($user_stats = $mc1->get_value($What_Cache . $id)) === false) {
     foreach ($stats_fields_ar_str as $i) {
         $user_stats[$i] = $user_stats[$i];
     }
-    $mc1->cache_value($What_Cache . $id, $user_stats, $What_Expire); // 5 mins
+    $cache->set($What_Cache . $id, $user_stats, $What_Expire); // 5 mins
 }
-if (($user_status = $mc1->get_value('user_status_' . $id)) === false) {
+if (($user_status = $cache->get('user_status_' . $id)) === false) {
     $sql_2 = sql_query('SELECT * FROM ustatus WHERE userid = ' . sqlesc($id));
     if (mysqli_num_rows($sql_2)) {
         $user_status = mysqli_fetch_assoc($sql_2);
@@ -268,7 +268,7 @@ if (($user_status = $mc1->get_value('user_status_' . $id)) === false) {
             'archive' => ''
         ];
     }
-    $mc1->add_value('user_status_' . $id, $user_status, $INSTALLER09['expires']['user_status']); // 30 days
+    $cache->set('user_status_' . $id, $user_status, $INSTALLER09['expires']['user_status']); // 30 days
 }
 //===  paranoid settings
 if ($user['paranoia'] == 3 && $CURUSER['class'] < UC_STAFF && $CURUSER['id'] != $id) {
@@ -343,13 +343,13 @@ if ((($user['class'] >= UC_STAFF or $user['id'] == $CURUSER['id']) || ($user['cl
 //==country by pdq
 function countries()
 {
-    global $mc1, $INSTALLER09;
-    if (($ret = $mc1->get_value('countries::arr')) === false) {
+    global $cache, $INSTALLER09;
+    if (($ret = $cache->get('countries::arr')) === false) {
         $res = sql_query("SELECT id, name, flagpic FROM countries ORDER BY name ASC") or sqlerr(__FILE__, __LINE__);
         while ($row = mysqli_fetch_assoc($res)) {
             $ret[] = $row;
         }
-        $mc1->cache_value('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
+        $cache->set('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
     }
     return $ret;
 }
@@ -389,16 +389,12 @@ if (!(isset($_GET["hit"])) && $CURUSER["id"] != $user["id"]) {
         sql_query("UPDATE users SET hits = hits + 1 WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         // do update hits userdetails cache
         $update['user_hits'] = ($user['hits'] + 1);
-        $mc1->begin_transaction('MyUser_' . $id);
-        $mc1->update_row(false, [
+        $cache->update_row('MyUser_' . $id,  [
             'hits' => $update['user_hits']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user' . $id);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user' . $id,  [
             'hits' => $update['user_hits']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+        ], $INSTALLER09['expires']['user_cache']);
         sql_query("INSERT INTO userhits (userid, hitid, number, added) VALUES(" . sqlesc($CURUSER['id']) . ", " . sqlesc($id) . ", " . sqlesc($hitnumber) . ", " . sqlesc(TIME_NOW) . ")") or sqlerr(__FILE__, __LINE__);
     }
 }
@@ -440,15 +436,15 @@ if ($user['opt1'] & user_options::PARKED) {
 if (!$enabled) {
     $HTMLOUT.= "<p><b>{$lang['userdetails_disabled']}</b></p>\n";
 } elseif ($CURUSER["id"] != $user["id"]) {
-    if (($friends = $mc1->get_value('Friends_' . $id)) === false) {
+    if (($friends = $cache->get('Friends_' . $id)) === false) {
         $r3 = sql_query("SELECT id FROM friends WHERE userid=" . sqlesc($CURUSER['id']) . " AND friendid=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         $friends = mysqli_num_rows($r3);
-        $mc1->cache_value('Friends_' . $id, $friends, $INSTALLER09['expires']['user_friends']);
+        $cache->set('Friends_' . $id, $friends, $INSTALLER09['expires']['user_friends']);
     }
-    if (($blocks = $mc1->get_value('Blocks_' . $id)) === false) {
+    if (($blocks = $cache->get('Blocks_' . $id)) === false) {
         $r4 = sql_query("SELECT id FROM blocks WHERE userid=" . sqlesc($CURUSER['id']) . " AND blockid=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         $blocks = mysqli_num_rows($r4);
-        $mc1->cache_value('Blocks_' . $id, $blocks, $INSTALLER09['expires']['user_blocks']);
+        $cache->set('Blocks_' . $id, $blocks, $INSTALLER09['expires']['user_blocks']);
     }
     if ($friends > 0) {
         $HTMLOUT.= "<div class='row'><div class='col-md-1'><p><a href='friends.php?action=delete&amp;type=friend&amp;targetid=$id'>{$lang['userdetails_remove_friends']}</a></p></div>\n";
@@ -464,10 +460,10 @@ if (!$enabled) {
 //== 09 Shitlist by Sir_Snuggles
 if ($CURUSER['class'] >= UC_STAFF) {
     $shitty = '';
-    if (($shit_list = $mc1->get_value('shit_list_' . $id)) === false) {
+    if (($shit_list = $cache->get('shit_list_' . $id)) === false) {
         $check_if_theyre_shitty = sql_query("SELECT suspect FROM shit_list WHERE userid=" . sqlesc($CURUSER['id']) . " AND suspect=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         list($shit_list) = mysqli_fetch_row($check_if_theyre_shitty);
-        $mc1->cache_value('shit_list_' . $id, $shit_list, $INSTALLER09['expires']['shit_list']);
+        $cache->set('shit_list_' . $id, $shit_list, $INSTALLER09['expires']['shit_list']);
     }
     if ($shit_list > 0) {
         $shitty = "<img src='pic/smilies/shit.gif' alt='Shit' title='Shit'>";
@@ -487,7 +483,7 @@ if ($CURUSER['id'] == $user['id']) {
 }
 
 //==invincible no iplogging and ban bypass by pdq
-$invincible = $mc1->get_value('display_' . $CURUSER['id']);
+$invincible = $cache->get('display_' . $CURUSER['id']);
 if ($invincible) {
     $HTMLOUT.= '<div class="col-sm-2 col-md-push-2"><h3>' . htmlsafechars($user['username']) . ' ' . $lang['userdetails_is'] . ' ' . $invincible . ' ' . $lang['userdetails_invincible'] . '</h3></div>';
 }
@@ -499,7 +495,7 @@ $HTMLOUT.= "<div class='container'>
                \n" . ' ' . $lang['userdetails_invincible_def0'] . '" ' . "\n" . 'href="userdetails.php?id=' . $id . '&amp;invincible=yes">' . $lang['userdetails_make_invincible'] . '</a>]') : '') . "</div></div>";
 
 //==Stealth mode
-$stealth = $mc1->get_value('display_stealth' . $CURUSER['id']);
+$stealth = $cache->get('display_stealth' . $CURUSER['id']);
 if ($stealth) {
     $HTMLOUT.= '<div class="row"><div class="col-md-6 col-md-pull-0"><h4>' . htmlsafechars($user['username']) . '&nbsp;' . $stealth . ' ' . $lang['userdetails_in_stelth'] . '</h4>';
 }

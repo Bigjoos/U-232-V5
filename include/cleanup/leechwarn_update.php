@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     //== 09 Auto leech warn by Bigjoos/pdq
@@ -43,25 +43,19 @@ function docleanup($data)
             $msgs_buffer[] = '(0,' . $arr['id'] . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ',' . $leechwarn . ',\'0\', ' . $modcom . ')';
             $update['leechwarn'] = ($leechwarn);
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('user' . $arr['id'],  [
                 'leechwarn' => $update['leechwarn'],
                 'downloadpos' => 0
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('MyUser_' . $arr['id'],  [
                 'leechwarn' => $update['leechwarn'],
                 'downloadpos' => 0
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->update_row('user_stats_' . $arr['id'],  [
                 'modcomment' => $modcomment
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            $mc1->delete_value('inbox_new_' . $arr['id']);
-            $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+            ], $INSTALLER09['expires']['user_stats']);
+            $cache->delete('inbox_new_' . $arr['id']);
+            $cache->delete('inbox_new_sb_' . $arr['id']);
         }
         $count = count($users_buffer);
         if ($count > 0) {
@@ -86,25 +80,19 @@ function docleanup($data)
             $modcom = sqlesc($modcomment);
             $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ',  ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ', \'0\', \'1\', ' . $modcom . ')';
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('user' . $arr['id'],  [
                 'leechwarn' => 0,
                 'downloadpos' => 1
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('MyUser_' . $arr['id'],  [
                 'leechwarn' => 0,
                 'downloadpos' => 1
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->update_row('user_stats_' . $arr['id'],  [
                 'modcomment' => $modcomment
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            $mc1->delete_value('inbox_new_' . $arr['id']);
-            $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+            ], $INSTALLER09['expires']['user_stats']);
+            $cache->delete('inbox_new_' . $arr['id']);
+            $cache->delete('inbox_new_sb_' . $arr['id']);
         }
         $count = count($users_buffer);
         if ($count > 0) {
@@ -125,23 +113,17 @@ function docleanup($data)
             $modcomment = get_date(TIME_NOW, 'DATE', 1) . " - User disabled - Low ratio.\n" . $modcomment;
             $modcom = sqlesc($modcomment);
             $users_buffer[] = '(' . $arr['id'] . ' , \'0\', \'no\', ' . $modcom . ')';
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('user' . $arr['id'],  [
                 'leechwarn' => 0,
                 'enabled' => 'no'
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('user_stats_' . $arr['id'],  [
                 'modcomment' => $modcomment
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_stats']);
+            $cache->update_row('MyUser_' . $arr['id'],  [
                 'leechwarn' => 0,
                 'enabled' => 'no'
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+            ], $INSTALLER09['expires']['curuser']);
         }
         $count = count($users_buffer);
         if ($count > 0) {

@@ -58,21 +58,15 @@ if (isset($_GET['remove'])) {
             $user = mysqli_fetch_assoc($res);
             $modcomment = get_date(TIME_NOW, 'DATE', 1) . " - {$lang['watched_removed']} $CURUSER[username].\n" . $user['modcomment'];
             sql_query('UPDATE users SET watched_user = \'0\', modcomment=' . sqlesc($modcomment) . ' WHERE id=' . sqlesc($remove_me_Ive_been_good)) or sqlerr(__FILE__, __LINE__);
-            $mc1->begin_transaction('MyUser_' . $remove_me_Ive_been_good);
-            $mc1->update_row(false, [
+            $cache->update_row('MyUser_' . $remove_me_Ive_been_good,  [
                 'watched_user' => 0
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->begin_transaction('user' . $remove_me_Ive_been_good);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->update_row('user' . $remove_me_Ive_been_good,  [
                 'watched_user' => 0
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('user_stats_' . $remove_me_Ive_been_good);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('user_stats_' . $remove_me_Ive_been_good,  [
                 'modcomment' => $modcomment
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
             $count = 1;
             $removed_log = '<a href="userdetails.php?id=' . $remove_me_Ive_been_good . '" class="altlink">' . htmlsafechars($user['username']) . '</a>';
         }
@@ -84,21 +78,15 @@ if (isset($_GET['remove'])) {
                 $user = mysqli_fetch_assoc($res);
                 $modcomment = get_date(TIME_NOW, 'DATE', 1) . " - {$lang['watched_removed']} $CURUSER[username].\n" . $user['modcomment'];
                 sql_query('UPDATE users SET watched_user = \'0\', modcomment=' . sqlesc($modcomment) . ' WHERE id=' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-                $mc1->begin_transaction('MyUser_' . $id);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $id,  [
                     'watched_user' => 0
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $id);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $id,  [
                     'watched_user' => 0
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $id);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $id,  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
                 $count = (++$count);
                 $removed_log .= '<a href="userdetails.php?id=' . $id . '" class="altlink">' . htmlsafechars($user['username']) . '</a> ';
             }
@@ -145,22 +133,16 @@ if (isset($_GET['add'])) {
         $watched_user_reason = htmlsafechars($_POST['reason']);
         $modcomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $lang['watched_addedwu'] . " $CURUSER[username].\n" . $user['modcomment'];
         sql_query('UPDATE users SET watched_user = ' . TIME_NOW . ', modcomment=' . sqlesc($modcomment) . ', watched_user_reason = ' . sqlesc($watched_user_reason) . ' WHERE id=' . sqlesc($member_whos_been_bad)) or sqlerr(__FILE__, __LINE__);
-        $mc1->begin_transaction('MyUser_' . $member_whos_been_bad);
-        $mc1->update_row(false, [
+        $cache->update_row('MyUser_' . $member_whos_been_bad,  [
             'watched_user' => TIME_NOW
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user' . $member_whos_been_bad);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user' . $member_whos_been_bad,  [
             'watched_user' => TIME_NOW,
             'watched_user_reason' => $watched_user_reason
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-        $mc1->begin_transaction('user_stats_' . $member_whos_been_bad);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['user_cache']);
+        $cache->update_row('user_stats_' . $member_whos_been_bad,  [
             'modcomment' => $modcomment
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
     }
     //=== Check if member was added
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) > 0) {

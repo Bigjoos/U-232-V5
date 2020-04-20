@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(0);
     ignore_user_abort(1);
     // *Updated* Forum Topic Achievements Mod by MelvinMeow
@@ -38,9 +38,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Forum Topic Starter LVL1\', \'ftopic1.png\' , \'Started at least 1 topic in the forums.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',1, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'topicachiev';
             }
             if ($topics >= 10 && $lvl == 1) {
@@ -48,9 +48,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Forum Topic Starter LVL2\', \'ftopic2.png\' , \'Started at least 10 topics in the forums.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',2, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'topicachiev';
             }
             if ($topics >= 25 && $lvl == 2) {
@@ -58,9 +58,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Forum Topic Starter LVL3\', \'ftopic3.png\' , \'Started at least 25 topics in the forums.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',3, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'topicachiev';
             }
             if ($topics >= 50 && $lvl == 3) {
@@ -68,8 +68,8 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Forum Topic Starter LVL4\', \'ftopic4.png\' , \'Started at least 50 topics in the forums.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',4, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
                 $var1 = 'topicachiev';
             }
             if ($topics >= 75 && $lvl == 4) {
@@ -77,9 +77,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Forum Topic Starter LVL5\', \'ftopic5.png\' , \'Started at least 75 topics in the forums.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',5, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'topicachiev';
             }
         }

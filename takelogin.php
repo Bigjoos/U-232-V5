@@ -64,19 +64,19 @@ if ($INSTALLER09['captcha_on'] && !$gotkey) {
 }
 function bark($text = 'Username or password incorrect')
 {
-    global $lang, $INSTALLER09, $mc1;
+    global $lang, $INSTALLER09, $cache;
     $sha = sha1($_SERVER['REMOTE_ADDR']);
     $dict_key = 'dictbreaker:::' . $sha;
-    $flood = $mc1->get_value($dict_key);
+    $flood = $cache->get($dict_key);
     if ($flood === false) {
-        $mc1->cache_value($dict_key, 'flood_check', 20);
+        $cache->set($dict_key, 'flood_check', 20);
     } else {
         die("{$lang['tlogin_err4']}");
     }
     stderr($lang['tlogin_failed'], $text);
 }
 failedloginscheck();
-$res = sql_query("SELECT id, ip, passhash, perms, ssluse, secret, enabled FROM users WHERE username = " . sqlesc($username) . " AND status = 'confirmed'");
+$res = sql_query("SELECT id, ip, passhash, perms, ssluse, secret, enabled FROM users WHERE username = " . sqlesc($username) . " AND status = 'confirmed'") or sqlerr(__FILE__, __LINE__);
 $row = mysqli_fetch_assoc($res);
 $ip_escaped = sqlesc(getip());
 $ip = getip();
@@ -103,14 +103,14 @@ if (!$pass_hash) {
     $msg = "[color=red]{$lang['tlogin_log_err2']}[/color]\n{$lang['tlogin_mess1']}" . (int) $row['id'] . "{$lang['tlogin_mess2']}" . htmlsafechars($username) . "{$lang['tlogin_mess3']}" . "{$lang['tlogin_mess4']}" . htmlsafechars($ip) . "{$lang['tlogin_mess5']}";
     $sql = "INSERT INTO messages (sender, receiver, msg, subject, added) VALUES('System', " . sqlesc($to) . ", " . sqlesc($msg) . ", " . sqlesc($subject) . ", $added);";
     $res = sql_query("SET SESSION sql_mode = ''", $sql) or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('inbox_new_' . $row['id']);
-    $mc1->delete_value('inbox_new_sb_' . $row['id']);
+    $cache->delete('inbox_new_' . $row['id']);
+    $cache->delete('inbox_new_sb_' . $row['id']);
     bark("<b>{$lang['gl_error']}</b>{$lang['tlogin_forgot']}");
 }
 if ($row['enabled'] == 'no') {
     bark($lang['tlogin_disabled']);
 }
-sql_query("DELETE FROM failedlogins WHERE ip = $ip_escaped");
+sql_query("DELETE FROM failedlogins WHERE ip = $ip_escaped") or sqlerr(__FILE__, __LINE__);
 $userid = (int) $row["id"];
 $row['perms'] = (int) $row['perms'];
 //== Start ip logger - Melvinmeow, Mindless, pdq
@@ -123,10 +123,10 @@ if (!$no_log_ip) {
     $res = sql_query("SELECT * FROM ips WHERE ip=$ip_escaped AND userid =" . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($res) == 0) {
         sql_query("INSERT INTO ips (userid, ip, lastlogin, type) VALUES (" . sqlesc($userid) . ", $ip_escaped , $added, 'Login')") or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('ip_history_' . $userid);
+        $cache->delete('ip_history_' . $userid);
     } else {
         sql_query("UPDATE ips SET lastlogin=$added WHERE ip=$ip_escaped AND userid=" . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('ip_history_' . $userid);
+        $cache->delete('ip_history_' . $userid);
     }
 } // End Ip logger
 if (isset($_POST['use_ssl']) && $_POST['use_ssl'] == 1 && !isset($_SERVER['HTTPS'])) {
@@ -138,24 +138,20 @@ $ssluse = ($row['ssluse'] == 2 ? 2 : 1);
 $ua = getBrowser();
 $browser = "Browser: " . $ua['name'] . " " . $ua['version'] . ". Os: " . $ua['platform'] . ". Agent : " . $ua['userAgent'];
 sql_query('UPDATE users SET browser=' . sqlesc($browser) . ', ' . $ssl_value . ', ip = ' . $ip_escaped . ', last_access=' . TIME_NOW . ', last_login=' . TIME_NOW . ' WHERE id=' . sqlesc($row['id'])) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('MyUser_' . $row['id']);
-$mc1->update_row(false, [
+$cache->update_row('MyUser_' . $row['id'],  [
     'browser' => $browser,
     'ip' => $ip,
     'ssluse' => $ssluse,
     'last_access' => TIME_NOW,
     'last_login' => TIME_NOW
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('user' . $row['id']);
-$mc1->update_row(false, [
+], $INSTALLER09['expires']['curuser']);
+$cache->update_row('user' . $row['id'],  [
     'browser' => $browser,
     'ip' => $ip,
     'ssluse' => $ssluse,
     'last_access' => TIME_NOW,
     'last_login' => TIME_NOW
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+], $INSTALLER09['expires']['user_cache']);
 $passh = md5($row["passhash"] . $_SERVER["REMOTE_ADDR"]);
 logincookie($row["id"], $passh);
 header("Location: {$INSTALLER09['baseurl']}/index.php");

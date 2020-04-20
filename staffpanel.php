@@ -42,12 +42,12 @@ $lang = array_merge(load_language('global'), load_language('staff_panel'));
 //==
 $staff_classes1['name'] = '';
 $staff = sqlesc(UC_STAFF);
-if (($staff_classes = $mc1->get_value('is_staffs_')) === false) {
+if (($staff_classes = $cache->get('is_staffs_')) === false) {
     $res = sql_query("SELECT value from class_config WHERE name NOT IN ('UC_MIN', 'UC_STAFF', 'UC_MAX') AND value >= '$staff' ORDER BY value asc");
     $staff_classes = [];
     while (($row = mysqli_fetch_assoc($res))) {
         $staff_classes[] = $row['value'];
-        $mc1->cache_value('is_staffs_', $staff_classes, 900); //==  test values 900 to 0 with delete keys //==
+        $cache->set('is_staffs_', $staff_classes, 900); //==  test values 900 to 0 with delete keys //==
     }
 }
 if (!$CURUSER) {
@@ -190,7 +190,7 @@ if (in_array($tool, $staff_tools) and file_exists(ADMIN_DIR . $staff_tools[$tool
             stderr($lang['spanel_sanity_check'], $lang['spanel_are_you_sure_del'] . ': "' . htmlsafechars($arr['page_name']) . '"? ' . $lang['spanel_click'] . ' <a href="' . $_SERVER['PHP_SELF'] . '?action=' . $action . '&amp;id=' . $id . '&amp;sure=yes">' . $lang['spanel_here'] . '</a> ' . $lang['spanel_to_del_it_or'] . ' <a href="' . $_SERVER['PHP_SELF'] . '">' . $lang['spanel_here'] . '</a> ' . $lang['spanel_to_go_back'] . '.');
         }
         sql_query('DELETE FROM staffpanel WHERE id = ' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('is_staffs_');
+        $cache->delete('is_staffs_');
         if (mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
             if ($CURUSER['class'] <= UC_MAX) {
                 write_log($lang['spanel_page'] . ' "' . htmlsafechars($arr['page_name']) . '"(' . ($class_color ? '[color=#' . get_user_class_color($arr['av_class']) . ']' : '') . get_user_class_name($arr['av_class']) . ($class_color ? '[/color]' : '') . ') ' . $lang['spanel_was_del_sp_by'] . ' [url=' . $INSTALLER09['baseurl'] . '/userdetails.php?id=' . (int) $CURUSER['id'] . ']' . $CURUSER['username'] . '[/url](' . ($class_color ? '[color=#' . get_user_class_color($CURUSER['class']) . ']' : '') . get_user_class_name($CURUSER['class']) . ($class_color ? '[/color]' : '') . ')');
@@ -259,7 +259,7 @@ if (in_array($tool, $staff_tools) and file_exists(ADMIN_DIR . $staff_tools[$tool
                         (int) $CURUSER['id'],
                         TIME_NOW
                     ])) . ")");
-                    $mc1->delete_value('is_staffs_');
+                    $cache->delete('is_staffs_');
                     if (!$res) {
                         if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 1062) {
                             $errors[] = $lang['spanel_this_fname_sub'];
@@ -269,7 +269,7 @@ if (in_array($tool, $staff_tools) and file_exists(ADMIN_DIR . $staff_tools[$tool
                     }
                 } else {
                     $res = sql_query("UPDATE staffpanel SET page_name = " . sqlesc($page_name) . ", file_name = " . sqlesc($file_name) . ", description = " . sqlesc($description) . ", type = " . sqlesc($type) . ", av_class = " . sqlesc((int) $av_class) . " WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-                    $mc1->delete_value('is_staffs_');
+                    $cache->delete('is_staffs_');
                     if (!$res) {
                         $errors[] = $lang['spanel_db_error_msg'];
                     }

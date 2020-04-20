@@ -20,12 +20,12 @@
 $HTMLOUT.= "";
             $page = 1;
             $num = 0;
-            if (($topics = $mc1->get_value('last_posts_b_' . $CURUSER['class'])) === false) {
+            if (($topics = $cache->get('last_posts_b_' . $CURUSER['class'])) === false) {
                 $topicres = sql_query("SELECT t.id, t.user_id, t.topic_name, t.locked, t.forum_id, t.last_post, t.sticky, t.views, t.anonymous AS tan, f.min_class_read, f.name " . ", (SELECT COUNT(id) FROM posts WHERE topic_id=t.id) AS p_count " . ", p.user_id AS puser_id, p.added, p.anonymous AS pan " . ", u.id AS uid, u.username " . ", u2.username AS u2_username " . "FROM topics AS t " . "LEFT JOIN forums AS f ON f.id = t.forum_id " . "LEFT JOIN posts AS p ON p.id=(SELECT MAX(id) FROM posts WHERE topic_id = t.id) " . "LEFT JOIN users AS u ON u.id=p.user_id " . "LEFT JOIN users AS u2 ON u2.id=t.user_id " . "WHERE f.min_class_read <= " . $CURUSER['class'] . " " . "ORDER BY t.last_post DESC LIMIT {$INSTALLER09['latest_posts_limit']}") or sqlerr(__FILE__, __LINE__);
                 while ($topic = mysqli_fetch_assoc($topicres)) {
                     $topics[] = $topic;
                 }
-                $mc1->cache_value('last_posts_b_' . $CURUSER['class'], $topics, $INSTALLER09['expires']['latestposts']);
+                $cache->set('last_posts_b_' . $CURUSER['class'], $topics, $INSTALLER09['expires']['latestposts']);
             }
             if (count($topics) > 0) {
                 $HTMLOUT.= "<div class='panel panel-default'>
@@ -112,7 +112,7 @@ $HTMLOUT.= "";
                     }
                 }
             }
-//$mc1->delete_value('last_posts_b_' . $CURUSER['class']);
+//$cache->delete('last_posts_b_' . $CURUSER['class']);
 //==End
 // End Class
 // End File

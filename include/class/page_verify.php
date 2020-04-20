@@ -35,7 +35,7 @@ class page_verify
     }
     public function create($task_name = 'Default')
     {
-        global $CURUSER, $_SESSION;
+        global $CURUSER, $INSTALLER09;
         $session_task = isset($CURUSER['id']) ? $CURUSER['id'] : $INSTALLER09['bot_id'];
         $_SESSION['Task_Time'] = TIME_NOW;
         $_SESSION['Task'] = md5('user_id:' . $session_task . '::taskname-' . $task_name . '::' . $_SESSION['Task_Time']);
@@ -44,7 +44,7 @@ class page_verify
     }
     public function check($task_name = 'Default')
     {
-        global $CURUSER, $INSTALLER09, $lang, $_SESSION;
+        global $CURUSER, $INSTALLER09, $lang;
         $returl = (isset($_SERVER['HTTP_REFERER']) ? htmlsafechars($_SERVER['HTTP_REFERER']) : $INSTALLER09['baseurl'] . "/login.php");
         $returl = str_replace('&amp;', '&', $returl);
         if (isset($_SESSION['HTTP_USER_AGENT']) && $_SESSION['HTTP_USER_AGENT'] != $_SERVER['HTTP_USER_AGENT']) {

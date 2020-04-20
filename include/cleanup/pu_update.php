@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     //== Updated promote power users
@@ -79,25 +79,19 @@ function docleanup($data)
                 $msgs_buffer[]     = '(0,' . $userid . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $users_buffer[]    = '(' . $userid . ', ' . $class_value . ', 1, ' . $modcom . ')';
                 $update['invites'] = ($arr['invites'] + 1);
-                $mc1->begin_transaction('user' . $userid);
-                $mc1->update_row(false, [
+                $cache->update_row('user' . $userid,  [
                     'class' => $class_value,
                     'invites' => $update['invites']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $userid,  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('MyUser_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('MyUser_' . $userid,  [
                     'class' => $class_value,
                     'invites' => $update['invites']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->delete_value('inbox_new_' . $userid);
-                $mc1->delete_value('inbox_new_sb_' . $userid);
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->delete('inbox_new_' . $userid);
+                $cache->delete('inbox_new_sb_' . $userid);
             }
             $count = count($users_buffer);
             if ($count > 0) {

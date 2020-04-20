@@ -76,13 +76,13 @@ $time_select.= "</select></div></div>";
 //==country by pdq
 function countries()
 {
-    global $mc1, $INSTALLER09;
-    if (($ret = $mc1->get_value('countries::arr')) === false) {
+    global $cache, $INSTALLER09;
+    if (($ret = $cache->get('countries::arr')) === false) {
         $res = sql_query("SELECT id, name, flagpic FROM countries ORDER BY name ASC") or sqlerr(__FILE__, __LINE__);
         while ($row = mysqli_fetch_assoc($res)) {
             $ret[] = $row;
         }
-        $mc1->cache_value('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
+        $cache->set('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
     }
     return $ret;
 }

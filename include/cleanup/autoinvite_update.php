@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     //== 09 Auto invite by Bigjoos/pdq
@@ -39,23 +39,17 @@ function docleanup($data)
             $msgs_buffer[] = '(0,' . $arr['id'] . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ', 2, ' . $modcom . ')'; //== 2 in the user_buffer is award amount :)
             $update['invites'] = ($arr['invites'] + 2); //== 2 in the user_buffer is award amount :)
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('user' . $arr['id'],  [
                 'invites' => $update['invites']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('user_stats_' . $arr['id'],  [
                 'modcomment' => $modcomment
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_stats']);
+            $cache->update_row('MyUser_' . $arr['id'],  [
                 'invites' => $update['invites']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->delete_value('inbox_new_' . $arr['id']);
-            $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->delete('inbox_new_' . $arr['id']);
+            $cache->delete('inbox_new_sb_' . $arr['id']);
         }
         $count = count($users_buffer);
         if ($count > 0) {

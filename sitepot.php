@@ -35,11 +35,11 @@ if ($SitePot['value_u'] < TIME_NOW && $SitePot['value_s'] == '1') {
 
 //=== site pot-o-meter (.) (.) == set the target amount for free leech
 //=== get total points
-    if (($site_pot_counter = $mc1->get_value('site_pot_counter')) === false) {
+    if (($site_pot_counter = $cache->get('site_pot_counter')) === false) {
         $total = sql_query('SELECT value_i FROM avps WHERE avps.arg = "sitepot"');
         $total_row = mysqli_fetch_assoc($total);
         $percent = number_format($total_row['value_i'] / $potsize * 100, 2);
-        $mc1->cache_value('site_pot_counter', $percent);
+        $cache->set('site_pot_counter', $percent);
     } else {
         $percent = $site_pot_counter;
     }
@@ -104,25 +104,21 @@ if ($want_pot && (isset($pot_options[$want_pot]))) {
                      WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__file__, __line__);
         $update['seedbonus_donator'] = ($CURUSER['seedbonus'] - $want_pot);
         //====Update the caches
-        $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('userstats_' . $CURUSER['id'],  [
             'seedbonus' => $update['seedbonus_donator']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER['id'],  [
             'seedbonus' => $update['seedbonus_donator']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->delete_value('Sitepot_');
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->delete('Sitepot_');
         write_log("Site Pot " . $CURUSER['username'] . " has donated " . $want_pot . " karma points to the site pot. {$Remaining} karma points remaining.");
         sql_query("UPDATE avps SET value_i = value_i + " . sqlesc($want_pot) . " 
                      WHERE arg = 'sitepot'") or sqlerr(__file__, __line__);
-        $mc1->delete_value('site_pot_counter');
+        $cache->delete('site_pot_counter');
         /** shoutbox announce **/
         require_once(INCL_DIR . 'bbcode_functions.php');
         $msg = $CURUSER['username'] . " put " . $want_pot . " karma point" . ($want_pot > 1 ? 's' : '') . " into the site pot! * Only [b]" . $Remaining . "[/b] more karma point" . ($Remaining > 1 ? 's' : '') . " to go! * [color=green][b]Site Pot:[/b][/color] [url={$INSTALLER09['baseurl']}/sitepot.php]" . $give . "/" . $potsize . '[/url]';
-        $mc1->delete_value('shoutbox_');
+        $cache->delete('shoutbox_');
         autoshout($msg);
         header('Location: sitepot.php');
         die();
@@ -133,30 +129,26 @@ if ($want_pot && (isset($pot_options[$want_pot]))) {
                      WHERE id = " . sqlesc($CURUSER['id']) . "") or sqlerr(__file__, __line__);
         $update['seedbonus_donator'] = ($CURUSER['seedbonus'] - $want_pot);
         //====Update the caches
-        $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('userstats_' . $CURUSER['id'],  [
             'seedbonus' => $update['seedbonus_donator']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER['id'],  [
             'seedbonus' => $update['seedbonus_donator']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->delete_value('Sitepot_');
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->delete('Sitepot_');
 
         write_log("Site Pot " . $CURUSER['username'] . " has donated " . $want_pot . " karma points to the site pot.");
         sql_query("UPDATE avps SET value_i = value_i + " . sqlesc($want_pot) . ", 
                      value_u = '" . (86400 + TIME_NOW) . "', 
                      value_s = '1' WHERE arg = 'sitepot'") or sqlerr(__file__, __line__);
-        $mc1->delete_value('site_pot_counter');
+        $cache->delete('site_pot_counter');
         write_log("24 HR FREELEECH is now active! It was started on " . get_date(TIME_NOW, 'DATE') . ".");
         /** shoutbox announce **/
         require_once(INCL_DIR . 'bbcode_functions.php');
         $res = sql_query("SELECT value_u FROM avps WHERE arg = 'sitepot'") or sqlerr(__file__, __line__);
         $arr = mysqli_fetch_array($res);
         $msg = " [color=green][b]24 HR FREELEECH[/b][/color] is now active! It will end at " . get_date($arr['value_u'], 'DATE') . ".";
-        $mc1->delete_value('shoutbox_');
+        $cache->delete('shoutbox_');
         autoshout($msg);
         header('Location: sitepot.php');
         die();

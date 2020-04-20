@@ -75,11 +75,9 @@ if ($action == '') {
         if ($id !== $CURUSER['id'] && $CURUSER['class'] > $staff_notes_arr['class']) {
             //=== add / edit staff_notes
             sql_query('UPDATE users SET staff_notes = ' . sqlesc($posted_notes) . ' WHERE id =' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-            $mc1->begin_transaction('user' . $id);
-            $mc1->update_row(false, [
+            $cache->update_row('user' . $id,  [
                 'staff_notes' => $posted_notes
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+            ], $INSTALLER09['expires']['user_cache']);
             //=== add it to the log
             write_log('<b>' . $CURUSER['username'] . '</b> edited member <a href="userdetails.php?id=' . $id . '" title="go to ' . htmlsafechars($staff_notes_arr['username']) . (substr($staff_notes_arr['username'], -1) == 's' ? '\'' : '\'s') . ' staff notes"><b>' . htmlsafechars($staff_notes_arr['username']) . (substr($staff_notes_arr['username'], -1) == 's' ? '\'' : '\'s') . '</b></a> staff notes. Changes made:<br />Was:<br />' . htmlsafechars($staff_notes_arr['staff_notes']) . '<br />is now:<br />' . htmlsafechars($_POST['new_staff_note']) . '');
         }
@@ -100,32 +98,24 @@ if ($action == '') {
             if (isset($_POST['add_to_watched_users']) && $_POST['add_to_watched_users'] == 'yes' && $watched_arr['watched_user'] == 0) {
                 //=== set them to watched user
                 sql_query('UPDATE users SET watched_user = ' . TIME_NOW . ' WHERE id = ' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-                $mc1->begin_transaction('MyUser_' . $id);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $id,  [
                     'watched_user' => TIME_NOW
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $id);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $id,  [
                     'watched_user' => TIME_NOW
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                ], $INSTALLER09['expires']['user_cache']);
                 //=== add it to the log
                 write_log('<b>' . $CURUSER['username'] . '</b> added member <a href="userdetails.php?id=' . $id . '" title="go to ' . htmlsafechars($watched_arr['username']) . (substr($watched_arr['username'], -1) == 's' ? '\'' : '\'s') . ' page">' . htmlsafechars($watched_arr['username']) . '</a> to watched users.');
             }
             if (isset($_POST['add_to_watched_users']) && $_POST['add_to_watched_users'] == 'no' && $watched_arr['watched_user'] > 0) {
                 //=== remove them from watched users
                 sql_query('UPDATE users SET watched_user = 0 WHERE id = ' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-                $mc1->begin_transaction('MyUser_' . $id);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $id,  [
                     'watched_user' => 0
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $id);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $id,  [
                     'watched_user' => 0
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                ], $INSTALLER09['expires']['user_cache']);
                 //=== add it to the log
                 write_log('<b>' . $CURUSER['username'] . '</b> removed member <a href="userdetails.php?id=' . $id . '" title="go to ' . htmlsafechars($watched_arr['username']) . (substr($watched_arr['username'], -1) == 's' ? '\'' : '\'s') . ' page">' . htmlsafechars($watched_arr['username']) . '</a> from watched users. <br />' . htmlsafechars($watched_arr['username']) . ' had been on the list since ' . get_date($watched_arr['watched_user'], '') . '.', $CURUSER['id']);
             }
@@ -133,11 +123,9 @@ if ($action == '') {
             if ($_POST['watched_reason'] !== $watched_arr['watched_user_reason']) {
                 //=== edit watched users text
                 sql_query('UPDATE users SET watched_user_reason = ' . sqlesc($posted) . ' WHERE id = ' . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-                $mc1->begin_transaction('user' . $id);
-                $mc1->update_row(false, [
+                $cache->update_row('user' . $id,  [
                     'watched_user_reason' => $posted
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+                ], $INSTALLER09['expires']['user_cache']);
                 //=== add it to the log
                 write_log('<b>' . $CURUSER['username'] . '</b> changed watched user text for: <a href="userdetails.php?id=' . $id . '" title="go to ' . htmlsafechars($watched_arr['username']) . (substr($watched_arr['username'], -1) == 's' ? '\'' : '\'s') . ' page">' . htmlsafechars($watched_arr['username']) . '</a>  Changes made:<br />Text was:<br />' . htmlsafechars($watched_arr['watched_user_reason']) . '<br />Is now:<br />' . htmlsafechars($_POST['watched_reason']) . '');
             }

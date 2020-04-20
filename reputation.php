@@ -202,17 +202,13 @@ if (isset($input['do']) && $input['do'] == 'addrep') {
     $score = fetch_reppower($CURUSER, $input['reputation']);
     $res['reputation']+= $score;
     sql_query("UPDATE users set reputation=" . sqlesc(intval($res['reputation'])) . " WHERE id=" . sqlesc($res['userid'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('MyUser_' . $res['userid']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $res['userid'],  [
         'reputation' => $res['reputation']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $res['userid']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $res['userid'],  [
         'reputation' => $res['reputation']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-    $mc1->delete_value('user_rep_' . $res['userid']);
+    ], $INSTALLER09['expires']['user_cache']);
+    $cache->delete('user_rep_' . $res['userid']);
     $save = [
         'reputation' => sqlesc($score),
         'whoadded' => sqlesc($CURUSER['id']),

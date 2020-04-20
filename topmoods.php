@@ -48,7 +48,7 @@ $abba = '<div class="container well"><div class="row"><div class="col-md-6 col-m
          <td class="text-center">Icon</td>
          </tr>';
 $key = 'topmoods';
-$topmoods = $mc1->get_value($key);
+$topmoods = $cache->get($key);
 if ($topmoods === false) {
     $res = sql_query('SELECT moods.*, users.mood, COUNT(users.mood) as moodcount ' . 'FROM users LEFT JOIN moods ON (users.mood = moods.id) GROUP BY users.mood ' . 'ORDER BY moodcount DESC, moods.id ASC') or sqlerr(__FILE__, __LINE__);
     while ($arr = mysqli_fetch_assoc($res)) {
@@ -57,7 +57,7 @@ if ($topmoods === false) {
                  <td class="text-center"><img src="' . $INSTALLER09['pic_base_url'] . 'smilies/' . htmlsafechars($arr['image']) . '" alt="" /></td>
                  </tr>';
     }
-    $mc1->add_value($key, $topmoods, 0);
+    $cache->set($key, $topmoods, 0);
 }
 $HTMLOUT.= $abba . $topmoods . '</table></div></div></div><br>';
 echo stdhead("Top Moods") . $HTMLOUT . stdfoot($stdhead);

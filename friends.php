@@ -56,8 +56,8 @@ if ($action == 'add') {
         $subject = sqlesc("New Friend Request!");
         $body = sqlesc("[url={$INSTALLER09['baseurl']}/userdetails.php?id=$userid][b]This person[/b][/url] has added you to their Friends List. See all Friend Requests [url={$INSTALLER09['baseurl']}/friends.php#pending][b]Here[/b][/url]\n ");
         sql_query("INSERT INTO messages (sender, receiver, added, subject, msg) VALUES (0, " . sqlesc($targetid) . ", '" . TIME_NOW . "', $subject, $body)") or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('inbox_new_' . $targetid);
-        $mc1->delete_value('inbox_new_sb_' . $targetid);
+        $cache->delete('inbox_new_' . $targetid);
+        $cache->delete('inbox_new_sb_' . $targetid);
         if (mysqli_num_rows($r) == 1) {
             stderr("Error", "User ID is already in your " . htmlsafechars($table_is) . " list.");
         }
@@ -71,12 +71,12 @@ if ($action == 'add') {
             stderr("Error", "User ID is already in your " . htmlsafechars($table_is) . " list.");
         }
         sql_query("INSERT INTO $table_is VALUES (0, " . sqlesc($userid) . ", " . sqlesc($targetid) . ")") or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('Blocks_' . $userid);
-        $mc1->delete_value('Friends_' . $userid);
-        $mc1->delete_value('Blocks_' . $targetid);
-        $mc1->delete_value('Friends_' . $targetid);
-        $mc1->delete_value('user_friends_' . $targetid);
-        $mc1->delete_value('user_friends_' . $userid);
+        $cache->delete('Blocks_' . $userid);
+        $cache->delete('Friends_' . $userid);
+        $cache->delete('Blocks_' . $targetid);
+        $cache->delete('Friends_' . $targetid);
+        $cache->delete('user_friends_' . $targetid);
+        $cache->delete('user_friends_' . $userid);
         header("Location: {$INSTALLER09['baseurl']}/friends.php?id=$userid#$frag");
         die;
     }
@@ -99,17 +99,17 @@ if ($action == 'confirm') {
     if ($type == 'friend') {
         sql_query("INSERT INTO friends VALUES (0, " . sqlesc($userid) . ", " . sqlesc($targetid) . ", 'yes') ON DUPLICATE KEY UPDATE userid=" . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
         sql_query("UPDATE friends SET confirmed = 'yes' WHERE userid=" . sqlesc($targetid) . " AND friendid=" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('Blocks_' . $userid);
-        $mc1->delete_value('Friends_' . $userid);
-        $mc1->delete_value('Blocks_' . $targetid);
-        $mc1->delete_value('Friends_' . $targetid);
-        $mc1->delete_value('user_friends_' . $targetid);
-        $mc1->delete_value('user_friends_' . $userid);
+        $cache->delete('Blocks_' . $userid);
+        $cache->delete('Friends_' . $userid);
+        $cache->delete('Blocks_' . $targetid);
+        $cache->delete('Friends_' . $targetid);
+        $cache->delete('user_friends_' . $targetid);
+        $cache->delete('user_friends_' . $userid);
         $subject = sqlesc("You have a new friend!");
         $body = sqlesc("[url={$INSTALLER09['baseurl']}/userdetails.php?id=$userid][b]This person[/b][/url] has just confirmed your Friendship Request. See your Friends  [url={$INSTALLER09['baseurl']}/friends.php][b]Here[/b][/url]\n ");
         sql_query("INSERT INTO messages (sender, receiver, added, subject, msg) VALUES (0, " . sqlesc($targetid) . ", '" . TIME_NOW . "', $subject, $body)") or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('inbox_new_' . $targetid);
-        $mc1->delete_value('inbox_new_sb_' . $targetid);
+        $cache->delete('inbox_new_' . $targetid);
+        $cache->delete('inbox_new_sb_' . $targetid);
         $frag = "friends";
         header("Refresh: 3; url=friends.php?id=$userid#$frag");
         mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 1 ? stderr("Success", "Friend was added successfully.") : stderr("oopss", "That friend is already confirmed !! .");
@@ -132,10 +132,10 @@ elseif ($action == 'delpending') {
     }
     if ($type == 'friend') {
         sql_query("DELETE FROM friends WHERE userid=" . sqlesc($targetid) . " AND friendid=" . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('Friends_' . $userid);
-        $mc1->delete_value('Friends_' . $targetid);
-        $mc1->delete_value('user_friends_' . $userid);
-        $mc1->delete_value('user_friends_' . $targetid);
+        $cache->delete('Friends_' . $userid);
+        $cache->delete('Friends_' . $targetid);
+        $cache->delete('user_friends_' . $userid);
+        $cache->delete('user_friends_' . $targetid);
         $frag = "friends";
         header("Refresh: 3; url=friends.php?id=$userid#$frag");
         mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 1 ? stderr("Success", "Friend was deleted successfully.") : stderr("oopss", "No friend request found with ID !! .");
@@ -159,17 +159,17 @@ elseif ($action == 'delete') {
     if ($type == 'friend') {
         sql_query("DELETE FROM friends WHERE userid=" . sqlesc($userid) . " AND friendid=" . sqlesc($targetid)) or sqlerr(__FILE__, __LINE__);
         sql_query("DELETE FROM friends WHERE userid=" . sqlesc($targetid) . " AND friendid=" . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('Friends_' . $userid);
-        $mc1->delete_value('Friends_' . $targetid);
-        $mc1->delete_value('user_friends_' . $userid);
-        $mc1->delete_value('user_friends_' . $targetid);
+        $cache->delete('Friends_' . $userid);
+        $cache->delete('Friends_' . $targetid);
+        $cache->delete('user_friends_' . $userid);
+        $cache->delete('user_friends_' . $targetid);
         $frag = "friends";
         header("Refresh: 3; url=friends.php?id=$userid#$frag");
         mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 1 ? stderr("Success", "Friend was deleted successfully.") : stderr("oopss", "No friend request found with ID !! .");
     } elseif ($type == 'block') {
         sql_query("DELETE FROM blocks WHERE userid=" . sqlesc($userid) . " AND blockid=" . sqlesc($targetid)) or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('Blocks_' . $userid);
-        $mc1->delete_value('Blocks_' . $targetid);
+        $cache->delete('Blocks_' . $userid);
+        $cache->delete('Blocks_' . $targetid);
         $frag = "blocks";
         header("Refresh: 3; url=friends.php?id=$userid#$frag");
         mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 1 ? stderr("Success", "Block was deleted successfully.") : stderr("oopss", "No Block found with ID !! .");
@@ -273,13 +273,13 @@ if (mysqli_num_rows($res) == 0) {
 //==country by pdq
 function countries()
 {
-    global $mc1, $INSTALLER09;
-    if (($ret = $mc1->get_value('countries::arr')) === false) {
+    global $cache, $INSTALLER09;
+    if (($ret = $cache->get('countries::arr')) === false) {
         $res = sql_query("SELECT id, name, flagpic FROM countries ORDER BY name ASC") or sqlerr(__FILE__, __LINE__);
         while ($row = mysqli_fetch_assoc($res)) {
             $ret[] = $row;
         }
-        $mc1->cache_value('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
+        $cache->set('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
     }
     return $ret;
 }

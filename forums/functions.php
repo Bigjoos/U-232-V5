@@ -138,10 +138,10 @@ function showMods($ars)
 }
 function forum_stats()
 {
-    global $INSTALLER09, $Multi_forum, $lang, $CURUSER, $mc1;
+    global $INSTALLER09, $Multi_forum, $lang, $CURUSER, $cache;
     $htmlout='';
     $keys['f_activeusers'] = 'forum_activeusers';
-    if (($forum_active_users_cache = $mc1->get_value($keys['f_activeusers'])) === false) {
+    if (($forum_active_users_cache = $cache->get($keys['f_activeusers'])) === false) {
         $dt = $_SERVER['REQUEST_TIME'] - 180;
         $htmlout = $forum_activeusers = '';
         $forum_active_users_cache = [];
@@ -157,7 +157,7 @@ function forum_stats()
         }
         $forum_active_users_cache['activeusers'] = $forum_activeusers;
         $forum_active_users_cache['actcount']    = $forum_actcount;
-        $mc1->cache_value($keys['f_activeusers'], $forum_active_users_cache, $INSTALLER09['expires']['forum_activeusers']);
+        $cache->set($keys['f_activeusers'], $forum_active_users_cache, $INSTALLER09['expires']['forum_activeusers']);
     }
     if (!$forum_active_users_cache['activeusers']) {
         $forum_active_users_cache['activeusers'] = 'There have been no active users in the last 15 minutes.';

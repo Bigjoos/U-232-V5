@@ -46,16 +46,12 @@ if ($md5 != $sec) {
     stderr("{$lang['confirm_user_error']}", "{$lang['confirm_cannot_confirm']}");
 }
 sql_query("UPDATE users SET status='confirmed', editsecret='' WHERE id=" . sqlesc($id) . " AND status='pending'");
-$mc1->begin_transaction('MyUser_' . $id);
-$mc1->update_row(false, [
+$cache->update_row('MyUser_' . $id,  [
     'status' => 'confirmed'
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('user' . $id);
-$mc1->update_row(false, [
+], $INSTALLER09['expires']['curuser']);
+$cache->update_row('user' . $id,  [
     'status' => 'confirmed'
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+], $INSTALLER09['expires']['user_cache']);
 if (!mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
     stderr("{$lang['confirm_user_error']}", "{$lang['confirm_cannot_confirm']}");
 }

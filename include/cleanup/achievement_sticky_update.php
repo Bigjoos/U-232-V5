@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(0);
     ignore_user_abort(1);
     // *Updated* Sticky Torrents Achievements Mod by MelvinMeow
@@ -38,9 +38,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Stick Em Up LVL1\', \'sticky1.png\' , \'Uploading at least 1 sticky torrent to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',1, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'stickyachiev';
             }
             if ($stickyup >= 5 && $lvl == 1) {
@@ -48,9 +48,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Stick Em Up LVL2\', \'sticky2.png\' , \'Uploading at least 5 sticky torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',2, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'stickyachiev';
             }
             if ($stickyup >= 10 && $lvl == 2) {
@@ -58,9 +58,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Stick Em Up LVL3\', \'sticky3.png\' , \'Uploading at least 10 sticky torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',3, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'stickyachiev';
             }
             if ($stickyup >= 25 && $lvl == 3) {
@@ -68,9 +68,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Stick Em Up LVL4\', \'sticky4.png\' , \'Uploading at least 25 sticky torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',4, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'stickyachiev';
             }
             if ($stickyup >= 50 && $lvl == 4) {
@@ -78,9 +78,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Stick Em Up LVL5\', \'sticky5.png\' , \'Uploading at least 50 sticky torrents to the site.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',5, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'stickyachiev';
             }
         }

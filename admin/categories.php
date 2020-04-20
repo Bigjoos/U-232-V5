@@ -76,7 +76,7 @@ default:
 }
 function move_cat()
 {
-    global $INSTALLER09, $params, $mc1, $lang;
+    global $INSTALLER09, $params, $cache, $lang;
     if ((!isset($params['id']) or !is_valid_id($params['id'])) or (!isset($params['new_cat_id']) or !is_valid_id($params['new_cat_id']))) {
         stderr($lang['categories_error'], $lang['categories_no_id']);
     }
@@ -92,7 +92,7 @@ function move_cat()
     }
     //all go
     sql_query("UPDATE torrents SET category = " . sqlesc($new_cat_id) . " WHERE category = " . sqlesc($old_cat_id));
-    $mc1->delete_value('genrelist');
+    $cache->delete('genrelist');
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) != -1) {
         header("Location: {$INSTALLER09['baseurl']}/staffpanel.php?tool=categories&action=categories");
     } else {
@@ -150,7 +150,7 @@ function move_cat_form()
 }
 function add_cat()
 {
-    global $INSTALLER09, $params, $mc1, $lang;
+    global $INSTALLER09, $params, $cache, $lang;
     foreach ([
         'new_cat_name',
         'new_cat_desc',
@@ -169,7 +169,7 @@ function add_cat()
     $cat_image = sqlesc($params['new_cat_image']);
     $min_class = sqlesc($params['new_cat_minclass']);
     sql_query("INSERT INTO categories (name, cat_desc, image, min_class) VALUES($cat_name, $cat_desc, $cat_image, $min_class)");
-    $mc1->delete_value('genrelist');
+    $cache->delete('genrelist');
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr($lang['categories_error'], $lang['categories_exist_error']);
     } else {
@@ -178,7 +178,7 @@ function add_cat()
 }
 function delete_cat()
 {
-    global $INSTALLER09, $params, $mc1, $lang;
+    global $INSTALLER09, $params, $cache, $lang;
     if (!isset($params['id']) or !is_valid_id($params['id'])) {
         stderr($lang['categories_error'], $lang['categories_no_id']);
     }
@@ -203,7 +203,7 @@ function delete_cat()
         sql_query("UPDATE torrents SET category = " . sqlesc($new_cat_id) . " WHERE category = " . sqlesc($old_cat_id));
     }
     sql_query("DELETE FROM categories WHERE id = " . sqlesc($old_cat_id));
-    $mc1->delete_value('genrelist');
+    $cache->delete('genrelist');
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
         header("Location: {$INSTALLER09['baseurl']}/staffpanel.php?tool=categories&action=categories");
     } else {
@@ -274,7 +274,7 @@ function delete_cat_form()
 }
 function edit_cat()
 {
-    global $INSTALLER09, $params, $mc1, $lang;
+    global $INSTALLER09, $params, $cache, $lang;
     if (!isset($params['id']) or !is_valid_id($params['id'])) {
         stderr($lang['categories_error'], $lang['categories_no_id']);
     }
@@ -297,7 +297,7 @@ function edit_cat()
     $min_class = sqlesc($params['edit_cat_minclass']);
     $cat_id = intval($params['id']);
     sql_query("UPDATE categories SET name = $cat_name, cat_desc = $cat_desc, image = $cat_image, min_class = $min_class WHERE id = $cat_id");
-    $mc1->delete_value('genrelist');
+    $cache->delete('genrelist');
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr($lang['categories_error'], $lang['categories_exist_error']);
     } else {

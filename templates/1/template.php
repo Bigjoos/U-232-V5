@@ -23,7 +23,7 @@
  //==Template system by Terranova
 function stdhead($title = "", $msgalert = true, $stdhead = false)
 {
-    global $CURUSER, $INSTALLER09, $lang, $free, $_NO_COMPRESS, $query_stat, $querytime, $mc1, $BLOCKS, $CURBLOCK, $mood, $blocks;
+    global $CURUSER, $INSTALLER09, $lang, $free, $_NO_COMPRESS, $query_stat, $querytime, $cache, $BLOCKS, $CURBLOCK, $mood, $blocks;
     if (!$INSTALLER09['site_online']) {
         die("Site is down for maintenance, please check back again later... thanks<br />");
     }
@@ -300,40 +300,74 @@ function stdhead($title = "", $msgalert = true, $stdhead = false)
 
  function stdfoot($stdfoot = false)
  {
-     global $CURUSER, $INSTALLER09, $start, $query_stat, $mc1, $querytime, $lang, $rc;
-     $debug = (SQL_DEBUG && in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id']) ? 1 : 0);
-     $cachetime = ($mc1->Time / 1000);
+     global $CURUSER, $INSTALLER09, $start, $query_stat, $cache, $querytime, $lang, $rc;
+     $debug = SQL_DEBUG && isset($CURUSER['id']) && in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id']) ? 1 : 0;
      $seconds = microtime(true) - $start;
      $r_seconds = round($seconds, 5);
-     //$phptime = $seconds - $cachetime;
-     $phptime = $seconds - $querytime - $cachetime;
+     $phptime = $seconds - $querytime - $r_seconds;
      $queries = count($query_stat); // sql query count by pdq
-     $percentphp = number_format(($phptime / $seconds) * 100, 2);
-     //$percentsql  = number_format(($querytime / $seconds) * 100, 2);
-     $percentmc = number_format(($cachetime / $seconds) * 100, 2);
-     define('REQUIRED_PHP_VER', 7.0);
-     $MemStat = (PHP_VERSION_ID < REQUIRED_PHP_VER ? $mc1->getStats() : $mc1->getStats()["127.0.0.1:11211"]);
-     if (($MemStats = $mc1->get_value('mc_hits')) === false) {
-         $MemStats =  $MemStat;
-         if ($MemStats['cmd_get'] != 0) {
-             $MemStats['Hits'] = number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3);
-         } else {
-             $MemStats['Hits'] = 0;
+     $header = '';
+     if ($INSTALLER09['sitecache']['driver'] === 'apcu' && extension_loaded('apcu')) {
+         $stats = apcu_cache_info();
+         if (is_array($stats) && !empty($stats)) {
+             $stats['Hits'] = number_format($stats['num_hits'] / ($stats['num_hits'] + $stats['num_misses']) * 100, 3);
+             $header = 'APC(u) Hits: ' . $stats['Hits'] . '% Misses: ' . number_format((100 - $stats['Hits']), 3) . '% Items: ' . number_format($stats['num_entries']) . ' Memory: ' . mksize($stats['mem_size']);
          }
-         $mc1->cache_value('mc_hits', $MemStats, 10);
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'redis' && extension_loaded('redis')) {
+         $client = new \Redis();
+         if (!$INSTALLER09['redis']['use_socket']) {
+             $client->connect($INSTALLER09['redis']['host'], $INSTALLER09['redis']['port']);
+         } else {
+             $client->connect($INSTALLER09['redis']['socket']);
+         }
+         $client->select($INSTALLER09['redis']['database']);
+         $stats = $client->info();
+         if (is_array($stats) && !empty($stats)) {
+             $stats['Hits'] = number_format($stats['keyspace_hits'] / ($stats['keyspace_hits'] + $stats['keyspace_misses']) * 100, 3);
+             $db = 'db' . $INSTALLER09['redis']['database'];
+             preg_match('/keys=(\d+)/', $stats[$db], $keys);
+             $header = "Redis Hits: {$stats['Hits']}% Misses: " . number_format((100 - (float) $stats['Hits']), 3) . '% Items: ' . number_format((float) $keys[1]) . " Memory: {$stats['used_memory_human']}";
+         }
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'memcached' && extension_loaded('memcached')) {
+         $client = new \Memcached();
+         if (!count($client->getServerList())) {
+             if (!$INSTALLER09['memcached']['use_socket']) {
+                 $client->addServer($INSTALLER09['memcached']['host'], $INSTALLER09['memcached']['port']);
+             } else {
+                 $client->addServer($INSTALLER09['memcached']['socket'], 0);
+             }
+         }
+         $stats = $client->getStats();
+         if (!$INSTALLER09['memcached']['use_socket']) {
+             $stats = $stats["{$INSTALLER09['memcached']['host']}:{$INSTALLER09['memcached']['port']}"] ?? null;
+         } else {
+             $stats = $stats["{$INSTALLER09['memcached']['socket']}:0"] ?? ($stats["{$INSTALLER09['memcached']['socket']}:{$INSTALLER09['memcached']['port']}"] ?? null);
+         }
+         if (is_array($stats) && !empty($stats['get_hits']) && !empty($stats['cmd_get'])) {
+             $stats['Hits'] = number_format(($stats['get_hits'] / $stats['cmd_get']) * 100, 3);
+             $header = "Memcached Hits: {$stats['Hits']}% Misses: " . number_format((100 - $stats['Hits']), 3) . '% Items: ' . number_format($stats['curr_items']) . ' Memory: ' . mksize($stats['bytes']);
+         }
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'file') {
+         $files_info = GetDirectorySize($INSTALLER09['files']['path'], true, true);
+         $header = "Flysystem Cache: {$INSTALLER09['files']['path']} Count: {$files_info[1]} File size: {$files_info[0]}";
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'memory') {
+         $header = 'Memory Cache: Nothing cached beyond the current request';
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'couchbase') {
+         $header = 'Using Couchbase Cache';
      }
      // load averages - pdq
      if ($debug) {
-         if (($uptime = $mc1->get_value('uptime')) === false) {
+         if (($uptime = $cache->get('uptime')) === false) {
              $uptime = `uptime`;
-             $mc1->cache_value('uptime', $uptime, 25);
+             $cache->set('uptime', $uptime, 25);
          }
          preg_match('/load average: (.*)$/i', $uptime, $load);
      }
 
      //== end class
-     $header = '';
-     $header = '' . $lang['gl_stdfoot_querys_mstat'] . ' ' . mksize(memory_get_peak_usage()) . ' ' . $lang['gl_stdfoot_querys_mstat1'] . ' ' . round($phptime, 2) . 's | ' . round($percentmc, 2) . '' . $lang['gl_stdfoot_querys_mstat2'] . '' . number_format($cachetime, 5) . 's ' . $lang['gl_stdfoot_querys_mstat3'] . '' . $MemStats['Hits'] . '' . $lang['gl_stdfoot_querys_mstat4'] . '' . (100 - $MemStats['Hits']) . '' . $lang['gl_stdfoot_querys_mstat5'] . '' . number_format($MemStats['curr_items']);
+     $header = $lang['gl_stdfoot_querys_mstat'] . ' ' .
+         mksize(memory_get_peak_usage()) . ' ' . $lang['gl_stdfoot_querys_mstat1'] . ' ' .
+         round($phptime, 2) . 's | ' . $header;
      $htmlfoot = '';
      //== query stats
      $htmlfoot.= '';
@@ -413,7 +447,7 @@ function stdmsg($heading, $text)
 }
 function StatusBar()
 {
-    global $CURUSER, $INSTALLER09, $lang, $rep_is_on, $mc1, $msgalert;
+    global $CURUSER, $INSTALLER09, $lang, $rep_is_on, $cache, $msgalert;
     if (!$CURUSER) {
         return "";
     }
@@ -456,16 +490,16 @@ function StatusBar()
     }
     //==Memcache unread pms
     $PMCount = 0;
-    if (($unread1 = $mc1->get_value('inbox_new_sb_' . $CURUSER['id'])) === false) {
+    if (($unread1 = $cache->get('inbox_new_sb_' . $CURUSER['id'])) === false) {
         $res1 = sql_query("SELECT COUNT(id) FROM messages WHERE receiver=" . sqlesc($CURUSER['id']) . " AND unread = 'yes' AND location = '1'") or sqlerr(__LINE__, __FILE__);
         list($PMCount) = mysqli_fetch_row($res1);
         $PMCount = (int) $PMCount;
-        $unread1 = $mc1->cache_value('inbox_new_sb_' . $CURUSER['id'], $PMCount, $INSTALLER09['expires']['unread']);
+        $unread1 = $cache->set('inbox_new_sb_' . $CURUSER['id'], $PMCount, $INSTALLER09['expires']['unread']);
     }
     $inbox = ($unread1 == 1 ? "$unread1&nbsp;{$lang['gl_msg_singular']}" : "$unread1&nbsp;{$lang['gl_msg_plural']}");
     //==Memcache peers
     if (XBT_TRACKER == true) {
-        if (($MyPeersXbtCache = $mc1->get_value('MyPeers_XBT_' . $CURUSER['id'])) === false) {
+        if (($MyPeersXbtCache = $cache->get('MyPeers_XBT_' . $CURUSER['id'])) === false) {
             $seed['yes'] = $seed['no'] = 0;
             $seed['conn'] = 3;
             $r = sql_query("SELECT COUNT(uid) AS `count`, `left`, `active`, `connectable` FROM `xbt_files_users` WHERE uid= " . sqlesc($CURUSER['id']) . " AND `left` = 0 AND `active` = 1") or sqlerr(__LINE__, __FILE__);
@@ -474,13 +508,13 @@ function StatusBar()
                 $seed[$key] = number_format(0 + $a['count']);
                 $seed['conn'] = $a['connectable'] == 0 ? 1 : 2;
             }
-            $mc1->cache_value('MyPeers_XBT_' . $CURUSER['id'], $seed, $INSTALLER09['expires']['MyPeers_xbt_']);
+            $cache->set('MyPeers_XBT_' . $CURUSER['id'], $seed, $INSTALLER09['expires']['MyPeers_xbt_']);
             unset($r, $a);
         } else {
             $seed = $MyPeersXbtCache;
         }
     } else {
-        if (($MyPeersCache = $mc1->get_value('MyPeers_' . $CURUSER['id'])) === false) {
+        if (($MyPeersCache = $cache->get('MyPeers_' . $CURUSER['id'])) === false) {
             $seed['yes'] = $seed['no'] = 0;
             $seed['conn'] = 3;
             $r = sql_query("SELECT COUNT(id) AS count, seeder, connectable FROM peers WHERE userid=" . sqlesc($CURUSER['id']) . " GROUP BY seeder");
@@ -489,7 +523,7 @@ function StatusBar()
                 $seed[$key] = number_format(0 + $a['count']);
                 $seed['conn'] = $a['connectable'] == 'no' ? 1 : 2;
             }
-            $mc1->cache_value('MyPeers_' . $CURUSER['id'], $seed, $INSTALLER09['expires']['MyPeers_']);
+            $cache->set('MyPeers_' . $CURUSER['id'], $seed, $INSTALLER09['expires']['MyPeers_']);
             unset($r, $a);
         } else {
             $seed = $MyPeersCache;
@@ -511,13 +545,13 @@ function StatusBar()
         $connectable = 'N/A';
     }
 
-    if (($Achievement_Points = $mc1->get_value('user_achievement_points_' . $CURUSER['id'])) === false) {
+    if (($Achievement_Points = $cache->get('user_achievement_points_' . $CURUSER['id'])) === false) {
         $Sql = sql_query("SELECT users.id, users.username, usersachiev.achpoints, usersachiev.spentpoints FROM users LEFT JOIN usersachiev ON users.id = usersachiev.id WHERE users.id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
         $Achievement_Points = mysqli_fetch_assoc($Sql);
         $Achievement_Points['id'] = (int) $Achievement_Points['id'];
         $Achievement_Points['achpoints'] = (int) $Achievement_Points['achpoints'];
         $Achievement_Points['spentpoints'] = (int) $Achievement_Points['spentpoints'];
-        $mc1->cache_value('user_achievement_points_' . $CURUSER['id'], $Achievement_Points, 0);
+        $cache->set('user_achievement_points_' . $CURUSER['id'], $Achievement_Points, 0);
     }
     //$hitnruns = ($CURUSER['hit_and_run_total'] > 0 ? $CURUSER['hit_and_run_total'] : '0');
     //{$lang['gl_hnr']}: <a href='".$INSTALLER09['baseurl']."/hnr.php?id=".$CURUSER['id']."'>{$hitnruns}</a>&nbsp;

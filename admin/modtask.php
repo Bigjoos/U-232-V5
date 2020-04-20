@@ -53,7 +53,7 @@ function remove_torrent_pass($torrent_pass)
         return false;
     }
     $key = 'user::torrent_pass:::' . $torrent_pass;
-    $mc1->delete_value($key);
+    $cache->delete($key);
 }
 function write_info($text)
 {
@@ -143,7 +143,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
         sql_query("INSERT INTO funds (cash, user, added) VALUES (" . sqlesc($donated) . ", " . sqlesc($userid) . ", $added)") or sqlerr(__file__, __line__);
         $updateset[] = "donated = " . sqlesc($donated);
         $updateset[] = "total_donated = " . $user['total_donated'] . " + " . sqlesc($donated);
-        $mc1->delete_value('totalfunds_');
+        $cache->delete('totalfunds_');
         $curuser_cache['donated'] = $donated;
         $user_cache['donated'] = $donated;
         $curuser_cache['total_donated'] = ($user['total_donated'] + $donated);
@@ -1057,7 +1057,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
         $updateset[] = "forum_mod=" . sqlesc($forum_mod);
         $curuser_cache['forum_mod'] = $forum_mod;
         $user_cache['forum_mod'] = $forum_mod;
-        $mc1 -> delete_value('forummods');
+        $cache->delete('forummods');
         $modcomment = get_date(TIME_NOW, 'DATE', 1) . " " . $CURUSER["username"] . " " . $whatm . " forum moderator rights\n" . $modcomment;
     }
 
@@ -1072,7 +1072,7 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
         $updateset[] = "forums_mod =" . sqlesc($foo);
         $curuser_cache['forums_mod'] = $foo;
         $user_cache['forums_mod'] = $foo;
-        $mc1 -> delete_value('forummods');
+        $cache->delete('forummods');
     }
     //== Add ModComment... (if we changed stuff we update otherwise we dont include this..)
     if (($CURUSER['class'] == UC_MAX && ($user['modcomment'] != $_POST['modcomment'] || $modcomment != $_POST['modcomment'])) || ($CURUSER['class'] < UC_MAX && $modcomment != $user['modcomment'])) {
@@ -1081,27 +1081,19 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
     $user_stats_cache['modcomment'] = $modcomment;
     $stats_cache['modcomment'] = $modcomment;
     //== Memcache - delete the keys
-    $mc1->delete_value('inbox_new_' . $userid);
-    $mc1->delete_value('inbox_new_sb_' . $userid);
+    $cache->delete('inbox_new_' . $userid);
+    $cache->delete('inbox_new_sb_' . $userid);
     if ($curuser_cache) {
-        $mc1->begin_transaction('MyUser_' . $userid);
-        $mc1->update_row(false, $curuser_cache);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+        $cache->update_row('MyUser_' . $userid,  $curuser_cache, $INSTALLER09['expires']['curuser']);
     }
     if ($user_cache) {
-        $mc1->begin_transaction('user' . $userid);
-        $mc1->update_row(false, $user_cache);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+        $cache->update_row('user' . $userid,  $user_cache, $INSTALLER09['expires']['user_cache']);
     }
     if ($stats_cache) {
-        $mc1->begin_transaction('userstats_' . $userid);
-        $mc1->update_row(false, $stats_cache);
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
+        $cache->update_row('userstats_' . $userid,  $stats_cache, $INSTALLER09['expires']['u_stats']);
     }
     if ($user_stats_cache) {
-        $mc1->begin_transaction('user_stats_' . $userid);
-        $mc1->update_row(false, $user_stats_cache);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        $cache->update_row('user_stats_' . $userid,  $user_stats_cache, $INSTALLER09['expires']['user_stats']);
     }
     if (sizeof($updateset) > 0) {
         sql_query("UPDATE users SET " . implode(", ", $updateset) . " WHERE id=" . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
@@ -1119,18 +1111,14 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
     $row = mysqli_fetch_assoc($res);
     $row['opt1'] = $row['opt1'];
     $row['opt2'] = $row['opt2'];
-    $mc1->begin_transaction('MyUser_' . $userid);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $userid,  [
         'opt1' => $row['opt1'],
         'opt2' => $row['opt2']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user_' . $userid);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user_' . $userid,  [
         'opt1' => $row['opt1'],
         'opt2' => $row['opt2']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     //== 09 Updated Sysop log - thanks to pdq
     write_info("{$lang['modtask_sysop_user_acc']} $userid (<a href='userdetails.php?id=$userid'>" . htmlsafechars($user['username']) . "</a>)\n{$lang['modtask_sysop_thing']}" . join(', ', $useredit['update']) . "{$lang['modtask_gl_by']}<a href='userdetails.php?id={$CURUSER['id']}'>{$CURUSER['username']}</a>");
     $returnto = htmlsafechars($_POST["returnto"]);

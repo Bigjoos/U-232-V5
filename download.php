@@ -59,7 +59,7 @@ if (happyHour('check') && happyCheck('checkid', $row['category']) && XBT_TRACKER
     $multiplier = happyHour('multiplier');
     happyLog($CURUSER['id'], $id, $multiplier);
     sql_query('INSERT INTO happyhour (userid, torrentid, multiplier ) VALUES (' . sqlesc($CURUSER['id']) . ',' . sqlesc($id) . ',' . sqlesc($multiplier) . ')') or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value($CURUSER['id'] . '_happy');
+    $cache->delete($CURUSER['id'] . '_happy');
 }
 
 if (($CURUSER['seedbonus'] === 0 || $CURUSER['seedbonus'] < $INSTALLER09['bonus_per_download'])) {
@@ -70,16 +70,12 @@ if ($INSTALLER09['seedbonus_on'] == 1 && $row['owner'] != $CURUSER['id']) {
     //===remove karma
     sql_query("UPDATE users SET seedbonus = seedbonus-" . sqlesc($INSTALLER09['bonus_per_download']) . " WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
     $update['seedbonus'] = ($CURUSER['seedbonus'] - $INSTALLER09['bonus_per_download']);
-    $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('userstats_' . $CURUSER['id'],  [
         'seedbonus' => $update['seedbonus']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $CURUSER['id'],  [
         'seedbonus' => $update['seedbonus']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+    ], $INSTALLER09['expires']['user_stats']);
     //===end
 }
 if (($CURUSER['downloadpos'] == 0 || $CURUSER['can_leech'] == 0 || $CURUSER['downloadpos'] > 1 || $CURUSER['suspended'] == 'yes') && !($CURUSER['id'] == $row['owner'])) {
@@ -135,25 +131,21 @@ if (isset($_GET['slot'])) {
     } else {
         stderr('ERROR', 'What\'s up doc?');
     }
-    $mc1->delete_value('fllslot_' . $CURUSER['id']);
+    $cache->delete('fllslot_' . $CURUSER['id']);
     make_freeslots($CURUSER['id'], 'fllslot_');
     $user['freeslots'] = ($CURUSER['freeslots'] - 1);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'freeslots' => $CURUSER['freeslots']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'],  [
         'freeslots' => $user['freeslots']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
 }
 /** end **/
-$mc1->delete_value('MyPeers_' . $CURUSER['id']);
-$mc1->delete_value('top5_tor_');
-$mc1->delete_value('last5_tor_');
-$mc1->delete_value('scroll_tor_');
+$cache->delete('MyPeers_' . $CURUSER['id']);
+$cache->delete('top5_tor_');
+$cache->delete('last5_tor_');
+$cache->delete('scroll_tor_');
 if (!isset($CURUSER['torrent_pass']) || strlen($CURUSER['torrent_pass']) != 32) {
     $xbt_config = mysqli_fetch_row(sql_query("SELECT value FROM xbt_config WHERE name='torrent_pass_private_key'")) or sqlerr(__FILE__, __LINE__);
     $site_key = $xbt_config['0']; // the value of torrent_pass_private_key that is stored in the xbt_config table
@@ -163,16 +155,12 @@ if (!isset($CURUSER['torrent_pass']) || strlen($CURUSER['torrent_pass']) != 32) 
     $passkey = sprintf('%08x%s', $uid, substr(sha1(sprintf('%s %d %d %s', $site_key, $torrent_pass_version, $uid, $info_hash)), 0, 24));
     $CURUSER['torrent_pass'] = $passkey;
     sql_query('UPDATE users SET torrent_pass=' . sqlesc($CURUSER['torrent_pass']) . 'WHERE id=' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'torrent_pass' => $CURUSER['torrent_pass']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'],  [
         'torrent_pass' => $CURUSER['torrent_pass']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
 }
 $dict = bencdec::decode_file($fn, $INSTALLER09['max_torrent_size']);
 if (XBT_TRACKER == true) {

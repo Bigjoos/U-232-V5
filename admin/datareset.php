@@ -41,7 +41,7 @@ $HTMLOUT = "";
 //==delete torrents by putyn
 function deletetorrent($tid)
 {
-    global $INSTALLER09, $mc1, $CURUSER, $lang;
+    global $INSTALLER09, $cache, $CURUSER, $lang;
     sql_query("DELETE peers.*, files.*, comments.*, snatched.*, thanks.*, bookmarks.*, coins.*, rating.*, torrents.* FROM torrents 
 				 LEFT JOIN peers ON peers.torrent = torrents.id
 				 LEFT JOIN files ON files.torrent = torrents.id
@@ -53,11 +53,11 @@ function deletetorrent($tid)
 				 LEFT JOIN snatched ON snatched.torrentid = torrents.id
 				 WHERE torrents.id =" . sqlesc($tid)) or sqlerr(__FILE__, __LINE__);
     unlink("{$INSTALLER09['torrent_dir']}/$id.torrent");
-    $mc1->delete_value('MyPeers_' . $CURUSER['id']);
+    $cache->delete('MyPeers_' . $CURUSER['id']);
 }
 function deletetorrent_xbt($tid)
 {
-    global $INSTALLER09, $mc1, $CURUSER, $lang;
+    global $INSTALLER09, $cache, $CURUSER, $lang;
     sql_query("UPDATE torrents SET flags = 1 WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     sql_query("DELETE files.*, comments.*, xbt_files_users.*, thanks.*, bookmarks.*, coins.*, rating.*, torrents.* FROM torrents 
 				 LEFT JOIN files ON files.torrent = torrents.id
@@ -69,7 +69,7 @@ function deletetorrent_xbt($tid)
 				 LEFT JOIN xbt_files_users ON xbt_files_users.fid = torrents.id
 				 WHERE torrents.id =" . sqlesc($tid) . " AND flags=1") or sqlerr(__FILE__, __LINE__);
     unlink("{$INSTALLER09['torrent_dir']}/$id.torrent");
-    $mc1->delete_value('MyPeers_XBT_' . $CURUSER['id']);
+    $cache->delete('MyPeers_XBT_' . $CURUSER['id']);
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tid = (isset($_POST["tid"]) ? 0 + $_POST["tid"] : 0);
@@ -88,16 +88,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $msg.= $lang['datareset_looks'] . htmlsafechars($a["name"]) . $lang['datareset_nuked'];
         $msg.= $lang['datareset_down'] . mksize($a["sd"]) . $lang['datareset_downbe'] . mksize($newd) . "\n";
         $pms[] = "(0," . sqlesc($a["uid"]) . "," . TIME_NOW . "," . sqlesc($msg) . ")";
-        $mc1->begin_transaction('userstats_' . $a['uid']);
-        $mc1->update_row(false, [
+        $cache->update_row('userstats_' . $a['uid'],  [
             'downloaded' => $new_download
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['u_status']);
-        $mc1->begin_transaction('user' . $a['uid']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['u_status']);
+        $cache->update_row('user' . $a['uid'],  [
             'downloaded' => $new_download
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+        ], $INSTALLER09['expires']['curuser']);
     }
     //==Send the pm !!
     sql_query("INSERT into messages (sender, receiver, added, msg) VALUES " . join(",", array_map("sqlesc", $pms))) or sqlerr(__FILE__, __LINE__);

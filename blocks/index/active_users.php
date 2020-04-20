@@ -18,7 +18,7 @@
  */
 //==Start activeusers - pdq
 $keys['activeusers'] = 'activeusers';
-if (($active_users_cache = $mc1->get_value($keys['activeusers'])) === false) {
+if (($active_users_cache = $cache->get($keys['activeusers'])) === false) {
     $dt = $_SERVER['REQUEST_TIME'] - 180;
     $activeusers = '';
     $active_users_cache = [];
@@ -35,7 +35,7 @@ if (($active_users_cache = $mc1->get_value($keys['activeusers'])) === false) {
     $active_users_cache['actcount'] = $actcount;
     $active_users_cache['au'] = number_format($actcount);
     $last24_cache['v'] = $v;
-    $mc1->cache_value($keys['activeusers'], $active_users_cache, $INSTALLER09['expires']['activeusers']);
+    $cache->set($keys['activeusers'], $active_users_cache, $INSTALLER09['expires']['activeusers']);
 }
 if (!$active_users_cache['activeusers']) {
     $active_users_cache['activeusers'] = $lang['index_active_users_no'];

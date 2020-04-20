@@ -134,8 +134,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (sizeof($pms) > 0) {
                 $r = sql_query("INSERT INTO messages(sender,receiver,added,msg,subject) VALUES " . join(",", $pms)) or sqlerr(__FILE__, __LINE__);
             }
-            $mc1->delete_value('inbox_new_' . $rid);
-            $mc1->delete_value('inbox_new_sb_' . $rid);
+            $cache->delete('inbox_new_' . $rid);
+            $cache->delete('inbox_new_sb_' . $rid);
             $err[] = ($r ? $lang['grouppm_sent'] : $lang['grouppm_again']);
         } else {
             $err[] = $lang['grouppm_nousers'];

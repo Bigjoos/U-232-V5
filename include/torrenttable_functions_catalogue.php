@@ -31,7 +31,7 @@ function readMore($text, $char, $link)
 }
 function torrenttable($res, $variant = "index")
 {
-    global $INSTALLER09, $CURUSER, $lang, $free, $mc1;
+    global $INSTALLER09, $CURUSER, $lang, $free, $cache;
     require_once(INCL_DIR . 'bbcode_functions.php');
     require_once(CLASS_DIR . 'class_user_options_2.php');
     $htmlout = $prevdate = $nuked = $free_slot = $freetorrent = $free_color = $slots_check = $double_slot = $private = $newgenre = $oldlink = $char = $description = $type = $sort = $row = $youtube = '';

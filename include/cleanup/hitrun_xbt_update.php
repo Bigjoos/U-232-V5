@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     include(CACHE_DIR . 'hit_and_run_settings.php');
@@ -51,34 +51,26 @@ function docleanup($data)
                 }
                 unset($_pms,$_users);
                 $update['hit_and_run_total'] = ($arr_fuckers['hit_and_run_total'] + $arr_fuckers['poop']);
-                $mc1->begin_transaction('user' . $arr_fuckers['uid']);
-                $mc1->update_row(false, [
+                $cache->update_row('user' . $arr_fuckers['uid'],  [
                     'hit_and_run_total' => $update['hit_and_run_total'],
                     'downloadpos' => 0,
                     'can_leech' => 0,
                     'hnrwarn' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('userstats_xbt_' . $arr_fuckers['uid']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('userstats_xbt_' . $arr_fuckers['uid'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats_xbt']);
-                $mc1->begin_transaction('user_stats_xbt' . $arr_fuckers['uid']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats_xbt']);
+                $cache->update_row('user_stats_xbt' . $arr_fuckers['uid'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats_xbt']);
-                $mc1->begin_transaction('MyUser_' . $arr_fuckers['uid']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats_xbt']);
+                $cache->update_row('MyUser_' . $arr_fuckers['uid'],  [
                     'hit_and_run_total' => $update['hit_and_run_total'],
                     'downloadpos' => 0,
                     'can_leech' => 0,
                     'hnrwarn' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->delete_value('inbox_new_' . $arr_fuckers['uid']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_fuckers['uid']);
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->delete('inbox_new_' . $arr_fuckers['uid']);
+                $cache->delete('inbox_new_sb_' . $arr_fuckers['uid']);
             }
         }
         //=== hit and run... turn their DLs back on if they start seeding again
@@ -104,32 +96,24 @@ function docleanup($data)
                 sql_query('UPDATE xbt_files_users SET mark_of_cain = \'no\', hit_and_run = \'0\' WHERE uid=' . sqlesc($arr_good_boy['id'])) or sqlerr(__FILE__, __LINE__);
                 //fid='.sqlesc($arr['fid']).' AND
                 unset($_pms,$_users);
-                $mc1->begin_transaction('user' . $arr_good_boy['id']);
-                $mc1->update_row(false, [
+                $cache->update_row('user' . $arr_good_boy['id'],  [
                     'downloadpos' => 1,
                     'can_leech' => 1,
                     'hnrwarn' => 'no'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_xbt' . $arr_good_boy['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_xbt' . $arr_good_boy['id'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats_xbt']);
-                $mc1->begin_transaction('userstats_xbt_' . $arr_good_boy['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats_xbt']);
+                $cache->update_row('userstats_xbt_' . $arr_good_boy['id'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats_xbt']);
-                $mc1->begin_transaction('MyUser_' . $arr_good_boy['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats_xbt']);
+                $cache->update_row('MyUser_' . $arr_good_boy['id'],  [
                     'downloadpos' => 1,
                     'can_leech' => 1,
                     'hnrwarn' => 'no'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->delete_value('inbox_new_' . $arr_good_boy['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_good_boy['id']);
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->delete('inbox_new_' . $arr_good_boy['id']);
+                $cache->delete('inbox_new_sb_' . $arr_good_boy['id']);
             }
         }
         //==End

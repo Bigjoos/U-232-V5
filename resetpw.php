@@ -109,12 +109,8 @@ if ($step == '1') {
         $sec = mksecret();
         $sechash =  md5($sec . $fetch['id'] . $fetch['hintanswer']);
         sql_query("UPDATE users SET editsecret = " . sqlesc($sec) . " WHERE id = " . sqlesc($id));
-        $mc1->begin_transaction('MyUser_' . $fetch["id"]);
-        $mc1->update_row(false, ['editsecret' => $sec]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user' . $fetch["id"]);
-        $mc1->update_row(false, ['editsecret' => $sec]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+        $cache->update_row('MyUser_' . $fetch["id"],  ['editsecret' => $sec], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user' . $fetch["id"],  ['editsecret' => $sec], $INSTALLER09['expires']['user_cache']);
         $HTMLOUT .= "<div class='modal-dialog'><div class='modal-content'>
 <form class='form-horizontal panel inverse' role='form' title='reset_step2' method='post' action='?step=3'>
 	<div class='modal-header'><h2 class='modal-title text-center text-info' id='myModalLabel'><span style='font-weight: bold;'>{$lang['main_changepass']}</span></h2></div>
@@ -153,20 +149,16 @@ if ($step == '1') {
     $secret = mksecret();
     $newpassword = make_passhash($newpass);
     sql_query('UPDATE users SET secret = ' . sqlesc($secret) . ', editsecret = "", passhash=' . sqlesc($newpassword) . ' WHERE id = ' . sqlesc($id) . ' AND editsecret = ' . sqlesc($fetch["editsecret"]));
-    $mc1->begin_transaction('MyUser_' . $id);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $id,  [
         'secret' => $secret,
         'editsecret' => '',
         'passhash' => $newpassword
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $id);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $id,  [
         'secret' => $secret,
         'editsecret' => '',
         'passhash' => $newpassword
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     if (!mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
         stderr("{$lang['stderr_errorhead']}", "{$lang['stderr_error13']}");
     } else {

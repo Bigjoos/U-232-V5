@@ -40,12 +40,12 @@ if (!mkglobal("qlogin") || (strlen($qlogin = $qlogin) != 96)) {
 }
 function bark($text = 'Username or password incorrect')
 {
-    global $lang, $INSTALLER09, $mc1;
+    global $lang, $INSTALLER09, $cache;
     $sha = sha1($_SERVER['REMOTE_ADDR']);
     $dict_key = 'dictbreaker:::' . $sha;
-    $flood = $mc1->get_value($dict_key);
+    $flood = $cache->get($dict_key);
     if ($flood === false) {
-        $mc1->cache_value($dict_key, 'flood_check', 20);
+        $cache->set($dict_key, 'flood_check', 20);
     } else {
         die('Minimum 8 seconds between login attempts :)');
     }

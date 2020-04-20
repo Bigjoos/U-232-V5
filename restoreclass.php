@@ -21,15 +21,11 @@ require_once(INCL_DIR . 'user_functions.php');
 dbconn(false);
 loggedinorreturn();
 sql_query("UPDATE users SET override_class='255' WHERE id = " . sqlesc($CURUSER['id']));
-$mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-$mc1->update_row(false, [
+$cache->update_row('MyUser_' . $CURUSER['id'],  [
     'override_class' => 255
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('user' . $CURUSER['id']);
-$mc1->update_row(false, [
+], $INSTALLER09['expires']['curuser']);
+$cache->update_row('user' . $CURUSER['id'],  [
     'override_class' => 255
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+], $INSTALLER09['expires']['user_cache']);
 header("Location: {$INSTALLER09['baseurl']}/index.php");
 die();

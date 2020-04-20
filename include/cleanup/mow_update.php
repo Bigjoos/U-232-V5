@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     //== Movie of the week
@@ -28,7 +28,7 @@ function docleanup($data)
     if (mysqli_num_rows($res_tor) > 0) {
         $arr = mysqli_fetch_assoc($res_tor);
         sql_query("UPDATE avps SET value_u=" . sqlesc($arr['id']) . ", value_i=" . sqlesc(TIME_NOW) . " WHERE avps.arg='bestfilmofweek'") or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('top_movie_2');
+        $cache->delete('top_movie_2');
         write_log("Torrent [" . (int) $arr["id"] . "]&nbsp;[" . htmlentities($arr["name"]) . "] was set 'Best Film of the Week' by system");
     }
     //==End

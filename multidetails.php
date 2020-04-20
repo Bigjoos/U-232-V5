@@ -84,7 +84,7 @@ $HTMLOUT.= "<p>{$lang['details_start_seeding']}</p>\n";
 foreach ($_GET['id'] as $id) {
     $id = (int) $id;
 
-    if (($torrents = $mc1->get_value('torrent_details_' . $id)) === false) {
+    if (($torrents = $cache->get('torrent_details_' . $id)) === false) {
         $tor_fields_ar_int = [
             'id'
         ];

@@ -214,14 +214,14 @@ if ($hand = fsockopen('ssl://www.paypal.com', 443, $errno, $errstr, 30)) {
             //update the user and add the goodies
             sql_query(mk_update_query($vars['amount'], $vars['uid'])) or paypallog(mysqli_error($GLOBALS["___mysqli_ston"]));
             //instead of updating the cache delete it :P
-            $mc1->delete_value('MyUser_' . $vars['uid']);
-            $mc1->delete_value('user' . $vars['uid']);
-            $mc1->delete_value('userstats_' . $vars['uid']);
-            $mc1->delete_value('user_stats_' . $vars['uid']);
+            $cache->delete('MyUser_' . $vars['uid']);
+            $cache->delete('user' . $vars['uid']);
+            $cache->delete('userstats_' . $vars['uid']);
+            $cache->delete('user_stats_' . $vars['uid']);
             //update total funds
             sql_query(sprintf('INSERT INTO funds(cash,user,added) VALUES (%d,%d,%d)', $vars['amount'], $vars['uid'], TIME_NOW)) or paypallog(mysqli_error($GLOBALS["___mysqli_ston"]));
             //clear the cache for the funds
-            $mc1->delete_value('totalfunds_');
+            $cache->delete('totalfunds_');
             $msg[] = '(' . $vars['uid'] . ',0,' . sqlesc('Donation - processed') . ',' . sqlesc("Your donation was processed by paypal and our system\nWe remind you that you donated " . $vars['amount'] . $INSTALLER09['paypal_config']['currency'] . "\nIf you forgot what you'll get check the donation page again\nStaff from " . $INSTALLER09['site_name'] . " is grateful for your donation\nIf you have any question's feel free to contact someone from staff") . ',' . TIME_NOW . ')';
             $msg[] = '(' . $INSTALLER09['paypal_config']['staff'] . ',0,' . sqlesc('Donation - made') . ',' . sqlesc("This [url=" . $INSTALLER09['baseurl'] . "/userdetails.php?id=" . (int) $vars['uid'] . "]user[/url] - donated " . $vars['amount'] . $INSTALLER09['paypal_config']['currency'] . (!empty($vars['memo']) ? "\nUser sent a message with his donation:\n[b]" . $vars['memo'] . "[/b]" : '')) . ',' . TIME_NOW . ')';
         } else {
@@ -236,13 +236,13 @@ if ($hand = fsockopen('ssl://www.paypal.com', 443, $errno, $errstr, 30)) {
     }
     sql_query('INSERT INTO messages(receiver,sender,subject,msg,added) VALUES ' . join(',', $msg)) or paypallog(mysqli_error($GLOBALS["___mysqli_ston"]));
     //clear memcache for staff
-    $mc1->delete_value('inbox_new_' . $INSTALLER09['paypal_config']['staff']);
-    $mc1->delete_value('inbox_new_sb_' . $INSTALLER09['paypal_config']['staff']);
+    $cache->delete('inbox_new_' . $INSTALLER09['paypal_config']['staff']);
+    $cache->delete('inbox_new_sb_' . $INSTALLER09['paypal_config']['staff']);
     //and for the user that donated
-    $mc1->delete_value('inbox_new_' . $vars['uid']);
-    $mc1->delete_value('inbox_new_sb_' . $vars['uid']);
+    $cache->delete('inbox_new_' . $vars['uid']);
+    $cache->delete('inbox_new_sb_' . $vars['uid']);
     //and shoutbox (for new message inside shoutbox)
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
     fclose($hand);
 } else {
     paypallog('Can\'t open hand');

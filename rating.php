@@ -36,34 +36,28 @@ if ($id > 0 && $rate >= 1 && $rate <= 5) {
     if (sql_query("INSERT INTO rating(" . $what . ",rating,user) VALUES (" . sqlesc($id) . "," . sqlesc($rate) . "," . sqlesc($uid) . ")")) {
         $table = ($what == "torrent" ? "torrents" : "topics");
         sql_query("UPDATE " . $table . " SET num_ratings = num_ratings + 1, rating_sum = rating_sum+" . sqlesc($rate) . " WHERE id = " . sqlesc($id));
-        $mc1->delete_value('rating_' . $what . '_' . $id . '_' . $CURUSER['id']);
+        $cache->delete('rating_' . $what . '_' . $id . '_' . $CURUSER['id']);
         if ($what == "torrent") {
             $f_r = sql_query("SELECT num_ratings, rating_sum FROM torrents WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
             $r_f = mysqli_fetch_assoc($f_r);
             $update['num_ratings'] = ($r_f['num_ratings'] + 1);
             $update['rating_sum'] = ($r_f['rating_sum'] + $rate);
-            $mc1->begin_transaction('torrent_details_' . $id);
-            $mc1->update_row(false, [
+            $cache->update_row('torrent_details_' . $id,  [
                 'num_ratings' => $update['num_ratings'],
                 'rating_sum' => $update['rating_sum']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
+            ], $INSTALLER09['expires']['torrent_details']);
         }
         if ($INSTALLER09['seedbonus_on'] == 1) {
             //===add karma
             $amount = ($what == 'torrent' ? $INSTALLER09['bonus_per_rating'] : $INSTALLER09['bonus_per_topic']);
             sql_query("UPDATE users SET seedbonus = seedbonus+" . sqlesc($amount) . " WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
             $update['seedbonus'] = ($CURUSER['seedbonus'] + $amount);
-            $mc1->begin_transaction('userstats_' . $CURUSER["id"]);
-            $mc1->update_row(false, [
+            $cache->update_row('userstats_' . $CURUSER["id"],  [
                 'seedbonus' => $update['seedbonus']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $CURUSER["id"]);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $CURUSER["id"],  [
                 'seedbonus' => $update['seedbonus']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
             //===end
         }
         if ($ajax) {

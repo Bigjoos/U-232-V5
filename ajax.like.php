@@ -46,7 +46,7 @@ $type = isset($_POST['two']) ? (array_key_exists($_POST['two'][0], $tb_fields) &
 comment_like_unlike();
 function comment_like_unlike()
 {
-    global $CURUSER, $type, $tb_fields, $the_id, $banned_users, $disabled_time, $lang, $mc1;
+    global $CURUSER, $type, $tb_fields, $the_id, $banned_users, $disabled_time, $lang, $cache;
     $userip = $_SERVER['REMOTE_ADDR'];
     $res = sql_query("SELECT user_likes,disabled_time FROM " . $tb_fields[$type[0]] . " LEFT OUTER JOIN manage_likes ON manage_likes.user_id = " . sqlesc($CURUSER['id']) . " WHERE " . $tb_fields[$type[0]] . ".id = " . sqlesc($the_id)) or sqlerr(__FILE__, __LINE__);
     $data = mysqli_fetch_row($res);
@@ -60,7 +60,7 @@ function comment_like_unlike()
         if (!(in_array($CURUSER['id'], $exp))) {
             $res2 = sql_query("UPDATE " . $tb_fields[$type[0]] . " SET user_likes = IF(LENGTH(user_likes),CONCAT(user_likes,','," . sqlesc((string) $CURUSER['id']) . ")," . sqlesc((string) $CURUSER['id']) . ") WHERE id = " . sqlesc($the_id)) or sqlerr(__FILE__, __LINE__);
             if ($type['0'] == 'details') {
-                $mc1->delete_value('torrent_details_' . $the_id);
+                $cache->delete('torrent_details_' . $the_id);
             }
         } else {
             die($lang['ajlike_you_already_liked']);
@@ -72,7 +72,7 @@ function comment_like_unlike()
             $exp = implode(",", $exp);
             $res2 = sql_query("UPDATE " . $tb_fields[$type[0]] . " SET user_likes = " . sqlesc($exp) . "WHERE id = " . sqlesc($the_id)) or sqlerr(__FILE__, __LINE__);
             if ($type['0'] == 'details') {
-                $mc1->delete_value('torrent_details_' . $the_id);
+                $cache->delete('torrent_details_' . $the_id);
             }
         } else {
             die($lang['ajlike_you_already_unliked']);

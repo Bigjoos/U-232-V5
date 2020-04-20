@@ -27,16 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($sid > 0 && $sid != $CURUSER['id']) {
         sql_query('UPDATE users SET stylesheet=' . sqlesc($sid) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
     }
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'stylesheet' => $sid
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'],  [
         'stylesheet' => $sid
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     $HTMLOUT.= "<script language='javascript' type='text/javascript'>
         opener.location.reload(true);
         self.close();

@@ -56,7 +56,7 @@ switch ($action2) {
 case 'new':
     $shit_list_id = (isset($_GET['shit_list_id']) ? intval($_GET['shit_list_id']) : 0);
     $return_to = str_replace('&amp;', '&', htmlsafechars($_GET['return_to']));
-    $mc1->delete_value('shit_list_' . $CURUSER['id']);
+    $cache->delete('shit_list_' . $CURUSER['id']);
     if ($shit_list_id == $CURUSER["id"]) {
         stderr($lang['shitlist_stderr'], $lang['shitlist_stderr1']);
     }
@@ -116,7 +116,7 @@ case 'add':
         stderr($lang['shitlist_stderr'], $lang['shitlist_stderr3']);
     }
     sql_query('INSERT INTO shit_list VALUES (' . $CURUSER['id'] . ',' . sqlesc($shit_list_id) . ', ' . sqlesc($shittyness) . ', ' . TIME_NOW . ', ' . sqlesc($_POST['text']) . ')');
-    $mc1->delete_value('shit_list_' . $shit_list_id);
+    $cache->delete('shit_list_' . $shit_list_id);
     $message = '<h1>' . $lang['shitlist_success'] . '</h1><a class="altlink" href="' . $return_to . '"><span class="btn" style="padding:1px;">' . $lang['shitlist_success1'] . '</span></a>';
     break;
     //=== action2: delete
@@ -137,7 +137,7 @@ case 'delete':
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
         stderr($lang['shitlist_stderr'], $lang['shitlist_nomember']);
     }
-    $mc1->delete_value('shit_list_' . $shit_list_id);
+    $cache->delete('shit_list_' . $shit_list_id);
     $message = '<legend>' . $lang['shitlist_delsuccess'] . ' <b>' . htmlsafechars($arr_name['username']) . '</b>' . $lang['shitlist_delsuccess1'] . ' </legend>';
     break;
 } //=== end switch

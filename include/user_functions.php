@@ -30,10 +30,10 @@ function get_parked()
 }
 function autoshout($msg)
 {
-    global $INSTALLER09, $mc1;
+    global $INSTALLER09, $cache;
     require_once(INCL_DIR . 'bbcode_functions.php');
     sql_query('INSERT INTO shoutbox(userid,date,text,text_parsed,autoshout)VALUES (' . $INSTALLER09['bot_id'] . ',' . TIME_NOW . ',' . sqlesc($msg) . ',' . sqlesc(format_comment($msg)) . ', "yes")');
-    $mc1->delete_value('auto_shoutbox_');
+    $cache->delete('auto_shoutbox_');
 }
 function parked()
 {

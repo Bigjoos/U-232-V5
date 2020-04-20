@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     include(CACHE_DIR . 'hit_and_run_settings.php');
@@ -52,32 +52,24 @@ function docleanup($data)
                 }
                 unset($_pms,$_users);
                 $update['hit_and_run_total'] = ($arr_fuckers['hit_and_run_total'] + $arr_fuckers['poop']);
-                $mc1->begin_transaction('user' . $arr_fuckers['userid']);
-                $mc1->update_row(false, [
+                $cache->update_row('user' . $arr_fuckers['userid'],  [
                     'hit_and_run_total' => $update['hit_and_run_total'],
                     'downloadpos' => 0,
                     'hnrwarn' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $arr_fuckers['userid']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $arr_fuckers['userid'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('userstats_' . $arr_fuckers['userid']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('userstats_' . $arr_fuckers['userid'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('MyUser_' . $arr_fuckers['userid']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('MyUser_' . $arr_fuckers['userid'],  [
                     'hit_and_run_total' => $update['hit_and_run_total'],
                     'downloadpos' => 0,
                     'hnrwarn' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->delete_value('inbox_new_' . $arr_fuckers['userid']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_fuckers['userid']);
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->delete('inbox_new_' . $arr_fuckers['userid']);
+                $cache->delete('inbox_new_sb_' . $arr_fuckers['userid']);
             }
         }
         //=== hit and run... turn their DLs back on if they start seeding again
@@ -101,30 +93,22 @@ function docleanup($data)
                     sql_query("INSERT INTO users(id,downloadpos,hnrwarn,modcomment) VALUES " . implode(',', $_users) . " ON DUPLICATE key UPDATE downloadpos=values(downloadpos),hnrwarn=values(hnrwarn),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                 }
                 unset($_pms,$_users);
-                $mc1->begin_transaction('user' . $arr_good_boy['id']);
-                $mc1->update_row(false, [
+                $cache->update_row('user' . $arr_good_boy['id'],  [
                     'downloadpos' => 1,
                     'hnrwarn' => 'no'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats' . $arr_good_boy['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats' . $arr_good_boy['id'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('userstats_' . $arr_good_boy['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('userstats_' . $arr_good_boy['id'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('MyUser_' . $arr_good_boy['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('MyUser_' . $arr_good_boy['id'],  [
                     'downloadpos' => 1,
                     'hnrwarn' => 'no'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->delete_value('inbox_new_' . $arr_good_boy['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_good_boy['id']);
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->delete('inbox_new_' . $arr_good_boy['id']);
+                $cache->delete('inbox_new_sb_' . $arr_good_boy['id']);
             }
         }
         //==End

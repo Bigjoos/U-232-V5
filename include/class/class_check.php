@@ -63,7 +63,7 @@ if (!defined('TBVERSION')) { //cannot access this file directly
  */
 function class_check($class = 0, $staff = true, $pin = false)
 {
-    global $CURUSER, $INSTALLER09, $mc1;
+    global $CURUSER, $INSTALLER09, $cache;
     require_once(CACHE_DIR . 'staff_settings2.php');
     /** basic checking **/
     if (!$CURUSER) {
@@ -152,16 +152,12 @@ function class_check($class = 0, $staff = true, $pin = false)
                 //sql_query("UPDATE users SET enabled = 'no', class = 1 WHERE id = {$CURUSER['id']}") or sqlerr(__file__, __line__);
                 sql_query("UPDATE users SET class = 1 WHERE id = {$CURUSER['id']}") or sqlerr(__file__, __line__);
                 /** remove caches **/
-                $mc1->begin_transaction('user' . $CURUSER['id']);
-                $mc1->update_row(false, [
+                $cache->update_row('user' . $CURUSER['id'],  [
                     'class' => 1
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('MyUser_' . $CURUSER['id'],  [
                     'class' => 1
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+                ], $INSTALLER09['expires']['curuser']);
                 //==
 
                 /** log **/
@@ -198,7 +194,7 @@ function class_check($class = 0, $staff = true, $pin = false)
 //===== Modded For V4 By Stoner ================\\
        function get_access($script)
        {
-           global $CURUSER, $INSTALLER09, $mc1;
+           global $CURUSER, $INSTALLER09, $cache;
            $ending = parse_url($script, PHP_URL_QUERY);
            $count = substr_count($ending, "&");
            $i = 0;
@@ -208,11 +204,11 @@ function class_check($class = 0, $staff = true, $pin = false)
                }
                $i++;
            }
-           if (($class = $mc1 ->get_value('av_class_' . $ending)) == false) {
+           if (($class = $cache->get('av_class_' . $ending)) == false) {
                $classid = sql_query("SELECT av_class FROM staffpanel WHERE file_name LIKE '%$ending%'") or sqlerr(__file__, __line__);
                $classid = mysqli_fetch_assoc($classid);
                $class = (int) $classid['av_class'];
-               $mc1->cache_value('av_class_' . $ending, $class, 900); //== test values 15 minutes to 0 once delete key in place //==
+               $cache->set('av_class_' . $ending, $class, 900); //== test values 15 minutes to 0 once delete key in place //==
            }
            return $class;
        }

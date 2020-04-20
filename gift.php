@@ -50,30 +50,22 @@ if (isset($open) && $open == 1) {
                 $update['invites'] = ($User['invites'] + 1);
                 $update['uploaded'] = ($User['uploaded'] + 1024 * 1024 * 1024 * 10);
                 $update['freeslots'] = ($User['freeslots'] + 1);
-                $mc1->begin_transaction('userstats_' . $userid);
-                $mc1->update_row(false, [
+                $cache->update_row('userstats_' . $userid,  [
                     'uploaded' => $update['uploaded']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->begin_transaction('user_stats_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->update_row('user_stats_' . $userid,  [
                     'uploaded' => $update['uploaded']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('user' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('user' . $userid,  [
                     'invites' => $update['invites'],
                     'freeslots' => $update['freeslots'],
                     'gotgift' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('MyUser_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('MyUser_' . $userid,  [
                     'invites' => $update['invites'],
                     'freeslots' => $update['freeslots'],
                     'gotgift' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+                ], $INSTALLER09['expires']['curuser']);
                 header('Refresh: 5; url=' . $INSTALLER09['baseurl'] . '/index.php');
                 stderr("Congratulations!", "<img src=\"{$INSTALLER09['pic_base_url']}gift.png\" style=\"float: left; padding-right:10px;\" alt=\"Xmas Gift\" title=\"Xmas Gift\" /> <h2> You just got  1 invite 10 GB upload and bonus 1 freeslot !</h2>
 Thanks for your support and sharing through year " . date('Y') . " ! <br /> Merry Christmas and a happy New Year from {$INSTALLER09['site_name']}  Crew ! Redirecting in 5..4..3..2..1");
@@ -82,28 +74,20 @@ Thanks for your support and sharing through year " . date('Y') . " ! <br /> Merr
                 sql_query("UPDATE users SET invites=invites+3,  seedbonus = seedbonus + 1750, gotgift='yes' WHERE id=" . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
                 $update['invites'] = ($User['invites'] + 3);
                 $update['seedbonus'] = ($User['seedbonus'] + 1750);
-                $mc1->begin_transaction('userstats_' . $userid);
-                $mc1->update_row(false, [
+                $cache->update_row('userstats_' . $userid,  [
                     'seedbonus' => $update['seedbonus']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->begin_transaction('user_stats_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->update_row('user_stats_' . $userid,  [
                     'seedbonus' => $update['seedbonus']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('user' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('user' . $userid,  [
                     'invites' => $update['invites'],
                     'gotgift' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('MyUser_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('MyUser_' . $userid,  [
                     'invites' => $update['invites'],
                     'gotgift' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+                ], $INSTALLER09['expires']['curuser']);
                 header('Refresh: 5; url=' . $INSTALLER09['baseurl'] . '/index.php');
                 stderr("Congratulations!", "<img src=\"{$INSTALLER09['pic_base_url']}gift.png\" style=\"float: left; padding-right:10px;\" alt=\"Xmas Gift\" title=\"Xmas Gift\" /> <h2> You just got 3 invites 1750 karma bonus points !</h2>
 Thanks for your support and sharing through year " . date('Y') . " ! <br /> Merry Christmas and a happy New Year from {$INSTALLER09['site_name']}  Crew ! Redirecting in 5..4..3..2..1");
@@ -113,30 +97,22 @@ Thanks for your support and sharing through year " . date('Y') . " ! <br /> Merr
                 $update['invites'] = ($User['invites'] + 2);
                 $update['seedbonus'] = ($User['seedbonus'] + 2000);
                 $update['freeslots'] = ($User['freeslots'] + 3);
-                $mc1->begin_transaction('userstats_' . $userid);
-                $mc1->update_row(false, [
+                $cache->update_row('userstats_' . $userid,  [
                     'seedbonus' => $update['seedbonus']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->begin_transaction('user_stats_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->update_row('user_stats_' . $userid,  [
                     'seedbonus' => $update['seedbonus']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('user' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('user' . $userid,  [
                     'invites' => $update['invites'],
                     'freeslots' => $update['freeslots'],
                     'gotgift' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('MyUser_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('MyUser_' . $userid,  [
                     'invites' => $update['invites'],
                     'freeslots' => $update['freeslots'],
                     'gotgift' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+                ], $INSTALLER09['expires']['curuser']);
                 header('Refresh: 5; url=' . $INSTALLER09['baseurl'] . '/index.php');
                 stderr("Congratulations!", "<img src=\"{$INSTALLER09['pic_base_url']}gift.png\" style=\"float: left; padding-right:10px;\" alt=\"Xmas Gift\" title=\"Xmas Gift\" /> <h2> You just got 2 invites and 2000 bonus points and a bonus 3 freeslots !</h2>
 Thanks for your support and sharing through year " . date('Y') . " ! <br /> Merry Christmas and a happy New Year from {$INSTALLER09['site_name']} Crew ! Redirecting in 5..4..3..2..1");
@@ -147,32 +123,24 @@ Thanks for your support and sharing through year " . date('Y') . " ! <br /> Merr
                 $update['seedbonus'] = ($User['seedbonus'] + 2500);
                 $update['freeslots'] = ($User['freeslots'] + 5);
                 $update['uploaded'] = ($User['uploaded'] + 1024 * 1024 * 1024 * 20);
-                $mc1->begin_transaction('userstats_' . $userid);
-                $mc1->update_row(false, [
+                $cache->update_row('userstats_' . $userid,  [
                     'seedbonus' => $update['seedbonus'],
                     'uploaded' => $update['uploaded']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->begin_transaction('user_stats_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->update_row('user_stats_' . $userid,  [
                     'seedbonus' => $update['seedbonus'],
                     'uploaded' => $update['uploaded']
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('user' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('user' . $userid,  [
                     'invites' => $update['invites'],
                     'freeslots' => $update['freeslots'],
                     'gotgift' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('MyUser_' . $userid);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('MyUser_' . $userid,  [
                     'invites' => $update['invites'],
                     'freeslots' => $update['freeslots'],
                     'gotgift' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+                ], $INSTALLER09['expires']['curuser']);
                 header('Refresh: 5; url=' . $INSTALLER09['baseurl'] . '/index.php');
                 stderr("Congratulations!", "<img src=\"{$INSTALLER09['pic_base_url']}gift.png\" style=\"float: left; padding-right:10px;\" alt=\"Xmas Gift\" title=\"Xmas Gift\" /> <h2> You just got 3 invites 1750 karma bonus points !</h2>
 Thanks for your support and sharing through year " . date('Y') . " ! <br /> Merry Christmas and a happy New Year from {$INSTALLER09['site_name']} Crew ! Redirecting in 5..4..3..2..1");

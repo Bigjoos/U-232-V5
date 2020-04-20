@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(0);
     ignore_user_abort(1);
     //===Reset Xmas gifts Bigjoos/pdq:)
@@ -29,16 +29,12 @@ function docleanup($data)
     if (mysqli_num_rows($res) > 0) {
         while ($arr = mysqli_fetch_assoc($res)) {
             $users_buffer[] = '(' . $arr['id'] . ', \'no\')';
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('user' . $arr['id'],  [
                 'gotgift' => 'no'
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('MyUser_' . $arr['id'],  [
                 'gotgift' => 'no'
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+            ], $INSTALLER09['expires']['curuser']);
         }
         $count = count($users_buffer);
         if ($count > 0) {

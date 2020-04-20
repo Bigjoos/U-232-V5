@@ -36,7 +36,7 @@ if ((isset($_GET['unedit']) && $_GET['unedit'] == 1) && $CURUSER['class'] >= UC_
         $returl.= "&returnto=" . urlencode($_POST["returnto"]);
     }
     header("Refresh: 1; url=$returl");
-    $mc1->delete_value('editedby_' . $id);
+    $cache->delete('editedby_' . $id);
     exit();
 }
 dbconn();
@@ -74,9 +74,9 @@ $HTMLOUT = "<script type='text/javascript'>
     };
     </script>";
 if ($CURUSER['class'] >= UC_STAFF) {
-    if (($mod_cache_name = $mc1->get_value('editedby_' . $id)) === false) {
+    if (($mod_cache_name = $cache->get('editedby_' . $id)) === false) {
         $mod_cache_name = $CURUSER['username'];
-        $mc1->add_value('editedby_' . $id, $mod_cache_name, $INSTALLER09['expires']['ismoddin']);
+        $cache->set('editedby_' . $id, $mod_cache_name, $INSTALLER09['expires']['ismoddin']);
     }
     $HTMLOUT.= '<div class="row"><div class="col-sm-4 col-sm-offset-1"><h1><font size="+1"><font color="#FF0000">' . $mod_cache_name . '</font>' . $lang['edit_curr'] . '</font></h1></div></div>';
 }

@@ -55,30 +55,22 @@ if (isset($_POST['ids'])) {
     if ($do == 'enabled') {
         sql_query("UPDATE users SET enabled = 'yes' WHERE ID IN(" . join(', ', array_map('sqlesc', $ids)) . ") AND enabled = 'no'") or sqlerr(__FILE__, __LINE__);
     }
-    $mc1->begin_transaction('MyUser_' . $id);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $id,  [
         'enabled' => 'yes'
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $id);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $id,  [
         'enabled' => 'yes'
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     //else
     if ($do == 'confirm') {
         sql_query("UPDATE users SET status = 'confirmed' WHERE ID IN(" . join(', ', array_map('sqlesc', $ids)) . ") AND status = 'pending'") or sqlerr(__FILE__, __LINE__);
     }
-    $mc1->begin_transaction('MyUser_' . $id);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $id,  [
         'status' => 'confirmed'
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $id);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $id,  [
         'status' => 'confirmed'
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     //else
     if ($do == 'delete') {
         sql_query("DELETE FROM users WHERE ID IN(" . join(', ', array_map('sqlesc', $ids)) . ") AND class < 3") or sqlerr(__FILE__, __LINE__);

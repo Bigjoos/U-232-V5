@@ -23,7 +23,7 @@ function commenttable($rows, $variant = 'torrent')
 {
     require_once(INCL_DIR . 'html_functions.php');
     require_once(INCL_DIR . 'add_functions.php');
-    global $CURUSER, $INSTALLER09, $mood, $mc1;
+    global $CURUSER, $INSTALLER09, $mood, $cache;
     $lang = load_language('torrenttable_functions');
     $htmlout = '';
     $count = 0;

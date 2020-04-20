@@ -59,10 +59,10 @@ if ($remove) {
 			modcomment=concat(values(modcomment),modcomment)") or sqlerr(__file__, __line__);
             write_log("{$lang['freeusers_log1']} $remove ($username) 
 			{$lang['freeusers_log2']} $CURUSER[username]");
-            $mc1->delete_value('MyUser_' . $arr['id']);
-            $mc1->delete_value('inbox_new_' . $arr['id']);
-            $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-            $mc1->delete_value('user' . $arr['id']);
+            $cache->delete('MyUser_' . $arr['id']);
+            $cache->delete('inbox_new_' . $arr['id']);
+            $cache->delete('inbox_new_sb_' . $arr['id']);
+            $cache->delete('user' . $arr['id']);
         }
     } else {
         die($lang['freeusers_fail']);

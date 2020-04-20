@@ -50,19 +50,19 @@ function getip()
 
 function check_bans($ip, &$reason = '')
 {
-    global $INSTALLER09, $mc1;
+    global $INSTALLER09, $cache;
     $key = 'bans:::' . $ip;
-    if (($ban = $mc1->get_value($key)) === false) {
+    if (($ban = $cache->get($key)) === false) {
         $nip = ip2long($ip);
         $ban_sql = sql_query('SELECT comment FROM bans WHERE (first <= ' . $nip . ' AND last >= ' . $nip . ') LIMIT 1');
         if (mysqli_num_rows($ban_sql)) {
             $comment = mysqli_fetch_row($ban_sql);
             $reason = 'Manual Ban (' . $comment[0] . ')';
-            $mc1->cache_value($key, $reason, 86400); // 86400 // banned
+            $cache->set($key, $reason, 86400); // 86400 // banned
             return true;
         }
         ((mysqli_free_result($ban_sql) || (is_object($ban_sql) && (get_class($ban_sql) == "mysqli_result"))) ? true : false);
-        $mc1->cache_value($key, 0, 86400); // 86400 // not banned
+        $cache->set($key, 0, 86400); // 86400 // not banned
         return false;
     } elseif (!$ban) {
         return false;

@@ -1,20 +1,20 @@
 <?php
 /**
- * |--------------------------------------------------------------------------|
- * |   https://github.com/Bigjoos/                                            |
- * |--------------------------------------------------------------------------|
- * |   Licence Info: WTFPL                                                    |
- * |--------------------------------------------------------------------------|
- * |   Copyright (C) 2010 U-232 V5                                            |
- * |--------------------------------------------------------------------------|
- * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- * |--------------------------------------------------------------------------|
- * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- * |--------------------------------------------------------------------------|
- * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
- * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ |--------------------------------------------------------------------------|
+ |   https://github.com/Bigjoos/                                            |
+ |--------------------------------------------------------------------------|
+ |   Licence Info: WTFPL                                                    |
+ |--------------------------------------------------------------------------|
+ |   Copyright (C) 2010 U-232 V5                                            |
+ |--------------------------------------------------------------------------|
+ |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ |--------------------------------------------------------------------------|
+ |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ |--------------------------------------------------------------------------|
+  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /*
 
@@ -47,17 +47,17 @@ if (!extension_loaded('memcache')) {
 }
 class CACHE extends Memcache
 {
-    public $CacheHits = [];
-    public $MemcacheDBArray = [];
+    public $CacheHits = array();
+    public $MemcacheDBArray = array();
     public $MemcacheDBKey = '';
     protected $InTransaction = false;
     public $Time = 0;
-    protected $Page = [];
+    protected $Page = array();
     protected $Row = 1;
     protected $Part = 0;
     public static $connected = false;
-    private static $link = null;
-    public function __construct()
+	 private static $link = NULL;
+    function __construct()
     {
         $this->connect('127.0.0.1', 11211);
     }
@@ -117,7 +117,7 @@ class CACHE extends Memcache
         $Value = $this->get($Key);
         if (!is_array($Value)) {
             $this->InTransaction = false;
-            $this->MemcacheDBKey = [];
+            $this->MemcacheDBKey = array();
             $this->MemcacheDBKey = '';
             return false;
         }
@@ -129,7 +129,7 @@ class CACHE extends Memcache
     public function cancel_transaction()
     {
         $this->InTransaction = false;
-        $this->MemcacheDBKey = [];
+        $this->MemcacheDBKey = array();
         $this->MemcacheDBKey = '';
     }
     public function commit_transaction($Time = 2592000)
@@ -181,13 +181,16 @@ class CACHE extends Memcache
                     trigger_error('Tried to increment non-number (' . $Key . ') for cache ' . $this->MemcacheDBKey);
                 }
                 ++$UpdateArray[$Key]; // Increment value
+                
             } elseif ($Value === '-1') {
                 if (!is_number($UpdateArray[$Key])) {
                     trigger_error('Tried to decrement non-number (' . $Key . ') for cache ' . $this->MemcacheDBKey);
                 }
                 --$UpdateArray[$Key]; // Decrement value
+                
             } else {
                 $UpdateArray[$Key] = $Value; // Otherwise, just alter value
+                
             }
         }
         if ($Row === false) {
@@ -209,34 +212,33 @@ class CACHE extends Memcache
         self::set_error(__METHOD__);
         return $clean;
     }
-    public static function inc($key, $howmuch = 1)
-    {
-        if (!self::$this) {
-            trigger_error('Not connected to Memcache server in ' . __METHOD__ . ' KEY = "' . $key . '"', E_USER_WARNING);
-            return false;
-        }
+     public static function inc($key, $howmuch = 1) {
+		if (!self::$this) {
+			trigger_error('Not connected to Memcache server in '.__METHOD__.' KEY = "'.$key.'"', E_USER_WARNING);
+			return false;
+		}
 
-        self::$count++;
-        $time = microtime(true);
-        $inc = self::$link->increment($key, $howmuch);
-        self::$time += (microtime(true) - $time);
+		self::$count++;
+		$time = microtime(true);
+		$inc = self::$link->increment($key, $howmuch);
+		self::$time += (microtime(true) - $time);
 
-        self::set_error(__METHOD__, $key);
-        return $inc;
-    }
-    public static function dec($key, $howmuch = 1)
-    {
-        if (!self::$this) {
-            trigger_error('Not connected to Memcache server in ' . __METHOD__ . ' KEY = "' . $key . '"', E_USER_WARNING);
-            return false;
-        }
+		self::set_error(__METHOD__, $key);
+		return $inc;
+	}
+	public static function dec($key, $howmuch = 1) {
+		if (!self::$this) {
+			trigger_error('Not connected to Memcache server in '.__METHOD__.' KEY = "'.$key.'"', E_USER_WARNING);
+			return false;
+		}
 
-        self::$count++;
-        $time = microtime(true);
-        $dec = self::$link->decrement($key, $howmuch);
-        self::$time += (microtime(true) - $time);
+		self::$count++;
+		$time = microtime(true);
+		$dec = self::$link->decrement($key, $howmuch);
+		self::$time += (microtime(true) - $time);
 
-        self::set_error(__METHOD__, $key);
-        return $dec;
-    }
+		self::set_error(__METHOD__, $key);
+		return $dec;
+	}
 }//end class
+?>

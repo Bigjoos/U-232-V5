@@ -48,30 +48,26 @@ if ((isset($_GET['show_shout'])) && (($show_shout = $_GET['show']))) {
     $row = mysqli_fetch_assoc($res);
     $row['opt1'] = (int) $row['opt1'];
     // update caches
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'opt1' => $row['opt1']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-    $mc1->begin_transaction('user_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['user_cache']);
+    $cache->update_row('user_' . $CURUSER['id'],  [
         'opt1' => $row['opt1']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     header("Location:" . $_SERVER['HTTP_REFERER']);
 }
 
 // Delete single shout
 if (isset($_GET['del']) && $CURUSER['class'] >= UC_STAFF && is_valid_id($_GET['del'])) {
     sql_query("DELETE FROM shoutbox WHERE id=" . sqlesc($_GET['del'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('shoutbox_');
-    //$mc1->delete_value('staff_shoutbox_');
+    $cache->delete('shoutbox_');
+    //$cache->delete('staff_shoutbox_');
 }
 // Empty shout - sysop
 if (isset($_GET['delall']) && $CURUSER['class'] === UC_MAX) {
     sql_query("TRUNCATE TABLE shoutbox") or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('shoutbox_');
-    //$mc1->delete_value('staff_shoutbox_');
+    $cache->delete('shoutbox_');
+    //$cache->delete('staff_shoutbox_');
 }
 // Staff edit
 if (isset($_GET['edit']) && $CURUSER['class'] >= UC_STAFF && is_valid_id($_GET['edit'])) {
@@ -159,8 +155,8 @@ if (isset($_POST['text']) && $CURUSER['class'] >= UC_STAFF && is_valid_id($_POST
     $text = trim($_POST['text']);
     $text_parsed = format_comment($text);
     sql_query('UPDATE shoutbox SET text = ' . sqlesc($text) . ', text_parsed = ' . sqlesc($text_parsed) . ' WHERE id=' . sqlesc($_POST['id'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('shoutbox_');
-    //$mc1->delete_value('staff_shoutbox_');
+    $cache->delete('shoutbox_');
+    //$cache->delete('staff_shoutbox_');
     unset($text, $text_parsed);
 }
 // Power User+ shout edit by pdq
@@ -169,8 +165,8 @@ if (isset($_POST['text']) && (isset($_POST['user']) == $CURUSER['id']) && ($CURU
     $text = trim($_POST['text']);
     $text_parsed = format_comment($text);
     sql_query('UPDATE shoutbox SET text = ' . sqlesc($text) . ', text_parsed = ' . sqlesc($text_parsed) . ' WHERE userid=' . sqlesc($_POST['user']) . ' AND id=' . sqlesc($_POST['id'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('shoutbox_');
-    //$mc1->delete_value('staff_shoutbox_');
+    $cache->delete('shoutbox_');
+    //$cache->delete('staff_shoutbox_');
     unset($text, $text_parsed);
 }
 //== begin main output
@@ -287,8 +283,8 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $what = $lang['shoutbox_empty_all'];
                 $msg = "[b]" . htmlsafechars($user) . "{$lang['shoutbox_empty_s']}[/b]{$lang['shoutbox_empty_have']}";
                 $query = "DELETE FROM shoutbox where userid = " . sqlesc($a[0]);
-                $mc1->delete_value('shoutbox_');
-                //$mc1->delete_value('staff_shoutbox_');
+                $cache->delete('shoutbox_');
+                //$cache->delete('staff_shoutbox_');
                 break;
 
             case "/GAG":
@@ -296,21 +292,15 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $modcomment = get_date(TIME_NOW, 'DATE', 1) . "{$lang['shoutbox_gag_modcomment']}" . $CURUSER["username"] . "\n" . $a[2];
                 $msg = "[b]" . htmlsafechars($user) . "[/b]{$lang['shoutbox_gag_by']}" . $CURUSER["username"];
                 $query = "UPDATE users SET chatpost='0', modcomment = concat(" . sqlesc($modcomment) . ", modcomment) WHERE id = " . sqlesc($a[0]);
-                $mc1->begin_transaction('MyUser_' . $a[0]);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $a[0],  [
                     'chatpost' => 0
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $a[0],  [
                     'chatpost' => 0
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $a[0],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
                 break;
 
             case "/UNGAG":
@@ -318,21 +308,15 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $modcomment = get_date(TIME_NOW, 'DATE', 1) . "{$lang['shoutbox_ungag_modcomment']}" . $CURUSER["username"] . "\n" . $a[2];
                 $msg = "[b]" . htmlsafechars($user) . "[/b]{$lang['shoutbox_ungag_by']}" . $CURUSER["username"];
                 $query = "UPDATE users SET chatpost='1', modcomment = concat(" . sqlesc($modcomment) . ", modcomment) WHERE id = " . sqlesc($a[0]);
-                $mc1->begin_transaction('MyUser_' . $a[0]);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $a[0],  [
                     'chatpost' => 1
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $a[0],  [
                     'chatpost' => 1
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $a[0],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
                 break;
 
             case "/WARN":
@@ -340,21 +324,15 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $modcomment = get_date(TIME_NOW, 'DATE', 1) . "{$lang['shoutbox_warn_modcomment']}" . $CURUSER["username"] . "\n" . $a[2];
                 $msg = "[b]" . htmlsafechars($user) . "[/b]{$lang['shoutbox_warn_by']}" . $CURUSER["username"];
                 $query = "UPDATE users SET warned='1', modcomment = concat(" . sqlesc($modcomment) . ", modcomment) WHERE id = " . sqlesc($a[0]);
-                $mc1->begin_transaction('MyUser_' . $a[0]);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $a[0],  [
                     'warned' => 1
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $a[0],  [
                     'warned' => 1
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $a[0],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
                 break;
 
             case "/UNWARN":
@@ -362,21 +340,15 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $modcomment = get_date(TIME_NOW, 'DATE', 1) . "{$lang['shoutbox_unwarn_modcomment']}" . $CURUSER["username"] . "\n" . $a[2];
                 $msg = "[b]" . htmlsafechars($user) . "[/b]{$lang['shoutbox_unwarn_by']}" . $CURUSER["username"];
                 $query = "UPDATE users SET warned='0', modcomment = concat(" . sqlesc($modcomment) . ", modcomment) WHERE id = " . sqlesc($a[0]);
-                $mc1->begin_transaction('MyUser_' . $a[0]);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $a[0],  [
                     'warned' => 0
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $a[0],  [
                     'warned' => 0
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $a[0],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
                 break;
 
             case "/DISABLE":
@@ -384,21 +356,15 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $modcomment = get_date(TIME_NOW, 'DATE', 1) . "{$lang['shoutbox_disable_modcomment']}" . $CURUSER["username"] . "\n" . $a[2];
                 $msg = "[b]" . htmlsafechars($user) . "[/b]{$lang['shoutbox_disable_by']}" . $CURUSER["username"];
                 $query = "UPDATE users SET enabled='no', modcomment = concat(" . sqlesc($modcomment) . ", modcomment) WHERE id = " . sqlesc($a[0]);
-                $mc1->begin_transaction('MyUser_' . $a[0]);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $a[0],  [
                     'enabled' => 'no'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $a[0],  [
                     'enabled' => 'no'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $a[0],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
                 break;
 
             case "/ENABLE":
@@ -406,28 +372,22 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $modcomment = get_date(TIME_NOW, 'DATE', 1) . "{$lang['shoutbox_enable_modcomment']}" . $CURUSER["username"] . "\n" . $a[2];
                 $msg = "[b]" . htmlsafechars($user) . "[/b]{$lang['shoutbox_enable_by']}" . $CURUSER["username"];
                 $query = "UPDATE users SET enabled='yes', modcomment = concat(" . sqlesc($modcomment) . ", modcomment) WHERE id = " . sqlesc($a[0]);
-                $mc1->begin_transaction('MyUser_' . $a[0]);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $a[0],  [
                     'enabled' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $a[0],  [
                     'enabled' => 'yes'
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $a[0]);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $a[0],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                ], $INSTALLER09['expires']['user_stats']);
                 break;
             }
             if (sql_query($query)) {
                 autoshout($msg);
             }
-            $mc1->delete_value('shoutbox_');
-            //$mc1->delete_value('staff_shoutbox_');
+            $cache->delete('shoutbox_');
+            //$cache->delete('staff_shoutbox_');
             $HTMLOUT.= "<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
             write_log($lang['shoutbox_wlog_user'] . $user . $lang['shoutbox_wlog_been'] . $what . $lang['shoutbox_wlog_by'] . $CURUSER["username"]);
             unset($text, $text_parsed, $query, $date, $modcomment, $what, $msg, $commands);
@@ -444,8 +404,8 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
             $text_parsed = format_comment($text);
             sql_query("INSERT INTO shoutbox (userid, date, text, text_parsed, to_user, staff_shout) VALUES (" . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . "," . sqlesc($to_user) . ", 'no')") or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE usersachiev SET dailyshouts=dailyshouts+1, weeklyshouts = weeklyshouts+1, monthlyshouts = monthlyshouts+1, totalshouts = totalshouts+1 WHERE id= " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('shoutbox_');
-            //$mc1->delete_value('staff_shoutbox_');
+            $cache->delete('shoutbox_');
+            //$cache->delete('staff_shoutbox_');
         }
         $HTMLOUT.= "<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
     } else {
@@ -458,8 +418,8 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
             $dailyshouts = 1;
             sql_query("INSERT INTO shoutbox (userid, date, text, text_parsed, staff_shout) VALUES (" . sqlesc($userid) . ", $date, " . sqlesc($text) . "," . sqlesc($text_parsed) . ", 'no')") or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE usersachiev SET dailyshouts=dailyshouts+1, weeklyshouts = weeklyshouts+1, monthlyshouts = monthlyshouts+1, totalshouts = totalshouts+1 WHERE id= " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('shoutbox_');
-            //$mc1->delete_value('staff_shoutbox_');
+            $cache->delete('shoutbox_');
+            //$cache->delete('staff_shoutbox_');
             $HTMLOUT.= "<script type=\"text/javascript\">parent.document.forms[0].shbox_text.value='';</script>";
             $trigger_words = [
                 $lang['shoutbox_words1'] => [
@@ -492,19 +452,19 @@ if (isset($_GET['sent']) && ($_GET['sent'] == "yes")) {
                 $message = $trigger_words[$trigger_key[0]][0];
                 sleep(1);
                 autoshout($message);
-                $mc1->delete_value('shoutbox_');
-                //$mc1->delete_value('staff_shoutbox_');
+                $cache->delete('shoutbox_');
+                //$cache->delete('staff_shoutbox_');
             }
         }
     }
 }
 //== cache the data
-if (($shouts = $mc1->get_value('shoutbox_')) === false) {
+if (($shouts = $cache->get('shoutbox_')) === false) {
     $res = sql_query("SELECT s.id, s.userid, s.date, s.text, s.to_user, s.staff_shout, s.autoshout, u.username, u.pirate, u.perms, u.king, u.class, u.donor, u.warned, u.leechwarn, u.enabled, u.chatpost FROM shoutbox AS s LEFT JOIN users AS u ON s.userid=u.id WHERE s.staff_shout ='no' AND s.autoshout='no' ORDER BY s.id DESC LIMIT 150") or sqlerr(__FILE__, __LINE__);
     while ($shout = mysqli_fetch_assoc($res)) {
         $shouts[] = $shout;
     }
-    $mc1->cache_value('shoutbox_', $shouts, $INSTALLER09['expires']['shoutbox']);
+    $cache->set('shoutbox_', $shouts, $INSTALLER09['expires']['shoutbox']);
 }
 if ($shouts && count($shouts) > 0) {
     $HTMLOUT.= "<table class='small text-left' style='clear:both; border-collapse:collapse; width:100%;'>\n";

@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(0);
     ignore_user_abort(1);
     //=== Update karma seeding bonus... made nicer by devinkray :D
@@ -40,16 +40,12 @@ function docleanup($data)
                 if ($arr['users_id']== $Buffer_User && $arr['users_id'] != null) {
                     $users_buffer[] = '(' . $Buffer_User . ', ' . $INSTALLER09['bonus_per_duration'] . ' * ' . $arr['tcount'] . ')';
                     $update['seedbonus'] = ($arr['seedbonus'] + $INSTALLER09['bonus_per_duration'] * $arr['tcount']);
-                    $mc1->begin_transaction('userstats_' . $Buffer_User);
-                    $mc1->update_row(false, [
+                    $cache->update_row('userstats_' . $Buffer_User,  [
                         'seedbonus' => $update['seedbonus']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                    $mc1->begin_transaction('user_stats_' . $Buffer_User);
-                    $mc1->update_row(false, [
+                    ], $INSTALLER09['expires']['u_stats']);
+                    $cache->update_row('user_stats_' . $Buffer_User,  [
                         'seedbonus' => $update['seedbonus']
-                    ]);
-                    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+                    ], $INSTALLER09['expires']['user_stats']);
                 }
             }
             $count = count($users_buffer);

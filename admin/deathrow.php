@@ -56,7 +56,7 @@ function calctime($val)
 
 function delete_torrent($delete_array, $page)
 {
-    global $INSTALLER09, $CURUSER, $mc1, $lang;
+    global $INSTALLER09, $CURUSER, $cache, $lang;
     if (empty($delete_array)) {
         return false;
     }
@@ -86,16 +86,16 @@ function delete_torrent($delete_array, $page)
         remove_torrent_peers($id);
         remove_torrent($row['info_hash']);
         // index_last5_posters
-        $mc1 -> delete_value('last5_tor_');
-        $mc1 -> delete_value('top5_tor_');
-        $mc1 -> delete_value('scroll_tor_');
+        $cache->delete('last5_tor_');
+        $cache->delete('top5_tor_');
+        $cache->delete('scroll_tor_');
         // torrent_details
-        $mc1 -> delete_value('torrent_details_' . $id);
-        $mc1 -> delete_value('torrent_xbt_data_' . $id);
-        $mc1 -> delete_value('torrent_details_txt' . $id);
-        $mc1 -> delete_value('coin_points_' . $id);
+        $cache->delete('torrent_details_' . $id);
+        $cache->delete('torrent_xbt_data_' . $id);
+        $cache->delete('torrent_details_txt' . $id);
+        $cache->delete('coin_points_' . $id);
         ;
-        $mc1 -> delete_value('similiar_tor_' . $id);
+        $cache->delete('similiar_tor_' . $id);
         $dt = sqlesc(TIME_NOW - (14 * 86400)); // lose karma if deleted within 2 weeks
         if ($row['added'] < $dt) {
             sql_query("UPDATE users SET seedbonus = seedbonus-15.0 WHERE id = " . sqlesc($row['owner'])) or sqlerr(__FILE__, __LINE__);

@@ -19,7 +19,7 @@
 //==Start birthdayusers pdq
 $current_date = getdate();
 $keys['birthdayusers'] = 'birthdayusers';
-if (($birthday_users_cache = $mc1->get_value($keys['birthdayusers'])) === false) {
+if (($birthday_users_cache = $cache->get($keys['birthdayusers'])) === false) {
     $birthdayusers = '';
     $birthday_users_cache = [];
     $res = sql_query("SELECT id, username, class, donor, title, warned, enabled, chatpost, leechwarn, pirate, king, birthday, perms FROM users WHERE MONTH(birthday) = " . sqlesc($current_date['mon']) . " AND DAYOFMONTH(birthday) = " . sqlesc($current_date['mday']) . " AND perms < " . bt_options::PERMS_STEALTH . " ORDER BY username ASC") or sqlerr(__FILE__, __LINE__);
@@ -32,7 +32,7 @@ if (($birthday_users_cache = $mc1->get_value($keys['birthdayusers'])) === false)
     }
     $birthday_users_cache['birthdayusers'] = $birthdayusers;
     $birthday_users_cache['actcount'] = $actcount;
-    $mc1->cache_value($keys['birthdayusers'], $birthday_users_cache, $INSTALLER09['expires']['birthdayusers']);
+    $cache->set($keys['birthdayusers'], $birthday_users_cache, $INSTALLER09['expires']['birthdayusers']);
 }
 if (!$birthday_users_cache['birthdayusers']) {
     $birthday_users_cache['birthdayusers'] = $lang['index_birthday_no'];

@@ -48,18 +48,14 @@ if ($md5 != md5($sec . $email . $sec)) {
     stderr("{$lang['confirmmail_user_error']}", "{$lang['confirmmail_not_complete']}");
 }
 sql_query("UPDATE users SET editsecret='', email=" . sqlesc($email) . " WHERE id=" . sqlesc($id) . " AND editsecret=" . sqlesc($row["editsecret"]));
-$mc1->begin_transaction('MyUser_' . $id);
-$mc1->update_row(false, [
+$cache->update_row('MyUser_' . $id,  [
     'editsecret' => '',
     'email' => $email
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('user' . $id);
-$mc1->update_row(false, [
+], $INSTALLER09['expires']['curuser']);
+$cache->update_row('user' . $id,  [
     'editsecret' => '',
     'email' => $email
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+], $INSTALLER09['expires']['user_cache']);
 if (!mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
     stderr("{$lang['confirmmail_user_error']}", "{$lang['confirmmail_not_complete']}");
 }

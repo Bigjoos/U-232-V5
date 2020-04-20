@@ -66,7 +66,7 @@ default:
 }
 function delete_poll()
 {
-    global $INSTALLER09, $CURUSER, $mc1,$lang;
+    global $INSTALLER09, $CURUSER, $cache,$lang;
     $total_votes = 0;
     if (!isset($_GET['pid']) or !is_valid_id($_GET['pid'])) {
         stderr($lang['poll_dp_usr_err'], $lang['poll_dp_no_poll']);
@@ -78,12 +78,12 @@ function delete_poll()
     }
     sql_query("DELETE FROM polls WHERE pid = " . sqlesc($pid));
     sql_query("DELETE FROM poll_voters WHERE poll_id = " . sqlesc($pid));
-    $mc1->delete_value('poll_data_' . $CURUSER['id']);
+    $cache->delete('poll_data_' . $CURUSER['id']);
     show_poll_archive();
 }
 function update_poll()
 {
-    global $INSTALLER09, $CURUSER, $mc1, $lang;
+    global $INSTALLER09, $CURUSER, $cache, $lang;
     $total_votes = 0;
     if (!isset($_POST['pid']) or !is_valid_id($_POST['pid'])) {
         stderr($lang['poll_up_usr_err'], $lang['poll_up_no_poll']);
@@ -104,7 +104,7 @@ function update_poll()
     $poll_data = sqlesc(serialize($poll_data));
     $username = sqlesc($CURUSER['username']);
     sql_query("UPDATE polls SET choices=$poll_data, starter_id={$CURUSER['id']}, starter_name=$username, votes=$total_votes, poll_question=$poll_title WHERE pid=" . sqlesc($pid)) or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('poll_data_' . $CURUSER['id']);
+    $cache->delete('poll_data_' . $CURUSER['id']);
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         $msg = "<h2>{$lang['poll_up_error']}</h2>
       <a href='javascript:history.back()' title='{$lang['poll_up_fix_it']}' style='color:green;font-weight:bold'><span class='btn' style='padding:3px;'><img style='vertical-align:middle;' src='{$INSTALLER09['pic_base_url']}/polls/p_delete.gif' alt='{$lang['poll_up_back']}' />{$lang['poll_up_back']}</span></a>";
@@ -116,7 +116,7 @@ function update_poll()
 }
 function insert_new_poll()
 {
-    global $INSTALLER09, $CURUSER, $mc1, $lang;
+    global $INSTALLER09, $CURUSER, $cache, $lang;
     if (!isset($_POST['poll_question']) or empty($_POST['poll_question'])) {
         stderr($lang['poll_inp_usr_err'], $lang['poll_inp_no_title']);
     }
@@ -131,7 +131,7 @@ function insert_new_poll()
     $username = sqlesc($CURUSER['username']);
     $time = TIME_NOW;
     sql_query("INSERT INTO polls (start_date, choices, starter_id, starter_name, votes, poll_question)VALUES($time, $poll_data, {$CURUSER['id']}, $username, 0, $poll_title)") or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('poll_data_' . $CURUSER['id']);
+    $cache->delete('poll_data_' . $CURUSER['id']);
     if (((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res) == false) {
         $msg = "<h2>{$lang['poll_inp_error']}</h2>
       <a href='javascript:history.back()' title='{$lang['poll_inp_fix_it']}' style='color:green;font-weight:bold'><span class='btn' style='padding:3px;'><img style='vertical-align:middle;' src='{$INSTALLER09['pic_base_url']}/polls/p_delete.gif' alt='{$lang['poll_inp_back']}' />{$lang['poll_inp_back']}</span></a>";

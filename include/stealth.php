@@ -22,7 +22,7 @@
 // pdq 2010
 function stealth($id, $stealth = true)
 {
-    global $CURUSER, $mc1, $INSTALLER09;
+    global $CURUSER, $cache, $INSTALLER09;
     $setbits = $clrbits = 0;
     if ($stealth) {
         $display = 'is';
@@ -44,41 +44,29 @@ function stealth($id, $stealth = true)
     $modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . ' in Stealth Mode thanks to ' . $CURUSER['username'] . "\n" . $row['modcomment'];
     sql_query('UPDATE users SET modcomment = ' . sqlesc($modcomment) . ' WHERE id = ' . sqlesc($id)) or sqlerr(__file__, __line__);
     // update caches
-    $mc1->begin_transaction('user' . $id);
-    $mc1->update_row(false, [
+    $cache->update_row('user' . $id,  [
         'perms' => $row['perms']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-    $mc1->begin_transaction('MyUser_' . $id);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $id,  [
         'perms' => $row['perms']
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user_stats_' . $id);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user_stats_' . $id,  [
         'modcomment' => $modcomment
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+    ], $INSTALLER09['expires']['user_stats']);
     if ($id == $CURUSER['id']) {
-        $mc1->begin_transaction('user' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('user' . $CURUSER['id'],  [
             'perms' => $row['perms']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-        $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['user_cache']);
+        $cache->update_row('MyUser_' . $CURUSER['id'],  [
             'perms' => $row['perms']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user_stats_' . $CURUSER['id'],  [
             'modcomment' => $modcomment
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
     }
     write_log('Member [b][url=userdetails.php?id=' . $id . ']' . (htmlsafechars($row['username'])) . '[/url][/b] ' . $display . ' in Stealth Mode thanks to [b]' . $CURUSER['username'] . '[/b]');
     // header ouput
-    $mc1->cache_value('display_stealth' . $CURUSER['id'], $display, 5);
+    $cache->set('display_stealth' . $CURUSER['id'], $display, 5);
     header('Location: userdetails.php?id=' . $id);
     exit();
 }

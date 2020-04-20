@@ -95,9 +95,9 @@ if (isset($_POST['buttonval']) && $_POST['buttonval'] == 'Send') {
     //=== ok all is well... post the message :D
     sql_query('INSERT INTO messages (poster, sender, receiver, added, msg, subject, saved, location, urgent) VALUES 
                             (' . sqlesc($CURUSER['id']) . ', ' . sqlesc($CURUSER['id']) . ', ' . sqlesc($receiver) . ', ' . TIME_NOW . ', ' . $body . ', ' . $subject . ', ' . sqlesc($save) . ', 1,' . $urgent . ')') or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('inbox_new_' . $receiver);
-    $mc1->delete_value('inbox_new_sb_' . $receiver);
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('inbox_new_' . $receiver);
+    $cache->delete('inbox_new_sb_' . $receiver);
+    $cache->delete('shoutbox_');
     //=== make sure it worked then...
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) {
         stderr($lang['pm_error'], $lang['pm_send_wasnt']);

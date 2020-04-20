@@ -37,17 +37,13 @@ if (isset($_GET['id'])) {
     if (mysqli_num_rows($res_moods)) {
         $rmood = mysqli_fetch_assoc($res_moods);
         sql_query('UPDATE users SET mood = ' . sqlesc($moodid) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-        $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('MyUser_' . $CURUSER['id'],  [
             'mood' => $moodid
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user' . $CURUSER['id'],  [
             'mood' => $moodid
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-        $mc1->delete_value('topmoods');
+        ], $INSTALLER09['expires']['user_cache']);
+        $cache->delete('topmoods');
         write_log('<b>' . $lang['user_mood_change'] . '</b> ' . $CURUSER['username'] . ' ' . htmlsafechars($rmood['name']) . '<img src="' . $INSTALLER09['pic_base_url'] . 'smilies/' . htmlsafechars($rmood['image']) . '" alt="" />');
         $HTMLOUT.= '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">		

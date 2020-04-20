@@ -36,6 +36,7 @@ require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_warn'));
+global $INSTALLER09, $CURUSER;
 $HTMLOUT = '';
 function mkint($x)
 {
@@ -76,17 +77,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($act == "disable") {
         if (sql_query("UPDATE users set enabled='no', modcomment=CONCAT(" . sqlesc(get_date(TIME_NOW, 'DATE', 1) . $lang['warn_disabled_by'] . $CURUSER['username'] . "\n") . ",modcomment) WHERE id IN (" . join(",", $_uids) . ")")) {
             foreach ($_uids as $uid) {
-                $mc1->begin_transaction('MyUser_' . $_uid);
+                $cache->update_row('MyUser_' . $_uid,  [
+                    'enabled' => 'no'
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $_uid,  [
+                    'enabled' => 'no'
+                ], $INSTALLER09['expires']['user_cache']);
             }
-            $mc1->update_row(false, [
-                'enabled' => 'no'
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->begin_transaction('user' . $_uid);
-            $mc1->update_row(false, [
-                'enabled' => 'no'
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
             $d = mysqli_affected_rows($GLOBALS["___mysqli_ston"]);
             header("Refresh: 2; url=" . $r);
             stderr($lang['warn_stdmsg_success'], $d . $lang['warn_stdmsg_user'] . ($d > 1 ? "s" : "") . $lang['warn_stdmsg_disabled']);
@@ -97,17 +94,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $sub = $lang['warn_removed'];
         $body = $lang['warn_removed_msg'] . $CURUSER["username"] . $lang['warn_removed_msg1'];
         foreach ($_uids as $uid) {
-            $mc1->begin_transaction('MyUser_' . $_uid);
+            $cache->update_row('MyUser_' . $_uid, [
+                'warned' => 0
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->update_row('user' . $_uid, [
+                'warned' => 0
+            ], $INSTALLER09['expires']['user_cache']);
         }
-        $mc1->update_row(false, [
-            'warned' => 0
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user' . $_uid);
-        $mc1->update_row(false, [
-            'warned' => 0
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
         $pms = [];
         foreach ($_uids as $id) {
             $pms[] = "(0," . $id . "," . sqlesc($sub) . "," . sqlesc($body) . "," . sqlesc(TIME_NOW) . ")";

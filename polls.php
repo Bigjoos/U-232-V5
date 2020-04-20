@@ -18,7 +18,7 @@
  */
 function parse_poll()
 {
-    global $CURUSER, $INSTALLER09, $mc1;
+    global $CURUSER, $INSTALLER09, $cache;
     $htmlout = "";
     $check = 0;
     $poll_footer = "";
@@ -27,7 +27,7 @@ function parse_poll()
         'allow_result_view' => 1,
         'allow_poll_tags' => 1
     ]; // move this elsewhere later!
-    if (($poll_data = $mc1->get_value('poll_data_' . $CURUSER['id'])) === false) {
+    if (($poll_data = $cache->get('poll_data_' . $CURUSER['id'])) === false) {
         //$poll_data = array();
         //search for a poll with given ID
         $query = sql_query("SELECT * FROM polls
@@ -42,7 +42,7 @@ function parse_poll()
         while ($row = mysqli_fetch_assoc($query)) {
             $poll_data = $row;
         }
-        $mc1->cache_value('poll_data_' . $CURUSER['id'], $poll_data, $INSTALLER09['expires']['poll_data']);
+        $cache->set('poll_data_' . $CURUSER['id'], $poll_data, $INSTALLER09['expires']['poll_data']);
     }
     //return $poll_data;
     $member_voted = 0;

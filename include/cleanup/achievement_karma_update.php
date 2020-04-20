@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(0);
     ignore_user_abort(1);
     // *Updated* Bonus Point Achievements
@@ -38,9 +38,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL1\', \'bonus1.png\' , \'Earned at least 1 bonus point.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',1, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 100 && $lvl == 1) {
@@ -48,9 +48,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL2\', \'bonus2.png\' , \'Earned at least 100 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',2, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 500 && $lvl == 2) {
@@ -58,9 +58,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL3\', \'bonus3.png\' , \'Earned at least 500 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',3, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 1000 && $lvl == 3) {
@@ -68,9 +68,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL4\', \'bonus4.png\' , \'Earned at least 1000 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',4, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 2000 && $lvl == 4) {
@@ -78,9 +78,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL5\', \'bonus5.png\' , \'Earned at least 2000 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',5, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 5000 && $lvl == 5) {
@@ -88,8 +88,8 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL6\', \'bonus6.png\' , \'Earned at least 5000 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',6, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 10000 && $lvl == 6) {
@@ -97,9 +97,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL7\', \'bonus7.png\' , \'Earned at least 10000 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',7, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 30000 && $lvl == 7) {
@@ -107,9 +107,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL8\', \'bonus8.png\' , \'Earned at least 30000 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',8, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 70000 && $lvl == 8) {
@@ -117,9 +117,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL9\', \'bonus9.png\' , \'Earned at least 70000 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',9, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 100000 && $lvl == 9) {
@@ -127,8 +127,8 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL10\', \'bonus10.png\' , \'Earned at least 100000 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',10, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
                 $var1 = 'bonus';
             }
             if ($seedbonus >= 1000000 && $lvl == 10) {
@@ -136,9 +136,9 @@ function docleanup($data)
                 $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $achievements_buffer[] = '(' . $arr['id'] . ', ' . TIME_NOW . ', \'Bonus Banker LVL11\', \'bonus11.png\' , \'Earned at least 1000000 bonus points.\')';
                 $usersachiev_buffer[] = '(' . $arr['id'] . ',11, ' . $points . ')';
-                $mc1->delete_value('inbox_new_' . $arr['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr['id']);
-                $mc1->delete_value('user_achievement_points_' . $arr['id']);
+                $cache->delete('inbox_new_' . $arr['id']);
+                $cache->delete('inbox_new_sb_' . $arr['id']);
+                $cache->delete('user_achievement_points_' . $arr['id']);
                 $var1 = 'bonus';
             }
         }

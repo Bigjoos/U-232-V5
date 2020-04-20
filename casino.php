@@ -187,16 +187,12 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
         sql_query("UPDATE casino SET date = '" . TIME_NOW . "', trys = trys + 1, win = win + " . sqlesc($win) . "  WHERE userid=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded'] = ($User['uploaded'] + $win);
         //==stats
-        $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('userstats_' . $CURUSER['id'],  [
             'uploaded' => $update['uploaded']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER['id'],  [
             'uploaded' => $update['uploaded']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
         stderr($lang['casino_yes'], "" . htmlsafechars($winner_was) . " {$lang['casino_is_the_result']} " . htmlsafechars($CURUSER["username"]) . " {$lang['casino_you_got_it_and_win']} " . htmlsafechars(mksize($win)) . "&nbsp;&nbsp;&nbsp;$goback");
     } else {
         if (isset($_POST["number"])) {
@@ -214,16 +210,12 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
         sql_query("UPDATE casino SET date = " . TIME_NOW . ", trys = trys + 1 ,lost = lost + " . sqlesc($betmb) . " WHERE userid=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded_loser'] = ($User['uploaded'] - $betmb);
         //==stats
-        $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('userstats_' . $CURUSER['id'],  [
             'uploaded' => $update['uploaded_loser']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER['id'],  [
             'uploaded' => $update['uploaded_loser']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
         stderr($lang['gl_sorry'], "" . htmlsafechars($fake_winner) . " {$lang['casino_is_the_winner_and_not']} " . htmlsafechars($winner_was) . ", " . htmlsafechars($CURUSER["username"]) . " {$lang['casino_you_lost']} " . htmlsafechars(mksize($betmb)) . "&nbsp;&nbsp;&nbsp;$goback");
     }
 } else {
@@ -273,16 +265,12 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
             sql_query("UPDATE casino SET deposit = deposit-" . sqlesc($tbet['amount']) . " WHERE userid = " . sqlesc($tbet['userid'])) or sqlerr(__FILE__, __LINE__);
             $update['uploaded'] = ($User['uploaded'] + $tbet['amount']);
             //==stats
-            $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('userstats_' . $CURUSER['id'],  [
                 'uploaded' => $update['uploaded']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $CURUSER['id'],  [
                 'uploaded' => $update['uploaded']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
             if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
                 sql_query("INSERT INTO casino (userid, date, deposit) VALUES (" . sqlesc($tbet['userid']) . ", $time, -" . sqlesc($tbet['amount']) . ")") or sqlerr(__FILE__, __LINE__);
             }
@@ -290,8 +278,8 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
             $subject = sqlesc($lang['casino_casino_results']);
             $msg = sqlesc("You lost a bet ! " . htmlsafechars($CURUSER['username']) . " just won " . htmlsafechars($nogb) . " of your upload credit !");
             sql_query("INSERT INTO messages (subject, sender, receiver, added, msg, unread, poster) VALUES ($subject, $sendfrom, " . sqlesc($tbet['userid']) . ", $time, $msg, 'yes', $sendfrom)") or sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('inbox_new_' . $tbet['userid']);
-            $mc1->delete_value('inbox_new_sb_' . $tbet['userid']);
+            $cache->delete('inbox_new_' . $tbet['userid']);
+            $cache->delete('inbox_new_sb_' . $tbet['userid']);
             if ($writelog == 1) {
                 write_log($CURUSER['username'] . " won $nogb {$lang['casino_of_upload_credit_off']} " . htmlsafechars($tbet['proposed']));
             }
@@ -310,28 +298,20 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
             sql_query("UPDATE casino SET deposit = deposit-" . sqlesc($tbet['amount']) . " WHERE userid = " . sqlesc($tbet['userid']));
             $update['uploaded'] = ($newup);
             //==stats
-            $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('userstats_' . $CURUSER['id'],  [
                 'uploaded' => $update['uploaded']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $CURUSER['id'],  [
                 'uploaded' => $update['uploaded']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
             $update['uploaded_2'] = ($User['uploaded'] + $newup2);
             //==stats
-            $mc1->begin_transaction('userstats_' . $tbet['userid']);
-            $mc1->update_row(false, [
+            $cache->update_row('userstats_' . $tbet['userid'],  [
                 'uploaded' => $update['uploaded_2']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $tbet['userid']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $tbet['userid'],  [
                 'uploaded' => $update['uploaded_2']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
             if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
                 sql_query("INSERT INTO casino (userid, date, deposit) VALUES (" . sqlesc($tbet['userid']) . ", $time, -" . sqlesc($tbet['amount']) . ")") or sqlerr(__FILE__, __LINE__);
             }
@@ -339,8 +319,8 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
             $subject = sqlesc($lang['casino_casino_results']);
             $msg = sqlesc("{$lang['casino_you_just_won']} " . htmlsafechars($nogb) . " {$lang['casino_of_upload_credit_from']} " . $CURUSER['username'] . " !");
             sql_query("INSERT INTO messages (subject, sender, receiver, added, msg, unread, poster) VALUES ($subject, $sendfrom, " . sqlesc($tbet['userid']) . ", $time, $msg, 'yes', $sendfrom)") or sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('inbox_new_' . $tbet['userid']);
-            $mc1->delete_value('inbox_new_sb_' . $tbet['userid']);
+            $cache->delete('inbox_new_' . $tbet['userid']);
+            $cache->delete('inbox_new_sb_' . $tbet['userid']);
             if ($writelog == 1) {
                 write_log("" . htmlsafechars($tbet['proposed']) . " won $nogb {$lang['casino_of_upload_credit_off']} " . $CURUSER['username']);
             }
@@ -390,20 +370,16 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
         sql_query("UPDATE casino SET deposit = deposit + " . sqlesc($nobits) . " WHERE userid = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded'] = ($newups);
         //==stats
-        $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('userstats_' . $CURUSER['id'],  [
             'uploaded' => $update['uploaded']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER['id'],  [
             'uploaded' => $update['uploaded']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
         if ($INSTALLER09['autoshout_on'] == 1 || $INSTALLER09['irc_autoshout_on'] == 1) {
             autoshout($message);
             ircbot($messages);
-            $mc1->delete_value('shoutbox_');
+            $cache->delete('shoutbox_');
         }
         if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
             sql_query("INSERT INTO casino (userid, date, deposit) VALUES (" . sqlesc($CURUSER['id']) . ", $time, " . sqlesc($nobits) . ")") or sqlerr(__FILE__, __LINE__);

@@ -36,7 +36,7 @@ $langs = [
 ];
 function radioinfo($radio)
 {
-    global $langs, $INSTALLER09, $mc1, $CURUSER;
+    global $langs, $INSTALLER09, $cache, $CURUSER;
     $xml = $html = $history = '';
     if ($hand = @fsockopen($radio['host'], $radio['port'], $errno, $errstr, 30)) {
         fputs($hand, "GET /admin.cgi?pass=" . $radio['password'] . "&mode=viewxml HTTP/1.1\nUser-Agent:Mozilla/5.0 " . "(Windows; U; Windows NT 6.1; en-GB; rv:1.9.2.6) Gecko/20100625 Firefox/3.6.6\n\n");
@@ -64,10 +64,10 @@ function radioinfo($radio)
         } else {
             unset($data['STREAMSTATUS']);
             $md5_current_song = md5($data['SONGTITLE']);
-            $current_song = $mc1->get('current_radio_song');
+            $current_song = $cache->get('current_radio_song');
             if ($current_song === false || $current_song != $md5_current_song) {
                 autoshout(str_replace(['<', '>'], ['[', ']'], $data['SONGTITLE'] . ' playing on ' . strtolower($data['SERVERTITLE']) . ' - ' . strtolower($data['SERVERURL'])));
-                $mc1->cache_value('current_radio_song', $md5_current_song, 0);
+                $cache->set('current_radio_song', $md5_current_song, 0);
             }
             $html = '<fieldset>
                 <legend>' . $INSTALLER09['site_name'] . ' radio</legend><ul>';

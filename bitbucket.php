@@ -94,16 +94,12 @@ if (!isset($_FILES['file'])) {
         }
         $avatar = sqlesc($_GET['avatar']);
         sql_query("UPDATE users SET avatar = $avatar WHERE id = {$CURUSER['id']}") or sqlerr(__FILE__, __LINE__);
-        $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('MyUser_' . $CURUSER['id'],  [
             'avatar' => $_GET['avatar']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user' . $CURUSER['id']);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user' . $CURUSER['id'],  [
             'avatar' => $_GET['avatar']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+        ], $INSTALLER09['expires']['user_cache']);
         header("Refresh: 0; url={$INSTALLER09['baseurl']}/bitbucket.php?images=$type&updated=avatar");
     }
     if (isset($_GET["updated"]) && $_GET["updated"] == 'avatar') {

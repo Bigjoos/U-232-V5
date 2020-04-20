@@ -87,16 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                      WHERE id = ' . sqlesc($id) . ' LIMIT 1') or sqlerr(__file__, __line__);
         $row = mysqli_fetch_assoc($res);
         $row['perms'] = (int) $row['perms'];
-        $mc1->begin_transaction('MyUser_' . $id);
-        $mc1->update_row(false, [
+        $cache->update_row('MyUser_' . $id,  [
             'perms' => $row['perms']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user_' . $id);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user_' . $id,  [
             'perms' => $row['perms']
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+        ], $INSTALLER09['expires']['user_cache']);
     }
     header('Location: ' . $INSTALLER09['baseurl'] . '/user_unlocks.php');
     exit();

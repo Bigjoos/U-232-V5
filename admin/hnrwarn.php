@@ -18,7 +18,7 @@
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
-    $HTMLOUT.= "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
+    $HTMLOUT .= "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
 		\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
 		<html xmlns='http://www.w3.org/1999/xhtml'>
 		<head>
@@ -36,11 +36,13 @@ require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_hnrwarn'));
+global $INSTALLER09, $cache, $CURUSER;
 $HTMLOUT = '';
 function mkint($x)
 {
     return (int) $x;
 }
+
 $stdfoot = [
     /** include js **/
     'js' => [
@@ -76,17 +78,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($act == "disable") {
         if (sql_query("UPDATE users set enabled='no', modcomment=CONCAT(" . sqlesc(get_date(TIME_NOW, 'DATE', 1) . $lang['hnrwarn_disabled'] . $CURUSER['username'] . "\n") . ",modcomment) WHERE id IN (" . join(",", $_uids) . ")")) {
             foreach ($_uids as $uid) {
-                $mc1->begin_transaction('MyUser_' . $uid);
+                $cache->update_row('MyUser_' . $uid, [
+                    'enabled' => 'no'
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $uid, [
+                    'enabled' => 'no'
+                ], $INSTALLER09['expires']['user_cache']);
             }
-            $mc1->update_row(false, [
-                'enabled' => 'no'
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->begin_transaction('user' . $uid);
-            $mc1->update_row(false, [
-                'enabled' => 'no'
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
             $d = mysqli_affected_rows($GLOBALS["___mysqli_ston"]);
             header("Refresh: 2; url=" . $r);
             stderr($lang['hnrwarn_success'], $d . $lang['hnrwarn_user'] . ($d > 1 ? $lang['hnrwarn_s'] : "") . " disabled!");
@@ -100,16 +98,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         foreach ($_uids as $id) {
             $pms[] = "(0," . $id . "," . sqlesc($sub) . "," . sqlesc($body) . "," . sqlesc(TIME_NOW) . ")";
         }
-        $mc1->begin_transaction('MyUser_' . $id);
-        $mc1->update_row(false, [
+        $cache->update_row('MyUser_' . $id, [
             'hnrwarn' => 'no'
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user' . $id);
-        $mc1->update_row(false, [
+        ], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user' . $id, [
             'hnrwarn' => 'no'
-        ]);
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+        ], $INSTALLER09['expires']['user_cache']);
         if (count($pms)) {
             $g = sql_query("INSERT INTO messages(sender,receiver,subject,msg,added) VALUE " . join(",", $pms)) or sqlerr(__FILE__, __LINE__);
             $q1 = sql_query("UPDATE users set hnrwarn='no', modcomment=CONCAT(" . sqlesc(get_date(TIME_NOW, 'DATE', 1) . $lang['hnrwarn_rem_log'] . $CURUSER['username'] . "\n") . ",modcomment) WHERE id IN (" . join(",", $_uids) . ")") or sqlerr(__FILE__, __LINE__);
@@ -124,25 +118,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     exit;
 }
 switch ($do) {
-case "disabled":
-    $query = "SELECT id,username, class, downloaded, uploaded, IF(downloaded>0, round((uploaded/downloaded),2), '---') as ratio, disable_reason, added, last_access FROM users WHERE enabled='no' ORDER BY last_access DESC ";
-    $title = $lang['hnrwarn_disabled_title'];
-    $link = "<a href=\"staffpanel.php?tool=hnrwarn&amp;action=hnrwarn&amp;?do=warned\">{$lang['hnrwarn_users']}</a>";
-    break;
+    case "disabled":
+        $query = "SELECT id,username, class, downloaded, uploaded, IF(downloaded>0, round((uploaded/downloaded),2), '---') as ratio, disable_reason, added, last_access FROM users WHERE enabled='no' ORDER BY last_access DESC ";
+        $title = $lang['hnrwarn_disabled_title'];
+        $link = "<a href=\"staffpanel.php?tool=hnrwarn&amp;action=hnrwarn&amp;?do=warned\">{$lang['hnrwarn_users']}</a>";
+        break;
 
-case "hnrwarn":
-    $query = "SELECT id, username, class, downloaded, uploaded, IF(downloaded>0, round((uploaded/downloaded),2), '---') as ratio, warn_reason, hnrwarn, added, last_access FROM users WHERE hnrwarn='yes' ORDER BY last_access DESC, hnrwarn DESC ";
-    $title = $lang['hnrwarn_warned_title'];
-    $link = "<a href=\"staffpanel.php?tool=hnrwarn&amp;action=hnrwarn&amp;do=disabled\">{$lang['hnrwarn_disabled_users']}</a>";
-    break;
+    case "hnrwarn":
+        $query = "SELECT id, username, class, downloaded, uploaded, IF(downloaded>0, round((uploaded/downloaded),2), '---') as ratio, warn_reason, hnrwarn, added, last_access FROM users WHERE hnrwarn='yes' ORDER BY last_access DESC, hnrwarn DESC ";
+        $title = $lang['hnrwarn_warned_title'];
+        $link = "<a href=\"staffpanel.php?tool=hnrwarn&amp;action=hnrwarn&amp;do=disabled\">{$lang['hnrwarn_disabled_users']}</a>";
+        break;
 }
 $g = sql_query($query) or sqlerr(__FILE__, __LINE__);
 $count = mysqli_num_rows($g);
-$HTMLOUT .="<div class='row'><div class='col-md-12'><h2>$title&nbsp;<font class=\"small\">[total - " . $count . " user" . ($count > 1 ? "s" : "") . "]</font>&nbsp;&nbsp;$link</h2> ";
+$HTMLOUT .= "<div class='row'><div class='col-md-12'><h2>$title&nbsp;<font class=\"small\">[total - " . $count . " user" . ($count > 1 ? "s" : "") . "]</font>&nbsp;&nbsp;$link</h2> ";
 if ($count == 0) {
-    $HTMLOUT.= stdmsg($lang['hnrwarn_hey'], $lang['hnrwarn_none'] . strtolower($title));
+    $HTMLOUT .= stdmsg($lang['hnrwarn_hey'], $lang['hnrwarn_none'] . strtolower($title));
 } else {
-    $HTMLOUT.= "<div class='row'><div class='col-md-12'>
+    $HTMLOUT .= "<div class='row'><div class='col-md-12'>
 		<form action='staffpanel.php?tool=hnrwarn&amp;action=hnrwarn' method='post'>
 		<table class='table table-bordered'>
 		<tr>    	
@@ -155,7 +149,7 @@ if ($count == 0) {
 		</tr>";
     while ($a = mysqli_fetch_assoc($g)) {
         $tip = ($do == "hnrwarn" ? $lang['hnrwarn_tip1'] . htmlsafechars($a["warn_reason"]) . "<br />" : $lang['hnrwarn_tip2'] . htmlsafechars($a["disable_reason"]));
-        $HTMLOUT.= "<tr>
+        $HTMLOUT .= "<tr>
 				  <td align='left' width='100%'><a href='userdetails.php?id=" . (int) $a["id"] . "' onmouseover=\"Tip('($tip)')\" onmouseout=\"UnTip()\">" . htmlsafechars($a["username"]) . "</a></td>
 				  <td align='left' nowrap='nowrap'>" . (float) $a["ratio"] . "<br /><font class='small'><b>{$lang['hnrwarn_d']}</b>" . mksize($a["downloaded"]) . "&nbsp;<b>{$lang['hnrwarn_u']}</b> " . mksize($a["uploaded"]) . "</font></td>
 				  <td align='center' nowrap='nowrap'>" . get_user_class_name($a["class"]) . "</td>
@@ -164,7 +158,7 @@ if ($count == 0) {
 				  <td align='center' nowrap='nowrap'><input type='checkbox' name='users[]' value='" . (int) $a["id"] . "' /></td>
 				</tr>";
     }
-    $HTMLOUT.= "<tr>
+    $HTMLOUT .= "<tr>
 			<td colspan='6' class='colhead' align='center'>
 				<select name='action'>
 					<option value='unwarn'>{$lang['hnrwarn_unwarn']}</option>

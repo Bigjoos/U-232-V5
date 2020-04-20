@@ -20,7 +20,7 @@
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(0);
     ignore_user_abort(1);
     //== Pm birthday users
@@ -34,16 +34,12 @@ function docleanup($data)
             $msgs_buffer[] = '(0,' . $arr['id'] . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ', 10737418240)';
             $update['uploaded'] = ($arr['uploaded'] + 10737418240);
-            $mc1->begin_transaction('userstats_' . $arr['id']);
-            $mc1->update_row(false, [
+            $cache->update_row('userstats_' . $arr['id'],  [
                 'uploaded' => $update['uploaded']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, [
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $arr['id'],  [
                 'uploaded' => $update['uploaded']
-            ]);
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
         }
         $count = count($users_buffer);
         if ($count > 0) {

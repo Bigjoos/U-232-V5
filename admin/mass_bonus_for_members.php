@@ -100,19 +100,15 @@ case 'upload_credit':
                 $modcom = sqlesc($modcomment);
                 $pm_buffer[] = '(0, ' . $arr_GB['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                 $users_buffer[] = '(' . $arr_GB['id'] . ', ' . $GB_new . ', ' . $modcom . ')';
-                $mc1->begin_transaction('user_stats_' . $arr_GB['id']);
-                $mc1->update_row(false, [
+                $cache->update_row('user_stats_' . $arr_GB['id'],  [
                     'uploaded' => $GB_new,
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('userstats_' . $arr_GB['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('userstats_' . $arr_GB['id'],  [
                     'uploaded' => $GB_new
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->delete_value('inbox_new_' . $arr_GB['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_GB['id']);
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->delete('inbox_new_' . $arr_GB['id']);
+                $cache->delete('inbox_new_sb_' . $arr_GB['id']);
             }
             $count = count($users_buffer);
             if ($count > 0) {
@@ -139,19 +135,15 @@ case 'upload_credit':
                         $modcom = sqlesc($modcomment);
                         $pm_buffer[] = '(0, ' . $arr_GB['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                         $users_buffer[] = '(' . $arr_GB['id'] . ', ' . $GB_new . ', ' . $modcom . ')';
-                        $mc1->begin_transaction('user_stats_' . $arr_GB['id']);
-                        $mc1->update_row(false, [
+                        $cache->update_row('user_stats_' . $arr_GB['id'],  [
                             'uploaded' => $GB_new,
                             'modcomment' => $modcomment
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                        $mc1->begin_transaction('userstats_' . $arr_GB['id']);
-                        $mc1->update_row(false, [
+                        ], $INSTALLER09['expires']['user_stats']);
+                        $cache->update_row('userstats_' . $arr_GB['id'],  [
                             'uploaded' => $GB_new
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                        $mc1->delete_value('inbox_new_' . $arr_GB['id']);
-                        $mc1->delete_value('inbox_new_sb_' . $arr_GB['id']);
+                        ], $INSTALLER09['expires']['u_stats']);
+                        $cache->delete('inbox_new_' . $arr_GB['id']);
+                        $cache->delete('inbox_new_sb_' . $arr_GB['id']);
                     }
                     $count = count($users_buffer);
                     if ($count > 0) {
@@ -187,19 +179,15 @@ case 'karma':
                 $modcom = sqlesc($modcomment);
                 $pm_buffer[] = '(0, ' . $arr_karma['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                 $users_buffer[] = '(' . $arr_karma['id'] . ', ' . $karma_new . ', ' . $modcom . ')';
-                $mc1->begin_transaction('user_stats_' . $arr_karma['id']);
-                $mc1->update_row(false, [
+                $cache->update_row('user_stats_' . $arr_karma['id'],  [
                     'seedbonus' => $karma_new,
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('userstats_' . $arr_karma['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('userstats_' . $arr_karma['id'],  [
                     'seedbonus' => $karma_new
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                $mc1->delete_value('inbox_new_' . $arr_karma['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_karma['id']);
+                ], $INSTALLER09['expires']['u_stats']);
+                $cache->delete('inbox_new_' . $arr_karma['id']);
+                $cache->delete('inbox_new_sb_' . $arr_karma['id']);
             }
             $count = count($users_buffer);
             if ($count > 0) {
@@ -226,19 +214,15 @@ case 'karma':
                         $modcom = sqlesc($modcomment);
                         $pm_buffer[] = '(0, ' . $arr_karma['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                         $users_buffer[] = '(' . $arr_karma['id'] . ', ' . $karma_new . ', ' . $modcom . ')';
-                        $mc1->begin_transaction('user_stats_' . $arr_karma['id']);
-                        $mc1->update_row(false, [
+                        $cache->update_row('user_stats_' . $arr_karma['id'],  [
                             'seedbonus' => $karma_new,
                             'modcomment' => $modcomment
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                        $mc1->begin_transaction('userstats_' . $arr_karma['id']);
-                        $mc1->update_row(false, [
+                        ], $INSTALLER09['expires']['user_stats']);
+                        $cache->update_row('userstats_' . $arr_karma['id'],  [
                             'seedbonus' => $karma_new
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-                        $mc1->delete_value('inbox_new_' . $arr_karma['id']);
-                        $mc1->delete_value('inbox_new_sb_' . $arr_karma['id']);
+                        ], $INSTALLER09['expires']['u_stats']);
+                        $cache->delete('inbox_new_' . $arr_karma['id']);
+                        $cache->delete('inbox_new_sb_' . $arr_karma['id']);
                     }
                     $count = count($users_buffer);
                     if ($count > 0) {
@@ -274,23 +258,17 @@ case 'freeslots':
                 $modcom = sqlesc($modcomment);
                 $pm_buffer[] = '(0, ' . $arr_freeslots['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                 $users_buffer[] = '(' . $arr_freeslots['id'] . ', ' . $freeslots_new . ', ' . $modcom . ')';
-                $mc1->begin_transaction('MyUser_' . $arr_freeslots['id']);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $arr_freeslots['id'],  [
                     'freeslots' => $freeslots_new
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $arr_freeslots['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $arr_freeslots['id'],  [
                     'freeslots' => $freeslots_new
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $arr_freeslots['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $arr_freeslots['id'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->delete_value('inbox_new_' . $arr_freeslots['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_freeslots['id']);
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->delete('inbox_new_' . $arr_freeslots['id']);
+                $cache->delete('inbox_new_sb_' . $arr_freeslots['id']);
             }
             $count = count($users_buffer);
             if ($count > 0) {
@@ -317,23 +295,17 @@ case 'freeslots':
                         $modcom = sqlesc($modcomment);
                         $pm_buffer[] = '(0, ' . $arr_freeslots['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                         $users_buffer[] = '(' . $arr_freeslots['id'] . ', ' . $freeslots_new . ', ' . $modcom . ')';
-                        $mc1->begin_transaction('MyUser_' . $arr_freeslots['id']);
-                        $mc1->update_row(false, [
+                        $cache->update_row('MyUser_' . $arr_freeslots['id'],  [
                             'freeslots' => $freeslots_new
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                        $mc1->begin_transaction('user' . $arr_freeslots['id']);
-                        $mc1->update_row(false, [
+                        ], $INSTALLER09['expires']['curuser']);
+                        $cache->update_row('user' . $arr_freeslots['id'],  [
                             'freeslots' => $freeslots_new
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                        $mc1->begin_transaction('user_stats_' . $arr_freeslots['id']);
-                        $mc1->update_row(false, [
+                        ], $INSTALLER09['expires']['user_cache']);
+                        $cache->update_row('user_stats_' . $arr_freeslots['id'],  [
                             'modcomment' => $modcomment
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                        $mc1->delete_value('inbox_new_' . $arr_freeslots['id']);
-                        $mc1->delete_value('inbox_new_sb_' . $arr_freeslots['id']);
+                        ], $INSTALLER09['expires']['user_stats']);
+                        $cache->delete('inbox_new_' . $arr_freeslots['id']);
+                        $cache->delete('inbox_new_sb_' . $arr_freeslots['id']);
                     }
                     $count = count($users_buffer);
                     if ($count > 0) {
@@ -369,23 +341,17 @@ case 'invite':
                 $modcom = sqlesc($modcomment);
                 $pm_buffer[] = '(0, ' . $arr_invites['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                 $users_buffer[] = '(' . $arr_invites['id'] . ', ' . $invites_new . ', ' . $modcom . ')';
-                $mc1->begin_transaction('MyUser_' . $arr_invites['id']);
-                $mc1->update_row(false, [
+                $cache->update_row('MyUser_' . $arr_invites['id'],  [
                     'invites' => $invites_new
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->begin_transaction('user' . $arr_invites['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $arr_invites['id'],  [
                     'invites' => $invites_new
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $arr_invites['id']);
-                $mc1->update_row(false, [
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $arr_invites['id'],  [
                     'modcomment' => $modcomment
-                ]);
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->delete_value('inbox_new_' . $arr_invites['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_invites['id']);
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->delete('inbox_new_' . $arr_invites['id']);
+                $cache->delete('inbox_new_sb_' . $arr_invites['id']);
             }
             $count = count($users_buffer);
             if ($count > 0) {
@@ -412,23 +378,17 @@ case 'invite':
                         $modcom = sqlesc($modcomment);
                         $pm_buffer[] = '(0, ' . $arr_invites['id'] . ', ' . TIME_NOW . ', ' . $msg . ', ' . $subject . ')';
                         $users_buffer[] = '(' . $arr_invites['id'] . ', ' . $invites_new . ', ' . $modcom . ')';
-                        $mc1->begin_transaction('MyUser_' . $arr_invites['id']);
-                        $mc1->update_row(false, [
+                        $cache->update_row('MyUser_' . $arr_invites['id'],  [
                             'invites' => $invites_new
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                        $mc1->begin_transaction('user' . $arr_invites['id']);
-                        $mc1->update_row(false, [
+                        ], $INSTALLER09['expires']['curuser']);
+                        $cache->update_row('user' . $arr_invites['id'],  [
                             'invites' => $invites_new
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                        $mc1->begin_transaction('user_stats_' . $arr_invites['id']);
-                        $mc1->update_row(false, [
+                        ], $INSTALLER09['expires']['user_cache']);
+                        $cache->update_row('user_stats_' . $arr_invites['id'],  [
                             'modcomment' => $modcomment
-                        ]);
-                        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                        $mc1->delete_value('inbox_new_' . $arr_invites['id']);
-                        $mc1->delete_value('inbox_new_sb_' . $arr_invites['id']);
+                        ], $INSTALLER09['expires']['user_stats']);
+                        $cache->delete('inbox_new_' . $arr_invites['id']);
+                        $cache->delete('inbox_new_sb_' . $arr_invites['id']);
                     }
                     $count = count($users_buffer);
                     if ($count > 0) {
@@ -460,8 +420,8 @@ case 'pm':
             $body = sqlesc(htmlsafechars($_POST['body']));
             while ($arr_pms = mysqli_fetch_assoc($res_pms)) {
                 $pm_buffer[] = '(0, ' . $arr_pms['id'] . ', ' . TIME_NOW . ', ' . $body . ', ' . $subject . ')';
-                $mc1->delete_value('inbox_new_' . $arr_pms['id']);
-                $mc1->delete_value('inbox_new_sb_' . $arr_pms['id']);
+                $cache->delete('inbox_new_' . $arr_pms['id']);
+                $cache->delete('inbox_new_sb_' . $arr_pms['id']);
             }
             $count = count($pm_buffer);
             if ($count > 0) {
@@ -482,8 +442,8 @@ case 'pm':
                     $body = sqlesc(htmlsafechars($_POST['body']));
                     while ($arr_pms = mysqli_fetch_assoc($res_pms)) {
                         $pm_buffer[] = '(0, ' . $arr_pms['id'] . ', ' . TIME_NOW . ', ' . $body . ', ' . $subject . ')';
-                        $mc1->delete_value('inbox_new_' . $arr_pms['id']);
-                        $mc1->delete_value('inbox_new_sb_' . $arr_pms['id']);
+                        $cache->delete('inbox_new_' . $arr_pms['id']);
+                        $cache->delete('inbox_new_sb_' . $arr_pms['id']);
                     }
                     $count = count($pm_buffer);
                     if ($count > 0) {

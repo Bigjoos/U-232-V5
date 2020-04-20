@@ -147,7 +147,7 @@ if (isset($_POST["form"]) != 1) {
         $app['creating'],
         $app['seeding']
     ])) . ")");
-    $mc1->delete_value('new_uploadapp_');
+    $cache->delete('new_uploadapp_');
     if (!$res) {
         if (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) == 1062) {
             stderr($lang['uploadapp_error'], $lang['uploadapp_twice']);
@@ -162,8 +162,8 @@ if (isset($_POST["form"]) != 1) {
         while ($arr = mysqli_fetch_assoc($subres)) {
             sql_query("INSERT INTO messages(sender, receiver, added, msg, subject, poster) VALUES(0, " . sqlesc($arr['id']) . ", $dt, $msg, $subject, 0)") or sqlerr(__FILE__, __LINE__);
         }
-        $mc1->delete_value('inbox_new_' . $arr['id']);
-        $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+        $cache->delete('inbox_new_' . $arr['id']);
+        $cache->delete('inbox_new_sb_' . $arr['id']);
         stderr($lang['uploadapp_appsent'], $lang['uploadapp_success']);
     }
 }

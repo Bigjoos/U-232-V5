@@ -19,7 +19,7 @@
 //== iphistory
 if ($user['paranoia'] < 2 || $CURUSER['id'] == $id) {
     error_reporting(0);
-    if (($iphistory = $mc1->get_value('ip_history_' . $id)) === false) {
+    if (($iphistory = $cache->get('ip_history_' . $id)) === false) {
         $ipto = sql_query("SELECT COUNT(id),enabled FROM `users` AS iplist WHERE `ip` = " . sqlesc($user["ip"]) . " group by enabled") or sqlerr(__FILE__, __LINE__);
         $row12 = mysqli_fetch_row($ipto);
         $row13 = mysqli_fetch_row($ipto);
@@ -36,7 +36,7 @@ if ($user['paranoia'] < 2 || $CURUSER['id'] == $id) {
         }
         $resip = sql_query("SELECT ip FROM ips WHERE userid = " . sqlesc($id) . " GROUP BY ip") or sqlerr(__FILE__, __LINE__);
         $iphistory['ips'] = mysqli_num_rows($resip);
-        $mc1->cache_value('ip_history_' . $id, $iphistory, $INSTALLER09['expires']['iphistory']);
+        $cache->set('ip_history_' . $id, $iphistory, $INSTALLER09['expires']['iphistory']);
     }
     if (isset($addr)) {
         if ($CURUSER['id'] == $id || $CURUSER['class'] >= UC_STAFF) {

@@ -21,7 +21,7 @@
 
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     require_once(INCL_DIR . 'function_account_delete.php');
@@ -33,8 +33,8 @@ function docleanup($data)
     $userid = intval($res_in['id']);
     sql_query(account_delete($userid)) or sqlerr(__FILE__, __LINE__);
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
-        $mc1->delete_value('MyUser_' . $userid);
-        $mc1->delete_value('user' . $userid);
+        $cache->delete('MyUser_' . $userid);
+        $cache->delete('user' . $userid);
     }
     if ($queries > 0) {
         write_log("Inactive Clean -------------------- Inactive Clean Complete using $queries queries--------------------");

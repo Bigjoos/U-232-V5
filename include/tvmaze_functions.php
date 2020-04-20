@@ -46,7 +46,7 @@ function tvmaze_format($tvmaze_data, $tvmaze_type)
 }
 function tvmaze(&$torrents)
 {
-    global $mc1, $INSTALLER09;
+    global $cache, $INSTALLER09;
     $tvmaze_data = '';
     $row_update = [];
     if (preg_match("/^(.*)(?:\.| |_)(?:(?:S\d{1,2}(?:E\d{1,2})?)|20\d\d\.\d\d\.\d\d|Part.\d|CHapters)/i", $torrents['name'], $tmp)) {
@@ -60,13 +60,13 @@ function tvmaze(&$torrents)
     }
 
     $memkey = 'tvmaze::' . strtolower(str_replace(' ', '', $tvmaze['name']));
-    if (($tvmaze_id = $mc1->get_value($memkey)) === false) {
+    if (($tvmaze_id = $cache->get($memkey)) === false) {
         //get tvmaze id
         $tvmaze_link = sprintf('http://api.tvmaze.com/singlesearch/shows?q=%s', urlencode($tvmaze['name']));
         $tvmaze_array = json_decode(file_get_contents($tvmaze_link), true);
         if ($tvmaze_array) {
             $tvmaze_id = $tvmaze_array['id'];
-            $mc1->cache_value($memkey, $tvmaze_id, 0);
+            $cache->set($memkey, $tvmaze_id, 0);
         } else {
             return false;
         }
@@ -77,7 +77,7 @@ function tvmaze(&$torrents)
     }
 
     $memkey = 'tvmaze::' . $tvmaze_id;
-    if ($force_update || ($tvmaze_showinfo = $mc1->get_value($memkey)) === false) {
+    if ($force_update || ($tvmaze_showinfo = $cache->get($memkey)) === false) {
         //get tvmaze show info
         $tvmaze['name'] = preg_replace('/\d{4}.$/', '', $tvmaze['name']);
         $tvmaze_link = sprintf('http://api.tvmaze.com/shows/%d', $tvmaze_id);
@@ -99,27 +99,23 @@ function tvmaze(&$torrents)
             $img = "img.php/tvmaze/$tvmaze_id.jpg";
         }
         //==The torrent cache
-        $mc1->begin_transaction('torrent_details_' . $torrents['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('torrent_details_' . $torrents['id'],  [
             'newgenre' => ucwords($tvmaze_array['genres2']),
-        ]);
-        $mc1->commit_transaction(0);
+        ], 0);
         if (empty($torrents['poster'])) {
             $row_update[] = 'poster = ' . sqlesc($img);
         }
 
         //==The torrent cache
-        $mc1->begin_transaction('torrent_details_' . $torrents['id']);
-        $mc1->update_row(false, [
+        $cache->update_row('torrent_details_' . $torrents['id'],  [
             'poster' => $img,
-        ]);
-        $mc1->commit_transaction(0);
+        ], 0);
         if (count($row_update)) {
             sql_query('UPDATE torrents set ' . join(', ', $row_update) . ' WHERE id = ' . $torrents['id']) or sqlerr(__FILE__, __LINE__);
         }
 
         $tvmaze_showinfo = tvmaze_format($tvmaze_array, 'show') . '<br/>';
-        $mc1->cache_value($memkey, $tvmaze_showinfo, 0);
+        $cache->set($memkey, $tvmaze_showinfo, 0);
         $tvmaze_data .= $tvmaze_showinfo;
     } else {
         //var_dump('Show from mem'); //debug

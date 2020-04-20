@@ -35,7 +35,7 @@ require_once(INCL_DIR . 'password_functions.php');
 require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
-$mc1->delete_value('rules__');
+$cache->delete('rules__');
 
 $lang = array_merge($lang, load_language('ad_rules'));
 
@@ -124,7 +124,7 @@ function Do_show()
 // ===added delete
 function Do_Rules_Delete()
 {
-    global $mc1;
+    global $cache;
     if (!isset($_POST['fdata']) or !is_array($_POST['fdata'])) {
         stderr("Error", "Bad data!");
     }
@@ -138,14 +138,14 @@ function Do_Rules_Delete()
         stderr("Error", "No rules selected!");
     }
     sql_query("DELETE FROM rules WHERE id IN( " . implode(',', $id) . " )") or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('rules__');
+    $cache->delete('rules__');
     header("Refresh: 3; url=staffpanel.php?tool=rules_admin");
     stderr("Info", "Rules successfully Deleted! Please wait while you are redirected.");
 }
 // ====end
 function Cat_Delete($chk = false)
 {
-    global $mc1;
+    global $cache;
     $id = isset($_GET['catid']) ? (int) $_GET['catid'] : 0;
     if (!is_valid_id($id)) {
         stderr("Error", "Bad ID!");
@@ -157,7 +157,7 @@ or <a href='staffpanel.php?tool=rules_admin'><span style='font-weight: bold; col
     }
     sql_query("DELETE FROM rules WHERE type = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     sql_query("DELETE FROM rules_cat WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('rules__');
+    $cache->delete('rules__');
     header("Refresh: 3; url=staffpanel.php?tool=rules_admin");
     stderr("Info", "Rules category deleted successfully! Please wait while you are redirected.");
 }
@@ -237,7 +237,7 @@ function Show_Rules_Edit()
 }
 function Do_Rules_Update()
 {
-    global $mc1;
+    global $cache;
     $time = TIME_NOW;
     $updateset = [];
     if (!isset($_POST['fdata']) || !is_array($_POST['fdata'])) {
@@ -265,12 +265,12 @@ function Do_Rules_Update()
         stderr("SQL Error", "Update failed");
     }
     header("Refresh: 3; url=staffpanel.php?tool=rules_admin");
-    $mc1->delete_value('rules__');
+    $cache->delete('rules__');
     stderr("Info", "Updated successfully! Please wait while you are redirected.");
 }
 function Do_Cat_Update()
 {
-    global $mc1;
+    global $cache;
     $cat_id = (int) $_POST['cat'];
     $min_view = sqlesc(intval($_POST['min_view']));
     if (!is_valid_id($cat_id)) {
@@ -288,12 +288,12 @@ function Do_Cat_Update()
         stderr("Warning", "Could not carry out that request");
     }
     header("Refresh: 3; url=staffpanel.php?tool=rules_admin");
-    $mc1->delete_value('rules__');
+    $cache->delete('rules__');
     stderr("Info", "Updated successfully! Please wait while you are redirected.");
 }
 function Do_Cat_Add()
 {
-    global $INSTALLER09, $mc1;
+    global $INSTALLER09, $cache;
     $htmlout = '';
     if (empty($_POST['name']) || strlen($_POST['name']) > 100) {
         stderr("Error", "Field is blank or length too long!");
@@ -309,14 +309,14 @@ function Do_Cat_Add()
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("Warning", "Couldn't forefill that request");
     }
-    $mc1->delete_value('rules__');
+    $cache->delete('rules__');
     $htmlout .= New_Cat_Form(1);
     echo stdhead("Add New Title") . $htmlout . stdfoot();
     exit();
 }
 function Do_Rules_Add()
 {
-    global $lang, $mc1;
+    global $lang, $cache;
     $cat_id = sqlesc(intval($_POST['cat']));
     if (!is_valid_id($cat_id)) {
         stderr("Error", "No id");
@@ -331,7 +331,7 @@ function Do_Rules_Add()
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("Warning", "Couldn't forefill that request");
     }
-    $mc1->delete_value('rules__');
+    $cache->delete('rules__');
     New_Rules_Form(1);
     exit();
 }

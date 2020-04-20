@@ -31,16 +31,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($lid > 0 && $lid != $CURUSER['id']) {
         sql_query('UPDATE users SET language=' . sqlesc($lid) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
     }
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'language' => $lid
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'],  [
         'language' => $lid
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     $HTMLOUT.= "<script language='javascript' type='text/javascript'>
         opener.location.reload(true);
         self.close();

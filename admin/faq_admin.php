@@ -122,7 +122,7 @@ function Do_show()
 // ===added delete
 function Do_Faq_Delete()
 {
-    global $mc1;
+    global $cache;
     if (!isset($_POST['fdata']) or !is_array($_POST['fdata'])) {
         stderr("Error", "Bad data!");
     }
@@ -136,13 +136,13 @@ function Do_Faq_Delete()
         stderr("Error", "No faq selected!");
     }
     sql_query("DELETE FROM faq WHERE id IN( " . implode(',', $id) . " )") or sqlerr(__FILE__, __LINE__);
-    $mc1 -> delete_value('faqs__');
+    $cache->delete('faqs__');
     stderr("Info", "Faq successfully Deleted! <a href='staffpanel.php?tool=faq_admin'>Go Back To Faq Admin?</a>");
 }
 // ====end
 function Cat_Delete($chk = false)
 {
-    global $mc1;
+    global $cache;
     $id = isset($_GET['catid']) ? (int) $_GET['catid'] : 0;
     if (!is_valid_id($id)) {
         stderr("Error", "Bad ID!");
@@ -154,7 +154,7 @@ or <a href='staffpanel.php?tool=faq_admin'><span style='font-weight: bold; color
     }
     sql_query("DELETE FROM faq WHERE type = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     sql_query("DELETE FROM faq_cat WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-    $mc1 -> delete_value('faqs__');
+    $cache->delete('faqs__');
     stderr("Info", "Faq category deleted successfully! <a href='staffpanel.php?tool=faq_admin'>Go Back To Faq Admin?</a>");
 }
 function Show_Cat_Edit_Form()
@@ -234,7 +234,7 @@ function Show_Faq_Edit()
 }
 function Do_Faq_Update()
 {
-    global $mc1;
+    global $cache;
     $time      = TIME_NOW;
     $updateset = [];
     if (!isset($_POST['fdata']) || !is_array($_POST['fdata'])) {
@@ -261,12 +261,12 @@ function Do_Faq_Update()
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("SQL Error", "Update failed");
     }
-    $mc1 -> delete_value('faqs__');
+    $cache->delete('faqs__');
     stderr("Info", "Updated successfully <a href='staffpanel.php?tool=faq_admin'>Go Back To Admin</a>");
 }
 function Do_Cat_Update()
 {
-    global $mc1;
+    global $cache;
     $cat_id         = (int) $_POST['cat'];
     $min_view = sqlesc(intval($_POST['min_view']));
     if (!is_valid_id($cat_id)) {
@@ -283,12 +283,12 @@ function Do_Cat_Update()
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("Warning", "Could not carry out that request");
     }
-    $mc1 -> delete_value('faqs__');
+    $cache->delete('faqs__');
     stderr("Info", "Updated successfully <a href='staffpanel.php?tool=faq_admin'>Go Back To Admin</a>");
 }
 function Do_Cat_Add()
 {
-    global $INSTALLER09, $mc1;
+    global $INSTALLER09, $cache;
     $htmlout = '';
     if (empty($_POST['name']) || strlen($_POST['name']) > 100) {
         stderr("Error", "Field is blank or length too long!");
@@ -304,7 +304,7 @@ function Do_Cat_Add()
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("Warning", "Couldn't forefill that request");
     }
-    $mc1 -> delete_value('faqs__');
+    $cache->delete('faqs__');
     $htmlout .= New_Cat_Form(1);
     //return $htmlout;
     echo stdhead("Add New Title") . $htmlout . stdfoot();
@@ -312,7 +312,7 @@ function Do_Cat_Add()
 }
 function Do_Faq_Add()
 {
-    global $lang, $mc1;
+    global $lang, $cache;
     $cat_id = sqlesc(intval($_POST['cat']));
     if (!is_valid_id($cat_id)) {
         stderr("Error", "No id");
@@ -327,7 +327,7 @@ function Do_Faq_Add()
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr("Warning", "Couldn't complete that request");
     }
-    $mc1 -> delete_value('faqs__');
+    $cache->delete('faqs__');
     New_Faq_Form(1);
     exit();
 }

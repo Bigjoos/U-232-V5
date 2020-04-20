@@ -178,16 +178,12 @@ $top_links = '<div class="row"><div class="col-sm-12">
 if (isset($_GET['change_pm_number'])) {
     $change_pm_number = (isset($_GET['change_pm_number']) ? intval($_GET['change_pm_number']) : 20);
     sql_query('UPDATE users SET pms_per_page = ' . sqlesc($change_pm_number) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('user' . $CURUSER['id'],  [
         'pms_per_page' => $change_pm_number
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'pms_per_page' => $change_pm_number
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+    ], $INSTALLER09['expires']['curuser']);
     if (isset($_GET['edit_mail_boxes'])) {
         header('Location: pm_system.php?action=edit_mailboxes&pm=1');
     } else {
@@ -199,16 +195,12 @@ if (isset($_GET['change_pm_number'])) {
 if (isset($_GET['show_pm_avatar'])) {
     $show_pm_avatar = ($_GET['show_pm_avatar'] === 'yes' ? 'yes' : 'no');
     sql_query('UPDATE users SET show_pm_avatar = ' . sqlesc($show_pm_avatar) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    $cache->update_row('user' . $CURUSER['id'],  [
         'show_pm_avatar' => $show_pm_avatar
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $CURUSER['id'],  [
         'show_pm_avatar' => $show_pm_avatar
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+    ], $INSTALLER09['expires']['curuser']);
     if (isset($_GET['edit_mail_boxes'])) {
         header('Location: pm_system.php?action=edit_mailboxes&avatar=1');
     } else {
@@ -289,8 +281,8 @@ case 'edit_mailboxes':
 //=== get all PM boxes
 function get_all_boxes()
 {
-    global $CURUSER, $mc1, $INSTALLER09, $lang;
-    //if (($get_all_boxes = $mc1->get_value('get_all_boxes' . $CURUSER['id'])) === false) {
+    global $CURUSER, $cache, $INSTALLER09, $lang;
+    //if (($get_all_boxes = $cache->get('get_all_boxes' . $CURUSER['id'])) === false) {
     $res = sql_query('SELECT boxnumber, name FROM pmboxes WHERE userid=' . sqlesc($CURUSER['id']) . ' ORDER BY boxnumber') or sqlerr(__FILE__, __LINE__);
     $get_all_boxes = '<div class="col-sm-2"><select class="form-control" name="box">
 					<!--<option class="head" value="">' . $lang['pm_search_move_to'] . '</option>-->
@@ -302,15 +294,15 @@ function get_all_boxes()
         $get_all_boxes.= '<option class="body" value="' . (int) $row['boxnumber'] . '">' . htmlsafechars($row['name']) . '</option>';
     }
     $get_all_boxes.= '</select></div>';
-    //$mc1->cache_value('get_all_boxes' . $CURUSER['id'], $get_all_boxes, $INSTALLER09['expires']['get_all_boxes']);
+    //$cache->set('get_all_boxes' . $CURUSER['id'], $get_all_boxes, $INSTALLER09['expires']['get_all_boxes']);
     //}
     return $get_all_boxes;
 }
 //=== insert jump to box
 function insertJumpTo($mailbox)
 {
-    global $CURUSER, $mc1, $INSTALLER09, $lang;
-    //if (($insertJumpTo = $mc1->get_value('insertJumpTo' . $CURUSER['id'])) === false) {
+    global $CURUSER, $cache, $INSTALLER09, $lang;
+    //if (($insertJumpTo = $cache->get('insertJumpTo' . $CURUSER['id'])) === false) {
     $res = sql_query('SELECT boxnumber,name FROM pmboxes WHERE userid=' . sqlesc($CURUSER['id']) . ' ORDER BY boxnumber') or sqlerr(__FILE__, __LINE__);
     $insertJumpTo = '<div class="col-sm-2 col-sm-offset-10" style="margin-top:-4.95%;">
 				    <form class="form-horizontal" role="form" action="pm_system.php" method="get">
@@ -324,7 +316,7 @@ function insertJumpTo($mailbox)
         $insertJumpTo.= '<option class="body" value="pm_system.php?action=view_mailbox&amp;box=' . (int) $row['boxnumber'] . '" ' . ((int) $row['boxnumber'] == $mailbox ? 'selected="selected"' : '') . '>' . htmlsafechars($row['name']) . '</option>';
     }
     $insertJumpTo.= '</select></form></div>';
-    //$mc1->cache_value('insertJumpTo' . $CURUSER['id'], $insertJumpTo, $INSTALLER09['expires']['insertJumpTo']);
+    //$cache->set('insertJumpTo' . $CURUSER['id'], $insertJumpTo, $INSTALLER09['expires']['insertJumpTo']);
     //}
     return $insertJumpTo;
 }

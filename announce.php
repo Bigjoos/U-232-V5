@@ -128,10 +128,10 @@ if (ANN_IP_LOGGING == 1) {
         $res = ann_sql_query("SELECT * FROM ips WHERE ip = " . ann_sqlesc($ip) . " AND userid =" . ann_sqlesc($userid)) or ann_sqlerr(__FILE__, __LINE__);
         if (mysqli_num_rows($res) == 0) {
             ann_sql_query("INSERT LOW_PRIORITY INTO ips (userid, ip, lastannounce, type) VALUES (" . ann_sqlesc($userid) . ", " . ann_sqlesc($ip) . ", " . TIME_NOW . ",'announce')") or ann_sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('ip_history_' . $userid);
+            $cache->delete('ip_history_' . $userid);
         } else {
             ann_sql_query("UPDATE LOW_PRIORITY ips SET lastannounce = " . TIME_NOW . " WHERE ip = " . ann_sqlesc($ip) . " AND userid =" . ann_sqlesc($userid)) or ann_sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('ip_history_' . $userid);
+            $cache->delete('ip_history_' . $userid);
         }
     }
 }
@@ -311,10 +311,10 @@ if (!isset($self)) {
             }
             }
             if ($max > 0) {
-                if (($Slot_Query = $mc1->get_value('max_slots_' . $userid)) === false) {
+                if (($Slot_Query = $cache->get('max_slots_' . $userid)) === false) {
                     $Slot_Q = sql_query("SELECT COUNT(*) AS num FROM peers WHERE userid=" . sqlesc($userid) . " AND seeder='no'") or ann_sqlerr(__FILE__, __LINE__);
                     $Slot_Query = mysqli_fetch_assoc($Slot_Q);
-                    $mc1->cache_value('max_slots_' . $userid, $Slot_Query, $INSTALLER09['expires']['max_slots']);
+                    $cache->set('max_slots_' . $userid, $Slot_Query, $INSTALLER09['expires']['max_slots']);
                 }
                 if ($Slot_Q['num'] >= $max) {
                     err("Access denied (Torrents Limit exceeded - $max) See FAQ!");
@@ -326,7 +326,7 @@ if (!isset($self)) {
     $upthis = max(0, $uploaded - $self["uploaded"]);
     $downthis = max(0, $downloaded - $self["downloaded"]);
     //==sitepot
-    if (($Pot_query = $mc1->get_value('Sitepot_')) === false) {
+    if (($Pot_query = $cache->get('Sitepot_')) === false) {
         $Pot_query_fields_ar_int = [
             'value_s',
             'value_i'
@@ -337,7 +337,7 @@ if (!isset($self)) {
         foreach ($Pot_query_fields_ar_int as $i) {
             $Pot_query[$i] = (int) $Pot_query[$i];
         }
-        $mc1->cache_value('Sitepot_', $Pot_query, $INSTALLER09['expires']['sitepot']);
+        $cache->set('Sitepot_', $Pot_query, $INSTALLER09['expires']['sitepot']);
     }
     if ($Pot_query["value_s"] == 1 && $Pot_query["value_i"] >= 10000) {
         $downthis = 0;
@@ -348,7 +348,7 @@ if (!isset($self)) {
         $downthis = 0;
     }
     //== Karma contribution system by ezero updated by putyn/Mindless
-    if (($contribution = $mc1->get_value('freecontribution_')) === false) {
+    if (($contribution = $cache->get('freecontribution_')) === false) {
         $contribution_fields_ar_int = [
             'startTime',
             'endTime'
@@ -367,7 +367,7 @@ if (!isset($self)) {
         foreach ($contribution_fields_ar_str as $i) {
             $contribution[$i] = $contribution[$i];
         }
-        $mc1->cache_value('freecontribution_', $contribution, $INSTALLER09['expires']['contribution']);
+        $cache->set('freecontribution_', $contribution, $INSTALLER09['expires']['contribution']);
     }
     if ($contribution["startTime"] < TIME_NOW && $contribution["endTime"] > TIME_NOW) {
         if ($contribution['freeleechEnabled'] == 1) {
@@ -431,7 +431,7 @@ if (portblacklisted($port)) {
 } elseif ($INSTALLER09['connectable_check']) {
     //== connectable checking - pdq
     $connkey = 'conn:' . md5($realip . ':' . $port);
-    if (($connectable = $mc1->get_value($connkey)) === false) {
+    if (($connectable = $cache->get($connkey)) === false) {
         $sockres = @fsockopen($ip, $port, $errno, $errstr, 5);
         if (!$sockres) {
             $connectable = 'no';
@@ -441,7 +441,7 @@ if (portblacklisted($port)) {
             $conn_ttl = 900;
             @fclose($sockres);
         }
-        $mc1->cache_value($connkey, $connectable, $conn_ttl);
+        $cache->set($connkey, $connectable, $conn_ttl);
     }
 }
 //==
@@ -585,16 +585,12 @@ if ($seeder == 'yes') {
         $torrent_updateset[] = 'visible = \'yes\'';
     }
     $torrent_updateset[] = 'last_action = ' . TIME_NOW;
-    $mc1->begin_transaction('torrent_details_' . $torrentid);
-    $mc1->update_row(false, [
+    $cache->update_row('torrent_details_' . $torrentid,  [
         'visible' => 'yes'
-    ]);
-    $mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
-    $mc1->begin_transaction('last_action_' . $torrentid);
-    $mc1->update_row(false, [
+    ], $INSTALLER09['expires']['torrent_details']);
+    $cache->update_row('last_action_' . $torrentid,  [
         'lastseed' => TIME_NOW
-    ]);
-    $mc1->commit_transaction(1800);
+    ], 1800);
 }
 if (count($torrent_updateset)) {
     ann_sql_query('UPDATE LOW_PRIORITY torrents SET ' . join(',', $torrent_updateset) . ' WHERE id = ' . ann_sqlesc($torrentid)) or ann_sqlerr(__FILE__, __LINE__);
@@ -604,8 +600,8 @@ if (count($snatch_updateset)) {
 }
 if (count($user_updateset)) {
     ann_sql_query('UPDATE LOW_PRIORITY users SET ' . join(',', $user_updateset) . ' WHERE id = ' . ann_sqlesc($userid)) or ann_sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('userstats_' . $userid);
-    $mc1->delete_value('user_stats_' . $userid);
+    $cache->delete('userstats_' . $userid);
+    $cache->delete('user_stats_' . $userid);
 }
 if (isset($_SERVER["HTTP_ACCEPT_ENCODING"]) && $_SERVER["HTTP_ACCEPT_ENCODING"] == "gzip") {
     header("Content-Encoding: gzip");

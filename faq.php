@@ -49,13 +49,13 @@ $HTMLOUT.= "</ul>
 <div style='display:block;height:20px;'></div>
 <div id='myTabContent' class='panel panel-body tab-content'>";
 $count = 0;
-if (($faqs = $mc1->get_value('faqs__')) === false) {
+if (($faqs = $cache->get('faqs__')) === false) {
     $faqs = [];
     $q2 = sql_query("SELECT * FROM faq");
     while ($row = mysqli_fetch_assoc($q2)) {
         $faqs[] = $row;
     }
-    $mc1->cache_value('faqs__', $faqs, $INSTALLER09['expires']['faqs']);
+    $cache->set('faqs__', $faqs, $INSTALLER09['expires']['faqs']);
 }
 foreach ($cats as $row) {
     $HTMLOUT.= "<div class='tab-pane fade " . ($count == 0 ? "in active" : "") . "' id='" . htmlsafechars($row['shortcut']) . "'>

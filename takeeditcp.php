@@ -292,8 +292,8 @@ elseif ($action == "security") {
         while ($arr = mysqli_fetch_assoc($pmstaff)) {
             sql_query("INSERT INTO messages(sender, receiver, added, msg, subject) VALUES(0, " . sqlesc($arr['id']) . ", $dt, $msg, $subject)") or sqlerr(__FILE__, __LINE__);
         }
-        $mc1->delete_value('inbox_new_' . $arr['id']);
-        $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+        $cache->delete('inbox_new_' . $arr['id']);
+        $cache->delete('inbox_new_sb_' . $arr['id']);
         $urladd.= "&mailsent=1";
     }
     $action = "security";
@@ -409,8 +409,8 @@ elseif ($action == "personal") {
             ];
         }
         sql_query('INSERT INTO ustatus(userid,last_status,last_update,archive) VALUES(' . sqlesc($CURUSER['id']) . ',' . sqlesc($status) . ',' . TIME_NOW . ',' . sqlesc(serialize($status_archive)) . ') ON DUPLICATE KEY UPDATE last_status=values(last_status),last_update=values(last_update),archive=values(archive)') or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('userstatus_' . $CURUSER['id']);
-        $mc1->delete_value('user_status_' . $CURUSER['id']);
+        $cache->delete('userstatus_' . $CURUSER['id']);
+        $cache->delete('user_status_' . $CURUSER['id']);
     }
     //end status update;
     if (isset($_POST['stylesheet']) && (($stylesheet = (int) $_POST['stylesheet']) != $CURUSER['stylesheet']) && is_valid_id($stylesheet)) {
@@ -463,7 +463,7 @@ elseif ($action == "personal") {
         $updateset[] = "birthday = " . sqlesc($birthday);
         $curuser_cache['birthday'] = $birthday;
         $user_cache['birthday'] = $birthday;
-        $mc1->delete_value('birthdayusers');
+        $cache->delete('birthdayusers');
     }
     $action = "personal";
 } elseif ($action == "social") {
@@ -577,14 +577,10 @@ elseif ($action == "default") {
 }
 //== End == then update the sets :)
 if ($curuser_cache) {
-    $mc1->begin_transaction('MyUser_' . $CURUSER['id']);
-    $mc1->update_row(false, $curuser_cache);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+    $cache->update_row('MyUser_' . $CURUSER['id'],  $curuser_cache, $INSTALLER09['expires']['curuser']);
 }
 if ($user_cache) {
-    $mc1->begin_transaction('user' . $CURUSER['id']);
-    $mc1->update_row(false, $user_cache);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    $cache->update_row('user' . $CURUSER['id'],  $user_cache, $INSTALLER09['expires']['user_cache']);
 }
 if (sizeof($updateset) > 0) {
     sql_query("UPDATE users SET " . implode(",", $updateset) . " WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
@@ -598,16 +594,12 @@ $res = sql_query('SELECT opt1, opt2 FROM users
 $row = mysqli_fetch_assoc($res);
 $row['opt1'] = (int) $row['opt1'];
 $row['opt2'] = (int) $row['opt2'];
-$mc1->begin_transaction('MyUser_' . $CURUSER["id"]);
-$mc1->update_row(false, [
+$cache->update_row('MyUser_' . $CURUSER["id"],  [
     'opt1' => $row['opt1'],
     'opt2' => $row['opt2']
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('user_' . $CURUSER["id"]);
-$mc1->update_row(false, [
+], $INSTALLER09['expires']['curuser']);
+$cache->update_row('user_' . $CURUSER["id"],  [
     'opt1' => $row['opt1'],
     'opt2' => $row['opt2']
-]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+], $INSTALLER09['expires']['user_cache']);
 header("Location: {$INSTALLER09['baseurl']}/usercp.php?edited=1&action=$action" . $urladd);

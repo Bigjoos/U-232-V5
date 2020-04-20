@@ -577,12 +577,8 @@ case 'traffic':
 $up = $upload + $arr_points['menge'];
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for upload bonus.\n " . $bonuscomment;
 sql_query("UPDATE users SET uploaded = " . sqlesc($upload + $arr_points['menge']) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['uploaded' => $upload+$arr_points['menge'], 'seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['uploaded' => $upload+$arr_points['menge'], 'seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('userstats_' . $userid,  ['uploaded' => $upload+$arr_points['menge'], 'seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['uploaded' => $upload+$arr_points['menge'], 'seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?up_success=1&amt=$points");
 die;
 break;
@@ -595,18 +591,10 @@ if ($CURUSER['class'] < UC_POWER_USER || $User['reputation'] >= 5000) {
 $rep = $reputation + $arr_points['menge'];
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 100 rep points.\n " . $bonuscomment;
 sql_query("UPDATE users SET reputation = " . sqlesc($rep) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['reputation' => $rep]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['reputation' => $rep]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['reputation' => $rep], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['reputation' => $rep], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?reputation_success=1");
 die;
 break;
@@ -619,18 +607,10 @@ if ($CURUSER['class'] < UC_POWER_USER || $User['reputation'] < 3000) {
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 1 years immunity status.\n " . $bonuscomment;
 $immunity = (86400 * 365 + TIME_NOW);
 sql_query("UPDATE users SET immunity = " . sqlesc($immunity) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['immunity' => $immunity]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['immunity' => $immunity]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['immunity' => $immunity], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['immunity' => $immunity], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?immunity_success=1");
 die;
 break;
@@ -643,18 +623,10 @@ if ($CURUSER['class'] < UC_POWER_USER || $User['reputation'] < 50) {
 }
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for user blocks access.\n " . $bonuscomment;
 sql_query("UPDATE users SET got_blocks = 'yes', seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['got_blocks' => 'yes']);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['got_blocks' => 'yes']);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['got_blocks' => 'yes'], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['got_blocks' => 'yes'], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?userblocks_success=1");
 die;
 break;
@@ -667,18 +639,10 @@ if ($CURUSER['class'] < UC_POWER_USER || $User['reputation'] < 50) {
 }
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for user unlocks access.\n " . $bonuscomment;
 sql_query("UPDATE users SET got_moods = 'yes', seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['got_moods' => 'yes']);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['got_moods' => 'yes']);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['got_moods' => 'yes'], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['got_moods' => 'yes'], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?user_unlocks_success=1");
 die;
 break;
@@ -691,18 +655,10 @@ if ($CURUSER['anonymous_until'] >= 1) {
 }
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 14 days Anonymous profile.\n " . $bonuscomment;
 sql_query("UPDATE users SET anonymous_until = " . sqlesc($anonymous_until) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['anonymous_until' => $anonymous_until]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['anonymous_until' => $anonymous_until]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['anonymous_until' => $anonymous_until], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['anonymous_until' => $anonymous_until], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?anonymous_success=1");
 die;
 break;
@@ -715,18 +671,10 @@ if ($CURUSER['parked_until'] == 1) {
 }
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 14 days Anonymous profile.\n " . $bonuscomment;
 sql_query("UPDATE users SET parked_until = " . sqlesc($parked_until) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['parked_until' => $parked_until]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['parked_until' => $parked_until]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['parked_until' => $parked_until], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['parked_until' => $parked_until], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?parked_success=1");
 die;
 break;
@@ -739,12 +687,8 @@ if ($CURUSER['downloaded'] == 0) {
 }
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for download credit removal.\n " . $bonuscomment;
 sql_query("UPDATE users SET downloaded = " . sqlesc($download - $arr_points['menge']) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['downloaded' => $download - $arr_points['menge'], 'seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['downloaded' => $download - $arr_points['menge'], 'seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('userstats_' . $userid,  ['downloaded' => $download - $arr_points['menge'], 'seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['downloaded' => $download - $arr_points['menge'], 'seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?dload_success=1&amt=$points");
 die;
 break;
@@ -757,18 +701,10 @@ if ($User['free_switch'] != 0) {
 }
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for One year of freeleech.\n " . $bonuscomment;
 sql_query("UPDATE users SET free_switch = " . sqlesc($free_switch) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['free_switch' => $free_switch]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['free_switch' => $free_switch]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['free_switch' => $free_switch], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['free_switch' => $free_switch], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?freeyear_success=1");
 die;
 break;
@@ -779,18 +715,10 @@ $freeslots = (int) $User['freeslots'];
 $slots = $freeslots + $arr_points['menge'];
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for freeslots.\n " . $bonuscomment;
 sql_query("UPDATE users SET freeslots = " . sqlesc($slots) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['freeslots' => $slots]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['freeslots' => $slots]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['freeslots' => $slots], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['freeslots' => $slots], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?freeslots_success=1");
 die;
 break;
@@ -805,18 +733,10 @@ if ($CURUSER['invites'] == 0) {
 }
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " invites for bonus points.\n" . $bonuscomment;
 sql_query("UPDATE users SET invites = " . sqlesc($inv) . ", seedbonus = " . sqlesc($karma) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid) . " AND invites =" . sqlesc($invites)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['invites' => $inv]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['invites' => $inv]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $karma]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $karma, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['invites' => $inv], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['invites' => $inv], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $karma], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $karma, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?itrade_success=1");
 die;
 break;
@@ -832,18 +752,10 @@ if ($CURUSER['invites'] == 0) {
 }
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " invites for bonus points.\n" . $bonuscomment;
 sql_query("UPDATE users SET invites = " . sqlesc($inv) . ", freeslots =" . sqlesc($fslot) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid) . " AND invites = " . sqlesc($invites)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['invites' => $inv, 'freeslots' => $fslot]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['invites' => $inv, 'freeslots' => $fslot]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['invites' => $inv, 'freeslots' => $fslot], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['invites' => $inv, 'freeslots' => $fslot], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?itrade2_success=1");
 die;
 break;
@@ -857,18 +769,10 @@ $pirate = (86400 * 14 + TIME_NOW);
 $free_switch = (14 * 86400 + TIME_NOW);
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 2 weeks Pirate + freeleech Status.\n " . $bonuscomment;
 sql_query("UPDATE users SET free_switch = " . sqlesc($free_switch) . ", pirate = " . sqlesc($pirate) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['free_switch' => $free_switch, 'pirate' => $pirate]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['free_switch' => $free_switch, 'pirate' => $pirate]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['free_switch' => $free_switch, 'pirate' => $pirate], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['free_switch' => $free_switch, 'pirate' => $pirate], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?pirate_success=1");
 die;
 break;
@@ -897,21 +801,13 @@ while ($ar = mysqli_fetch_assoc($qr)) {
     $pms[] = '(' . $INSTALLER09['bot_id'] . ',' . $ar['id'] . ',' . TIME_NOW . ',' . sprintf($pm['subject'], $thief_name) . ',' . sprintf($pm['message'], $thief_id, $thief_name, $new_rep) . ')';
     $robbed_users[] = sprintf('[url=' . $INSTALLER09['baseurl'] . '/userdetails.php?id=%d]%s[/url]', $ar['id'], $ar['username']);
     //== cache updates ???
-    $mc1->begin_transaction('MyUser_' . $ar['id']);
-    $mc1->update_row(false, ['reputation' => $ar['reputation']-$rep_to_steal]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $ar['id']);
-    $mc1->update_row(false, ['reputation' => $ar['reputation']-$rep_to_steal]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $ar['id'],  ['reputation' => $ar['reputation']-$rep_to_steal], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $ar['id'],  ['reputation' => $ar['reputation']-$rep_to_steal], $INSTALLER09['expires']['user_cache']);
 
-    $mc1->begin_transaction('userstats_' . $ar['id']);
-    $mc1->update_row(false, ['seedbonus' => $ar['seedbonus']]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $ar['id']);
-    $mc1->update_row(false, ['seedbonus' => $ar['seedbonus']]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    //$mc1->delete_value('inbox_new_'.$pms);
-   //$mc1->delete_value('inbox_new_sb_'.$pms);
+    $cache->update_row('userstats_' . $ar['id'],  ['seedbonus' => $ar['seedbonus']], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $ar['id'],  ['seedbonus' => $ar['seedbonus']], $INSTALLER09['expires']['user_stats']);
+    //$cache->delete('inbox_new_'.$pms);
+   //$cache->delete('inbox_new_sb_'.$pms);
    // end
 }
 if (count($update_users)) {
@@ -922,21 +818,13 @@ if (count($update_users)) {
     sql_query('INSERT INTO users(id,reputation,seedbonus) VALUES ' . join(',', $update_users) . ' ON DUPLICATE KEY UPDATE reputation=values(reputation),seedbonus=values(seedbonus) ') or sqlerr(__FILE__, __LINE__);
     sql_query('INSERT INTO messages(sender,receiver,added,subject,msg) VALUES ' . join(',', $pms)) or sqlerr(__FILE__, __LINE__);
     //== cache updates ???
-    $mc1->begin_transaction('MyUser_' . $thief_id);
-    $mc1->update_row(false, ['reputation' => $new_rep]);
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $thief_id);
-    $mc1->update_row(false, ['reputation' => $new_rep]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $thief_id,  ['reputation' => $new_rep], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $thief_id,  ['reputation' => $new_rep], $INSTALLER09['expires']['user_cache']);
 
-    $mc1->begin_transaction('userstats_' . $thief_id);
-    $mc1->update_row(false, ['seedbonus' => $new_bonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $thief_id);
-    $mc1->update_row(false, ['seedbonus' => $new_bonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    //$mc1->delete_value('inbox_new_'.$pms);
-   //$mc1->delete_value('inbox_new_sb_'.$pms);
+    $cache->update_row('userstats_' . $thief_id,  ['seedbonus' => $new_bonus], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $thief_id,  ['seedbonus' => $new_bonus], $INSTALLER09['expires']['user_stats']);
+    //$cache->delete('inbox_new_'.$pms);
+   //$cache->delete('inbox_new_sb_'.$pms);
 }
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?bounty_success=1");
 die;
@@ -951,18 +839,10 @@ $king = (86400 * 30 + TIME_NOW);
 $free_switch = (30 * 86400 + TIME_NOW);
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 1 month King + freeleech Status.\n " . $bonuscomment;
 sql_query("UPDATE users SET free_switch = " . sqlesc($free_switch) . ", king = " . sqlesc($king) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['free_switch' => $free_switch, 'king' => $king]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['free_switch' => $free_switch, 'king' => $king]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['free_switch' => $free_switch, 'king' => $king], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['free_switch' => $free_switch, 'king' => $king], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?king_success=1");
 die;
 break;
@@ -986,21 +866,17 @@ if (($pointspool + $donation) >= $arr_points["points"]) {
     $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $donation . " Points contributed for freeleech.\n " . $bonuscomment;
     sql_query("UPDATE users SET seedbonus = " . sqlesc($seedbonus) . ",  bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
     sql_query("UPDATE bonus SET pointspool = " . sqlesc($norefund) . " WHERE id = '11' LIMIT 1") or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('userstats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    $mc1->delete_value('freecontribution_');
-    $mc1->delete_value('top_donators_');
-    $mc1->delete_value('freeleech_counter');
-    $mc1->delete_value('freeleech_counter_alerts_');
-    $mc1->delete_value('freecontribution_datas_');
-    $mc1->delete_value('freecontribution_datas_alerts_');
+    $cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
+    $cache->delete('freecontribution_');
+    $cache->delete('top_donators_');
+    $cache->delete('freeleech_counter');
+    $cache->delete('freeleech_counter_alerts_');
+    $cache->delete('freecontribution_datas_');
+    $cache->delete('freecontribution_datas_alerts_');
     write_bonus_log($CURUSER["id"], $donation, $type = "freeleech");
     $msg = $CURUSER['username'] . " Donated " . $donation . " karma point" . ($donation > 1 ? 's' : '') . " into the freeleech contribution pot and has activated freeleech for 3 days " . $donation . "/" . $points . '';
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
     autoshout($msg);
     header("Refresh: 0; url={$INSTALLER09['baseurl']}//mybonus.php?freeleech_success=1&norefund=$norefund");
     die;
@@ -1009,22 +885,18 @@ if (($pointspool + $donation) >= $arr_points["points"]) {
     sql_query("UPDATE bonus SET pointspool = pointspool + " . sqlesc($donation) . " WHERE id = '11' LIMIT 1") or sqlerr(__FILE__, __LINE__);
     $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $donation . " Points contributed for freeleech.\n " . $bonuscomment;
     sql_query("UPDATE users SET seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('userstats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    $mc1->delete_value('freecontribution_');
-    $mc1->delete_value('top_donators_');
-    $mc1->delete_value('freeleech_counter');
-    $mc1->delete_value('freeleech_counter_alerts_');
-    $mc1->delete_value('freecontribution_datas_');
-    $mc1->delete_value('freecontribution_datas_alerts_');
+    $cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
+    $cache->delete('freecontribution_');
+    $cache->delete('top_donators_');
+    $cache->delete('freeleech_counter');
+    $cache->delete('freeleech_counter_alerts_');
+    $cache->delete('freecontribution_datas_');
+    $cache->delete('freecontribution_datas_alerts_');
     write_bonus_log($CURUSER["id"], $donation, $type = "freeleech");
     $Remaining = ($arr_points['points'] - $arr_points['pointspool'] - $donation);
     $msg = $CURUSER['username'] . " Donated " . $donation . " karma point" . ($donation > 1 ? 's' : '') . " into the freeleech contribution pot ! * Only [b]" . htmlsafechars($Remaining) . "[/b] more karma point" . ($Remaining > 1 ? 's' : '') . " to go! * [color=green][b]Freeleech contribution:[/b][/color] [url={$INSTALLER09['baseurl']}/mybonus.php]" . $donation . "/" . $points . '[/url]';
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
     autoshout($msg);
     header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?freeleech_success=2");
     die;
@@ -1051,21 +923,17 @@ if (($pointspool + $donation) >= $arr_points["points"]) {
     $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $donation . " Points contributed for doubleupload.\n " . $bonuscomment;
     sql_query("UPDATE users SET seedbonus = " . sqlesc($seedbonus) . ",  bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
     sql_query("UPDATE bonus SET pointspool = " . sqlesc($norefund) . " WHERE id = '12' LIMIT 1") or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('userstats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    $mc1->delete_value('freecontribution_');
-    $mc1->delete_value('top_donators2_');
-    $mc1->delete_value('doubleupload_counter');
-    $mc1->delete_value('doubleupload_counter_alerts_');
-    $mc1->delete_value('freecontribution_datas_');
-    $mc1->delete_value('freecontribution_datas_alerts_');
+    $cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
+    $cache->delete('freecontribution_');
+    $cache->delete('top_donators2_');
+    $cache->delete('doubleupload_counter');
+    $cache->delete('doubleupload_counter_alerts_');
+    $cache->delete('freecontribution_datas_');
+    $cache->delete('freecontribution_datas_alerts_');
     write_bonus_log($CURUSER["id"], $donation, $type = "doubleupload");
     $msg = $CURUSER['username'] . " Donated " . $donation . " karma point" . ($donation > 1 ? 's' : '') . " into the double upload contribution pot and has activated Double Upload for 3 days " . $donation . "/" . $points . '';
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
     autoshout($msg);
     header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?doubleup_success=1&norefund=$norefund");
     die;
@@ -1074,22 +942,18 @@ if (($pointspool + $donation) >= $arr_points["points"]) {
     sql_query("UPDATE bonus SET pointspool = pointspool + " . sqlesc($donation) . " WHERE id = '12' LIMIT 1") or sqlerr(__FILE__, __LINE__);
     $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $donation . " Points contributed for doubleupload.\n " . $bonuscomment;
     sql_query("UPDATE users SET seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('userstats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    $mc1->delete_value('freecontribution_');
-    $mc1->delete_value('top_donators2_');
-    $mc1->delete_value('doubleupload_counter');
-    $mc1->delete_value('doubleupload_counter_alerts_');
-    $mc1->delete_value('freecontribution_datas_');
-    $mc1->delete_value('freecontribution_datas_alerts_');
+    $cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
+    $cache->delete('freecontribution_');
+    $cache->delete('top_donators2_');
+    $cache->delete('doubleupload_counter');
+    $cache->delete('doubleupload_counter_alerts_');
+    $cache->delete('freecontribution_datas_');
+    $cache->delete('freecontribution_datas_alerts_');
     write_bonus_log($CURUSER["id"], $donation, $type = "doubleupload");
     $Remaining = ($arr_points['points'] - $arr_points['pointspool'] - $donation);
     $msg = $CURUSER['username'] . " Donated " . $donation . " karma point" . ($donation > 1 ? 's' : '') . " into the double upload contribution pot ! * Only [b]" . htmlsafechars($Remaining) . "[/b] more karma point" . ($Remaining > 1 ? 's' : '') . " to go! * [color=green][b]Double upload contribution:[/b][/color] [url={$INSTALLER09['baseurl']}/mybonus.php]" . $donation . "/" . $points . '[/url]';
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
     autoshout($msg);
     header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?doubleup_success=2");
     die;
@@ -1116,21 +980,17 @@ if (($pointspool + $donation) >= $arr_points["points"]) {
     $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $donation . " Points contributed for Halfdownload.\n " . $bonuscomment;
     sql_query("UPDATE users SET seedbonus = " . sqlesc($seedbonus) . ",  bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
     sql_query("UPDATE bonus SET pointspool = " . sqlesc($norefund) . " WHERE id = '13' LIMIT 1") or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('userstats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    $mc1->delete_value('freecontribution_');
-    $mc1->delete_value('top_donators3_');
-    $mc1->delete_value('halfdownload_counter');
-    $mc1->delete_value('halfdownload_counter_alerts_');
-    $mc1->delete_value('freecontribution_datas_');
-    $mc1->delete_value('freecontribution_datas_alerts_');
+    $cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
+    $cache->delete('freecontribution_');
+    $cache->delete('top_donators3_');
+    $cache->delete('halfdownload_counter');
+    $cache->delete('halfdownload_counter_alerts_');
+    $cache->delete('freecontribution_datas_');
+    $cache->delete('freecontribution_datas_alerts_');
     write_bonus_log($CURUSER["id"], $donation, $type = "halfdownload");
     $msg = $CURUSER['username'] . " Donated " . $donation . " karma point" . ($donation > 1 ? 's' : '') . " into the half download contribution pot and has activated half download for 3 days " . $donation . "/" . $points . '';
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
     autoshout($msg);
     header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?halfdown_success=1&norefund=$norefund");
     die;
@@ -1139,22 +999,18 @@ if (($pointspool + $donation) >= $arr_points["points"]) {
     sql_query("UPDATE bonus SET pointspool = pointspool + " . sqlesc($donation) . " WHERE id = '13' LIMIT 1") or sqlerr(__FILE__, __LINE__);
     $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points contributed for halfdownload.\n " . $bonuscomment;
     sql_query("UPDATE users SET seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('userstats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    $mc1->delete_value('freecontribution_');
-    $mc1->delete_value('top_donators3_');
-    $mc1->delete_value('halfdownload_counter');
-    $mc1->delete_value('halfdownload_counter_alerts_');
-    $mc1->delete_value('freecontribution_datas_');
-    $mc1->delete_value('freecontribution_datas_alerts_');
+    $cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
+    $cache->delete('freecontribution_');
+    $cache->delete('top_donators3_');
+    $cache->delete('halfdownload_counter');
+    $cache->delete('halfdownload_counter_alerts_');
+    $cache->delete('freecontribution_datas_');
+    $cache->delete('freecontribution_datas_alerts_');
     write_bonus_log($CURUSER["id"], $donation, $type = "halfdownload");
     $Remaining = ($arr_points['points'] - $arr_points['pointspool'] - $donation);
     $msg = $CURUSER['username'] . " Donated " . $donation . " karma point" . ($donation > 1 ? 's' : '') . " into the half download contribution pot ! * Only [b]" . htmlsafechars($Remaining) . "[/b] more karma point" . ($Remaining > 1 ? 's' : '') . " to go! * [color=green][b]Half download contribution:[/b][/color] [url={$INSTALLER09['baseurl']}/mybonus.php]" . $donation . "/" . $points . '[/url]';
-    $mc1->delete_value('shoutbox_');
+    $cache->delete('shoutbox_');
     autoshout($msg);
     header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?halfdown_success=2");
     die;
@@ -1180,12 +1036,8 @@ sql_query("UPDATE snatched SET uploaded = " . sqlesc($arr_snatched['downloaded']
 $difference = $arr_snatched['downloaded'] - $arr_snatched['uploaded'];
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 1 to 1 ratio on torrent: " . htmlsafechars($arr_snatched['name']) . " " . $torrent_number . ", " . $difference . " added .\n " . $bonuscomment;
 sql_query("UPDATE users SET uploaded = " . sqlesc($upload + $difference) . ", bonuscomment = " . sqlesc($bonuscomment) . ", seedbonus = " . sqlesc($seedbonus) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['uploaded' => $upload + $difference, 'seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['uploaded' => $upload + $difference, 'seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('userstats_' . $userid,  ['uploaded' => $upload + $difference, 'seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['uploaded' => $upload + $difference, 'seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?ratio_success=1");
 die;
 break;
@@ -1202,15 +1054,9 @@ $free_time = (7 * 86400 + TIME_NOW);
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points to Reanimate torrent: " . $arr_free['name'] . ".\n " . $bonuscomment;
 sql_query('UPDATE users SET bonuscomment = ' . sqlesc($bonuscomment) . ', seedbonus = ' . sqlesc($seedbonus) . ' WHERE id = ' . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
 sql_query('UPDATE torrents SET bump = \'yes\', free=' . sqlesc($free_time) . ', added = ' . TIME_NOW . ' WHERE id = ' . sqlesc($torrent_number)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-$mc1->begin_transaction('torrent_details_' . $torrent_number);
-$mc1->update_row(false, ['added' => TIME_NOW, 'bump' => 'yes', 'free' => $free_time]);
-$mc1->commit_transaction(0);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
+$cache->update_row('torrent_details_' . $torrent_number,  ['added' => TIME_NOW, 'bump' => 'yes', 'free' => $free_time], 0);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?bump_success=1&t_name={$torrent_number}");
 die;
 break;
@@ -1223,18 +1069,10 @@ if ($CURUSER['class'] > UC_VIP) {
 $vip_until = (86400 * 28 + TIME_NOW);
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 1 month VIP Status.\n " . $bonuscomment;
 sql_query("UPDATE users SET class = " . UC_VIP . ", vip_added = 'yes', vip_until = " . sqlesc($vip_until) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['class' => 2, 'vip_added' => 'yes', 'vip_until' => $vip_until]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['class' => 2, 'vip_added' => 'yes', 'vip_until' => $vip_until]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['class' => 2, 'vip_added' => 'yes', 'vip_until' => $vip_until], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['class' => 2, 'vip_added' => 'yes', 'vip_until' => $vip_until], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?class_success=1");
 die;
 break;
@@ -1255,18 +1093,10 @@ $dt = sqlesc(TIME_NOW);
 $subject = sqlesc("Warning removed by Karma.");
 $msg = sqlesc("Your warning has been removed by the big Karma payoff... Please keep on your best behaviour from now on.\n");
 sql_query("INSERT INTO messages (sender, receiver, added, msg, subject) VALUES(0, " . sqlesc($userid) . ", $dt, $msg, $subject)") or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['warned' => 0]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['warned' => 0]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment, 'modcomment' => $modcomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['warned' => 0], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['warned' => 0], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment, 'modcomment' => $modcomment], $INSTALLER09['expires']['user_stats']);
 delete_id_keys('inbox_new_' . $userid);
 delete_id_keys('inbox_new_sb_' . $userid);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?warning_success=1");
@@ -1278,18 +1108,10 @@ case 'smile':
 $smile_until = (86400 * 28 + TIME_NOW);
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for 1 month of custom smilies.\n " . $bonuscomment;
 sql_query("UPDATE users SET smile_until = " . sqlesc($smile_until) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['smile_until' => $smile_until]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['smile_until' => $smile_until]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['smile_until' => $smile_until], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['smile_until' => $smile_until], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?smile_success=1");
 die;
 break;
@@ -1300,18 +1122,10 @@ $invites = (int) $User['invites'];
 $inv = $invites + 3;
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for invites.\n " . $bonuscomment;
 sql_query("UPDATE users SET invites = " . sqlesc($inv) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['invites' => $inv]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['invites' => $inv]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['invites' => $inv], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['invites' => $inv], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?invite_success=1");
 die;
 break;
@@ -1326,18 +1140,10 @@ $words = ['fuck', 'shit', 'Moderator', 'Administrator', 'Admin', 'pussy', 'Sysop
 $title = str_replace($words, "I just wasted my karma", $title);
 $bonuscomment = get_date(TIME_NOW, 'DATE', 1) . " - " . $points . " Points for custom title. Old title was {$CURUSER['title']} new title is " . $title . ".\n " . $bonuscomment;
 sql_query("UPDATE users SET title = " . sqlesc($title) . ", seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
-$mc1->begin_transaction('user' . $userid);
-$mc1->update_row(false, ['title' => $title]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-$mc1->begin_transaction('MyUser_' . $userid);
-$mc1->update_row(false, ['title' => $title]);
-$mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-$mc1->begin_transaction('userstats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus]);
-$mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-$mc1->begin_transaction('user_stats_' . $userid);
-$mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-$mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+$cache->update_row('user' . $userid,  ['title' => $title], $INSTALLER09['expires']['user_cache']);
+$cache->update_row('MyUser_' . $userid,  ['title' => $title], $INSTALLER09['expires']['curuser']);
+$cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+$cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
 header("Refresh: 0; url={$INSTALLER09['baseurl']}/mybonus.php?title_success=1");
 die;
 break;
@@ -1375,18 +1181,10 @@ if ($bonus >= $points) {
     //=== and to post to the person who gets the gift!
     sql_query("UPDATE users SET seedbonus = " . sqlesc($seedbonus) . ", bonuscomment = " . sqlesc($bonuscomment) . " WHERE id = " . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
     sql_query("UPDATE users SET seedbonus = " . sqlesc($giftbonus1) . ", bonuscomment = " . sqlesc($bonuscomment_gift) . " WHERE id = " . sqlesc($useridgift));
-    $mc1->begin_transaction('userstats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $userid);
-    $mc1->update_row(false, ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    $mc1->begin_transaction('userstats_' . $useridgift);
-    $mc1->update_row(false, ['seedbonus' => $giftbonus1]);
-    $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-    $mc1->begin_transaction('user_stats_' . $useridgift);
-    $mc1->update_row(false, ['seedbonus' => $giftbonus1, 'bonuscomment' => $bonuscomment_gift]);
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+    $cache->update_row('userstats_' . $userid,  ['seedbonus' => $seedbonus], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $userid,  ['seedbonus' => $seedbonus, 'bonuscomment' => $bonuscomment], $INSTALLER09['expires']['user_stats']);
+    $cache->update_row('userstats_' . $useridgift,  ['seedbonus' => $giftbonus1], $INSTALLER09['expires']['u_stats']);
+    $cache->update_row('user_stats_' . $useridgift,  ['seedbonus' => $giftbonus1, 'bonuscomment' => $bonuscomment_gift], $INSTALLER09['expires']['user_stats']);
     //===send message
     $subject = sqlesc("Someone Loves you");
     $added = sqlesc(TIME_NOW);
@@ -1413,9 +1211,9 @@ $fpoints = $dpoints = $hpoints = $freeleech_enabled = $double_upload_enabled = $
 // Limited this to 3 because of performance reasons and i wanted to go through last 3 events, anyway the most we can have
 // is that halfdownload is enabled, double upload is enabled as well as freeleech !
     if (XBT_TRACKER == false) {
-        if (($scheduled_events = $mc1->get_value('freecontribution_datas_')) === false) {
+        if (($scheduled_events = $cache->get('freecontribution_datas_')) === false) {
             $scheduled_events = mysql_fetch_all("SELECT * from `events` ORDER BY `startTime` DESC LIMIT 3;", []);
-            $mc1->cache_value('freecontribution_datas_', $scheduled_events, 3 * 86400);
+            $cache->set('freecontribution_datas_', $scheduled_events, 3 * 86400);
         }
 
         if (is_array($scheduled_events)) {
@@ -1455,15 +1253,15 @@ $fpoints = $dpoints = $hpoints = $freeleech_enabled = $double_upload_enabled = $
                 }
             }
         }
-        //$mc1->delete_value('freecontribution_datas_');
+        //$cache->delete('freecontribution_datas_');
         //=== freeleech contribution meter
         //$target_fl = 30000;
         //=== get total points
-        if (($freeleech_counter = $mc1->get_value('freeleech_counter')) === false) {
+        if (($freeleech_counter = $cache->get('freeleech_counter')) === false) {
             $total_fl = sql_query('SELECT SUM(pointspool) AS pointspool, points FROM bonus WHERE id =11');
             $fl_total_row = mysqli_fetch_assoc($total_fl);
             $percent_fl = number_format($fl_total_row['pointspool'] / $fl_total_row['points'] * 100, 2);
-            $mc1->cache_value('freeleech_counter', $percent_fl, 0);
+            $cache->set('freeleech_counter', $percent_fl, 0);
         } else {
             $percent_fl = $freeleech_counter;
         }
@@ -1493,14 +1291,14 @@ $fpoints = $dpoints = $hpoints = $freeleech_enabled = $double_upload_enabled = $
             $font_color_fl = '<strong><font color="red">' . number_format($percent_fl) . ' %</font></strong>';
                 break;
             }
-        //$mc1->delete_value('freeleech_counter');
+        //$cache->delete('freeleech_counter');
         //=== get total points
         //$target_du = 30000;
-        if (($doubleupload_counter = $mc1->get_value('doubleupload_counter')) === false) {
+        if (($doubleupload_counter = $cache->get('doubleupload_counter')) === false) {
             $total_du = sql_query('SELECT SUM(pointspool) AS pointspool, points FROM bonus WHERE id =12');
             $du_total_row = mysqli_fetch_assoc($total_du);
             $percent_du = number_format($du_total_row['pointspool'] / $du_total_row['points'] * 100, 2);
-            $mc1->cache_value('doubleupload_counter', $percent_du, 0);
+            $cache->set('doubleupload_counter', $percent_du, 0);
         } else {
             $percent_du = $doubleupload_counter;
         }
@@ -1532,11 +1330,11 @@ $fpoints = $dpoints = $hpoints = $freeleech_enabled = $double_upload_enabled = $
             }
         //=== get total points
         //$target_hd = 30000;
-        if (($halfdownload_counter = $mc1->get_value('halfdownload_counter')) === false) {
+        if (($halfdownload_counter = $cache->get('halfdownload_counter')) === false) {
             $total_hd = sql_query('SELECT SUM(pointspool) AS pointspool, points FROM bonus WHERE id =13');
             $hd_total_row = mysqli_fetch_assoc($total_hd);
             $percent_hd = number_format($hd_total_row['pointspool'] / $hd_total_row['points'] * 100, 2);
-            $mc1->cache_value('halfdownload_counter', $percent_hd, 0);
+            $cache->set('halfdownload_counter', $percent_hd, 0);
         } else {
             $percent_hd = $halfdownload_counter;
         }
@@ -1584,12 +1382,12 @@ $fpoints = $dpoints = $hpoints = $freeleech_enabled = $double_upload_enabled = $
         }
     }
     //==09 Ezeros freeleech contribution top 10 - pdq.Bigjoos
-    if (($top_donators = $mc1->get_value('top_donators_')) === false) {
+    if (($top_donators = $cache->get('top_donators_')) === false) {
         $a = sql_query("SELECT bonuslog.id, SUM(bonuslog.donation) AS total, users.username, users.id AS userid, users.pirate, users.king, users.class, users.donor, users.warned, users.leechwarn, users.enabled, users.chatpost FROM bonuslog LEFT JOIN users ON bonuslog.id=users.id WHERE bonuslog.type = 'freeleech' GROUP BY bonuslog.id ORDER BY total DESC LIMIT 10;") or sqlerr(__FILE__, __LINE__);
         while ($top_donator = mysqli_fetch_assoc($a)) {
             $top_donators[] = $top_donator;
         }
-        $mc1->cache_value('top_donators_', $top_donators, 0);
+        $cache->set('top_donators_', $top_donators, 0);
     }
     if (count($top_donators) > 0) {
         $top_donator = "<h4>Top 10 Contributors </h4>\n";
@@ -1609,14 +1407,14 @@ $fpoints = $dpoints = $hpoints = $freeleech_enabled = $double_upload_enabled = $
             }
         }
     }
-    //$mc1->delete_value('top_donators_');
+    //$cache->delete('top_donators_');
     //==
-    if (($top_donators2 = $mc1->get_value('top_donators2_')) === false) {
+    if (($top_donators2 = $cache->get('top_donators2_')) === false) {
         $b = sql_query("SELECT bonuslog.id, SUM(bonuslog.donation) AS total, users.username, users.id AS userid, users.pirate, users.king, users.class, users.donor, users.warned, users.leechwarn, users.enabled, users.chatpost FROM bonuslog LEFT JOIN users ON bonuslog.id=users.id WHERE bonuslog.type = 'doubleupload' GROUP BY bonuslog.id ORDER BY total DESC LIMIT 10;") or sqlerr(__FILE__, __LINE__);
         while ($top_donator2 = mysqli_fetch_assoc($b)) {
             $top_donators2[] = $top_donator2;
         }
-        $mc1->cache_value('top_donators2_', $top_donators2, 0);
+        $cache->set('top_donators2_', $top_donators2, 0);
     }
     if (count($top_donators2) > 0) {
         $top_donator2 = "<h4>Top 10 Contributors </h4>\n";
@@ -1636,14 +1434,14 @@ $fpoints = $dpoints = $hpoints = $freeleech_enabled = $double_upload_enabled = $
             }
         }
     }
-    //$mc1->delete_value('top_donators2_');
+    //$cache->delete('top_donators2_');
     //==
-    if (($top_donators3 = $mc1->get_value('top_donators3_')) === false) {
+    if (($top_donators3 = $cache->get('top_donators3_')) === false) {
         $c = sql_query("SELECT bonuslog.id, SUM(bonuslog.donation) AS total, users.username, users.id AS userid, users.pirate, users.king, users.class, users.donor, users.warned, users.leechwarn, users.enabled, users.chatpost FROM bonuslog LEFT JOIN users ON bonuslog.id=users.id WHERE bonuslog.type = 'halfdownload' GROUP BY bonuslog.id ORDER BY total DESC LIMIT 10;") or sqlerr(__FILE__, __LINE__);
         while ($top_donator3 = mysqli_fetch_assoc($c)) {
             $top_donators3[] = $top_donator3;
         }
-        $mc1->cache_value('top_donators3_', $top_donators3, 0);
+        $cache->set('top_donators3_', $top_donators3, 0);
     }
     if (count($top_donators3) > 0) {
         $top_donator3 = "<h4>Top 10 Contributors </h4>\n";
@@ -1663,7 +1461,7 @@ $fpoints = $dpoints = $hpoints = $freeleech_enabled = $double_upload_enabled = $
             }
         }
     }
-    //$mc1->delete_value('top_donators3_');
+    //$cache->delete('top_donators3_');
     //==End
             if (XBT_TRACKER == false) {
                 //== Show the percentages

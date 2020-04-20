@@ -73,12 +73,10 @@ if (!$_POST['nullvote']) {
     }
     @sql_query("INSERT INTO poll_voters (user_id, ip_address, poll_id, vote_date)
                         VALUES ({$CURUSER['id']}, " . sqlesc($CURUSER['ip']) . ",{$poll_data['pid']}, " . TIME_NOW . ")");
-    $mc1->delete_value('poll_data_' . $CURUSER['id']);
+    $cache->delete('poll_data_' . $CURUSER['id']);
     /*
                 $update['votes'] = ($poll_data['votes'] + 1);
-                $mc1->begin_transaction('poll_data_'.$CURUSER['id']);
-                $mc1->update_row(false, array('votes' => $update['votes']));
-                $mc1->commit_transaction($INSTALLER09['expires']['poll_data']);
+                $cache->update_row('poll_data_'.$CURUSER['id'],  array('votes' => $update['votes']), $INSTALLER09['expires']['poll_data']);
     */
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr('DBERROR', 'Could not update records');
@@ -100,12 +98,10 @@ if (!$_POST['nullvote']) {
 } else {
     @sql_query("INSERT INTO poll_voters (user_id, ip_address, poll_id, vote_date)
                 VALUES({$CURUSER['id']}, " . sqlesc($CURUSER['ip']) . ", {$poll_data['pid']}, " . TIME_NOW . ")");
-    $mc1->delete_value('poll_data_' . $CURUSER['id']);
+    $cache->delete('poll_data_' . $CURUSER['id']);
     /*
                 $update['votes'] = ($poll_data['votes'] + 1);
-                $mc1->begin_transaction('poll_data_'.$CURUSER['id']);
-                $mc1->update_row(false, array('votes' => $update['votes']));
-                $mc1->commit_transaction($INSTALLER09['expires']['poll_data']);
+                $cache->update_row('poll_data_'.$CURUSER['id'],  array('votes' => $update['votes']), $INSTALLER09['expires']['poll_data']);
     */
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == -1) {
         stderr('DBERROR', 'Could not update records');
