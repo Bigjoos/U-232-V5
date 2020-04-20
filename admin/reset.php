@@ -52,11 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $CURUSER['id']
     ]);
     $res = sql_query('UPDATE users SET secret=' . sqlesc($secret) . ', passhash=' . sqlesc($passhash) . ' WHERE username=' . sqlesc($username) . ' AND id=' . sqlesc($uid) . ' AND class<' . $CURUSER['class']) or sqlerr(__file__, __line__);
-    $cache->update_row('MyUser_' . $uid,  [
+    $cache->update_row('MyUser_' . $uid, [
         'secret' => $secret,
         'passhash' => $passhash
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $uid,  [
+    $cache->update_row('user' . $uid, [
         'secret' => $secret,
         'passhash' => $passhash
     ], $INSTALLER09['expires']['user_cache']);

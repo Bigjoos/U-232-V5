@@ -109,8 +109,8 @@ if ($step == '1') {
         $sec = mksecret();
         $sechash =  md5($sec . $fetch['id'] . $fetch['hintanswer']);
         sql_query("UPDATE users SET editsecret = " . sqlesc($sec) . " WHERE id = " . sqlesc($id));
-        $cache->update_row('MyUser_' . $fetch["id"],  ['editsecret' => $sec], $INSTALLER09['expires']['curuser']);
-        $cache->update_row('user' . $fetch["id"],  ['editsecret' => $sec], $INSTALLER09['expires']['user_cache']);
+        $cache->update_row('MyUser_' . $fetch["id"], ['editsecret' => $sec], $INSTALLER09['expires']['curuser']);
+        $cache->update_row('user' . $fetch["id"], ['editsecret' => $sec], $INSTALLER09['expires']['user_cache']);
         $HTMLOUT .= "<div class='modal-dialog'><div class='modal-content'>
 <form class='form-horizontal panel inverse' role='form' title='reset_step2' method='post' action='?step=3'>
 	<div class='modal-header'><h2 class='modal-title text-center text-info' id='myModalLabel'><span style='font-weight: bold;'>{$lang['main_changepass']}</span></h2></div>
@@ -149,12 +149,12 @@ if ($step == '1') {
     $secret = mksecret();
     $newpassword = make_passhash($newpass);
     sql_query('UPDATE users SET secret = ' . sqlesc($secret) . ', editsecret = "", passhash=' . sqlesc($newpassword) . ' WHERE id = ' . sqlesc($id) . ' AND editsecret = ' . sqlesc($fetch["editsecret"]));
-    $cache->update_row('MyUser_' . $id,  [
+    $cache->update_row('MyUser_' . $id, [
         'secret' => $secret,
         'editsecret' => '',
         'passhash' => $newpassword
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $id,  [
+    $cache->update_row('user' . $id, [
         'secret' => $secret,
         'editsecret' => '',
         'passhash' => $newpassword

@@ -35,15 +35,15 @@ function docleanup($data)
             $modcom = sqlesc($modcomment);
             $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ',1, \'no\', \'0\' , ' . $modcom . ')';
-            $cache->update_row('user' . $arr['id'],  [
+            $cache->update_row('user' . $arr['id'], [
                 'class' => 1,
                 'vip_added' => 'no',
                 'vip_until' => 0
             ], $INSTALLER09['expires']['user_cache']);
-            $cache->update_row('user_stats' . $arr['id'],  [
+            $cache->update_row('user_stats' . $arr['id'], [
                 'modcomment' => $modcomment
             ], $INSTALLER09['expires']['user_stats']);
-            $cache->update_row('MyUser_' . $arr['id'],  [
+            $cache->update_row('MyUser_' . $arr['id'], [
                 'class' => 1,
                 'vip_added' => 'no',
                 'vip_until' => 0

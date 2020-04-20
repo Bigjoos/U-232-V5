@@ -1084,16 +1084,16 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
     $cache->delete('inbox_new_' . $userid);
     $cache->delete('inbox_new_sb_' . $userid);
     if ($curuser_cache) {
-        $cache->update_row('MyUser_' . $userid,  $curuser_cache, $INSTALLER09['expires']['curuser']);
+        $cache->update_row('MyUser_' . $userid, $curuser_cache, $INSTALLER09['expires']['curuser']);
     }
     if ($user_cache) {
-        $cache->update_row('user' . $userid,  $user_cache, $INSTALLER09['expires']['user_cache']);
+        $cache->update_row('user' . $userid, $user_cache, $INSTALLER09['expires']['user_cache']);
     }
     if ($stats_cache) {
-        $cache->update_row('userstats_' . $userid,  $stats_cache, $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('userstats_' . $userid, $stats_cache, $INSTALLER09['expires']['u_stats']);
     }
     if ($user_stats_cache) {
-        $cache->update_row('user_stats_' . $userid,  $user_stats_cache, $INSTALLER09['expires']['user_stats']);
+        $cache->update_row('user_stats_' . $userid, $user_stats_cache, $INSTALLER09['expires']['user_stats']);
     }
     if (sizeof($updateset) > 0) {
         sql_query("UPDATE users SET " . implode(", ", $updateset) . " WHERE id=" . sqlesc($userid)) or sqlerr(__FILE__, __LINE__);
@@ -1111,11 +1111,11 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
     $row = mysqli_fetch_assoc($res);
     $row['opt1'] = $row['opt1'];
     $row['opt2'] = $row['opt2'];
-    $cache->update_row('MyUser_' . $userid,  [
+    $cache->update_row('MyUser_' . $userid, [
         'opt1' => $row['opt1'],
         'opt2' => $row['opt2']
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user_' . $userid,  [
+    $cache->update_row('user_' . $userid, [
         'opt1' => $row['opt1'],
         'opt2' => $row['opt2']
     ], $INSTALLER09['expires']['user_cache']);

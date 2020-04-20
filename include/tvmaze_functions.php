@@ -99,7 +99,7 @@ function tvmaze(&$torrents)
             $img = "img.php/tvmaze/$tvmaze_id.jpg";
         }
         //==The torrent cache
-        $cache->update_row('torrent_details_' . $torrents['id'],  [
+        $cache->update_row('torrent_details_' . $torrents['id'], [
             'newgenre' => ucwords($tvmaze_array['genres2']),
         ], 0);
         if (empty($torrents['poster'])) {
@@ -107,7 +107,7 @@ function tvmaze(&$torrents)
         }
 
         //==The torrent cache
-        $cache->update_row('torrent_details_' . $torrents['id'],  [
+        $cache->update_row('torrent_details_' . $torrents['id'], [
             'poster' => $img,
         ], 0);
         if (count($row_update)) {

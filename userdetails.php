@@ -389,10 +389,10 @@ if (!(isset($_GET["hit"])) && $CURUSER["id"] != $user["id"]) {
         sql_query("UPDATE users SET hits = hits + 1 WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         // do update hits userdetails cache
         $update['user_hits'] = ($user['hits'] + 1);
-        $cache->update_row('MyUser_' . $id,  [
+        $cache->update_row('MyUser_' . $id, [
             'hits' => $update['user_hits']
         ], $INSTALLER09['expires']['curuser']);
-        $cache->update_row('user' . $id,  [
+        $cache->update_row('user' . $id, [
             'hits' => $update['user_hits']
         ], $INSTALLER09['expires']['user_cache']);
         sql_query("INSERT INTO userhits (userid, hitid, number, added) VALUES(" . sqlesc($CURUSER['id']) . ", " . sqlesc($id) . ", " . sqlesc($hitnumber) . ", " . sqlesc(TIME_NOW) . ")") or sqlerr(__FILE__, __LINE__);

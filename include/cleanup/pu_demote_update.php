@@ -70,13 +70,13 @@ function docleanup($data)
                 $modcom         = sqlesc($modcomment);
                 $msgs_buffer[]  = '(0,' . $userid . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $users_buffer[] = '(' . $userid . ', ' . $prev_class . ', ' . $modcom . ')';
-                $cache->update_row('user' . $userid,  [
+                $cache->update_row('user' . $userid, [
                     'class' => $prev_class
                 ], $INSTALLER09['expires']['user_cache']);
-                $cache->update_row('user_stats_' . $userid,  [
+                $cache->update_row('user_stats_' . $userid, [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['user_stats']);
-                $cache->update_row('MYuser_' . $userid,  [
+                $cache->update_row('MYuser_' . $userid, [
                     'class' => $prev_class
                 ], $INSTALLER09['expires']['curuser']);
                 $cache->delete('inbox_new_' . $userid);

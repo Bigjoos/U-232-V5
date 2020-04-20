@@ -29,10 +29,10 @@ function docleanup($data)
     if (mysqli_num_rows($res) > 0) {
         while ($arr = mysqli_fetch_assoc($res)) {
             $users_buffer[] = '(' . $arr['id'] . ', \'no\')';
-            $cache->update_row('user' . $arr['id'],  [
+            $cache->update_row('user' . $arr['id'], [
                 'gotgift' => 'no'
             ], $INSTALLER09['expires']['user_cache']);
-            $cache->update_row('MyUser_' . $arr['id'],  [
+            $cache->update_row('MyUser_' . $arr['id'], [
                 'gotgift' => 'no'
             ], $INSTALLER09['expires']['curuser']);
         }

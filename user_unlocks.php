@@ -87,10 +87,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                      WHERE id = ' . sqlesc($id) . ' LIMIT 1') or sqlerr(__file__, __line__);
         $row = mysqli_fetch_assoc($res);
         $row['perms'] = (int) $row['perms'];
-        $cache->update_row('MyUser_' . $id,  [
+        $cache->update_row('MyUser_' . $id, [
             'perms' => $row['perms']
         ], $INSTALLER09['expires']['curuser']);
-        $cache->update_row('user_' . $id,  [
+        $cache->update_row('user_' . $id, [
             'perms' => $row['perms']
         ], $INSTALLER09['expires']['user_cache']);
     }

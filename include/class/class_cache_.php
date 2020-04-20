@@ -1,36 +1,36 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!extension_loaded('memcache')) {
     die('Memcache Extension not loaded.');
 }
 class CACHE extends Memcache
 {
-    public $CacheHits = array();
-    public $MemcacheDBArray = array();
+    public $CacheHits = [];
+    public $MemcacheDBArray = [];
     public $MemcacheDBKey = '';
     public $MemcachePrefix = '';
     protected $InTransaction = false;
     public $Time = 0;
-    protected $Page = array();
+    protected $Page = [];
     protected $Row = 1;
     protected $Part = 0;
-    function __construct()
+    public function __construct()
     {
         $this->connect('127.0.0.1', 11211);
     }
@@ -90,7 +90,7 @@ class CACHE extends Memcache
         $Value = $this->get($this->MemcachePrefix . $Key);
         if (!is_array($Value)) {
             $this->InTransaction = false;
-            $this->MemcacheDBKey = array();
+            $this->MemcacheDBKey = [];
             $this->MemcacheDBKey = '';
             return false;
         }
@@ -102,7 +102,7 @@ class CACHE extends Memcache
     public function cancel_transaction()
     {
         $this->InTransaction = false;
-        $this->MemcacheDBKey = array();
+        $this->MemcacheDBKey = [];
         $this->MemcacheDBKey = '';
     }
     public function commit_transaction($Time = 2592000)
@@ -157,16 +157,13 @@ class CACHE extends Memcache
                     trigger_error('Tried to increment non-number (' . $this->MemcachePrefix . $Key . ') for cache ' . $this->MemcacheDBKey);
                 }
                 ++$UpdateArray[$Key]; // Increment value
-                
             } elseif ($Value === '-1') {
                 if (!is_number($UpdateArray[$Key])) {
                     trigger_error('Tried to decrement non-number (' . $this->MemcachePrefix . $Key . ') for cache ' . $this->MemcacheDBKey);
                 }
                 --$UpdateArray[$Key]; // Decrement value
-                
             } else {
                 $UpdateArray[$Key] = $Value; // Otherwise, just alter value
-                
             }
         }
         if ($Row === false) {
@@ -193,5 +190,3 @@ class CACHE extends Memcache
         return $clean;
     }
 } //end class
-
-?>

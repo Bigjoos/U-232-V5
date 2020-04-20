@@ -52,18 +52,18 @@ function docleanup($data)
                 }
                 unset($_pms,$_users);
                 $update['hit_and_run_total'] = ($arr_fuckers['hit_and_run_total'] + $arr_fuckers['poop']);
-                $cache->update_row('user' . $arr_fuckers['userid'],  [
+                $cache->update_row('user' . $arr_fuckers['userid'], [
                     'hit_and_run_total' => $update['hit_and_run_total'],
                     'downloadpos' => 0,
                     'hnrwarn' => 'yes'
                 ], $INSTALLER09['expires']['user_cache']);
-                $cache->update_row('user_stats_' . $arr_fuckers['userid'],  [
+                $cache->update_row('user_stats_' . $arr_fuckers['userid'], [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['user_stats']);
-                $cache->update_row('userstats_' . $arr_fuckers['userid'],  [
+                $cache->update_row('userstats_' . $arr_fuckers['userid'], [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['user_stats']);
-                $cache->update_row('MyUser_' . $arr_fuckers['userid'],  [
+                $cache->update_row('MyUser_' . $arr_fuckers['userid'], [
                     'hit_and_run_total' => $update['hit_and_run_total'],
                     'downloadpos' => 0,
                     'hnrwarn' => 'yes'
@@ -93,17 +93,17 @@ function docleanup($data)
                     sql_query("INSERT INTO users(id,downloadpos,hnrwarn,modcomment) VALUES " . implode(',', $_users) . " ON DUPLICATE key UPDATE downloadpos=values(downloadpos),hnrwarn=values(hnrwarn),modcomment=values(modcomment)") or sqlerr(__FILE__, __LINE__);
                 }
                 unset($_pms,$_users);
-                $cache->update_row('user' . $arr_good_boy['id'],  [
+                $cache->update_row('user' . $arr_good_boy['id'], [
                     'downloadpos' => 1,
                     'hnrwarn' => 'no'
                 ], $INSTALLER09['expires']['user_cache']);
-                $cache->update_row('user_stats' . $arr_good_boy['id'],  [
+                $cache->update_row('user_stats' . $arr_good_boy['id'], [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['user_stats']);
-                $cache->update_row('userstats_' . $arr_good_boy['id'],  [
+                $cache->update_row('userstats_' . $arr_good_boy['id'], [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['user_stats']);
-                $cache->update_row('MyUser_' . $arr_good_boy['id'],  [
+                $cache->update_row('MyUser_' . $arr_good_boy['id'], [
                     'downloadpos' => 1,
                     'hnrwarn' => 'no'
                 ], $INSTALLER09['expires']['curuser']);

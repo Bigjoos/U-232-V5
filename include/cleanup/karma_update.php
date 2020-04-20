@@ -40,10 +40,10 @@ function docleanup($data)
                 if ($arr['users_id']== $Buffer_User && $arr['users_id'] != null) {
                     $users_buffer[] = '(' . $Buffer_User . ', ' . $INSTALLER09['bonus_per_duration'] . ' * ' . $arr['tcount'] . ')';
                     $update['seedbonus'] = ($arr['seedbonus'] + $INSTALLER09['bonus_per_duration'] * $arr['tcount']);
-                    $cache->update_row('userstats_' . $Buffer_User,  [
+                    $cache->update_row('userstats_' . $Buffer_User, [
                         'seedbonus' => $update['seedbonus']
                     ], $INSTALLER09['expires']['u_stats']);
-                    $cache->update_row('user_stats_' . $Buffer_User,  [
+                    $cache->update_row('user_stats_' . $Buffer_User, [
                         'seedbonus' => $update['seedbonus']
                     ], $INSTALLER09['expires']['user_stats']);
                 }

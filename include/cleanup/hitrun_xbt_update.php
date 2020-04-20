@@ -51,19 +51,19 @@ function docleanup($data)
                 }
                 unset($_pms,$_users);
                 $update['hit_and_run_total'] = ($arr_fuckers['hit_and_run_total'] + $arr_fuckers['poop']);
-                $cache->update_row('user' . $arr_fuckers['uid'],  [
+                $cache->update_row('user' . $arr_fuckers['uid'], [
                     'hit_and_run_total' => $update['hit_and_run_total'],
                     'downloadpos' => 0,
                     'can_leech' => 0,
                     'hnrwarn' => 'yes'
                 ], $INSTALLER09['expires']['user_cache']);
-                $cache->update_row('userstats_xbt_' . $arr_fuckers['uid'],  [
+                $cache->update_row('userstats_xbt_' . $arr_fuckers['uid'], [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['u_stats_xbt']);
-                $cache->update_row('user_stats_xbt' . $arr_fuckers['uid'],  [
+                $cache->update_row('user_stats_xbt' . $arr_fuckers['uid'], [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['user_stats_xbt']);
-                $cache->update_row('MyUser_' . $arr_fuckers['uid'],  [
+                $cache->update_row('MyUser_' . $arr_fuckers['uid'], [
                     'hit_and_run_total' => $update['hit_and_run_total'],
                     'downloadpos' => 0,
                     'can_leech' => 0,
@@ -96,18 +96,18 @@ function docleanup($data)
                 sql_query('UPDATE xbt_files_users SET mark_of_cain = \'no\', hit_and_run = \'0\' WHERE uid=' . sqlesc($arr_good_boy['id'])) or sqlerr(__FILE__, __LINE__);
                 //fid='.sqlesc($arr['fid']).' AND
                 unset($_pms,$_users);
-                $cache->update_row('user' . $arr_good_boy['id'],  [
+                $cache->update_row('user' . $arr_good_boy['id'], [
                     'downloadpos' => 1,
                     'can_leech' => 1,
                     'hnrwarn' => 'no'
                 ], $INSTALLER09['expires']['user_cache']);
-                $cache->update_row('user_stats_xbt' . $arr_good_boy['id'],  [
+                $cache->update_row('user_stats_xbt' . $arr_good_boy['id'], [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['user_stats_xbt']);
-                $cache->update_row('userstats_xbt_' . $arr_good_boy['id'],  [
+                $cache->update_row('userstats_xbt_' . $arr_good_boy['id'], [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['u_stats_xbt']);
-                $cache->update_row('MyUser_' . $arr_good_boy['id'],  [
+                $cache->update_row('MyUser_' . $arr_good_boy['id'], [
                     'downloadpos' => 1,
                     'can_leech' => 1,
                     'hnrwarn' => 'no'

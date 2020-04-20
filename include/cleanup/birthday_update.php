@@ -34,10 +34,10 @@ function docleanup($data)
             $msgs_buffer[] = '(0,' . $arr['id'] . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ', 10737418240)';
             $update['uploaded'] = ($arr['uploaded'] + 10737418240);
-            $cache->update_row('userstats_' . $arr['id'],  [
+            $cache->update_row('userstats_' . $arr['id'], [
                 'uploaded' => $update['uploaded']
             ], $INSTALLER09['expires']['u_stats']);
-            $cache->update_row('user_stats_' . $arr['id'],  [
+            $cache->update_row('user_stats_' . $arr['id'], [
                 'uploaded' => $update['uploaded']
             ], $INSTALLER09['expires']['user_stats']);
         }

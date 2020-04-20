@@ -70,10 +70,10 @@ if ($INSTALLER09['seedbonus_on'] == 1 && $row['owner'] != $CURUSER['id']) {
     //===remove karma
     sql_query("UPDATE users SET seedbonus = seedbonus-" . sqlesc($INSTALLER09['bonus_per_download']) . " WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
     $update['seedbonus'] = ($CURUSER['seedbonus'] - $INSTALLER09['bonus_per_download']);
-    $cache->update_row('userstats_' . $CURUSER['id'],  [
+    $cache->update_row('userstats_' . $CURUSER['id'], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['u_stats']);
-    $cache->update_row('user_stats_' . $CURUSER['id'],  [
+    $cache->update_row('user_stats_' . $CURUSER['id'], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['user_stats']);
     //===end
@@ -134,10 +134,10 @@ if (isset($_GET['slot'])) {
     $cache->delete('fllslot_' . $CURUSER['id']);
     make_freeslots($CURUSER['id'], 'fllslot_');
     $user['freeslots'] = ($CURUSER['freeslots'] - 1);
-    $cache->update_row('MyUser_' . $CURUSER['id'],  [
+    $cache->update_row('MyUser_' . $CURUSER['id'], [
         'freeslots' => $CURUSER['freeslots']
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $CURUSER['id'],  [
+    $cache->update_row('user' . $CURUSER['id'], [
         'freeslots' => $user['freeslots']
     ], $INSTALLER09['expires']['user_cache']);
 }
@@ -155,10 +155,10 @@ if (!isset($CURUSER['torrent_pass']) || strlen($CURUSER['torrent_pass']) != 32) 
     $passkey = sprintf('%08x%s', $uid, substr(sha1(sprintf('%s %d %d %s', $site_key, $torrent_pass_version, $uid, $info_hash)), 0, 24));
     $CURUSER['torrent_pass'] = $passkey;
     sql_query('UPDATE users SET torrent_pass=' . sqlesc($CURUSER['torrent_pass']) . 'WHERE id=' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $cache->update_row('MyUser_' . $CURUSER['id'],  [
+    $cache->update_row('MyUser_' . $CURUSER['id'], [
         'torrent_pass' => $CURUSER['torrent_pass']
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $CURUSER['id'],  [
+    $cache->update_row('user' . $CURUSER['id'], [
         'torrent_pass' => $CURUSER['torrent_pass']
     ], $INSTALLER09['expires']['user_cache']);
 }

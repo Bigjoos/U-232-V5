@@ -21,11 +21,11 @@ dbconn(false);
 loggedinorreturn();
 $query1 = sprintf('UPDATE users SET curr_ann_id = 0, curr_ann_last_check = \'0\' ' . 'WHERE id = %s AND curr_ann_id != 0', sqlesc($CURUSER['id']));
 sql_query($query1);
-$cache->update_row('user' . $CURUSER['id'],  [
+$cache->update_row('user' . $CURUSER['id'], [
     'curr_ann_id' => 0,
     'curr_ann_last_check' => 0
 ], $INSTALLER09['expires']['user_cache']);
-$cache->update_row('MyUser_' . $CURUSER['id'],  [
+$cache->update_row('MyUser_' . $CURUSER['id'], [
     'curr_ann_id' => 0,
     'curr_ann_last_check' => 0
 ], $INSTALLER09['expires']['curuser']);

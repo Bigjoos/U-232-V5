@@ -61,10 +61,10 @@ if ($bonus_type == 1) {
         $cache->delete('user_achievement_points_' . $id);
         $sql = "UPDATE users SET downloaded = downloaded - " . sqlesc($bonus_do) . " WHERE id = " . sqlesc($id);
         sql_query($sql) or sqlerr(__FILE__, __LINE__);
-        $cache->update_row('userstats_' . $id,  [
+        $cache->update_row('userstats_' . $id, [
             'downloaded' => $down - $bonus_do
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $id,  [
+        $cache->update_row('user_stats_' . $id, [
             'downloaded' => $down - $bonus_do
         ], $INSTALLER09['expires']['user_stats']);
     }
@@ -74,10 +74,10 @@ if ($bonus_type == 1) {
         $cache->delete('user_achievement_points_' . $id);
         $sql = "UPDATE users SET downloaded = '0' WHERE id =" . sqlesc($id);
         sql_query($sql) or sqlerr(__FILE__, __LINE__);
-        $cache->update_row('userstats_' . $id,  [
+        $cache->update_row('userstats_' . $id, [
             'downloaded' => 0
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $id,  [
+        $cache->update_row('user_stats_' . $id, [
             'downloaded' => 0
         ], $INSTALLER09['expires']['user_stats']);
     }
@@ -88,10 +88,10 @@ if ($bonus_type == 2) {
     $cache->delete('user_achievement_points_' . $id);
     $sql = "UPDATE users SET uploaded = uploaded + " . sqlesc($bonus_do) . " WHERE id =" . sqlesc($id);
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
-    $cache->update_row('userstats_' . $id,  [
+    $cache->update_row('userstats_' . $id, [
         'uploaded' => $up + $bonus_do
     ], $INSTALLER09['expires']['u_stats']);
-    $cache->update_row('user_stats_' . $id,  [
+    $cache->update_row('user_stats_' . $id, [
         'uploaded' => $up + $bonus_do
     ], $INSTALLER09['expires']['user_stats']);
 }
@@ -101,10 +101,10 @@ if ($bonus_type == 3) {
     $cache->delete('user_achievement_points_' . $id);
     $sql = "UPDATE users SET invites = invites + " . sqlesc($bonus_do) . " WHERE id =" . sqlesc($id);
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
-    $cache->update_row('user' . $id,  [
+    $cache->update_row('user' . $id, [
         'invites' => $invite + $bonus_do
     ], $INSTALLER09['expires']['user_cache']);
-    $cache->update_row('MyUser_' . $id,  [
+    $cache->update_row('MyUser_' . $id, [
         'invites' => $invite + $bonus_do
     ], $INSTALLER09['expires']['curuser']);
 }
@@ -114,10 +114,10 @@ if ($bonus_type == 4) {
     $cache->delete('user_achievement_points_' . $id);
     $sql = "UPDATE users SET seedbonus = seedbonus + " . sqlesc($bonus_do) . " WHERE id =" . sqlesc($id);
     sql_query($sql) or sqlerr(__FILE__, __LINE__);
-    $cache->update_row('userstats_' . $id,  [
+    $cache->update_row('userstats_' . $id, [
         'seedbonus' => $karma + $bonus_do
     ], $INSTALLER09['expires']['u_stats']);
-    $cache->update_row('user_stats_' . $id,  [
+    $cache->update_row('user_stats_' . $id, [
         'seedbonus' => $karma + $bonus_do
     ], $INSTALLER09['expires']['user_stats']);
 }

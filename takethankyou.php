@@ -48,7 +48,7 @@ sql_query("INSERT INTO comments (user, torrent, added, text, ori_text) VALUES ("
 sql_query("UPDATE torrents SET thanks = thanks + 1, comments = comments + 1 WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 $update['thanks'] = ($arr['thanks'] + 1);
 $update['comments'] = ($arr['comments'] + 1);
-$cache->update_row('torrent_details_' . $id,  [
+$cache->update_row('torrent_details_' . $id, [
     'thanks' => $update['thanks'],
     'comments' => $update['comments']
 ], $INSTALLER09['expires']['torrent_details']);
@@ -56,10 +56,10 @@ if ($INSTALLER09['seedbonus_on'] == 1) {
     //===add karma
     sql_query("UPDATE users SET seedbonus = seedbonus+5.0 WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
     $update['seedbonus'] = ($CURUSER['seedbonus'] + 5);
-    $cache->update_row('userstats_' . $CURUSER["id"],  [
+    $cache->update_row('userstats_' . $CURUSER["id"], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['u_stats']);
-    $cache->update_row('user_stats_' . $CURUSER["id"],  [
+    $cache->update_row('user_stats_' . $CURUSER["id"], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['user_stats']);
     //===end

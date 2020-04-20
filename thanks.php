@@ -121,10 +121,10 @@ case 'add':
         $User = mysqli_fetch_assoc($sql);
         $update['seedbonus'] = ($User['seedbonus'] + $INSTALLER09['bonus_per_thanks']);
         //header("Refresh: 1; url=details.php?id=$id");
-        $cache->update_row('userstats_' . $uid,  [
+        $cache->update_row('userstats_' . $uid, [
             'seedbonus' => $update['seedbonus']
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $uid,  [
+        $cache->update_row('user_stats_' . $uid, [
             'seedbonus' => $update['seedbonus']
         ], $INSTALLER09['expires']['user_stats']);
         // ===end

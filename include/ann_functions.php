@@ -146,7 +146,7 @@ function freeleech_announce()
       $fl['countdown']['amount'] = 43200;  // timestamp test
       ann_sql_query('UPDATE LOW_PRIORITY freeleech SET var = ' . ann_sqlesc($fl['countdown']['var']) . ', amount = ' . ann_sqlesc($fl['countdown']['amount']) . ' ' .
                   'WHERE type = "countdown"') or ann_sqlerr(__FILE__, __LINE__);
-            $cache->update_row('freeleech_countdown',  ['var' => $fl['countdown']['var'], 'amount' => $fl['countdown']['amount']], 0);
+            $cache->update_row('freeleech_countdown', ['var' => $fl['countdown']['var'], 'amount' => $fl['countdown']['amount']], 0);
         }
         return false;
     } elseif (($fl['countdown']['amount']) < TIME_NOW) {
@@ -159,7 +159,7 @@ function freeleech_announce()
                 ann_sql_query('UPDATE LOW_PRIORITY freeleech SET var = ' . ann_sqlesc($fl['countdown']['var']) . ' ' .
                      'WHERE type = "countdown"') or ann_sqlerr(__FILE__, __LINE__);
 
-                $cache->update_row('freeleech_countdown',  ['var' => $fl['countdown']['var']], 0);
+                $cache->update_row('freeleech_countdown', ['var' => $fl['countdown']['var']], 0);
 
                 $free_message = 'It will last for xx ending on Monday 12:00 am GMT.';
                 $text         = '[color=#33CCCC][b]Freeleech Activated![/b][/color]' . "\n" . $free_message;

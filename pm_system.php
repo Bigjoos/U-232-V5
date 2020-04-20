@@ -178,10 +178,10 @@ $top_links = '<div class="row"><div class="col-sm-12">
 if (isset($_GET['change_pm_number'])) {
     $change_pm_number = (isset($_GET['change_pm_number']) ? intval($_GET['change_pm_number']) : 20);
     sql_query('UPDATE users SET pms_per_page = ' . sqlesc($change_pm_number) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $cache->update_row('user' . $CURUSER['id'],  [
+    $cache->update_row('user' . $CURUSER['id'], [
         'pms_per_page' => $change_pm_number
     ], $INSTALLER09['expires']['user_cache']);
-    $cache->update_row('MyUser_' . $CURUSER['id'],  [
+    $cache->update_row('MyUser_' . $CURUSER['id'], [
         'pms_per_page' => $change_pm_number
     ], $INSTALLER09['expires']['curuser']);
     if (isset($_GET['edit_mail_boxes'])) {
@@ -195,10 +195,10 @@ if (isset($_GET['change_pm_number'])) {
 if (isset($_GET['show_pm_avatar'])) {
     $show_pm_avatar = ($_GET['show_pm_avatar'] === 'yes' ? 'yes' : 'no');
     sql_query('UPDATE users SET show_pm_avatar = ' . sqlesc($show_pm_avatar) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $cache->update_row('user' . $CURUSER['id'],  [
+    $cache->update_row('user' . $CURUSER['id'], [
         'show_pm_avatar' => $show_pm_avatar
     ], $INSTALLER09['expires']['user_cache']);
-    $cache->update_row('MyUser_' . $CURUSER['id'],  [
+    $cache->update_row('MyUser_' . $CURUSER['id'], [
         'show_pm_avatar' => $show_pm_avatar
     ], $INSTALLER09['expires']['curuser']);
     if (isset($_GET['edit_mail_boxes'])) {

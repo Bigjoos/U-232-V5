@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /*
 define('FALLBACK_CACHE_DIR', '/var/www/cache/fallback/');
@@ -42,24 +42,27 @@ else {
 if (!extension_loaded('memcached')) {
     die('Memcached Extension not loaded.');
 }
-class CACHE extends Memcached {
-    public $CacheHits = array();
-    public $MemcacheDBArray = array();
+class CACHE extends Memcached
+{
+    public $CacheHits = [];
+    public $MemcacheDBArray = [];
     public $MemcacheDBKey = '';
     protected $InTransaction = false;
     public $Time = 0;
-    protected $Page = array();
+    protected $Page = [];
     protected $Row = 1;
     protected $Part = 0;
     public static $connected = false;
-    private static $link = NULL;
-    public function __construct() {
+    private static $link = null;
+    public function __construct()
+    {
         parent::__construct();
         $this->addserver('127.0.0.1', 11211);
     }
     //---------- Caching functions ----------//
     // Wrapper for Memcache::set, with the zlib option removed and default duration of 1 hour
-    public function cache_value($Key, $Value, $Duration = 2592000) {
+    public function cache_value($Key, $Value, $Duration = 2592000)
+    {
         $StartTime = microtime(true);
         if ($Duration != 0) {
             $Duration += time();
@@ -73,7 +76,8 @@ class CACHE extends Memcached {
         }
         $this->Time += (microtime(true) - $StartTime) * 1000;
     }
-    public function add_value($Key, $Value, $Duration = 2592000) {
+    public function add_value($Key, $Value, $Duration = 2592000)
+    {
         $StartTime = microtime(true);
         if ($Duration != 0) {
             $Duration += time();
@@ -85,7 +89,8 @@ class CACHE extends Memcached {
         $this->Time += (microtime(true) - $StartTime) * 1000;
         return $add;
     }
-    public function get_value($Key, $NoCache = false) {
+    public function get_value($Key, $NoCache = false)
+    {
         $StartTime = microtime(true);
         if (empty($Key)) {
             trigger_error("Cache retrieval failed for empty key");
@@ -94,7 +99,8 @@ class CACHE extends Memcached {
         $this->Time += (microtime(true) - $StartTime) * 1000;
         return $Return;
     }
-    public function replace_value($Key, $Value, $Duration = 2592000) {
+    public function replace_value($Key, $Value, $Duration = 2592000)
+    {
         $StartTime = microtime(true);
         if ($Duration != 0) {
             $Duration += time();
@@ -103,7 +109,8 @@ class CACHE extends Memcached {
         $this->Time += (microtime(true) - $StartTime) * 1000;
     }
     // Wrapper for Memcache::delete. For a reason, see above.
-    public function delete_value($Key) {
+    public function delete_value($Key)
+    {
         $StartTime = microtime(true);
         if (empty($Key)) {
             trigger_error("Cache retrieval failed for empty key");
@@ -113,11 +120,12 @@ class CACHE extends Memcached {
         $this->Time += (microtime(true) - $StartTime) * 1000;
     }
     //---------- memcachedb functions ----------//
-    public function begin_transaction($Key) {
+    public function begin_transaction($Key)
+    {
         $Value = $this->get($Key);
         if (!is_array($Value)) {
             $this->InTransaction = false;
-            $this->MemcacheDBKey = array();
+            $this->MemcacheDBKey = [];
             $this->MemcacheDBKey = '';
             return false;
         }
@@ -126,12 +134,14 @@ class CACHE extends Memcached {
         $this->InTransaction = true;
         return true;
     }
-    public function cancel_transaction() {
+    public function cancel_transaction()
+    {
         $this->InTransaction = false;
-        $this->MemcacheDBKey = array();
+        $this->MemcacheDBKey = [];
         $this->MemcacheDBKey = '';
     }
-    public function commit_transaction($Time = 2592000) {
+    public function commit_transaction($Time = 2592000)
+    {
         if (!$this->InTransaction) {
             return false;
         }
@@ -142,7 +152,8 @@ class CACHE extends Memcached {
         $this->InTransaction = false;
     }
     // Updates multiple rows in an array
-    public function update_transaction($Rows, $Values) {
+    public function update_transaction($Rows, $Values)
+    {
         if (!$this->InTransaction) {
             return false;
         }
@@ -162,7 +173,8 @@ class CACHE extends Memcached {
     }
     // Updates multiple values in a single row in an array
     // $Values must be an associative array with key:value pairs like in the array we're updating
-    public function update_row($Row, $Values) {
+    public function update_row($Row, $Values)
+    {
         if (!$this->InTransaction) {
             return false;
         }
@@ -180,16 +192,13 @@ class CACHE extends Memcached {
                     trigger_error('Tried to increment non-number (' . $Key . ') for cache ' . $this->MemcacheDBKey);
                 }
                 ++$UpdateArray[$Key]; // Increment value
-
             } elseif ($Value === '-1') {
                 if (!is_number($UpdateArray[$Key])) {
                     trigger_error('Tried to decrement non-number (' . $Key . ') for cache ' . $this->MemcacheDBKey);
                 }
                 --$UpdateArray[$Key]; // Decrement value
-
             } else {
                 $UpdateArray[$Key] = $Value; // Otherwise, just alter value
-
             }
         }
         if ($Row === false) {
@@ -198,7 +207,8 @@ class CACHE extends Memcached {
             $this->MemcacheDBArray[$Row] = $UpdateArray;
         }
     }
-    public static function clean() {
+    public static function clean()
+    {
         if (!self::$this) {
             trigger_error('Not connected to Memcache server in ' . __METHOD__, E_USER_WARNING);
             return false;
@@ -210,7 +220,8 @@ class CACHE extends Memcached {
         self::set_error(__METHOD__);
         return $clean;
     }
-    public static function inc($key, $howmuch = 1) {
+    public static function inc($key, $howmuch = 1)
+    {
         if (!self::$this) {
             trigger_error('Not connected to Memcache server in ' . __METHOD__ . ' KEY = "' . $key . '"', E_USER_WARNING);
             return false;
@@ -224,7 +235,8 @@ class CACHE extends Memcached {
         self::set_error(__METHOD__, $key);
         return $inc;
     }
-    public static function dec($key, $howmuch = 1) {
+    public static function dec($key, $howmuch = 1)
+    {
         if (!self::$this) {
             trigger_error('Not connected to Memcache server in ' . __METHOD__ . ' KEY = "' . $key . '"', E_USER_WARNING);
             return false;
@@ -237,6 +249,5 @@ class CACHE extends Memcached {
 
         self::set_error(__METHOD__, $key);
         return $dec;
-}
+    }
 }//end class
-?>

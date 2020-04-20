@@ -30,10 +30,10 @@ if (isset($_GET["action"]) && htmlsafechars($_GET["action"]) == "editclass") { /
     $newclass = (int) $_GET['class'];
     $returnto = htmlsafechars($_GET['returnto']);
     sql_query("UPDATE users SET override_class = " . sqlesc($newclass) . " WHERE id = " . sqlesc($CURUSER['id'])); // Set temporary class
-    $cache->update_row('MyUser_' . $CURUSER['id'],  [
+    $cache->update_row('MyUser_' . $CURUSER['id'], [
         'override_class' => $newclass
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $CURUSER['id'],  [
+    $cache->update_row('user' . $CURUSER['id'], [
         'override_class' => $newclass
     ], $INSTALLER09['expires']['user_cache']);
     header("Location: {$INSTALLER09['baseurl']}/" . $returnto);

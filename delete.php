@@ -111,10 +111,10 @@ if ($INSTALLER09['seedbonus_on'] == 1) {
     //===remove karma
     sql_query("UPDATE users SET seedbonus = seedbonus-" . sqlesc($INSTALLER09['bonus_per_delete']) . " WHERE id = " . sqlesc($row["owner"])) or sqlerr(__FILE__, __LINE__);
     $update['seedbonus'] = ($CURUSER['seedbonus'] - $INSTALLER09['bonus_per_delete']);
-    $cache->update_row('userstats_' . $row["owner"],  [
+    $cache->update_row('userstats_' . $row["owner"], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['u_stats']);
-    $cache->update_row('user_stats_' . $row["owner"],  [
+    $cache->update_row('user_stats_' . $row["owner"], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['user_stats']);
     //===end

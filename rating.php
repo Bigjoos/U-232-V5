@@ -42,7 +42,7 @@ if ($id > 0 && $rate >= 1 && $rate <= 5) {
             $r_f = mysqli_fetch_assoc($f_r);
             $update['num_ratings'] = ($r_f['num_ratings'] + 1);
             $update['rating_sum'] = ($r_f['rating_sum'] + $rate);
-            $cache->update_row('torrent_details_' . $id,  [
+            $cache->update_row('torrent_details_' . $id, [
                 'num_ratings' => $update['num_ratings'],
                 'rating_sum' => $update['rating_sum']
             ], $INSTALLER09['expires']['torrent_details']);
@@ -52,10 +52,10 @@ if ($id > 0 && $rate >= 1 && $rate <= 5) {
             $amount = ($what == 'torrent' ? $INSTALLER09['bonus_per_rating'] : $INSTALLER09['bonus_per_topic']);
             sql_query("UPDATE users SET seedbonus = seedbonus+" . sqlesc($amount) . " WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
             $update['seedbonus'] = ($CURUSER['seedbonus'] + $amount);
-            $cache->update_row('userstats_' . $CURUSER["id"],  [
+            $cache->update_row('userstats_' . $CURUSER["id"], [
                 'seedbonus' => $update['seedbonus']
             ], $INSTALLER09['expires']['u_stats']);
-            $cache->update_row('user_stats_' . $CURUSER["id"],  [
+            $cache->update_row('user_stats_' . $CURUSER["id"], [
                 'seedbonus' => $update['seedbonus']
             ], $INSTALLER09['expires']['user_stats']);
             //===end

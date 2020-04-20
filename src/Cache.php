@@ -95,6 +95,7 @@ class Cache extends TransactionalStore
      * @param $key
      * @param $set
      * @param int $ttl
+     *
      * @throws UnbegunTransaction
      */
     public function update_row($key, $set, $ttl = 0)

@@ -44,23 +44,23 @@ function stealth($id, $stealth = true)
     $modcomment = get_date(TIME_NOW, '', 1) . ' - ' . $display . ' in Stealth Mode thanks to ' . $CURUSER['username'] . "\n" . $row['modcomment'];
     sql_query('UPDATE users SET modcomment = ' . sqlesc($modcomment) . ' WHERE id = ' . sqlesc($id)) or sqlerr(__file__, __line__);
     // update caches
-    $cache->update_row('user' . $id,  [
+    $cache->update_row('user' . $id, [
         'perms' => $row['perms']
     ], $INSTALLER09['expires']['user_cache']);
-    $cache->update_row('MyUser_' . $id,  [
+    $cache->update_row('MyUser_' . $id, [
         'perms' => $row['perms']
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user_stats_' . $id,  [
+    $cache->update_row('user_stats_' . $id, [
         'modcomment' => $modcomment
     ], $INSTALLER09['expires']['user_stats']);
     if ($id == $CURUSER['id']) {
-        $cache->update_row('user' . $CURUSER['id'],  [
+        $cache->update_row('user' . $CURUSER['id'], [
             'perms' => $row['perms']
         ], $INSTALLER09['expires']['user_cache']);
-        $cache->update_row('MyUser_' . $CURUSER['id'],  [
+        $cache->update_row('MyUser_' . $CURUSER['id'], [
             'perms' => $row['perms']
         ], $INSTALLER09['expires']['curuser']);
-        $cache->update_row('user_stats_' . $CURUSER['id'],  [
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'modcomment' => $modcomment
         ], $INSTALLER09['expires']['user_stats']);
     }

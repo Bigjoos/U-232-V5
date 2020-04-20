@@ -43,15 +43,15 @@ function docleanup($data)
             $msgs_buffer[] = '(0,' . $arr['id'] . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ',' . $leechwarn . ',\'0\', ' . $modcom . ')';
             $update['leechwarn'] = ($leechwarn);
-            $cache->update_row('user' . $arr['id'],  [
+            $cache->update_row('user' . $arr['id'], [
                 'leechwarn' => $update['leechwarn'],
                 'downloadpos' => 0
             ], $INSTALLER09['expires']['user_cache']);
-            $cache->update_row('MyUser_' . $arr['id'],  [
+            $cache->update_row('MyUser_' . $arr['id'], [
                 'leechwarn' => $update['leechwarn'],
                 'downloadpos' => 0
             ], $INSTALLER09['expires']['curuser']);
-            $cache->update_row('user_stats_' . $arr['id'],  [
+            $cache->update_row('user_stats_' . $arr['id'], [
                 'modcomment' => $modcomment
             ], $INSTALLER09['expires']['user_stats']);
             $cache->delete('inbox_new_' . $arr['id']);
@@ -80,15 +80,15 @@ function docleanup($data)
             $modcom = sqlesc($modcomment);
             $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ',  ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ', \'0\', \'1\', ' . $modcom . ')';
-            $cache->update_row('user' . $arr['id'],  [
+            $cache->update_row('user' . $arr['id'], [
                 'leechwarn' => 0,
                 'downloadpos' => 1
             ], $INSTALLER09['expires']['user_cache']);
-            $cache->update_row('MyUser_' . $arr['id'],  [
+            $cache->update_row('MyUser_' . $arr['id'], [
                 'leechwarn' => 0,
                 'downloadpos' => 1
             ], $INSTALLER09['expires']['curuser']);
-            $cache->update_row('user_stats_' . $arr['id'],  [
+            $cache->update_row('user_stats_' . $arr['id'], [
                 'modcomment' => $modcomment
             ], $INSTALLER09['expires']['user_stats']);
             $cache->delete('inbox_new_' . $arr['id']);
@@ -113,14 +113,14 @@ function docleanup($data)
             $modcomment = get_date(TIME_NOW, 'DATE', 1) . " - User disabled - Low ratio.\n" . $modcomment;
             $modcom = sqlesc($modcomment);
             $users_buffer[] = '(' . $arr['id'] . ' , \'0\', \'no\', ' . $modcom . ')';
-            $cache->update_row('user' . $arr['id'],  [
+            $cache->update_row('user' . $arr['id'], [
                 'leechwarn' => 0,
                 'enabled' => 'no'
             ], $INSTALLER09['expires']['user_cache']);
-            $cache->update_row('user_stats_' . $arr['id'],  [
+            $cache->update_row('user_stats_' . $arr['id'], [
                 'modcomment' => $modcomment
             ], $INSTALLER09['expires']['user_stats']);
-            $cache->update_row('MyUser_' . $arr['id'],  [
+            $cache->update_row('MyUser_' . $arr['id'], [
                 'leechwarn' => 0,
                 'enabled' => 'no'
             ], $INSTALLER09['expires']['curuser']);

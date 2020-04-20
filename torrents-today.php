@@ -31,8 +31,8 @@ dbconn(false);
 loggedinorreturn();
 if (isset($_GET['clear_new']) && $_GET['clear_new'] == 1) {
     sql_query("UPDATE users SET last_browse=" . TIME_NOW . " WHERE id=" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
-    $cache->update_row('MyUser_' . $CURUSER['id'],  ['last_browse' => TIME_NOW], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $CURUSER['id'],  ['last_browse' => TIME_NOW], $INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $CURUSER['id'], ['last_browse' => TIME_NOW], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'], ['last_browse' => TIME_NOW], $INSTALLER09['expires']['user_cache']);
     header("Location: {$INSTALLER09['baseurl']}/torrents-today.php");
 }
 $stdfoot = [
@@ -335,8 +335,8 @@ if ($CURUSER['opt1'] & user_options::CLEAR_NEW_TAG_MANUALLY) {
 
     //== clear new tag automatically
     sql_query("UPDATE users SET last_browse=" . TIME_NOW . " where id=" . $CURUSER['id']);
-    $cache->update_row('MyUser_' . $CURUSER['id'],  ['last_browse' => TIME_NOW], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $CURUSER['id'],  ['last_browse' => TIME_NOW], $INSTALLER09['expires']['user_cache']);
+    $cache->update_row('MyUser_' . $CURUSER['id'], ['last_browse' => TIME_NOW], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $CURUSER['id'], ['last_browse' => TIME_NOW], $INSTALLER09['expires']['user_cache']);
 }
 $HTMLOUT.= "<br />
     <table width='1000' class='main' border='0' cellspacing='0' cellpadding='0'><tr><td class='embedded'>

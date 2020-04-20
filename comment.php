@@ -112,14 +112,14 @@ if ($action == 'add') {
                 sql_query("UPDATE users SET seedbonus = seedbonus+" . sqlesc($INSTALLER09['bonus_per_comment']) . " WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
             }
             $update['comments'] = ($arr['comments'] + 1);
-            $cache->update_row('torrent_details_' . $id,  [
+            $cache->update_row('torrent_details_' . $id, [
                 'comments' => $update['comments']
             ], 0);
             $update['seedbonus'] = ($CURUSER['seedbonus'] + $INSTALLER09['bonus_per_comment']);
-            $cache->update_row('userstats_' . $CURUSER["id"],  [
+            $cache->update_row('userstats_' . $CURUSER["id"], [
                 'seedbonus' => $update['seedbonus']
             ], $INSTALLER09['expires']['u_stats']);
-            $cache->update_row('user_stats_' . $CURUSER["id"],  [
+            $cache->update_row('user_stats_' . $CURUSER["id"], [
                 'seedbonus' => $update['seedbonus']
             ], $INSTALLER09['expires']['user_stats']);
             //===end
@@ -249,14 +249,14 @@ if ($action == 'add') {
         }
         $arr['comments'] = (isset($arr['comments']) ? $arr['comments'] : 0);
         $update['comments'] = ($arr['comments'] - 1);
-        $cache->update_row('torrent_details_' . $id,  [
+        $cache->update_row('torrent_details_' . $id, [
             'comments' => $update['comments']
         ], 0);
         $update['seedbonus'] = ($CURUSER['seedbonus'] - 3);
-        $cache->update_row('userstats_' . $CURUSER["id"],  [
+        $cache->update_row('userstats_' . $CURUSER["id"], [
             'seedbonus' => $update['seedbonus']
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $CURUSER["id"],  [
+        $cache->update_row('user_stats_' . $CURUSER["id"], [
             'seedbonus' => $update['seedbonus']
         ], $INSTALLER09['expires']['user_stats']);
         //===end

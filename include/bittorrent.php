@@ -53,7 +53,7 @@ $load = sys_getloadavg();
 $cores = $cache->get('cores_');
 if (!$cores || is_null($cores)) {
     $cores = `grep -c processor /proc/cpuinfo`;
-    $cores = empty($cores) ? 1 : (int)$cores;
+    $cores = empty($cores) ? 1 : (int) $cores;
     $cache->set('cores_', $cores, 0);
 }
 if ($load[0] > $cores * 2) {
@@ -169,7 +169,7 @@ function dbconn($autoclean = false)
                 die("[" . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_errno($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_errno()) ? $___mysqli_res : false)) . "] dbconn: mysql_connect: " . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
         }
     }
-    ((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE {$INSTALLER09['mysql_db']}")) or die('dbconn: mysql_select_db: ' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+    ((bool) mysqli_query($GLOBALS["___mysqli_ston"], "USE {$INSTALLER09['mysql_db']}")) or die('dbconn: mysql_select_db: ' . ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
     userlogin();
     referer();
     if ($autoclean) {
@@ -401,10 +401,10 @@ function userlogin()
         }
         $row = mysqli_fetch_assoc($res);
         foreach ($user_fields_ar_int as $i) {
-            $row[$i] = (int)$row[$i];
+            $row[$i] = (int) $row[$i];
         }
         foreach ($user_fields_ar_float as $i) {
-            $row[$i] = (float)$row[$i];
+            $row[$i] = (float) $row[$i];
         }
         $cache->set('MyUser_' . $id, $row, $INSTALLER09['expires']['curuser']);
         unset($res);
@@ -451,7 +451,7 @@ function userlogin()
             $query .= ' AND u.id = ' . sqlesc($row['id']) . ' LIMIT 1';
             $result = sql_query($query);
             if (mysqli_num_rows($result)) { // Announcement valid for member
-                $row['curr_ann_id'] = (int)$ann_row['main_id'];
+                $row['curr_ann_id'] = (int) $ann_row['main_id'];
                 // Create two row elements to hold announcement subject and body.
                 $row['curr_ann_subject'] = htmlsafechars($ann_row['subject']);
                 $row['curr_ann_body'] = htmlsafechars($ann_row['body']);
@@ -464,7 +464,7 @@ function userlogin()
                     'curr_ann_id' => $ann_row['main_id']
                 ], $INSTALLER09['expires']['curuser']);
                 $status = 2;
-                //$status = 0;
+            //$status = 0;
             } else {
                 // Announcement not valid for member...
                 $add_set = ', curr_ann_last_check = ' . sqlesc($dt);
@@ -535,8 +535,8 @@ function userlogin()
     // Allowed staff
     if ($row["class"] >= UC_STAFF) {
         $allowed_ID = $INSTALLER09['allowed_staff']['id'];
-        if (!in_array(((int)$row["id"]), $allowed_ID, true)) {
-            $msg = "Fake Account Detected: Username: " . htmlsafechars($row["username"]) . " - UserID: " . (int)$row["id"] . " - UserIP : " . getip();
+        if (!in_array(((int) $row["id"]), $allowed_ID, true)) {
+            $msg = "Fake Account Detected: Username: " . htmlsafechars($row["username"]) . " - UserID: " . (int) $row["id"] . " - UserIP : " . getip();
             // Demote and disable
             sql_query("UPDATE users SET enabled = 'no', class = 0 WHERE id =" . sqlesc($row["id"])) or sqlerr(__file__, __line__);
             $cache->update_row('MyUser_' . $row['id'], [
@@ -572,10 +572,10 @@ function userlogin()
         $s = sql_query("SELECT " . $stats_fields . " FROM users WHERE id=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         $stats = mysqli_fetch_assoc($s);
         foreach ($stats_fields_ar_int as $i) {
-            $stats[$i] = (int)$stats[$i];
+            $stats[$i] = (int) $stats[$i];
         }
         foreach ($stats_fields_ar_float as $i) {
-            $stats[$i] = (float)$stats[$i];
+            $stats[$i] = (float) $stats[$i];
         }
         foreach ($stats_fields_ar_str as $i) {
             $stats[$i] = $stats[$i];
@@ -618,9 +618,9 @@ function userlogin()
             die();
         }
         $CURBLOCK = mysqli_fetch_assoc($c_sql);
-        $CURBLOCK['index_page'] = (int)$CURBLOCK['index_page'];
-        $CURBLOCK['global_stdhead'] = (int)$CURBLOCK['global_stdhead'];
-        $CURBLOCK['userdetails_page'] = (int)$CURBLOCK['userdetails_page'];
+        $CURBLOCK['index_page'] = (int) $CURBLOCK['index_page'];
+        $CURBLOCK['global_stdhead'] = (int) $CURBLOCK['global_stdhead'];
+        $CURBLOCK['userdetails_page'] = (int) $CURBLOCK['userdetails_page'];
         $cache->set($blocks_key, $CURBLOCK, 0);
     }
     //== where is by putyn
@@ -906,7 +906,7 @@ function unesc($x)   //updated to php 7.4
 
 function mksize($bytes)
 {
-    $bytes = max(0, (int)$bytes);
+    $bytes = max(0, (int) $bytes);
     if ($bytes < 1024000) {
         return number_format($bytes / 1024, 2) . ' KB';
     } #Kilobyte
@@ -940,11 +940,11 @@ function mkprettytime($s)
     }
     $t = [];
     foreach ([
-                 "60:sec",
-                 "60:min",
-                 "24:hour",
-                 "0:day"
-             ] as $x) {
+        "60:sec",
+        "60:min",
+        "24:hour",
+        "0:day"
+    ] as $x) {
         $y = explode(":", $x);
         if ($y[0] > 1) {
             $v = $s % $y[0];
@@ -994,7 +994,7 @@ function validemail($email)
 function sqlesc($x)
 {
     if (is_integer($x)) {
-        return (int)$x;
+        return (int) $x;
     }
     return sprintf('\'%s\'', mysqli_real_escape_string($GLOBALS["___mysqli_ston"], $x));
 }

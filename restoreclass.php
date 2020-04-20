@@ -21,10 +21,10 @@ require_once(INCL_DIR . 'user_functions.php');
 dbconn(false);
 loggedinorreturn();
 sql_query("UPDATE users SET override_class='255' WHERE id = " . sqlesc($CURUSER['id']));
-$cache->update_row('MyUser_' . $CURUSER['id'],  [
+$cache->update_row('MyUser_' . $CURUSER['id'], [
     'override_class' => 255
 ], $INSTALLER09['expires']['curuser']);
-$cache->update_row('user' . $CURUSER['id'],  [
+$cache->update_row('user' . $CURUSER['id'], [
     'override_class' => 255
 ], $INSTALLER09['expires']['user_cache']);
 header("Location: {$INSTALLER09['baseurl']}/index.php");

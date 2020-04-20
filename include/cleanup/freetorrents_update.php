@@ -29,7 +29,7 @@ function docleanup($data)
     if (mysqli_num_rows($res) > 0) {
         while ($arr = mysqli_fetch_assoc($res)) {
             $Free_buffer[] = '(' . $arr['id'] . ', \'0\')';
-            $cache->update_row('torrent_details_' . $arr['id'],  [
+            $cache->update_row('torrent_details_' . $arr['id'], [
                 'free' => 0
             ], $INSTALLER09['expires']['torrent_details']);
         }

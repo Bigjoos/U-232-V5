@@ -102,14 +102,14 @@ function tvrage(&$torrents)
             $row_update[] = 'newgenre = ' . sqlesc(ucwords($tvrage_showinfo['genres']));
         }
         //==The torrent cache
-        $cache->update_row('torrent_details_' . $torrents['id'],  [
+        $cache->update_row('torrent_details_' . $torrents['id'], [
             'newgenre' => ucwords($tvrage_showinfo['genres'])
         ], 0);
         if (empty($torrents['poster'])) {
             $row_update[] = 'poster = ' . sqlesc($tvrage_showinfo['image']);
         }
         //==The torrent cache
-        $cache->update_row('torrent_details_' . $torrents['id'],  [
+        $cache->update_row('torrent_details_' . $torrents['id'], [
             'poster' => $tvrage_showinfo['image']
         ], 0);
         if (count($row_update)) {

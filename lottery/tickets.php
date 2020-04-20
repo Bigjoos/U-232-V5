@@ -44,12 +44,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $seedbonus_new = $CURUSER['seedbonus'] - ($tickets * $lottery_config['ticket_amount']);
         $What_Cache = (XBT_TRACKER == true ? 'userstats_xbt_' : 'userstats_');
         $What_Expire = (XBT_TRACKER == true ? $INSTALLER09['expires']['u_stats_xbt'] : $INSTALLER09['expires']['u_stats']);
-        $cache->update_row($What_Cache . $CURUSER['id'],  [
+        $cache->update_row($What_Cache . $CURUSER['id'], [
             'seedbonus' => $seedbonus_new
         ], $What_Expire);
         $What_Cache = (XBT_TRACKER == true ? 'user_stats_xbt_' : 'user_stats_');
         $What_Expire = (XBT_TRACKER == true ? $INSTALLER09['expires']['user_stats_xbt'] : $INSTALLER09['expires']['user_stats']);
-        $cache->update_row($What_Cache . $CURUSER['id'],  [
+        $cache->update_row($What_Cache . $CURUSER['id'], [
             'seedbonus' => $seedbonus_new
         ], $What_Expire);
         stderr('Success', 'You bought <b>' . $tickets . '</b>, your new amount is <b>' . ($tickets + $user_tickets) . '</b>');

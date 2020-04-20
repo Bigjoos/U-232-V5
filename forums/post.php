@@ -115,10 +115,10 @@ if (!defined('IN_INSTALLER09_FORUM')) {
         if ($INSTALLER09['seedbonus_on'] == 1) {
             sql_query("UPDATE users SET seedbonus = seedbonus+" . sqlesc($INSTALLER09['bonus_per_topic']) . " WHERE id =  " . sqlesc($CURUSER['id'] . "")) or sqlerr(__FILE__, __LINE__);
             $update['seedbonus'] = ($CURUSER['seedbonus'] + $INSTALLER09['bonus_per_topic']);
-            $cache->update_row('userstats_' . $CURUSER["id"],  [
+            $cache->update_row('userstats_' . $CURUSER["id"], [
                 'seedbonus' => $update['seedbonus']
             ], $INSTALLER09['expires']['u_stats']);
-            $cache->update_row('user_stats_' . $CURUSER["id"],  [
+            $cache->update_row('user_stats_' . $CURUSER["id"], [
                 'seedbonus' => $update['seedbonus']
             ], $INSTALLER09['expires']['user_stats']);
         }
@@ -173,10 +173,10 @@ if (!defined('IN_INSTALLER09_FORUM')) {
             if ($INSTALLER09['seedbonus_on'] == 1) {
                 sql_query("UPDATE users SET seedbonus = seedbonus+" . sqlesc($INSTALLER09['bonus_per_post']) . " WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
                 $update['seedbonus'] = ($CURUSER['seedbonus'] + $INSTALLER09['bonus_per_post']);
-                $cache->update_row('userstats_' . $CURUSER["id"],  [
+                $cache->update_row('userstats_' . $CURUSER["id"], [
                     'seedbonus' => $update['seedbonus']
                 ], $INSTALLER09['expires']['u_stats']);
-                $cache->update_row('user_stats_' . $CURUSER["id"],  [
+                $cache->update_row('user_stats_' . $CURUSER["id"], [
                     'seedbonus' => $update['seedbonus']
                 ], $INSTALLER09['expires']['user_stats']);
             }

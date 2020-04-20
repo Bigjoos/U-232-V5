@@ -49,17 +49,17 @@ if (count($pms) > 0) {
     $cache->delete('shoutbox_');
 }
 sql_query("UPDATE torrents set last_reseed=" . TIME_NOW . " WHERE id=" . sqlesc($reseedid)) or sqlerr(__FILE__, __LINE__);
-$cache->update_row('torrent_details_' . $reseedid,  [
+$cache->update_row('torrent_details_' . $reseedid, [
     'last_reseed' => TIME_NOW
 ], $INSTALLER09['expires']['torrent_details']);
 if ($INSTALLER09['seedbonus_on'] == 1) {
     //===remove karma
     sql_query("UPDATE users SET seedbonus = seedbonus-{$INSTALLER09['bonus_per_reseed']} WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
     $update['seedbonus'] = ($CURUSER['seedbonus'] - $INSTALLER09['bonus_per_reseed']);
-    $cache->update_row('userstats_' . $CURUSER["id"],  [
+    $cache->update_row('userstats_' . $CURUSER["id"], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['u_stats']);
-    $cache->update_row('user_stats_' . $CURUSER["id"],  [
+    $cache->update_row('user_stats_' . $CURUSER["id"], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['user_stats']);
     //===end

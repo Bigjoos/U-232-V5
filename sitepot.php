@@ -104,10 +104,10 @@ if ($want_pot && (isset($pot_options[$want_pot]))) {
                      WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__file__, __line__);
         $update['seedbonus_donator'] = ($CURUSER['seedbonus'] - $want_pot);
         //====Update the caches
-        $cache->update_row('userstats_' . $CURUSER['id'],  [
+        $cache->update_row('userstats_' . $CURUSER['id'], [
             'seedbonus' => $update['seedbonus_donator']
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $CURUSER['id'],  [
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'seedbonus' => $update['seedbonus_donator']
         ], $INSTALLER09['expires']['curuser']);
         $cache->delete('Sitepot_');
@@ -129,10 +129,10 @@ if ($want_pot && (isset($pot_options[$want_pot]))) {
                      WHERE id = " . sqlesc($CURUSER['id']) . "") or sqlerr(__file__, __line__);
         $update['seedbonus_donator'] = ($CURUSER['seedbonus'] - $want_pot);
         //====Update the caches
-        $cache->update_row('userstats_' . $CURUSER['id'],  [
+        $cache->update_row('userstats_' . $CURUSER['id'], [
             'seedbonus' => $update['seedbonus_donator']
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $CURUSER['id'],  [
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'seedbonus' => $update['seedbonus_donator']
         ], $INSTALLER09['expires']['curuser']);
         $cache->delete('Sitepot_');

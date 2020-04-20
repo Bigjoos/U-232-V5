@@ -486,10 +486,10 @@ if ($INSTALLER09['seedbonus_on'] == 1) {
     sql_query("UPDATE users SET seedbonus=seedbonus+" . sqlesc($INSTALLER09['bonus_per_upload']) . ", numuploads=numuploads+1 WHERE id = " . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
     //===end
     $update['seedbonus'] = ($CURUSER['seedbonus'] + $INSTALLER09['bonus_per_upload']);
-    $cache->update_row('userstats_' . $CURUSER["id"],  [
+    $cache->update_row('userstats_' . $CURUSER["id"], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['u_stats']);
-    $cache->update_row('user_stats_' . $CURUSER["id"],  [
+    $cache->update_row('user_stats_' . $CURUSER["id"], [
         'seedbonus' => $update['seedbonus']
     ], $INSTALLER09['expires']['user_stats']);
 }

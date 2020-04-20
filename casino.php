@@ -187,10 +187,10 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
         sql_query("UPDATE casino SET date = '" . TIME_NOW . "', trys = trys + 1, win = win + " . sqlesc($win) . "  WHERE userid=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded'] = ($User['uploaded'] + $win);
         //==stats
-        $cache->update_row('userstats_' . $CURUSER['id'],  [
+        $cache->update_row('userstats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded']
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $CURUSER['id'],  [
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded']
         ], $INSTALLER09['expires']['user_stats']);
         stderr($lang['casino_yes'], "" . htmlsafechars($winner_was) . " {$lang['casino_is_the_result']} " . htmlsafechars($CURUSER["username"]) . " {$lang['casino_you_got_it_and_win']} " . htmlsafechars(mksize($win)) . "&nbsp;&nbsp;&nbsp;$goback");
@@ -210,10 +210,10 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
         sql_query("UPDATE casino SET date = " . TIME_NOW . ", trys = trys + 1 ,lost = lost + " . sqlesc($betmb) . " WHERE userid=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded_loser'] = ($User['uploaded'] - $betmb);
         //==stats
-        $cache->update_row('userstats_' . $CURUSER['id'],  [
+        $cache->update_row('userstats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded_loser']
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $CURUSER['id'],  [
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded_loser']
         ], $INSTALLER09['expires']['user_stats']);
         stderr($lang['gl_sorry'], "" . htmlsafechars($fake_winner) . " {$lang['casino_is_the_winner_and_not']} " . htmlsafechars($winner_was) . ", " . htmlsafechars($CURUSER["username"]) . " {$lang['casino_you_lost']} " . htmlsafechars(mksize($betmb)) . "&nbsp;&nbsp;&nbsp;$goback");
@@ -265,10 +265,10 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
             sql_query("UPDATE casino SET deposit = deposit-" . sqlesc($tbet['amount']) . " WHERE userid = " . sqlesc($tbet['userid'])) or sqlerr(__FILE__, __LINE__);
             $update['uploaded'] = ($User['uploaded'] + $tbet['amount']);
             //==stats
-            $cache->update_row('userstats_' . $CURUSER['id'],  [
+            $cache->update_row('userstats_' . $CURUSER['id'], [
                 'uploaded' => $update['uploaded']
             ], $INSTALLER09['expires']['u_stats']);
-            $cache->update_row('user_stats_' . $CURUSER['id'],  [
+            $cache->update_row('user_stats_' . $CURUSER['id'], [
                 'uploaded' => $update['uploaded']
             ], $INSTALLER09['expires']['user_stats']);
             if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
@@ -298,18 +298,18 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
             sql_query("UPDATE casino SET deposit = deposit-" . sqlesc($tbet['amount']) . " WHERE userid = " . sqlesc($tbet['userid']));
             $update['uploaded'] = ($newup);
             //==stats
-            $cache->update_row('userstats_' . $CURUSER['id'],  [
+            $cache->update_row('userstats_' . $CURUSER['id'], [
                 'uploaded' => $update['uploaded']
             ], $INSTALLER09['expires']['u_stats']);
-            $cache->update_row('user_stats_' . $CURUSER['id'],  [
+            $cache->update_row('user_stats_' . $CURUSER['id'], [
                 'uploaded' => $update['uploaded']
             ], $INSTALLER09['expires']['user_stats']);
             $update['uploaded_2'] = ($User['uploaded'] + $newup2);
             //==stats
-            $cache->update_row('userstats_' . $tbet['userid'],  [
+            $cache->update_row('userstats_' . $tbet['userid'], [
                 'uploaded' => $update['uploaded_2']
             ], $INSTALLER09['expires']['u_stats']);
-            $cache->update_row('user_stats_' . $tbet['userid'],  [
+            $cache->update_row('user_stats_' . $tbet['userid'], [
                 'uploaded' => $update['uploaded_2']
             ], $INSTALLER09['expires']['user_stats']);
             if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
@@ -370,10 +370,10 @@ if (isset($color_options[$post_color], $number_options[$post_number])   || isset
         sql_query("UPDATE casino SET deposit = deposit + " . sqlesc($nobits) . " WHERE userid = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded'] = ($newups);
         //==stats
-        $cache->update_row('userstats_' . $CURUSER['id'],  [
+        $cache->update_row('userstats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded']
         ], $INSTALLER09['expires']['u_stats']);
-        $cache->update_row('user_stats_' . $CURUSER['id'],  [
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded']
         ], $INSTALLER09['expires']['user_stats']);
         if ($INSTALLER09['autoshout_on'] == 1 || $INSTALLER09['irc_autoshout_on'] == 1) {

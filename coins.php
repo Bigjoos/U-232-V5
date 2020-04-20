@@ -67,21 +67,21 @@ $update['points'] = ($row['points'] + $points);
 $update['seedbonus_uploader'] = ($User['seedbonus'] + $points);
 $update['seedbonus_donator'] = ($CURUSER['seedbonus'] - $points);
 //==The torrent
-$cache->update_row('torrent_details_' . $id,  [
+$cache->update_row('torrent_details_' . $id, [
     'points' => $update['points']
 ], $INSTALLER09['expires']['torrent_details']);
 //==The uploader
-$cache->update_row('userstats_' . $userid,  [
+$cache->update_row('userstats_' . $userid, [
     'seedbonus' => $update['seedbonus_uploader']
 ], $INSTALLER09['expires']['u_stats']);
-$cache->update_row('user_stats_' . $userid,  [
+$cache->update_row('user_stats_' . $userid, [
     'seedbonus' => $update['seedbonus_uploader']
 ], $INSTALLER09['expires']['user_stats']);
 //==The donator
-$cache->update_row('userstats_' . $CURUSER["id"],  [
+$cache->update_row('userstats_' . $CURUSER["id"], [
     'seedbonus' => $update['seedbonus_donator']
 ], $INSTALLER09['expires']['u_stats']);
-$cache->update_row('user_stats_' . $CURUSER["id"],  [
+$cache->update_row('user_stats_' . $CURUSER["id"], [
     'seedbonus' => $update['seedbonus_donator']
 ], $INSTALLER09['expires']['user_stats']);
 //== delete the pm keys

@@ -31,10 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($lid > 0 && $lid != $CURUSER['id']) {
         sql_query('UPDATE users SET language=' . sqlesc($lid) . ' WHERE id = ' . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
     }
-    $cache->update_row('MyUser_' . $CURUSER['id'],  [
+    $cache->update_row('MyUser_' . $CURUSER['id'], [
         'language' => $lid
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $CURUSER['id'],  [
+    $cache->update_row('user' . $CURUSER['id'], [
         'language' => $lid
     ], $INSTALLER09['expires']['user_cache']);
     $HTMLOUT.= "<script language='javascript' type='text/javascript'>

@@ -79,14 +79,14 @@ function docleanup($data)
                 $msgs_buffer[]     = '(0,' . $userid . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $users_buffer[]    = '(' . $userid . ', ' . $class_value . ', 1, ' . $modcom . ')';
                 $update['invites'] = ($arr['invites'] + 1);
-                $cache->update_row('user' . $userid,  [
+                $cache->update_row('user' . $userid, [
                     'class' => $class_value,
                     'invites' => $update['invites']
                 ], $INSTALLER09['expires']['user_cache']);
-                $cache->update_row('user_stats_' . $userid,  [
+                $cache->update_row('user_stats_' . $userid, [
                     'modcomment' => $modcomment
                 ], $INSTALLER09['expires']['user_stats']);
-                $cache->update_row('MyUser_' . $userid,  [
+                $cache->update_row('MyUser_' . $userid, [
                     'class' => $class_value,
                     'invites' => $update['invites']
                 ], $INSTALLER09['expires']['curuser']);

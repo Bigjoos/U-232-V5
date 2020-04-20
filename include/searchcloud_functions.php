@@ -47,7 +47,7 @@ function searchcloud_insert($word)
         $searchcloud[$word] = $howmuch;
         $cache->set('searchcloud', $searchcloud, 0);
     } else {
-        $cache->update_row('searchcloud',  [
+        $cache->update_row('searchcloud', [
             $word => $howmuch
         ], 0);
     }

@@ -457,10 +457,10 @@ function do_delete_rep()
     sql_query("DELETE FROM reputation WHERE reputationid=" . intval($r['reputationid']));
     sql_query("UPDATE users SET reputation = (reputation-{$r['reputation']} ) WHERE id=" . intval($r['userid']));
     $update['rep'] = ($User['reputation'] - $r['reputation']);
-    $cache->update_row('MyUser_' . $r['userid'],  [
+    $cache->update_row('MyUser_' . $r['userid'], [
         'reputation' => $update['rep']
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $r['userid'],  [
+    $cache->update_row('user' . $r['userid'], [
         'reputation' => $update['rep']
     ], $INSTALLER09['expires']['user_cache']);
     redirect("staffpanel.php?tool=reputation_ad&amp;mode=list", $lang['rep_ad_delete_rep_success'], 5);
@@ -497,10 +497,10 @@ function do_edit_rep()
         $diff = $oldrep - $newrep;
         @sql_query("UPDATE users SET reputation = (reputation-{$diff}) WHERE id=" . intval($r['userid']));
         $update['rep'] = ($User['reputation'] - $diff);
-        $cache->update_row('MyUser_' . $r['userid'],  [
+        $cache->update_row('MyUser_' . $r['userid'], [
             'reputation' => $update['rep']
         ], $INSTALLER09['expires']['curuser']);
-        $cache->update_row('user' . $r['userid'],  [
+        $cache->update_row('user' . $r['userid'], [
             'reputation' => $update['rep']
         ], $INSTALLER09['expires']['user_cache']);
         $cache->delete('MyUser_' . $r['userid']);

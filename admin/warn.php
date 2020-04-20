@@ -77,10 +77,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($act == "disable") {
         if (sql_query("UPDATE users set enabled='no', modcomment=CONCAT(" . sqlesc(get_date(TIME_NOW, 'DATE', 1) . $lang['warn_disabled_by'] . $CURUSER['username'] . "\n") . ",modcomment) WHERE id IN (" . join(",", $_uids) . ")")) {
             foreach ($_uids as $uid) {
-                $cache->update_row('MyUser_' . $_uid,  [
+                $cache->update_row('MyUser_' . $_uid, [
                     'enabled' => 'no'
                 ], $INSTALLER09['expires']['curuser']);
-                $cache->update_row('user' . $_uid,  [
+                $cache->update_row('user' . $_uid, [
                     'enabled' => 'no'
                 ], $INSTALLER09['expires']['user_cache']);
             }

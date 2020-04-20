@@ -202,10 +202,10 @@ if (isset($input['do']) && $input['do'] == 'addrep') {
     $score = fetch_reppower($CURUSER, $input['reputation']);
     $res['reputation']+= $score;
     sql_query("UPDATE users set reputation=" . sqlesc(intval($res['reputation'])) . " WHERE id=" . sqlesc($res['userid'])) or sqlerr(__FILE__, __LINE__);
-    $cache->update_row('MyUser_' . $res['userid'],  [
+    $cache->update_row('MyUser_' . $res['userid'], [
         'reputation' => $res['reputation']
     ], $INSTALLER09['expires']['curuser']);
-    $cache->update_row('user' . $res['userid'],  [
+    $cache->update_row('user' . $res['userid'], [
         'reputation' => $res['reputation']
     ], $INSTALLER09['expires']['user_cache']);
     $cache->delete('user_rep_' . $res['userid']);

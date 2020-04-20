@@ -173,7 +173,7 @@ if (($pretime = $cache->get('torrent_pretime_' . $id)) === false) {
 if (isset($_GET["hit"])) {
     sql_query("UPDATE torrents SET views = views + 1 WHERE id =" . sqlesc($id));
     $update['views'] = ($torrents['views'] + 1);
-    $cache->update_row('torrent_details_' . $id,  [
+    $cache->update_row('torrent_details_' . $id, [
         'views' => $update['views']
     ], $INSTALLER09['expires']['torrent_details']);
     header("Location: {$INSTALLER09['baseurl']}/details.php?id=$id");
@@ -275,7 +275,7 @@ if (isset($_GET["uploaded"])) {
 if ($CURUSER['class'] >= UC_STAFF) {
     if (isset($_GET["checked"]) && $_GET["checked"] == 1) {
         sql_query("UPDATE torrents SET checked_by = " . sqlesc($CURUSER['username']) . ",checked_when = " . TIME_NOW . " WHERE id =" . sqlesc($id) . " LIMIT 1") or sqlerr(__FILE__, __LINE__);
-        $cache->update_row('torrent_details_' . $id,  [
+        $cache->update_row('torrent_details_' . $id, [
             'checked_by' => $CURUSER['username'],
             'checked_when' => TIME_NOW
         ], $INSTALLER09['expires']['torrent_details']);
@@ -284,7 +284,7 @@ if ($CURUSER['class'] >= UC_STAFF) {
         header("Location: {$INSTALLER09["baseurl"]}/details.php?id=$id&checked=done#Success");
     } elseif (isset($_GET["rechecked"]) && $_GET["rechecked"] == 1) {
         sql_query("UPDATE torrents SET checked_by = " . sqlesc($CURUSER['username']) . ",checked_when = " . TIME_NOW . " WHERE id =" . sqlesc($id) . " LIMIT 1") or sqlerr(__FILE__, __LINE__);
-        $cache->update_row('torrent_details_' . $id,  [
+        $cache->update_row('torrent_details_' . $id, [
             'checked_by' => $CURUSER['username'],
             'checked_when' => TIME_NOW
         ], $INSTALLER09['expires']['torrent_details']);
@@ -293,7 +293,7 @@ if ($CURUSER['class'] >= UC_STAFF) {
         header("Location: {$INSTALLER09["baseurl"]}/details.php?id=$id&rechecked=done#Success");
     } elseif (isset($_GET["clearchecked"]) && $_GET["clearchecked"] == 1) {
         sql_query("UPDATE torrents SET checked_by = '', checked_when='' WHERE id =" . sqlesc($id) . " LIMIT 1") or sqlerr(__FILE__, __LINE__);
-        $cache->update_row('torrent_details_' . $id,  [
+        $cache->update_row('torrent_details_' . $id, [
             'checked_by' => '',
             'checked_when' => ''
         ], $INSTALLER09['expires']['torrent_details']);
