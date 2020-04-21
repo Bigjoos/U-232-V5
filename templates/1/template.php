@@ -1,28 +1,37 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $title
+ * @param mixed $msgalert
+ * @param mixed $stdhead
  */
  //==Template system by Terranova
 function stdhead($title = "", $msgalert = true, $stdhead = false)
 {
-    global $CURUSER, $INSTALLER09, $lang, $free, $_NO_COMPRESS, $query_stat, $querytime, $mc1, $BLOCKS, $CURBLOCK, $mood, $blocks;
-    if (!$INSTALLER09['site_online']) die("Site is down for maintenance, please check back again later... thanks<br />");
-    if ($title == "") $title = $INSTALLER09['site_name'] . (isset($_GET['tbv']) ? " (" . TBVERSION . ")" : '');
-    else $title = $INSTALLER09['site_name'] . (isset($_GET['tbv']) ? " (" . TBVERSION . ")" : '') . " :: " . htmlsafechars($title);
+    global $CURUSER, $INSTALLER09, $lang, $free, $_NO_COMPRESS, $query_stat, $querytime, $cache, $BLOCKS, $CURBLOCK, $mood, $blocks;
+    if (!$INSTALLER09['site_online']) {
+        die("Site is down for maintenance, please check back again later... thanks<br />");
+    }
+    if ($title == "") {
+        $title = $INSTALLER09['site_name'] . (isset($_GET['tbv']) ? " (" . TBVERSION . ")" : '');
+    } else {
+        $title = $INSTALLER09['site_name'] . (isset($_GET['tbv']) ? " (" . TBVERSION . ")" : '') . " :: " . htmlsafechars($title);
+    }
     if ($CURUSER) {
         $INSTALLER09['stylesheet'] = isset($CURUSER['stylesheet']) ? "{$CURUSER['stylesheet']}.css" : $INSTALLER09['stylesheet'];
         $INSTALLER09['categorie_icon'] = isset($CURUSER['categorie_icon']) ? "{$CURUSER['categorie_icon']}" : $INSTALLER09['categorie_icon'];
@@ -30,16 +39,22 @@ function stdhead($title = "", $msgalert = true, $stdhead = false)
     }
     $torrent_pass = isset($CURUSER['torrent_pass']) ? "{$CURUSER['torrent_pass']}" : "";
     $salty_username = isset($CURUSER['username']) ? "{$CURUSER['username']}" : '';
-    $salty = md5("Th15T3xtis5add3dto66uddy6he@water...". $salty_username . "");
+    $salty = md5("Th15T3xtis5add3dto66uddy6he@water..." . $salty_username . "");
     /** ZZZZZZZZZZZZZZZZZZZZZZZZZZip it! */
 
-if (!isset($_NO_COMPRESS)) if (!ob_start('ob_gzhandler')) ob_start();
+    if (!isset($_NO_COMPRESS)) {
+        if (!ob_start('ob_gzhandler')) {
+            ob_start();
+        }
+    }
     $htmlout = '';
     //== Include js files needed only for the page being used by pdq
     $js_incl = '';
     $js_incl.= '<!-- javascript goes here or in footer -->';
     if (!empty($stdhead['js'])) {
-        foreach ($stdhead['js'] as $JS) $js_incl.= "<script type='text/javascript' src='{$INSTALLER09['baseurl']}/scripts/" . $JS . ".js'></script>";
+        foreach ($stdhead['js'] as $JS) {
+            $js_incl.= "<script type='text/javascript' src='{$INSTALLER09['baseurl']}/scripts/" . $JS . ".js'></script>";
+        }
     }
 
     //== Include css files needed only for the page being used by pdq
@@ -47,10 +62,12 @@ if (!isset($_NO_COMPRESS)) if (!ob_start('ob_gzhandler')) ob_start();
     $css_incl = '';
     $css_incl.= '<!-- css goes in header -->';
     if (!empty($stdhead['css'])) {
-        foreach ($stdhead['css'] as $CSS) $css_incl.= "<link type='text/css' rel='stylesheet' href='{$INSTALLER09['baseurl']}/templates/{$stylez}/css/" . $CSS . ".css' />";
+        foreach ($stdhead['css'] as $CSS) {
+            $css_incl.= "<link type='text/css' rel='stylesheet' href='{$INSTALLER09['baseurl']}/templates/{$stylez}/css/" . $CSS . ".css' />";
+        }
     }
-$body_class = isset($_COOKIE['theme']) ? htmlsafechars($_COOKIE['theme']) : 'background-1 skin-1 nb-1 panelhead-1 bootpanel-1 btable-1 btr-1 listgrp-1 buttonS-1 text-1';
-$htmlout .='
+    $body_class = isset($_COOKIE['theme']) ? htmlsafechars($_COOKIE['theme']) : 'background-1 skin-1 nb-1 panelhead-1 bootpanel-1 btable-1 btr-1 listgrp-1 buttonS-1 text-1';
+    $htmlout .='
 <!DOCTYPE html>
   <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
         <!-- ####################################################### -->
@@ -60,11 +77,11 @@ $htmlout .='
         <!-- #   Template Modded by U-232 Dev Team                 # -->
         <!-- ####################################################### -->
   <head>
-    <!--<meta charset="'.charset().'" />-->
+    <!--<meta charset="' . charset() . '" />-->
     <meta charset="utf-8" />
     <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=0.35, maximum-scale=1" />
-    <title>'.$title.'</title>
+    <title>' . $title . '</title>
 		<!-- favicon  -->
     	<link rel="shortcut icon" href="/favicon.ico" />
 	<link rel="stylesheet" href="css/bootstrap.css" type="text/css">
@@ -90,8 +107,8 @@ $htmlout .='
     <!-- <script src="scripts/html5shiv.js"  async></script>  -->
     <script src="scripts/respond.min.js"  async></script> <!-- used for IE8 and below-->
     <!-- <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE8.js"></script>  -->    
-    <script type="application/rss+xml" title="Latest Torrents" src="/rss.php?torrent_pass='.$torrent_pass.'"></script>';
-	$htmlout .= "
+    <script type="application/rss+xml" title="Latest Torrents" src="/rss.php?torrent_pass=' . $torrent_pass . '"></script>';
+    $htmlout .= "
     <style type='text/css'>#mlike{cursor:pointer;}</style>
     <script type='text/javascript'>
         /*<![CDATA[*/
@@ -133,8 +150,8 @@ $htmlout .='
     {$js_incl}{$css_incl}
         </head>
     <body class='{$body_class}'>";
-  if ($CURUSER) {
-   $htmlout .="
+    if ($CURUSER) {
+        $htmlout .="
    <nav class='cb navbar-default navbar-fixed-top' role='navigation'>
    <div class='container'>
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -233,100 +250,137 @@ $htmlout .='
      </ul>
     </div><!-- /.navbar-collapse -->
 </div></nav><div class='banners'></div>";
-		$htmlout .='<div class="alert" style="background:rgba(0, 0, 0, 0.1);">'.StatusBar().'</div>';
-		$htmlout .="
+        $htmlout .='<div class="alert" style="background:rgba(0, 0, 0, 0.1);">' . StatusBar() . '</div>';
+        $htmlout .="
     <!-- U-232 Source - Print Global Messages Start -->
     <div class='container'>
     <div class='sa-gm_taps_left'>";
-	$htmlout .="<ul class='sa-gm_taps'><li><b>{$lang['gl_alerts']}</b></li>";
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_REPORTS && $BLOCKS['global_staff_report_on']) {
-    require_once (BLOCK_DIR.'global/report.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_UPLOADAPP && $BLOCKS['global_staff_uploadapp_on']) {
-    require_once (BLOCK_DIR.'global/uploadapp.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_HAPPYHOUR && $BLOCKS['global_happyhour_on']) {
-    require_once (BLOCK_DIR.'global/happyhour.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_STAFF_MESSAGE && $BLOCKS['global_staff_warn_on']) {
-    require_once (BLOCK_DIR.'global/staffmessages.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_NEWPM && $BLOCKS['global_message_on']) {
-    require_once (BLOCK_DIR.'global/message.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_DEMOTION && $BLOCKS['global_demotion_on']) {
-    require_once (BLOCK_DIR.'global/demotion.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_FREELEECH && $BLOCKS['global_freeleech_on']) {
-    require_once (BLOCK_DIR.'global/freeleech.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_CRAZYHOUR && $BLOCKS['global_crazyhour_on']) {
-    require_once (BLOCK_DIR.'global/crazyhour.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_BUG_MESSAGE && $BLOCKS['global_bug_message_on']) {
-    require_once (BLOCK_DIR.'global/bugmessages.php');
-    }
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_FREELEECH_CONTRIBUTION && $BLOCKS['global_freeleech_contribution_on']) {
-    require_once (BLOCK_DIR.'global/freeleech_contribution.php');
-    }
-    $htmlout.= "</ul></div></div><br />";
-    if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_STAFFTOOLS && $BLOCKS['global_staff_tools_on'] && $CURUSER['class'] >= UC_STAFF) {
-    require_once (BLOCK_DIR.'global/staff_tools.php');
-    }
+        $htmlout .="<ul class='sa-gm_taps'><li><b>{$lang['gl_alerts']}</b></li>";
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_REPORTS && $BLOCKS['global_staff_report_on']) {
+            require_once(BLOCK_DIR . 'global/report.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_UPLOADAPP && $BLOCKS['global_staff_uploadapp_on']) {
+            require_once(BLOCK_DIR . 'global/uploadapp.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_HAPPYHOUR && $BLOCKS['global_happyhour_on']) {
+            require_once(BLOCK_DIR . 'global/happyhour.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_STAFF_MESSAGE && $BLOCKS['global_staff_warn_on']) {
+            require_once(BLOCK_DIR . 'global/staffmessages.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_NEWPM && $BLOCKS['global_message_on']) {
+            require_once(BLOCK_DIR . 'global/message.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_DEMOTION && $BLOCKS['global_demotion_on']) {
+            require_once(BLOCK_DIR . 'global/demotion.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_FREELEECH && $BLOCKS['global_freeleech_on']) {
+            require_once(BLOCK_DIR . 'global/freeleech.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_CRAZYHOUR && $BLOCKS['global_crazyhour_on']) {
+            require_once(BLOCK_DIR . 'global/crazyhour.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_BUG_MESSAGE && $BLOCKS['global_bug_message_on']) {
+            require_once(BLOCK_DIR . 'global/bugmessages.php');
+        }
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_FREELEECH_CONTRIBUTION && $BLOCKS['global_freeleech_contribution_on']) {
+            require_once(BLOCK_DIR . 'global/freeleech_contribution.php');
+        }
+        $htmlout.= "</ul></div></div><br />";
+        if (curuser::$blocks['global_stdhead'] & block_stdhead::STDHEAD_STAFFTOOLS && $BLOCKS['global_staff_tools_on'] && $CURUSER['class'] >= UC_STAFF) {
+            require_once(BLOCK_DIR . 'global/staff_tools.php');
+        }
     }
     if ($CURUSER) {
-    $htmlout.= '<div class="container"> 
-    <div id="control_panel"><a href="#" id="control_label"></a></div>';}
+        $htmlout.= '<div class="container"> 
+    <div id="control_panel"><a href="#" id="control_label"></a></div>';
+    }
     return $htmlout;
-   }
+}
 
  function stdfoot($stdfoot = false)
-{
-    global $CURUSER, $INSTALLER09, $start, $query_stat, $mc1, $querytime, $lang, $rc;
-    $debug = (SQL_DEBUG && in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id']) ? 1 : 0);
-    $cachetime = ($mc1->Time / 1000);
-    $seconds = microtime(true) - $start;
-    $r_seconds = round($seconds, 5);
-    //$phptime = $seconds - $cachetime;
-    $phptime = $seconds - $querytime - $cachetime;
-    $queries = count($query_stat); // sql query count by pdq
-    $percentphp = number_format(($phptime / $seconds) * 100, 2);
-    //$percentsql  = number_format(($querytime / $seconds) * 100, 2);
-    $percentmc = number_format(($cachetime / $seconds) * 100, 2);
-    define('REQUIRED_PHP_VER', 7.0);
-    $MemStat = (PHP_VERSION_ID < REQUIRED_PHP_VER ? $mc1->getStats() : $mc1->getStats()["127.0.0.1:11211"]);
-    if (($MemStats = $mc1->get_value('mc_hits')) === false) {
-        $MemStats =  $MemStat;
-        if ($MemStats['cmd_get'] != 0) {
-            $MemStats['Hits'] = number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3);
-        } else {
-            $MemStats['Hits'] = 0;
-        }
-        $mc1->cache_value('mc_hits', $MemStats, 10);
-    }
-    // load averages - pdq
-    if ($debug) {
-        if (($uptime = $mc1->get_value('uptime')) === false) {
-            $uptime = `uptime`;
-            $mc1->cache_value('uptime', $uptime, 25);
-        }
-        preg_match('/load average: (.*)$/i', $uptime, $load);
-    }
+ {
+     global $CURUSER, $INSTALLER09, $start, $query_stat, $cache, $querytime, $lang, $rc;
+     $debug = SQL_DEBUG && isset($CURUSER['id']) && in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id']) ? 1 : 0;
+     $seconds = microtime(true) - $start;
+     $r_seconds = round($seconds, 5);
+     $phptime = $seconds - $querytime - $r_seconds;
+     $queries = count($query_stat); // sql query count by pdq
+     $header = '';
+     if ($INSTALLER09['sitecache']['driver'] === 'apcu' && extension_loaded('apcu')) {
+         $stats = apcu_cache_info();
+         if (is_array($stats) && !empty($stats)) {
+             $stats['Hits'] = number_format($stats['num_hits'] / ($stats['num_hits'] + $stats['num_misses']) * 100, 3);
+             $header = 'APC(u) Hits: ' . $stats['Hits'] . '% Misses: ' . number_format((100 - $stats['Hits']), 3) . '% Items: ' . number_format($stats['num_entries']) . ' Memory: ' . mksize($stats['mem_size']);
+         }
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'redis' && extension_loaded('redis')) {
+         $client = new \Redis();
+         if (!$INSTALLER09['redis']['use_socket']) {
+             $client->connect($INSTALLER09['redis']['host'], $INSTALLER09['redis']['port']);
+         } else {
+             $client->connect($INSTALLER09['redis']['socket']);
+         }
+         $client->select($INSTALLER09['redis']['database']);
+         $stats = $client->info();
+         if (is_array($stats) && !empty($stats)) {
+             $stats['Hits'] = number_format($stats['keyspace_hits'] / ($stats['keyspace_hits'] + $stats['keyspace_misses']) * 100, 3);
+             $db = 'db' . $INSTALLER09['redis']['database'];
+             preg_match('/keys=(\d+)/', $stats[$db], $keys);
+             $header = "Redis Hits: {$stats['Hits']}% Misses: " . number_format((100 - (float) $stats['Hits']), 3) . '% Items: ' . number_format((float) $keys[1]) . " Memory: {$stats['used_memory_human']}";
+         }
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'memcached' && extension_loaded('memcached')) {
+         $client = new \Memcached();
+         if (!count($client->getServerList())) {
+             if (!$INSTALLER09['memcached']['use_socket']) {
+                 $client->addServer($INSTALLER09['memcached']['host'], $INSTALLER09['memcached']['port']);
+             } else {
+                 $client->addServer($INSTALLER09['memcached']['socket'], 0);
+             }
+         }
+         $stats = $client->getStats();
+         if (!$INSTALLER09['memcached']['use_socket']) {
+             $stats = $stats["{$INSTALLER09['memcached']['host']}:{$INSTALLER09['memcached']['port']}"] ?? null;
+         } else {
+             $stats = $stats["{$INSTALLER09['memcached']['socket']}:0"] ?? ($stats["{$INSTALLER09['memcached']['socket']}:{$INSTALLER09['memcached']['port']}"] ?? null);
+         }
+         if (is_array($stats) && !empty($stats['get_hits']) && !empty($stats['cmd_get'])) {
+             $stats['Hits'] = number_format(($stats['get_hits'] / $stats['cmd_get']) * 100, 3);
+             $header = "Memcached Hits: {$stats['Hits']}% Misses: " . number_format((100 - $stats['Hits']), 3) . '% Items: ' . number_format($stats['curr_items']) . ' Memory: ' . mksize($stats['bytes']);
+         }
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'file') {
+         $files_info = GetDirectorySize($INSTALLER09['files']['path'], true, true);
+         $header = "Flysystem Cache: {$INSTALLER09['files']['path']} Count: {$files_info[1]} File size: {$files_info[0]}";
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'memory') {
+         $header = 'Memory Cache: Nothing cached beyond the current request';
+     } elseif ($INSTALLER09['sitecache']['driver'] === 'couchbase') {
+         $header = 'Using Couchbase Cache';
+     }
+     // load averages - pdq
+     if ($debug) {
+         if (($uptime = $cache->get('uptime')) === false) {
+             $uptime = `uptime`;
+             $cache->set('uptime', $uptime, 25);
+         }
+         preg_match('/load average: (.*)$/i', $uptime, $load);
+     }
 
-    //== end class
-    $header = '';
-    $header = '' . $lang['gl_stdfoot_querys_mstat'] . ' ' . mksize(memory_get_peak_usage()) . ' ' . $lang['gl_stdfoot_querys_mstat1'] . ' ' . round($phptime, 2) . 's | ' . round($percentmc, 2) . '' . $lang['gl_stdfoot_querys_mstat2'] . '' . number_format($cachetime, 5) . 's ' . $lang['gl_stdfoot_querys_mstat3'] . '' . $MemStats['Hits'] . '' . $lang['gl_stdfoot_querys_mstat4'] . '' . (100 - $MemStats['Hits']) . '' . $lang['gl_stdfoot_querys_mstat5'] . '' . number_format($MemStats['curr_items']);
-    $htmlfoot = '';
-    //== query stats
-    $htmlfoot.= '';
-    if (!empty($stdfoot['js'])) {
-        $htmlfoot.= '<!-- javascript goes here in footer -->';
-        foreach ($stdfoot['js'] as $JS) $htmlfoot.= '
+     //== end class
+     $header = $lang['gl_stdfoot_querys_mstat'] . ' ' .
+         mksize(memory_get_peak_usage()) . ' ' . $lang['gl_stdfoot_querys_mstat1'] . ' ' .
+         round($phptime, 2) . 's | ' . $header;
+     $htmlfoot = '';
+     //== query stats
+     $htmlfoot.= '';
+     if (!empty($stdfoot['js'])) {
+         $htmlfoot.= '<!-- javascript goes here in footer -->';
+         foreach ($stdfoot['js'] as $JS) {
+             $htmlfoot.= '
 		<script src="' . $INSTALLER09['baseurl'] . '/scripts/' . $JS . '.js"></script>';
-    }
-    $querytime = 0;
-    if ($CURUSER && $query_stat && $debug) {
-        $htmlfoot.= "
+         }
+     }
+     $querytime = 0;
+     if ($CURUSER && $query_stat && $debug) {
+         $htmlfoot.= "
 <div class='panel panel-default'>
 	<div class='panel-heading'>
 		<label for='checkbox_4' class='text-left'>{$lang['gl_stdfoot_querys']}</label>
@@ -340,8 +394,8 @@ $htmlout .='
 								<th class='text-center'>{$lang['gl_stdfoot_qs']}</th>
 							</tr>
 						</thead>";
-        foreach ($query_stat as $key => $value) {
-            $querytime+= $value['seconds']; // query execution time
+         foreach ($query_stat as $key => $value) {
+             $querytime+= $value['seconds']; // query execution time
              $htmlfoot.= "
 						<tbody>
 							<tr>
@@ -353,12 +407,12 @@ $htmlout .='
 								<td>" . htmlsafechars($value['query']) . "<br /></td>
 							</tr>
 						</tbody>";
-        }
-        $htmlfoot.= '</table></table></div></div>';
-    }
-  if ($CURUSER) {
-        /** just in case **/
-        $htmlfoot.= "
+         }
+         $htmlfoot.= '</table></table></div></div>';
+     }
+     if ($CURUSER) {
+         /** just in case **/
+         $htmlfoot.= "
 			<div class='panel panel-default'>	
 				<div class='panel-body'>
 				<div class='pull-left'>
@@ -371,108 +425,111 @@ $htmlout .='
 				{$lang['gl_stdfoot_using']}{$lang['gl_stdfoot_using1']}<br />
 				{$lang['gl_stdfoot_support']}<a href='http://forum-u-232.servebeer.com/index.php'>{$lang['gl_stdfoot_here']}</a><br />
 				" . ($debug && $CURUSER['class'] === UC_MAX ? "<a title='{$lang['gl_stdfoot_sview']}' rel='external' href='/staffpanel.php?tool=system_view'>{$lang['gl_stdfoot_sview']}</a> | " . "<a rel='external' title='OPCache' href='/staffpanel.php?tool=op'>{$lang['gl_stdfoot_opc']}</a> | " . "<a rel='external' title='Memcache' href='/staffpanel.php?tool=memcache'>{$lang['gl_stdfoot_memcache']}</a>" : "") . "";
-			$htmlfoot.= "</div></div></div>";
-    }
-    $htmlfoot.='
+         $htmlfoot.= "</div></div></div>";
+     }
+     $htmlfoot.='
         </div><!--  End main outer container -->
         <!-- Ends Footer -->
 		<!-- localStorage for collapse -->
         <script src="scripts/jquery.collapse.localstorage.js"></script>
         </body></html>';
-    return $htmlfoot;
-}
+     return $htmlfoot;
+ }
 function stdmsg($heading, $text)
 {
-$htmlout = "<table class='main' width='750' border='0' cellpadding='0' cellspacing='0'><tr><td class='embedded'>\n";
-if ($heading) $htmlout.= "<h2>$heading</h2>\n";
-$htmlout.= "<table width='90%' border='1' cellspacing='0' cellpadding='10'><tr><td class='colhead2'>\n";
-$htmlout.= "{$text}</td></tr></table><p></p><p></p></td></tr></table>\n";
-return $htmlout;
+    $htmlout = "<table class='main' width='750' border='0' cellpadding='0' cellspacing='0'><tr><td class='embedded'>\n";
+    if ($heading) {
+        $htmlout.= "<h2>$heading</h2>\n";
+    }
+    $htmlout.= "<table width='90%' border='1' cellspacing='0' cellpadding='10'><tr><td class='colhead2'>\n";
+    $htmlout.= "{$text}</td></tr></table><p></p><p></p></td></tr></table>\n";
+    return $htmlout;
 }
 function StatusBar()
 {
-    global $CURUSER, $INSTALLER09, $lang, $rep_is_on, $mc1, $msgalert;
-    if (!$CURUSER) return "";
+    global $CURUSER, $INSTALLER09, $lang, $rep_is_on, $cache, $msgalert;
+    if (!$CURUSER) {
+        return "";
+    }
     $upped = mksize($CURUSER['uploaded']);
     $downed = mksize($CURUSER['downloaded']);
     $connectable = "";
     if ($CURUSER['class'] < UC_VIP && $INSTALLER09['max_slots']) {
-    $ratioq = (($CURUSER['downloaded'] > 0) ? ($CURUSER['uploaded'] / $CURUSER['downloaded']) : 1);
-if ($ratioq < 0.95) {
-	switch (true) {
-		case ($ratioq < 0.5):
-		$max = 2;
-		break;
-		case ($ratioq < 0.65):
-		$max = 3;
-		break;
-		case ($ratioq < 0.8):
-		$max = 5;
-		break;
-		case ($ratioq < 0.95):
-		$max = 10;
-		break;
-		default:
-	   $max = 10;
-	}
- }
- else {
- switch ($CURUSER['class']) {
-		case UC_USER:
-		$max = 20;
-		break;
-		case UC_POWER_USER:
-		$max = 30;
-		break;
-		default:
-	   $max = 99;
-	}	
- }   
-}
-else
-$max = 999;
+        $ratioq = (($CURUSER['downloaded'] > 0) ? ($CURUSER['uploaded'] / $CURUSER['downloaded']) : 1);
+        if ($ratioq < 0.95) {
+            switch (true) {
+        case ($ratioq < 0.5):
+        $max = 2;
+        break;
+        case ($ratioq < 0.65):
+        $max = 3;
+        break;
+        case ($ratioq < 0.8):
+        $max = 5;
+        break;
+        case ($ratioq < 0.95):
+        $max = 10;
+        break;
+        default:
+       $max = 10;
+    }
+        } else {
+            switch ($CURUSER['class']) {
+        case UC_USER:
+        $max = 20;
+        break;
+        case UC_POWER_USER:
+        $max = 30;
+        break;
+        default:
+       $max = 99;
+    }
+        }
+    } else {
+        $max = 999;
+    }
     //==Memcache unread pms
     $PMCount = 0;
-    if (($unread1 = $mc1->get_value('inbox_new_sb_' . $CURUSER['id'])) === false) {
+    if (($unread1 = $cache->get('inbox_new_sb_' . $CURUSER['id'])) === false) {
         $res1 = sql_query("SELECT COUNT(id) FROM messages WHERE receiver=" . sqlesc($CURUSER['id']) . " AND unread = 'yes' AND location = '1'") or sqlerr(__LINE__, __FILE__);
         list($PMCount) = mysqli_fetch_row($res1);
-        $PMCount = (int)$PMCount;
-        $unread1 = $mc1->cache_value('inbox_new_sb_' . $CURUSER['id'], $PMCount, $INSTALLER09['expires']['unread']);
+        $PMCount = (int) $PMCount;
+        $unread1 = $cache->set('inbox_new_sb_' . $CURUSER['id'], $PMCount, $INSTALLER09['expires']['unread']);
     }
     $inbox = ($unread1 == 1 ? "$unread1&nbsp;{$lang['gl_msg_singular']}" : "$unread1&nbsp;{$lang['gl_msg_plural']}");
     //==Memcache peers
     if (XBT_TRACKER == true) {
-    if (($MyPeersXbtCache = $mc1->get_value('MyPeers_XBT_'.$CURUSER['id'])) === false) {
-        $seed['yes'] = $seed['no'] = 0;
-        $seed['conn'] = 3;
-        $r = sql_query("SELECT COUNT(uid) AS `count`, `left`, `active`, `connectable` FROM `xbt_files_users` WHERE uid= " . sqlesc($CURUSER['id']) . " AND `left` = 0 AND `active` = 1") or sqlerr(__LINE__, __FILE__);
-        while ($a = mysqli_fetch_assoc($r)) {
-            $key = $a['left'] == 0 ? 'yes' : 'no';
-            $seed[$key] = number_format(0 + $a['count']);
-            $seed['conn'] = $a['connectable'] == 0 ? 1 : 2;
+        if (($MyPeersXbtCache = $cache->get('MyPeers_XBT_' . $CURUSER['id'])) === false) {
+            $seed['yes'] = $seed['no'] = 0;
+            $seed['conn'] = 3;
+            $r = sql_query("SELECT COUNT(uid) AS `count`, `left`, `active`, `connectable` FROM `xbt_files_users` WHERE uid= " . sqlesc($CURUSER['id']) . " AND `left` = 0 AND `active` = 1") or sqlerr(__LINE__, __FILE__);
+            while ($a = mysqli_fetch_assoc($r)) {
+                $key = $a['left'] == 0 ? 'yes' : 'no';
+                $seed[$key] = number_format(0 + $a['count']);
+                $seed['conn'] = $a['connectable'] == 0 ? 1 : 2;
+            }
+            $cache->set('MyPeers_XBT_' . $CURUSER['id'], $seed, $INSTALLER09['expires']['MyPeers_xbt_']);
+            unset($r, $a);
+        } else {
+            $seed = $MyPeersXbtCache;
         }
-        $mc1->cache_value('MyPeers_XBT_'.$CURUSER['id'], $seed, $INSTALLER09['expires']['MyPeers_xbt_']);
-        unset($r, $a);
     } else {
-        $seed = $MyPeersXbtCache;
-    }
-} else {
-    if (($MyPeersCache = $mc1->get_value('MyPeers_' . $CURUSER['id'])) === false) {
-        $seed['yes'] = $seed['no'] = 0;
-        $seed['conn'] = 3;
-        $r = sql_query("SELECT COUNT(id) AS count, seeder, connectable FROM peers WHERE userid=" . sqlesc($CURUSER['id']) . " GROUP BY seeder");
-        while ($a = mysqli_fetch_assoc($r)) {
-            $key = $a['seeder'] == 'yes' ? 'yes' : 'no';
-            $seed[$key] = number_format(0 + $a['count']);
-            $seed['conn'] = $a['connectable'] == 'no' ? 1 : 2;
+        if (($MyPeersCache = $cache->get('MyPeers_' . $CURUSER['id'])) === false) {
+            $seed['yes'] = $seed['no'] = 0;
+            $seed['conn'] = 3;
+            $r = sql_query("SELECT COUNT(id) AS count, seeder, connectable FROM peers WHERE userid=" . sqlesc($CURUSER['id']) . " GROUP BY seeder");
+            while ($a = mysqli_fetch_assoc($r)) {
+                $key = $a['seeder'] == 'yes' ? 'yes' : 'no';
+                $seed[$key] = number_format(0 + $a['count']);
+                $seed['conn'] = $a['connectable'] == 'no' ? 1 : 2;
+            }
+            $cache->set('MyPeers_' . $CURUSER['id'], $seed, $INSTALLER09['expires']['MyPeers_']);
+            unset($r, $a);
+        } else {
+            $seed = $MyPeersCache;
         }
-        $mc1->cache_value('MyPeers_' . $CURUSER['id'], $seed, $INSTALLER09['expires']['MyPeers_']);
-        unset($r, $a);
-    } else {
-        $seed = $MyPeersCache;
     }
-   }
-     // for display connectable  1 / 2 / 3
+    // for display connectable  1 / 2 / 3
     if (!empty($seed['conn'])) {
         switch ($seed['conn']) {
         case 1:
@@ -484,29 +541,33 @@ $max = 999;
         default:
             $connectable = "N/A";
         }
-    } else $connectable = 'N/A';
+    } else {
+        $connectable = 'N/A';
+    }
 
-    if (($Achievement_Points = $mc1->get_value('user_achievement_points_' . $CURUSER['id'])) === false) {
+    if (($Achievement_Points = $cache->get('user_achievement_points_' . $CURUSER['id'])) === false) {
         $Sql = sql_query("SELECT users.id, users.username, usersachiev.achpoints, usersachiev.spentpoints FROM users LEFT JOIN usersachiev ON users.id = usersachiev.id WHERE users.id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
         $Achievement_Points = mysqli_fetch_assoc($Sql);
-        $Achievement_Points['id'] = (int)$Achievement_Points['id'];
-        $Achievement_Points['achpoints'] = (int)$Achievement_Points['achpoints'];
-        $Achievement_Points['spentpoints'] = (int)$Achievement_Points['spentpoints'];
-        $mc1->cache_value('user_achievement_points_' . $CURUSER['id'], $Achievement_Points, 0);
+        $Achievement_Points['id'] = (int) $Achievement_Points['id'];
+        $Achievement_Points['achpoints'] = (int) $Achievement_Points['achpoints'];
+        $Achievement_Points['spentpoints'] = (int) $Achievement_Points['spentpoints'];
+        $cache->set('user_achievement_points_' . $CURUSER['id'], $Achievement_Points, 0);
     }
     //$hitnruns = ($CURUSER['hit_and_run_total'] > 0 ? $CURUSER['hit_and_run_total'] : '0');
     //{$lang['gl_hnr']}: <a href='".$INSTALLER09['baseurl']."/hnr.php?id=".$CURUSER['id']."'>{$hitnruns}</a>&nbsp;
     $member_reputation = get_reputation($CURUSER);
     $usrclass = $StatusBar = "";
-    if ($CURUSER['override_class'] != 255) $usrclass = "&nbsp;<b>[" . get_user_class_name($CURUSER['class']) . "]</b>&nbsp;";
-    else if ($CURUSER['class'] >= UC_STAFF) $usrclass = "&nbsp;<a href='".$INSTALLER09['baseurl']."/setclass.php'><b>[" . get_user_class_name($CURUSER['class']) . "]</b></a>&nbsp;";
-    $StatusBar.= "<div class='text-center'>Welcome ".format_username($CURUSER) ."".(isset($CURUSER) && $CURUSER['class'] < UC_STAFF ? "[".get_user_class_name($CURUSER['class'])."]" : $usrclass)."".($INSTALLER09['max_slots'] ? "{$lang['gl_act_torrents']}:&nbsp;<img alt='{$lang['gl_seed_torrents']}' title='{$lang['gl_seed_torrents']}' src='{$INSTALLER09['pic_base_url']}up.png' />&nbsp;".intval($seed['yes']).""."&nbsp;<img alt='{$lang['gl_leech_torrents']}' title='{$lang['gl_leech_torrents']}' src='{$INSTALLER09['pic_base_url']}dl.png' />&nbsp;".($INSTALLER09['max_slots'] ? "<a title='I have ".$max." Download Slots'>".intval($seed['no'])."/".$max."</a>" : intval($seed['no']))."" : "")."&nbsp;".($INSTALLER09['achieve_sys_on'] ? "{$lang['gl_achpoints']}&nbsp;<a href='./achievementhistory.php?id={$CURUSER['id']}'>" . (int)$Achievement_Points['achpoints'] . "</a>&nbsp;" : "")."".($INSTALLER09['seedbonus_on'] ? "{$lang['gl_karma']}: <a href='".$INSTALLER09['baseurl']."/mybonus.php'>{$CURUSER['seedbonus']}</a>&nbsp;" : "")."{$lang['gl_invites']}: <a href='".$INSTALLER09['baseurl']."/invite.php'>{$CURUSER['invites']}</a>&nbsp;".($INSTALLER09['rep_sys_on'] ? "{$lang['gl_rep']}:{$member_reputation}&nbsp;" : "")."{$lang['gl_shareratio']}&nbsp;". member_ratio($CURUSER['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $CURUSER['downloaded']);
- if ($INSTALLER09['ratio_free']) {
-    $StatusBar .= "&nbsp;{$lang['gl_uploaded']}:".$upped;
+    if ($CURUSER['override_class'] != 255) {
+        $usrclass = "&nbsp;<b>[" . get_user_class_name($CURUSER['class']) . "]</b>&nbsp;";
+    } elseif ($CURUSER['class'] >= UC_STAFF) {
+        $usrclass = "&nbsp;<a href='" . $INSTALLER09['baseurl'] . "/setclass.php'><b>[" . get_user_class_name($CURUSER['class']) . "]</b></a>&nbsp;";
+    }
+    $StatusBar.= "<div class='text-center'>Welcome " . format_username($CURUSER) . "" . (isset($CURUSER) && $CURUSER['class'] < UC_STAFF ? "[" . get_user_class_name($CURUSER['class']) . "]" : $usrclass) . "" . ($INSTALLER09['max_slots'] ? "{$lang['gl_act_torrents']}:&nbsp;<img alt='{$lang['gl_seed_torrents']}' title='{$lang['gl_seed_torrents']}' src='{$INSTALLER09['pic_base_url']}up.png' />&nbsp;" . intval($seed['yes']) . "" . "&nbsp;<img alt='{$lang['gl_leech_torrents']}' title='{$lang['gl_leech_torrents']}' src='{$INSTALLER09['pic_base_url']}dl.png' />&nbsp;" . ($INSTALLER09['max_slots'] ? "<a title='I have " . $max . " Download Slots'>" . intval($seed['no']) . "/" . $max . "</a>" : intval($seed['no'])) . "" : "") . "&nbsp;" . ($INSTALLER09['achieve_sys_on'] ? "{$lang['gl_achpoints']}&nbsp;<a href='./achievementhistory.php?id={$CURUSER['id']}'>" . (int) $Achievement_Points['achpoints'] . "</a>&nbsp;" : "") . "" . ($INSTALLER09['seedbonus_on'] ? "{$lang['gl_karma']}: <a href='" . $INSTALLER09['baseurl'] . "/mybonus.php'>{$CURUSER['seedbonus']}</a>&nbsp;" : "") . "{$lang['gl_invites']}: <a href='" . $INSTALLER09['baseurl'] . "/invite.php'>{$CURUSER['invites']}</a>&nbsp;" . ($INSTALLER09['rep_sys_on'] ? "{$lang['gl_rep']}:{$member_reputation}&nbsp;" : "") . "{$lang['gl_shareratio']}&nbsp;" . member_ratio($CURUSER['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $CURUSER['downloaded']);
+    if ($INSTALLER09['ratio_free']) {
+        $StatusBar .= "&nbsp;{$lang['gl_uploaded']}:" . $upped;
     } else {
         $StatusBar .= "&nbsp;{$lang['gl_uploaded']}:{$upped} {$lang['gl_downloaded']}:{$downed}&nbsp;{$lang['gl_connectable']}&nbsp;{$connectable}";
-}
-	$StatusBar .= "</div>";
+    }
+    $StatusBar .= "</div>";
     return $StatusBar;
 }
-?>

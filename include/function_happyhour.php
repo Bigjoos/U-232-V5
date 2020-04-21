@@ -1,20 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $action
  */
 //made by putyn @tbdev 06.11.2008
 //==09 Edits
@@ -25,8 +27,11 @@ function happyHour($action)
     if ($action == "generate") {
         $nextDay = date("Y-m-d", TIME_NOW + 86400);
         $nextHoura = mt_rand(0, 2);
-        if ($nextHoura == 2) $nextHourb = mt_rand(0, 3);
-        else $nextHourb = mt_rand(0, 9);
+        if ($nextHoura == 2) {
+            $nextHourb = mt_rand(0, 3);
+        } else {
+            $nextHourb = mt_rand(0, 9);
+        }
         $nextHour = $nextHoura . $nextHourb;
         $nextMina = mt_rand(0, 5);
         $nextMinb = mt_rand(0, 9);
@@ -42,7 +47,9 @@ function happyHour($action)
     $nextDate = $happyHour + 3600;
     //action check
     if ($action == "check") {
-        if ($happyDate < $curDate && $nextDate >= $curDate) return true;
+        if ($happyDate < $curDate && $nextDate >= $curDate) {
+            return true;
+        }
     }
     //action time left
     if ($action == "time") {
@@ -54,8 +61,12 @@ function happyHour($action)
     //this will set all torrent free or just one category
     if ($action == "todo") {
         $act = rand(1, 2);
-        if ($act == 1) $todo = 255; // this will mean that all the torrent are free
-        elseif ($act == 2) $todo = rand(1, 14); // only one cat will be free || remember to change the number of categories i have 14 but you may have more
+        if ($act == 1) {
+            $todo = 255;
+        } // this will mean that all the torrent are free
+        elseif ($act == 2) {
+            $todo = rand(1, 14);
+        } // only one cat will be free || remember to change the number of categories i have 14 but you may have more
         return $todo;
     }
     //this will generate the multiplier so every torrent downloaded in the happy hour will have upload multiplied but this
@@ -64,14 +75,18 @@ function happyHour($action)
         return $multiplier;
     }
 }
-function happyCheck($action, $id = NUll)
+function happyCheck($action, $id = null)
 {
     global $INSTALLER09;
     $file = $INSTALLER09['happyhour'];
     $happy = unserialize(file_get_contents($file));
     $happycheck = $happy["catid"];
-    if ($action == "check") return $happycheck;
-    if ($action == "checkid" && (($happycheck == "255") || $happycheck == $id)) return true;
+    if ($action == "check") {
+        return $happycheck;
+    }
+    if ($action == "checkid" && (($happycheck == "255") || $happycheck == $id)) {
+        return true;
+    }
 }
 function happyFile($act)
 {
@@ -79,17 +94,17 @@ function happyFile($act)
     $file = $INSTALLER09['happyhour'];
     $happy = unserialize(file_get_contents($file));
     if ($act == "set") {
-        $array_happy = array(
+        $array_happy = [
             'time' => happyHour("generate") ,
             'status' => '1',
             'catid' => happyHour("todo")
-        );
+        ];
     } elseif ($act == "reset") {
-        $array_happy = array(
+        $array_happy = [
             'time' => $happy["time"],
             'status' => '0',
             'catid' => $happy["catid"]
-        );
+        ];
     }
     $array_happy = serialize($array_happy);
     $file = $INSTALLER09['happyhour'];
@@ -101,6 +116,5 @@ function happyFile($act)
 function happyLog($userid, $torrentid, $multi)
 {
     $time = sqlesc(TIME_NOW);
-    sql_query("INSERT INTO happylog (userid, torrentid,multi, date) VALUES(".sqlesc($userid).", ".sqlesc($torrentid).", ".sqlesc($multi).", $time)") or sqlerr(__FILE__, __LINE__);
+    sql_query("INSERT INTO happylog (userid, torrentid,multi, date) VALUES(" . sqlesc($userid) . ", " . sqlesc($torrentid) . ", " . sqlesc($multi) . ", $time)") or sqlerr(__FILE__, __LINE__);
 }
-?>

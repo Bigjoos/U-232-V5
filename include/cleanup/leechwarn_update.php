@@ -1,24 +1,26 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $data
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     //== 09 Auto leech warn by Bigjoos/pdq
@@ -28,7 +30,7 @@ function docleanup($data)
     $downloaded = 10 * 1024 * 1024 * 1024; // + 10 GB
     $length = 3 * 7; // Give 3 weeks to let them sort there shit
     $res = sql_query("SELECT id, modcomment FROM users WHERE enabled='yes' AND class = " . UC_USER . " AND leechwarn = '0' AND uploaded / downloaded < $minratio AND uploaded / downloaded > $base_ratio AND downloaded >= $downloaded AND immunity = '0'") or sqlerr(__FILE__, __LINE__);
-    $msgs_buffer = $users_buffer = array();
+    $msgs_buffer = $users_buffer = [];
     if (mysqli_num_rows($res) > 0) {
         $dt = sqlesc(TIME_NOW);
         $subject = "Auto leech warned";
@@ -41,25 +43,19 @@ function docleanup($data)
             $msgs_buffer[] = '(0,' . $arr['id'] . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ',' . $leechwarn . ',\'0\', ' . $modcom . ')';
             $update['leechwarn'] = ($leechwarn);
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, array(
+            $cache->update_row('user' . $arr['id'], [
                 'leechwarn' => $update['leechwarn'],
                 'downloadpos' => 0
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('MyUser_' . $arr['id'], [
                 'leechwarn' => $update['leechwarn'],
                 'downloadpos' => 0
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->update_row('user_stats_' . $arr['id'], [
                 'modcomment' => $modcomment
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            $mc1->delete_value('inbox_new_' . $arr['id']);
-            $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+            ], $INSTALLER09['expires']['user_stats']);
+            $cache->delete('inbox_new_' . $arr['id']);
+            $cache->delete('inbox_new_sb_' . $arr['id']);
         }
         $count = count($users_buffer);
         if ($count > 0) {
@@ -74,7 +70,7 @@ function docleanup($data)
     //== Updated/Modified autoleech warn system - Remove warning and enable downloads
     $minratio = 0.5; // ratio > 0.5
     $res = sql_query("SELECT id, modcomment FROM users WHERE downloadpos = '0' AND leechwarn > '1' AND uploaded / downloaded >= $minratio") or sqlerr(__FILE__, __LINE__);
-    $msgs_buffer = $users_buffer = array();
+    $msgs_buffer = $users_buffer = [];
     if (mysqli_num_rows($res) > 0) {
         $subject = "Auto leech warning removed";
         $msg = "Your warning for a low ratio has been removed and your downloads enabled. We highly recommend you to keep your ratio positive to avoid being automatically warned again.\n";
@@ -84,25 +80,19 @@ function docleanup($data)
             $modcom = sqlesc($modcomment);
             $msgs_buffer[] = '(0,' . $arr['id'] . ',' . TIME_NOW . ', ' . sqlesc($msg) . ',  ' . sqlesc($subject) . ')';
             $users_buffer[] = '(' . $arr['id'] . ', \'0\', \'1\', ' . $modcom . ')';
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, array(
+            $cache->update_row('user' . $arr['id'], [
                 'leechwarn' => 0,
                 'downloadpos' => 1
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('MyUser_' . $arr['id'], [
                 'leechwarn' => 0,
                 'downloadpos' => 1
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->update_row('user_stats_' . $arr['id'], [
                 'modcomment' => $modcomment
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            $mc1->delete_value('inbox_new_' . $arr['id']);
-            $mc1->delete_value('inbox_new_sb_' . $arr['id']);
+            ], $INSTALLER09['expires']['user_stats']);
+            $cache->delete('inbox_new_' . $arr['id']);
+            $cache->delete('inbox_new_sb_' . $arr['id']);
         }
         $count = count($users_buffer);
         if ($count > 0) {
@@ -116,30 +106,24 @@ function docleanup($data)
     //== 09 Auto leech warn by Bigjoos/pdq
     //== Disabled expired leechwarns
     $res = sql_query("SELECT id, modcomment FROM users WHERE leechwarn > '1' AND leechwarn < " . TIME_NOW . " AND leechwarn <> '0' ") or sqlerr(__FILE__, __LINE__);
-    $users_buffer = array();
+    $users_buffer = [];
     if (mysqli_num_rows($res) > 0) {
         while ($arr = mysqli_fetch_assoc($res)) {
             $modcomment = $arr['modcomment'];
             $modcomment = get_date(TIME_NOW, 'DATE', 1) . " - User disabled - Low ratio.\n" . $modcomment;
             $modcom = sqlesc($modcomment);
             $users_buffer[] = '(' . $arr['id'] . ' , \'0\', \'no\', ' . $modcom . ')';
-            $mc1->begin_transaction('user' . $arr['id']);
-            $mc1->update_row(false, array(
+            $cache->update_row('user' . $arr['id'], [
                 'leechwarn' => 0,
                 'enabled' => 'no'
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-            $mc1->begin_transaction('user_stats_' . $arr['id']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['user_cache']);
+            $cache->update_row('user_stats_' . $arr['id'], [
                 'modcomment' => $modcomment
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            $mc1->begin_transaction('MyUser_' . $arr['id']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['user_stats']);
+            $cache->update_row('MyUser_' . $arr['id'], [
                 'leechwarn' => 0,
                 'enabled' => 'no'
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
+            ], $INSTALLER09['expires']['curuser']);
         }
         $count = count($users_buffer);
         if ($count > 0) {
@@ -149,12 +133,13 @@ function docleanup($data)
         unset($users_buffer, $count);
     }
     //==End
-    if ($queries > 0) write_log("Leechwarn Clean -------------------- Leechwarn cleanup Complete using $queries queries --------------------");
-    if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
+    if ($queries > 0) {
+        write_log("Leechwarn Clean -------------------- Leechwarn cleanup Complete using $queries queries --------------------");
+    }
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
         $data['clean_desc'] = mysqli_affected_rows($GLOBALS["___mysqli_ston"]) . " items deleted/updated";
     }
     if ($data['clean_log']) {
         cleanup_log($data);
     }
 }
-?>

@@ -1,27 +1,26 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 // Announcement Code...
 $ann_subject = trim($CURUSER['curr_ann_subject']);
 $ann_body = trim($CURUSER['curr_ann_body']);
-if ((!empty($ann_subject)) AND (!empty($ann_body)))
-   {
-   $HTMLOUT .= "
+if ((!empty($ann_subject)) and (!empty($ann_body))) {
+    $HTMLOUT .= "
 	<div class='panel panel-default'>
 		<div class='panel-heading'>
 			<label for='checkbox_4' class='text-left'>{$lang['index_announce']}</label>
@@ -38,7 +37,7 @@ if ((!empty($ann_subject)) AND (!empty($ann_body)))
 			</table>
 		</div>
 		<br />\n";
-   }
+}
 //==End
 // End Class
 // End File

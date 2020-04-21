@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
 require_once INCL_DIR . 'bbcode_functions.php';
 dbconn(false);
 $lang = array_merge(load_language('global'));
@@ -41,12 +41,15 @@ $htmlout = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
     </script>
     <table class='list' width='100%' cellpadding='1' cellspacing='1'>";
 $count = count($smilies);
-foreach($smilies as $code => $url) {
-    if ($count % 3 == 0) $htmlout.= " \n<tr>";
+foreach ($smilies as $code => $url) {
+    if ($count % 3 == 0) {
+        $htmlout.= " \n<tr>";
+    }
     $htmlout.= "\n\t<td class=\"list\" align=\"center\"><a href=\"javascript: SmileIT('" . str_replace("'", "\'", $code) . "','" . htmlsafechars($_GET["form"]) . "','" . htmlsafechars($_GET["text"]) . "')\"><img border='0' src='./pic/smilies/" . $url . "' alt='' /></a></td>";
     $count++;
-    if ($count % 3 == 0) $htmlout.= "\n</tr>";
+    if ($count % 3 == 0) {
+        $htmlout.= "\n</tr>";
+    }
 }
 $htmlout.= "</table><div align='center'><a href='javascript: window.close()'>[ Close Window ]</a></div></body></html>";
 echo $htmlout;
-?>

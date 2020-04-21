@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
 require_once(INCL_DIR . 'user_functions.php');
@@ -72,8 +72,9 @@ $res = sql_query("SELECT userid, trys, date, enableplay FROM casino WHERE date <
 while ($arr = mysqli_fetch_assoc($res)) {
     sql_query("UPDATE casino SET trys='0' WHERE userid=" . sqlesc($arr['userid'])) or sqlerr(__FILE__, __LINE__);
 }
-if ($CURUSER['class'] < $player)
+if ($CURUSER['class'] < $player) {
     stderr($lang['gl_sorry'], "" . htmlsafechars($CURUSER["username"]) . " {$lang['casino_the_moderators_do_not_allow_your_class']} " . get_user_class_name($player) . " {$lang['casino_to_play_casino']}");
+}
 $query = "SELECT * from casino where userid = " . sqlesc($CURUSER['id']) . "";
 $result = sql_query($query) or sqlerr(__FILE__, __LINE__);
 if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) != 1) {
@@ -87,65 +88,76 @@ $user_trys = (int) $row["trys"];
 $user_date = (int) $row["date"];
 $user_deposit = $row["deposit"];
 $user_enableplay = htmlsafechars($row["enableplay"]);
-if ($user_enableplay == "no")
+if ($user_enableplay == "no") {
     stderr($lang['gl_sorry'], "" . htmlsafechars($CURUSER["username"]) . " {$lang['casino_your_banned_from_casino']}");
-if (($user_win - $user_lost) > $max_download_user)
+}
+if (($user_win - $user_lost) > $max_download_user) {
     stderr($lang['gl_sorry'], "" . htmlsafechars($CURUSER["username"]) . " {$lang['casino_you_have_reached_the_max_dl_for_a_single_user']}");
-if ($CURUSER["downloaded"] > 0)
+}
+if ($CURUSER["downloaded"] > 0) {
     $ratio = number_format($CURUSER["uploaded"] / $CURUSER["downloaded"], 2);
-else if ($CURUSER["uploaded"] > 0)
+} elseif ($CURUSER["uploaded"] > 0) {
     $ratio = 999;
-else
+} else {
     $ratio = 0;
-if ($INSTALLER09['ratio_free'] === false && $ratio < $required_ratio)
+}
+if ($INSTALLER09['ratio_free'] === false && $ratio < $required_ratio) {
     stderr($lang['gl_sorry'], "" . htmlsafechars($CURUSER["username"]) . " {$lang['casino_your_ratio_is_under']} {$required_ratio}");
+}
 $global_down2 = sql_query("SELECT (sum(win)-sum(lost)) AS globaldown,(sum(deposit)) AS globaldeposit, sum(win) AS win, sum(lost) AS lost FROM casino") or sqlerr(__FILE__, __LINE__);
 $row = mysqli_fetch_assoc($global_down2);
 $global_down = $row["globaldown"];
 $global_win = $row["win"];
 $global_lost = $row["lost"];
 $global_deposit = $row["globaldeposit"];
-if ($user_win > 0)
+if ($user_win > 0) {
     $casino_ratio_user = number_format($user_lost / $user_win, 2);
-else if ($user_lost > 0)
+} elseif ($user_lost > 0) {
     $casino_ratio_user = 999;
-else
+} else {
     $casino_ratio_user = 0.00;
-if ($global_win > 0)
-    $casino_ratio_global = number_format($global_lost / $global_win, 2);
-else if ($global_lost > 0)
-    $casino_ratio_global = 999;
-else
-    $casino_ratio_global = 0.00;
-if ($user_win < $user_everytimewin_mb)
-    $cheat_value = 8;
-else {
-    if ($global_down > ($max_download_global / $cheat_breakpoint))
-        $cheat_value = $cheat_value_max;
-    if ($casino_ratio_global < $cheat_ratio_global)
-        $cheat_value = rand($cheat_value, $cheat_value_max);
-    if (($user_win - $user_lost) > ($max_download_user / $cheat_breakpoint))
-        $cheat_value = $cheat_value_max;
-    if ($casino_ratio_user < $cheat_ratio_user)
-        $cheat_value = rand($cheat_value, $cheat_value_max);
 }
-if ($global_down > $max_download_global)
+if ($global_win > 0) {
+    $casino_ratio_global = number_format($global_lost / $global_win, 2);
+} elseif ($global_lost > 0) {
+    $casino_ratio_global = 999;
+} else {
+    $casino_ratio_global = 0.00;
+}
+if ($user_win < $user_everytimewin_mb) {
+    $cheat_value = 8;
+} else {
+    if ($global_down > ($max_download_global / $cheat_breakpoint)) {
+        $cheat_value = $cheat_value_max;
+    }
+    if ($casino_ratio_global < $cheat_ratio_global) {
+        $cheat_value = rand($cheat_value, $cheat_value_max);
+    }
+    if (($user_win - $user_lost) > ($max_download_user / $cheat_breakpoint)) {
+        $cheat_value = $cheat_value_max;
+    }
+    if ($casino_ratio_user < $cheat_ratio_user) {
+        $cheat_value = rand($cheat_value, $cheat_value_max);
+    }
+}
+if ($global_down > $max_download_global) {
     stderr($lang['gl_sorry'], "" . htmlsafechars($CURUSER["username"]) . " {$lang['casino_but_global_max_win_is_above']} " . htmlsafechars(mksize($max_download_global)));
+}
 //== Updated post color/number by pdq
 $goback = "<a href='$casino'>{$lang['casino_go_back']}</a>";
-$color_options = array(
+$color_options = [
     'red' => 1,
     'black' => 2
-);
-$number_options = array(
+];
+$number_options = [
     1 => 1,
     2 => 1,
     3 => 1,
     4 => 1,
     5 => 1,
     6 => 1
-);
-$betmb_options = array(
+];
+$betmb_options = [
     $bet_value1 => 1,
     $bet_value2 => 1,
     $bet_value3 => 1,
@@ -153,36 +165,34 @@ $betmb_options = array(
     $bet_value5 => 1,
     $bet_value6 => 1,
     $bet_value7 => 1
-);
+];
 $post_color = (isset($_POST['color']) ? $_POST['color'] : '');
 $post_number = (isset($_POST['number']) ? $_POST['number'] : '');
 $post_betmb = (isset($_POST['betmb']) ? $_POST['betmb'] : '');
-if (isset($color_options[$post_color]) && isset($number_options[$post_number]) || isset($betmb_options[$post_betmb])) {
+if (isset($color_options[$post_color], $number_options[$post_number])   || isset($betmb_options[$post_betmb])) {
     $betmb = $_POST["betmb"];
     if (isset($_POST["number"])) {
         $win_amount = $win_amount_on_number;
         $cheat_value = $cheat_value + 5;
         $winner_was = (int) $_POST["number"];
-    } else
+    } else {
         $winner_was = htmlsafechars($_POST["color"]);
+    }
     $win = $win_amount * $betmb;
-    if ($CURUSER["uploaded"] < $betmb)
+    if ($CURUSER["uploaded"] < $betmb) {
         stderr($lang['gl_sorry'], "" . htmlsafechars($CURUSER["username"]) . " {$lang['casino_but_you_have_not_uploaded']} " . htmlsafechars(mksize($betmb)));
+    }
     if (rand(0, $cheat_value) == $cheat_value) {
         sql_query("UPDATE users SET uploaded = uploaded + " . sqlesc($win) . " WHERE id=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
         sql_query("UPDATE casino SET date = '" . TIME_NOW . "', trys = trys + 1, win = win + " . sqlesc($win) . "  WHERE userid=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded'] = ($User['uploaded'] + $win);
         //==stats
-        $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-        $mc1->update_row(false, array(
+        $cache->update_row('userstats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded']
-        ));
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, array(
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded']
-        ));
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
         stderr($lang['casino_yes'], "" . htmlsafechars($winner_was) . " {$lang['casino_is_the_result']} " . htmlsafechars($CURUSER["username"]) . " {$lang['casino_you_got_it_and_win']} " . htmlsafechars(mksize($win)) . "&nbsp;&nbsp;&nbsp;$goback");
     } else {
         if (isset($_POST["number"])) {
@@ -190,25 +200,22 @@ if (isset($color_options[$post_color]) && isset($number_options[$post_number]) |
                 $fake_winner = rand(1, 6);
             } while ($_POST["number"] == $fake_winner);
         } else {
-            if ($_POST["color"] == "black")
+            if ($_POST["color"] == "black") {
                 $fake_winner = "red";
-            else
+            } else {
                 $fake_winner = "black";
+            }
         }
         sql_query("UPDATE users SET uploaded = uploaded - " . sqlesc($betmb) . " WHERE id=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
         sql_query("UPDATE casino SET date = " . TIME_NOW . ", trys = trys + 1 ,lost = lost + " . sqlesc($betmb) . " WHERE userid=" . sqlesc($CURUSER["id"])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded_loser'] = ($User['uploaded'] - $betmb);
         //==stats
-        $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-        $mc1->update_row(false, array(
+        $cache->update_row('userstats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded_loser']
-        ));
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, array(
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded_loser']
-        ));
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
         stderr($lang['gl_sorry'], "" . htmlsafechars($fake_winner) . " {$lang['casino_is_the_winner_and_not']} " . htmlsafechars($winner_was) . ", " . htmlsafechars($CURUSER["username"]) . " {$lang['casino_you_lost']} " . htmlsafechars(mksize($betmb)) . "&nbsp;&nbsp;&nbsp;$goback");
     }
 } else {
@@ -216,20 +223,23 @@ if (isset($color_options[$post_color]) && isset($number_options[$post_number]) |
     $betsp = sql_query("SELECT challenged FROM casino_bets WHERE proposed =" . sqlesc($CURUSER['username']));
     $openbet = 0;
     while ($tbet2 = mysqli_fetch_assoc($betsp)) {
-        if ($tbet2['challenged'] == 'empty')
+        if ($tbet2['challenged'] == 'empty') {
             $openbet++;
+        }
     }
     //== Convert bet amount into bits
     if (isset($_POST['unit'])) {
-        if (0 + $_POST["unit"] == 1)
+        if (0 + $_POST["unit"] == 1) {
             $nobits = $amnt * $mb_basic;
-        else
+        } else {
             $nobits = $amnt * $mb_basic * 1024;
+        }
     }
-    if ($CURUSER['uploaded'] == 0 || $CURUSER['downloaded'] == 0)
+    if ($CURUSER['uploaded'] == 0 || $CURUSER['downloaded'] == 0) {
         $ratio = '0';
-    else
+    } else {
         $ratio = number_format(($CURUSER['uploaded'] - $nobits) / $CURUSER['downloaded'], 2);
+    }
     $time = TIME_NOW;
     //== Take Bet
     if (isset($_GET["takebet"])) {
@@ -238,88 +248,85 @@ if (isset($color_options[$post_color]) && isset($number_options[$post_number]) |
         $loc = sql_query("SELECT * FROM casino_bets WHERE id = " . sqlesc($betid));
         $tbet = mysqli_fetch_assoc($loc);
         $nogb = mksize($tbet['amount']);
-        if ($CURUSER['id'] == $tbet['userid'])
+        if ($CURUSER['id'] == $tbet['userid']) {
             stderr($lang['gl_sorry'], "{$lang['casino_you_want_to_bet_against_yourself_lol']} ?&nbsp;&nbsp;&nbsp;$goback");
-        elseif ($tbet['challenged'] != "empty")
+        } elseif ($tbet['challenged'] != "empty") {
             stderr($lang['gl_sorry'], "{$lang['casino_someone_has_already_taken_that_bet']}!&nbsp;&nbsp;&nbsp;$goback");
+        }
         if ($CURUSER['uploaded'] < $tbet['amount']) {
             $debt = $tbet['amount'] - $CURUSER['uploaded'];
             $newup = $CURUSER['uploaded'] - $debt;
         }
-        if (isset($debt) && $alwdebt != 1)
+        if (isset($debt) && $alwdebt != 1) {
             stderr($lang['gl_sorry'], "<h2>{$lang['casino_you_are']} " . htmlsafechars(mksize($nobits-$CURUSER['uploaded'])) . " {$lang['casino_short_of_making_that_bet']} !</h2>&nbsp;&nbsp;&nbsp;$goback");
+        }
         if ($random == 1) {
             sql_query("UPDATE users SET uploaded = uploaded+" . sqlesc($tbet['amount']) . " WHERE id = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE casino SET deposit = deposit-" . sqlesc($tbet['amount']) . " WHERE userid = " . sqlesc($tbet['userid'])) or sqlerr(__FILE__, __LINE__);
             $update['uploaded'] = ($User['uploaded'] + $tbet['amount']);
             //==stats
-            $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-            $mc1->update_row(false, array(
+            $cache->update_row('userstats_' . $CURUSER['id'], [
                 'uploaded' => $update['uploaded']
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $CURUSER['id'], [
                 'uploaded' => $update['uploaded']
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0)
+            ], $INSTALLER09['expires']['user_stats']);
+            if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
                 sql_query("INSERT INTO casino (userid, date, deposit) VALUES (" . sqlesc($tbet['userid']) . ", $time, -" . sqlesc($tbet['amount']) . ")") or sqlerr(__FILE__, __LINE__);
+            }
             sql_query("UPDATE casino_bets SET challenged = " . sqlesc($CURUSER['username']) . ", winner = " . sqlesc($CURUSER['username']) . " WHERE id =" . sqlesc($betid)) or sqlerr(__FILE__, __LINE__);
             $subject = sqlesc($lang['casino_casino_results']);
             $msg = sqlesc("You lost a bet ! " . htmlsafechars($CURUSER['username']) . " just won " . htmlsafechars($nogb) . " of your upload credit !");
             sql_query("INSERT INTO messages (subject, sender, receiver, added, msg, unread, poster) VALUES ($subject, $sendfrom, " . sqlesc($tbet['userid']) . ", $time, $msg, 'yes', $sendfrom)") or sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('inbox_new_' . $tbet['userid']);
-            $mc1->delete_value('inbox_new_sb_' . $tbet['userid']);
-            if ($writelog == 1)
+            $cache->delete('inbox_new_' . $tbet['userid']);
+            $cache->delete('inbox_new_sb_' . $tbet['userid']);
+            if ($writelog == 1) {
                 write_log($CURUSER['username'] . " won $nogb {$lang['casino_of_upload_credit_off']} " . htmlsafechars($tbet['proposed']));
-            if ($delold == 1)
+            }
+            if ($delold == 1) {
                 sql_query("DELETE FROM casino_bets WHERE id =" . sqlesc($tbet['id'])) or sqlerr(__FILE__, __LINE__);
+            }
             stderr($lang['casino_you_got_it'], "<h2>{$lang['casino_you_won_the_bet']}, " . htmlsafechars($nogb) . " {$lang['casino_has_been_credited_to_your_account']}, at <a href='userdetails.php?id=" . (int) $tbet['userid'] . "'>" . htmlsafechars($tbet['proposed']) . "'s</a> {$lang['casino_expense']} !</h2>&nbsp;&nbsp;&nbsp;$goback");
             exit();
         } else {
-            if (empty($newup))
+            if (empty($newup)) {
                 $newup = $User['uploaded'] - $tbet['amount'];
+            }
             $newup2 = $tbet['amount'] * 2;
             sql_query("UPDATE users SET uploaded = " . sqlesc($newup) . " WHERE id =" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE users SET uploaded = uploaded + " . sqlesc($newup2) . " WHERE id = " . sqlesc($tbet['userid'])) or sqlerr(__FILE__, __LINE__);
             sql_query("UPDATE casino SET deposit = deposit-" . sqlesc($tbet['amount']) . " WHERE userid = " . sqlesc($tbet['userid']));
             $update['uploaded'] = ($newup);
             //==stats
-            $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-            $mc1->update_row(false, array(
+            $cache->update_row('userstats_' . $CURUSER['id'], [
                 'uploaded' => $update['uploaded']
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $CURUSER['id'], [
                 'uploaded' => $update['uploaded']
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+            ], $INSTALLER09['expires']['user_stats']);
             $update['uploaded_2'] = ($User['uploaded'] + $newup2);
             //==stats
-            $mc1->begin_transaction('userstats_' . $tbet['userid']);
-            $mc1->update_row(false, array(
+            $cache->update_row('userstats_' . $tbet['userid'], [
                 'uploaded' => $update['uploaded_2']
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-            $mc1->begin_transaction('user_stats_' . $tbet['userid']);
-            $mc1->update_row(false, array(
+            ], $INSTALLER09['expires']['u_stats']);
+            $cache->update_row('user_stats_' . $tbet['userid'], [
                 'uploaded' => $update['uploaded_2']
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-            if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0)
+            ], $INSTALLER09['expires']['user_stats']);
+            if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
                 sql_query("INSERT INTO casino (userid, date, deposit) VALUES (" . sqlesc($tbet['userid']) . ", $time, -" . sqlesc($tbet['amount']) . ")") or sqlerr(__FILE__, __LINE__);
+            }
             sql_query("UPDATE casino_bets SET challenged = " . sqlesc($CURUSER['username']) . ", winner = " . sqlesc($tbet['proposed']) . " WHERE id = " . sqlesc($betid)) or sqlerr(__FILE__, __LINE__);
             $subject = sqlesc($lang['casino_casino_results']);
             $msg = sqlesc("{$lang['casino_you_just_won']} " . htmlsafechars($nogb) . " {$lang['casino_of_upload_credit_from']} " . $CURUSER['username'] . " !");
             sql_query("INSERT INTO messages (subject, sender, receiver, added, msg, unread, poster) VALUES ($subject, $sendfrom, " . sqlesc($tbet['userid']) . ", $time, $msg, 'yes', $sendfrom)") or sqlerr(__FILE__, __LINE__);
-            $mc1->delete_value('inbox_new_' . $tbet['userid']);
-            $mc1->delete_value('inbox_new_sb_' . $tbet['userid']);
-            if ($writelog == 1)
+            $cache->delete('inbox_new_' . $tbet['userid']);
+            $cache->delete('inbox_new_sb_' . $tbet['userid']);
+            if ($writelog == 1) {
                 write_log("" . htmlsafechars($tbet['proposed']) . " won $nogb {$lang['casino_of_upload_credit_off']} " . $CURUSER['username']);
-            if ($delold == 1)
+            }
+            if ($delold == 1) {
                 sql_query("DELETE FROM casino_bets WHERE id =" . sqlesc($tbet['id'])) or sqlerr(__FILE__, __LINE__);
+            }
             stderr($lang['casino_damn_it'], "<h2>{$lang['casino_you_lost_the_bet']} <a href='userdetails.php?id=" . (int) $tbet['userid'] . "'>" . htmlsafechars($tbet['proposed']) . "</a> {$lang['casino_has_won']} " . htmlsafechars($nogb) . " {$lang['casino_of_your_hard_earnt_upload_credit']} !</h2> &nbsp;&nbsp;&nbsp;$goback");
         }
         exit();
@@ -328,23 +335,28 @@ if (isset($color_options[$post_color]) && isset($number_options[$post_number]) |
     $loca = sql_query("SELECT * FROM casino_bets WHERE challenged ='empty'") or sqlerr(__FILE__, __LINE__);
     $totbets = mysqli_num_rows($loca);
     if (isset($_POST['unit'])) {
-        if (0 + $_POST["unit"] == '1')
+        if (0 + $_POST["unit"] == '1') {
             $nobits = 0 + $_POST["amnt"] * $mb_basic;
-        else
+        } else {
             $nobits = 0 + $_POST["amnt"] * $mb_basic * 1024;
+        }
     }
     if (isset($_POST["unit"])) {
-        if ($openbet >= $maxusrbet)
+        if ($openbet >= $maxusrbet) {
             stderr($lang['gl_sorry'], "{$lang['casino_there_are_already']} " . htmlsafechars($openbet) . " {$lang['casino_bets_open_take_an_open_bet']} !");
-        if ($nobits <= 0)
+        }
+        if ($nobits <= 0) {
             stderr($lang['gl_sorry'], " {$lang['casino_this_wont_work_enter_a_pos_val']}?");
-        if ($nobits == ".")
+        }
+        if ($nobits == ".") {
             stderr($lang['gl_sorry'], " {$lang['casino_this_wont_work_enter_without_a_dec']}?");
+        }
         $newups = $CURUSER['uploaded'] - $nobits;
         $debt = $nobits - $CURUSER['uploaded'];
         if ($CURUSER['uploaded'] < $nobits) {
-            if ($alwdebt != 1)
+            if ($alwdebt != 1) {
                 stderr($lang['gl_sorry'], "<h2>{$lang['casino_thats']} " . htmlsafechars(mksize($debt)) . " {$lang['casino_more_than_you_got']}!</h2>$goback");
+            }
         }
         $betsp = sql_query("SELECT id, amount FROM casino_bets WHERE userid = " . sqlesc($CURUSER['id']) . " ORDER BY time ASC") or sqlerr(__FILE__, __LINE__);
         $tbet2 = mysqli_fetch_row($betsp);
@@ -358,41 +370,38 @@ if (isset($color_options[$post_color]) && isset($number_options[$post_number]) |
         sql_query("UPDATE casino SET deposit = deposit + " . sqlesc($nobits) . " WHERE userid = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
         $update['uploaded'] = ($newups);
         //==stats
-        $mc1->begin_transaction('userstats_' . $CURUSER['id']);
-        $mc1->update_row(false, array(
+        $cache->update_row('userstats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded']
-        ));
-        $mc1->commit_transaction($INSTALLER09['expires']['u_stats']);
-        $mc1->begin_transaction('user_stats_' . $CURUSER['id']);
-        $mc1->update_row(false, array(
+        ], $INSTALLER09['expires']['u_stats']);
+        $cache->update_row('user_stats_' . $CURUSER['id'], [
             'uploaded' => $update['uploaded']
-        ));
-        $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
+        ], $INSTALLER09['expires']['user_stats']);
         if ($INSTALLER09['autoshout_on'] == 1 || $INSTALLER09['irc_autoshout_on'] == 1) {
-        autoshout($message);
-        ircbot($messages);
-        $mc1->delete_value('shoutbox_');
+            autoshout($message);
+            ircbot($messages);
+            $cache->delete('shoutbox_');
         }
-        if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0)
+        if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) == 0) {
             sql_query("INSERT INTO casino (userid, date, deposit) VALUES (" . sqlesc($CURUSER['id']) . ", $time, " . sqlesc($nobits) . ")") or sqlerr(__FILE__, __LINE__);
+        }
     }
     $loca = sql_query("SELECT * FROM casino_bets WHERE challenged ='empty'");
     $totbets = mysqli_num_rows($loca);
-    
 
-//== Output html begin
+
+    //== Output html begin
     $HTMLOUT = '';
     $HTMLOUT .= "<table class='table table-bordered'>
             <tr>
             <td align='center'>";
     $HTMLOUT = $dummy;
-    
 
-//== Place bet table
+
+    //== Place bet table
     if ($openbet < $maxusrbet) {
-        if ($totbets >= $maxtotbet)
+        if ($totbets >= $maxtotbet) {
             $HTMLOUT .= "<br />{$lang['casino_there_are_already']} " . htmlsafechars($maxtotbet) . " {$lang['casino_bets_open_take_an_open_bet']} !<br />";
-        else {
+        } else {
             $HTMLOUT .= "<br />
             <form class=\"form-horizontal\" name=\"p2p\" method=\"post\" action=\"casino.php\">
         <div class='panel panel-default'>
@@ -413,9 +422,10 @@ if (isset($color_options[$post_color]) && isset($number_options[$post_number]) |
             $HTMLOUT .= "<tr><td align=\"center\" colspan=\"2\"><input class='btn btn-default' type=\"submit\" value=\"{$lang['casino_gamble']}!\" />";
             $HTMLOUT .= "</td></tr></table></div></form></div></div></div></div><br />";
         }
-    } else
+    } else {
         $HTMLOUT .= "<b>{$lang['casino_you_already_have']} " . htmlsafechars($maxusrbet) . " {$lang['casino_open_bets_wait_until_they_are_comp']}.</b><br /><br />";
- //== Open Bets table
+    }
+    //== Open Bets table
     $HTMLOUT .= "<div class='panel panel-default'>	
 	<table class='table table-bordered'>";
     $HTMLOUT .= "<tr><td align=\"center\" class=\"colhead\" colspan=\"4\">{$lang['casino_open_bets']}</td></tr></div>";
@@ -432,12 +442,13 @@ if (isset($color_options[$post_color]) && isset($number_options[$post_number]) |
             </tr>";
         $abcdefgh = 1;
     }
-    if ($abcdefgh == false)
+    if ($abcdefgh == false) {
         $HTMLOUT .= "<tr><td align='center' colspan='4'>{$lang['casino_sorry_no_bets_currently']}.</td></tr>";
-    $HTMLOUT .= "</table></div><br />";  
+    }
+    $HTMLOUT .= "</table></div><br />";
 
-//== Bet on color table
-$HTMLOUT.="<div class='row'>
+    //== Bet on color table
+    $HTMLOUT.="<div class='row'>
 <div class='col-sm-6'>";
     $HTMLOUT .= "<div class='panel panel-default'>
 		<form class=\"form-horizontal\" name=\"casino\" method=\"post\" action=\"casino.php\">
@@ -455,16 +466,17 @@ $HTMLOUT.="<div class='row'>
             <option value=\"{$bet_value6}\">" . mksize($bet_value6) . "</option>
             <option value=\"{$bet_value7}\">" . mksize($bet_value7) . "</option>
             </select>", 1);
-    if ($show_real_chance)
+    if ($show_real_chance) {
         $real_chance = $cheat_value + 1;
-    else
+    } else {
         $real_chance = 2;
+    }
     $HTMLOUT .= tr($lang['casino_your_chance'], "1 : " . $real_chance, 1);
     $HTMLOUT .= tr($lang['casino_you_can_win'], $win_amount . " * stake", 1);
     $HTMLOUT .= tr($lang['casino_bet_on_color'], "<input class='btn btn-default'  type=\"submit\" value=\"{$lang['casino_do_it']}!\" />", 1);
     $HTMLOUT .= "</table></form></div></div>";
- //== Bet on number table
-$HTMLOUT.="<div class='col-sm-6'>";
+    //== Bet on number table
+    $HTMLOUT.="<div class='col-sm-6'>";
     $HTMLOUT .= "<div class='panel panel-default'>
 	<form class=\"form-horizontal\" name=\"casino\" method=\"post\" action=\"casino.php\">
             <table class=\"message table table-bordered\"  cellspacing=\"0\">\n";
@@ -481,15 +493,16 @@ $HTMLOUT.="<div class='col-sm-6'>";
             <option value=\"{$bet_value6}\">" . mksize($bet_value6) . "</option>
             <option value=\"{$bet_value7}\">" . mksize($bet_value7) . "</option>
             </select>", 1);
-    if ($show_real_chance)
+    if ($show_real_chance) {
         $real_chance = $cheat_value + 5;
-    else
+    } else {
         $real_chance = 6;
+    }
     $HTMLOUT .= tr($lang['casino_your_chance'], "1 : " . $real_chance, 1);
     $HTMLOUT .= tr($lang['casino_you_can_win'], $win_amount_on_number . " * stake", 1);
     $HTMLOUT .= tr($lang['casino_bet_on_a_number'], "<input class='btn btn-default'  type=\"submit\" value=\"{$lang['casino_do_it']}!\" />", 1);
     $HTMLOUT .= "</table></form></div></div></div>";
- //== User stats table
+    //== User stats table
     $HTMLOUT .= "<div class='panel panel-default'><table class='table table-bordered'>";
     $HTMLOUT .= "<tr><td align=\"center\" class=\"colhead\" colspan=\"3\">{$CURUSER['username']}'s {$lang['casino_details']}</td></tr>
             <tr><td align='center'>
@@ -519,4 +532,3 @@ $HTMLOUT.="<div class='col-sm-6'>";
     $HTMLOUT .= "</table></td></tr></table></div>";
 }
 echo stdhead("{$INSTALLER09['site_name']} {$lang['casino_stdhead']}") . $HTMLOUT . stdfoot();
-?>

@@ -40,42 +40,42 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'TypoScript',
-    'COMMENT_SINGLE' => array(1  => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'COMMENT_REGEXP' => array(2 => '/(?<!(#|\'|"))(?:#(?!(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))[^\n#]+|#{2}[^\n#]+|#{7,999}[^\n]+)/'),
+    'COMMENT_SINGLE' => [1  => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
+    'COMMENT_REGEXP' => [2 => '/(?<!(#|\'|"))(?:#(?!(?:[a-fA-F0-9]{6}|[a-fA-F0-9]{3}))[^\n#]+|#{2}[^\n#]+|#{7,999}[^\n]+)/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array(),
+    'QUOTEMARKS' => [],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         // Conditions: http://documentation.typo3.org/documentation/tsref/conditions/
-        1 => array(
+        1 => [
             'browser', 'compatVersion', 'dayofmonth', 'dayofweek', 'device',
             'globalString', 'globalVars', 'hostname', 'hour',
             'ip', 'language', 'loginUser', 'loginuser', 'minute',
             'month', 'PIDinRootline', 'PIDupinRootline',
             'system', 'treelevel', 'useragent', 'userFunc',
             'usergroup', 'version'
-            ),
+        ],
 
         // Functions: http://documentation.typo3.org/documentation/tsref/functions/
-        2 => array(
+        2 => [
             'addParams', 'encapsLines', 'filelink', 'HTMLparser',
             'HTMLparser_tags', 'if', 'imageLinkWrap',
             'imgResource', 'makelinks', 'numRows', 'parseFunc',
             'select', 'split', 'stdWrap', 'tableStyle', 'tags',
             'textStyle', 'typolink'
-            ),
+        ],
 
         // Toplevel objects: http://documentation.typo3.org/documentation/tsref/tlo-objects/
-        3 => array(
+        3 => [
             'CARRAY', 'CONFIG', 'CONSTANTS', 'FE_DATA', 'FE_TABLE', 'FRAME',
             'FRAMESET', 'META', 'PAGE', 'plugin'
-            ),
+        ],
 
         // Content Objects (cObject) : http://documentation.typo3.org/documentation/tsref/cobjects/
-        4 => array(
+        4 => [
             'CASE', 'CLEARGIF', 'COA', 'COA_INT', 'COBJ_ARRAY', 'COLUMNS',
             'CONTENT', 'CTABLE', 'EDITPANEL', 'FILE', 'FORM',
             'HMENU', 'HRULER', 'HTML', 'IMAGE', 'IMGTEXT',
@@ -84,64 +84,64 @@ $language_data = array (
             'PHP_SCRIPT_INT', 'RECORDS', 'RESTORE_REGISTER',
             'SEARCHRESULT', 'TEMPLATE', 'TEXT', 'USER',
             'USER_INT'
-            ),
+        ],
 
         // GIFBUILDER toplevel link: http://documentation.typo3.org/documentation/tsref/gifbuilder/
-        5 => array(
+        5 => [
             'GIFBUILDER',
-            ),
+        ],
 
         // GIFBUILDER: http://documentation.typo3.org/documentation/tsref/gifbuilder/
         // skipped fields: IMAGE, TEXT
         // NOTE! the IMAGE and TEXT field already are linked in group 4, they
         // cannot be linked twice . . . . unfortunately
-        6 => array(
+        6 => [
             'ADJUST', 'BOX', 'CROP', 'EFFECT', 'EMBOSS',
             'IMGMAP', 'OUTLINE', 'SCALE', 'SHADOW',
             'WORKAREA'
-            ),
+        ],
 
         // MENU Objects: http://documentation.typo3.org/documentation/tsref/menu/
-        7 => array(
+        7 => [
             'GMENU', 'GMENU_FOLDOUT', 'GMENU_LAYERS', 'IMGMENU',
             'IMGMENUITEM', 'JSMENU', 'JSMENUITEM', 'TMENU',
             'TMENUITEM', 'TMENU_LAYERS'
-            ),
+        ],
 
         // MENU common properties: http://documentation.typo3.org/documentation/tsref/menu/common-properties/
-        8 => array(
+        8 => [
             'alternativeSortingField', 'begin', 'debugItemConf',
             'imgNameNotRandom', 'imgNamePrefix',
             'itemArrayProcFunc', 'JSWindow', 'maxItems',
             'minItems', 'overrideId', 'sectionIndex',
             'showAccessRestrictedPages', 'submenuObjSuffixes'
-            ),
+        ],
 
         // MENU item states: http://documentation.typo3.org/documentation/tsref/menu/item-states/
-        9 => array(
+        9 => [
             'ACT', 'ACTIFSUB', 'ACTIFSUBRO', 'ACTRO', 'CUR', 'CURIFSUB',
             'CURIFSUBRO', 'CURRO', 'IFSUB', 'IFSUBRO', 'NO',
             'SPC', 'USERDEF1', 'USERDEF1RO', 'USERDEF2',
             'USERDEF2RO', 'USR', 'USRRO'
-            ),
-        ),
+        ],
+    ],
 
     // Does not include '-' because of stuff like htmlTag_langKey = en-GB and
     // lib.nav-sub
-    'SYMBOLS' => array(
-        0 => array(
+    'SYMBOLS' => [
+        0 => [
             '|',
             '+', '*', '/', '%',
             '!', '&&', '^',
             '<', '>', '=',
             '?', ':',
             '.'
-            ),
-        1 => array(
+        ],
+        1 => [
             '(', ')', '{', '}', '[', ']'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -152,9 +152,9 @@ $language_data = array (
         7 => true,
         8 => true,
         9 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #ed7d14;',
             2 => 'font-weight: bold;',
             3 => 'color: #990000; font-weight: bold;',
@@ -164,31 +164,31 @@ $language_data = array (
             7 => 'color: #990000; font-weight: bold;',
             8 => 'font-weight: bold;',
             9 => 'color: #990000; font-weight: bold;',
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #aaa; font-style: italic;',
             2 => 'color: #aaa; font-style: italic;',
             'MULTI' => 'color: #aaa; font-style: italic;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ac14aa;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc0000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #0000e0; font-weight: bold;',
             2 => 'color: #0000e0; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #339933; font-weight: bold;',
-                // Set this to the same value as brackets above
+            // Set this to the same value as brackets above
             1 => 'color: #009900; font-weight: bold;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #009900;',
             1 => 'color: #009900; font-weight: bold;',
             2 => 'color: #3366CC;',
@@ -197,13 +197,13 @@ $language_data = array (
             5 => 'color: #000066; font-weight: bold;',
             6 => 'color: #009900;',
             7 => 'color: #3366CC;'
-            ),
-        'ESCAPE_CHAR' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'ESCAPE_CHAR' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => 'http://documentation.typo3.org/documentation/tsref/conditions/{FNAME}/',
         2 => 'http://documentation.typo3.org/documentation/tsref/functions/{FNAME}/',
         3 => 'http://documentation.typo3.org/documentation/tsref/tlo-objects/{FNAME}/',
@@ -213,88 +213,86 @@ $language_data = array (
         7 => 'http://documentation.typo3.org/documentation/tsref/menu/{FNAME}/',
         8 => 'http://documentation.typo3.org/documentation/tsref/menu/common-properties/',
         9 => 'http://documentation.typo3.org/documentation/tsref/menu/item-states/'
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-            // Constant
-        0 => array(
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+        // Constant
+        0 => [
             GESHI_SEARCH => '(\{)(\$[a-zA-Z_\.]+[a-zA-Z0-9_\.]*)(\})',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
+        ],
 
-            // Constant dollar sign
-        1 => array(
+        // Constant dollar sign
+        1 => [
             GESHI_SEARCH => '(\$)([a-zA-Z_\.]+[a-zA-Z0-9_\.]*)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => '\\2'
-            ),
+        ],
 
-            // xhtml tag
-        2 => array(
+        // xhtml tag
+        2 => [
             GESHI_SEARCH => '(&lt;[a-zA-Z\!\/].*?&gt;)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 's',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
+        ],
 
-            // extension keys / tables: (static|user|ttx|tx|tt|fe)_something[_something]
-        3 => array(
+        // extension keys / tables: (static|user|ttx|tx|tt|fe)_something[_something]
+        3 => [
             GESHI_SEARCH => '(plugin\.|[^\.]\b)((?:static|user|ttx|tx|tt|fe)(?:_[0-9A-Za-z_]+?)\b)',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
+        ],
 
-            // conditions and controls
-        4 => array(
+        // conditions and controls
+        4 => [
             GESHI_SEARCH => '(\[)(globalVar|global|end)\b',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
+        ],
 
-            // lowlevel setup and constant objects
-        5 => array(
+        // lowlevel setup and constant objects
+        5 => [
             GESHI_SEARCH => '([^\.\$-\{]\b)(cObj|field|config|content|file|frameset|includeLibs|lib|page|plugin|register|resources|sitemap|sitetitle|styles|temp|tt_content|tt_news|types|xmlnews)\b',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-            ),
+        ],
 
-            // markers
-        6 => array(
+        // markers
+        6 => [
             GESHI_SEARCH => '(###[^#]+###)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
+        ],
 
-            // hex color codes
-        7 => array(
+        // hex color codes
+        7 => [
             GESHI_SEARCH => '(#[a-fA-F0-9]{6}\b|#[a-fA-F0-9]{3}\b)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            )
-        ),
+        ]
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+];

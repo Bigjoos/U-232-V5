@@ -43,44 +43,44 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'E',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array('/**' => '*/'), // Note: This is method doc, not a general comment syntax.
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => ['/**' => '*/'], // Note: This is method doc, not a general comment syntax.
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
 
     // FIXME: The escaping inside ` is actually doubling of any interior `, $, or @ -- backslash is NOT special
-    'QUOTEMARKS' => array('\'', '"', '`'),
+    'QUOTEMARKS' => ['\'', '"', '`'],
     'ESCAPE_CHAR' => '\\',
 
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         // builtin control structures
-        1 => array(
+        1 => [
             'accum', 'break', 'try', 'continue', 'if', 'while', 'for', 'switch'
-            ),
+        ],
 
         // control structures subsidiary keywords
-        2 => array(
+        2 => [
             'catch', 'else', 'finally', 'in', 'exit'
-            ),
+        ],
 
         // named operators
-        3 => array(
+        3 => [
             'fn', 'via'
-            ),
+        ],
 
         // variable/function/object definers
-        4 => array(
+        4 => [
             'def', 'bind', 'var'
-            ),
+        ],
 
         // object definition subsidiary keywords
-        5 => array(
+        5 => [
             'extends', 'as', 'implements', 'guards', 'match', 'to', 'method'
-            ),
+        ],
 
         // builtin nouns in safeEnv
-        6 => array(
+        6 => [
             'null', 'false', 'true', 'throw', '__loop', '__makeList',
             '__makeMap', '__makeProtocolDesc', '__makeMessageDesc',
             '__makeParamDesc', 'any', 'void', 'boolean', '__makeOrderedSpace',
@@ -98,10 +98,10 @@ $language_data = array(
             'safeScope', '__eval', 'resource__uriGetter', 'type__uriGetter',
             'import__uriGetter', 'elib__uriGetter', 'elang__uriGetter',
             'opaque__uriGetter'
-            ),
+        ],
 
         // builtin nouns in privilegedEnv
-        7 => array(
+        7 => [
             'file__uriGetter', 'fileURL__uriGetter', 'jar__uriGetter',
             'http__uriGetter', 'ftp__uriGetter', 'gopher__uriGetter',
             'news__uriGetter', 'cap__uriGetter', 'makeCommand', 'stdout',
@@ -111,10 +111,10 @@ $language_data = array(
             'swing__uriGetter', 'JPanel__quasiParser', 'swt__uriGetter',
             'currentDisplay', 'swtGrid__quasiParser', 'swtGrid`',
             'privilegedScope'
-            ),
+        ],
 
         // reserved keywords
-        8 => array(
+        8 => [
             'abstract', 'an', 'assert', 'attribute', 'be', 'begin', 'behalf',
             'belief', 'believe', 'believes', 'case', 'class', 'const',
             'constructor', 'declare', 'default', 'define', 'defmacro',
@@ -129,14 +129,14 @@ $language_data = array(
             'suspects', 'synchronized', 'this', 'transient', 'truncatable',
             'typedef', 'unsigned', 'unum', 'uses', 'using', 'utf8', 'utf16',
             'virtual', 'volatile', 'wstring'
-            )
-        ),
-    'SYMBOLS' => array(
-        1 => array(
+        ]
+    ],
+    'SYMBOLS' => [
+        1 => [
             '(', ')', '{', '}', '[', ']', '+', '-', '*', '/', '%', '=', '<', '>', '!', '^', '&', '|', '?', ':', ';', ','
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -146,9 +146,9 @@ $language_data = array(
         6 => true,
         7 => true,
         8 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #b1b100;',
             2 => 'color: #b1b100;',
             3 => 'color: #b1b100;',
@@ -157,33 +157,33 @@ $language_data = array(
             6 => 'color: #b1b100;',
             7 => 'color: #b1b100;',
             8 => 'color: #b1b100;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #0000ff;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;',
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #004000;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             1 => 'color: #339933;'
-            ),
-        'REGEXPS' => array(),
-        'SCRIPT' => array()
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [],
+        'SCRIPT' => []
+    ],
+    'URLS' => [
         1 => 'http://wiki.erights.org/wiki/{FNAME}',
         2 => 'http://wiki.erights.org/wiki/{FNAME}',
         3 => 'http://wiki.erights.org/wiki/{FNAME}',
@@ -192,17 +192,15 @@ $language_data = array(
         6 => 'http://wiki.erights.org/wiki/{FNAME}',
         7 => 'http://wiki.erights.org/wiki/{FNAME}',
         8 => 'http://wiki.erights.org/wiki/{FNAME}'
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.',
         2 => '<-',
         3 => '::'
-        ),
-    'REGEXPS' => array(),
+    ],
+    'REGEXPS' => [],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => []
+];

@@ -58,57 +58,57 @@
  *
  ************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'SystemVerilog',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'COMMENT_REGEXP' => array(1 => '/\/\/(?:\\\\\\\\|\\\\\\n|.)*$/m'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
+    'COMMENT_REGEXP' => [1 => '/\/\/(?:\\\\\\\\|\\\\\\n|.)*$/m'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         // system tasks
-        1 => array(
-            'acos','acosh','asin','asinh','assertfailoff','assertfailon',
-            'assertkill','assertnonvacuouson','assertoff','asserton',
-            'assertpassoff','assertpasson','assertvacuousoff','async$and$array',
-            'async$and$plane','async$nand$array','async$nand$plane',
-            'async$nor$array','async$nor$plane','async$or$array',
-            'async$or$plane','atan','atan2','atanh','bits','bitstoreal',
-            'bitstoshortreal','cast','ceil','changed','changed_gclk',
-            'changing_gclk','clog2','cos','cosh','countones','coverage_control',
-            'coverage_get','coverage_get_max','coverage_merge','coverage_save',
-            'dimensions','display','displayb','displayh','displayo',
-            'dist_chi_square','dist_erlang','dist_exponential','dist_normal',
-            'dist_poisson','dist_t','dist_uniform','dumpall','dumpfile',
-            'dumpflush','dumplimit','dumpoff','dumpon','dumpports',
-            'dumpportsall','dumpportsflush','dumpportslimit','dumpportsoff',
-            'dumpportson','dumpvars','error','exit','exp','falling_gclk',
-            'fclose','fdisplay','fdisplayb','fdisplayh','fdisplayo','fell',
-            'fell_gclk','feof','ferror','fflush','fgetc','fgets','finish',
-            'floor','fmonitor','fmonitorb','fmonitorh','fmonitoro','fopen',
-            'fread','fscanf','fseek','fstrobe','fstrobeb','fstrobeh','fstrobeo',
-            'ftell','future_gclk','fwrite','fwriteb','fwriteh','fwriteo',
-            'get_coverage','high','hypot','increment','info','isunbounded',
-            'isunknown','itor','left','ln','load_coverage_db','log10','low',
-            'monitor','monitorb','monitorh','monitoro','monitoroff','monitoron',
-            'onehot','onehot0','past','past_gclk','pow','printtimescale',
-            'q_add','q_exam','q_full','q_initialize','q_remove','random',
-            'readmemb','readmemh','realtime','realtobits','rewind','right',
-            'rising_gclk','rose','rose_gclk','rtoi','sampled',
-            'set_coverage_db_name','sformat','sformatf','shortrealtobits',
-            'signed','sin','sinh','size','sqrt','sscanf','stable','stable_gclk',
-            'steady_gclk','stime','stop','strobe','strobeb','strobeh','strobeo',
-            'swrite','swriteb','swriteh','swriteo','sync$and$array',
-            'sync$and$plane','sync$nand$array','sync$nand$plane',
-            'sync$nor$array','sync$nor$plane','sync$or$array','sync$or$plane',
-            'system','tan','tanh','test$plusargs','time','timeformat',
-            'typename','ungetc','unpacked_dimensions','unsigned',
-            'value$plusargs','warning','write','writeb','writeh','writememb',
-            'writememh','writeo',
-            ),
+        1 => [
+            'acos', 'acosh', 'asin', 'asinh', 'assertfailoff', 'assertfailon',
+            'assertkill', 'assertnonvacuouson', 'assertoff', 'asserton',
+            'assertpassoff', 'assertpasson', 'assertvacuousoff', 'async$and$array',
+            'async$and$plane', 'async$nand$array', 'async$nand$plane',
+            'async$nor$array', 'async$nor$plane', 'async$or$array',
+            'async$or$plane', 'atan', 'atan2', 'atanh', 'bits', 'bitstoreal',
+            'bitstoshortreal', 'cast', 'ceil', 'changed', 'changed_gclk',
+            'changing_gclk', 'clog2', 'cos', 'cosh', 'countones', 'coverage_control',
+            'coverage_get', 'coverage_get_max', 'coverage_merge', 'coverage_save',
+            'dimensions', 'display', 'displayb', 'displayh', 'displayo',
+            'dist_chi_square', 'dist_erlang', 'dist_exponential', 'dist_normal',
+            'dist_poisson', 'dist_t', 'dist_uniform', 'dumpall', 'dumpfile',
+            'dumpflush', 'dumplimit', 'dumpoff', 'dumpon', 'dumpports',
+            'dumpportsall', 'dumpportsflush', 'dumpportslimit', 'dumpportsoff',
+            'dumpportson', 'dumpvars', 'error', 'exit', 'exp', 'falling_gclk',
+            'fclose', 'fdisplay', 'fdisplayb', 'fdisplayh', 'fdisplayo', 'fell',
+            'fell_gclk', 'feof', 'ferror', 'fflush', 'fgetc', 'fgets', 'finish',
+            'floor', 'fmonitor', 'fmonitorb', 'fmonitorh', 'fmonitoro', 'fopen',
+            'fread', 'fscanf', 'fseek', 'fstrobe', 'fstrobeb', 'fstrobeh', 'fstrobeo',
+            'ftell', 'future_gclk', 'fwrite', 'fwriteb', 'fwriteh', 'fwriteo',
+            'get_coverage', 'high', 'hypot', 'increment', 'info', 'isunbounded',
+            'isunknown', 'itor', 'left', 'ln', 'load_coverage_db', 'log10', 'low',
+            'monitor', 'monitorb', 'monitorh', 'monitoro', 'monitoroff', 'monitoron',
+            'onehot', 'onehot0', 'past', 'past_gclk', 'pow', 'printtimescale',
+            'q_add', 'q_exam', 'q_full', 'q_initialize', 'q_remove', 'random',
+            'readmemb', 'readmemh', 'realtime', 'realtobits', 'rewind', 'right',
+            'rising_gclk', 'rose', 'rose_gclk', 'rtoi', 'sampled',
+            'set_coverage_db_name', 'sformat', 'sformatf', 'shortrealtobits',
+            'signed', 'sin', 'sinh', 'size', 'sqrt', 'sscanf', 'stable', 'stable_gclk',
+            'steady_gclk', 'stime', 'stop', 'strobe', 'strobeb', 'strobeh', 'strobeo',
+            'swrite', 'swriteb', 'swriteh', 'swriteo', 'sync$and$array',
+            'sync$and$plane', 'sync$nand$array', 'sync$nand$plane',
+            'sync$nor$array', 'sync$nor$plane', 'sync$or$array', 'sync$or$plane',
+            'system', 'tan', 'tanh', 'test$plusargs', 'time', 'timeformat',
+            'typename', 'ungetc', 'unpacked_dimensions', 'unsigned',
+            'value$plusargs', 'warning', 'write', 'writeb', 'writeh', 'writememb',
+            'writememh', 'writeo',
+        ],
         // compiler directives
-        2 => array(
+        2 => [
             '`__FILE__', '`__LINE__', '`begin_keywords', '`case', '`celldefine',
             '`endcelldefine', '`default_nettype', '`define', '`default', '`else',
             '`elsif', '`end_keywords', '`endfor', '`endif',
@@ -117,9 +117,9 @@ $language_data = array (
             '`line', '`nounconnected_drive', '`pragma', '`protect', '`resetall',
             '`switch', '`timescale', '`unconnected_drive', '`undef', '`undefineall',
             '`while'
-            ),
+        ],
         // keywords
-        3 => array(
+        3 => [
             'assert', 'assume', 'cover', 'expect', 'disable',
             'iff', 'binsof', 'intersect', 'first_match', 'throughout',
             'within', 'coverpoint', 'cross', 'wildcard', 'bins',
@@ -141,9 +141,9 @@ $language_data = array (
             'unique0', 'eventually', 's_until', 's_always', 's_eventually',
             's_nexttime', 's_until_with', 'global', 'untyped', 'implies',
             'weak', 'strong', 'nexttime'
-            ),
+        ],
         // block keywords
-        4 => array(
+        4 => [
             'begin', 'end', 'package', 'endpackage', 'macromodule',
             'module', 'endmodule', 'generate', 'endgenerate', 'program',
             'endprogram', 'class', 'endclass', 'function', 'endfunction',
@@ -156,10 +156,10 @@ $language_data = array (
             'table', 'endtable', 'initial', 'final', 'always',
             'always_comb', 'always_ff', 'always_latch', 'alias', 'assign',
             'force', 'release'
-            ),
+        ],
 
         // types
-        5 => array(
+        5 => [
             'parameter', 'localparam', 'specparam', 'input', 'output',
             'inout', 'ref', 'byte', 'shortint', 'int',
             'integer', 'longint', 'time', 'bit', 'logic',
@@ -178,15 +178,15 @@ $language_data = array (
             'notif0', 'notif1', 'strong0', 'strong1', 'pull0',
             'pull1', 'weak0', 'weak1', 'highz0', 'highz1',
             'small', 'medium', 'large'
-            ),
+        ],
 
         // DPI
-        6 => array(
+        6 => [
             'DPI', 'DPI-C', 'import', 'export', 'context'
-            ),
+        ],
 
         // stdlib
-        7 => array(
+        7 => [
             'randomize', 'mailbox', 'semaphore', 'put', 'get',
             'try_put', 'try_get', 'peek', 'try_peek', 'process',
             'state', 'self', 'status', 'kill', 'await',
@@ -199,23 +199,23 @@ $language_data = array (
             'neq', 'eq', 'data', 'empty', 'front',
             'back', 'start', 'finish', 'insert_range', 'erase',
             'erase_range', 'set', 'swap', 'clear', 'purge'
-            ),
+        ],
 
         // key_deprecated
-        8 => array(
+        8 => [
             'defparam', 'deassign', 'TODO'
-        ),
+        ],
 
-        ),
-    'SYMBOLS' => array(
-            '(', ')', '{', '}', '[', ']', '=', '+', '-', '*', '/', '!', '%',
-            '^', '&', '|', '~',
-            '?', ':',
-            '#', '<<', '<<<',
-            '>', '<', '>=', '<=',
-            '@', ';', ','
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'SYMBOLS' => [
+        '(', ')', '{', '}', '[', ']', '=', '+', '-', '*', '/', '!', '%',
+        '^', '&', '|', '~',
+        '?', ':',
+        '#', '<<', '<<<',
+        '>', '<', '>=', '<=',
+        '@', ';', ','
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -225,9 +225,9 @@ $language_data = array (
         6 => true,
         7 => true,
         8 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #996666; font-weight: bold;',
             2 => 'color: #336600; font-weight: bold;',
             3 => 'color: #996600; font-weight: bold;',
@@ -236,44 +236,44 @@ $language_data = array (
             6 => 'color: #996600; font-weight: bold;',
             7 => 'color: #CC9900; font-weight: bold;',
             8 => 'color: #990000; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #00008B; font-style: italic;',
             'MULTI' => 'color: #00008B; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #9F79EE'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #9F79EE;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #FF00FF;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #ff0055;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #202020;',
             2 => 'color: #202020;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #5D478B;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #ff0055;',
             1 => 'color: #ff0055;',
             2 => 'color: #ff0055;',
             3 => 'color: #ff0055;'
-            ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => '',
             1 => '',
             2 => '',
             3 => ''
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -282,12 +282,12 @@ $language_data = array (
         6 => '',
         7 => '',
         8 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => ''
-        ),
-    'REGEXPS' => array(
+    ],
+    'REGEXPS' => [
         // integer
         0 => "\d'[bdh][0-9_a-fA-FxXzZ]+",
         // realtime
@@ -296,22 +296,20 @@ $language_data = array (
         2 => "\d+[munpf]?s",
         // real
         3 => "\d*\.\d+"
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
+    'SCRIPT_DELIMITERS' => [
         0 => ''
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true
-        ),
+    ],
     'TAB_WIDTH' => 3,
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            1 => array(
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            1 => [
                 'DISALLOWED_BEFORE' => '(?<=$)'
-                )
-            )
-        )
-);
-
-?>
+            ]
+        ]
+    ]
+];

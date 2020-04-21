@@ -1,51 +1,55 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
 require_once INCL_DIR . 'html_functions.php';
 require_once INCL_DIR . 'bbcode_functions.php';
 require_once CLASS_DIR . 'page_verify.php';
-require_once (CACHE_DIR . 'subs.php');
+require_once(CACHE_DIR . 'subs.php');
 dbconn(true);
 loggedinorreturn();
-$lang = array_merge(load_language('global') , load_language('upload'));
-$stdhead = array(
+$lang = array_merge(load_language('global'), load_language('upload'));
+$stdhead = [
     /** include css **/
-    'css' => array(
+    'css' => [
         'forums',
         'style2',
         'bbcode'
-    )
-);
-$stdfoot = array(
+    ]
+];
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'FormManager',
         'getname',
         'multiupload'
-    )
-);
-if (function_exists('parked')) parked();
+    ]
+];
+if (function_exists('parked')) {
+    parked();
+}
 $newpage = new page_verify();
 $newpage->create('tamud');
 $HTMLOUT = $offers = $subs_list = $request = $descr = '';
-if ($CURUSER['class'] < UC_UPLOADER OR $CURUSER["uploadpos"] == 0 || $CURUSER["uploadpos"] > 1 || $CURUSER['suspended'] == 'yes') stderr($lang['upload_sorry'], $lang['upload_no_auth']);
+if ($CURUSER['class'] < UC_UPLOADER or $CURUSER["uploadpos"] == 0 || $CURUSER["uploadpos"] > 1 || $CURUSER['suspended'] == 'yes') {
+    stderr($lang['upload_sorry'], $lang['upload_no_auth']);
+}
 //==== request dropdown
 $res_request = sql_query('SELECT id, request_name FROM requests WHERE filled_by_user_id = 0 ORDER BY request_name ASC');
 $request ='
@@ -53,7 +57,7 @@ $request ='
 
 if ($res_request) {
     while ($arr_request = mysqli_fetch_assoc($res_request)) {
-        $request.= '<option class="body" value="' . (int)$arr_request['id'] . '">' . htmlsafechars($arr_request['request_name']) . '</option>';
+        $request.= '<option class="body" value="' . (int) $arr_request['id'] . '">' . htmlsafechars($arr_request['request_name']) . '</option>';
     }
 } else {
     $request.= '<option class="body" value="0">Currently no requests</option>';
@@ -66,7 +70,7 @@ if (mysqli_num_rows($res_offer) > 0) {
    <div class="row"><div class="col-sm-12"><select class="form-control" name="offer"><option class="body" value="0"></option>';
     $message = '<option class="body" value="0">Your have no approved offers yet</option>';
     while ($arr_offer = mysqli_fetch_assoc($res_offer)) {
-        $offers.= '<option class="body" value="' . (int)$arr_offer['id'] . '">' . htmlsafechars($arr_offer['offer_name']) . '</option>';
+        $offers.= '<option class="body" value="' . (int) $arr_offer['id'] . '">' . htmlsafechars($arr_offer['offer_name']) . '</option>';
     }
     $offers.= '</select></div></div> If you are uploading one of your offers, please select it here so interested members will be notified.';
 }
@@ -91,7 +95,7 @@ $HTMLOUT.= "<div class='torrent-seperator clone-me'>
 $HTMLOUT .= "<div class='col-md-4'>Type<select class='form-control' name='type[]'>\n<option value='0'>({$lang['upload_choose_one']})</option>\n";
 $cats = genrelist();
 foreach ($cats as $row) {
-    $HTMLOUT.= "<option value='" . (int)$row["id"] . "'>" . htmlsafechars($row["name"]) . "</option>\n";
+    $HTMLOUT.= "<option value='" . (int) $row["id"] . "'>" . htmlsafechars($row["name"]) . "</option>\n";
 }
 $HTMLOUT.= "</select></div></div>";
 $HTMLOUT.= "</div>";
@@ -102,4 +106,3 @@ $HTMLOUT.= "<div style='display:inline-block;height:50%;'></div><div class='row'
      </br></form><br>";
 ////////////////////////// HTML OUTPUT //////////////////////////
 echo stdhead($lang['upload_stdhead'], true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
-?>

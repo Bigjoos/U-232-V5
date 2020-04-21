@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,20 +30,18 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 class_check(UC_MAX);
 $lang = array_merge($lang, load_language('ad_mysql_overview'));
 //Do we wanna continue here, or skip to just the overview?
-if (isset($_GET['Do']) && isset($_GET['table'])) {
+if (isset($_GET['Do'], $_GET['table'])) {
     $Do = ($_GET['Do'] === "T") ? sqlesc($_GET['Do']) : ""; //for later use!
     //Make sure the GET only has alpha letters and nothing else
     if (!ereg('[^A-Za-z_]+', $_GET['table'])) {
         $Table = '`' . $_GET['table'] . '`'; //add backquotes to GET or we is doomed!
-        
     } else {
         stderr($lang['mysql_over_error'], $lang['mysql_over_pg']); //Silly boy doh!!
-        
     }
     $sql = "OPTIMIZE TABLE $Table";
     //preg match the sql incase it was hijacked somewhere!(will use CHECK|ANALYZE|REPAIR|later
@@ -55,7 +53,7 @@ if (isset($_GET['Do']) && isset($_GET['table'])) {
     }
 }
 //byteunit array to prime formatByteDown function
-$GLOBALS["byteUnits"] = array(
+$GLOBALS["byteUnits"] = [
     'Bytes',
     'KB',
     'MB',
@@ -63,7 +61,7 @@ $GLOBALS["byteUnits"] = array(
     'TB',
     'PB',
     'EB'
-);
+];
 function byteformat($value, $limes = 2, $comma = 0)
 {
     $dh = pow(10, $comma);
@@ -76,17 +74,16 @@ function byteformat($value, $limes = 2, $comma = 0)
             $unit = $GLOBALS['byteUnits'][$d];
             break 1;
         } // end if
-        
     } // end for
     if ($unit != $GLOBALS['byteUnits'][0]) {
         $return_value = number_format($value, $comma, '.', ',');
     } else {
         $return_value = number_format($value, 0, '.', ',');
     }
-    return array(
+    return [
         $return_value,
         $unit
-    );
+    ];
 } // end of the 'formatByteDown' function
 ////////////////// END FUNCTION LIST /////////////////////////
 $HTMLOUT = '';
@@ -159,4 +156,3 @@ $HTMLOUT.= "<tr>
     <!-- End table -->
     </table>";
 echo stdhead($lang['mysql_over_stdhead']) . $HTMLOUT . stdfoot();
-?>

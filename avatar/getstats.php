@@ -1,23 +1,23 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once ($_SERVER["DOCUMENT_ROOT"] . "/include/bittorrent.php");
-require_once ($_SERVER["DOCUMENT_ROOT"] . "/cache/country.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/include/bittorrent.php");
+require_once($_SERVER["DOCUMENT_ROOT"] . "/cache/country.php");
 dbconn();
 $_settings = $_SERVER["DOCUMENT_ROOT"] . "/avatar/settings/";
 function calctime($val)
@@ -95,15 +95,19 @@ function time_return($stamp)
 function getStats($user, $forced = false)
 {
     global $_settings, $countries;
-    if (!file_exists($_settings . $user . ".set") || !is_array($var = unserialize(file_get_contents($_settings . $user . ".set")))) return false;
+    if (!file_exists($_settings . $user . ".set") || !is_array($var = unserialize(file_get_contents($_settings . $user . ".set")))) {
+        return false;
+    }
     $query = sql_query("SELECT u.id, u.irctotal, u.last_login, u.onlinetime, u.reputation, u.hits, u.uploaded, u.downloaded, u.country, u.browser, count(p.id) as posts ,count(c.id) as comments FROM users as u LEFT JOIN posts as p ON u.id = p.user_id LEFT JOIN comments as c ON c.user = u.id WHERE u.username = " . sqlesc($user) . " GROUP BY u.id") or sqlerr(__FILE__, __LINE__); //or die('Error Error Error! 1');
-    if (mysqli_num_rows($query) != 1) die('Error Error Error! 2');
+    if (mysqli_num_rows($query) != 1) {
+        die('Error Error Error! 2');
+    }
     $a = mysqli_fetch_assoc($query);
-    $ops = array(
+    $ops = [
         $var['line1']['value'],
         $var['line2']['value'],
         $var['line3']['value']
-    );
+    ];
     $i = 1;
     foreach ($ops as $op) {
         switch ($op) {
@@ -127,7 +131,11 @@ function getStats($user, $forced = false)
             break;
 
         case 5:
-            foreach ($countries as $c) if ($c['id'] == $a['country']) $var['line' . $i]['value_p'] = $c;
+            foreach ($countries as $c) {
+                if ($c['id'] == $a['country']) {
+                    $var['line' . $i]['value_p'] = $c;
+                }
+            }
             break;
 
         case 6:
@@ -153,9 +161,13 @@ function getStats($user, $forced = false)
         }
         $i++;
     }
-    if (is_writable($_settings . $user . ".set")) file_put_contents($_settings . $user . ".set", serialize($var));
-    else exit("Can't write user setting");
-    if (file_exists($_settings . $user . ".png")) unlink($_settings . $user . ".png");
+    if (is_writable($_settings . $user . ".set")) {
+        file_put_contents($_settings . $user . ".set", serialize($var));
+    } else {
+        exit("Can't write user setting");
+    }
+    if (file_exists($_settings . $user . ".png")) {
+        unlink($_settings . $user . ".png");
+    }
     return $var;
 }
-?>

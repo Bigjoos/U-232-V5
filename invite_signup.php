@@ -1,24 +1,24 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (CLASS_DIR . 'page_verify.php');
-require_once (CACHE_DIR . 'timezones.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(CLASS_DIR . 'page_verify.php');
+require_once(CACHE_DIR . 'timezones.php');
 dbconn();
 global $CURUSER;
 if (!$CURUSER) {
@@ -28,23 +28,25 @@ if (!$CURUSER) {
     exit();
 }
 ini_set('session.use_trans_sid', '0');
-if ($INSTALLER09['captcha_on'] === true){
-$stdfoot = array(
-    /** include js **/
-    'js' => array(
-        'check',
-        'jquery.pstrength-min.1.2',
-        'jquery.simpleCaptcha-0.2'
-    )
-); } else {
-$stdfoot = array(
-    /** include js **/
-    'js' => array(
-        'check',
-        'jquery.pstrength-min.1.2'
-    )
-); }
-$lang = array_merge(load_language('global') , load_language('signup'));
+if ($INSTALLER09['captcha_on'] === true) {
+    $stdfoot = [
+        /** include js **/
+        'js' => [
+            'check',
+            'jquery.pstrength-min.1.2',
+            'jquery.simpleCaptcha-0.2'
+        ]
+    ];
+} else {
+    $stdfoot = [
+        /** include js **/
+        'js' => [
+            'check',
+            'jquery.pstrength-min.1.2'
+        ]
+    ];
+}
+$lang = array_merge(load_language('global'), load_language('signup'));
 $HTMLOUT = $year = $month = $day = $gender = '';
 $HTMLOUT.= "
     <script type='text/javascript'>
@@ -56,9 +58,11 @@ $HTMLOUT.= "
     </script>";
 $newpage = new page_verify();
 $newpage->create('tkIs');
-if (get_row_count('users') >= $INSTALLER09['maxusers']) stderr($lang['stderr_errorhead'], sprintf($lang['stderr_ulimit'], $INSTALLER09['maxusers']));
+if (get_row_count('users') >= $INSTALLER09['maxusers']) {
+    stderr($lang['stderr_errorhead'], sprintf($lang['stderr_ulimit'], $INSTALLER09['maxusers']));
+}
 //==timezone select
-$offset = (string)$INSTALLER09['time_offset'];
+$offset = (string) $INSTALLER09['time_offset'];
 $time_select = "<div class='form-group'><div class='col-sm-9 col-sm-offset-1'><select class='form-control' name='user_timezone'>";
 foreach ($TZ as $off => $words) {
     if (preg_match("/^time_(-?[\d\.]+)$/", $off, $match)) {
@@ -69,17 +73,21 @@ $time_select.= "</select></div></div>";
 //==country by pdq
 function countries()
 {
-    global $mc1, $INSTALLER09;
-    if (($ret = $mc1->get_value('countries::arr')) === false) {
+    global $cache, $INSTALLER09;
+    if (($ret = $cache->get('countries::arr')) === false) {
         $res = sql_query("SELECT id, name, flagpic FROM countries ORDER BY name ASC") or sqlerr(__FILE__, __LINE__);
-        while ($row = mysqli_fetch_assoc($res)) $ret[] = $row;
-        $mc1->cache_value('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
+        while ($row = mysqli_fetch_assoc($res)) {
+            $ret[] = $row;
+        }
+        $cache->set('countries::arr', $ret, $INSTALLER09['expires']['user_flag']);
     }
     return $ret;
 }
 $country = '';
 $countries = countries();
-foreach ($countries as $cntry) $country.= "<option value='" . (int)$cntry['id'] . "'" . ($CURUSER["country"] == $cntry['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($cntry['name']) . "</option>\n";
+foreach ($countries as $cntry) {
+    $country.= "<option value='" . (int) $cntry['id'] . "'" . ($CURUSER["country"] == $cntry['id'] ? " selected='selected'" : "") . ">" . htmlsafechars($cntry['name']) . "</option>\n";
+}
 $gender.= "<div class='form-group'><div class='col-sm-4'><select class='form-control' name=\"gender\">
     <option value=\"Male\">{$lang['signup_male']}</option>
     <option value=\"Female\">{$lang['signup_female']}</option>
@@ -87,22 +95,22 @@ $gender.= "<div class='form-group'><div class='col-sm-4'><select class='form-con
     </select></div></div>";
 // Normal Entry Point...
 //== click X by Retro
-$value = array(
+$value = [
     '...',
     '...',
     '...',
     '...',
     '...',
     '...'
-);
+];
 $value[rand(1, count($value) - 1) ] = 'X';
-$HTMLOUT.= "".($INSTALLER09['captcha_on'] ? "<script type='text/javascript'>
+$HTMLOUT.= "" . ($INSTALLER09['captcha_on'] ? "<script type='text/javascript'>
 	  /*<![CDATA[*/
 	  $(document).ready(function () {
 	  $('#captchasignup').simpleCaptcha();
     });
     /*]]>*/
-    </script>" : "")."
+    </script>" : "") . "
 <div style='width:75%; margin:auto auto; margin-top:-4%;'>
     <form class='col-md-12 form-horizontal panel inverse' style='padding-top:2%;' role='form' method='post' title='signup' action='take_invite_signup.php'>
 <div class='form-group'><div class='col-sm-9 col-sm-offset-1'><input  type='text' class='form-control'  placeholder='{$lang['signup_uname']}' name='wantusername' id='wantusername' onblur='checkit();'></div></div>
@@ -160,32 +168,32 @@ $HTMLOUT.= "<div class='form-group'><div class='col-sm-9 col-sm-offset-1'>{$lang
 //==End
 //==Passhint
 $passhint = "";
-$questions = array(
-    array(
+$questions = [
+    [
         "id" => "1",
         "question" => "{$lang['signup_q1']}"
-    ) ,
-    array(
+    ] ,
+    [
         "id" => "2",
         "question" => "{$lang['signup_q2']}"
-    ) ,
-    array(
+    ] ,
+    [
         "id" => "3",
         "question" => "{$lang['signup_q3']}"
-    ) ,
-    array(
+    ] ,
+    [
         "id" => "4",
         "question" => "{$lang['signup_q4']}"
-    ) ,
-    array(
+    ] ,
+    [
         "id" => "5",
         "question" => "{$lang['signup_q5']}"
-    ) ,
-    array(
+    ] ,
+    [
         "id" => "6",
         "question" => "{$lang['signup_q6']}"
-    )
-);
+    ]
+];
 foreach ($questions as $sph) {
     $passhint.= "<option value='" . $sph['id'] . "'>" . $sph['question'] . "</option>\n";
 }
@@ -208,4 +216,3 @@ for ($i = 0; $i < count($value); $i++) {
 }
 $HTMLOUT.= "</div></div></form></div>";
 echo stdhead($lang['head_signup']) . $HTMLOUT . stdfoot($stdfoot);
-?>

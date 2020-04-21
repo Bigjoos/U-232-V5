@@ -1,24 +1,26 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $data
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     sql_query("UPDATE `freeslots` SET `addedup` = 0 WHERE `addedup` != 0 AND `addedup` < " . TIME_NOW) or sqlerr(__FILE__, __LINE__);
@@ -34,12 +36,13 @@ function docleanup($data)
     sql_query("UPDATE `users` SET `warned` = 0 WHERE `warned` > 1 AND `warned` < " . TIME_NOW) or sqlerr(__FILE__, __LINE__);
     sql_query("UPDATE `users` SET `pirate` = 0 WHERE `pirate` > 1 AND `pirate` < " . TIME_NOW) or sqlerr(__FILE__, __LINE__);
     sql_query("UPDATE `users` SET `king` = 0 WHERE `king` > 1 AND `king` < " . TIME_NOW) or sqlerr(__FILE__, __LINE__);
-    if ($queries > 0) write_log("User Clean -------------------- User Clean Complete using $queries queries--------------------");
-    if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
+    if ($queries > 0) {
+        write_log("User Clean -------------------- User Clean Complete using $queries queries--------------------");
+    }
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
         $data['clean_desc'] = mysqli_affected_rows($GLOBALS["___mysqli_ston"]) . " items deleted/updated";
     }
     if ($data['clean_log']) {
         cleanup_log($data);
     }
 }
-?>

@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $num_result = $and_member = '';
 //=== don't allow direct access
@@ -48,13 +48,13 @@ $subject = (isset($_POST['subject']) ? htmlsafechars($_POST['subject']) : '');
 $text = (isset($_POST['text']) ? htmlsafechars($_POST['text']) : '');
 $member_sys = (isset($_POST['system']) ? 'system' : '');
 //=== get sort and check to see if it's ok...
-$possible_sort = array(
+$possible_sort = [
     'added',
     'subject',
     'sender',
     'receiver',
     'relevance'
-);
+];
 $sort = (isset($_GET['sort']) ? htmlsafechars($_GET['sort']) : (isset($_POST['sort']) ? htmlsafechars($_POST['sort']) : 'relevance'));
 if (!in_array($sort, $possible_sort)) {
     stderr($lang['pm_error'], $lang['pm_error_ruffian']);
@@ -65,7 +65,9 @@ if (!in_array($sort, $possible_sort)) {
 if ($member) {
     $res_username = sql_query('SELECT id, username, class, warned, suspended, leechwarn, chatpost, pirate, king, enabled, donor FROM users WHERE LOWER(username)=LOWER(' . sqlesc($member) . ') LIMIT 1') or sqlerr(__FILE__, __LINE__);
     $arr_username = mysqli_fetch_assoc($res_username);
-    if (mysqli_num_rows($res_username) === 0) stderr($lang['pm_error'], $lang['pm_forwardpm_nomember']);
+    if (mysqli_num_rows($res_username) === 0) {
+        stderr($lang['pm_error'], $lang['pm_forwardpm_nomember']);
+    }
     //=== if searching by member...
     $and_member = ($mailbox >= 1 ? ' AND sender = ' . sqlesc($arr_username['id']) . ' AND saved = \'yes\' ' : ' AND receiver = ' . sqlesc($arr_username['id']) . ' AND saved = \'yes\' ');
     $the_username = print_user_stuff($arr_username);
@@ -81,7 +83,7 @@ $get_all_boxes = '<select name="box">
                                             <option class="body" value="-1" ' . ($mailbox == PM_SENTBOX ? 'selected="selected"' : '') . '>' . $lang['pm_sentbox'] . '</option>
                                             <option class="body" value="-2" ' . ($mailbox == PM_DRAFTS ? 'selected="selected"' : '') . '>' . $lang['pm_drafts'] . '</option>';
 while ($row = mysqli_fetch_assoc($res)) {
-    $get_all_boxes.= '<option class="body" value="' . (int)$row['boxnumber'] . '" ' . ($row['boxnumber'] == $mailbox ? 'selected="selected"' : '') . '>' . htmlsafechars($row['name']) . '</option>';
+    $get_all_boxes.= '<option class="body" value="' . (int) $row['boxnumber'] . '" ' . ($row['boxnumber'] == $mailbox ? 'selected="selected"' : '') . '>' . htmlsafechars($row['name']) . '</option>';
 }
 $get_all_boxes.= '</select>';
 //=== make up page
@@ -156,39 +158,39 @@ $HTMLOUT.= '<h1>' . $lang['pm_search_title'] . '</h1>' . $top_links . '
 //=== do the search and print page :)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     //=== remove common words first. add more if you like...
-    $remove_me = array(
+    $remove_me = [
         'a',
         'the',
         'and',
         'to',
         'for',
         'by'
-    );
+    ];
     $search = preg_replace('/\b(' . implode('|', $remove_me) . ')\b/', '', $keywords);
     //=== do the search!
     switch (true) {
         //=== if only member name is entered and no search string... get all messages by that member
-        
+
     case (!$keywords && $member):
         $res_search = sql_query("SELECT * FROM messages WHERE sender = " . sqlesc($arr_username['id']) . " AND saved = 'yes' $location AND receiver = " . sqlesc($CURUSER['id']) . " ORDER BY " . sqlesc($sort) . " $desc_asc LIMIT " . $limit) or sqlerr(__FILE__, __LINE__);
         break;
         //=== if system entered default both ...
-        
+
     case (!$keywords && $member_sys):
         $res_search = sql_query("SELECT * FROM messages WHERE sender = 0 $location AND receiver = " . sqlesc($CURUSER['id']) . " ORDER BY " . sqlesc($sort) . " $desc_asc LIMIT " . $limit) or sqlerr(__FILE__, __LINE__);
         break;
         //=== if just subject
-        
+
     case ($subject && !$text):
         $res_search = sql_query("SELECT *, MATCH(subject) AGAINST(" . sqlesc($search) . " IN BOOLEAN MODE) AS relevance FROM messages WHERE ( MATCH(subject) AGAINST (" . sqlesc($search) . " IN BOOLEAN MODE) ) $and_member $location $what_in_out ORDER BY " . sqlesc($sort) . " $desc_asc LIMIT " . $limit) or sqlerr(__FILE__, __LINE__);
         break;
         //=== if just message
-        
+
     case (!$subject && $text):
         $res_search = sql_query("SELECT *, MATCH(msg) AGAINST(" . sqlesc($search) . " IN BOOLEAN MODE) AS relevance FROM messages WHERE ( MATCH(msg) AGAINST (" . sqlesc($search) . " IN BOOLEAN MODE) ) $and_member $location $what_in_out ORDER BY " . sqlesc($sort) . " $desc_asc LIMIT " . $limit) or sqlerr(__FILE__, __LINE__);;
         break;
         //=== if subject and message
-        
+
     case ($subject && $text || !$subject && !$text):
         $res_search = sql_query("SELECT *, ( (1.3 * (MATCH(subject) AGAINST (" . sqlesc($search) . " IN BOOLEAN MODE))) + (0.6 * (MATCH(msg) AGAINST (" . sqlesc($search) . " IN BOOLEAN MODE)))) AS relevance FROM messages WHERE ( MATCH(subject,msg) AGAINST (" . sqlesc($search) . " IN BOOLEAN MODE) ) $and_member $location $what_in_out ORDER BY " . sqlesc($sort) . " $desc_asc LIMIT " . $limit) or sqlerr(__FILE__, __LINE__);
         break;
@@ -253,7 +255,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <td><a class="altlink" href="pm_system.php?action=view_message&amp;id=' . $row['id'] . '">' . ($row['subject'] !== '' ? $subject : $lang['pm_search_nosubject']) . '</a> ' . ($all_boxes ? $lang['pm_search_foundin'] . $arr_box . $lang['pm_search_sign'] : '') . '</td>
         <td>' . ($row[$sender_reciever] == 0 ? $lang['pm_search_sysbot'] : $the_username) . '</td>
         <td>' . get_date($row['added'], '') . $lang['pm_search_gmt'] . get_date($row['added'], '', 0, 1) . '] </td>
-        <td><input type="checkbox" name="pm[]" value="' . (int)$row['id'] . '" /></td>
+        <td><input type="checkbox" name="pm[]" value="' . (int) $row['id'] . '" /></td>
     </tr>');
     }
 }
@@ -267,4 +269,3 @@ $HTMLOUT.= ($num_result > 0 ? '
         <input type="submit" class="button" name="delete" value="' . $lang['pm_search_delete'] . '" onmouseover="this.className=\'button_hover\'" onmouseout="this.className=\'button\'" />' . $lang['pm_search_selected'] . '</td>
     </tr>
     </table></form>' : '') . '<br />';
-?>

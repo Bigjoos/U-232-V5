@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,9 +30,9 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_stats'));
@@ -47,18 +47,24 @@ $n = mysqli_fetch_row($res);
 $n_peers = $n[0];
 $uporder = isset($_GET['uporder']) ? $_GET['uporder'] : '';
 $catorder = isset($_GET["catorder"]) ? $_GET["catorder"] : '';
-if ($uporder == "lastul") $orderby = "last DESC, name";
-elseif ($uporder == "torrents") $orderby = "n_t DESC, name";
-elseif ($uporder == "peers") $orderby = "n_p DESC, name";
-else $orderby = "name";
+if ($uporder == "lastul") {
+    $orderby = "last DESC, name";
+} elseif ($uporder == "torrents") {
+    $orderby = "n_t DESC, name";
+} elseif ($uporder == "peers") {
+    $orderby = "n_p DESC, name";
+} else {
+    $orderby = "name";
+}
 $query = "SELECT u.id, u.username AS name, MAX(t.added) AS last, COUNT(DISTINCT t.id) AS n_t, COUNT(p.id) as n_p
       FROM users as u LEFT JOIN torrents as t ON u.id = t.owner LEFT JOIN peers as p ON t.id = p.torrent WHERE u.class = " . UC_UPLOADER . "
       GROUP BY u.id UNION SELECT u.id, u.username AS name, MAX(t.added) AS last, COUNT(DISTINCT t.id) AS n_t, COUNT(p.id) as n_p
       FROM users as u LEFT JOIN torrents as t ON u.id = t.owner LEFT JOIN peers as p ON t.id = p.torrent WHERE u.class > " . UC_UPLOADER . "
       GROUP BY u.id ORDER BY $orderby";
 $res = sql_query($query) or sqlerr(__FILE__, __LINE__);
-if (mysqli_num_rows($res) == 0) stdmsg($lang['stats_error'], $lang['stats_error1']);
-else {
+if (mysqli_num_rows($res) == 0) {
+    stdmsg($lang['stats_error'], $lang['stats_error1']);
+} else {
     //$HTMLOUT.= begin_frame($lang['stats_title1'], True);
     //$HTMLOUT.= begin_table();
     $HTMLOUT.= "<h2>{$lang['stats_title1']}</h2>";
@@ -73,7 +79,7 @@ else {
       </tr>\n";
     while ($uper = mysqli_fetch_assoc($res)) {
         $HTMLOUT.= "<tr>
-        <td><a href='userdetails.php?id=" . (int)$uper['id'] . "'><b>" . htmlsafechars($uper['name']) . "</b></a></td>
+        <td><a href='userdetails.php?id=" . (int) $uper['id'] . "'><b>" . htmlsafechars($uper['name']) . "</b></a></td>
         <td " . ($uper['last'] ? (">" . get_date($uper['last'], '') . " (" . get_date($uper['last'], '', 0, 1) . ")") : "align='center'>---") . "</td>
         <td align='right'>{$uper['n_t']}</td>
         <td align='right'>" . ($n_tor > 0 ? number_format(100 * $uper['n_t'] / $n_tor, 1) . "%" : "---") . "</td>
@@ -83,12 +89,18 @@ else {
     $HTMLOUT.= "</table>";
     //$HTMLOUT.= end_frame();
 }
-if ($n_tor == 0) stdmsg($lang['stats_error'], $lang['stats_error2']);
-else {
-    if ($catorder == "lastul") $orderby = "last DESC, c.name";
-    elseif ($catorder == "torrents") $orderby = "n_t DESC, c.name";
-    elseif ($catorder == "peers") $orderby = "n_p DESC, name";
-    else $orderby = "c.name";
+if ($n_tor == 0) {
+    stdmsg($lang['stats_error'], $lang['stats_error2']);
+} else {
+    if ($catorder == "lastul") {
+        $orderby = "last DESC, c.name";
+    } elseif ($catorder == "torrents") {
+        $orderby = "n_t DESC, c.name";
+    } elseif ($catorder == "peers") {
+        $orderby = "n_p DESC, name";
+    } else {
+        $orderby = "c.name";
+    }
     $res = sql_query("SELECT c.name, MAX(t.added) AS last, COUNT(DISTINCT t.id) AS n_t, COUNT(p.id) AS n_p
       FROM categories as c LEFT JOIN torrents as t ON t.category = c.id LEFT JOIN peers as p
       ON t.id = p.torrent GROUP BY c.id ORDER BY $orderby") or sqlerr(__FILE__, __LINE__);
@@ -119,4 +131,3 @@ else {
 $HTMLOUT.= "</div></div>";
 echo stdhead($lang['stats_window_title']) . $HTMLOUT . stdfoot();
 die;
-?>

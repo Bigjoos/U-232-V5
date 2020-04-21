@@ -1,26 +1,26 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /**********************************************************************************
-Mega search thingie coded by RedPower! and this is one of the most helpful 
-scripts that I have ever seen posted!!! cudos to RedPower for that!!! now? 
-more or less fondled, recoded  a bit and spilt beer on for 
-TBDev 2010(ish) - snuggs  feb 25 2010 
+Mega search thingie coded by RedPower! and this is one of the most helpful
+scripts that I have ever seen posted!!! cudos to RedPower for that!!! now?
+more or less fondled, recoded  a bit and spilt beer on for
+TBDev 2010(ish) - snuggs  feb 25 2010
 ** changed $_GET to $_POST to be able to test longer strings
 ** added multiple username search and invite code search... remove if not needed :D
 *********************************************************************************/
@@ -40,16 +40,16 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
 }
 require_once INCL_DIR . 'user_functions.php';
 require_once INCL_DIR . 'html_functions.php';
-require_once (CLASS_DIR . 'class_check.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_mega_search'));
-$stdhead = array(
+$stdhead = [
     /** include css **/
-    'css' => array(
+    'css' => [
         'forums'
-    )
-);
+    ]
+];
 //=== bubble tool tip
 function bubble($link, $text)
 {
@@ -127,9 +127,9 @@ $HTMLOUT.= '
 //=== if searching for usernames
 if (isset($_POST['user_names'])) {
     //=== make the $_POST into a nice array and remove all non alpha numeric stuff 'cept  _ & -
-    $searched_users = array(
+    $searched_users = [
         explode(' ', $user_names)
-    );
+    ];
     foreach ($searched_users[0] as $search_users) {
         $search_users = trim($search_users);
         $res_search_usernames = sql_query('SELECT id, username, class, donor, suspended, leechwarn, chatpost, pirate, king, warned, enabled, uploaded, downloaded, invitedby, email, ip, added, last_access FROM users WHERE username LIKE \'%' . $search_users . '%\'');
@@ -183,7 +183,7 @@ if (isset($_POST['msg_to_analyze'])) {
     //=== first lets search emails :D
     $email_search = $_POST['msg_to_analyze'];
     $regex = '/[\._a-zA-Z0-9-]+@[\._a-zA-Z0-9-]+/i';
-    $email_to_test = array();
+    $email_to_test = [];
     $number_of_matches = preg_match_all($regex, $email_search, $email_to_test);
     $matches_for_email.= '<h1>' . $lang['mega_emails'] . '</h1>';
     foreach ($email_to_test[0] as $tested_email) {
@@ -241,7 +241,7 @@ if (isset($_POST['msg_to_analyze'])) {
    <tr><td align="left">' . $no_matches_for_this_email . '</td></tr></table>' : '');
     //=== now let's search for emails that are similar...
     $regex = '/[\._a-zA-Z0-9-]+@/i';
-    $email_to_test_like = array();
+    $email_to_test_like = [];
     $number_of_matches_like = preg_match_all($regex, $email_search, $email_to_test_like);
     $number = 0;
     $similar_emails = 0;
@@ -262,7 +262,7 @@ if (isset($_POST['msg_to_analyze'])) {
     //=== now let's do the IP search!
     $ip_history = $_POST['msg_to_analyze'];
     $regex = '/([\d]{1,3}\.){3}[\d]{1,3}/';
-    $ip_to_test = array();
+    $ip_to_test = [];
     $number_of_matches = preg_match_all($regex, $ip_history, $ip_to_test);
     foreach ($ip_to_test[0] as $tested_ip) {
         $res_search_others = sql_query('SELECT id, username, class, donor, suspended, leechwarn, chatpost, pirate, king, warned, enabled, uploaded, downloaded, invitedby, email, ip, added, last_access FROM users WHERE ip LIKE \'%' . $tested_ip . '%\'');
@@ -366,7 +366,7 @@ if (isset($_POST['invite_code'])) {
         $invited = sql_query('SELECT u.id, u.username, u.ip, u.last_access, u.email, u.added, u.leechwarn, u.chatpost, u.pirate, u.king, u.class, u.uploaded, u.downloaded, u.donor, u.enabled, u.warned, u.suspended, u.invitedby, i.id AS invite_id FROM users AS u LEFT JOIN invites AS i ON u.id = i.receiver WHERE  i.code = ' . sqlesc($invite_code));
         $user_invited = mysqli_fetch_array($invited);
         if ($user_invited['username'] == '') {
-            $HTMLOUT.= stdmsg($lang['mega_error'],$lang['mega_not_used']);
+            $HTMLOUT.= stdmsg($lang['mega_error'], $lang['mega_not_used']);
         } else {
             $u2 = sql_query('SELECT id, username, donor, class, enabled, warned, leechwarn, chatpost, pirate, king, suspended FROM users WHERE id=' . sqlesc($user_invited['invitedby']));
             $user2 = mysqli_fetch_array($u2);

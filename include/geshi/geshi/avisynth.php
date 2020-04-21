@@ -41,24 +41,24 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'AviSynth',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array('/*' => '*/', '[*' => '*]'),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => ['/*' => '*/', '[*' => '*]'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         //  Reserved words.
-        1 => array(
+        1 => [
             'try', 'cache', 'function', 'global', 'return'
-            ),
+        ],
         // Constants / special variables.
-        2 => array(
+        2 => [
             'true', 'yes', 'false', 'no', '__END__'
-            ),
+        ],
         // Internal Filters.
-        3 => array(
+        3 => [
             'AviSource', 'AviFileSource', 'AddBorders', 'AlignedSplice', 'AssumeFPS', 'AssumeScaledFPS',
             'AssumeFrameBased', 'AssumeFieldBased', 'AssumeBFF', 'AssumeTFF', 'Amplify', 'AmplifydB',
             'AssumeSampleRate', 'AudioDub', 'AudioDubEx', 'Animate', 'ApplyRange',
@@ -94,9 +94,9 @@ $language_data = array (
             'VToY', 'VToY8', 'VerticalReduceBy2', 'Version',
             'WavSource', 'Weave', 'WriteFile', 'WriteFileIf', 'WriteFileStart', 'WriteFileEnd',
             'YToUV'
-            ),
+        ],
         // Internal functions.
-        4 => array(
+        4 => [
             'Abs', 'Apply', 'Assert', 'AverageLuma', 'AverageChromaU', 'AverageChromaV',
             'Ceil', 'Cos', 'Chr', 'ChromaUDifference', 'ChromaVDifference',
             'Defined', 'Default',
@@ -120,9 +120,9 @@ $language_data = array (
             'VPlaneMin', 'VPlaneMedian', 'VPlaneMinMaxDifference',
             'YDifferenceFromPrevious', 'YDifferenceToNext', 'YPlaneMax', 'YPlaneMin', 'YPlaneMedian',
             'YPlaneMinMaxDifference'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '+', '++', '-', '--', '/', '*', '%',
         '=', '==', '<', '<=', '>', '>=', '<>', '!=',
         '!', '?', ':',
@@ -130,65 +130,64 @@ $language_data = array (
         '\\',
         '(', ')', '{', '}',
         '.', ','
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color:#9966CC; font-weight:bold;',
             2 => 'color:#0000FF; font-weight:bold;',
             3 => 'color:#CC3300; font-weight:bold;',
             4 => 'color:#660000; font-weight:bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color:#008000; font-style:italic;',
             'MULTI' => 'color:#000080; font-style:italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color:#000099;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color:#006600; font-weight:bold;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color:#996600;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color:#006666;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color:#9900CC;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color:#006600; font-weight:bold;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => 'http://avisynth.org/mediawiki/{FNAME}',
         4 => ''
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4
-);
-?>
+];

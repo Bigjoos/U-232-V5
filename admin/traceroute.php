@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,9 +30,9 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_traceroute'));
@@ -44,10 +44,10 @@ if (strtoupper(substr(PHP_OS, 0, 3) == 'WIN')) {
     $windows = 0;
     $unix = 1;
 }
-$register_globals = (bool)ini_get('register_gobals');
+$register_globals = (bool) ini_get('register_gobals');
 $system = ini_get('system');
-$unix = (bool)$unix;
-$win = (bool)$windows;
+$unix = (bool) $unix;
+$win = (bool) $windows;
 if ($register_globals) {
     $ip = getenv(REMOTE_ADDR);
     $self = $PHP_SELF;
@@ -80,4 +80,3 @@ if ($action == 'do') {
     $HTMLOUT.= '</body></html>';
 }
 echo stdhead($lang['trace_stdhead']) . $HTMLOUT . stdfoot();
-?>

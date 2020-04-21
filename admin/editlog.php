@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 // Written by RetroKill to allow scripters to see what scripts have changed since
 // they last updated their own list.
@@ -44,8 +44,8 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 loggedinorreturn();
@@ -53,21 +53,23 @@ loggedinorreturn();
 /*$allowed_ids = array(
     1
 ); //== 1 Is Sysop*/
-if (!in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id'] /*$allowed_ids*/)) stderr($lang['editlog_error'], $lang['editlog_denied']);
+if (!in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id'] /*$allowed_ids*/)) {
+    stderr($lang['editlog_error'], $lang['editlog_denied']);
+}
 $lang = array_merge($lang, load_language('editlog'));
 $HTMLOUT = '';
 $file_data = './dir_list/data_' . $CURUSER['username'] . '.txt';
 if (file_exists($file_data)) {
     // Fetch existing data
     $data = unserialize(file_get_contents($file_data));
-    $exist = TRUE;
+    $exist = true;
 } else {
     // Initialise File
-    $exist = FALSE;
+    $exist = false;
 }
-$fetch_set = array();
+$fetch_set = [];
 $i = 0;
-$directories = array();
+$directories = [];
 //== Enter directories to log... if you dont have them - comment them out or edit
 //$directories[] = '/var/bucket/';
 //$directories[] = '/var/bucket/avatars/';
@@ -86,9 +88,9 @@ $directories[] = './cache/';
 $directories[] = './logs/';
 //$directories[] = './torrents/';  //== watch this fella if you have 1000's of torrents it will timeout
 $directories[] = './admin/';
-foreach ($directories AS $x) {
+foreach ($directories as $x) {
     if ($handle = opendir($x)) {
-        while (false !== ($file = readdir($handle))) {
+        while (($file = readdir($handle)) !== false) {
             if ($file != "." && $file != "..") {
                 if (!is_dir($x . '/' . $file)) {
                     $fetch_set[$i]['modify'] = filemtime($x . $file);
@@ -102,7 +104,7 @@ foreach ($directories AS $x) {
         closedir($handle);
     }
 }
-if (!$exist OR (isset($_POST['update']) AND ($_POST['update'] == 'Update'))) {
+if (!$exist or (isset($_POST['update']) and ($_POST['update'] == 'Update'))) {
     // Create first disk image of files
     // OR update existing data...
     $data = serialize($fetch_set);
@@ -118,26 +120,31 @@ $current = $fetch_set;
 $last = $data;
 foreach ($current as $x) {
     // Search the data sets for differences
-    foreach ($last AS $y) {
+    foreach ($last as $y) {
         if ($x['name'] == $y['name']) {
-            if (($x['size'] == $y['size']) AND ($x['modify'] == $y['modify'])) {
-                unset($current[$x['key']]);
-                unset($last[$y['key']]);
-            } else $current[$x['key']]['status'] = 'modified';
+            if (($x['size'] == $y['size']) and ($x['modify'] == $y['modify'])) {
+                unset($current[$x['key']], $last[$y['key']]);
+            } else {
+                $current[$x['key']]['status'] = 'modified';
+            }
         }
-        if (isset($last[$y['key']])) $last[$y['key']]['status'] = 'deleted';
+        if (isset($last[$y['key']])) {
+            $last[$y['key']]['status'] = 'deleted';
+        }
     }
-    if (isset($current[$x['key']]['name']) AND !isset($current[$x['key']]['status'])) $current[$x['key']]['status'] = 'new';
+    if (isset($current[$x['key']]['name']) and !isset($current[$x['key']]['status'])) {
+        $current[$x['key']]['status'] = 'new';
+    }
 }
 $current+= $last; // Add deleted entries to current list
-unset($last);
+unset($last, $data, $fetch_set);
 // $fetch_data contains a current list of directory
 // $data contains the last snapshot of the directory
 // $current contains a current list of files in the directory that are
 // new, modified or deleted...
 // Remove lists from current code...
-unset($data);
-unset($fetch_set);
+
+
 $HTMLOUT.= "<div class='row'><div class='col-md-12'>";
 $HTMLOUT.= "<table class='table table-bordered'>
 <tr>
@@ -146,7 +153,7 @@ $HTMLOUT.= "<table class='table table-bordered'>
 </tr>";
 reset($current);
 $count = 0;
-foreach ($current AS $x) {
+foreach ($current as $x) {
     if ($x['status'] == 'new') {
         $HTMLOUT.= "
 <tr>
@@ -176,7 +183,7 @@ $HTMLOUT.= "
 </tr>";
 reset($current);
 $count = 0;
-foreach ($current AS $x) {
+foreach ($current as $x) {
     if ($x['status'] == 'modified') {
         $HTMLOUT.= "
 <tr>
@@ -206,7 +213,7 @@ $HTMLOUT.= "
 </tr>";
 reset($current);
 $count = 0;
-foreach ($current AS $x) {
+foreach ($current as $x) {
     if ($x['status'] == 'deleted') {
         $HTMLOUT.= "
 <tr>
@@ -240,4 +247,3 @@ $HTMLOUT.= "
 </form>";
 $HTMLOUT .="</div></div>";
 echo stdhead($lang['editlog_stdhead']) . $HTMLOUT . stdfoot();
-?>

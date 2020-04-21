@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /*Block settings by elephant*/
 if (!defined('IN_INSTALLER09_ADMIN')) {
@@ -31,24 +31,24 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-$stdfoot = array(
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'custom-form-elements'
-    )
-);
-$stdhead = array(
+    ]
+];
+$stdhead = [
     /** include css **/
-    'css' => array(
+    'css' => [
         'global_blocks'
-    )
-);
-require_once (CLASS_DIR . 'class_check.php');
+    ]
+];
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_block_settings'));
 $block_set_cache = CACHE_DIR . 'block_settings_cache.php';
-if ('POST' == $_SERVER['REQUEST_METHOD']) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     unset($_POST['submit']);
     block_cache();
     exit;
@@ -74,7 +74,7 @@ function block_cache()
 }
 function get_cache_array()
 {
-    return array(
+    return [
         'ie_user_alert' => 1,
         'active_users_on' => 1,
         'active_24h_users_on' => 1,
@@ -141,7 +141,7 @@ function get_cache_array()
         'userdetails_user_status_on' => 1,
         'userdetails_user_comments_on' => 1,
         'userdetails_showfriends_on' => 1
-    );
+    ];
 }
 if (!is_file($block_set_cache)) {
     $BLOCKS = get_cache_array();
@@ -182,9 +182,9 @@ $HTMLOUT.= "
         <tr><td width='60%'>{$lang['block_reqnoff']}<br />{$lang['block_reqnoff_set']}</td><td width='40%'><div style='width: auto;' align='right'><#requests_and_offers_on#></div></td></tr>
 </table>";
 
-	$HTMLOUT.= "<h3>{$lang['block_stdhead_settings']}</h3>";
+    $HTMLOUT.= "<h3>{$lang['block_stdhead_settings']}</h3>";
 
-	$HTMLOUT.= "<table class='table table-bordered'>
+    $HTMLOUT.= "<table class='table table-bordered'>
     	<tr><td width='60%'>{$lang['block_freelech']}<br />{$lang['block_freelech_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_freeleech_on#></div></td></tr>    
 	<tr><td width='60%'>{$lang['block_demotion']}<br />{$lang['block_demotion_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_demotion_on#></div></td></tr>
 	<tr><td width='60%'>{$lang['block_message']}<br />{$lang['block_message_set']}</td><td width='40%'><div style='width: auto;' align='right'><#global_message_on#></div></td></tr>
@@ -199,9 +199,9 @@ $HTMLOUT.= "
 
 </table>";
 
-	$HTMLOUT.= "<h3>{$lang['block_userdetails']}</h3>";
-        
-	$HTMLOUT.= "<table class='table table-bordered'>
+    $HTMLOUT.= "<h3>{$lang['block_userdetails']}</h3>";
+
+    $HTMLOUT.= "<table class='table table-bordered'>
 	<tr><td width='60%'>{$lang['block_login_link']}<br />{$lang['block_login_link_set']}</td><td width='40%'><div style='width: auto;' align='right'><#userdetails_login_link_on#></div></td></tr>    
 	<tr><td width='60%'>{$lang['block_flush']}<br />{$lang['block_flush_set']}</td><td width='40%'><div style='width: auto;' align='right'><#userdetails_flush_on#></div></td></tr>    
 	<tr><td width='60%'>{$lang['block_joined']}<br />{$lang['block_joined_set']}</td><td width='40%'><div style='width: auto;' align='right'><#userdetails_joined_on#></div></td></tr>    
@@ -234,14 +234,14 @@ $HTMLOUT.= "
 	<tr><td width='60%'>{$lang['block_user_status']}<br />{$lang['block_user_status_set']}</td><td width='40%'><div style='width: auto;' align='right'><#userdetails_user_status_on#></div></td></tr>    
 	<tr><td width='60%'>{$lang['block_user_comments']}<br />{$lang['block_user_comments_set']}</td><td width='40%'><div style='width: auto;' align='right'><#userdetails_user_comments_on#></div></td></tr>
 	<tr><td width='60%'>{$lang['block_showfriends']}<br />{$lang['block_showfriends_set']}</td><td width='40%'><div style='width: auto;' align='right'><#userdetails_showfriends_on#></div></td></tr></table>";
-	$HTMLOUT.= "<tr><td colspan='2' class='table' align='center'><input class='btn btn-default' type='submit' value='{$lang['block_submit']}' /></td></tr>
+    $HTMLOUT.= "<tr><td colspan='2' class='table' align='center'><input class='btn btn-default' type='submit' value='{$lang['block_submit']}' /></td></tr>
 	</form></td></tr></table></div></div>";
 $HTMLOUT = preg_replace_callback("|<#(.*?)#>|", "template_out", $HTMLOUT);
 echo stdhead($lang['block_stdhead'], true, $stdhead) , $HTMLOUT, stdfoot($stdfoot);
 function template_out($matches)
 {
     global $BLOCKS, $lang;
-    return $lang['block_yes']. '<input name="' . $matches[1] . '" value="1" ' . ($BLOCKS[$matches[1]] == 1 ? 'checked="checked"' : "") . ' type="radio" />&nbsp;&nbsp;&nbsp;<input name="' . $matches[1] . '" value="0" ' . ($BLOCKS[$matches[1]] == 1 ? "" : 'checked="checked"') . ' type="radio" /> ' .$lang['block_no'];
+    return $lang['block_yes'] . '<input name="' . $matches[1] . '" value="1" ' . ($BLOCKS[$matches[1]] == 1 ? 'checked="checked"' : "") . ' type="radio" />&nbsp;&nbsp;&nbsp;<input name="' . $matches[1] . '" value="0" ' . ($BLOCKS[$matches[1]] == 1 ? "" : 'checked="checked"') . ' type="radio" /> ' . $lang['block_no'];
 }
 function redirect($url, $text, $time = 2)
 {
@@ -271,4 +271,3 @@ function redirect($url, $text, $time = 2)
     echo $html;
     exit;
 }
-?>

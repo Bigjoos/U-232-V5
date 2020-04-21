@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,22 +30,24 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'user_functions.php');
 require_once INCL_DIR . 'pager_functions.php';
-require_once (CLASS_DIR . 'class_check.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('uploadapps'));
-$possible_actions = array(
+$possible_actions = [
     'show',
     'viewapp',
     'acceptapp',
     'rejectapp',
     'takeappdelete',
     'app'
-);
+];
 $action = (isset($_GET['action']) ? htmlsafechars($_GET['action']) : '');
-if (!in_array($action, $possible_actions)) stderr($lang['uploadapps_error'], $lang['uploadapps_ruffian']);
+if (!in_array($action, $possible_actions)) {
+    stderr($lang['uploadapps_error'], $lang['uploadapps_ruffian']);
+}
 $HTMLOUT = $where = $where1 = '';
 //== View applications
 if ($action == "app" || $action == "show") {
@@ -72,7 +74,9 @@ if ($action == "app" || $action == "show") {
         </td></tr></table></div></div>";
     } else {
         $HTMLOUT.= "<div class='row'><div class='col-md-12'><form method='post' action='staffpanel.php?tool=uploadapps&amp;action=takeappdelete'>";
-        if ($count > $perpage) $HTMLOUT.= $pager['pagertop'];
+        if ($count > $perpage) {
+            $HTMLOUT.= $pager['pagertop'];
+        }
         $HTMLOUT.= "<table class='table table-bordered'><tr><td class='embedded'>
         <div align='right'><font class='small'>{$hide}</font></div>
         <table class='table table-bordered'>
@@ -89,32 +93,38 @@ if ($action == "app" || $action == "show") {
         </tr>\n";
         $res = sql_query("SELECT uploadapp.*, users.id AS uid, users.username, users.class, users.added, users.uploaded, users.downloaded FROM uploadapp INNER JOIN users on uploadapp.userid = users.id $where1 " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
         while ($arr = mysqli_fetch_assoc($res)) {
-            if ($arr["status"] == "accepted") $status = "<font color='green'>{$lang['uploadapps_accepted']}</font>";
-            elseif ($arr["status"] == "rejected") $status = "<font color='red'>{$lang['uploadapps_rejected']}</font>";
-            else $status = "<font color='blue'>{$lang['uploadapps_pending']}</font>";
+            if ($arr["status"] == "accepted") {
+                $status = "<font color='green'>{$lang['uploadapps_accepted']}</font>";
+            } elseif ($arr["status"] == "rejected") {
+                $status = "<font color='red'>{$lang['uploadapps_rejected']}</font>";
+            } else {
+                $status = "<font color='blue'>{$lang['uploadapps_pending']}</font>";
+            }
             $membertime = get_date($arr['added'], '', 0, 1);
             $elapsed = get_date($arr['applied'], '', 0, 1);
             $HTMLOUT.= "<tr>
             <td>{$elapsed}</td>
-            <td><a href='staffpanel.php?tool=uploadapps&amp;action=viewapp&amp;id=" . (int)$arr['id'] . "'>{$lang['uploadapps_viewapp']}</a></td>
-            <td><a href='{$INSTALLER09['baseurl']}/userdetails.php?id=" . (int)$arr['uid'] . "'>" . htmlsafechars($arr['username']) . "</a></td>
+            <td><a href='staffpanel.php?tool=uploadapps&amp;action=viewapp&amp;id=" . (int) $arr['id'] . "'>{$lang['uploadapps_viewapp']}</a></td>
+            <td><a href='{$INSTALLER09['baseurl']}/userdetails.php?id=" . (int) $arr['uid'] . "'>" . htmlsafechars($arr['username']) . "</a></td>
             <td>{$membertime}</td>
             <td>" . get_user_class_name($arr["class"]) . "</td>
             <td>" . mksize($arr["uploaded"]) . "</td>
             <td>" . member_ratio($arr['uploaded'], $INSTALLER09['ratio_free'] ? '0' : $arr['downloaded']) . "</td>
             <td>{$status}</td>
-            <td><input type=\"checkbox\" name=\"deleteapp[]\" value=\"" . (int)$arr['id'] . "\" /></td>
+            <td><input type=\"checkbox\" name=\"deleteapp[]\" value=\"" . (int) $arr['id'] . "\" /></td>
             </tr>\n";
         }
         $HTMLOUT.= "</table>
         <div align='right'><input type='submit' value='Delete' /></div>
         </td></tr></table></form></div></div>\n";
-        if ($count > $perpage) $HTMLOUT.= $pager['pagerbottom'];
+        if ($count > $perpage) {
+            $HTMLOUT.= $pager['pagerbottom'];
+        }
     }
 }
 //== View application
 if ($action == "viewapp") {
-    $id = (int)$_GET["id"];
+    $id = (int) $_GET["id"];
     $res = sql_query("SELECT uploadapp.*, users.id AS uid, users.username, users.class, users.added, users.uploaded, users.downloaded FROM uploadapp INNER JOIN users on uploadapp.userid = users.id WHERE uploadapp.id=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
     $membertime = get_date($arr['added'], '', 0, 1);
@@ -122,7 +132,7 @@ if ($action == "viewapp") {
     $HTMLOUT.= "<div class='row'><div class='col-md-12'><h1 align='center'>Uploader application</h1>
     <table class='table table-bordered'>
     <tr>
-    <td class='rowhead' width='25%'>{$lang['uploadapps_username1']} </td><td><a href='{$INSTALLER09['baseurl']}/userdetails.php?id=" . (int)$arr['uid'] . "'>" . htmlsafechars($arr['username']) . "</a></td>
+    <td class='rowhead' width='25%'>{$lang['uploadapps_username1']} </td><td><a href='{$INSTALLER09['baseurl']}/userdetails.php?id=" . (int) $arr['uid'] . "'>" . htmlsafechars($arr['username']) . "</a></td>
     </tr>
     <tr>
     <td class='rowhead'>{$lang['uploadapps_joined']} </td><td>" . htmlsafechars($membertime) . "</td>
@@ -157,56 +167,61 @@ if ($action == "viewapp") {
     <tr>
     <td class='rowhead'>{$lang['uploadapps_uploader']} </td><td>" . htmlsafechars($arr["sites"]) . "</td>
     </tr>";
-    if ($arr["sitenames"] != "") $HTMLOUT.= "<tr><td class='rowhead'>{$lang['uploadapps_sites']} </td><td>" . htmlsafechars($arr["sitenames"]) . "</td></tr>
+    if ($arr["sitenames"] != "") {
+        $HTMLOUT.= "<tr><td class='rowhead'>{$lang['uploadapps_sites']} </td><td>" . htmlsafechars($arr["sitenames"]) . "</td></tr>
     <tr><td class='rowhead'>{$lang['uploadapps_axx']} </td><td>" . htmlsafechars($arr["scene"]) . "</td></tr>
     <tr><td colspan='2'>{$lang['uploadapps_create']} <b>" . htmlsafechars($arr["creating"]) . "</b><br />{$lang['uploadapps_seeding']} <b>" . htmlsafechars($arr["seeding"]) . "</b></td></tr>";
-    if ($arr["status"] == "pending") $HTMLOUT.= "<tr><td align='center' colspan='2'><form method='post' action='staffpanel.php?tool=uploadapps&amp;action=acceptapp'><input name='id' type='hidden' value='" . (int)$arr["id"] . "' /><b>{$lang['uploadapps_note']}</b><br /><input type='text' name='note' size='40' /> <input type='submit' value='{$lang['uploadapps_accept']}' style='height: 20px' /></form><br /><form method='post' action='staffpanel.php?tool=uploadapps&amp;action=rejectapp'><input name='id' type='hidden' value='" . (int)$arr["id"] . "' /><b>{$lang['uploadapps_reason']}</b><br /><input type='text' name='reason' size='40' /> <input type='submit' value='{$lang['uploadapps_reject']}' style='height: 20px' /></form></td></tr></table></div></div>";
-    else $HTMLOUT.= "<tr><td colspan='2' align='center'>{$lang['uploadapps_application']} " . ($arr["status"] == "accepted" ? "accepted" : "rejected") . " by <b>" . htmlsafechars($arr["moderator"]) . "</b><br />{$lang['uploadapps_comm']}" . htmlsafechars($arr["comment"]) . "</td></tr></table>
+    }
+    if ($arr["status"] == "pending") {
+        $HTMLOUT.= "<tr><td align='center' colspan='2'><form method='post' action='staffpanel.php?tool=uploadapps&amp;action=acceptapp'><input name='id' type='hidden' value='" . (int) $arr["id"] . "' /><b>{$lang['uploadapps_note']}</b><br /><input type='text' name='note' size='40' /> <input type='submit' value='{$lang['uploadapps_accept']}' style='height: 20px' /></form><br /><form method='post' action='staffpanel.php?tool=uploadapps&amp;action=rejectapp'><input name='id' type='hidden' value='" . (int) $arr["id"] . "' /><b>{$lang['uploadapps_reason']}</b><br /><input type='text' name='reason' size='40' /> <input type='submit' value='{$lang['uploadapps_reject']}' style='height: 20px' /></form></td></tr></table></div></div>";
+    } else {
+        $HTMLOUT.= "<tr><td colspan='2' align='center'>{$lang['uploadapps_application']} " . ($arr["status"] == "accepted" ? "accepted" : "rejected") . " by <b>" . htmlsafechars($arr["moderator"]) . "</b><br />{$lang['uploadapps_comm']}" . htmlsafechars($arr["comment"]) . "</td></tr></table>
     <div align='center'><a href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=uploadapps&amp;action=app'>{$lang['uploadapps_return']}</a></div></div></div>";
+    }
 }
 //== Accept application
 if ($action == "acceptapp") {
     $id = 0 + $_POST["id"];
-    if (!is_valid_id($id)) stderr($lang['uploadapps_error'], $lang['uploadapps_noid']);
+    if (!is_valid_id($id)) {
+        stderr($lang['uploadapps_error'], $lang['uploadapps_noid']);
+    }
     $res = sql_query("SELECT uploadapp.id, users.username, users.modcomment, users.id AS uid FROM uploadapp INNER JOIN users on uploadapp.userid = users.id WHERE uploadapp.id = $id") or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
     $note = htmlsafechars($_POST["note"]);
     $subject = sqlesc($lang['uploadapps_subject']);
     $msg = sqlesc("{$lang['uploadapps_msg']}\n\n{$lang['uploadapps_msg_note']} $note");
-    $msg1 = sqlesc("{$lang['uploadapps_msg_user']} [url={$INSTALLER09['baseurl']}/userdetails.php?id=" . (int)$arr['uid'] . "][b]{$arr['username']}[/b][/url] {$lang['uploadapps_msg_been']} {$CURUSER['username']}.");
+    $msg1 = sqlesc("{$lang['uploadapps_msg_user']} [url={$INSTALLER09['baseurl']}/userdetails.php?id=" . (int) $arr['uid'] . "][b]{$arr['username']}[/b][/url] {$lang['uploadapps_msg_been']} {$CURUSER['username']}.");
     $modcomment = get_date(TIME_NOW, 'DATE', 1) . $lang['uploadapps_modcomment'] . $CURUSER["username"] . "." . ($arr["modcomment"] != "" ? "\n" : "") . "{$arr['modcomment']}";
     $dt = TIME_NOW;
     sql_query("UPDATE uploadapp SET status = 'accepted', comment = " . sqlesc($note) . ", moderator = " . sqlesc($CURUSER["username"]) . " WHERE id=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     sql_query("UPDATE users SET class = " . UC_UPLOADER . ", modcomment = " . sqlesc($modcomment) . " WHERE id=" . sqlesc($arr['uid']) . " AND class < " . UC_STAFF) or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('MyUser_' . $arr['uid']);
-    $mc1->update_row(false, array(
+    $cache->update_row('MyUser_' . $arr['uid'], [
         'class' => 3
-    ));
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user_stats_' . $arr['uid']);
-    $mc1->update_row(false, array(
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user_stats_' . $arr['uid'], [
         'modcomment' => $modcomment
-    ));
-    $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-    $mc1->begin_transaction('user' . $arr['uid']);
-    $mc1->update_row(false, array(
+    ], $INSTALLER09['expires']['user_stats']);
+    $cache->update_row('user' . $arr['uid'], [
         'class' => 3
-    ));
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     sql_query("INSERT INTO messages(sender, receiver, added, msg, subject, poster) VALUES(0, " . sqlesc($arr['uid']) . ", $dt, $msg, $subject, 0)") or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('inbox_new_' . $arr['uid']);
-    $mc1->delete_value('inbox_new_sb_' . $arr['uid']);
+    $cache->delete('inbox_new_' . $arr['uid']);
+    $cache->delete('inbox_new_sb_' . $arr['uid']);
     $subres = sql_query("SELECT id FROM users WHERE class >= " . UC_STAFF) or sqlerr(__FILE__, __LINE__);
-    while ($subarr = mysqli_fetch_assoc($subres)) sql_query("INSERT INTO messages(sender, receiver, added, msg, subject, poster) VALUES(0, " . sqlesc($subarr['id']) . ", $dt, $msg1, $subject, 0)") or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('inbox_new_' . $subarr['id']);
-    $mc1->delete_value('inbox_new_sb_' . $subarr['id']);
-    $mc1->delete_value('new_uploadapp_');
+    while ($subarr = mysqli_fetch_assoc($subres)) {
+        sql_query("INSERT INTO messages(sender, receiver, added, msg, subject, poster) VALUES(0, " . sqlesc($subarr['id']) . ", $dt, $msg1, $subject, 0)") or sqlerr(__FILE__, __LINE__);
+    }
+    $cache->delete('inbox_new_' . $subarr['id']);
+    $cache->delete('inbox_new_sb_' . $subarr['id']);
+    $cache->delete('new_uploadapp_');
     stderr($lang['uploadapps_app_accepted'], "{$lang['uploadapps_app_msg']} {$lang['uploadapps_app_click']} <a href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=uploadapps&amp;action=app'><b>{$lang['uploadapps_app_here']}</b></a> {$lang['uploadapps_app_return']}");
 }
 //== Reject application
 if ($action == "rejectapp") {
     $id = 0 + $_POST["id"];
-    if (!is_valid_id($id)) stderr($lang['uploadapps_error'], $lang['uploadapps_no_up']);
+    if (!is_valid_id($id)) {
+        stderr($lang['uploadapps_error'], $lang['uploadapps_no_up']);
+    }
     $res = sql_query("SELECT uploadapp.id, users.id AS uid FROM uploadapp INNER JOIN users on uploadapp.userid = users.id WHERE uploadapp.id=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
     $reason = htmlsafechars($_POST["reason"]);
@@ -215,17 +230,17 @@ if ($action == "rejectapp") {
     $dt = TIME_NOW;
     sql_query("UPDATE uploadapp SET status = 'rejected', comment = " . sqlesc($reason) . ", moderator = " . sqlesc($CURUSER["username"]) . " WHERE id=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     sql_query("INSERT INTO messages(sender, receiver, added, msg, subject, poster) VALUES(0, {$arr['uid']}, $dt, $msg, $subject, 0)") or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('new_uploadapp_');
+    $cache->delete('new_uploadapp_');
     stderr($lang['uploadapps_app_rej'], "{$lang['uploadapps_app_rejbeen']} {$lang['uploadapps_app_click']} <a href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=uploadapps&amp;action=app'><b>{$lang['uploadapps_app_here']}</b></a>{$lang['uploadapps_app_return']}");
 }
 //== Delete applications
 if ($action == "takeappdelete") {
-    if (empty($_POST['deleteapp'])) stderr($lang['uploadapps_silly'], $lang['uploadapps_twix']);
-    else {
+    if (empty($_POST['deleteapp'])) {
+        stderr($lang['uploadapps_silly'], $lang['uploadapps_twix']);
+    } else {
         sql_query("DELETE FROM uploadapp WHERE id IN (" . join(",", $_POST['deleteapp']) . ") ") or sqlerr(__FILE__, __LINE__);
-        $mc1->delete_value('new_uploadapp_');
+        $cache->delete('new_uploadapp_');
         stderr($lang['uploadapps_deleted'], "{$lang['uploadapps_deletedsuc']} {$lang['uploadapps_app_click']} <a href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=uploadapps&amp;action=app'><b>{$lang['uploadapps_app_here']}</b></a>{$lang['uploadapps_app_return']}");
     }
 }
 echo stdhead($lang['uploadapps_stdhead']) . $HTMLOUT . stdfoot();
-?>

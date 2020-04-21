@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $preview = $subject = $draft = '';
 //=== don't allow direct access
@@ -34,17 +34,23 @@ if (!defined('BUNNY_PM_SYSTEM')) {
 }
 if (isset($_POST['buttonval']) && $_POST['buttonval'] == 'save draft') {
     //=== make sure they wrote something :P
-    if (empty($_POST['subject'])) stderr($lang['pm_error'], $lang['pm_draft_err']);
-    if (empty($_POST['body'])) stderr($lang['pm_error'], $lang['pm_draft_err1']);
+    if (empty($_POST['subject'])) {
+        stderr($lang['pm_error'], $lang['pm_draft_err']);
+    }
+    if (empty($_POST['body'])) {
+        stderr($lang['pm_error'], $lang['pm_draft_err1']);
+    }
     $body = sqlesc($_POST['body']);
     $subject = sqlesc(strip_tags($_POST['subject']));
     sql_query('INSERT INTO messages (sender, receiver, added, msg, subject, location, draft, unread, saved) VALUES  
                                                                         (' . sqlesc($CURUSER['id']) . ', ' . sqlesc($CURUSER['id']) . ',' . TIME_NOW . ', ' . $body . ', ' . $subject . ', \'-2\', \'yes\',\'no\',\'yes\')') or sqlerr(__FILE__, __LINE__);
-    $mc1->delete_value('inbox_new_' . $CURUSER['id']);
-    $mc1->delete_value('inbox_new_sb_' . $CURUSER['id']);
+    $cache->delete('inbox_new_' . $CURUSER['id']);
+    $cache->delete('inbox_new_sb_' . $CURUSER['id']);
     $new_draft_id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
     //=== Check if messages was saved as draft
-    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) stderr($lang['pm_error'], $lang['pm_draft_err2']);
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) {
+        stderr($lang['pm_error'], $lang['pm_draft_err2']);
+    }
     header('Location: pm_system.php?action=view_message&new_draft=1&id=' . $new_draft_id);
     die();
 } //=== end save draft
@@ -79,7 +85,7 @@ $HTMLOUT.= '
     </tr>
     <tr>
         <td class="text-right" valign="top"><span style="font-weight: bold;">' . $lang['pm_draft_body'] . '</span></td>
-        <td class="text-left" valign="top">'. textbbcode('compose', 'body').'</td>
+        <td class="text-left" valign="top">' . textbbcode('compose', 'body') . '</td>
     </tr>
     <tr>
 		<div class="btn-group">
@@ -89,4 +95,3 @@ $HTMLOUT.= '
 		</div>
     </tr>
     </table></form>';
-?>

@@ -37,61 +37,61 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'awk',
-    'COMMENT_SINGLE' => array(
+    'COMMENT_SINGLE' => [
         1 => '#'
-        ),
-    'COMMENT_MULTI' => array(),
+    ],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array (
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'for', 'in', 'if', 'else', 'while', 'do', 'continue', 'break'
-            ),
-        2 => array(
+        ],
+        2 => [
             'BEGIN', 'END'
-            ),
-        3 => array(
+        ],
+        3 => [
             'ARGC', 'ARGV', 'CONVFMT', 'ENVIRON',
             'FILENAME', 'FNR', 'FS', 'NF', 'NR', 'OFMT',
-            'OFS','ORS','RLENGTH','RS','RSTART','SUBSEP'
-            ),
-        4 => array(
-            'gsub','index','length','match','split',
-            'sprintf','sub','substr','tolower','toupper',
-            'atan2','cos','exp','int','log','rand',
-            'sin','sqrt','srand'
-            ),
-        5 => array(
-            'print','printf','getline','close','fflush','system'
-            ),
-        6 => array(
+            'OFS', 'ORS', 'RLENGTH', 'RS', 'RSTART', 'SUBSEP'
+        ],
+        4 => [
+            'gsub', 'index', 'length', 'match', 'split',
+            'sprintf', 'sub', 'substr', 'tolower', 'toupper',
+            'atan2', 'cos', 'exp', 'int', 'log', 'rand',
+            'sin', 'sqrt', 'srand'
+        ],
+        5 => [
+            'print', 'printf', 'getline', 'close', 'fflush', 'system'
+        ],
+        6 => [
             'function', 'return'
-            )
-        ),
-    'SYMBOLS' => array (
-        0 => array(
-            '(',')','[',']','{','}'
-            ),
-        1 => array(
-            '!','||','&&'
-            ),
-        2 => array(
-            '<','>','<=','>=','==','!='
-            ),
-        3 => array(
-            '+','-','*','/','%','^','++','--'
-            ),
-        4 => array(
-            '~','!~'
-            ),
-        5 => array(
-            '?',':'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'SYMBOLS' => [
+        0 => [
+            '(', ')', '[', ']', '{', '}'
+        ],
+        1 => [
+            '!', '||', '&&'
+        ],
+        2 => [
+            '<', '>', '<=', '>=', '==', '!='
+        ],
+        3 => [
+            '+', '-', '*', '/', '%', '^', '++', '--'
+        ],
+        4 => [
+            '~', '!~'
+        ],
+        5 => [
+            '?', ':'
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -99,60 +99,58 @@ $language_data = array (
         4 => false,
         5 => false,
         6 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight: bold;',
             2 => 'color: #C20CB9; font-weight: bold;',
             3 => 'color: #4107D5; font-weight: bold;',
             4 => 'color: #07D589; font-weight: bold;',
             5 => 'color: #0BD507; font-weight: bold;',
             6 => 'color: #078CD5; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color:#808080;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color:black;',
             1 => 'color:black;',
             2 => 'color:black;',
             3 => 'color:black;',
             4 => 'color:#C4C364;',
-            5 => 'color:black;font-weight:bold;'),
-        'SCRIPT' => array(),
-        'REGEXPS' => array(
+            5 => 'color:black;font-weight:bold;'],
+        'SCRIPT' => [],
+        'REGEXPS' => [
             0 => 'color:#000088;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #000000;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #7a0874; font-weight: bold;'
-            ),
-        'METHODS' => array()
-        ),
-    'URLS' => array(
+        ],
+        'METHODS' => []
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => '',
         5 => '',
         6 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array (),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [
         0 => "\\$[a-zA-Z0-9_]+"
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array (),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => []
+];

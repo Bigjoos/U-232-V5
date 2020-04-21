@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $htmlout = '';
@@ -30,12 +30,12 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $htmlout;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 class_check(UC_MAX, true, true);
 $lang = array_merge($lang, load_language('ad_systemview'));
 $htmlout = '';
-if (isset($_GET['phpinfo']) AND $_GET['phpinfo']) {
+if (isset($_GET['phpinfo']) and $_GET['phpinfo']) {
     @ob_start();
     phpinfo();
     $parsed = @ob_get_contents();
@@ -72,7 +72,7 @@ h2 {font-size: 125%;}
     stdfoot();
     exit();
 }
-$html = array();
+$html = [];
 function sql_get_version()
 {
     $query = sql_query("SELECT VERSION() AS version");
@@ -110,7 +110,7 @@ if (!$server_load_found) {
             $load_avg = explode(" ", $data);
             $load_limit = trim($load_avg[0]);
         }
-    } else if (strstr(strtolower(PHP_OS) , 'win')) {
+    } elseif (strstr(strtolower(PHP_OS), 'win')) {
         $serverstats = @shell_exec("typeperf \"Processor(_Total)\% Processor Time\" -sc 1");
         if ($serverstats) {
             $server_reply = explode("\n", str_replace("\r", "", $serverstats));
@@ -129,7 +129,7 @@ if (!$server_load_found) {
     }
 }
 $total_memory = $avail_memory = "--";
-if (strstr(strtolower(PHP_OS) , 'win')) {
+if (strstr(strtolower(PHP_OS), 'win')) {
     $mem = @shell_exec('systeminfo');
     if ($mem) {
         $server_reply = explode("\n", str_replace("\r", "", $mem));
@@ -153,7 +153,7 @@ if (strstr(strtolower(PHP_OS) , 'win')) {
     $avail_memory = $mem[3] . ' MB';
 }
 $disabled_functions = @ini_get('disable_functions') ? str_replace(",", ", ", @ini_get('disable_functions')) : "<i>{$lang['system_noinf']}</i>";
-if (strstr(strtolower(PHP_OS) , 'win')) {
+if (strstr(strtolower(PHP_OS), 'win')) {
     $tasks = @shell_exec("tasklist");
     $tasks = str_replace(" ", " ", $tasks);
 } else {
@@ -166,46 +166,45 @@ if (!$tasks) {
     $tasks = "<pre>" . $tasks . "</pre>";
 }
 $load_limit = $load_limit . " ({$lang['system_fromcache']}" . ($using_cache == 1 ? "<span style='color:green;font-weight:bold;'>{$lang['system_true']})</span>" : "<span style='color:red;font-weight:bold;'>{$lang['system_false']})</span>");
-$html[] = array(
+$html[] = [
     $lang['system_mysql'],
     sql_get_version()
-);
-$html[] = array(
+];
+$html[] = [
     $lang['system_php'],
     $php_version
-);
-$html[] = array(
+];
+$html[] = [
     $lang['system_safe'],
     @ini_get('safe_mode') == 1 ? "<span style='color:red;font-weight:bold;'>{$lang['system_on']}</span>" : "<span style='color:green;font-weight:bold;'>{$lang['system_off']}</span>"
-);
-$html[] = array(
+];
+$html[] = [
     $lang['system_disabled'],
     $disabled_functions
-);
-$html[] = array(
+];
+$html[] = [
     $lang['system_server_soft'],
     $server_software
-);
-$html[] = array(
+];
+$html[] = [
     $lang['system_server_load'],
     $load_limit
-);
-$html[] = array(
+];
+$html[] = [
     $lang['system_server_memory'],
     $total_memory
-);
-$html[] = array(
+];
+$html[] = [
     $lang['system_server_avail'],
     $avail_memory
-);
-$html[] = array(
+];
+$html[] = [
     $lang['system_sys_proc'],
     $tasks
-);
+];
 $htmlout.= '<table>';
 foreach ($html as $key => $value) {
     $htmlout.= '<tr><td>' . $value[0] . '</td><td>' . $value[1] . '</td></tr>';
 }
 $htmlout.= '</table>';
 echo stdhead($lang['system_stdhead']) . $htmlout . stdfoot();
-?>

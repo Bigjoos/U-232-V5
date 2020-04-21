@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,9 +30,9 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('bonusmanager'));
@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_POST["enabled"]) == '') {
             $enabled = "no";
         }
-        $sql = sql_query("UPDATE bonus SET points = ".sqlesc($points).", pointspool=".sqlesc($pointspool).", minpoints=".sqlesc($minpoints).", enabled = ".sqlesc($enabled).", description = ".sqlesc($descr)." WHERE id = ".sqlesc($id));
+        $sql = sql_query("UPDATE bonus SET points = " . sqlesc($points) . ", pointspool=" . sqlesc($pointspool) . ", minpoints=" . sqlesc($minpoints) . ", enabled = " . sqlesc($enabled) . ", description = " . sqlesc($descr) . " WHERE id = " . sqlesc($id));
         if ($sql) {
             header("Location: {$INSTALLER09['baseurl']}/staffpanel.php?tool=bonusmanage");
         } else {
@@ -77,17 +77,16 @@ while ($arr = mysqli_fetch_assoc($res)) {
 		<td>{$lang['bonusmanager_quantity']}</td>
 		<td>{$lang['bonusmanager_action']}</td></tr> 
 	  <tr><td class='$class'>
-		<input name='id' type='hidden' value='" . (int)$arr["id"] . "' />" . (int)$arr['id'] . "</td>
+		<input name='id' type='hidden' value='" . (int) $arr["id"] . "' />" . (int) $arr['id'] . "</td>
 		<td class='$class'><input name='enabled' type='checkbox'" . ($arr["enabled"] == "yes" ? " checked='checked'" : "") . " /></td>
 		<td class='$class'>" . htmlsafechars($arr["bonusname"]) . "</td>
-		<td class='$class'><input type='text' name='bonuspoints' value='" . (int)$arr["points"] . "' size='4' /></td>
-		<td class='$class'><input type='text' name='pointspool' value='" . (int)$arr["pointspool"] . "' size='4' /></td>
-		<td class='$class'><input type='text' name='minpoints' value='" . (int)$arr["minpoints"] . "' size='4' /></td>
+		<td class='$class'><input type='text' name='bonuspoints' value='" . (int) $arr["points"] . "' size='4' /></td>
+		<td class='$class'><input type='text' name='pointspool' value='" . (int) $arr["pointspool"] . "' size='4' /></td>
+		<td class='$class'><input type='text' name='minpoints' value='" . (int) $arr["minpoints"] . "' size='4' /></td>
 		<td class='$class'><textarea name='description' rows='4' cols='10'>" . htmlsafechars($arr["description"]) . "</textarea></td>
-		<td class='$class'>".htmlsafechars($arr["art"])."</td>
+		<td class='$class'>" . htmlsafechars($arr["art"]) . "</td>
 		<td class='$class'>" . (($arr["art"] == "traffic" || $arr["art"] == "traffic2" || $arr["art"] == "gift_1" || $arr["art"] == "gift_2") ? (htmlsafechars($arr["menge"]) / 1024 / 1024 / 1024) . " GB" : htmlsafechars($arr["menge"])) . "</td>
 		<td align='center'><input type='submit' value='{$lang['bonusmanager_submit']}' /></td>
 		</tr></div></div></table></div></form></div></div><br>";
 }
 echo stdhead($lang['bonusmanager_stdhead']) . $HTMLOUT . stdfoot();
-?>

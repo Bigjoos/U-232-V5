@@ -39,15 +39,15 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'PureBasic',
-    'COMMENT_SINGLE' => array( 1 => ";"  ),
-    'COMMENT_MULTI' => array( ),
+    'COMMENT_SINGLE' => [ 1 => ";"  ],
+    'COMMENT_MULTI' => [ ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             // Keywords
             'And', 'As', 'Break', 'CallDebugger', 'Case', 'CompilerCase', 'CompilerDefault', 'CompilerElse', 'CompilerEndIf', 'CompilerEndSelect',
             'CompilerError', 'CompilerIf', 'CompilerSelect', 'Continue', 'Data', 'DataSection', 'EndDataSection', 'Debug', 'DebugLevel', 'Declare',
@@ -58,8 +58,8 @@ $language_data = array (
             'NewList', 'Not', 'Or', 'Procedure', 'ProcedureC', 'ProcedureCDLL', 'ProcedureDLL', 'ProcedureReturn', 'Protected', 'Prototype',
             'PrototypeC', 'Read', 'ReDim', 'Repeat', 'Until', 'Restore', 'Return', 'Select', 'Shared', 'Static', 'Step', 'Structure', 'StructureUnion',
             'Swap', 'To', 'Wend', 'While', 'With', 'XIncludeFile', 'XOr'
-            ),
-        2 => array(
+        ],
+        2 => [
             // All Functions
             'Abs', 'ACos', 'Add3DArchive', 'AddBillboard', 'AddDate', 'AddElement', 'AddGadgetColumn', 'AddGadgetItem',
             'AddKeyboardShortcut', 'AddMaterialLayer', 'AddPackFile', 'AddPackMemory', 'AddStatusBarField', 'AddSysTrayIcon',
@@ -215,8 +215,8 @@ $language_data = array (
             'WriteQuad', 'WriteString', 'WriteStringFormat', 'WriteStringN', 'WriteWord', 'XMLAttributeName', 'XMLAttributeValue',
             'XMLChildCount', 'XMLError', 'XMLErrorLine', 'XMLErrorPosition', 'XMLNodeFromID', 'XMLNodeFromPath', 'XMLNodePath',
             'XMLNodeType', 'XMLStatus', 'Year', 'ZoomSprite3D'
-            ),
-        3 => array(
+        ],
+        3 => [
             // some ASM instructions
             'AAA', 'AAD', 'AAM', 'AAS', 'ADC', 'ADD', 'AND', 'ARPL', 'BOUND', 'BSF', 'BSR', 'BSWAP', 'BT', 'BTC', 'BTR',
             'BTS', 'CALL', 'CBW', 'CDQ', 'CLC', 'CLD', 'CLI', 'CLTS', 'CMC', 'CMP', 'CMPS', 'CMPXCHG', 'CWD', 'CWDE',
@@ -235,69 +235,67 @@ $language_data = array (
             'SETNGE', 'SETNL', 'SETNLE', 'SETNO', 'SETNP', 'SETNS', 'SETNZ', 'SETO', 'SETP', 'SETPE', 'SETPO',
             'SETS', 'SETZ', 'SGDT', 'SHL', 'SHLD', 'SHR', 'SHRD', 'SIDT', 'SLDT', 'SMSW', 'STC', 'STD', 'STI',
             'STOS', 'STR', 'SUB', 'TEST', 'VERR', 'VERW', 'WAIT', 'WBINVD', 'XCHG', 'XLAT', 'XLATB', 'XOR'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '+', '-', '*', '/', '\\', '>', '<', '=', '<=', '>=', '&', '|', '!', '~', '<>', '>>', '<<', '%'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000066; font-weight: bold;',
             2 => 'color: #0000ff;',
             3 => 'color: #000fff;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #ff0000; font-style: italic;',
             'MULTI' => 'color: #ff0000; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000066;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #009900;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #CC0000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #006600;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000066;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
             0 => '',
             1 => '',
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '\\'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => false,
         1 => false
-        )
-);
-
-?>
+    ]
+];

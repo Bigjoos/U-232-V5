@@ -1,49 +1,49 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //==Stats Begin
-if (($stats_cache = $mc1->get_value('site_stats_')) === false) {
+if (($stats_cache = $cache->get('site_stats_')) === false) {
     $stats_cache = mysqli_fetch_assoc(sql_query("SELECT *, seeders + leechers AS peers, seeders / leechers AS ratio, unconnectables / (seeders + leechers) AS ratiounconn FROM stats WHERE id = '1' LIMIT 1"));
-    $stats_cache['seeders'] = (int)$stats_cache['seeders'];
-    $stats_cache['leechers'] = (int)$stats_cache['leechers'];
-    $stats_cache['regusers'] = (int)$stats_cache['regusers'];
-    $stats_cache['unconusers'] = (int)$stats_cache['unconusers'];
-    $stats_cache['torrents'] = (int)$stats_cache['torrents'];
-    $stats_cache['torrentstoday'] = (int)$stats_cache['torrentstoday'];
-    $stats_cache['ratiounconn'] = (int)$stats_cache['ratiounconn'];
-    $stats_cache['unconnectables'] = (int)$stats_cache['unconnectables'];
-    $stats_cache['ratio'] = (int)$stats_cache['ratio'];
-    $stats_cache['peers'] = (int)$stats_cache['peers'];
-    $stats_cache['numactive'] = (int)$stats_cache['numactive'];
-    $stats_cache['donors'] = (int)$stats_cache['donors'];
-    $stats_cache['forumposts'] = (int)$stats_cache['forumposts'];
-    $stats_cache['forumtopics'] = (int)$stats_cache['forumtopics'];
-    $stats_cache['torrentsmonth'] = (int)$stats_cache['torrentsmonth'];
-    $stats_cache['gender_na'] = (int)$stats_cache['gender_na'];
-    $stats_cache['gender_male'] = (int)$stats_cache['gender_male'];
-    $stats_cache['gender_female'] = (int)$stats_cache['gender_female'];
-    $stats_cache['powerusers'] = (int)$stats_cache['powerusers'];
-    $stats_cache['disabled'] = (int)$stats_cache['disabled'];
-    $stats_cache['uploaders'] = (int)$stats_cache['uploaders'];
-    $stats_cache['moderators'] = (int)$stats_cache['moderators'];
-    $stats_cache['administrators'] = (int)$stats_cache['administrators'];
-    $stats_cache['sysops'] = (int)$stats_cache['sysops'];
-    $mc1->cache_value('site_stats_', $stats_cache, $INSTALLER09['expires']['site_stats']);
+    $stats_cache['seeders'] = (int) $stats_cache['seeders'];
+    $stats_cache['leechers'] = (int) $stats_cache['leechers'];
+    $stats_cache['regusers'] = (int) $stats_cache['regusers'];
+    $stats_cache['unconusers'] = (int) $stats_cache['unconusers'];
+    $stats_cache['torrents'] = (int) $stats_cache['torrents'];
+    $stats_cache['torrentstoday'] = (int) $stats_cache['torrentstoday'];
+    $stats_cache['ratiounconn'] = (int) $stats_cache['ratiounconn'];
+    $stats_cache['unconnectables'] = (int) $stats_cache['unconnectables'];
+    $stats_cache['ratio'] = (int) $stats_cache['ratio'];
+    $stats_cache['peers'] = (int) $stats_cache['peers'];
+    $stats_cache['numactive'] = (int) $stats_cache['numactive'];
+    $stats_cache['donors'] = (int) $stats_cache['donors'];
+    $stats_cache['forumposts'] = (int) $stats_cache['forumposts'];
+    $stats_cache['forumtopics'] = (int) $stats_cache['forumtopics'];
+    $stats_cache['torrentsmonth'] = (int) $stats_cache['torrentsmonth'];
+    $stats_cache['gender_na'] = (int) $stats_cache['gender_na'];
+    $stats_cache['gender_male'] = (int) $stats_cache['gender_male'];
+    $stats_cache['gender_female'] = (int) $stats_cache['gender_female'];
+    $stats_cache['powerusers'] = (int) $stats_cache['powerusers'];
+    $stats_cache['disabled'] = (int) $stats_cache['disabled'];
+    $stats_cache['uploaders'] = (int) $stats_cache['uploaders'];
+    $stats_cache['moderators'] = (int) $stats_cache['moderators'];
+    $stats_cache['administrators'] = (int) $stats_cache['administrators'];
+    $stats_cache['sysops'] = (int) $stats_cache['sysops'];
+    $cache->set('site_stats_', $stats_cache, $INSTALLER09['expires']['site_stats']);
 }
 //==End
 //==Installer 09 stats

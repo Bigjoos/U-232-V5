@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 /**
  * Updated Database Backup Manager
@@ -33,16 +33,18 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 class_check(UC_MAX);
 $lang = array_merge($lang, load_language('ad_backup'));
 /* add your ids and uncomment this check*/
-$allowed_ids = array(
+$allowed_ids = [
     1
-);
-if (!in_array($CURUSER['id'], $allowed_ids)) stderr($lang['backup_stderr'], $lang['backup_stderr1']);
+];
+if (!in_array($CURUSER['id'], $allowed_ids)) {
+    stderr($lang['backup_stderr'], $lang['backup_stderr1']);
+}
 $HTMLOUT = '';
 /**
  * Configs Start
@@ -93,9 +95,13 @@ $write2log = true;
  * Configs End
  */
 if (is_array($required_class)) {
-    if (!in_array($CURUSER['class'], $required_class)) stderr($lang['backup_stderr'], $lang['backup_stderr']);
+    if (!in_array($CURUSER['class'], $required_class)) {
+        stderr($lang['backup_stderr'], $lang['backup_stderr']);
+    }
 } else {
-    if ($CURUSER['class'] <> $required_class) stderr($lang['backup_stderr'], $lang['backup_stderr1']);
+    if ($CURUSER['class'] != $required_class) {
+        stderr($lang['backup_stderr'], $lang['backup_stderr1']);
+    }
 }
 $mode = (isset($_GET['mode']) ? $_GET['mode'] : (isset($_POST['mode']) ? $_POST['mode'] : ''));
 if (empty($mode)) {
@@ -143,16 +149,16 @@ if (empty($mode)) {
                 </tr>";
         while ($arr = mysqli_fetch_assoc($res)) {
             $HTMLOUT.= "<tr>
-                        <td><a href='staffpanel.php?tool=backup&amp;mode=download&amp;id=" . (int)$arr['id'] . "'>" . htmlsafechars($arr['name']) . "</a></td>
+                        <td><a href='staffpanel.php?tool=backup&amp;mode=download&amp;id=" . (int) $arr['id'] . "'>" . htmlsafechars($arr['name']) . "</a></td>
                         <td style='white-space:nowrap;'>" . get_date($arr['added'], 'DATE', 1, 0) . "</td>
      <td align='center'>";
             if (!empty($arr['username'])) {
-                $HTMLOUT.= "<a href='{$INSTALLER09['baseurl']}/userdetails.php?id=" . (int)$arr['uid'] . "'>" . htmlsafechars($arr['username']) . "</a>";
+                $HTMLOUT.= "<a href='{$INSTALLER09['baseurl']}/userdetails.php?id=" . (int) $arr['uid'] . "'>" . htmlsafechars($arr['username']) . "</a>";
             } else {
-                $HTMLOUT.= "unknown[" . (int)$arr['uid'] . "]";
+                $HTMLOUT.= "unknown[" . (int) $arr['uid'] . "]";
             }
             $HTMLOUT.= "</td>
-                        <td><input type='checkbox' style='margin:0' name='ids[]' title='{$lang['backup_mark']}' value='" . (int)$arr['id'] . "' /></td>
+                        <td><input type='checkbox' style='margin:0' name='ids[]' title='{$lang['backup_mark']}' value='" . (int) $arr['id'] . "' /></td>
                         </tr>";
         }
         $HTMLOUT.= "<tr>
@@ -167,13 +173,19 @@ if (empty($mode)) {
     }
     $HTMLOUT.= "<br />";
     $HTMLOUT.= stdmsg($lang['backup_options'], "<div align='center'><a href='staffpanel.php?tool=backup&amp;mode=backup'>{$lang['backup_dbbackup']}</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href='staffpanel.php?tool=backup&amp;mode=check'>{$lang['backup_settingschk']}</a></div>");
-    if (!empty($_GET)) $HTMLOUT.= "<br />";
-    if (isset($_GET['backedup'])) $HTMLOUT.= stdmsg($lang['backup_success'], $lang['backup_backedup']);
-    else if (isset($_GET['deleted'])) $HTMLOUT.= stdmsg($lang['backup_success'], $lang['backup_deleted']);
-    else if (isset($_GET['noselection'])) $HTMLOUT.= stdmsg($lang['backup_stderr'], $lang['backup_selectb']);
+    if (!empty($_GET)) {
+        $HTMLOUT.= "<br />";
+    }
+    if (isset($_GET['backedup'])) {
+        $HTMLOUT.= stdmsg($lang['backup_success'], $lang['backup_backedup']);
+    } elseif (isset($_GET['deleted'])) {
+        $HTMLOUT.= stdmsg($lang['backup_success'], $lang['backup_deleted']);
+    } elseif (isset($_GET['noselection'])) {
+        $HTMLOUT.= stdmsg($lang['backup_stderr'], $lang['backup_selectb']);
+    }
     $HTMLOUT.= end_main_frame();
     echo stdhead($lang['backup_stdhead']) . $HTMLOUT . stdfoot();
-} else if ($mode == "backup") {
+} elseif ($mode == "backup") {
     global $INSTALLER09;
     $mysql_host = $INSTALLER09['mysql_host'];
     $mysql_user = $INSTALLER09['mysql_user'];
@@ -182,25 +194,33 @@ if (empty($mode)) {
     $ext = $mysql_db . '-' . date('d') . '-' . date('m') . '-' . date('Y') . '_' . date('H') . '-' . date('i') . '-' . date('s') . '_' . date('D') . ".sql";
     $filepath = $backupdir . '/' . $ext;
     exec("$mysqldump_path --default-character-set=latin1 -h $mysql_host -u $mysql_user -p$mysql_pass $mysql_db > $filepath");
-    if ($use_gzip) exec($gzip_path . ' ' . $filepath);
+    if ($use_gzip) {
+        exec($gzip_path . ' ' . $filepath);
+    }
     sql_query("INSERT INTO dbbackup (name, added, userid) VALUES (" . sqlesc($ext . ($use_gzip ? '.gz' : '')) . ", " . TIME_NOW . ", " . sqlesc($CURUSER['id']) . ")") or sqlerr(__FILE__, __LINE__);
     $location = 'mode=backup';
     if ($autodl) {
         $id = ((is_null($___mysqli_res = mysqli_insert_id($GLOBALS["___mysqli_ston"]))) ? false : $___mysqli_res);
         $location = 'mode=download&id=' . $id;
     }
-    if ($write2log) write_log($CURUSER['username'] . '(' . get_user_class_name($CURUSER['class']) . ') '. $lang['backup_successfully'] .'');
+    if ($write2log) {
+        write_log($CURUSER['username'] . '(' . get_user_class_name($CURUSER['class']) . ') ' . $lang['backup_successfully'] . '');
+    }
     header("Location: staffpanel.php?tool=backup");
-} else if ($mode == "download") {
-    $id = (isset($_GET['id']) ? (int)$_GET['id'] : 0);
-    if (!is_valid_id($id)) stderr($lang['backup_stderr'], $lang['backup_id']);
+} elseif ($mode == "download") {
+    $id = (isset($_GET['id']) ? (int) $_GET['id'] : 0);
+    if (!is_valid_id($id)) {
+        stderr($lang['backup_stderr'], $lang['backup_id']);
+    }
     $res = sql_query("SELECT name FROM dbbackup WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
     $filename = $backupdir . '/' . $arr['name'];
     //print $filename;
     //exit();
-    if (!is_file($filename)) stderr($lang['backup_stderr'], $lang['backup_inexistent']);
-    $file_extension = strtolower(substr(strrchr($filename, ".") , 1));
+    if (!is_file($filename)) {
+        stderr($lang['backup_stderr'], $lang['backup_inexistent']);
+    }
+    $file_extension = strtolower(substr(strrchr($filename, "."), 1));
     switch ($file_extension) {
     case "sql":
         $ctype = "application/sql";
@@ -214,7 +234,9 @@ if (empty($mode)) {
     default:
         $ctype = "application/force-download";
     }
-    if ($write2log) write_log($CURUSER['username'] . '(' . get_user_class_name($CURUSER['class']) . ') downloaded a database(' . htmlsafechars($arr['name']) . ').');
+    if ($write2log) {
+        write_log($CURUSER['username'] . '(' . get_user_class_name($CURUSER['class']) . ') downloaded a database(' . htmlsafechars($arr['name']) . ').');
+    }
     header('Refresh: 0; url=staffpanel.php' . ($autodl && !$autodel ? '' : '?tool=backup&mode=delete&id=' . $id));
     header("Pragma: public");
     header("Expires: 0");
@@ -225,26 +247,38 @@ if (empty($mode)) {
     header("Content-Transfer-Encoding: binary");
     header("Content-Length: " . filesize($filename));
     readfile($filename);
-} else if ($mode == 'delete') {
-    $ids = (isset($_POST["ids"]) ? $_POST["ids"] : (isset($_GET['id']) ? array(
+} elseif ($mode == 'delete') {
+    $ids = (isset($_POST["ids"]) ? $_POST["ids"] : (isset($_GET['id']) ? [
         $_GET['id']
-    ) : array()));
+    ] : []));
     if (!empty($ids)) {
-        foreach ($ids as $id) if (!is_valid_id($id)) stderr($lang['backup_stderr'], $lang['backup_id']);
+        foreach ($ids as $id) {
+            if (!is_valid_id($id)) {
+                stderr($lang['backup_stderr'], $lang['backup_id']);
+            }
+        }
         $res = sql_query("SELECT name FROM dbbackup WHERE id IN (" . implode(', ', array_map('sqlesc', $ids)) . ")") or sqlerr(__FILE__, __LINE__);
         $count = mysqli_num_rows($res);
         if ($count > 0) {
             while ($arr = mysqli_fetch_assoc($res)) {
                 $filename = $backupdir . '/' . $arr['name'];
-                if (is_file($filename)) unlink($filename);
+                if (is_file($filename)) {
+                    unlink($filename);
+                }
             }
             sql_query('DELETE FROM dbbackup WHERE id IN (' . implode(', ', array_map('sqlesc', $ids)) . ')') or sqlerr(__FILE__, __LINE__);
-            if ($write2log) write_log($CURUSER['username'] . '(' . get_user_class_name($CURUSER['class']) . ') '. $lang['backup_deleted1'] .' ' . $count . ($count > 1 ? $lang['backup_database_plural'] : $lang['backup_database_singular']) . '.');
+            if ($write2log) {
+                write_log($CURUSER['username'] . '(' . get_user_class_name($CURUSER['class']) . ') ' . $lang['backup_deleted1'] . ' ' . $count . ($count > 1 ? $lang['backup_database_plural'] : $lang['backup_database_singular']) . '.');
+            }
             $location = 'backup';
-        } else $location = 'noselection';
-    } else $location = 'noselection';
+        } else {
+            $location = 'noselection';
+        }
+    } else {
+        $location = 'noselection';
+    }
     header('Location:staffpanel.php?tool=backup&mode=' . $location);
-} else if ($mode == "check") {
+} elseif ($mode == "check") {
     $HTMLOUT.= begin_main_frame();
     $HTMLOUT.= "<table align='center' cellpadding='5' width='55%'>
          <tr>
@@ -288,5 +322,6 @@ if (empty($mode)) {
          </tr></table>";
     $HTMLOUT.= end_main_frame();
     echo stdhead($lang['backup_stdhead']) . $HTMLOUT . stdfoot();
-} else stderr($lang['backup_srry'], $lang['backup_unknow']);
-?>
+} else {
+    stderr($lang['backup_srry'], $lang['backup_unknow']);
+}

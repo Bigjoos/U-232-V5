@@ -43,68 +43,66 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'bnf',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', "'"),
+    'QUOTEMARKS' => ['"', "'"],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(),
-    'SYMBOLS' => array(
+    'KEYWORDS' => [],
+    'SYMBOLS' => [
         '(', ')', '<', '>', '::=', '|'
-    ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         //GESHI_COMMENTS => false
-    ),
-    'STYLES' => array(
-        'KEYWORDS' => array(),
-        'COMMENTS' => array(
-            ),
-        'ESCAPE_CHAR' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [],
+        'COMMENTS' => [
+        ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => ''
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #a00;',
             1 => 'color: #a00;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => ''
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => ''
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000066; font-weight: bold;', // Unused
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #007;',
-            ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => ''
-            )
-        ),
-    'URLS' => array(),
+        ]
+    ],
+    'URLS' => [],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [
         //terminal symbols
-        0 => array(
+        0 => [
             GESHI_SEARCH => '(&lt;)([^&]+?)(&gt;)',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
-        ),
+        ],
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

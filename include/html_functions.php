@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //-------- Begins a main frame
 function begin_main_frame()
@@ -30,10 +30,12 @@ function begin_frame($caption = "", $center = false, $padding = 10)
 {
     $tdextra = "";
     $htmlout = '';
-    if ($caption)
+    if ($caption) {
         $htmlout .= "<h2>$caption</h2>\n";
-    if ($center)
+    }
+    if ($center) {
         $tdextra .= " align='center'";
+    }
     $htmlout .= "<table width='100%' border='1' cellspacing='0' cellpadding='$padding'><tr><td$tdextra>\n";
     return $htmlout;
 }
@@ -51,8 +53,9 @@ function begin_table($fullwidth = false, $padding = 5)
 {
     $width   = "";
     $htmlout = '';
-    if ($fullwidth)
+    if ($fullwidth) {
         $width .= " width='100%'";
+    }
     $htmlout .= "<table class='main'$width border='1' cellspacing='0' cellpadding='$padding'>\n";
     return $htmlout;
 }
@@ -62,9 +65,9 @@ function end_table()
 }
 function tr($x, $y, $noesc = 0)
 {
-    if ($noesc)
+    if ($noesc) {
         $a = $y;
-    else {
+    } else {
         $a = htmlsafechars($y);
         $a = str_replace("\n", "<br />\n", $a);
     }
@@ -85,4 +88,3 @@ function insert_smilies_frame()
     $htmlout .= end_frame();
     return $htmlout;
 }
-?>

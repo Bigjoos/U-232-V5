@@ -1,24 +1,26 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $data
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     //==delete torrents by putyn
@@ -37,16 +39,17 @@ function docleanup($data)
 				 LEFT JOIN rating ON rating.torrent = torrents.id
                                  LEFT JOIN thumbsup ON thumbsup.torrentid = torrents.id
 				 LEFT JOIN snatched ON snatched.torrentid = torrents.id
-				 WHERE torrents.id = ".sqlesc($arr['id'])) or sqlerr(__FILE__, __LINE__);
+				 WHERE torrents.id = " . sqlesc($arr['id'])) or sqlerr(__FILE__, __LINE__);
         @unlink("{$INSTALLER09['torrent_dir']}/{$arr['id']}.torrent");
-        write_log("Torrent ".(int)$arr['id']." (".htmlsafechars($arr['name']).") was deleted by system (older than $days days and no seeders)");
+        write_log("Torrent " . (int) $arr['id'] . " (" . htmlsafechars($arr['name']) . ") was deleted by system (older than $days days and no seeders)");
     }
-    if ($queries > 0) write_log("Delete Old Torrents Clean -------------------- Delete Old Torrents cleanup Complete using $queries queries --------------------");
-    if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
+    if ($queries > 0) {
+        write_log("Delete Old Torrents Clean -------------------- Delete Old Torrents cleanup Complete using $queries queries --------------------");
+    }
+    if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
         $data['clean_desc'] = mysqli_affected_rows($GLOBALS["___mysqli_ston"]) . " items deleted/updated";
     }
     if ($data['clean_log']) {
         cleanup_log($data);
     }
 }
-?>

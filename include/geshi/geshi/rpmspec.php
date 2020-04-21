@@ -34,100 +34,98 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'RPM Specification File',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
-    'QUOTEMARKS' => array('"','`'),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
+    'QUOTEMARKS' => ['"', '`'],
     'ESCAPE_CHAR' => '\\',
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'CASE_SENSITIVE' => array(
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
-        ),
-    'KEYWORDS' => array(
-        ),
-    'SYMBOLS' => array(
+    ],
+    'KEYWORDS' => [
+    ],
+    'SYMBOLS' => [
         '<', '>', '=',
         '!', '@', '~', '&', '|', '^',
-        '+','-', '*', '/', '%',
+        '+', '-', '*', '/', '%',
         ',', ';', '?', '.', ':'
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            ),
-        'COMMENTS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;',
             'MULTI' => 'color: #666666; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;',
             'HARD' => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;',
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #006600;',
             2 => 'color: #006600;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #339933;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             1 => 'color: #0000ff;',
             2 => 'color: #009999;',
             3 => 'color: #000000; font-weight: bold;',
             4 => 'color: #ff6600; font-style: italic;',
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'REGEXPS' => array(
-        1 => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'REGEXPS' => [
+        1 => [
             // search for generic macros
             GESHI_SEARCH => '(%{?[a-zA-Z0-9_]+}?)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '',
             GESHI_AFTER => '',
-            ),
-        2 => array(
+        ],
+        2 => [
             // search for special macros
             GESHI_SEARCH => '(%(?:define|patch\d*|mklibname|mkrel|configure\S+|makeinstall\S+|make_session|make|defattr|config|doc|setup))',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '',
             GESHI_AFTER => '',
-            ),
-        3 => array (
+        ],
+        3 => [
             // special definitions
             GESHI_SEARCH => '((?:summary|license|buildroot|buildrequires|provides|version|release|source\d*|group|buildarch|autoreqprov|provides|obsoletes|vendor|distribution|suggests|autoreq|autoprov|conflicts|name|url|requires|patch\d*):)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '',
             GESHI_AFTER => '',
-            ),
-        4 => array (
+        ],
+        4 => [
             // section delimiting words
             GESHI_SEARCH => '(%(?:description|package|prep|build|install|clean|postun|preun|post|pre|files|changelog))',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '',
             GESHI_AFTER => '',
-            ),
-        ),
-    'URLS' => array(),
+        ],
+    ],
+    'URLS' => [],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(),
+    'OBJECT_SPLITTERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => [],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+];

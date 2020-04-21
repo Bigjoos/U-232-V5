@@ -1,48 +1,52 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once ("getstats.php");
+require_once("getstats.php");
 $_settings = $_SERVER["DOCUMENT_ROOT"] . "/avatar/settings/";
-$flag_xy = array(
-    1 => array(
+$flag_xy = [
+    1 => [
         121,
         111
-    ) ,
-    2 => array(
+    ] ,
+    2 => [
         121,
         140
-    ) ,
-    3 => array(
+    ] ,
+    3 => [
         121,
         169
-    )
-);
+    ]
+];
 $user = isset($_GET['user']) ? htmlsafechars($_GET['user']) : '';
-if (!file_exists($_settings . strtolower($user) . ".set") || !is_array($var = unserialize(file_get_contents($_settings . strtolower($user) . ".set")))) exit("Can't create avatar, settings file not found!");
+if (!file_exists($_settings . strtolower($user) . ".set") || !is_array($var = unserialize(file_get_contents($_settings . strtolower($user) . ".set")))) {
+    exit("Can't create avatar, settings file not found!");
+}
 $_fromCache = true;
-if ((time() - filemtime($_settings . strtolower($user) . ".set")) > 84600 || !file_exists($_settings . strtolower($user) . ".png")) $_fromCache = false;
+if ((time() - filemtime($_settings . strtolower($user) . ".set")) > 84600 || !file_exists($_settings . strtolower($user) . ".png")) {
+    $_fromCache = false;
+}
 function hex2rgb($color)
 {
-    return array(
+    return [
         hexdec(substr($color, 0, 2)) ,
         hexdec(substr($color, 2, 2)) ,
         hexdec(substr($color, 4, 2))
-    );
+    ];
 }
 if (!$_fromCache) {
     $var['use_country'] = false;
@@ -57,11 +61,11 @@ if (!$_fromCache) {
     //create image
     $im = imagecreatetruecolor(150, 190);
     //load font
-    $fonts = array(
+    $fonts = [
         1 => 'msmincho.gdf',
         2 => 'smallfont.gdf',
         3 => 'visitort2.gdf'
-    );
+    ];
     $font = imageloadfont("fonts/" . $fonts[$var['font']]);
     //define colors
     //border color
@@ -79,24 +83,24 @@ if (!$_fromCache) {
     imagerectangle($im, 0, 0, 149, 189, $bColor);
     //add smile
     $smile = imagecreatefrompng("templates/pack" . $var['pack'] . "/" . ($var['smile'] == 225 ? rand(1, 20) : $var['smile']) . ".png");
-    $smile_pos = array(
-        1 => array(
+    $smile_pos = [
+        1 => [
             'x' => '-15',
             'y' => '18'
-        ) ,
-        2 => array(
+        ] ,
+        2 => [
             'x' => '-9',
             'y' => '12'
-        ) ,
-        3 => array(
+        ] ,
+        3 => [
             'x' => '-11',
             'y' => '11'
-        ) ,
-        4 => array(
+        ] ,
+        4 => [
             'x' => '-10',
             'y' => '12'
-        )
-    );
+        ]
+    ];
     imagecopy($im, $smile, $smile_pos[$var['pack']]['y'], $smile_pos[$var['pack']]['x'], 0, 0, 128, 128);
     //country
     if ($var['use_country']) {
@@ -105,7 +109,9 @@ if (!$_fromCache) {
         imagecopy($im, $country, $_flag_xy[0], $_flag_xy[1], 0, 0, 16, 11);
     }
     //add username if the option is true
-    if ($var['showuser']) imagestring($im, $font, 5, 2, $user, $fontColor);
+    if ($var['showuser']) {
+        imagestring($im, $font, 5, 2, $user, $fontColor);
+    }
     if (isset($var['line1']['value_p']) && !empty($var['line1']['value_p'])) {
         imagestring($im, $font, 10, 98, $var['line1']['title'], $fontColor);
         imagerectangle($im, 10, 108, 140, 125, $bColor); //text line
@@ -121,11 +127,14 @@ if (!$_fromCache) {
         imagerectangle($im, 10, 166, 140, 183, $bColor); //text line
         imagestring($im, $font, 14, 170, $var['line3']['value_p'], $fontColor);
     }
-} else $im = imagecreatefrompng($_settings . strtolower($user) . ".png");
+} else {
+    $im = imagecreatefrompng($_settings . strtolower($user) . ".png");
+}
 header('Content-type: image/png');
 if (!$_fromCache) {
     imagepng($im, $_settings . strtolower($user) . ".png", 9);
     imagepng($im);
-} else imagepng($im);
+} else {
+    imagepng($im);
+}
 imagedestroy($im);
-?>

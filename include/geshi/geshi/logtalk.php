@@ -35,24 +35,24 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'Logtalk',
-    'COMMENT_SINGLE' => array(1 => '%'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'COMMENT_REGEXP' => array(2 => "/0'./sim"),
+    'COMMENT_SINGLE' => [1 => '%'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
+    'COMMENT_REGEXP' => [2 => "/0'./sim"],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'"),
-    'HARDQUOTE' => array('"', '"'),
-    'HARDESCAPE' => array(),
+    'QUOTEMARKS' => ["'"],
+    'HARDQUOTE' => ['"', '"'],
+    'HARDESCAPE' => [],
     'ESCAPE_CHAR' => '',
-    'ESCAPE_REGEXP' => array(
+    'ESCAPE_REGEXP' => [
         //Simple Single Char Escapes
         1 => "#\\\\[\\\\abfnrtv\'\"?\n]#i",
         //Hexadecimal Char Specs
         2 => "#\\\\x[\da-fA-F]+\\\\#",
         //Octal Char Specs
         3 => "#\\\\[0-7]+\\\\#"
-        ),
+    ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC |
         GESHI_NUMBER_BIN_PREFIX_0B |
@@ -60,9 +60,9 @@ $language_data = array(
         GESHI_NUMBER_HEX_PREFIX |
         GESHI_NUMBER_FLT_NONSCI |
         GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         // Directives (with arguments)
-        1 => array(
+        1 => [
             // file directives
             'encoding', 'ensure_loaded',
             // flag directives
@@ -79,9 +79,9 @@ $language_data = array(
             'alias', 'discontiguous', 'dynamic', 'mode', 'info', 'meta_predicate', 'multifile', 'synchronized',
             // module directives
             'export', 'module', 'reexport', 'use_module'
-            ),
+        ],
         // Directives (no arguments)
-        2 => array(
+        2 => [
             // entity directives
             'dynamic',
             // multi-threading directives
@@ -90,13 +90,13 @@ $language_data = array(
             'end_category', 'end_object', 'end_protocol',
             // conditional compilation directives
             'else', 'endif'
-            ),
+        ],
         // Entity relations
-        3 => array(
-            'complements', 'extends', 'imports', 'implements','instantiates', 'specializes'
-            ),
+        3 => [
+            'complements', 'extends', 'imports', 'implements', 'instantiates', 'specializes'
+        ],
         // Built-in predicates (with arguments)
-        4 => array(
+        4 => [
             // event handlers
             'after', 'before',
             // execution-context methods
@@ -158,9 +158,9 @@ $language_data = array(
             'char_conversion', 'current_char_conversion',
             //
             'halt'
-            ),
+        ],
         // Built-in predicates (no arguments)
-        5 => array(
+        5 => [
             // control
             'fail', 'repeat', 'true',
             // character and byte input/output predicates
@@ -171,24 +171,24 @@ $language_data = array(
             'is',
             // stream selection and control
             'at_end_of_stream', 'flush_output'
-            ),
+        ],
         // Evaluable functors (with arguments)
-        6 => array(
+        6 => [
             'float_integer_part', 'float_fractional_part',
             'rem', 'mod', 'abs', 'sign', 'floor', 'truncate', 'round', 'ceiling',
             'cos', 'atan', 'exp', 'log', 'sin', 'sqrt'
-            ),
+        ],
         // Evaluable functors (no arguments)
-        7 => array(
+        7 => [
             'mod', 'rem'
-            ),
-        ),
-    'SYMBOLS' => array(
-        0 => array(
+        ],
+    ],
+    'SYMBOLS' => [
+        0 => [
             // external call
             '{', '}'
-            ),
-        1 => array(
+        ],
+        1 => [
             // arithemtic comparison
             '=:=', '=\=', '<', '=<', '>=', '>',
             // term comparison
@@ -209,13 +209,13 @@ $language_data = array(
             '=..',
             // unification
             '=', '\\='
-            ),
-        2 => array(
+        ],
+        2 => [
             // clause and directive functors
             ':-'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -224,9 +224,9 @@ $language_data = array(
         5 => true,
         6 => true,
         7 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #2e4dc9;',
             2 => 'color: #2e4dc9;',
             3 => 'color: #2e4dc9;',
@@ -234,42 +234,42 @@ $language_data = array(
             5 => 'color: #9d4f37;',
             6 => 'color: #9d4f37;',
             7 => 'color: #9d4f37;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #430000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #60a0b0; font-style: italic;',
             2 => 'color: #430000;',
             'MULTI' => 'color: #60a0b0; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #9f0000; font-weight: bold;',
             1 => 'color: #9f0000; font-weight: bold;',
             2 => 'color: #9f0000; font-weight: bold;',
             3 => 'color: #9f0000; font-weight: bold;',
             'HARD' => '',
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #666666;font-weight: bold;',
             1 => 'color: #666666;font-weight: bold;',
             2 => 'color: #000000;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #9f0000;',
             'HARD' => 'color: #9f0000;'
-            ),
-        'METHODS' => array(
-            ),
-        'REGEXPS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'REGEXPS' => [
             0 => 'color: #848484;'
-            ),
-        'SCRIPT' => array()
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => []
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -277,54 +277,52 @@ $language_data = array(
         5 => '',
         6 => '',
         7 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '::'
-        ),
-    'REGEXPS' => array(
+    ],
+    'REGEXPS' => [
         // variables
         0 => '\b(?!(?:PIPE|SEMI|REG3XP\d*)[^a-zA-Z0-9_])[A-Z_][a-zA-Z0-9_]*(?![a-zA-Z0-9_])'
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array(),
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => [],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'ENABLE_FLAGS' => array(
+    'PARSER_CONTROL' => [
+        'ENABLE_FLAGS' => [
             'BRACKETS' => GESHI_NEVER
-        ),
-        'KEYWORDS' => array(
-            1 => array(
+        ],
+        'KEYWORDS' => [
+            1 => [
                 'DISALLOWED_BEFORE' => '(?<=:-\s)',
                 'DISALLOWED_AFTER' => '(?=\()'
-            ),
-            2 => array(
+            ],
+            2 => [
                 'DISALLOWED_BEFORE' => '(?<=:-\s)',
                 'DISALLOWED_AFTER' => '(?=\.)'
-            ),
-            3 => array(
+            ],
+            3 => [
                 'DISALLOWED_BEFORE' => '(?<![a-zA-Z0-9\$_\|\#>|^&\'"])',
                 'DISALLOWED_AFTER' => '(?=\()'
-            ),
-            4 => array(
+            ],
+            4 => [
                 'DISALLOWED_BEFORE' => '(?<![a-zA-Z0-9\$_\|\#>|^&\'"])',
                 'DISALLOWED_AFTER' => '(?=\()'
-            ),
-            5 => array(
+            ],
+            5 => [
                 'DISALLOWED_BEFORE' => '(?<![a-zA-Z0-9\$_\|\#>|^&\'"])',
                 'DISALLOWED_AFTER' => '(?![a-zA-Z0-9_\|%\\-&\'"])'
-            ),
-            6 => array(
+            ],
+            6 => [
                 'DISALLOWED_BEFORE' => '(?<![a-zA-Z0-9\$_\|\#;>|^&\'"])',
                 'DISALLOWED_AFTER' => '(?=\()'
-            ),
-            7 => array(
+            ],
+            7 => [
                 'DISALLOWED_BEFORE' => '(?<![a-zA-Z0-9\$_\|\#;>|^&\'"])',
                 'DISALLOWED_AFTER' => '(?![a-zA-Z0-9_\|%\\-&\'"])'
-            )
-        )
-    ),
-);
-
-?>
+            ]
+        ]
+    ],
+];

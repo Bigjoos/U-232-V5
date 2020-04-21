@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //USERDETAILS
     'userdetails_error' => "Error!",
     'userdetails_type' => "Type",
@@ -308,154 +308,153 @@ $lang = array(
     'userdetails_forum_rights'  =>  "Forum Rights",
     'userdetails_forums_no' =>  "No Disable this members forum rights.",
     'userdetails_change_ratio'  =>  "Change Ratio",
-	//birthday
-	'userdetails_age' => "Age",
-	'userdetails_birthday' => "Birthday",
-	//Browser
-	'userdetails_nobrowser' => "No browser recorded yet",
-	//Completed
-	'userdetails_c_remove' => "Remove",
-	'userdetails_c_mofcain' => "Mark Of Cain",
-	'userdetails_c_tmofcain' => "The mark of Cain!",
-	'userdetails_c_hitrun' => "Hit and run",
-	'userdetails_c_hitrun1' => "Hit and run!",
-	'userdetails_c_sould' => "should still seed for: ",
-	'userdetails_c_seeding' => "seeding",
-	'userdetails_c_dled' => " DLed at: ",
-	'userdetails_c_seedfor' => "seeded for",
-	'userdetails_c_should' => "should still seed for: ",
-	'userdetails_c_show' => "Show",
-	'userdetails_c_hide' => "Hide list",
-	'userdetails_c_inf' => "Inf.",
-	//Connectable
-	'userdetails_conn_sort' => "Sorted Yer connectable",
-	'userdetails_conn_staff' => "Contact Site Staff",
-	//Contact Info
-	'userdetails_send_email' => " Send Email",
-	'userdetails_open' => " Open",
-	'userdetails_email_click' => "click to email",
-	'userdetails_gtalk_click' => "click for google talk gadget",
-	'userdetails_msn_click' => "click to see msn details",
-	'userdetails_yahoo_click' => "click to open yahoo",
-	'userdetails_aim_click' => "click to search on aim... you will need to have an AIM account!",
-	'userdetails_icq_click' => "click to open icq page",
-	'userdetails_website_click' => "click to go to website",
-	///Flush
-	'userdetails_flush_title' => "Flush&nbsp;torrents",
-	'userdetails_flush_system' => "Torrents Flushed from the system. You may now start your client again!",
-	'userdetails_flush_please' => "Please remember to put the seat down.",
-	'userdetails_flush_error' => "*** Error Torrents not flushed ***",
-	'userdetails_flush_try' => "Try again in a few minutes, or wait. The tracker updates every 15 minutes.",
-	'userdetails_flush_ensure' => "Ensure all torrents have been stopped before clicking this button.",
-	'userdetails_flush_btn' => "Flush Torrents!",
-	'userdetails_flush_all' => "*all flushes are logged, please do not abuse this feature*",
-	//Freestuff
-	'userdetails_fstatus' => "FREE Status ",
-	'userdetails_fexpire' => "Expires: ",
-	'userdetails_funlimited' => "Unlimited",
-	'userdetails_fnone' => "None",
-	'userdetails_ftogo' => " togo",
-	//invited by
-	'userdetails_invited_by' => "Invited&nbsp;By",
-	'userdetails_iopen_s' => "Open Signups",
-	'userdetails_u_ip' => "Username / IP",
-	'userdetails_status' => "Status",
-	'userdetails_confirmed' => "Confirmed",
-	'userdetails_pending' => "Pending",
-	'userdetails_open_close_inv' => "Open / Close Members Invites",
-	'userdetails_open_close_inv1' => "Open / Close Members Invitees",
-	'userdetails_inv_view' => "view ",
-	'userdetails_inv_click' => "Click to view members invite tree",
-	'userdetails_inv_viewt' => "view invite tree",
-	'userdetails_invitees' => "Invitees",
-	'userdetails_no_invitees' => "No invitees yet.",
-	//Ip History
-	'userdetails_ip_warn' => "Warning :",
-	'userdetails_ip_used' => "Used by ",
-	'userdetails_ip_users' => " users!",
-	'userdetails_ip_hist' => "History",
-	'userdetails_ip_list' => "List",
-	'userdetails_ip_history' => "IP History",
-	'userdetails_ip_earlier' => "This user has earlier used ",
-	'userdetails_ip_different' => " different IP addresses",
-	//IRC
-	'userdetails_irc_days' => "days",
-	'userdetails_irc_hrs' => "hrs",
-	'userdetails_irc_min' => "minutes",
-	'userdetails_irc_bonus' => "Irc Bonus",
-	'userdetails_irc_never' => " has never been on IRC!",
-	'userdetails_irc_idle' => "Irc Idle Time",
-	//Login Link
-	'userdetails_login_link' => "Login Link",
-	'userdetails_login_reset' => "Reset Link",
-	'userdetails_login_create' => "Create link",
-	//Online Time
-	'userdetails_time_online' => "Total Online",
-	'userdetails_notime_online' => "This user has no online time recorded",
-	//Report
-	'userdetails_report' => "Report User",
-	'userdetails_report_click' => " Click to Report this user for Breaking the rules.",
-	//Time Ratio
-	'userdetails_time_ratio' => "Time Ratio:",
-	'userdetails_time_ratio_per' => " per torrent average ]  Ratio based on the assumption that all torrents were New. ",
-	//Share ratio
-	'userdetails_share_ratio' => "Share ratio",
-	//Show Friends
-	'userdetails_username' => "Username",
-	'userdetails_fip' => "/Ip",
-	'userdetails_friends' => "Friends&nbsp;",
-	'userdetails_hide_show' => "[Hide/Show]",
-	'userdetails_no_friends' => "No Friends yet.",
-	//Snatched
-	'userdetails_snatched' => "Snatched:",
+    //birthday
+    'userdetails_age' => "Age",
+    'userdetails_birthday' => "Birthday",
+    //Browser
+    'userdetails_nobrowser' => "No browser recorded yet",
+    //Completed
+    'userdetails_c_remove' => "Remove",
+    'userdetails_c_mofcain' => "Mark Of Cain",
+    'userdetails_c_tmofcain' => "The mark of Cain!",
+    'userdetails_c_hitrun' => "Hit and run",
+    'userdetails_c_hitrun1' => "Hit and run!",
+    'userdetails_c_sould' => "should still seed for: ",
+    'userdetails_c_seeding' => "seeding",
+    'userdetails_c_dled' => " DLed at: ",
+    'userdetails_c_seedfor' => "seeded for",
+    'userdetails_c_should' => "should still seed for: ",
+    'userdetails_c_show' => "Show",
+    'userdetails_c_hide' => "Hide list",
+    'userdetails_c_inf' => "Inf.",
+    //Connectable
+    'userdetails_conn_sort' => "Sorted Yer connectable",
+    'userdetails_conn_staff' => "Contact Site Staff",
+    //Contact Info
+    'userdetails_send_email' => " Send Email",
+    'userdetails_open' => " Open",
+    'userdetails_email_click' => "click to email",
+    'userdetails_gtalk_click' => "click for google talk gadget",
+    'userdetails_msn_click' => "click to see msn details",
+    'userdetails_yahoo_click' => "click to open yahoo",
+    'userdetails_aim_click' => "click to search on aim... you will need to have an AIM account!",
+    'userdetails_icq_click' => "click to open icq page",
+    'userdetails_website_click' => "click to go to website",
+    ///Flush
+    'userdetails_flush_title' => "Flush&nbsp;torrents",
+    'userdetails_flush_system' => "Torrents Flushed from the system. You may now start your client again!",
+    'userdetails_flush_please' => "Please remember to put the seat down.",
+    'userdetails_flush_error' => "*** Error Torrents not flushed ***",
+    'userdetails_flush_try' => "Try again in a few minutes, or wait. The tracker updates every 15 minutes.",
+    'userdetails_flush_ensure' => "Ensure all torrents have been stopped before clicking this button.",
+    'userdetails_flush_btn' => "Flush Torrents!",
+    'userdetails_flush_all' => "*all flushes are logged, please do not abuse this feature*",
+    //Freestuff
+    'userdetails_fstatus' => "FREE Status ",
+    'userdetails_fexpire' => "Expires: ",
+    'userdetails_funlimited' => "Unlimited",
+    'userdetails_fnone' => "None",
+    'userdetails_ftogo' => " togo",
+    //invited by
+    'userdetails_invited_by' => "Invited&nbsp;By",
+    'userdetails_iopen_s' => "Open Signups",
+    'userdetails_u_ip' => "Username / IP",
+    'userdetails_status' => "Status",
+    'userdetails_confirmed' => "Confirmed",
+    'userdetails_pending' => "Pending",
+    'userdetails_open_close_inv' => "Open / Close Members Invites",
+    'userdetails_open_close_inv1' => "Open / Close Members Invitees",
+    'userdetails_inv_view' => "view ",
+    'userdetails_inv_click' => "Click to view members invite tree",
+    'userdetails_inv_viewt' => "view invite tree",
+    'userdetails_invitees' => "Invitees",
+    'userdetails_no_invitees' => "No invitees yet.",
+    //Ip History
+    'userdetails_ip_warn' => "Warning :",
+    'userdetails_ip_used' => "Used by ",
+    'userdetails_ip_users' => " users!",
+    'userdetails_ip_hist' => "History",
+    'userdetails_ip_list' => "List",
+    'userdetails_ip_history' => "IP History",
+    'userdetails_ip_earlier' => "This user has earlier used ",
+    'userdetails_ip_different' => " different IP addresses",
+    //IRC
+    'userdetails_irc_days' => "days",
+    'userdetails_irc_hrs' => "hrs",
+    'userdetails_irc_min' => "minutes",
+    'userdetails_irc_bonus' => "Irc Bonus",
+    'userdetails_irc_never' => " has never been on IRC!",
+    'userdetails_irc_idle' => "Irc Idle Time",
+    //Login Link
+    'userdetails_login_link' => "Login Link",
+    'userdetails_login_reset' => "Reset Link",
+    'userdetails_login_create' => "Create link",
+    //Online Time
+    'userdetails_time_online' => "Total Online",
+    'userdetails_notime_online' => "This user has no online time recorded",
+    //Report
+    'userdetails_report' => "Report User",
+    'userdetails_report_click' => " Click to Report this user for Breaking the rules.",
+    //Time Ratio
+    'userdetails_time_ratio' => "Time Ratio:",
+    'userdetails_time_ratio_per' => " per torrent average ]  Ratio based on the assumption that all torrents were New. ",
+    //Share ratio
+    'userdetails_share_ratio' => "Share ratio",
+    //Show Friends
+    'userdetails_username' => "Username",
+    'userdetails_fip' => "/Ip",
+    'userdetails_friends' => "Friends&nbsp;",
+    'userdetails_hide_show' => "[Hide/Show]",
+    'userdetails_no_friends' => "No Friends yet.",
+    //Snatched
+    'userdetails_snatched' => "Snatched:",
     'userdetails_snatched_menu' => "Snatched",
-	'userdetails_snatched_hide' => "Hide List",
-	'userdetails_s_cat' => "Category",
-	'userdetails_s_torr' => "Torrent",
-	'userdetails_s_sl' => "S / L",
-	'userdetails_s_up' => "Up",
-	'userdetails_s_down' => "/ Down",
-	'userdetails_s_ratio' => "Ratio:",
-	'userdetails_s_tsize' => "Torrent Size",
-	'userdetails_s_towner' => "Torrent owner",
-	'userdetails_s_fin' => "Finished",
-	'userdetails_s_notfin' => "Not Finished",
-	'userdetails_s_started' => "started: ",
-	'userdetails_s_laction' => "Last Action:",
-	'userdetails_s_still' => " still to go ",
-	'userdetails_s_finished' => " Finished: ",
-	'userdetails_s_ttod' => "Time to download: ",
-	'userdetails_s_dled' => " DLed at: ",
-	'userdetails_s_tseed' => "Total seeding time: ",
-	'userdetails_s_tseedn' => "Total seeding time: N/A",
-	'userdetails_s_uspeed' => " up speed: ",
-	'userdetails_s_dspeed' => "Download speed: ",
-	'userdetails_s_leech' => "Leechers: ",
-	'userdetails_s_upl' => "Uploaded:",
-	'userdetails_s_seed' => "Seeds: ",
-	'userdetails_s_leech' => "Leechers: ",
-	'userdetails_s_upld' => "Uploaded: ",
-	'userdetails_s_dld' => "Downloaded: ",
-	'userdetails_s_nseeding' => "Not seeding",
-	'userdetails_s_seeding' => "seeding",
-	'userdetails_s_port' => "port: ",
-	'userdetails_s_conn' => "Connectable:",
-	'userdetails_s_show' => "Show",
-	'userdetails_s_diff' => "Difference of:",
-	'userdetails_s_staff' => "staff only!!!",
+    'userdetails_snatched_hide' => "Hide List",
+    'userdetails_s_cat' => "Category",
+    'userdetails_s_torr' => "Torrent",
+    'userdetails_s_sl' => "S / L",
+    'userdetails_s_up' => "Up",
+    'userdetails_s_down' => "/ Down",
+    'userdetails_s_ratio' => "Ratio:",
+    'userdetails_s_tsize' => "Torrent Size",
+    'userdetails_s_towner' => "Torrent owner",
+    'userdetails_s_fin' => "Finished",
+    'userdetails_s_notfin' => "Not Finished",
+    'userdetails_s_started' => "started: ",
+    'userdetails_s_laction' => "Last Action:",
+    'userdetails_s_still' => " still to go ",
+    'userdetails_s_finished' => " Finished: ",
+    'userdetails_s_ttod' => "Time to download: ",
+    'userdetails_s_dled' => " DLed at: ",
+    'userdetails_s_tseed' => "Total seeding time: ",
+    'userdetails_s_tseedn' => "Total seeding time: N/A",
+    'userdetails_s_uspeed' => " up speed: ",
+    'userdetails_s_dspeed' => "Download speed: ",
+    'userdetails_s_leech' => "Leechers: ",
+    'userdetails_s_upl' => "Uploaded:",
+    'userdetails_s_seed' => "Seeds: ",
+    'userdetails_s_leech' => "Leechers: ",
+    'userdetails_s_upld' => "Uploaded: ",
+    'userdetails_s_dld' => "Downloaded: ",
+    'userdetails_s_nseeding' => "Not seeding",
+    'userdetails_s_seeding' => "seeding",
+    'userdetails_s_port' => "port: ",
+    'userdetails_s_conn' => "Connectable:",
+    'userdetails_s_show' => "Show",
+    'userdetails_s_diff' => "Difference of:",
+    'userdetails_s_staff' => "staff only!!!",
     'userdetails_s_nothing' => "No snatched data yet.",
-	//Torrent Block
-	'userdetails_rate' => "Rate",
-	//Traffic
-	'userdetails_h_days' => "Happy days",
-	'userdetails_rfree_effect' => "Ratio free tracker in effect",
-	//Usercomments
-	'userdetails_orphaned' => "(orphaned)",
-	'userdetails_comm_edit' => "Edit",
-	'userdetails_comm_delete' => "Delete",
-	'userdetails_comm_voriginal' => "View original",
-	'userdetails_comm_ledited' => "Last edited by ",
-	'userdetails_comm_left' => "Comments left for ",
-	'userdetails_comm_yet' => "No comments yet"	
-);
-?>
+    //Torrent Block
+    'userdetails_rate' => "Rate",
+    //Traffic
+    'userdetails_h_days' => "Happy days",
+    'userdetails_rfree_effect' => "Ratio free tracker in effect",
+    //Usercomments
+    'userdetails_orphaned' => "(orphaned)",
+    'userdetails_comm_edit' => "Edit",
+    'userdetails_comm_delete' => "Delete",
+    'userdetails_comm_voriginal' => "View original",
+    'userdetails_comm_ledited' => "Last edited by ",
+    'userdetails_comm_left' => "Comments left for ",
+    'userdetails_comm_yet' => "No comments yet"
+];

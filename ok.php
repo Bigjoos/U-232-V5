@@ -1,33 +1,33 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
 global $CURUSER;
 if (!$CURUSER) {
     get_template();
 }
 dbconn();
-$lang = array_merge(load_language('global') , load_language('ok'));
+$lang = array_merge(load_language('global'), load_language('ok'));
 $type = isset($_GET['type']) ? $_GET['type'] : '';
 $HTMLOUT = '';
 if ($type == "signup" && isset($_GET['email'])) {
-    stderr("{$lang['ok_success']}", sprintf((!EMAIL_CONFIRM ? $lang['ok_email'] : $lang['ok_email_confirm']) , htmlsafechars($_GET['email'], ENT_QUOTES)));
+    stderr("{$lang['ok_success']}", sprintf((!EMAIL_CONFIRM ? $lang['ok_email'] : $lang['ok_email_confirm']), htmlsafechars($_GET['email'], ENT_QUOTES)));
 } elseif ($type == "invite" && isset($_GET['email'])) {
     stderr("{$lang['ok_invsuccess']}", sprintf($lang['ok_email2'], htmlsafechars($_GET['email'], ENT_QUOTES)));
 } elseif ($type == "sysop") {
@@ -64,4 +64,3 @@ if ($type == "signup" && isset($_GET['email'])) {
 } else {
     stderr("{$lang['ok_user_error']}", "{$lang['ok_no_action']}");
 }
-?>

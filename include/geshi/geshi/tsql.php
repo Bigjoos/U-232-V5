@@ -37,15 +37,15 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'T-SQL',
-    'COMMENT_SINGLE' => array(1 => '--'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '--'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_UPPER,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             // Datatypes
             'bigint', 'int', 'smallint', 'tinyint', 'bit', 'decimal', 'numeric', 'money',
             'smallmoney', 'float', 'real', 'datetime', 'smalldatetime', 'char', 'varchar',
@@ -83,69 +83,69 @@ $language_data = array (
             'UNIQUE', 'UNKNOWN', 'UNNEST', 'UPDATE', 'UPDATETEXT', 'USAGE', 'USE', 'USER', 'USING', 'VALUE', 'VALUES', 'VARCHAR', 'VARIABLE',
             'VARYING', 'VIEW', 'WAITFOR', 'WHEN', 'WHENEVER', 'WHERE', 'WHILE', 'WITH', 'WITHOUT', 'WORK', 'WRITE', 'WRITETEXT', 'YEAR', 'ZONE',
             'UNCOMMITTED', 'NOCOUNT',
-            ),
-        2 => array(
+        ],
+        2 => [
             /*
                 Built-in functions
                 Highlighted in pink.
             */
 
             //Configuration Functions
-            '@@DATEFIRST','@@OPTIONS','@@DBTS','@@REMSERVER','@@LANGID','@@SERVERNAME',
-            '@@LANGUAGE','@@SERVICENAME','@@LOCK_TIMEOUT','@@SPID','@@MAX_CONNECTIONS','@@TEXTSIZE',
-            '@@MAX_PRECISION','@@VERSION','@@NESTLEVEL',
+            '@@DATEFIRST', '@@OPTIONS', '@@DBTS', '@@REMSERVER', '@@LANGID', '@@SERVERNAME',
+            '@@LANGUAGE', '@@SERVICENAME', '@@LOCK_TIMEOUT', '@@SPID', '@@MAX_CONNECTIONS', '@@TEXTSIZE',
+            '@@MAX_PRECISION', '@@VERSION', '@@NESTLEVEL',
 
             //Cursor Functions
-            '@@CURSOR_ROWS','@@FETCH_STATUS',
+            '@@CURSOR_ROWS', '@@FETCH_STATUS',
 
             //Date and Time Functions
-            'DATEADD','DATEDIFF','DATENAME','DATEPART','DAY','GETDATE','GETUTCDATE','MONTH','YEAR',
+            'DATEADD', 'DATEDIFF', 'DATENAME', 'DATEPART', 'DAY', 'GETDATE', 'GETUTCDATE', 'MONTH', 'YEAR',
 
             //Mathematical Functions
-            'ABS','DEGREES','RAND','ACOS','EXP','ROUND','ASIN','FLOOR','SIGN',
-            'ATAN','LOG','SIN','ATN2','LOG10','SQUARE','CEILING','PI','SQRT','COS',
-            'POWER','TAN','COT','RADIANS',
+            'ABS', 'DEGREES', 'RAND', 'ACOS', 'EXP', 'ROUND', 'ASIN', 'FLOOR', 'SIGN',
+            'ATAN', 'LOG', 'SIN', 'ATN2', 'LOG10', 'SQUARE', 'CEILING', 'PI', 'SQRT', 'COS',
+            'POWER', 'TAN', 'COT', 'RADIANS',
 
             //Meta Data Functions
-            'COL_LENGTH','fn_listextendedproperty','COL_NAME','FULLTEXTCATALOGPROPERTY',
-            'COLUMNPROPERTY','FULLTEXTSERVICEPROPERTY','DATABASEPROPERTY','INDEX_COL',
-            'DATABASEPROPERTYEX','INDEXKEY_PROPERTY','DB_ID','INDEXPROPERTY','DB_NAME',
-            'OBJECT_ID','FILE_ID','OBJECT_NAME','FILE_NAME','OBJECTPROPERTY','FILEGROUP_ID',
-            '@@PROCID','FILEGROUP_NAME','SQL_VARIANT_PROPERTY','FILEGROUPPROPERTY',
-            'TYPEPROPERTY','FILEPROPERTY',
+            'COL_LENGTH', 'fn_listextendedproperty', 'COL_NAME', 'FULLTEXTCATALOGPROPERTY',
+            'COLUMNPROPERTY', 'FULLTEXTSERVICEPROPERTY', 'DATABASEPROPERTY', 'INDEX_COL',
+            'DATABASEPROPERTYEX', 'INDEXKEY_PROPERTY', 'DB_ID', 'INDEXPROPERTY', 'DB_NAME',
+            'OBJECT_ID', 'FILE_ID', 'OBJECT_NAME', 'FILE_NAME', 'OBJECTPROPERTY', 'FILEGROUP_ID',
+            '@@PROCID', 'FILEGROUP_NAME', 'SQL_VARIANT_PROPERTY', 'FILEGROUPPROPERTY',
+            'TYPEPROPERTY', 'FILEPROPERTY',
 
             //Security Functions
-            'fn_trace_geteventinfo','IS_SRVROLEMEMBER','fn_trace_getfilterinfo','SUSER_SID',
-            'fn_trace_getinfo','SUSER_SNAME','fn_trace_gettable','USER_ID','HAS_DBACCESS',
+            'fn_trace_geteventinfo', 'IS_SRVROLEMEMBER', 'fn_trace_getfilterinfo', 'SUSER_SID',
+            'fn_trace_getinfo', 'SUSER_SNAME', 'fn_trace_gettable', 'USER_ID', 'HAS_DBACCESS',
             'IS_MEMBER',
 
             //String Functions
-            'ASCII','NCHAR','SOUNDEX','CHAR','PATINDEX','SPACE','CHARINDEX',
-            'REPLACE','STR','DIFFERENCE','QUOTENAME','STUFF','LEFT','REPLICATE',
-            'SUBSTRING','LEN','REVERSE','UNICODE','LOWER','RIGHT','UPPER','LTRIM',
+            'ASCII', 'NCHAR', 'SOUNDEX', 'CHAR', 'PATINDEX', 'SPACE', 'CHARINDEX',
+            'REPLACE', 'STR', 'DIFFERENCE', 'QUOTENAME', 'STUFF', 'LEFT', 'REPLICATE',
+            'SUBSTRING', 'LEN', 'REVERSE', 'UNICODE', 'LOWER', 'RIGHT', 'UPPER', 'LTRIM',
             'RTRIM',
 
             //System Functions
-            'APP_NAME','COLLATIONPROPERTY','@@ERROR','fn_helpcollations',
-            'fn_servershareddrives','fn_virtualfilestats','FORMATMESSAGE',
-            'GETANSINULL','HOST_ID','HOST_NAME','IDENT_CURRENT','IDENT_INCR',
-            'IDENT_SEED','@@IDENTITY','ISDATE','ISNUMERIC','PARSENAME','PERMISSIONS',
-            '@@ROWCOUNT','ROWCOUNT_BIG','SCOPE_IDENTITY','SERVERPROPERTY','SESSIONPROPERTY',
-            'STATS_DATE','@@TRANCOUNT','USER_NAME',
+            'APP_NAME', 'COLLATIONPROPERTY', '@@ERROR', 'fn_helpcollations',
+            'fn_servershareddrives', 'fn_virtualfilestats', 'FORMATMESSAGE',
+            'GETANSINULL', 'HOST_ID', 'HOST_NAME', 'IDENT_CURRENT', 'IDENT_INCR',
+            'IDENT_SEED', '@@IDENTITY', 'ISDATE', 'ISNUMERIC', 'PARSENAME', 'PERMISSIONS',
+            '@@ROWCOUNT', 'ROWCOUNT_BIG', 'SCOPE_IDENTITY', 'SERVERPROPERTY', 'SESSIONPROPERTY',
+            'STATS_DATE', '@@TRANCOUNT', 'USER_NAME',
 
             //System Statistical Functions
-            '@@CONNECTIONS','@@PACK_RECEIVED','@@CPU_BUSY','@@PACK_SENT',
-            '@@TIMETICKS','@@IDLE','@@TOTAL_ERRORS','@@IO_BUSY',
-            '@@TOTAL_READ','@@PACKET_ERRORS','@@TOTAL_WRITE',
+            '@@CONNECTIONS', '@@PACK_RECEIVED', '@@CPU_BUSY', '@@PACK_SENT',
+            '@@TIMETICKS', '@@IDLE', '@@TOTAL_ERRORS', '@@IO_BUSY',
+            '@@TOTAL_READ', '@@PACKET_ERRORS', '@@TOTAL_WRITE',
 
             //Text and Image Functions
-            'TEXTPTR','TEXTVALID',
+            'TEXTPTR', 'TEXTVALID',
 
             //Aggregate functions
             'AVG', 'MAX', 'BINARY_CHECKSUM', 'MIN', 'CHECKSUM', 'SUM', 'CHECKSUM_AGG',
             'STDEV', 'COUNT', 'STDEVP', 'COUNT_BIG', 'VAR', 'GROUPING', 'VARP'
-            ),
-        3 => array(
+        ],
+        3 => [
             /*
                 System stored procedures
                 Higlighted dark brown
@@ -301,78 +301,76 @@ $language_data = array (
 
             //Misc
             'sp_createorphan', 'sp_droporphans', 'sp_reset_connection', 'sp_sdidebug'
-            ),
-        4 => array(
+        ],
+        4 => [
             //Function/sp's higlighted brown.
             'fn_helpcollations', 'fn_listextendedproperty ', 'fn_servershareddrives',
             'fn_trace_geteventinfo', 'fn_trace_getfilterinfo', 'fn_trace_getinfo',
             'fn_trace_gettable', 'fn_virtualfilestats',
-            ),
-        ),
-    'SYMBOLS' => array(
+        ],
+    ],
+    'SYMBOLS' => [
         '!', '!=', '%', '&', '&&', '(', ')', '*', '+', '-', '/', '<', '<<', '<=',
         '<=>', '<>', '=', '>', '>=', '>>', '^', 'ALL', 'AND', 'ANY', 'BETWEEN', 'CROSS',
         'EXISTS', 'IN', 'JOIN', 'LIKE', 'NOT', 'NULL', 'OR', 'OUTER', 'SOME', '|', '||', '~'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000FF;',
             2 => 'color: #FF00FF;',
             3 => 'color: #AF0000;',
             4 => 'color: #AF0000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #008080;',
             'MULTI' => 'color: #008080;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #808080;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #FF0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #202020;',
             2 => 'color: #202020;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #808080;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

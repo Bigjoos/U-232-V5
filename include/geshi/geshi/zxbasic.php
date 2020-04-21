@@ -39,19 +39,19 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'ZXBasic',
-    'COMMENT_SINGLE' => array(
+    'COMMENT_SINGLE' => [
         1 => "'",
         2 => '#',
         3 => 'REM'
-        ),
-    'COMMENT_MULTI' => array("/'" => "'/"),
+    ],
+    'COMMENT_MULTI' => ["/'" => "'/"],
     'CASE_KEYWORDS' => GESHI_CAPS_UPPER, //GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             "ASM", "BEEP", "BOLD", "BORDER", "BRIGHT", "ByRef", "ByVal", "CAST",
             "CIRCLE", "CLS", "CONST", "CONTINUE", "DECLARE", "DIM", "DO",
             "DRAW", "ELSE", "ELSEIF", "END", "EXIT", "FastCall", "FLASH", "FOR",
@@ -59,92 +59,90 @@ $language_data = array (
             "LET", "LOAD", "LOOP", "NEXT", "OVER", "PAPER", "PAUSE", "PI",
             "PLOT", "POKE", "PRINT", "RANDOMIZE", "REM", "RETURN", "SAVE",
             "StdCall", "Sub", "THEN", "TO", "UNTIL", "VERIFY", "WEND", "WHILE",
-            ),
+        ],
 
         // types
-        2 => array(
+        2 => [
             'byte', 'ubyte', 'integer', 'uinteger', 'long', 'ulong', 'fixed',
             'float', 'string'
-            ),
+        ],
 
         // Functions
-        3 => array(
+        3 => [
             "ABS", "ACS", "ASN", "ATN", "CHR", "CODE", "COS", "CSRLIN", "EXP",
             "HEX", "HEX16", "INKEY", "INT", "LEN", "LN", "PEEK", "POS", "RND",
             "SCREEN$", "SGN", "SIN", "SQR", "STR", "TAN", "VAL",
-            ),
+        ],
 
         // Operators and modifiers
-        4 => array(
+        4 => [
             "AT", "AS", "AND", "MOD", "NOT", "OR", "SHL", "SHR", "STEP", "XOR"
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000080; font-weight: bold;', // Commands
             2 => 'color: #800080; font-weight: bold;', // Types
             3 => 'color: #006000; font-weight: bold;', // Functions
             4 => 'color: #801010; font-weight: bold;'  // Operators and Modifiers
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             2 => 'color: #339933;',
             3 => 'color: #808080; font-style: italic;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             //0 => 'color: #66cc66;'
             0 => 'color: #007676;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             //0 => 'color: #ff0000;'
             0 => 'color: #A00000; font-style: italic;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             //0 => 'color: #cc66cc;'
             0 => 'color: #b05103;'// font-weight: bold;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #66cc66;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

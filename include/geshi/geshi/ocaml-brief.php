@@ -37,76 +37,74 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'OCaml (brief)',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array('(*' => '*)'),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => ['(*' => '*)'],
     'CASE_KEYWORDS' => 0,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => "",
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /* main OCaml keywords */
-        1 => array(
+        1 => [
             'and', 'as', 'asr', 'begin', 'class', 'closed', 'constraint', 'do', 'done', 'downto', 'else',
             'end', 'exception', 'external', 'failwith', 'false', 'flush', 'for', 'fun', 'function', 'functor',
             'if', 'in', 'include', 'inherit',  'incr', 'land', 'let', 'load', 'los', 'lsl', 'lsr', 'lxor',
             'match', 'method', 'mod', 'module', 'mutable', 'new', 'not', 'of', 'open', 'option', 'or', 'parser',
             'private', 'ref', 'rec', 'raise', 'regexp', 'sig', 'struct', 'stdout', 'stdin', 'stderr', 'then',
             'to', 'true', 'try', 'type', 'val', 'virtual', 'when', 'while', 'with'
-            )
-        ),
+        ]
+    ],
     /* highlighting symbols is really important in OCaml */
-    'SYMBOLS' => array(
+    'SYMBOLS' => [
         ';', '!', ':', '.', '=', '%', '^', '*', '-', '/', '+',
         '>', '<', '(', ')', '[', ']', '&', '|', '#', "'"
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #06c; font-weight: bold;' /* nice blue */
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             'MULTI' => 'color: #5d478b; font-style: italic;' /* light purple */
-            ),
-        'ESCAPE_CHAR' => array(
-            ),
-        'BRACKETS' => array(
+        ],
+        'ESCAPE_CHAR' => [
+        ],
+        'BRACKETS' => [
             0 => 'color: #6c6;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #3cb371;' /* nice green */
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #c6c;' /* pink */
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #060;' /* dark green */
-            ),
-        'REGEXPS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #a52a2a;' /* maroon */
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

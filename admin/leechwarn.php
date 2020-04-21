@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,81 +30,90 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_leechwarn'));
+global $INSTALLER09, $cache, $CURUSER;
 $HTMLOUT = "";
 function mkint($x)
 {
-    return (int)$x;
+    return (int) $x;
 }
-$stdfoot = array(
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'wz_tooltip'
-    )
-);
+    ]
+];
 $this_url = $_SERVER["SCRIPT_NAME"];
 $do = isset($_GET["do"]) && $_GET["do"] == "disabled" ? "disabled" : "leechwarn";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $r = isset($_POST["ref"]) ? $_POST["ref"] : $this_url;
     $_uids = isset($_POST["users"]) ? array_map('mkint', $_POST["users"]) : 0;
-    if ($_uids == 0 || count($_uids) == 0) stderr($lang['leechwarn_stderror'], $lang['leechwarn_nouser']);
-    $valid = array(
+    if ($_uids == 0 || count($_uids) == 0) {
+        stderr($lang['leechwarn_stderror'], $lang['leechwarn_nouser']);
+    }
+    $valid = [
         "unwarn",
         "disable",
         "delete"
-    );
+    ];
     $act = isset($_POST["action"]) && in_array($_POST["action"], $valid) ? $_POST["action"] : false;
-    if (!$act) stderr($lang['leechwarn_stderror'], $lang['leechwarn_wrong']);
+    if (!$act) {
+        stderr($lang['leechwarn_stderror'], $lang['leechwarn_wrong']);
+    }
     if ($act == "delete") {
         if (sql_query("DELETE FROM users WHERE id IN (" . join(",", $_uids) . ")")) {
             $c = mysqli_affected_rows($GLOBALS["___mysqli_ston"]);
             header("Refresh: 2; url=" . $r);
             stderr($lang['leechwarn_success'], $c . $lang['leechwarn_user'] . ($c > 1 ? $lang['leechwarn_s'] : "") . $lang['leechwarn_deleted']);
-        } else stderr($lang['leechwarn_stderror'], $lang['leechwarn_wrong2']);
+        } else {
+            stderr($lang['leechwarn_stderror'], $lang['leechwarn_wrong2']);
+        }
     }
     if ($act == "disable") {
         if (sql_query("UPDATE users set enabled='no', modcomment=CONCAT(" . sqlesc(get_date(TIME_NOW, 'DATE', 1) . $lang['leechwarn_disabled_by'] . $CURUSER['username'] . "\n") . ",modcomment) WHERE id IN (" . join(",", $_uids) . ")")) {
-            foreach ($_uids as $uid) $mc1->begin_transaction('MyUser_' . $uid);
-            $mc1->update_row(false, array(
-                'enabled' => 'no'
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-            $mc1->begin_transaction('user' . $uid);
-            $mc1->update_row(false, array(
-                'enabled' => 'no'
-            ));
-            $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+            foreach ($_uids as $uid) {
+                $cache->update_row('MyUser_' . $uid, [
+                    'enabled' => 'no'
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->update_row('user' . $uid, [
+                    'enabled' => 'no'
+                ], $INSTALLER09['expires']['user_cache']);
+            }
             $d = mysqli_affected_rows($GLOBALS["___mysqli_ston"]);
             header("Refresh: 2; url=" . $r);
             stderr($lang['leechwarn_success'], $c . $lang['leechwarn_user'] . ($c > 1 ? $lang['leechwarn_s'] : "") . $lang['leechwarn_disabled']);
-        } else stderr($lang['leechwarn_stderror'], $lang['leechwarn_wrong3']);
+        } else {
+            stderr($lang['leechwarn_stderror'], $lang['leechwarn_wrong3']);
+        }
     } elseif ($act == "unwarn") {
         $sub = $lang['leechwarn_removed'];
         $body = $lang['leechwarn_removed_msg1'] . $CURUSER["username"] . $lang['leechwarn_removed_msg2'];
-        foreach ($_uids as $uid) $mc1->begin_transaction('MyUser_' . $uid);
-        $mc1->update_row(false, array(
-            'leechwarn' => 0
-        ));
-        $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-        $mc1->begin_transaction('user' . $uid);
-        $mc1->update_row(false, array(
-            'leechwarn' => 0
-        ));
-        $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-        $pms = array();
-        foreach ($_uids as $id) $pms[] = "(0," . $id . "," . sqlesc($sub) . "," . sqlesc($body) . "," . sqlesc(TIME_NOW) . ")";
+        foreach ($_uids as $uid) {
+            $cache->update_row('MyUser_' . $uid, [
+                'leechwarn' => 0
+            ], $INSTALLER09['expires']['curuser']);
+            $cache->update_row('user' . $uid, [
+                'leechwarn' => 0
+            ], $INSTALLER09['expires']['user_cache']);
+        }
+        $pms = [];
+        foreach ($_uids as $id) {
+            $pms[] = "(0," . $id . "," . sqlesc($sub) . "," . sqlesc($body) . "," . sqlesc(TIME_NOW) . ")";
+        }
         if (count($pms)) {
             $g = sql_query("INSERT INTO messages(sender,receiver,subject,msg,added) VALUE " . join(",", $pms)) or ($q_err = ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
             $q1 = sql_query("UPDATE users set leechwarn='0', modcomment=CONCAT(" . sqlesc(get_date(TIME_NOW, 'DATE', 1) . $lang['leechwarn_mod'] . $CURUSER['username'] . "\n") . ",modcomment) WHERE id IN (" . join(",", $_uids) . ")") or ($q2_err = ((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
             if ($g && $q1) {
                 header("Refresh: 2; url=" . $r);
                 stderr($lang['leechwarn_success'], count($pms) . $lang['leechwarn_user'] . (count($pms) > 1 ? $lang['leechwarn_s'] : "") . $lang['leechwarn_removed_success']);
-            } else stderr($lang['leechwarn_stderror'], $lang['leechwarn_q1'] . $q_err . "<br />{$lang['leechwarn_q2']}" . $q2_err);
+            } else {
+                stderr($lang['leechwarn_stderror'], $lang['leechwarn_q1'] . $q_err . "<br />{$lang['leechwarn_q2']}" . $q2_err);
+            }
         }
     }
     exit;
@@ -122,11 +131,12 @@ case "leechwarn":
     $link = "<a href=\"staffpanel.php?tool=leechwarn&amp;action=leechwarn&amp;do=disabled\">{$lang['leechwarn_disabled_link']}</a>";
     break;
 }
-$g = sql_query($query) or print (((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
+$g = sql_query($query) or print(((is_object($GLOBALS["___mysqli_ston"])) ? mysqli_error($GLOBALS["___mysqli_ston"]) : (($___mysqli_res = mysqli_connect_error()) ? $___mysqli_res : false)));
 $count = mysqli_num_rows($g);
 $HTMLOUT .="<div class='row'><div class='col-md-12'><h2>$title&nbsp;<font class=\"small\">[{$lang['leechwarn_total']}" . $count . $lang['leechwarn_user'] . ($count > 1 ? $lang['leechwarn_s'] : "") . "]</font>&nbsp;&nbsp;$link</h2> ";
-if ($count == 0) $HTMLOUT.= stdmsg($lang['leechwarn_hey'], $lang['leechwarn_none'] . strtolower($title));
-else {
+if ($count == 0) {
+    $HTMLOUT.= stdmsg($lang['leechwarn_hey'], $lang['leechwarn_none'] . strtolower($title));
+} else {
     $HTMLOUT.= "<div class='row'><div class='col-md-12'>
 		<form action='staffpanel.php?tool=leechwarn&amp;action=leechwarn' method='post'>
 		<table class='table table-bordered'>
@@ -141,12 +151,12 @@ else {
     while ($a = mysqli_fetch_assoc($g)) {
         $tip = ($do == "leechwarn" ? $lang['leechwarn_warned_for'] . htmlsafechars($a["warn_reason"]) . "<br />" . $lang['leechwarn_warned_till'] . get_date($a["leechwarn"], 'DATE', 1) . " - " . mkprettytime($a['leechwarn'] - TIME_NOW) : $lang['leechwarn_disabled_for'] . htmlsafechars($a["disable_reason"]));
         $HTMLOUT.= "<tr>
-				  <td align='left' width='100%'><a href='userdetails.php?id=" . (int)$a["id"] . "' onmouseover=\"Tip('($tip)')\" onmouseout=\"UnTip()\">" . htmlsafechars($a["username"]) . "</a></td>
-				  <td align='left' nowrap='nowrap'>" . (float)$a["ratio"] . "<br /><font class='small'><b>{$lang['leechwarn_d']}</b>" . mksize($a["downloaded"]) . "&nbsp;<b>{$lang['leechwarn_u']}</b> " . mksize($a["uploaded"]) . "</font></td>
+				  <td align='left' width='100%'><a href='userdetails.php?id=" . (int) $a["id"] . "' onmouseover=\"Tip('($tip)')\" onmouseout=\"UnTip()\">" . htmlsafechars($a["username"]) . "</a></td>
+				  <td align='left' nowrap='nowrap'>" . (float) $a["ratio"] . "<br /><font class='small'><b>{$lang['leechwarn_d']}</b>" . mksize($a["downloaded"]) . "&nbsp;<b>{$lang['leechwarn_u']}</b> " . mksize($a["uploaded"]) . "</font></td>
 				  <td align='center' nowrap='nowrap'>" . get_user_class_name($a["class"]) . "</td>
 				  <td align='center' nowrap='nowrap'>" . get_date($a["last_access"], 'LONG', 0, 1) . "</td>
 				  <td align='center' nowrap='nowrap'>" . get_date($a["added"], 'DATE', 1) . "</td>
-				  <td align='center' nowrap='nowrap'><input type='checkbox' name='users[]' value='" . (int)$a["id"] . "' /></td>
+				  <td align='center' nowrap='nowrap'><input type='checkbox' name='users[]' value='" . (int) $a["id"] . "' /></td>
 				</tr>";
     }
     $HTMLOUT.= "<tr>
@@ -166,4 +176,3 @@ else {
 }
 $HTMLOUT .= "</div></div><br>";
 echo stdhead($title) . $HTMLOUT . stdfoot($stdfoot);
-?>

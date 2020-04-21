@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,7 +30,7 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (CLASS_DIR . 'class_check.php');
+require_once(CLASS_DIR . 'class_check.php');
 class_check(UC_MAX);
 /* add your ids to this check*/
 /*
@@ -42,9 +42,11 @@ $lang = array_merge($lang, load_language('ad_sitesettings'));
 //$update = '';
 //get the config from db
 $pconf = sql_query('SELECT * FROM site_config') or sqlerr(__FILE__, __LINE__);
-while ($ac = mysqli_fetch_assoc($pconf)) $site_settings[$ac['name']] = $ac['value'];
+while ($ac = mysqli_fetch_assoc($pconf)) {
+    $site_settings[$ac['name']] = $ac['value'];
+}
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $update = array();
+    $update = [];
     //can't be 0
     /*
     foreach(array('site_online'>0,'autoshout_on'>0,'seedbonus_on'>0,'forums_online'>0,'maxusers'>0,'invites'>0,'failedlogins'>0, 'totalneeded'>0) as $key=>$type) {
@@ -52,7 +54,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
      stderr($lang['sitesettings_stderr'], $lang['sitesettings_stderr2']);
     }
     */
-    foreach ($site_settings as $c_name => $c_value) if (isset($_POST[$c_name]) && $_POST[$c_name] != $c_value) $update[] = '(' . sqlesc($c_name) . ',' . sqlesc(is_array($_POST[$c_name]) ? join('|', $_POST[$c_name]) : $_POST[$c_name]) . ')';
+    foreach ($site_settings as $c_name => $c_value) {
+        if (isset($_POST[$c_name]) && $_POST[$c_name] != $c_value) {
+            $update[] = '(' . sqlesc($c_name) . ',' . sqlesc(is_array($_POST[$c_name]) ? join('|', $_POST[$c_name]) : $_POST[$c_name]) . ')';
+        }
+    }
     if (sql_query('INSERT INTO site_config(name,value) VALUES ' . join(',', $update) . ' ON DUPLICATE KEY update value=values(value)')) {
         $t = '$INSTALLER09';
         $configfile = "<" . "?php\n/**\n{$lang['sitesettings_file']}" . date('M d Y H:i:s') . ".\n{$lang['sitesettings_cfg']}\n**/\n";
@@ -66,15 +72,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         fwrite($filenum, $configfile);
         fclose($filenum);
         stderr($lang['sitesettings_success'], $lang['sitesettings_success1']);
-    } else stderr($lang['sitesettings_stderr'], $lang['sitesettings_stderr3']);
+    } else {
+        stderr($lang['sitesettings_stderr'], $lang['sitesettings_stderr3']);
+    }
     exit;
 }
 $HTMLOUT.= "<div class='row'><div class='col-md-12'>";
 $HTMLOUT.= "<h3>{$lang['sitesettings_sitehead']}</h3>
 <form action='staffpanel.php?tool=site_settings' method='post'>
 <table class='table table-bordered'>";
-if ($CURUSER['id'] === 1) 
-$HTMLOUT.= "<tr><td width='50%'>{$lang['sitesettings_online']}</td><td>{$lang['sitesettings_yes']}<input type='radio' name='site_online' value='1' " . ($site_settings['site_online'] ? 'checked=\'checked\'' : '') . " />{$lang['sitesettings_no']}<input type='radio' name='site_online' value='0' " . (!$site_settings['site_online'] ? 'checked=\'checked\'' : '') . " /></td></tr>";
+if ($CURUSER['id'] === 1) {
+    $HTMLOUT.= "<tr><td width='50%'>{$lang['sitesettings_online']}</td><td>{$lang['sitesettings_yes']}<input type='radio' name='site_online' value='1' " . ($site_settings['site_online'] ? 'checked=\'checked\'' : '') . " />{$lang['sitesettings_no']}<input type='radio' name='site_online' value='0' " . (!$site_settings['site_online'] ? 'checked=\'checked\'' : '') . " /></td></tr>";
+}
 $HTMLOUT.= "
 <tr><td width='50%'>{$lang['sitesettings_autoshout']}</td><td>{$lang['sitesettings_yes']}<input type='radio' name='autoshout_on' value='1' " . ($site_settings['autoshout_on'] ? 'checked=\'checked\'' : '') . " />{$lang['sitesettings_no']}<input type='radio' name='autoshout_on' value='0' " . (!$site_settings['autoshout_on'] ? 'checked=\'checked\'' : '') . " /></td></tr>
 <tr><td width='50%'>{$lang['sitesettings_seedbonus']}</td><td>{$lang['sitesettings_yes']}<input type='radio' name='seedbonus_on' value='1' " . ($site_settings['seedbonus_on'] ? 'checked=\'checked\'' : '') . " />{$lang['sitesettings_no']}<input type='radio' name='seedbonus_on' value='0' " . (!$site_settings['seedbonus_on'] ? 'checked=\'checked\'' : '') . " /></td></tr>
@@ -102,4 +111,3 @@ $HTMLOUT.= "
 </table></form>";
 $HTMLOUT.= "</div></div>";
 echo stdhead($lang['sitesettings_stdhead']) . $HTMLOUT . stdfoot();
-?>

@@ -29,26 +29,26 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'LScript',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-    //Yes, I'm aware these are out of order,
-    //I had to rearrange and couldn't be bothered changing the numbers...
-        7 => array(
+    'KEYWORDS' => [
+        //Yes, I'm aware these are out of order,
+        //I had to rearrange and couldn't be bothered changing the numbers...
+        7 => [
             '@data', '@define', '@else', '@end', '@fpdepth', '@if', '@include',
             '@insert', '@library', '@localipc', '@name', '@save', '@script',
             '@sequence', '@version', '@warnings'
-            ),
-        1 => array(
+        ],
+        1 => [
             'break', 'case', 'continue', 'else', 'end', 'false', 'for',
             'foreach', 'if', 'return', 'switch', 'true', 'while',
-            ),
-        3 => array(
+        ],
+        3 => [
             'active', 'alertlevel', 'alpha', 'alphaprefix', 'animfilename', 'autokeycreate',
             'backdroptype', 'blue', 'boxthreshold', 'button',
             'channelsvisible', 'childrenvisible', 'compfg', 'compbg', 'compfgalpha',
@@ -83,8 +83,8 @@ $language_data = array (
             'x', 'xoffset',
             'y', 'yoffset',
             'z'
-            ),
-        4 => array(
+        ],
+        4 => [
             'addLayer', 'addParticle', 'alphaspot', 'ambient', 'asAsc', 'asBin',
             'asInt', 'asNum', 'asStr', 'asVec', 'attach', 'axislocks',
             'backdropColor', 'backdropRay', 'backdropSqueeze', 'bone', 'blurLength',
@@ -125,8 +125,8 @@ $language_data = array (
             'writeShort', 'writeString', 'writeVector',
             'vertex', 'vertexCount',
             'zoomFactor'
-            ),
-        2 => array(
+        ],
+        2 => [
             'abs', 'acos', 'angle', 'append', 'ascii', 'asin', 'atan',
             'binary',
             'ceil', 'center', 'chdir', 'clearimage', 'cloned', 'comringattach',
@@ -165,8 +165,8 @@ $language_data = array (
             'tan', 'tanh', 'targetobject', 'terminate', 'text', 'time',
             'wait', 'warn', 'when', 'write', 'writeDouble', 'writeInt', 'writeNumber', 'writeShort',
             'var', 'vector', 'visitnodes', 'vmag',
-            ),
-        5 => array(
+        ],
+        5 => [
             'addcurve', 'addpoint', 'addpolygon', 'addquad', 'addtriangle', 'alignpols',
             'autoflex', 'axisdrill',
             'bend', 'bevel', 'boolean', 'boundingbox',
@@ -198,8 +198,8 @@ $language_data = array (
             'undo', 'undogroupend', 'undogroupbegin', 'unifypols', 'unweld',
             'vortex',
             'weldaverage', 'weldpoints'
-            ),
-        6 => array(
+        ],
+        6 => [
             'About', 'AboutOpenGL', 'AdaptiveSampling', 'AdaptiveThreshold',
             'AddAreaLight', 'AddBone', 'AddButton', 'AddCamera', 'AddChildBone',
             'AddDistantLight', 'AddEnvelope', 'AddLinearLight', 'AddNull',
@@ -302,12 +302,12 @@ $language_data = array (
             'ZenithColor', 'ZoomFactor', 'ZoomIn', 'ZoomInX2', 'ZoomOut', 'ZoomOutX2', 'ZYView',
             'Camera', 'Channel', 'ChannelGroup', 'Envelope', 'File', 'Glyph', 'Icon', 'Image',
             'Light', 'Mesh', 'Scene', 'Surface', 'VMap'
-            ),
-        ),
-    'SYMBOLS' => array(
+        ],
+    ],
+    'SYMBOLS' => [
         '(', ')', '{', '}', '[', ']', '=', '<', '>', '+', '-', '*', '/', '!', '%', '&', '@'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => true,
         1 => false,
         2 => false,
@@ -316,9 +316,9 @@ $language_data = array (
         5 => false,
         6 => false,
         7 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight: bold;',
             2 => 'color: #FF6820; font-weight: bold;', //LS_COMMANDS
             3 => 'color: #007F7F; font-weight: bold;', //LS_MEMBERS
@@ -326,33 +326,33 @@ $language_data = array (
             5 => 'color: #51BD95; font-weight: bold;', //LS_MODELER
             6 => 'color: #416F85; font-weight: bold;', //LS_GENERAL
             7 => 'color: #C92929; font-weight: bold;'  //LS_COMMANDS (cont)
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #7F7F7F;',
             'MULTI' => 'color: #7F7F7F;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #0040A0;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #00C800;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #6953AC;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #0040A0;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            ),
-        'ESCAPE_CHAR' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ],
+        'ESCAPE_CHAR' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -360,28 +360,26 @@ $language_data = array (
         5 => '',
         6 => '',
         7 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            3 => array(
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            3 => [
                 'DISALLOWED_BEFORE' => '(?<=\.)'
-                ),
-            4 => array(
+            ],
+            4 => [
                 'DISALLOWED_BEFORE' => '(?<=\.)'
-                )
-            )
-        )
-);
-
-?>
+            ]
+        ]
+    ]
+];

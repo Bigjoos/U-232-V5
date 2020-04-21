@@ -1,60 +1,53 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (dirname(__FILE__) . DIRECTORY_SEPARATOR . '../include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
+require_once(dirname(__FILE__) . DIRECTORY_SEPARATOR . '../include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
 dbconn(false);
 loggedinorreturn();
 
-if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-{
-	$modes = array('torrents','forums');
-	$htmlout = $att ='';
-	$i =1;
-	if(isset($_POST['load']) && isset($_POST['load']) && in_array($_POST['load'],$modes))
-	{
-		 		   
-		if($_POST['load'] == 'torrents')
-		{	
-			$query = sql_query("SELECT id, name from torrents ORDER BY seeders + leechers DESC LIMIT 5") or sqlerr(__FILE__, __LINE__);
-			while($res = mysqli_fetch_assoc($query))
-			{
-				$att .="<div class='tr'>
+if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    $modes = ['torrents', 'forums'];
+    $htmlout = $att ='';
+    $i =1;
+    if (isset($_POST['load'], $_POST['load'])   && in_array($_POST['load'], $modes)) {
+        if ($_POST['load'] == 'torrents') {
+            $query = sql_query("SELECT id, name from torrents ORDER BY seeders + leechers DESC LIMIT 5") or sqlerr(__FILE__, __LINE__);
+            while ($res = mysqli_fetch_assoc($query)) {
+                $att .="<div class='tr'>
 								<div class='td'>$i</div>
-								<div class='td one'><a href='details.php?id=".(int)$res['id']."'>".htmlsafechars($res['name'])."</a></div>
+								<div class='td one'><a href='details.php?id=" . (int) $res['id'] . "'>" . htmlsafechars($res['name']) . "</a></div>
 								<div class='tdclear'></div>
 							</div>";
-			$i++;
-			}
-		}
-		elseif($_POST['load'] == 'forums'){
-		$query = sql_query("SELECT forum.*,topic.*,topic.id as tid FROM topics as topic INNER JOIN forums as forum ON topic.forum_id = forum.id AND forum.min_class_read >= 0 ORDER BY tid DESC LIMIT 5") or sqlerr(__FILE__, __LINE__);
-			while($res = mysqli_fetch_assoc($query))
-			{
-				$att .="<div class='tr'>
+                $i++;
+            }
+        } elseif ($_POST['load'] == 'forums') {
+            $query = sql_query("SELECT forum.*,topic.*,topic.id as tid FROM topics as topic INNER JOIN forums as forum ON topic.forum_id = forum.id AND forum.min_class_read >= 0 ORDER BY tid DESC LIMIT 5") or sqlerr(__FILE__, __LINE__);
+            while ($res = mysqli_fetch_assoc($query)) {
+                $att .="<div class='tr'>
 								<div class='td'>$i</div>
-								<div class='td'><a href='forums.php?action=view_topic&topic_id=".(int)$res['tid']."'>".htmlsafechars($res['topic_name'])."</a></div>
+								<div class='td'><a href='forums.php?action=view_topic&topic_id=" . (int) $res['tid'] . "'>" . htmlsafechars($res['topic_name']) . "</a></div>
 								<div class='tdclear'></div>
 							</div>";
-			$i++;
-			}
-		}
-			$htmlout .="
+                $i++;
+            }
+        }
+        $htmlout .="
 						<style type='text/css'>
 						.t {display: table; }
 						.tr {display: table-row;}
@@ -62,7 +55,6 @@ if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQU
 						.td {display:table-cell; vertical-align:top;padding-right:5px;}
 						</style>
 						<div class='t'>$att</div>";
-			echo $htmlout;
-	}
+        echo $htmlout;
+    }
 }
-?>

@@ -37,16 +37,16 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'MOS 6502 (6510) ACME Cross Assembler format',
-    'COMMENT_SINGLE' => array(1 => ';'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => ';'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /* 6502/6510 Opcodes. */
-        1 => array(
+        1 => [
             'adc', 'and', 'asl', 'bcc', 'bcs', 'beq', 'bit', 'bmi',
             'bne', 'bpl', 'brk', 'bvc', 'bvs', 'clc', 'cld', 'cli',
             'clv', 'cmp', 'cpx', 'cpy', 'dec', 'dex', 'dey', 'eor',
@@ -54,14 +54,14 @@ $language_data = array (
             'lsr', 'nop', 'ora', 'pha', 'php', 'pla', 'plp', 'rol',
             'ror', 'rti', 'rts', 'sbc', 'sec', 'sed', 'sei', 'sta',
             'stx', 'sty', 'tax', 'tay', 'tsx', 'txa', 'txs', 'tya',
-            ),
+        ],
         /* Index Registers, yes the 6502 has other registers by they are only
-        * accessable by specific opcodes. The 65816 also has access to the stack pointer S. */
-        2 => array(
+         * accessable by specific opcodes. The 65816 also has access to the stack pointer S. */
+        2 => [
             'x', 'y', 's'
-            ),
+        ],
         /* Directives or "pseudo opcodes" as defined by ACME 0.93 file AllPOs.txt. */
-        3 => array(
+        3 => [
             '!8', '!08', '!by', '!byte',
             '!16', '!wo', '!word',
             '!24', '!32',
@@ -86,56 +86,56 @@ $language_data = array (
             '!eof', '!endoffile',
             '!warn', '!error', '!serious',
             '!macro',
-//            , '*='        // Not a valid keyword (uses both * and = signs) moved to symbols instead.
+            //            , '*='        // Not a valid keyword (uses both * and = signs) moved to symbols instead.
             '!initmem',
             '!pseudopc',
             '!cpu',
             '!al', '!as', '!rl', '!rs',
-            ),
+        ],
 
         /* 6502/6510 undocumented opcodes (often referred to as illegal instructions).
-        *  These are present in the 6502/6510 but NOT in the newer CMOS revisions of the 65C02 or 65816.
-        *  As they are undocumented instructions there are no "official" names for them, there are also
-        *  several more that mainly perform various forms of crash and are not supported by ACME 0.93.
-        */
-        4 => array(
+         *  These are present in the 6502/6510 but NOT in the newer CMOS revisions of the 65C02 or 65816.
+         *  As they are undocumented instructions there are no "official" names for them, there are also
+         *  several more that mainly perform various forms of crash and are not supported by ACME 0.93.
+         */
+        4 => [
             'anc', 'arr', 'asr', 'dcp', 'dop', 'isc', 'jam', 'lax',
             'rla', 'rra', 'sax', 'sbx', 'slo', 'sre', 'top',
-            ),
+        ],
         /* 65c02 instructions, MOS added a few (much needed) instructions in the CMOS version of the 6502, but stupidly removed the undocumented/illegal opcodes.
-        *  ACME 0.93 does not support the rmb0-7 and smb0-7 instructions (they are currently rem'ed out).  */
-        5 => array(
+         *  ACME 0.93 does not support the rmb0-7 and smb0-7 instructions (they are currently rem'ed out).  */
+        5 => [
             'bra', 'phx', 'phy', 'plx', 'ply', 'stz', 'trb', 'tsb'
-            ),
+        ],
         /* 65816 instructions. */
-        6 => array(
+        6 => [
             'brl', 'cop', 'jml', 'jsl', 'mvn', 'mvp', 'pea', 'pei',
             'per', 'phb', 'phd', 'phk', 'plb', 'pld', 'rep', 'rtl',
             'sep', 'tcd', 'tcs', 'tdc', 'tsc', 'txy', 'tyx', 'wdm',
             'xba', 'xce',
-            ),
+        ],
         /* Deprecated directives or "pseudo opcodes" as defined by ACME 0.93 file AllPOs.txt. */
-        7 => array(
+        7 => [
             '!cbm',
             '!sz', '!subzone',
             '!realpc',
-            ),
+        ],
         /* Math functions, some are aliases for the symbols. */
-        8 => array(
+        8 => [
             'not', 'div', 'mod', 'xor', 'or', 'sin', 'cos', 'tan',
             'arcsin', 'arccos', 'arctan', 'int', 'float',
 
-            ),
+        ],
 
-        ),
-    'SYMBOLS' => array(
-//        '[', ']', '(', ')', '{', '}',    // These are already defined by GeSHi as BRACKETS.
+    ],
+    'SYMBOLS' => [
+        //        '[', ']', '(', ')', '{', '}',    // These are already defined by GeSHi as BRACKETS.
         '*=', '#', '!', '^', '-', '*', '/',
         '%', '+', '-', '<<', '>>', '>>>',
         '<', '>', '^', '<=', '<', '>=', '>', '!=',
         '=', '&', '|', '<>',
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -145,9 +145,9 @@ $language_data = array (
         6 => false,
         7 => false,
         8 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #00f; font-weight:bold;',
             2 => 'color: #00f; font-weight:bold;',
             3 => 'color: #080; font-weight:bold;',
@@ -156,39 +156,39 @@ $language_data = array (
             6 => 'color: #f08; font-weight:bold;',
             7 => 'color: #a04; font-weight:bold; font-style: italic;',
             8 => 'color: #000;',
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #999; font-style: italic;',
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #009; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #080;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             GESHI_NUMBER_INT_BASIC          => 'color: #f00;',
             GESHI_NUMBER_HEX_PREFIX_DOLLAR  => 'color: #f00;',
             GESHI_NUMBER_HEX_PREFIX         => 'color: #f00;',
             GESHI_NUMBER_BIN_PREFIX_PERCENT => 'color: #f00;',
             GESHI_NUMBER_FLT_NONSCI         => 'color: #f00;',
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #080;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0   => 'color: #f00;'
             , 1 => 'color: #933;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -197,34 +197,32 @@ $language_data = array (
         6 => '',
         7 => '',
         8 => '',
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC |
         GESHI_NUMBER_FLT_NONSCI |
         GESHI_NUMBER_HEX_PREFIX_DOLLAR |
         GESHI_NUMBER_HEX_PREFIX |
         GESHI_NUMBER_BIN_PREFIX_PERCENT,
-        // AMCE Octal format not support and gets picked up as Decimal unfortunately.
-    'REGEXPS' => array(
+    // AMCE Octal format not support and gets picked up as Decimal unfortunately.
+    'REGEXPS' => [
         //ACME .# Binary number format. e.g. %..##..##..##
         0 => '\%[\.\#]{1,64}',
         //ACME Local Labels
         1 => '\.[_a-zA-Z][_a-zA-Z0-9]*',
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 8,
-    'PARSER_CONTROL' => array(
-        'NUMBERS' => array(
+    'PARSER_CONTROL' => [
+        'NUMBERS' => [
             'PRECHECK_RX' => '/[\da-fA-F\.\$\%]/'
-            )
-        )
-);
-
-?>
+        ]
+    ]
+];

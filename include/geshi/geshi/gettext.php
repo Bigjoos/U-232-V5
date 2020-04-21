@@ -36,62 +36,60 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'GNU Gettext',
-    'COMMENT_SINGLE' => array('#:', '#.', '#,', '#|', '#'),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(),
+    'COMMENT_SINGLE' => ['#:', '#.', '#,', '#|', '#'],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array('msgctxt', 'msgid_plural', 'msgid', 'msgstr'),
-    ),
-    'SYMBOLS' => array(),
-    'CASE_SENSITIVE' => array(
+    'KEYWORDS' => [
+        1 => ['msgctxt', 'msgid_plural', 'msgid', 'msgstr'],
+    ],
+    'SYMBOLS' => [],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
-    ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000000; font-weight: bold;'
-        ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             0 => 'color: #000099;',
             1 => 'color: #000099;',
             2 => 'color: #000099;',
             3 => 'color: #006666;',
             4 => 'color: #666666; font-style: italic;',
-        ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-        ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-        ),
-        'REGEXPS' => array(),
-        'SYMBOLS' => array(),
-        'NUMBERS' => array(
+        ],
+        'REGEXPS' => [],
+        'SYMBOLS' => [],
+        'NUMBERS' => [
             0 => 'color: #000099;'
-        ),
-        'METHODS' => array(),
-        'SCRIPT' => array(),
-        'BRACKETS' => array(
+        ],
+        'METHODS' => [],
+        'SCRIPT' => [],
+        'BRACKETS' => [
             0 => 'color: #000099;'
-        ),
-    ),
-    'URLS' => array(
+        ],
+    ],
+    'URLS' => [
         1 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(),
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4,
-);
-
-?>
+];

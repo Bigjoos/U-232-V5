@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //=== don't allow direct access
 if (!defined('BUNNY_PM_SYSTEM')) {
@@ -36,7 +36,9 @@ if ($mailbox > 1) {
     //== get name of PM box if not in or out
     $res_box_name = sql_query('SELECT name FROM pmboxes WHERE userid = ' . sqlesc($CURUSER['id']) . ' AND boxnumber=' . sqlesc($mailbox) . ' LIMIT 1') or sqlerr(__FILE__, __LINE__);
     $arr_box_name = mysqli_fetch_row($res_box_name);
-    if (mysqli_num_rows($res_box_name) === 0) stderr($lang['pm_error'], $lang['pm_mailbox_invalid']);
+    if (mysqli_num_rows($res_box_name) === 0) {
+        stderr($lang['pm_error'], $lang['pm_mailbox_invalid']);
+    }
     $mailbox_name = htmlsafechars($arr_box_name[0]);
     $other_box_info = '<p align="center"><span style="color: red;">' . $lang['pm_mailbox_asterisc'] . '</span><span style="font-weight: bold;">' . $lang['pm_mailbox_note'] . '</span>
                                             ' . $lang['pm_mailbox_max'] . '<span style="font-weight: bold;">' . $maxbox . '</span>' . $lang['pm_mailbox_either'] . '
@@ -50,7 +52,7 @@ $messages = $arr_count[0];
 //==== get count from PM boxs & get image & % box full
 $filled = $messages > 0 ? (($messages / $maxbox) * 100) : 0;
 //$filled = (($messages / $maxbox) * 100);
-$mailbox_pic = get_percent_completed_image(round($filled) , $maxpic);
+$mailbox_pic = get_percent_completed_image(round($filled), $maxpic);
 $num_messages = number_format($filled, 0);
 $link = 'pm_system.php?action=view_mailbox&amp;box=' . $mailbox . ($perpage < $messages ? '&amp;page=' . $page : '') . '&amp;order_by=' . $order_by . $desc_asc;
 list($menu, $LIMIT) = pager_new($messages, $perpage, $page, $link);
@@ -104,10 +106,14 @@ if (mysqli_num_rows($res) === 0) {
         if ($mailbox === PM_DRAFTS || $row['id'] === 0) {
             $friends = '';
         } else {
-            if ($row['friend'] > 0) $friends = '' . $lang['pm_mailbox_char1'] . '<span class="font_size_1"><a href="friends.php?action=delete&amp;type=friend&amp;targetid=' . (int)$row['id'] . '">' . $lang['pm_mailbox_removef'] . '</a></span>' . $lang['pm_mailbox_char2'] . '';
-            elseif ($row['blocked'] > 0) $friends = '' . $lang['pm_mailbox_char1'] . '<span class="font_size_1"><a href="friends.php?action=delete&amp;type=block&amp;targetid=' . (int)$row['id'] . '">' . $lang['pm_mailbox_removeb'] . '</a></span>' . $lang['pm_mailbox_char2'] . '';
-            else $friends = '' . $lang['pm_mailbox_char1'] . '<span class="font_size_1"><a href="friends.php?action=add&amp;type=friend&amp;targetid=' . (int)$row['id'] . '">' . $lang['pm_mailbox_addf'] . '</a></span>' . $lang['pm_mailbox_char2'] . '
-                                          ' . $lang['pm_mailbox_char1'] . '<span class="font_size_1"><a href="friends.php?action=add&amp;type=block&amp;targetid=' . (int)$row['id'] . '">' . $lang['pm_mailbox_addb'] . '</a></span>' . $lang['pm_mailbox_char2'] . '';
+            if ($row['friend'] > 0) {
+                $friends = '' . $lang['pm_mailbox_char1'] . '<span class="font_size_1"><a href="friends.php?action=delete&amp;type=friend&amp;targetid=' . (int) $row['id'] . '">' . $lang['pm_mailbox_removef'] . '</a></span>' . $lang['pm_mailbox_char2'] . '';
+            } elseif ($row['blocked'] > 0) {
+                $friends = '' . $lang['pm_mailbox_char1'] . '<span class="font_size_1"><a href="friends.php?action=delete&amp;type=block&amp;targetid=' . (int) $row['id'] . '">' . $lang['pm_mailbox_removeb'] . '</a></span>' . $lang['pm_mailbox_char2'] . '';
+            } else {
+                $friends = '' . $lang['pm_mailbox_char1'] . '<span class="font_size_1"><a href="friends.php?action=add&amp;type=friend&amp;targetid=' . (int) $row['id'] . '">' . $lang['pm_mailbox_addf'] . '</a></span>' . $lang['pm_mailbox_char2'] . '
+                                          ' . $lang['pm_mailbox_char1'] . '<span class="font_size_1"><a href="friends.php?action=add&amp;type=block&amp;targetid=' . (int) $row['id'] . '">' . $lang['pm_mailbox_addb'] . '</a></span>' . $lang['pm_mailbox_char2'] . '';
+            }
         }
         /*
                 $subject = (!empty($row['subject']) ? htmlsafechars($row['subject']) : 'No Subject');
@@ -115,9 +121,9 @@ if (mysqli_num_rows($res) === 0) {
                 $read_unread = ($row['unread'] === 'yes' ? '<img src="pic/pn_inboxnew.gif" title="' . $lang['pm_mailbox_unreadmsg'] . '" alt="' . $lang['pm_mailbox_unread'] . '" />' : '<img src="pic/pn_inbox.gif" title="' . $lang['pm_mailbox_readmsg'] . '" alt="' . $lang['pm_mailbox_read'] . '" />');
                 $extra = ($row['unread'] === 'yes' ? $spacer.'' . $lang['pm_mailbox_char1'] . '<span style="color: red;">' . $lang['pm_mailbox_unread'] . '</span>' . $lang['pm_mailbox_char2'] . '' : '').($row['urgent'] === 'yes' ? $spacer.'<span style="color: red;">' . $lang['pm_mailbox_urgent'] . '</span>' : '');
                 $avatar = (($CURUSER['avatars'] === 'no' || $CURUSER['show_pm_avatar'] === 'no' || $row['id'] == 0)? '' : (empty($row['avatar']) ? '
-                <img width="40" src="pic/default_avatar.gif" alt="no avatar" />' : (($row['offensive_avatar'] === 'yes' && $CURUSER['view_offensive_avatar'] === 'no') ? 
+                <img width="40" src="pic/default_avatar.gif" alt="no avatar" />' : (($row['offensive_avatar'] === 'yes' && $CURUSER['view_offensive_avatar'] === 'no') ?
                 '<img width="40" src="pic/fuzzybunny.gif" alt="fuzzy!" />' : '<img width="40" src="'.htmlsafechars($row['avatar']).'" alt="avatar" />')));
-        
+
                 $HTMLOUT .= '
                 <tr>
                     <td class="'.$class.'" align="center">'.$read_unread.'</td>
@@ -128,7 +134,7 @@ if (mysqli_num_rows($res) === 0) {
                 </tr>';
         */
         $subject = (!empty($row['subject']) ? htmlsafechars($row['subject']) : $lang['pm_search_nosubject']);
-        $who_sent_it = ($row['id'] == 0 ? '<span style="font-weight: bold;">'. $lang['pm_forward_system'] . '</span>' : print_user_stuff($row) . $friends);
+        $who_sent_it = ($row['id'] == 0 ? '<span style="font-weight: bold;">' . $lang['pm_forward_system'] . '</span>' : print_user_stuff($row) . $friends);
         $read_unread = ($row['unread'] === 'yes' ? '<img src="pic/pn_inboxnew.gif" title="' . $lang['pm_mailbox_unreadmsg'] . '" alt="' . $lang['pm_mailbox_unread'] . '" />' : '<img src="pic/pn_inbox.gif" title="' . $lang['pm_mailbox_readmsg'] . '" alt="' . $lang['pm_mailbox_read'] . '" />');
         $extra = ($row['unread'] === 'yes' ? $spacer . '' . $lang['pm_mailbox_char1'] . '<span style="color: red;">' . $lang['pm_mailbox_unread'] . '</span>' . $lang['pm_mailbox_char2'] . '' : '') . ($row['urgent'] === 'yes' ? $spacer . '<span style="color: red;">' . $lang['pm_mailbox_urgent'] . '</span>' : '');
         $avatar = ((!$CURUSER['opt1'] & user_options::AVATARS || !$CURUSER['opt2'] & user_options_2::SHOW_PM_AVATAR || $row['id'] == 0) ? '' : (empty($row['avatar']) ? '
@@ -136,10 +142,10 @@ if (mysqli_num_rows($res) === 0) {
         $HTMLOUT.= '
                 <tr>
                     <td class="text-center">' . $read_unread . '</td>
-                    <td class="text-left"><a class="altlink"  href="pm_system.php?action=view_message&amp;id=' . (int)$row['message_id'] . '">' . $subject . '</a>' . $extra . '</td>
+                    <td class="text-left"><a class="altlink"  href="pm_system.php?action=view_message&amp;id=' . (int) $row['message_id'] . '">' . $subject . '</a>' . $extra . '</td>
                     <td class="text-left">' . $avatar . $who_sent_it . '</td>
                     <td class="text-left">' . get_date($row['added'], '') . '</td>
-                    <td class="text-center"><input type="checkbox" name="pm[]" value="' . (int)$row['message_id'] . '" /></td>
+                    <td class="text-center"><input type="checkbox" name="pm[]" value="' . (int) $row['message_id'] . '" /></td>
                 </tr>';
     }
 }
@@ -147,7 +153,7 @@ if (mysqli_num_rows($res) === 0) {
 $per_page_drop_down = '<form action="pm_system.php" method="post"><select name="amount_per_page" onchange="location = this.options[this.selectedIndex].value;">';
 $i = 20;
 while ($i <= ($maxbox > 200 ? 200 : $maxbox)) {
-    $per_page_drop_down.= '<option class="body" value="' . $link . '&amp;change_pm_number=' . $i . '"  ' . ($CURUSER['pms_per_page'] == $i ? ' selected="selected"' : '') . '>' . $i . '' .$lang['pm_edmail_perpage'] . '</option>';
+    $per_page_drop_down.= '<option class="body" value="' . $link . '&amp;change_pm_number=' . $i . '"  ' . ($CURUSER['pms_per_page'] == $i ? ' selected="selected"' : '') . '>' . $i . '' . $lang['pm_edmail_perpage'] . '</option>';
     $i = ($i < 100 ? $i = $i + 10 : $i = $i + 25);
 }
 $per_page_drop_down.= '</select><input type="hidden" name="box" value="' . $mailbox . '" /></form>';
@@ -155,17 +161,17 @@ $per_page_drop_down.= '</select><input type="hidden" name="box" value="' . $mail
 $show_pm_avatar_drop_down = '
     <form method="post" action="pm_system.php">
         <select name="show_pm_avatar" onchange="location = this.options[this.selectedIndex].value;">
-            <option value="' . $link . '&amp;show_pm_avatar=yes" ' . (($CURUSER['opt2'] & user_options_2::SHOW_PM_AVATAR) ? ' selected="selected"' : '') . '>' .$lang['pm_mailbox_doav'] . '</option>
-            <option value="' . $link . '&amp;show_pm_avatar=no" ' . (($CURUSER['opt2'] | user_options_2::SHOW_PM_AVATAR) ? ' selected="selected"' : '') . '>' .$lang['pm_mailbox_dontav'] . '</option>
+            <option value="' . $link . '&amp;show_pm_avatar=yes" ' . (($CURUSER['opt2'] & user_options_2::SHOW_PM_AVATAR) ? ' selected="selected"' : '') . '>' . $lang['pm_mailbox_doav'] . '</option>
+            <option value="' . $link . '&amp;show_pm_avatar=no" ' . (($CURUSER['opt2'] | user_options_2::SHOW_PM_AVATAR) ? ' selected="selected"' : '') . '>' . $lang['pm_mailbox_dontav'] . '</option>
         </select>
             <input type="hidden" name="box" value="' . $mailbox . '" /></form>';
 //=== the bottom
 $HTMLOUT.= (mysqli_num_rows($res) > 0 ? '
    <tr>
    <td colspan="5" class="text-right">
- ' . $lang['pm_mailbox_char1'] . '<a class="altlink" href="javascript:SetChecked(1,\'pm[]\')">' .$lang['pm_search_selall'] . '</a>' . $lang['pm_mailbox_char2'] . '' . $lang['pm_mailbox_char1'] . '<a class="altlink" href="javascript:SetChecked(0,\'pm[]\')">' .$lang['pm_search_unsellall'] . '</a>   ' . $lang['pm_mailbox_char2'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $spacer . '
-   <input type="submit" class="button" name="move" value="' .$lang['pm_search_move_to'] . '" onmouseover="this.className=\'button_hover\'" onmouseout="this.className=\'button\'" /> ' . get_all_boxes() . ' or
-   <input type="submit" class="button" name="delete" value="' .$lang['pm_search_delete'] . '" onmouseover="this.className=\'button_hover\'" onmouseout="this.className=\'button\'" />' . $lang['pm_search_selected'] . '</td>
+ ' . $lang['pm_mailbox_char1'] . '<a class="altlink" href="javascript:SetChecked(1,\'pm[]\')">' . $lang['pm_search_selall'] . '</a>' . $lang['pm_mailbox_char2'] . '' . $lang['pm_mailbox_char1'] . '<a class="altlink" href="javascript:SetChecked(0,\'pm[]\')">' . $lang['pm_search_unsellall'] . '</a>   ' . $lang['pm_mailbox_char2'] . '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' . $spacer . '
+   <input type="submit" class="button" name="move" value="' . $lang['pm_search_move_to'] . '" onmouseover="this.className=\'button_hover\'" onmouseout="this.className=\'button\'" /> ' . get_all_boxes() . ' or
+   <input type="submit" class="button" name="delete" value="' . $lang['pm_search_delete'] . '" onmouseover="this.className=\'button_hover\'" onmouseout="this.className=\'button\'" />' . $lang['pm_search_selected'] . '</td>
    </tr>
     <tr>
         <td colspan="5" align="left">
@@ -182,4 +188,3 @@ $HTMLOUT.= (mysqli_num_rows($res) > 0 ? '
         <td align="center">' . $show_pm_avatar_drop_down . '</td>
     </tr>
     </table><br /></div></form>';
-?>

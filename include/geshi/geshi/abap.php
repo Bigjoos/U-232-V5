@@ -90,40 +90,40 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'ABAP',
-    'COMMENT_SINGLE' => array(
+    'COMMENT_SINGLE' => [
         1 => '"'
-        ),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(
+    ],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [
         // lines beginning with star at 1st position are comments
         // (star anywhere else is not a comment, especially be careful with
         // "assign dref->* to <fs>" statement)
         2 => '/^\*.*?$/m'
-        ),
+    ],
     'CASE_KEYWORDS' => 0,
-    'QUOTEMARKS' => array(
+    'QUOTEMARKS' => [
         1 => "'",
         2 => "`"
-        ),
+    ],
     'ESCAPE_CHAR' => '',
 
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         //***********************************************
         // Section 2 : process sequences of several tokens
         //***********************************************
 
-        7 => array(
+        7 => [
             'at new',
             'at end of',
             'at first',
             'at last',
             'loop at',
             'loop at screen',
-            ),
+        ],
 
-        8 => array(
+        8 => [
             'private section',
             'protected section',
             'public section',
@@ -223,9 +223,9 @@ $language_data = array(
             'truncate dataset',
             'wait until',
             'wait up to',
-            ),
+        ],
 
-        9 => array(
+        9 => [
             'accepting duplicate keys',
             'accepting padding',
             'accepting truncation',
@@ -626,12 +626,12 @@ $language_data = array(
             'without trmac',
             'word into',
             'writer for'
-            ),
+        ],
 
         //**********************************************************
         // Other abap statements
         //**********************************************************
-        3 => array(
+        3 => [
             'add',
             'add-corresponding',
             'aliases',
@@ -772,13 +772,13 @@ $language_data = array(
             'window',
             'write'
 
-            ),
+        ],
 
         //**********************************************************
         // keywords
         //**********************************************************
 
-        4 => array(
+        4 => [
             'abbreviated',
             'abstract',
             'accept',
@@ -1219,13 +1219,13 @@ $language_data = array(
             'z',
             'zero'
 
-            ),
+        ],
 
         //**********************************************************
         // screen statements
         //**********************************************************
 
-        5 => array(
+        5 => [
             'call subscreen',
             'chain',
             'endchain',
@@ -1236,13 +1236,13 @@ $language_data = array(
             'on request',
             'on value-request',
             'process'
-            ),
+        ],
 
         //**********************************************************
         // internal statements
         //**********************************************************
 
-        6 => array(
+        6 => [
             'generate dynpro',
             'generate report',
             'import dynpro',
@@ -1257,13 +1257,13 @@ $language_data = array(
             'system-call',
             'system-exit',
             'verification-message'
-            ),
+        ],
 
         //**********************************************************
         // Control statements
         //**********************************************************
 
-        1 => array(
+        1 => [
             'assert',
             'case',
             'catch',
@@ -1292,13 +1292,13 @@ $language_data = array(
             'when',
             'while'
 
-            ),
+        ],
 
         //**********************************************************
         // variable declaration statements
         //**********************************************************
 
-        2 => array(
+        2 => [
             'class-data',
             'controls',
             'constants',
@@ -1313,17 +1313,17 @@ $language_data = array(
             'tables',
             'type-pools',
             'types'
-            )
-        ),
-    'SYMBOLS' => array(
-        0 => array(
+        ]
+    ],
+    'SYMBOLS' => [
+        0 => [
             '='
-            ),
-        1 => array(
+        ],
+        1 => [
             '(', ')', '{', '}', '[', ']', '+', '-', '*', '/', '!', '%', '^', '&', ':'
-            )
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -1334,9 +1334,9 @@ $language_data = array(
         7 => false,
         8 => false,
         9 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000066; text-transform: uppercase; font-weight: bold; zzz:control;', //control statements
             2 => 'color: #cc4050; text-transform: uppercase; font-weight: bold; zzz:data;', //data statements
             3 => 'color: #005066; text-transform: uppercase; font-weight: bold; zzz:statement;', //first token of other statements
@@ -1346,38 +1346,38 @@ $language_data = array(
             7 => 'color: #000066; text-transform: uppercase; font-weight: bold; zzz:control;',
             8 => 'color: #005066; text-transform: uppercase; font-weight: bold; zzz:statement;',
             9 => 'color: #500066; text-transform: uppercase; font-weight: bold; zzz:keyword;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             2 => 'color: #339933;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #808080;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #4da619;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #3399ff;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #202020;',
             2 => 'color: #202020;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #800080;',
             1 => 'color: #808080;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => 'http://help.sap.com/abapdocu/en/ABAP{FNAMEU}.htm',
         2 => 'http://help.sap.com/abapdocu/en/ABAP{FNAMEU}.htm',
         3 => 'http://help.sap.com/abapdocu/en/ABAP{FNAMEU}.htm',
@@ -1387,33 +1387,31 @@ $language_data = array(
         7 => '',
         8 => '',
         9 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '-&gt;',
         2 => '=&gt;'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            7 => array(
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            7 => [
                 'SPACE_AS_WHITESPACE' => true
-                ),
-            8 => array(
+            ],
+            8 => [
                 'SPACE_AS_WHITESPACE' => true
-                ),
-            9 => array(
+            ],
+            9 => [
                 'SPACE_AS_WHITESPACE' => true
-                )
-            )
-        ),
+            ]
+        ]
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

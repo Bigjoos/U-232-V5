@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,9 +30,9 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_ipcheck'));
@@ -52,23 +52,32 @@ $HTMLOUT.= "<table class='table table-bordered'>
 $ip = '';
 $uc = 0;
 while ($ras = mysqli_fetch_assoc($res)) {
-    if ($ras["dupl"] <= 1) break;
+    if ($ras["dupl"] <= 1) {
+        break;
+    }
 
-    if ($ip <> $ras['ip']) {
+    if ($ip != $ras['ip']) {
         $ros = sql_query("SELECT id, username, class, email, chatpost, pirate, king, leechwarn, added, last_access, downloaded, uploaded, ip, warned, donor, enabled FROM users WHERE ip=" . sqlesc($ras['ip']) . " ORDER BY id") or sqlerr(__FILE__, __LINE__);
         $num2 = mysqli_num_rows($ros);
         if ($num2 > 1) {
             $uc++;
             while ($arr = mysqli_fetch_assoc($ros)) {
-                if ($arr['added'] == '0') $arr['added'] = '-';
-                if ($arr['last_access'] == '0') $arr['last_access'] = '-';
+                if ($arr['added'] == '0') {
+                    $arr['added'] = '-';
+                }
+                if ($arr['last_access'] == '0') {
+                    $arr['last_access'] = '-';
+                }
                 $uploaded = mksize($arr["uploaded"]);
                 $downloaded = mksize($arr["downloaded"]);
                 $added = get_date($arr['added'], 'DATE', 1, 0);
                 $last_access = get_date($arr['last_access'], '', 1, 0);
-                if ($uc % 2 == 0) $utc = "";
-                else $utc = " bgcolor=\"333333\"";
-                $HTMLOUT.= "<tr$utc><td align='left'><a href='userdetails.php?id=" . (int)$arr['id'] . "'>" . format_username($arr, true) . "</a></td>
+                if ($uc % 2 == 0) {
+                    $utc = "";
+                } else {
+                    $utc = " bgcolor=\"333333\"";
+                }
+                $HTMLOUT.= "<tr$utc><td align='left'><a href='userdetails.php?id=" . (int) $arr['id'] . "'>" . format_username($arr, true) . "</a></td>
                                   <td style='max-width:130px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;'>" . htmlsafechars($arr['email']) . "</td>
                                   <td>$added</td>
                                   <td>$last_access</td>
@@ -84,4 +93,3 @@ while ($ras = mysqli_fetch_assoc($res)) {
 $HTMLOUT.="</table>";
 $HTMLOUT.="</div></div>";
 echo stdhead($lang['ipcheck_stdhead']) . $HTMLOUT . stdfoot();
-?>

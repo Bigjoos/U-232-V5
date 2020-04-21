@@ -37,109 +37,107 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'MXML',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array('<!--' => '-->'),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => ['<!--' => '-->'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        ),
-    'SYMBOLS' => array(
-        ),
-    'CASE_SENSITIVE' => array(
+    'KEYWORDS' => [
+    ],
+    'SYMBOLS' => [
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            ),
-        'COMMENTS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
+        ],
+        'COMMENTS' => [
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => 'color: #00bbdd;',
             1 => 'color: #ddbb00;',
             2 => 'color: #339933;',
             3 => 'color: #000000;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'font-weight: bold; color: black;',
             1 => 'color: #7400FF;',
             2 => 'color: #7400FF;'
-            )
-        ),
-    'URLS' => array(
-        ),
+        ]
+    ],
+    'URLS' => [
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
         // xml declaration
-        0 => array(
+        0 => [
             GESHI_SEARCH => '(&lt;[\/?|(\?xml)]?[a-z0-9_\-:]*(\?&gt;))',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
+        ],
         // opening tags
-        1 => array(
+        1 => [
             GESHI_SEARCH => '(&lt;\/?[a-z]+:[a-z]+)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
+        ],
         // closing tags
-        2 => array(
+        2 => [
             GESHI_SEARCH => '(\/?&gt;)',
             GESHI_REPLACE => '\\1',
             GESHI_MODIFIERS => 'i',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            )
-        ),
+        ]
+    ],
     'STRICT_MODE_APPLIES' => GESHI_ALWAYS,
-    'SCRIPT_DELIMITERS' => array(
-        0 => array(
+    'SCRIPT_DELIMITERS' => [
+        0 => [
             '<!DOCTYPE' => '>'
-            ),
-        1 => array(
+        ],
+        1 => [
             '&' => ';'
-            ),
-        2 => array(
+        ],
+        2 => [
             //'<![CDATA[' => ']]>'
             '<mx:Script>' => '</mx:Script>'
-            ),
-        3 => array(
+        ],
+        3 => [
             '<' => '>'
-            )
-    ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+        ]
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => false,
         1 => false,
         2 => false,
         3 => true
-        ),
+    ],
     'TAB_WIDTH' => 4
-);
-
-?>
+];

@@ -44,19 +44,19 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Visual Basic',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [
         // Comments (either single or multiline with _
         1 => '/\'.*(?<! _)\n/sU',
-        ),
+    ],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'AddressOf', 'Alias', 'And', 'Append', 'As', 'BF', 'Binary',
             'Boolean', 'ByRef', 'Byte', 'ByVal', 'Call', 'Case', 'CBool',
             'CByte', 'CCur', 'CDate', 'CDbl', 'CDec', 'CInt', 'CLng',
@@ -74,60 +74,58 @@ $language_data = array (
             'Stop', 'String', 'Sub', 'Then', 'To', 'True', 'Type',
             'TypeOf', 'UBound', 'Until', 'Variant', 'While', 'With',
             'WithEvents', 'Xor'
-            )
-        ),
-    'SYMBOLS' => array(
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'SYMBOLS' => [
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000080;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #008000;'
-            ),
-        'BRACKETS' => array(
-            ),
-        'STRINGS' => array(
+        ],
+        'BRACKETS' => [
+        ],
+        'STRINGS' => [
             0 => 'color: #800000;'
-            ),
-        'NUMBERS' => array(
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'NUMBERS' => [
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #800000; font-weight: bold;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'ENABLE_FLAGS' => array(
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+    'PARSER_CONTROL' => [
+        'ENABLE_FLAGS' => [
             'BRACKETS' => GESHI_NEVER,
             'SYMBOLS' => GESHI_NEVER,
             'NUMBERS' => GESHI_NEVER
-            )
-        )
-);
-
-?>
+        ]
+    ]
+];

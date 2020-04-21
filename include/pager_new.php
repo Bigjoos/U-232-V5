@@ -1,27 +1,35 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $count
+ * @param mixed $perpage
+ * @param mixed $page
+ * @param mixed $url
+ * @param mixed $page_link
  */
 //=== new pager... count is total number, perpage is duh!, url is whatever it's goint too \o <=== and that's me waving to pdq, just saying "hi there"
 function pager_new($count, $perpage, $page, $url, $page_link = false)
 {
     global $INSTALLER09;
     $pages = floor($count / $perpage);
-    if ($pages * $perpage < $count) ++$pages;
+    if ($pages * $perpage < $count) {
+        ++$pages;
+    }
     //=== lets make php happy
     $page_num = '';
     $page = ($page < 1 ? 1 : $page);
@@ -61,12 +69,11 @@ function pager_new($count, $perpage, $page, $url, $page_link = false)
         }
         break;
     }
-    $menu = ($page == 1 ? ' <div style="text-align: center; font-weight: bold;"><img src="'.$INSTALLER09['pic_base_url'].'arrow_prev.gif" alt="&lt;&lt;" /> Prev' : '<div style="text-align: center; font-weight: bold;"><a class="altlink" href="' . $url . '&amp;page=' . ($page - 1) . $page_link . '"><img src="'.$INSTALLER09['pic_base_url'].'arrow_prev.gif" alt="&lt;&lt;" /> Prev</a>') . '&nbsp;&nbsp;&nbsp;' . $page_num . '&nbsp;&nbsp;&nbsp;' . ($page == $pages ? 'Next <img src="'.$INSTALLER09['pic_base_url'].'arrow_next.gif" alt="&gt;&gt;" /></div> ' : ' <a class="altlink" href="' . $url . '&amp;page=' . ($page + 1) . $page_link . '">Next <img src="'.$INSTALLER09['pic_base_url'].'arrow_next.gif" alt="&gt;&gt;" /></a></div>');
+    $menu = ($page == 1 ? ' <div style="text-align: center; font-weight: bold;"><img src="' . $INSTALLER09['pic_base_url'] . 'arrow_prev.gif" alt="&lt;&lt;" /> Prev' : '<div style="text-align: center; font-weight: bold;"><a class="altlink" href="' . $url . '&amp;page=' . ($page - 1) . $page_link . '"><img src="' . $INSTALLER09['pic_base_url'] . 'arrow_prev.gif" alt="&lt;&lt;" /> Prev</a>') . '&nbsp;&nbsp;&nbsp;' . $page_num . '&nbsp;&nbsp;&nbsp;' . ($page == $pages ? 'Next <img src="' . $INSTALLER09['pic_base_url'] . 'arrow_next.gif" alt="&gt;&gt;" /></div> ' : ' <a class="altlink" href="' . $url . '&amp;page=' . ($page + 1) . $page_link . '">Next <img src="' . $INSTALLER09['pic_base_url'] . 'arrow_next.gif" alt="&gt;&gt;" /></a></div>');
     $offset = ($page * $perpage) - $perpage;
     $LIMIT = ($count > 0 ? "LIMIT $offset,$perpage" : '');
-    return array(
+    return [
         $menu,
         $LIMIT
-    );
+    ];
 } //=== end pager function
-?>

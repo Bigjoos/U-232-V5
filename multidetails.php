@@ -1,45 +1,45 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'bbcode_functions.php');
-require_once (INCL_DIR . 'pager_functions.php');
-require_once (INCL_DIR . 'comment_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (INCL_DIR . 'function_rating.php');
-require_once (INCL_DIR . 'tvrage_functions.php');
-require_once (IMDB_DIR . 'imdb.class.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'bbcode_functions.php');
+require_once(INCL_DIR . 'pager_functions.php');
+require_once(INCL_DIR . 'comment_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(INCL_DIR . 'function_rating.php');
+require_once(INCL_DIR . 'tvrage_functions.php');
+require_once(IMDB_DIR . 'imdb.class.php');
 dbconn(false);
 loggedinorreturn();
 $lang = array_merge(load_language('global'), load_language('details'));
 parked();
-$stdhead = array(
+$stdhead = [
     /** include css **/
-    'css' => array(
-	'bbcode',
+    'css' => [
+        'bbcode',
         'details',
         'rating_style'
-    )
-);
-$stdfoot = array(
+    ]
+];
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'popup',
         'jquery.thanks',
         'wz_tooltip',
@@ -48,25 +48,31 @@ $stdfoot = array(
         'shout',
         'thumbs',
         'sack'
-    )
-);
+    ]
+];
 $HTMLOUT = $torrent_cache = '';
-if (!isset($_GET['id']) || !is_array($_GET['id'])) stderr("{$lang['details_user_error']}", "{$lang['details_bad_id']}");
+if (!isset($_GET['id']) || !is_array($_GET['id'])) {
+    stderr("{$lang['details_user_error']}", "{$lang['details_bad_id']}");
+}
 
 
 //==pdq memcache slots
 $slot = make_freeslots($CURUSER['id'], 'fllslot_');
 $torrent['addedfree'] = $torrent['addedup'] = $free_slot = $double_slot = '';
-if (!empty($slot)) foreach ($slot as $sl) {
-    if ($sl['torrentid'] == $id && $sl['free'] == 'yes') {
-        $free_slot = 1;
-        $torrent['addedfree'] = $sl['addedfree'];
+if (!empty($slot)) {
+    foreach ($slot as $sl) {
+        if ($sl['torrentid'] == $id && $sl['free'] == 'yes') {
+            $free_slot = 1;
+            $torrent['addedfree'] = $sl['addedfree'];
+        }
+        if ($sl['torrentid'] == $id && $sl['doubleup'] == 'yes') {
+            $double_slot = 1;
+            $torrent['addedup'] = $sl['addedup'];
+        }
+        if ($free_slot && $double_slot) {
+            break;
+        }
     }
-    if ($sl['torrentid'] == $id && $sl['doubleup'] == 'yes') {
-        $double_slot = 1;
-        $torrent['addedup'] = $sl['addedup'];
-    }
-    if ($free_slot && $double_slot) break;
 }
 
 
@@ -75,28 +81,30 @@ if (!empty($slot)) foreach ($slot as $sl) {
 $HTMLOUT.= "<div class='alert alert-success col-md-11' align='center'><h2>{$lang['details_success']}</h2></div>\n";
 $HTMLOUT.= "<p>{$lang['details_start_seeding']}</p>\n";
 
-foreach($_GET['id'] as $id ) {
+foreach ($_GET['id'] as $id) {
+    $id = (int) $id;
 
-    $id = (int)$id;
-
-    if (($torrents = $mc1->get_value('torrent_details_' . $id)) === false) {
-        $tor_fields_ar_int = array(
+    if (($torrents = $cache->get('torrent_details_' . $id)) === false) {
+        $tor_fields_ar_int = [
             'id'
-        );
-        $tor_fields_ar_str = array(
+        ];
+        $tor_fields_ar_str = [
             'name',
             'save_as',
             'url',
             'filename'
-        );
+        ];
         $tor_fields = implode(', ', array_merge($tor_fields_ar_int, $tor_fields_ar_str));
         $result = sql_query("SELECT " . $tor_fields . ", LENGTH(nfo) AS nfosz, IF(num_ratings < {$INSTALLER09['minvotes']}, NULL, ROUND(rating_sum / num_ratings, 1)) AS rating FROM torrents WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         $torrents = mysqli_fetch_assoc($result);
-        foreach ($tor_fields_ar_int as $i) $torrents[$i] = (int)$torrents[$i];
-        foreach ($tor_fields_ar_str as $i) $torrents[$i] = $torrents[$i];
+        foreach ($tor_fields_ar_int as $i) {
+            $torrents[$i] = (int) $torrents[$i];
+        }
+        foreach ($tor_fields_ar_str as $i) {
+            $torrents[$i] = $torrents[$i];
+        }
 
         $s = htmlsafechars($torrents["name"], ENT_QUOTES);
-
     }
 
 
@@ -131,7 +139,6 @@ foreach($_GET['id'] as $id ) {
 
     $HTMLOUT.= "</div><!-- closnig col-md-8 --> </div><!-- closing row -->";
     $HTMLOUT .="</div><!-- closing tab pane -->";
-
 }
 
 
@@ -140,4 +147,3 @@ foreach($_GET['id'] as $id ) {
  $HTMLOUT.="</div></div><div class='row'><div class='col-md-1'></div><div class='col-md-12'>";
 //////////////////////// HTML OUTPUT ////////////////////////////
 echo stdhead("{$lang['details_details']}\"" . htmlsafechars($torrents["name"], ENT_QUOTES) . "\"", true, $stdhead) . $HTMLOUT . stdfoot($stdfoot);
-?>

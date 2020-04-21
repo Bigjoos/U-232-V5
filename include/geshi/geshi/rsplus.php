@@ -54,18 +54,18 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'R / S+',
-    'COMMENT_SINGLE' => array(1 => '#'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '#'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"', "'"),
+    'QUOTEMARKS' => ['"', "'"],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
-            'else','global','in', 'otherwise','persistent',
-            ),
-        2 => array( // base package
+    'KEYWORDS' => [
+        1 => [
+            'else', 'global', 'in', 'otherwise', 'persistent',
+        ],
+        2 => [ // base package
             '$.package_version', '$<-', '$<-.data.frame', 'abbreviate', 'abs', 'acos', 'acosh', 'addNA', 'addTaskCallback',
             'agrep', 'alist', 'all', 'all.equal', 'all.equal.character', 'all.equal.default', 'all.equal.factor',
             'all.equal.formula', 'all.equal.language', 'all.equal.list', 'all.equal.numeric', 'all.equal.POSIXct',
@@ -202,8 +202,8 @@ $language_data = array (
             'withVisible', 'write', 'write.dcf', 'write.table0', 'writeBin', 'writeChar', 'writeLines', 'xor',
             'xpdrows.data.frame', 'xtfrm', 'xtfrm.Date', 'xtfrm.default', 'xtfrm.factor', 'xtfrm.numeric_version',
             'xtfrm.POSIXct', 'xtfrm.POSIXlt', 'xtfrm.Surv', 'zapsmall',
-            ),
-        3 => array( // Datasets
+        ],
+        3 => [ // Datasets
             'ability.cov', 'airmiles', 'AirPassengers', 'airquality',
             'anscombe', 'attenu', 'attitude', 'austres', 'beaver1',
             'beaver2', 'BJsales', 'BJsales.lead', 'BOD', 'cars',
@@ -226,8 +226,8 @@ $language_data = array (
             'USAccDeaths', 'USArrests', 'USJudgeRatings', 'USPersonalExpenditure',
             'uspop', 'VADeaths', 'volcano', 'warpbreaks', 'women', 'WorldPhones',
             'WWWusage',
-            ),
-        4 => array( // graphics package
+        ],
+        4 => [ // graphics package
             'abline', 'arrows', 'assocplot', 'axis', 'Axis', 'axis.Date', 'axis.POSIXct',
             'axTicks', 'barplot', 'barplot.default', 'box', 'boxplot', 'boxplot.default',
             'boxplot.matrix', 'bxp', 'cdplot', 'clip', 'close.screen', 'co.intervals',
@@ -241,8 +241,8 @@ $language_data = array (
             'polygon', 'rect', 'rug', 'screen', 'segments', 'smoothScatter', 'spineplot',
             'split.screen', 'stars', 'stem', 'strheight', 'stripchart', 'strwidth', 'sunflowerplot',
             'symbols', 'text', 'text.default', 'title', 'xinch', 'xspline', 'xyinch', 'yinch',
-            ),
-        5 => array( // grDevices pkg
+        ],
+        5 => [ // grDevices pkg
             'as.graphicsAnnot', 'bitmap', 'blues9', 'bmp', 'boxplot.stats', 'cairo_pdf', 'cairo_ps', 'check.options',
             'chull', 'CIDFont', 'cm', 'cm.colors', 'col2rgb', 'colorConverter', 'colorRamp', 'colorRampPalette',
             'colors', 'colorspaces', 'colours', 'contourLines', 'convertColor', 'densCols', 'dev.control', 'dev.copy',
@@ -255,8 +255,8 @@ $language_data = array (
             'recordGraphics', 'recordPlot', 'replayPlot', 'rgb', 'rgb2hsv', 'savePlot', 'setEPS', 'setPS', 'svg',
             'terrain.colors', 'tiff', 'topo.colors', 'trans3d', 'Type1Font', 'x11', 'X11', 'X11.options', 'X11Font',
             'X11Fonts', 'xfig', 'xy.coords', 'xyTable', 'xyz.coords',
-            ),
-        6 => array( // methods package
+        ],
+        6 => [ // methods package
             'addNextMethod', 'allGenerics', 'allNames', 'Arith', 'as', 'as<-',
             'asMethodDefinition', 'assignClassDef', 'assignMethodsMetaData', 'balanceMethodsList',
             'cacheGenericsMetaData', 'cacheMetaData', 'cacheMethod', 'callGeneric',
@@ -292,8 +292,8 @@ $language_data = array (
             'slotNames', 'slotsFromS3', 'substituteDirect', 'substituteFunctionArgs', 'Summary', 'superClassDepth',
             'testInheritedMethods', 'testVirtual', 'traceOff', 'traceOn', 'tryNew', 'trySilent', 'unRematchDefinition',
             'validObject', 'validSlotNames',
-            ),
-        7 => array( // stats pkg
+        ],
+        7 => [ // stats pkg
             'acf', 'acf2AR', 'add.scope', 'add1', 'addmargins', 'aggregate',
             'aggregate.data.frame', 'aggregate.default', 'aggregate.ts', 'AIC',
             'alias', 'anova', 'anova.glm', 'anova.glmlist', 'anova.lm', 'anova.lmlist',
@@ -361,8 +361,8 @@ $language_data = array (
             'ts.union', 'tsdiag', 'tsp', 'tsp<-', 'tsSmooth', 'TukeyHSD', 'TukeyHSD.aov', 'uniroot', 'update',
             'update.default', 'update.formula', 'var', 'var.test', 'variable.names', 'varimax', 'vcov', 'weighted.mean',
             'weighted.residuals', 'weights', 'wilcox.test', 'window', 'window<-', 'write.ftable', 'xtabs',
-            ),
-        8 => array( // utils pkg
+        ],
+        8 => [ // utils pkg
             'alarm', 'apropos', 'argsAnywhere', 'as.person', 'as.personList', 'as.relistable', 'as.roman',
             'assignInNamespace', 'available.packages', 'browseEnv', 'browseURL', 'browseVignettes', 'bug.report',
             'capture.output', 'checkCRAN', 'chooseCRANmirror', 'citation', 'citEntry', 'citFooter', 'citHeader',
@@ -386,13 +386,13 @@ $language_data = array (
             'toBibtex', 'toLatex', 'txtProgressBar', 'type.convert', 'unstack', 'unzip', 'update.packages', 'update.packageStatus',
             'upgrade', 'url.show', 'URLdecode', 'URLencode', 'vi', 'View', 'vignette', 'write.csv', 'write.csv2', 'write.socket',
             'write.table', 'wsbrowser', 'xedit', 'xemacs', 'zip.file.extract',
-            ),
-        ),
-    'SYMBOLS' => array(
-        '(', ')', '{', '}', '[', ']', '!', '%', '^', '&', '/','+','-','*','=','<','>',';','|','<-','->',
+        ],
+    ],
+    'SYMBOLS' => [
+        '(', ')', '{', '}', '[', ']', '!', '%', '^', '&', '/', '+', '-', '*', '=', '<', '>', ';', '|', '<-', '->',
         '^', '-', ':', '::', ':::', '!', '!=', '*', '?',
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => true,
         1 => true,
         2 => true,
@@ -402,9 +402,9 @@ $language_data = array (
         6 => true,
         7 => true,
         8 => true,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0000FF; font-weight: bold;',
             2 => 'color: #0000FF; font-weight: bold;',
             3 => 'color: #CC9900; font-weight: bold;',
@@ -413,37 +413,37 @@ $language_data = array (
             6 => 'color: #0000FF; font-weight: bold;',
             7 => 'color: #0000FF; font-weight: bold;',
             8 => 'color: #0000FF; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #228B22;',
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;',
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #080;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #ff0000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => '',
             2 => ''
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #080;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color:#A020F0;'
-            ),
-        'SCRIPT' => array(
+        ],
+        'SCRIPT' => [
             0 => ''
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => 'http://astrostatistics.psu.edu/su07/R/html/graphics/html/{FNAME}.html', // http://sekhon.berkeley.edu/library/graphics/html/{FNAME}.html
         3 => 'http://astrostatistics.psu.edu/su07/R/html/stats/html/Normal.html', // http://sekhon.berkeley.edu/library/stats/html/Normal.html
@@ -452,32 +452,30 @@ $language_data = array (
         6 => 'http://astrostatistics.psu.edu/su07/R/html/base/html/Log.html', // http://sekhon.berkeley.edu/library/base/html/Log.html
         7 => '',
         8 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.',
         2 => '::'
-        ),
-    'REGEXPS' => array(
-        0 => array(
+    ],
+    'REGEXPS' => [
+        0 => [
             GESHI_SEARCH => "([^\w])'([^\\n\\r']*)'",
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => "\\1'",
             GESHI_AFTER => "'"
-            )
-        ),
+        ]
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
             'DISALLOWED_BEFORE' => "(?<![a-zA-Z0-9\$_\|\#;>|^&\\.])(?<!\/html\/)",
             'DISALLOWED_AFTER' => "(?![a-zA-Z0-9_\|%\\-&;\\.])"
-            )
-        )
-);
-
-?>
+        ]
+    ]
+];

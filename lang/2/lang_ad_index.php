@@ -1,23 +1,23 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //admin index lang file
-$lang = array(
+$lang = [
     'index_bans' => 'Bans',
     'index_new_user' => 'Ajouter Membre',
     'index_log' => 'Logs',
@@ -62,23 +62,22 @@ $lang = array(
     'index_stats_extra' => 'Stats Extra',
     'index_coder_editlog' => 'Php Editlog',
     'index_serverload' => 'Charge du Serveur',
-	////load
-	'index_load_uptime' => 'Could not retrieve uptime',
-	'index_load_s' => 's',
-	'index_load_month' => 'mois',
-	'index_load_week' => 'semaine',
-	'index_load_day' => 'jour',
-	'index_load_hour' => 'heure',
-	'index_load_minute' => 'minute',
-	'index_load_average' => 'Could not retrieve load average',
-	'index_load_curr' => 'Actuellement ',
-	'index_load_cpu' => '&#37; usage CPU.',
-	'index_load_uptime1' => 'Uptime: ',
-	'index_load_pastmin' => 'Load average for processes running for the past minute: ',
-	'index_load_pastmin5' => 'Load average for processes running for the past 5 minutes: ',
-	'index_load_pastmin15' => 'Load average for processes running for the past 15 minutes: ',
-	'index_load_numtsk' => 'Nombre de tâches actives actuellement: ',
-	'index_load_numproc' => 'Nombre de processus actifs actuellement: ',
-	'index_load_pid' => ' PID des derniers processus actifs: '
-);
-?>
+    ////load
+    'index_load_uptime' => 'Could not retrieve uptime',
+    'index_load_s' => 's',
+    'index_load_month' => 'mois',
+    'index_load_week' => 'semaine',
+    'index_load_day' => 'jour',
+    'index_load_hour' => 'heure',
+    'index_load_minute' => 'minute',
+    'index_load_average' => 'Could not retrieve load average',
+    'index_load_curr' => 'Actuellement ',
+    'index_load_cpu' => '&#37; usage CPU.',
+    'index_load_uptime1' => 'Uptime: ',
+    'index_load_pastmin' => 'Load average for processes running for the past minute: ',
+    'index_load_pastmin5' => 'Load average for processes running for the past 5 minutes: ',
+    'index_load_pastmin15' => 'Load average for processes running for the past 15 minutes: ',
+    'index_load_numtsk' => 'Nombre de tâches actives actuellement: ',
+    'index_load_numproc' => 'Nombre de processus actifs actuellement: ',
+    'index_load_pid' => ' PID des derniers processus actifs: '
+];

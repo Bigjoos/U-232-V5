@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,14 +30,14 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_repsettings'));
 $rep_set_cache = "./cache/rep_settings_cache.php";
-if ('POST' == $_SERVER['REQUEST_METHOD']) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     unset($_POST['submit']);
     //print_r($_POST);
     rep_cache();
@@ -63,14 +63,13 @@ function rep_cache()
         fwrite($filenum, $rep_out);
         fclose($filenum);
         //echo '<pre>'.$rep_out.'</pre>';exit;
-        
     }
     redirect('staffpanel.php?tool=reputation_settings', $lang['repset_updated'], 3);
 }
 function get_cache_array()
 {
-	global $lang;
-    return array(
+    global $lang;
+    return [
         'rep_is_online' => 1,
         'rep_adminpower' => 5,
         'rep_minpost' => 50,
@@ -87,7 +86,7 @@ function get_cache_array()
         /*'g_rep_negative' => TRUE,
         'g_rep_seeown' => TRUE,
         'g_rep_use' => $CURUSER['class'] > UC_USER ? TRUE : FALSE*/
-    );
+    ];
 }
 if (!file_exists($rep_set_cache)) {
     $GVARS = get_cache_array();
@@ -268,4 +267,3 @@ function redirect($url, $text, $time = 2)
     echo $html;
     exit;
 }
-?>

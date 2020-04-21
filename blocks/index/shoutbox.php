@@ -1,47 +1,48 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 // === shoutbox 09
 if ($CURUSER['opt1'] & user_options::SHOW_SHOUT) {
-$commandbutton = $refreshbutton = $smilebutton = $custombutton = $staffsmiliebutton = '';
-if ($CURUSER['class'] >= UC_STAFF) {
-$staffsmiliebutton.= "<a href=\"javascript:PopStaffSmiles('shbox','shbox_text')\">{$lang['index_shoutbox_ssmilies']}</a>";
-}
-if (get_smile() != 0) $custombutton.= "
+    $commandbutton = $refreshbutton = $smilebutton = $custombutton = $staffsmiliebutton = '';
+    if ($CURUSER['class'] >= UC_STAFF) {
+        $staffsmiliebutton.= "<a href=\"javascript:PopStaffSmiles('shbox','shbox_text')\">{$lang['index_shoutbox_ssmilies']}</a>";
+    }
+    if (get_smile() != 0) {
+        $custombutton.= "
 <a href=\"javascript:PopCustomSmiles('shbox','shbox_text')\">{$lang['index_shoutbox_csmilies']}</a>";
-if ($CURUSER['class'] >= UC_STAFF) {
-$commandbutton = "<a href=\"javascript:popUp('shoutbox_commands.php')\">{$lang['index_shoutbox_commands']}</a>\n";
-}
-$refreshbutton = "<a href='shoutbox.php' target='shoutbox'>{$lang['index_shoutbox_refresh']}</a>\n";
-$smilebutton = "<a href=\"javascript:PopMoreSmiles('shbox','shbox_text')\">{$lang['index_shoutbox_smilies']}</a>\n";
-$HTMLOUT .= "<div class='panel panel-default'>";
+    }
+    if ($CURUSER['class'] >= UC_STAFF) {
+        $commandbutton = "<a href=\"javascript:popUp('shoutbox_commands.php')\">{$lang['index_shoutbox_commands']}</a>\n";
+    }
+    $refreshbutton = "<a href='shoutbox.php' target='shoutbox'>{$lang['index_shoutbox_refresh']}</a>\n";
+    $smilebutton = "<a href=\"javascript:PopMoreSmiles('shbox','shbox_text')\">{$lang['index_shoutbox_smilies']}</a>\n";
+    $HTMLOUT .= "<div class='panel panel-default'>";
     $HTMLOUT .= "<div class='panel-heading'><span><a class='btn btn-default' href='{$INSTALLER09['baseurl']}/shoutbox.php?show_shout=1&amp;show=no'>{$lang['index_shoutbox_close']}</a></span>&nbsp;";
-$HTMLOUT .=  "<label for='checkbox_4' class='text-left'>";
-$HTMLOUT.= "{$lang['index_shoutbox_general']}";
-$HTMLOUT .= "</label>";
-if ($CURUSER['class'] >= UC_STAFF)
-{
-$HTMLOUT.= "<span class='nav navbar-nav navbar-right'><a class='btn btn-primary btn-sm navbar-btn' style='margin-top:-2px;' href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=shistory'>{$lang['index_shoutbox_history']}</a></span>";
-}
-$HTMLOUT .= "</div>";
-$HTMLOUT .= "<div class='panel-body'>";
-$HTMLOUT.= "<div><iframe src='{$INSTALLER09['baseurl']}/auto_shout_scroll.php' width='100%' height='30px' frameborder='0' name='auto_shoutbox' marginwidth='0' marginheight='0'></iframe></div>";
-$HTMLOUT.= "
+    $HTMLOUT .=  "<label for='checkbox_4' class='text-left'>";
+    $HTMLOUT.= "{$lang['index_shoutbox_general']}";
+    $HTMLOUT .= "</label>";
+    if ($CURUSER['class'] >= UC_STAFF) {
+        $HTMLOUT.= "<span class='nav navbar-nav navbar-right'><a class='btn btn-primary btn-sm navbar-btn' style='margin-top:-2px;' href='{$INSTALLER09['baseurl']}/staffpanel.php?tool=shistory'>{$lang['index_shoutbox_history']}</a></span>";
+    }
+    $HTMLOUT .= "</div>";
+    $HTMLOUT .= "<div class='panel-body'>";
+    $HTMLOUT.= "<div><iframe src='{$INSTALLER09['baseurl']}/auto_shout_scroll.php' width='100%' height='30px' frameborder='0' name='auto_shoutbox' marginwidth='0' marginheight='0'></iframe></div>";
+    $HTMLOUT.= "
 <div id='dropdown1' class='text-center shouthis collapse in'>
 <form action='shoutbox.php' method='get' target='shoutbox' name='shbox' onsubmit='mysubmit()'>
 <iframe src='{$INSTALLER09['baseurl']}/shoutbox.php' class='shout-table' name='shoutbox'></iframe>
@@ -86,10 +87,10 @@ $HTMLOUT.= "
 <a href=\"javascript:SmileIT(':blink:','shbox','shbox_text')\"><img src='{$INSTALLER09['pic_base_url']}smilies/blink.gif' alt='Blink' title='Blink' /></a>
 <a href=\"javascript:SmileIT(':baby:','shbox','shbox_text')\"><img src='{$INSTALLER09['pic_base_url']}smilies/baby.gif' alt='Baby' title='Baby' /></a>
 </form>";
-$HTMLOUT .= "</div></div>";
+    $HTMLOUT .= "</div></div>";
 }
 if (!($CURUSER['opt1'] & user_options::SHOW_SHOUT)) {
-   $HTMLOUT.= "<fieldset><legend><b>{$lang['index_shoutbox']}</b></legend></fieldset><div class='container'><a class='btn btn-default' type='button' href='{$INSTALLER09['baseurl']}/shoutbox.php?show_shout=1&amp;show=yes'>{$lang['index_shoutbox_open']}&nbsp;</a></div><hr>";
+    $HTMLOUT.= "<fieldset><legend><b>{$lang['index_shoutbox']}</b></legend></fieldset><div class='container'><a class='btn btn-default' type='button' href='{$INSTALLER09['baseurl']}/shoutbox.php?show_shout=1&amp;show=yes'>{$lang['index_shoutbox_open']}&nbsp;</a></div><hr>";
 }
 //==end 09 shoutbox
 //==End

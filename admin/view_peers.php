@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,10 +30,10 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
 require_once INCL_DIR . 'pager_functions.php';
-require_once (CLASS_DIR . 'class_check.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_viewpeers'));
@@ -47,16 +47,20 @@ function my_inet_ntop($ip)
     } elseif (strlen($ip) == 16) {
         // ipv6
         $ip = bin2hex($ip);
-        $ip = substr(chunk_split($ip, 4, ':') , 0, -1);
+        $ip = substr(chunk_split($ip, 4, ':'), 0, -1);
         $ip = explode(':', $ip);
         $res = '';
         foreach ($ip as $seg) {
-            while ($seg{0} == '0') $seg = substr($seg, 1);
+            while ($seg{0} == '0') {
+                $seg = substr($seg, 1);
+            }
             if ($seg != '') {
                 $res.= ($res == '' ? '' : ':') . $seg;
             } else {
                 if (strpos($res, '::') === false) {
-                    if (substr($res, -1) == ':') continue;
+                    if (substr($res, -1) == ':') {
+                        continue;
+                    }
                     $res.= ':';
                     continue;
                 }
@@ -69,16 +73,16 @@ function my_inet_ntop($ip)
 }
 function XBT_IP_CONVERT($a)
 {
-    $b = array(
+    $b = [
         0,
         0,
         0,
         0
-    );
+    ];
     $c = 16777216.0;
     $a+= 0.0;
     for ($i = 0; $i < 4; $i++) {
-        $k = (int)($a / $c);
+        $k = (int) ($a / $c);
         $a-= $c * $k;
         $b[$i] = $k;
         $c/= 256.0;
@@ -97,7 +101,9 @@ $HTMLOUT.= "<h2 align='center'>{$lang['wpeers_h2']}</h2>
 //$HTMLOUT.= begin_main_frame();
 $HTMLOUT .= "<div class='row'><div class='col-md-12'>";
 $pager = pager($peersperpage, $count, "staffpanel.php?tool=view_peers&amp;action=view_peers&amp;");
-if ($count > $peersperpage) $HTMLOUT.= $pager['pagertop'];
+if ($count > $peersperpage) {
+    $HTMLOUT.= $pager['pagertop'];
+}
 if (XBT_TRACKER == true) {
     $sql = "SELECT x.fid, x.uid, x.left, x.active, x.peer_id, x.ipa, x.uploaded, x.downloaded, x.leechtime, x.seedtime, x.upspeed, x.downspeed, x.mtime, x.completedtime, u.torrent_pass, u.username, t.seeders, t.leechers, t.name FROM `xbt_files_users` AS x LEFT JOIN users AS u ON u.id=x.uid LEFT JOIN torrents AS t ON t.id=x.fid WHERE `left` >= 0 AND t.leechers >= 0 ORDER BY fid DESC {$pager['limit']}";
 } else {
@@ -140,18 +146,18 @@ if (mysqli_num_rows($result) != 0) {
 </tr>";
     }
     while ($row = mysqli_fetch_assoc($result)) {
-        $smallname = substr(htmlsafechars($row["name"]) , 0, 25);
+        $smallname = substr(htmlsafechars($row["name"]), 0, 25);
         if ($smallname != htmlsafechars($row["name"])) {
             $smallname.= '...';
         }
         if (XBT_TRACKER == true) {
-        $upspeed = ($row["upspeed"] > 0 ? mksize($row["upspeed"]) : ($row["seedtime"] > 0 ? mksize($row["uploaded"] / ($row["seedtime"] + $row["leechtime"])) : mksize(0)));
-        $downspeed = ($row["downspeed"] > 0 ? mksize($row["downspeed"]) : ($row["leechtime"] > 0 ? mksize($row["downloaded"] / $row["leechtime"]) : mksize(0)));
+            $upspeed = ($row["upspeed"] > 0 ? mksize($row["upspeed"]) : ($row["seedtime"] > 0 ? mksize($row["uploaded"] / ($row["seedtime"] + $row["leechtime"])) : mksize(0)));
+            $downspeed = ($row["downspeed"] > 0 ? mksize($row["downspeed"]) : ($row["leechtime"] > 0 ? mksize($row["downloaded"] / $row["leechtime"]) : mksize(0)));
         }
         if (XBT_TRACKER == true) {
             $HTMLOUT.= '<tr>
-<td><a href="userdetails.php?id=' . (int)($row['uid']) . '">' . htmlsafechars($row['username']) . '</a></td>
-<td><a href="details.php?id=' . (int)($row['fid']) . '">' . $smallname . '</a></td>
+<td><a href="userdetails.php?id=' . (int) ($row['uid']) . '">' . htmlsafechars($row['username']) . '</a></td>
+<td><a href="details.php?id=' . (int) ($row['fid']) . '">' . $smallname . '</a></td>
 <td align="center">' . htmlsafechars(XBT_IP_CONVERT($row['ipa'])) . '</td>
 <td align="center">' . htmlsafechars(mksize($row['uploaded'])) . '</td>
 ' . ($INSTALLER09['ratio_free'] == true ? '' : '<td align="center">' . htmlsafechars(mksize($row['downloaded'])) . '</td>') . '
@@ -164,8 +170,8 @@ if (mysqli_num_rows($result) != 0) {
 </tr>';
         } else {
             $HTMLOUT.= '<tr>
-<td><a href="userdetails.php?id=' . (int)($row['userid']) . '">' . htmlsafechars($row['username']) . '</a></td>
-<td><a href="details.php?id=' . (int)($row['torrent']) . '">' . $smallname . '</a></td>
+<td><a href="userdetails.php?id=' . (int) ($row['userid']) . '">' . htmlsafechars($row['username']) . '</a></td>
+<td><a href="details.php?id=' . (int) ($row['torrent']) . '">' . $smallname . '</a></td>
 <td align="center">' . htmlsafechars($row['ip']) . '</td>
 <td align="center">' . htmlsafechars($row['port']) . '</td>
 <td align="center">' . htmlsafechars(mksize($row['uploaded'])) . '</td>
@@ -182,9 +188,12 @@ if (mysqli_num_rows($result) != 0) {
         }
     }
     $HTMLOUT.= "</table>";
-} else $HTMLOUT.= $lang['wpeers_notfound'];
-if ($count > $peersperpage) $HTMLOUT.= $pager['pagerbottom'] ."<br>";
+} else {
+    $HTMLOUT.= $lang['wpeers_notfound'];
+}
+if ($count > $peersperpage) {
+    $HTMLOUT.= $pager['pagerbottom'] . "<br>";
+}
 $HTMLOUT.= "</div></div><br>";
 echo stdhead($lang['wpeers_peerover']) . $HTMLOUT . stdfoot();
 die;
-?>

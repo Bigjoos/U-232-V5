@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,50 +30,51 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
-require_once (INCL_DIR . 'pager_functions.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
+require_once(INCL_DIR . 'pager_functions.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 $lang = array_merge($lang, load_language('ad_acp'));
-$stdfoot = array(
+$stdfoot = [
     /** include js **/
-    'js' => array(
+    'js' => [
         'acp'
-    )
-);
+    ]
+];
 $HTMLOUT = "";
 if (isset($_POST['ids'])) {
     $ids = $_POST["ids"];
-    foreach ($ids as $id) if (!is_valid_id($id)) stderr($lang['std_error'], $lang['text_invalid']);
+    foreach ($ids as $id) {
+        if (!is_valid_id($id)) {
+            stderr($lang['std_error'], $lang['text_invalid']);
+        }
+    }
     $do = isset($_POST["do"]) ? htmlsafechars(trim($_POST["do"])) : '';
-    if ($do == 'enabled') sql_query("UPDATE users SET enabled = 'yes' WHERE ID IN(" . join(', ', array_map('sqlesc',$ids)) . ") AND enabled = 'no'") or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('MyUser_' . $id);
-    $mc1->update_row(false, array(
+    if ($do == 'enabled') {
+        sql_query("UPDATE users SET enabled = 'yes' WHERE ID IN(" . join(', ', array_map('sqlesc', $ids)) . ") AND enabled = 'no'") or sqlerr(__FILE__, __LINE__);
+    }
+    $cache->update_row('MyUser_' . $id, [
         'enabled' => 'yes'
-    ));
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $id);
-    $mc1->update_row(false, array(
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $id, [
         'enabled' => 'yes'
-    ));
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     //else
-    if ($do == 'confirm') sql_query("UPDATE users SET status = 'confirmed' WHERE ID IN(" . join(', ', array_map('sqlesc', $ids)) . ") AND status = 'pending'") or sqlerr(__FILE__, __LINE__);
-    $mc1->begin_transaction('MyUser_' . $id);
-    $mc1->update_row(false, array(
+    if ($do == 'confirm') {
+        sql_query("UPDATE users SET status = 'confirmed' WHERE ID IN(" . join(', ', array_map('sqlesc', $ids)) . ") AND status = 'pending'") or sqlerr(__FILE__, __LINE__);
+    }
+    $cache->update_row('MyUser_' . $id, [
         'status' => 'confirmed'
-    ));
-    $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-    $mc1->begin_transaction('user' . $id);
-    $mc1->update_row(false, array(
+    ], $INSTALLER09['expires']['curuser']);
+    $cache->update_row('user' . $id, [
         'status' => 'confirmed'
-    ));
-    $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
+    ], $INSTALLER09['expires']['user_cache']);
     //else
-    if ($do == 'delete') sql_query("DELETE FROM users WHERE ID IN(" . join(', ', array_map('sqlesc',$ids)) . ") AND class < 3") or sqlerr(__FILE__, __LINE__);
-    else {
+    if ($do == 'delete') {
+        sql_query("DELETE FROM users WHERE ID IN(" . join(', ', array_map('sqlesc', $ids)) . ") AND class < 3") or sqlerr(__FILE__, __LINE__);
+    } else {
         header('Location: staffpanel.php?tool=acpmanage&amp;action=acpmanage');
         exit;
     }
@@ -86,7 +87,9 @@ $pager = pager($perpage, $count, "staffpanel.php?tool=acpmanage&amp;action=acpma
 $res = sql_query("SELECT id, username, added, downloaded, uploaded, last_access, class, donor, warned, enabled, status FROM users WHERE enabled='no' OR status='pending' ORDER BY username DESC {$pager['limit']}");
  $HTMLOUT.= "<div class='row'><div class='col-md-12'><table class='table table-bordered'><tr><td>{$lang['text_du']}  $disabled</td><td> {$lang['text_pu']}  $pending</td></tr></table></div><br>";
 if (mysqli_num_rows($res) != 0) {
-    if ($count > $perpage) $HTMLOUT.= $pager['pagertop'];
+    if ($count > $perpage) {
+        $HTMLOUT.= $pager['pagertop'];
+    }
     $HTMLOUT.= "<div class='col-md-12'>";
     $HTMLOUT.= "<form action='staffpanel.php?tool=acpmanage&amp;action=acpmanage' method='post'>";
     $HTMLOUT.= "<table class='table table-bordered'>";
@@ -108,13 +111,15 @@ if (mysqli_num_rows($res) != 0) {
         $ratio = $arr['downloaded'] > 0 ? $arr['uploaded'] / $arr['downloaded'] : 0;
         $ratio = number_format($ratio, 2);
         $color = get_ratio_color($ratio);
-        if ($color) $ratio = "<font color='$color'>$ratio</font>";
+        if ($color) {
+            $ratio = "<font color='$color'>$ratio</font>";
+        }
         $added = get_date($arr['added'], 'LONG', 0, 1);
         $last_access = get_date($arr['last_access'], 'LONG', 0, 1);
         $class = get_user_class_name($arr["class"]);
         $status = htmlsafechars($arr['status']);
         $enabled = htmlsafechars($arr['enabled']);
-        $HTMLOUT.= "<tr align='center'><td><input type=\"checkbox\" name=\"ids[]\" value=\"" . (int)$arr['id'] . "\" /></td><td><a href='/userdetails.php?id=" . (int)$arr['id'] . "'><b>" . htmlsafechars($arr['username']) . "</b></a>" . ($arr["donor"] == "yes" ? "<img src='pic/star.gif' border='0' alt='" . $lang['text_donor'] . "' />" : "") . ($arr["warned"] >= 1 ? "<img src='pic/warned.gif' border='0' alt='" . $lang['text_warned'] . "' />" : "") . "</td>
+        $HTMLOUT.= "<tr align='center'><td><input type=\"checkbox\" name=\"ids[]\" value=\"" . (int) $arr['id'] . "\" /></td><td><a href='/userdetails.php?id=" . (int) $arr['id'] . "'><b>" . htmlsafechars($arr['username']) . "</b></a>" . ($arr["donor"] == "yes" ? "<img src='pic/star.gif' border='0' alt='" . $lang['text_donor'] . "' />" : "") . ($arr["warned"] >= 1 ? "<img src='pic/warned.gif' border='0' alt='" . $lang['text_warned'] . "' />" : "") . "</td>
 		<td style='white-space: nowrap;'>{$added}</td>
 		<td style='white-space: nowrap;'>{$last_access}</td>
 		<td>{$class}</td>
@@ -128,9 +133,12 @@ if (mysqli_num_rows($res) != 0) {
     $HTMLOUT.= "<tr><td colspan='10' align='center'><select name='do'><option value='enabled' disabled='disabled' selected='selected'>{$lang['text_wtd']}</option><option value='enabled'>{$lang['text_es']}</option><option value='confirm'>{$lang['text_cs']}</option><option value='delete'>{$lang['text_ds']}</option></select><input type='submit' value='" . $lang['text_submit'] . "' /></td></tr>";
     $HTMLOUT.= "</table>";
     $HTMLOUT.= "</form>";
- $HTMLOUT.= "</div>";
-       if ($count > $perpage) $HTMLOUT.= $pager['pagerbottom'];
-} else $HTMLOUT.= stdmsg($lang['std_sorry'], $lang['std_nf']);
+    $HTMLOUT.= "</div>";
+    if ($count > $perpage) {
+        $HTMLOUT.= $pager['pagerbottom'];
+    }
+} else {
+    $HTMLOUT.= stdmsg($lang['std_sorry'], $lang['std_nf']);
+}
  $HTMLOUT.= "</div>";
 echo stdhead($lang['text_stdhead']) . $HTMLOUT . stdfoot($stdfoot);
-?>

@@ -36,79 +36,77 @@
  *   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
  ************************************************************************************/
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Brainfuck',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array(),
-    'COMMENT_REGEXP' => array(1 => '/[^\n+\-<>\[\]\.\,Y]+/s'),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => [],
+    'COMMENT_REGEXP' => [1 => '/[^\n+\-<>\[\]\.\,Y]+/s'],
     'CASE_KEYWORDS' => GESHI_CAPS_UPPER,
-    'QUOTEMARKS' => array(),
+    'QUOTEMARKS' => [],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        ),
-    'SYMBOLS' => array(
-        0 => array('+', '-'),
-        1 => array('[', ']'),
-        2 => array('<', '>'),
-        3 => array('.', ','),
-        4 => array('Y') //Brainfork Extension ;-)
-        ),
-    'CASE_SENSITIVE' => array(
+    'KEYWORDS' => [
+    ],
+    'SYMBOLS' => [
+        0 => ['+', '-'],
+        1 => ['[', ']'],
+        2 => ['<', '>'],
+        3 => ['.', ','],
+        4 => ['Y'] //Brainfork Extension ;-)
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
-            ),
-        'COMMENTS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
+        ],
+        'COMMENTS' => [
             1 => 'color: #666666; font-style: italic;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'NUMBERS' => [
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #006600;',
             1 => 'color: #660000;',
             2 => 'color: #000066;',
             3 => 'color: #660066;',
             4 => 'color: #666600;'
-            ),
-        'ESCAPE_CHAR' => array(
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
-        ),
+        ],
+        'ESCAPE_CHAR' => [
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'ENABLE_FLAGS' => array(
+    'PARSER_CONTROL' => [
+        'ENABLE_FLAGS' => [
             'STRINGS' => GESHI_NEVER,
             'NUMBERS' => GESHI_NEVER
-            ),
-        'KEYWORDS' => array(
+        ],
+        'KEYWORDS' => [
             'DISALLOW_BEFORE' => '',
             'DISALLOW_AFTER' => ''
-            )
-        )
-);
-
-?>
+        ]
+    ]
+];

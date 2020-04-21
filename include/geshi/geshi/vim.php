@@ -43,18 +43,18 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'Vim Script',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_REGEXP' => array(
+    'COMMENT_SINGLE' => [],
+    'COMMENT_REGEXP' => [
         1 => "/^\".*$/m"
-        ),
-    'COMMENT_MULTI' => array(),
+    ],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'brea', 'break', 'call', 'cat', 'catc',
             'catch', 'con', 'cont', 'conti',
             'contin', 'continu', 'continue', 'ec', 'echo',
@@ -70,14 +70,14 @@ $language_data = array(
             'thr', 'thro', 'throw', 'try', 'unl', 'unle', 'unlet', 'unlo', 'unloc',
             'unlock', 'unlockv', 'unlockva', 'unlockvar', 'wh', 'whi', 'whil',
             'while'
-            ),
-        2 => array(
+        ],
+        2 => [
             'autocmd', 'com', 'comm', 'comma', 'comman', 'command', 'comc',
             'comcl', 'comcle', 'comclea', 'comclear', 'delc', 'delco',
             'delcom', 'delcomm', 'delcomma', 'delcomman', 'delcommand',
             '-nargs' # TODO There are zillions of commands to be added here from http://vimdoc.sourceforge.net/htmldoc/usr_toc.html
-            ),
-        3 => array(
+        ],
+        3 => [
             'abs', 'add', 'append', 'argc', 'argidx', 'argv', 'atan',
             'browse', 'browsedir', 'bufexists', 'buflisted', 'bufloaded',
             'bufname', 'bufnr', 'bufwinnr', 'byte2line', 'byteidx',
@@ -124,62 +124,60 @@ $language_data = array(
             'trunc', 'type', 'values', 'virtcol', 'visualmode', 'winbufnr',
             'wincol', 'winheight', 'winline', 'winnr', 'winrestcmd',
             'winrestview', 'winsaveview', 'winwidth', 'writefile'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '!', '%', '&', '*', '|', '/', '<', '>',
         '^', '-', '+', '~', '?', ':', '$', '@', '.'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
         3 => true
-        ),
-    'STYLES' => array(
-        'BRACKETS' => array(
+    ],
+    'STYLES' => [
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #adadad; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'KEYWORDS' => array(
+        ],
+        'KEYWORDS' => [
             1 => 'color: #804040;',
             2 => 'color: #668080;',
             3 => 'color: #25BB4D;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #000000;',
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #000000; font-weight:bold;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            ),
-        'STRINGS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ],
+        'STRINGS' => [
             0 => 'color: #C5A22D;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000000;'
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false, //Save some time as OO identifiers aren't used
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => []
+];

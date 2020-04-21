@@ -59,140 +59,138 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'DOS',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => [],
     //DOS comment lines
-    'COMMENT_REGEXP' => array(1 => "/^\s*@?REM.*$/mi"),
+    'COMMENT_REGEXP' => [1 => "/^\s*@?REM.*$/mi"],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array(),
+    'QUOTEMARKS' => [],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         /* Flow control keywords */
-        1 => array(
+        1 => [
             'if', 'else', 'goto', 'shift',
             'for', 'in', 'do',
             'call', 'exit'
-            ),
+        ],
         /* IF statement keywords */
-        2 => array(
+        2 => [
             'not', 'exist', 'errorlevel',
             'defined',
             'equ', 'neq', 'lss', 'leq', 'gtr', 'geq'
-            ),
+        ],
         /* Internal commands */
-        3 => array(
+        3 => [
             'cd', 'md', 'rd', 'chdir', 'mkdir', 'rmdir', 'dir',
             'del', 'copy', 'move', 'ren', 'rename',
             'echo',
             'setlocal', 'endlocal', 'set',
             'pause',
             'pushd', 'popd', 'title', 'verify'
-            ),
+        ],
         /* Special files */
-        4 => array(
+        4 => [
             'prn', 'nul', 'lpt3', 'lpt2', 'lpt1', 'con',
             'com4', 'com3', 'com2', 'com1', 'aux'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '@', '%'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #00b100; font-weight: bold;',
             2 => 'color: #000000; font-weight: bold;',
             3 => 'color: #b1b100; font-weight: bold;',
             4 => 'color: #0000ff; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #ff0000; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #33cc33;',
             1 => 'color: #33cc33;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
             0 => 'color: #b100b1; font-weight: bold;',
             1 => 'color: #448844;',
             2 => 'color: #448888;'
-            )
-        ),
+        ]
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'URLS' => array(
+    'OBJECT_SPLITTERS' => [
+    ],
+    'URLS' => [
         1 => 'http://www.ss64.com/nt/{FNAMEL}.html',
         2 => 'http://www.ss64.com/nt/{FNAMEL}.html',
         3 => 'http://www.ss64.com/nt/{FNAMEL}.html',
         4 => 'http://www.ss64.com/nt/{FNAMEL}.html'
-        ),
-    'REGEXPS' => array(
+    ],
+    'REGEXPS' => [
         /* Label */
-        0 => array(
-/*            GESHI_SEARCH => '((?si:[@\s]+GOTO\s+|\s+:)[\s]*)((?<!\n)[^\s\n]*)',*/
+        0 => [
+            /*            GESHI_SEARCH => '((?si:[@\s]+GOTO\s+|\s+:)[\s]*)((?<!\n)[^\s\n]*)',*/
             GESHI_SEARCH => '((?si:[@\s]+GOTO\s+|\s+:)[\s]*)((?<!\n)[^\n]*)',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => 'si',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => ''
-        ),
+        ],
         /* Variable assignement */
-        1 => array(
-/*            GESHI_SEARCH => '(SET[\s]+(?si:\/A[\s]+|\/P[\s]+|))([^=\s\n]+)([\s]*=)',*/
+        1 => [
+            /*            GESHI_SEARCH => '(SET[\s]+(?si:\/A[\s]+|\/P[\s]+|))([^=\s\n]+)([\s]*=)',*/
             GESHI_SEARCH => '(SET[\s]+(?si:\/A[\s]+|\/P[\s]+|))([^=\n]+)([\s]*=)',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => 'si',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
+        ],
         /* Arguments or variable evaluation */
-        2 => array(
-/*            GESHI_SEARCH => '(%)([\d*]|[^%\s]*(?=%))((?<!%\d)%|)',*/
+        2 => [
+            /*            GESHI_SEARCH => '(%)([\d*]|[^%\s]*(?=%))((?<!%\d)%|)',*/
             GESHI_SEARCH => '(%(?:%(?=[a-z0-9]))?)([\d*]|(?:~[adfnpstxz]*(?:$\w+:)?)?[a-z0-9](?!\w)|[^%\n]*(?=%))((?<!%\d)%|)',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => 'si',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            )
-        ),
+        ]
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
     'TAB_WIDTH' => 4,
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            4 => array(
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            4 => [
                 'DISALLOWED_BEFORE' => '(?<!\w)'
-                )
-            )
-        )
-);
-
-?>
+            ]
+        ]
+    ]
+];

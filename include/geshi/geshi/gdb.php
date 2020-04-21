@@ -37,55 +37,55 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'GDB',
-    'COMMENT_SINGLE' => array(),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        0 => array(
+    'KEYWORDS' => [
+        0 => [
             'Application',
             'signal',
-            ),
-        1 => array(
+        ],
+        1 => [
             'Segmentation fault',
             '[KCrash Handler]',
-            ),
-        ),
+        ],
+    ],
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC,
-    'SYMBOLS' => array(
-        ),
-    'CASE_SENSITIVE' => array(
+    'SYMBOLS' => [
+    ],
+    'CASE_SENSITIVE' => [
         0 => true,
         1 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             0 => 'font-weight:bold;',
             1 => 'font-weight:bold; color: #ff0000;'
-            ),
-        'COMMENTS' => array(
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'COMMENTS' => [
+        ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'font-weight:bold;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #933;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;',
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
-            ),
-        'REGEXPS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
+        ],
+        'REGEXPS' => [
             0 => 'color: #000066; font-weight:bold;',
             1 => 'color: #006600;',
             2 => 'color: #000066;',
@@ -94,82 +94,80 @@ $language_data = array (
             5 => 'color: #A3007D;',
             6 => 'color: #FF00BF;',
             7 => 'font-weight: bold;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         0 => '',
         1 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
         //[Current Thread...], [KCrash Handler] etc.
-        0 => array(
+        0 => [
             GESHI_SEARCH => '^\[.+\]',
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
+        ],
         //stack number
-        1 => array(
+        1 => [
             GESHI_SEARCH => '^#\d+',
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
+        ],
         //Thread X (Thread...)
-        2 => array(
+        2 => [
             GESHI_SEARCH => '^Thread \d.+$',
             GESHI_REPLACE => '\\0',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '',
             GESHI_AFTER => ''
-            ),
+        ],
         //Files with linenumbers
-        3 => array(
+        3 => [
             GESHI_SEARCH => '(at )(.+)(:\d+\s*)$',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
+        ],
         //Libs without linenumbers
-        4 => array(
+        4 => [
             GESHI_SEARCH => '(from )(.+)(\s*)$',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
+        ],
         //Hex mem address
         5 => '0x[a-f0-9]+',
         //Line numbers
-        6 => array(
+        6 => [
             GESHI_SEARCH => '(:)(\d+)(\s*)$',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => 'm',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
+        ],
         //Location
-        7 => array(
+        7 => [
             GESHI_SEARCH => '( in )([^ \(\)]+)( \()',
             GESHI_REPLACE => '\\2',
             GESHI_MODIFIERS => '',
             GESHI_BEFORE => '\\1',
             GESHI_AFTER => '\\3'
-            ),
-        ),
+        ],
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

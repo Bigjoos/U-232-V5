@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 $count_snatched = 0;
 function snatchtable($res)
@@ -41,14 +41,14 @@ function snatchtable($res)
         $XBT_or_PHP_TIME = (XBT_TRACKER == true ? $arr["completedtime"] : $arr["complete_date"]);
         $htmlout.= "<tr>
  <td style='padding: 0px'><img src='{$INSTALLER09['pic_base_url']}caticons/{$CURUSER['categorie_icon']}/" . htmlsafechars($arr["catimg"]) . "' alt='" . htmlsafechars($arr["catname"]) . "' width='42' height='42' /></td>
- <td><a href='details.php?id=" . (int)$XBT_or_PHP . "'><b>" . (strlen($arr["name"]) > 50 ? substr($arr["name"], 0, 50 - 3) . "..." : htmlsafechars($arr["name"])) . "</b></a></td>
+ <td><a href='details.php?id=" . (int) $XBT_or_PHP . "'><b>" . (strlen($arr["name"]) > 50 ? substr($arr["name"], 0, 50 - 3) . "..." : htmlsafechars($arr["name"])) . "</b></a></td>
  <td>" . mksize($arr["uploaded"]) . "</td>
  <td>$upspeed/s</td>
  " . ($INSTALLER09['ratio_free'] ? "" : "<td>" . mksize($arr["downloaded"]) . "</td>") . "
  " . ($INSTALLER09['ratio_free'] ? "" : "<td>$downspeed/s</td>") . "
  <td>$ratio</td>
  <td>" . mkprettytime($arr["seedtime"] + $arr["leechtime"]) . "</td>
- <td>" . ($XBT_or_PHP_TIME <> 0 ? "<font color='green'><b>{$lang['userdetails_yes']}</b></font>" : "<font color='red'><b>{$lang['userdetails_no']}</b></font>") . "</td>
+ <td>" . ($XBT_or_PHP_TIME != 0 ? "<font color='green'><b>{$lang['userdetails_yes']}</b></font>" : "<font color='red'><b>{$lang['userdetails_no']}</b></font>") . "</td>
  </tr>\n";
     }
     $htmlout.= "</table>\n";
@@ -57,35 +57,36 @@ function snatchtable($res)
 if ($user['paranoia'] < 2 || $user['opt1'] & user_options::HIDECUR || $CURUSER['id'] == $id || $CURUSER['class'] >= UC_STAFF) {
     //==Snatched
 
-//    if (($user_snatches_data = $mc1->get_value('user_snatches_data_' . $id)) === false) {
-        if (XBT_TRACKER === false) {
-        $ressnatch = sql_query("SELECT s.*, t.name AS name, c.name AS catname, c.image AS catimg FROM snatched AS s INNER JOIN torrents AS t ON s.torrentid = t.id LEFT JOIN categories AS c ON t.category = c.id WHERE s.userid =" . sqlesc($user['id'])." AND s.torrentid IN (SELECT id FROM torrents)") or sqlerr(__FILE__, __LINE__);
-        } else {
-         $ressnatch = sql_query("SELECT x.*, t.name AS name, c.name AS catname, c.image AS catimg FROM xbt_files_users AS x INNER JOIN torrents AS t ON x.fid = t.id LEFT JOIN categories AS c ON t.category = c.id WHERE x.uid =" . sqlesc($user['id'])." AND x.fid IN (SELECT id FROM torrents)") or sqlerr(__FILE__, __LINE__);
-        }
-$count_snatched = mysqli_num_rows($ressnatch);
-            if (mysqli_num_rows($ressnatch) > 0) {
-
+//    if (($user_snatches_data = $cache->get('user_snatches_data_' . $id)) === false) {
+    if (XBT_TRACKER === false) {
+        $ressnatch = sql_query("SELECT s.*, t.name AS name, c.name AS catname, c.image AS catimg FROM snatched AS s INNER JOIN torrents AS t ON s.torrentid = t.id LEFT JOIN categories AS c ON t.category = c.id WHERE s.userid =" . sqlesc($user['id']) . " AND s.torrentid IN (SELECT id FROM torrents)") or sqlerr(__FILE__, __LINE__);
+    } else {
+        $ressnatch = sql_query("SELECT x.*, t.name AS name, c.name AS catname, c.image AS catimg FROM xbt_files_users AS x INNER JOIN torrents AS t ON x.fid = t.id LEFT JOIN categories AS c ON t.category = c.id WHERE x.uid =" . sqlesc($user['id']) . " AND x.fid IN (SELECT id FROM torrents)") or sqlerr(__FILE__, __LINE__);
+    }
+    $count_snatched = mysqli_num_rows($ressnatch);
+    if (mysqli_num_rows($ressnatch) > 0) {
         $user_snatches_data = snatchtable($ressnatch);
-//        $mc1->cache_value('user_snatches_data_' . $id, $user_snatches_data, $INSTALLER09['expires']['user_snatches_data']);
-            } else {
-            $user_snatches_data = $lang['userdetails_s_nothing'];     
-            }
+//        $cache->set('user_snatches_data_' . $id, $user_snatches_data, $INSTALLER09['expires']['user_snatches_data']);
+    } else {
+        $user_snatches_data = $lang['userdetails_s_nothing'];
+    }
 //            }
     /*
-    if (isset($user_snatches_data)) 
-       $HTMLOUT .= "   <tr valign=\"top\">    
+    if (isset($user_snatches_data))
+       $HTMLOUT .= "   <tr valign=\"top\">
                         <td class=\"rowhead\" width=\"10%\">
                          {$lang['userdetails_cur_snatched']}
-                      </td>    
-                      <td align=\"left\" width=\"90%\">    
-                         <a href=\"#\" id=\"slick-toggle\">Show/Hide</a>       
-                         <div id=\"slickbox\" style=\"display: none;\">$user_snatches_data</div>    
-                      </td>    
-                   </tr>";    
+                      </td>
+                      <td align=\"left\" width=\"90%\">
+                         <a href=\"#\" id=\"slick-toggle\">Show/Hide</a>
+                         <div id=\"slickbox\" style=\"display: none;\">$user_snatches_data</div>
+                      </td>
+                   </tr>";
     //}
     */
-    if (isset($user_snatches_data)) $HTMLOUT.= "<tr valign=\"top\"><td class=\"rowhead\" width=\"10%\">{$lang['userdetails_cur_snatched']} of {$count_snatched}</td><td align=\"left\" width=\"90%\"><a href=\"javascript: klappe_news('a3')\"><img border=\"0\" src=\"pic/plus.png\" id=\"pica3\" alt=\"Show/Hide\" /></a><div id=\"ka3\" style=\"display: none;\">$user_snatches_data</div></td></tr>\n";
+    if (isset($user_snatches_data)) {
+        $HTMLOUT.= "<tr valign=\"top\"><td class=\"rowhead\" width=\"10%\">{$lang['userdetails_cur_snatched']} of {$count_snatched}</td><td align=\"left\" width=\"90%\"><a href=\"javascript: klappe_news('a3')\"><img border=\"0\" src=\"pic/plus.png\" id=\"pica3\" alt=\"Show/Hide\" /></a><div id=\"ka3\" style=\"display: none;\">$user_snatches_data</div></td></tr>\n";
+    }
 }
 //==End
 // End Class

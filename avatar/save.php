@@ -1,22 +1,22 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once ("getstats.php");
+require_once("getstats.php");
 $_settings = $_SERVER["DOCUMENT_ROOT"] . "/avatar/settings/";
 $do = isset($_POST['action']) && htmlsafechars($_POST['action']) == 'load' ? 'load' : 'save';
 $user = isset($_POST['user']) ? strtolower(htmlsafechars($_POST['user'])) : '';
@@ -32,9 +32,10 @@ for ($i = 1; $i <= 3; $i++) {
     $set['line' . $i]['value'] = isset($_POST['drp' . $i]) ? $_POST['drp' . $i] : '';
 }
 if (!empty($user) && $do == 'save') {
-    print (file_put_contents($_settings . $user . ".set", serialize($set)) ? 1 : 0);
+    print(file_put_contents($_settings . $user . ".set", serialize($set)) ? 1 : 0);
     getStats($user);
 } else {
-    if (file_exists($_settings . $user . ".set")) print (json_encode(unserialize(file_get_contents($_settings . $user . ".set"))));
+    if (file_exists($_settings . $user . ".set")) {
+        print(json_encode(unserialize(file_get_contents($_settings . $user . ".set"))));
+    }
 }
-?>

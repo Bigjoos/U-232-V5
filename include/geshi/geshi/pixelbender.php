@@ -62,32 +62,32 @@
  *
  ************************************************************************************/
 
-$language_data = array(
+$language_data = [
     'LANG_NAME' => 'Pixel Bender 1.0',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'languageVersion', 'kernel'
-            ),
-        2 => array(
+        ],
+        2 => [
             'import', 'parameter', 'dependent', 'const', 'input', 'output',
             'evaluatePixel', 'evaluateDependents', 'needed', 'changed', 'generated'
-            ),
-        3 => array(
+        ],
+        3 => [
             'bool', 'bool2', 'bool3', 'bool4', 'int', 'int2', 'int3', 'int4',
             'float', 'float2', 'float3', 'float4', 'float2x2', 'float3x3', 'float4x4',
             'pixel2', 'pixel3', 'pixel4', 'region', 'image1', 'image2', 'image3', 'image4',
             'imageRef', 'void'
-            ),
-        4 => array(
+        ],
+        4 => [
             'in', 'out', 'inout', 'if', 'else', 'for', 'while', 'do', 'break',
             'continue', 'return'
-            ),
-        5 => array(
+        ],
+        5 => [
             'radians', 'degrees', 'sin', 'cos', 'tan', 'asin', 'acos', 'atan', 'pow',
             'exp', 'exp2', 'log', 'log2', 'sqrt', 'inverseSqrt', 'abs', 'sign', 'floor',
             'ceil', 'fract', 'mod', 'min', 'max', 'step', 'clamp', 'mix', 'smoothStep',
@@ -96,19 +96,19 @@ $language_data = array(
             'all', 'not', 'nowhere', 'everywhere', 'transform', 'union', 'intersect',
             'outset', 'inset', 'bounds', 'isEmpty', 'sample', 'sampleLinear', 'sampleNearest',
             'outCoord', 'dod', 'pixelSize', 'pixelAspectRatio'
-            ),
-        6 => array(
+        ],
+        6 => [
             'namespace', 'vendor', 'version', 'minValue', 'maxValue', 'defaultValue', 'description'
-            ),
-        7 => array(
+        ],
+        7 => [
             '#if', '#endif', '#ifdef', '#elif', 'defined', '#define',
             'AIF_ATI', 'AIF_NVIDIA', 'AIF_FLASH_TARGET'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '!', '%', '&', '|', '+', '-', '*', '/', '=', '<', '>', '?', ':'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => true,
         2 => true,
@@ -117,9 +117,9 @@ $language_data = array(
         5 => true,
         6 => true,
         7 => true
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0033ff;',
             2 => 'color: #0033ff; font-weight: bold;',
             3 => 'color: #0033ff;',
@@ -127,35 +127,35 @@ $language_data = array(
             5 => 'color: #333333;',
             6 => 'color: #666666;',
             7 => 'color: #990000;',
-        ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #009900;',
             'MULTI' => 'color: #3f5fbf;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => ''
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #990000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #000000; font-weight:bold;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #000000;',
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000000; font-weight: bold;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
@@ -163,14 +163,11 @@ $language_data = array(
         5 => '',
         6 => '',
         7 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array('.'),
-    'REGEXPS' => array(),
+    'OBJECT_SPLITTERS' => ['.'],
+    'REGEXPS' => [],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(),
-    'HIGHLIGHT_STRICT_BLOCK' => array()
-);
-
-
-?>
+    'SCRIPT_DELIMITERS' => [],
+    'HIGHLIGHT_STRICT_BLOCK' => []
+];

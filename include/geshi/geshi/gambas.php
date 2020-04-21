@@ -42,19 +42,19 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'GAMBAS',
-    'COMMENT_SINGLE' => array(1 => "'"),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => "'"],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
     'NUMBERS' =>
         GESHI_NUMBER_INT_BASIC | GESHI_NUMBER_OCT_PREFIX | GESHI_NUMBER_HEX_PREFIX |
         GESHI_NUMBER_FLT_NONSCI_F | GESHI_NUMBER_FLT_SCI_SHORT | GESHI_NUMBER_FLT_SCI_ZERO,
-    'KEYWORDS' => array(
+    'KEYWORDS' => [
         //keywords
-        1 => array(
+        1 => [
             'APPEND', 'AS', 'BREAK', 'BYREF', 'CASE', 'CATCH', 'CLASS', 'CLOSE', 'CONST', 'CONTINUE', 'COPY',
             'CREATE', 'DEBUG', 'DEC', 'DEFAULT', 'DIM', 'DO', 'EACH', 'ELSE', 'END', 'ENDIF', 'ERROR', 'EVENT', 'EXEC',
             'EXPORT', 'EXTERN', 'FALSE', 'FINALLY', 'FLUSH', 'FOR', 'FUNCTION', 'GOTO', 'IF', 'IN', 'INC', 'INHERITS',
@@ -63,9 +63,9 @@ $language_data = array (
             'PROCEDURE', 'PROPERTY', 'PUBLIC', 'QUIT', 'RAISE', 'RANDOMIZE', 'READ', 'REPEAT', 'RETURN', 'RMDIR',
             'SEEK', 'SELECT', 'SHELL', 'SLEEP', 'STATIC', 'STEP', 'STOP', 'SUB', 'SUPER', 'SWAP', 'THEN', 'TO',
             'TRUE', 'TRY', 'UNLOCK', 'UNTIL', 'WAIT', 'WATCH', 'WEND', 'WHILE', 'WITH', 'WRITE'
-            ),
+        ],
         //functions
-        2 => array(
+        2 => [
             'Abs', 'Access', 'Acos', 'Acosh', 'Alloc', 'Ang', 'Asc', 'ASin', 'ASinh', 'Asl', 'Asr', 'Assign', 'Atan',
             'ATan2', 'ATanh',
             'BChg', 'BClr', 'Bin', 'BSet', 'BTst',
@@ -85,24 +85,24 @@ $language_data = array (
             'Stat', 'Str', 'StrPtr', 'Subst',
             'Tan', 'Tanh', 'Temp$', 'Time', 'Timer', 'Tr', 'Trim', 'TypeOf',
             'UCase', 'Unquote', 'Val', 'VarPtr', 'Week', 'WeekDay', 'Year'
-            ),
+        ],
         //string functions
-        3 => array(
+        3 => [
             'Bin$', 'Chr$', 'Conv$', 'DConv$', 'Format$', 'Hex$', 'LCase$', 'Left$', 'LTrim$', 'Mid$', 'Quote$',
             'Replace$', 'Right$', 'SConv$', 'Space$', 'Str$', 'String$', 'Subst$', 'Tr$', 'Trim$', 'UCase$',
             'Unquote$'
-            ),
+        ],
         //datatypes
-        4 => array(
+        4 => [
             'Boolean', 'Byte', 'Short', 'Integer', 'Long', 'Single', 'Float', 'Date', 'String', 'Variant', 'Object',
             'Pointer', 'File'
-            ),
+        ],
         //operators
-        5 => array(
+        5 => [
             'AND', 'DIV', 'MOD', 'NOT', 'OR', 'XOR'
-            ),
+        ],
         //objects/classes
-        6 => array(
+        6 => [
             'Application', 'Array', 'Byte[]', 'Collection', 'Component', 'Enum', 'Observer', 'Param', 'Process',
             'Stream', 'System', 'User', 'Chart', 'Compress', 'Crypt', 'Blob', 'Connection', 'DB', 'Database',
             'DatabaseUser', 'Field', 'Index', 'Result', 'ResultField', 'Table', 'DataBrowser', 'DataCombo',
@@ -122,17 +122,17 @@ $language_data = array (
             'CDRom', 'Channel', 'Music', 'Sound', 'Settings', 'VideoDevice', 'Vb', 'CGI', 'HTML', 'Request', 'Response',
             'Session', 'XmlDocument', 'XmlNode', 'XmlReader', 'XmlReaderNodeType', 'XmlWriter', 'RpcArray', 'RpcClient',
             'RpcFunction', 'RpcServer', 'RpcStruct', 'RpcType', 'XmlRpc', 'Xslt'
-            ),
+        ],
         //constants
-        7 => array(
+        7 => [
             'Pi'
-            ),
-        ),
-    'SYMBOLS' => array(
+        ],
+    ],
+    'SYMBOLS' => [
         '&', '&=', '&/', '*', '*=', '+', '+=', '-', '-=', '//', '/', '/=', '=', '==', '\\', '\\=',
         '^', '^=', '[', ']', '{', '}', '<', '>', '<>', '<=', '>='
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
@@ -141,9 +141,9 @@ $language_data = array (
         5 => false,
         6 => false,
         7 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0600FF; font-weight: bold;',          // Keywords
             2 => 'color: #8B1433;',                             // Functions
             3 => 'color: #8B1433;',                             // String Functions
@@ -151,37 +151,37 @@ $language_data = array (
             5 => 'color: #1E90FF;',                             // Operators
             6 => 'color: #0600FF;',                             // Objects/Components
             7 => 'color: #0600FF;'                              // Constants
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #1A5B1A; font-style: italic;',
             'MULTI' => 'color: #1A5B1A; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #008080;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #612188;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #7E4B05;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #FF0000;',
             GESHI_NUMBER_INT_BASIC => 'color: #FF0000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #0000FF;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #6132B2;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             //3 => 'color: #8B1433;'  //fakes '$' colour matched by REGEXP
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => 'http://gambasdoc.org/help/lang/{FNAMEL}',
         2 => 'http://gambasdoc.org/help/lang/{FNAMEL}',
         3 => 'http://www.google.com/search?hl=en&amp;q={FNAMEL}+site:http://gambasdoc.org/help/lang/&amp;btnI=I%27m%20Feeling%20Lucky',
@@ -189,26 +189,24 @@ $language_data = array (
         5 => 'http://gambasdoc.org/help/lang/{FNAMEL}',
         6 => 'http://www.google.com/search?hl=en&amp;q={FNAMEL}+site:http://gambasdoc.org/&amp;btnI=I%27m%20Feeling%20Lucky',
         7 => 'http://gambasdoc.org/help/lang/{FNAMEL}'
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 =>'.'
-        ),
-    'REGEXPS' => array(
+    ],
+    'REGEXPS' => [
         //3 => "\\$(?!\\w)"   //matches '$' at the end of Keyword
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        ),
-    'PARSER_CONTROL' => array(
-        'KEYWORDS' => array(
-            2 => array(
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ],
+    'PARSER_CONTROL' => [
+        'KEYWORDS' => [
+            2 => [
                 'DISALLOWED_AFTER' => "(?![a-zA-Z0-9_\|%\\-&;\$])"
-                )
-            )
-        )
-);
-
-?>
+            ]
+        ]
+    ]
+];

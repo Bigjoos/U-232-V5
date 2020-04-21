@@ -1,24 +1,26 @@
  <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ *
+ * @param mixed $data
  */
 function docleanup($data)
 {
-    global $INSTALLER09, $queries, $mc1;
+    global $INSTALLER09, $queries, $cache;
     set_time_limit(1200);
     ignore_user_abort(1);
     //== Updated promote power users
@@ -64,9 +66,8 @@ function docleanup($data)
         }
         //Search for users to be updated//
         $res = sql_query("SELECT id, uploaded, downloaded, invites, modcomment FROM users WHERE class = '$prev_class'  AND uploaded >= $limit AND uploaded / downloaded >= $minratio AND enabled='yes' AND added < $maxdt") or sqlerr(__FILE__, __LINE__);
-        $msgs_buffer = $users_buffer = array();
+        $msgs_buffer = $users_buffer = [];
         if (mysqli_num_rows($res) > 0) {
-            
             $subject = "Class Promotion";
             $msg     = "Congratulations, you have been promoted to [b]" . $class_name . "[/b]. :)\n You get one extra invite.\n";
             while ($arr = mysqli_fetch_assoc($res)) {
@@ -78,25 +79,19 @@ function docleanup($data)
                 $msgs_buffer[]     = '(0,' . $userid . ', ' . TIME_NOW . ', ' . sqlesc($msg) . ', ' . sqlesc($subject) . ')';
                 $users_buffer[]    = '(' . $userid . ', ' . $class_value . ', 1, ' . $modcom . ')';
                 $update['invites'] = ($arr['invites'] + 1);
-                $mc1->begin_transaction('user' . $userid);
-                $mc1->update_row(false, array(
+                $cache->update_row('user' . $userid, [
                     'class' => $class_value,
                     'invites' => $update['invites']
-                ));
-                $mc1->commit_transaction($INSTALLER09['expires']['user_cache']);
-                $mc1->begin_transaction('user_stats_' . $userid);
-                $mc1->update_row(false, array(
+                ], $INSTALLER09['expires']['user_cache']);
+                $cache->update_row('user_stats_' . $userid, [
                     'modcomment' => $modcomment
-                ));
-                $mc1->commit_transaction($INSTALLER09['expires']['user_stats']);
-                $mc1->begin_transaction('MyUser_' . $userid);
-                $mc1->update_row(false, array(
+                ], $INSTALLER09['expires']['user_stats']);
+                $cache->update_row('MyUser_' . $userid, [
                     'class' => $class_value,
                     'invites' => $update['invites']
-                ));
-                $mc1->commit_transaction($INSTALLER09['expires']['curuser']);
-                $mc1->delete_value('inbox_new_' . $userid);
-                $mc1->delete_value('inbox_new_sb_' . $userid);
+                ], $INSTALLER09['expires']['curuser']);
+                $cache->delete('inbox_new_' . $userid);
+                $cache->delete('inbox_new_sb_' . $userid);
             }
             $count = count($users_buffer);
             if ($count > 0) {
@@ -106,12 +101,12 @@ function docleanup($data)
                 status_change($userid); //== For Retros announcement mod
             }
             unset($users_buffer, $msgs_buffer, $update, $count);
-            
         }
         //==
-        if ($queries > 0)
+        if ($queries > 0) {
             write_log("$class_name Updates -------------------- Power User Updates Clean Complete using $queries queries--------------------");
-        if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
+        }
+        if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
             $data['clean_desc'] = mysqli_affected_rows($GLOBALS["___mysqli_ston"]) . " items deleted/updated";
         }
         if ($data['clean_log']) {

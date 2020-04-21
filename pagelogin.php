@@ -1,24 +1,24 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 //== loginlink mod - stonebreath/laffin
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
 dbconn();
 //== 09 failed logins thanks to pdq - Retro
 function failedloginscheck()
@@ -35,15 +35,20 @@ function failedloginscheck()
 }
 //==End
 failedloginscheck();
-if (!mkglobal("qlogin") || (strlen($qlogin = $qlogin) != 96)) die(n00b);
+if (!mkglobal("qlogin") || (strlen($qlogin = $qlogin) != 96)) {
+    die(n00b);
+}
 function bark($text = 'Username or password incorrect')
 {
-    global $lang, $INSTALLER09, $mc1;
+    global $lang, $INSTALLER09, $cache;
     $sha = sha1($_SERVER['REMOTE_ADDR']);
     $dict_key = 'dictbreaker:::' . $sha;
-    $flood = $mc1->get_value($dict_key);
-    if ($flood === false) $mc1->cache_value($dict_key, 'flood_check', 20);
-    else die('Minimum 8 seconds between login attempts :)');
+    $flood = $cache->get($dict_key);
+    if ($flood === false) {
+        $cache->set($dict_key, 'flood_check', 20);
+    } else {
+        die('Minimum 8 seconds between login attempts :)');
+    }
     stderr($lang['tlogin_failed'], $text);
 }
 $hash1 = substr($qlogin, 0, 32);
@@ -56,11 +61,16 @@ $ip = getip();
 if (!$row) {
     $added = TIME_NOW;
     $fail = (mysqli_fetch_row(sql_query("SELECT COUNT(id) from failedlogins where ip=" . sqlesc($ip)))) or sqlerr(__FILE__, __LINE__);
-    if ($fail[0] == 0) sql_query("INSERT INTO failedlogins (ip, added, attempts) VALUES (" . sqlesc($ip) . ", " . sqlesc($added) . ", 1)") or sqlerr(__FILE__, __LINE__);
-    else sql_query("UPDATE failedlogins SET attempts = attempts + 1 WHERE ip=" . sqlesc($ip)) or sqlerr(__FILE__, __LINE__);
+    if ($fail[0] == 0) {
+        sql_query("INSERT INTO failedlogins (ip, added, attempts) VALUES (" . sqlesc($ip) . ", " . sqlesc($added) . ", 1)") or sqlerr(__FILE__, __LINE__);
+    } else {
+        sql_query("UPDATE failedlogins SET attempts = attempts + 1 WHERE ip=" . sqlesc($ip)) or sqlerr(__FILE__, __LINE__);
+    }
     bark();
 }
-if ($row['enabled'] == 'no') stderr("Error", "This account has been disabled.");
+if ($row['enabled'] == 'no') {
+    stderr("Error", "This account has been disabled.");
+}
 $passh = md5($row["passhash"] . $_SERVER["REMOTE_ADDR"]);
 logincookie($row["id"], $passh);
 sql_query("DELETE FROM failedlogins WHERE ip = " . sqlesc($ip)) or sqlerr(__FILE__, __LINE__);
@@ -84,4 +94,3 @@ $HTMLOUT.= "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN'
 </body>
 </html>";
 echo $HTMLOUT;
-?>

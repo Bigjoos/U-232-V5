@@ -1,1 +1,5 @@
 cache/new 1
+.idea
+vendor/
+.php_cs.dist
+imdb/.svn/

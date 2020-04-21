@@ -41,100 +41,98 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'ChaiScript',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
     //Regular Expressions
-    'COMMENT_REGEXP' => array(2 => "/(?<=[\\s^])s\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[gimsu]*(?=[\\s$\\.\\;])|(?<=[\\s^(=])m?\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[gimsu]*(?=[\\s$\\.\\,\\;\\)])/iU"),
+    'COMMENT_REGEXP' => [2 => "/(?<=[\\s^])s\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[gimsu]*(?=[\\s$\\.\\;])|(?<=[\\s^(=])m?\\/(?:\\\\.|(?!\n)[^\\/\\\\])+\\/[gimsu]*(?=[\\s$\\.\\,\\;\\)])/iU"],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'break', 'else', 'else if', 'eval', 'for', 'if', 'return', 'while', 'try', 'catch', 'finally',
-            ),
-        2 => array(
+        ],
+        2 => [
             'def', 'false', 'fun', 'true', 'var', 'attr',
-            ),
-        3 => array(
+        ],
+        3 => [
             // built in functions
             'throw',
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}',
         '+', '-', '*', '/', '%',
         '!', '@', '&', '|', '^',
         '<', '>', '=',
         ',', ';', '?', ':'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #000066; font-weight: bold;',
             2 => 'color: #003366; font-weight: bold;',
             3 => 'color: #000066;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #006600; font-style: italic;',
             2 => 'color: #009966; font-style: italic;',
             'MULTI' => 'color: #006600; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #009900;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #3366CC;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #CC0000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #660066;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #339933;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
             0 => '',
             1 => '',
             2 => '',
             3 => ''
-            )
-        ),
-    'URLS' => array(
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(
-        0 => array(
-            ),
-        1 => array(
-            )
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
+    'SCRIPT_DELIMITERS' => [
+        0 => [
+        ],
+        1 => [
+        ]
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
         0 => true,
         1 => true
-        )
-);
-
-?>
+    ]
+];

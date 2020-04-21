@@ -1,26 +1,26 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     'grouppm_nosub' =>  "Votre message n'a pas de sujet",
     'grouppm_nomsg' =>  "Il n'y a pas de texte dans votre message!",
     'grouppm_nogrp' =>  "Vous devez sélectionner un groupe à qui envoyer votre message",
-	'grouppm_this' =>  "\nCe message est à destination des classe(s) ",
+    'grouppm_this' =>  "\nCe message est à destination des classe(s) ",
     'grouppm_sent'  =>  "Message envoyé!",
     'grouppm_again' =>  "Impossible d'expédier le message, essayez de nouveau!",
     'grouppm_nousers'   =>  "Il n'y a aucun utilisateur dans les groupes sélectionnés!",
@@ -46,5 +46,4 @@ $lang = array(
     'grouppm_sendas'    =>  "Envoyé par <b>System</b>&nbsp",
     'grouppm_send'      =>  "Envoyé!",
     'grouppm_stdhead'   =>  "Groupe PM"
-);
-?>
+];

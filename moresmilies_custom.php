@@ -1,28 +1,30 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
 require_once INCL_DIR . 'bbcode_functions.php';
 require_once INCL_DIR . 'user_functions.php';
 dbconn(false);
 loggedinorreturn();
 $lang = array_merge(load_language('global'));
-if ($CURUSER['smile_until'] == '0') stderr("Error", "you do not have access!");
+if ($CURUSER['smile_until'] == '0') {
+    stderr("Error", "you do not have access!");
+}
 $htmlout = '';
 $htmlout = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
 		\"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">
@@ -45,12 +47,15 @@ $htmlout = "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\"
 $count = count($customsmilies);
 $ctr = 0;
 global $customsmilies;
-foreach($customsmilies as $code => $url) {
-    if ($count % 3 == 0) $htmlout.= "<tr>";
+foreach ($customsmilies as $code => $url) {
+    if ($count % 3 == 0) {
+        $htmlout.= "<tr>";
+    }
     $htmlout.= "<td align='center'><a href=\"javascript: SmileIT('" . str_replace("'", "\'", $code) . "','" . htmlsafechars($_GET['form']) . "','" . htmlsafechars($_GET['text']) . "')\"><img border='0' src='./pic/smilies/" . $url . "' alt='' /></a></td>";
     $count++;
-    if ($count % 3 == 0) $htmlout.= "</tr>";
+    if ($count % 3 == 0) {
+        $htmlout.= "</tr>";
+    }
 }
 $htmlout.= "<!--</tr>--></table><br /><div align='center'><a class='altlink' href='javascript: window.close()'><b>[ Close window ]</b></a></div></body></html>";
 echo $htmlout;
-?>

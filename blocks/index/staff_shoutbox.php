@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 // === Staff shoutbox 09
 if ($CURUSER['opt2'] & user_options_2::SHOW_STAFFSHOUT) {
@@ -22,16 +22,17 @@ if ($CURUSER['opt2'] & user_options_2::SHOW_STAFFSHOUT) {
     if ($CURUSER['class'] >= UC_STAFF) {
         $staffsmiliebutton.= "<a href=\"javascript:PopStaffSmiles('staff_shbox','staff_shbox_text')\">{$lang['index_shoutbox_ssmilies']}</a>";
     }
-    if (get_smile() != 0) $custombutton.= "<a href=\"javascript:PopCustomSmiles('staff_shbox','staff_shbox_text')\">{$lang['index_shoutbox_csmilies']}</a>";
+    if (get_smile() != 0) {
+        $custombutton.= "<a href=\"javascript:PopCustomSmiles('staff_shbox','staff_shbox_text')\">{$lang['index_shoutbox_csmilies']}</a>";
+    }
     if ($CURUSER['class'] >= UC_STAFF) {
         $commandbutton = "<a href=\"javascript:popUp('shoutbox_commands.php')\">{$lang['index_shoutbox_commands']}</a>\n";
     }
     $refreshbutton = "<a href='staff_shoutbox.php' target='staff_shoutbox'>{$lang['index_shoutbox_refresh']}</a>\n";
     $smilebutton = "<a href=\"javascript:PopMoreSmiles('staff_shbox','staff_shbox_text')\">{$lang['index_shoutbox_smilies']}</a>\n";
     $HTMLOUT.= "<script src='{$INSTALLER09['baseurl']}/scripts/shout.js'></script>";
-    if ($CURUSER['class'] >= UC_STAFF)
-    {
-    $HTMLOUT.= "
+    if ($CURUSER['class'] >= UC_STAFF) {
+        $HTMLOUT.= "
    <div class='panel panel-default'>
 	<div class='panel-heading'>
 	<!--<span class='shouthis'>-->

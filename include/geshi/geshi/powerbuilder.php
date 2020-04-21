@@ -40,16 +40,16 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'PowerBuilder',
-    'COMMENT_SINGLE' => array(1 => '//'),
-    'COMMENT_MULTI' => array('/*' => '*/'),
-    'COMMENT_REGEXP' => array(),
+    'COMMENT_SINGLE' => [1 => '//'],
+    'COMMENT_MULTI' => ['/*' => '*/'],
+    'COMMENT_REGEXP' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '~',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'alias', 'and', 'autoinstantiate', 'call',
             'case', 'catch', 'choose', 'close', 'commit', 'connect',
             'constant', 'continue', 'create', 'cursor', 'declare',
@@ -67,14 +67,14 @@ $language_data = array (
             'super', 'system', 'systemread', 'systemwrite', 'then', 'this',
             'to', 'trigger', 'true', 'try', 'type', 'until', 'update', 'updateblob',
             'using', 'variables', 'where', 'while', 'with', 'within'
-            ),
-        2 => array (
+        ],
+        2 => [
             'blob', 'boolean', 'char', 'character', 'date', 'datetime',
             'dec', 'decimal',
             'double', 'int', 'integer', 'long', 'real', 'string', 'time',
             'uint', 'ulong', 'unsignedint', 'unsignedinteger', 'unsignedlong'
-            ),
-        3 => array (
+        ],
+        3 => [
             'abortretryignore!', 'actbegin!', 'acterror!', 'actesql!',
             'actgarbagecollect!', 'activate!', 'activatemanually!',
             'activateondoubleclick!',
@@ -349,70 +349,68 @@ $language_data = array (
             'yunitstopixels!',
             'yvalue!',
             'zoom!'
-            )
-        ),
-    'SYMBOLS' => array(
-            0 => array('(', ')', '[', ']', '{', '}'),
-            1 => array('|'),
-            2 => array('+', '-', '*', '/'),
-            3 => array('=', '&lt;', '>', '^')
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'SYMBOLS' => [
+        0 => ['(', ')', '[', ']', '{', '}'],
+        1 => ['|'],
+        2 => ['+', '-', '*', '/'],
+        3 => ['=', '&lt;', '>', '^']
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #008000; font-weight: bold;',
             2 => 'color: #990099; font-weight: bold;',
             3 => 'color: #330099; font-weight: bold;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #0000ff; font-weight: bold;',
             'MULTI' => 'color: #0000ff; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #000000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #800000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #330099; font-weight: bold;'
-            ),
-        'METHODS' => array(
-            ),
-        'SYMBOLS' => array(
+        ],
+        'METHODS' => [
+        ],
+        'SYMBOLS' => [
             0 => 'color: #000000;',
             1 => 'color: #ffff00; background-color:#993300; font-weight: bold',
             2 => 'color: #000000;',
             3 => 'color: #000000;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #800000; font-weight: bold;'
-            ),
-        'SCRIPT' => array(
-            ),
-        'REGEXPS' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ],
+        'REGEXPS' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

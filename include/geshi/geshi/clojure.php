@@ -39,19 +39,19 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Clojure',
-    'COMMENT_SINGLE' => array(1 => ';'),
-    'COMMENT_MULTI' => array(';|' => '|;'),
+    'COMMENT_SINGLE' => [1 => ';'],
+    'COMMENT_MULTI' => [';|' => '|;'],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array('"'),
+    'QUOTEMARKS' => ['"'],
     'ESCAPE_CHAR' => '\\',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'defn', 'defn-', 'defmulti', 'defmethod', 'defmacro', 'deftest',
             'defstruct', 'def', 'defonce', 'let', 'letfn', 'do', 'cond', 'condp',
             'for', 'loop', 'recur', 'when', 'when-not', 'when-let', 'when-first',
-            'if', 'if-let', 'if-not', 'doto', 'and', 'or','not','aget','aset',
+            'if', 'if-let', 'if-not', 'doto', 'and', 'or', 'not', 'aget', 'aset',
             'dosync', 'doseq', 'dotimes', 'dorun', 'doall',
             'load', 'import', 'unimport', 'ns', 'in-ns', 'refer', 'print',
             'try', 'catch', 'finally', 'throw', 'fn', 'update-in',
@@ -74,61 +74,59 @@ $language_data = array (
             'symbol?', 'string?', 'vector', 'conj', 'str',
             'pos?', 'neg?', 'zero?', 'nil?', 'inc', 'dec', 'format',
             'alter', 'commute', 'ref-set', 'floor', 'assoc', 'send', 'send-off'
-            )
-        ),
-    'SYMBOLS' => array(
-        '(', ')', '{', '}', '[', ']', '!', '%', '^', '&', '/','+','-','*','=','<','>',';','|', '.', '..', '->',
-        ),
-    'CASE_SENSITIVE' => array(
+        ]
+    ],
+    'SYMBOLS' => [
+        '(', ')', '{', '}', '[', ']', '!', '%', '^', '&', '/', '+', '-', '*', '=', '<', '>', ';', '|', '.', '..', '->',
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => true,
         1 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #b1b100;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #808080; font-style: italic;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #555;',
             1 => 'color: #555;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
-            '::', ':'
-        ),
-    'REGEXPS' => array(
-        ),
+    'OBJECT_SPLITTERS' => [
+        '::', ':'
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

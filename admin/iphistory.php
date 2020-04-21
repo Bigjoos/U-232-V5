@@ -1,20 +1,20 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
 if (!defined('IN_INSTALLER09_ADMIN')) {
     $HTMLOUT = '';
@@ -30,11 +30,11 @@ if (!defined('IN_INSTALLER09_ADMIN')) {
     echo $HTMLOUT;
     exit();
 }
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'geoip.inc');
-require_once (INCL_DIR . 'geoipcity.inc');
-require_once (INCL_DIR . 'geoipregionvars.php');
-require_once (CLASS_DIR . 'class_check.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'geoip.inc');
+require_once(INCL_DIR . 'geoipcity.inc');
+require_once(INCL_DIR . 'geoipregionvars.php');
+require_once(CLASS_DIR . 'class_check.php');
 $class = get_access(basename($_SERVER['REQUEST_URI']));
 class_check($class);
 error_reporting(0);
@@ -50,7 +50,9 @@ $lang = array_merge($lang, load_language('ad_iphistory'));
 //Clear the fields for use.
 $id = $color = '';
 $id = 0 + $_GET["id"];
-if (!is_valid_id($id)) stderr("{$lang['stderr_error']}", "{$lang['stderr_badid']}");
+if (!is_valid_id($id)) {
+    stderr("{$lang['stderr_error']}", "{$lang['stderr_badid']}");
+}
 /// Custom function....
 if (isset($_GET["remove"])) {
     $remove = htmlsafechars($_GET['remove']);
@@ -100,24 +102,38 @@ $HTMLOUT.= "<table class='table table-bordered'>
 while ($iphistory = mysqli_fetch_array($resip)) {
     $host = gethostbyaddr($iphistory['ip']); //Hostname
     $userip = htmlsafechars($iphistory['ip']); //Users Ip
-    $ipid = (int)$iphistory['id']; // IP ID
+    $ipid = (int) $iphistory['id']; // IP ID
     if ($host == $userip) {
         $host = "<font color='red'><b>{$lang['iphistory_notfound']}</b></font>";
     }
     $seedboxdetected = ''; //Clear the field
-    if (strpos($host, 'kimsufi.com')) $seedboxdetected = "yes";
-    if (strpos($host, 'leaseweb.com')) $seedboxdetected = "yes";
-    if (strpos($host, 'ovh.net')) $seedboxdetected = "yes";
-    if (strpos($host, 'powserv.com')) $seedboxdetected = "yes";
-    if (strpos($host, 'server.lu')) $seedboxdetected = "yes";
-    if (strpos($host, 'xirvik.com')) $seedboxdetected = "yes";
-    if (strpos($host, 'feralhosting.com')) $seedboxdetected = "yes";
+    if (strpos($host, 'kimsufi.com')) {
+        $seedboxdetected = "yes";
+    }
+    if (strpos($host, 'leaseweb.com')) {
+        $seedboxdetected = "yes";
+    }
+    if (strpos($host, 'ovh.net')) {
+        $seedboxdetected = "yes";
+    }
+    if (strpos($host, 'powserv.com')) {
+        $seedboxdetected = "yes";
+    }
+    if (strpos($host, 'server.lu')) {
+        $seedboxdetected = "yes";
+    }
+    if (strpos($host, 'xirvik.com')) {
+        $seedboxdetected = "yes";
+    }
+    if (strpos($host, 'feralhosting.com')) {
+        $seedboxdetected = "yes";
+    }
     if ($seedboxdetected == 'yes') {
         sql_query("UPDATE ips SET seedbox=1 WHERE id =" . sqlesc($ipid)) or sqlerr(__FILE__, __LINE__);
     }
-    $lastbrowse = (int)$iphistory['lastbrowse']; // Last Browse DATE
-    $lastlogin = (int)$iphistory['lastlogin']; // Last Login DATE
-    $lastannounce = (int)$iphistory['lastannounce']; // Last Announce DATE
+    $lastbrowse = (int) $iphistory['lastbrowse']; // Last Browse DATE
+    $lastlogin = (int) $iphistory['lastlogin']; // Last Login DATE
+    $lastannounce = (int) $iphistory['lastannounce']; // Last Announce DATE
     $iptype = htmlsafechars($iphistory['type']); // IP was first used on
     $queryc = "SELECT COUNT(id) FROM (SELECT u.id FROM users AS u WHERE u.ip = " . sqlesc($iphistory['ip']) . " UNION SELECT u.id FROM users AS u RIGHT JOIN ips ON u.id= ips.userid WHERE ips.ip =" . sqlesc($iphistory['ip']) . " GROUP BY u.id) AS ipsearch";
     $resip2 = sql_query($queryc) or sqlerr(__FILE__, __LINE__);
@@ -126,11 +142,15 @@ while ($iphistory = mysqli_fetch_array($resip)) {
     $nip = ip2long($iphistory['ip']);
     $banres = sql_query("SELECT COUNT(*) FROM bans WHERE '$nip' >= first AND '$nip' <= last") or sqlerr(__FILE__, __LINE__);
     $banarr = mysqli_fetch_row($banres);
-    if ($banarr[0] == 0) if ($ipcount > 1) {
-        $ipshow = "<b><a class='altlink' href='staffpanel.php?tool=ipsearch&amp;action=ipsearch&amp;ip=" . htmlsafechars($iphistory['ip']) . "'><font color='black'>" . htmlsafechars($iphistory['ip']) . "</font></a></b>";
+    if ($banarr[0] == 0) {
+        if ($ipcount > 1) {
+            $ipshow = "<b><a class='altlink' href='staffpanel.php?tool=ipsearch&amp;action=ipsearch&amp;ip=" . htmlsafechars($iphistory['ip']) . "'><font color='black'>" . htmlsafechars($iphistory['ip']) . "</font></a></b>";
+        } else {
+            $ipshow = "<a class='altlink' href='staffpanel.php?tool=ipsearch&amp;action=ipsearch&amp;ip=" . htmlsafechars($iphistory['ip']) . "'><b><font color='blue'>" . htmlsafechars($iphistory['ip']) . "</font></b></a>";
+        }
     } else {
-        $ipshow = "<a class='altlink' href='staffpanel.php?tool=ipsearch&amp;action=ipsearch&amp;ip=" . htmlsafechars($iphistory['ip']) . "'><b><font color='blue'>" . htmlsafechars($iphistory['ip']) . "</font></b></a>";
-    } else $ipshow = "<a class='altlink' href='staffpanel.php?tool=testip&amp;action=testip&amp;ip=" . htmlsafechars($iphistory['ip']) . "'><font color='red'><b>" . htmlsafechars($iphistory['ip']) . "</b></font></a>";
+        $ipshow = "<a class='altlink' href='staffpanel.php?tool=testip&amp;action=testip&amp;ip=" . htmlsafechars($iphistory['ip']) . "'><font color='red'><b>" . htmlsafechars($iphistory['ip']) . "</b></font></a>";
+    }
     // User IP listed for GeoIP tracing
     $gi = geoip_open("GeoIP/GeoIP.dat", GEOIP_STANDARD);
     $countrybyip = geoip_country_name_by_addr($gi, $userip);
@@ -147,9 +167,9 @@ while ($iphistory = mysqli_fetch_array($resip)) {
     //Is this a seedbox check
     $seedbox = htmlsafechars($iphistory['seedbox']);
     if ($seedbox == '0') {
-        $seedbox = "<a href='staffpanel.php?tool=iphistory&amp;action=iphistory&amp;id=$id&amp;setseedbox=" . (int)$iphistory['id'] . "'><font color='red'><b>{$lang['iphistory_no']}</b></font></a>";
+        $seedbox = "<a href='staffpanel.php?tool=iphistory&amp;action=iphistory&amp;id=$id&amp;setseedbox=" . (int) $iphistory['id'] . "'><font color='red'><b>{$lang['iphistory_no']}</b></font></a>";
         $HTMLOUT.= "<tr>
-                <td class='heading2' align='center'>{$lang['iphistory_browse']}".get_date($lastbrowse, '')."<br />{$lang['iphistory_login']}".get_date($lastlogin, '')."<br />{$lang['iphistory_ann']}".get_date($lastannounce, '')."</td>
+                <td class='heading2' align='center'>{$lang['iphistory_browse']}" . get_date($lastbrowse, '') . "<br />{$lang['iphistory_login']}" . get_date($lastlogin, '') . "<br />{$lang['iphistory_ann']}" . get_date($lastannounce, '') . "</td>
                 <td class='heading2' align='center'>$ipshow</td>
                 <td class='heading2' align='center'>$host</td>
                 <td class='heading2' align='center'>$listcity, $listregion<br />$listcountry</td>
@@ -159,10 +179,10 @@ while ($iphistory = mysqli_fetch_array($resip)) {
                 <td class='heading2' align='center'><a href='staffpanel.php?tool=iphistory&amp;action=bans&amp;banthisuser=$username&amp;banthisip=$userip'><b>{$lang['iphistory_ban']}</b></a></td>
                 </tr>";
     } else {
-        $seedbox = "<a class='altlink' href='staffpanel.php?tool=iphistory&amp;action=iphistory&amp;id=$id&amp;setseedbox2=" . (int)$iphistory['id'] . "'><font color='Green'><b>{$lang['iphistory_yes']}</b></font></a>";
+        $seedbox = "<a class='altlink' href='staffpanel.php?tool=iphistory&amp;action=iphistory&amp;id=$id&amp;setseedbox2=" . (int) $iphistory['id'] . "'><font color='Green'><b>{$lang['iphistory_yes']}</b></font></a>";
         $color = '#CCFFFF';
         $HTMLOUT.= "<tr>
-                <td class='heading2' align='center' style='background-color:$color'>{$lang['iphistory_browse']}".get_date($lastbrowse, '')."<br />{$lang['iphistory_login']}".get_date($lastlogin, '')."<br />{$lang['iphistory_announce']}".get_date($lastannounce, '')."</td>
+                <td class='heading2' align='center' style='background-color:$color'>{$lang['iphistory_browse']}" . get_date($lastbrowse, '') . "<br />{$lang['iphistory_login']}" . get_date($lastlogin, '') . "<br />{$lang['iphistory_announce']}" . get_date($lastannounce, '') . "</td>
                 <td class='heading2' align='center' style='background-color:$color'>$ipshow</td>
                 <td class='heading2' align='center' style='background-color:$color'>$host</td>
                 <td class='heading2' align='center' style='background-color:$color'>$listcity, $listregion<br />$listcountry</td>
@@ -172,8 +192,6 @@ while ($iphistory = mysqli_fetch_array($resip)) {
                 <td class='heading2' align='center' style='background-color:$color'><a href='staffpanel.php?tool=iphistory&amp;action=bans&amp;banthisuser=$username&amp;banthisip=$userip'><b>{$lang['iphistory_ban']}</b></a></td>
                 </tr>";
     } // End Seedbox Check
-    
 }
 $HTMLOUT.= "</table>";
 echo stdhead("{$username}'s IP History") . $HTMLOUT . stdfoot();
-?>

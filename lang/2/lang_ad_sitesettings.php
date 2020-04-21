@@ -1,28 +1,28 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-$lang = array(
+$lang = [
     //sitesettings
-	'sitesettings_stderr' => "Erreur",
-	'sitesettings_stderr1' => "Accès refusé!'",
-	'sitesettings_stderr2' => "Vous avez oublié de renseigner des données.",
-	'sitesettings_file' => "Ce fichier a été créé le ",
-	'sitesettings_cfg' => "Site Config mod by stoner with a little help from pdq for U-232.",
+    'sitesettings_stderr' => "Erreur",
+    'sitesettings_stderr1' => "Accès refusé!'",
+    'sitesettings_stderr2' => "Vous avez oublié de renseigner des données.",
+    'sitesettings_file' => "Ce fichier a été créé le ",
+    'sitesettings_cfg' => "Site Config mod by stoner with a little help from pdq for U-232.",
     'sitesettings_stderr3'  =>  "Il y a eu une erreur pendant l'exécution des requêtes de MAJ ou rien n'a été mis à jour.",
     'sitesettings_stdhead'  =>  "Paramètres du Site",
     'sitesettings_success'  => "Succès",
@@ -54,5 +54,4 @@ $lang = array(
     'sitesettings_dupe' =>  "Vérification IP double ON:",
     'sitesettings_donation' =>  "Total de Donation mensuelle nécessaire:",
     'sitesettings_apply'    =>  "Appliquer les changements"
-);
-?>
+];

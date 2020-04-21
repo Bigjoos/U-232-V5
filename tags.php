@@ -1,28 +1,28 @@
 <?php
 /**
- |--------------------------------------------------------------------------|
- |   https://github.com/Bigjoos/                                            |
- |--------------------------------------------------------------------------|
- |   Licence Info: WTFPL                                                    |
- |--------------------------------------------------------------------------|
- |   Copyright (C) 2010 U-232 V5                                            |
- |--------------------------------------------------------------------------|
- |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
- |--------------------------------------------------------------------------|
- |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
- |--------------------------------------------------------------------------|
-  _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
- / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
-( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
- \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
+ * |--------------------------------------------------------------------------|
+ * |   https://github.com/Bigjoos/                                            |
+ * |--------------------------------------------------------------------------|
+ * |   Licence Info: WTFPL                                                    |
+ * |--------------------------------------------------------------------------|
+ * |   Copyright (C) 2010 U-232 V5                                            |
+ * |--------------------------------------------------------------------------|
+ * |   A bittorrent tracker source based on TBDev.net/tbsource/bytemonsoon.   |
+ * |--------------------------------------------------------------------------|
+ * |   Project Leaders: Mindless, Autotron, whocares, Swizzles.               |
+ * |--------------------------------------------------------------------------|
+ * _   _   _   _   _     _   _   _   _   _   _     _   _   _   _
+ * / \ / \ / \ / \ / \   / \ / \ / \ / \ / \ / \   / \ / \ / \ / \
+ * ( U | - | 2 | 3 | 2 )-( S | o | u | r | c | e )-( C | o | d | e )
+ * \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/ \_/ \_/   \_/ \_/ \_/ \_/
  */
-require_once (__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
-require_once (INCL_DIR . 'user_functions.php');
-require_once (INCL_DIR . 'bbcode_functions.php');
-require_once (INCL_DIR . 'html_functions.php');
+require_once(__DIR__ . DIRECTORY_SEPARATOR . 'include' . DIRECTORY_SEPARATOR . 'bittorrent.php');
+require_once(INCL_DIR . 'user_functions.php');
+require_once(INCL_DIR . 'bbcode_functions.php');
+require_once(INCL_DIR . 'html_functions.php');
 dbconn();
 loggedinorreturn();
-$lang = array_merge(load_language('global') , load_language('tags'));
+$lang = array_merge(load_language('global'), load_language('tags'));
 function insert_tag($name, $description, $syntax, $example, $remarks)
 {
     global $lang;
@@ -34,7 +34,9 @@ function insert_tag($name, $description, $syntax, $example, $remarks)
     $htmlout.= "<tr valign='top'><td>{$lang['tags_systax']}</td><td><tt>$syntax</tt></td></tr>\n";
     $htmlout.= "<tr valign='top'><td>{$lang['tags_example']}</td><td><tt>$example</tt></td></tr>\n";
     $htmlout.= "<tr valign='top'><td>{$lang['tags_result']}</td><td>$result</td></tr>\n";
-    if ($remarks != "") $htmlout.= "<tr><td>{$lang['tags_remarks']}</td><td>$remarks</td></tr>\n";
+    if ($remarks != "") {
+        $htmlout.= "<tr><td>{$lang['tags_remarks']}</td><td>$remarks</td></tr>\n";
+    }
     $htmlout.= "</table>\n";
     return $htmlout;
 }
@@ -48,7 +50,9 @@ $HTMLOUT.= "{$lang['tags_title']}
     <textarea name='test' cols='60' rows='3'>" . ($test ? htmlspecialchars($test) : "") . "</textarea>
     <input type='submit' value='{$lang['tags_test']}' style='height: 23px; margin-left: 5px' />
     </form>";
-if ($test != "") $HTMLOUT.= "<p><hr>" . format_comment($test) . "<hr></p>\n";
+if ($test != "") {
+    $HTMLOUT.= "<p><hr>" . format_comment($test) . "<hr></p>\n";
+}
 $HTMLOUT.= insert_tag($lang['tags_bold1'], $lang['tags_bold2'], $lang['tags_bold3'], $lang['tags_bold4'], "");
 $HTMLOUT.= insert_tag($lang['tags_italic1'], $lang['tags_italic2'], $lang['tags_italic3'], $lang['tags_italic4'], "");
 $HTMLOUT.= insert_tag($lang['tags_underline1'], $lang['tags_underline2'], $lang['tags_underline3'], $lang['tags_underline4'], "");
@@ -67,4 +71,3 @@ $HTMLOUT.= insert_tag($lang['tags_preformat1'], $lang['tags_preformat2'], $lang[
 $HTMLOUT.= end_frame();
 $HTMLOUT.= end_main_frame();
 echo stdhead("{$lang['tags_tags']}") . $HTMLOUT . stdfoot();
-?>

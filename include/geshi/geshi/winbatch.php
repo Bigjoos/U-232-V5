@@ -48,21 +48,21 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Winbatch',
-    'COMMENT_SINGLE' => array(1 => ';', 2 => ':'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => ';', 2 => ':'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"', '`'),
+    'QUOTEMARKS' => ["'", '"', '`'],
     'ESCAPE_CHAR' => '',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'While', 'To', 'Then', 'Switch', 'Select', 'Return', 'Next', 'IntControl', 'Include', 'In', 'If',
             'Goto', 'GoSub', 'ForEach', 'For', 'Exit', 'Execute', 'ErrorMode', 'EndWhile', 'EndSwitch', '#EndSubRoutine',
             'EndSelect', 'EndIf', '#EEndFunction', 'EndFor', 'End', 'Else', 'DropWild', 'Drop', '#DefineSubRoutine',
             '#DefineFunction', 'Debug', 'Continue', 'Case', 'CallExt', 'Call', 'By', 'BreakPoint', 'Break'
-            ),
-        2 => array(
+        ],
+        2 => [
             'ZOOMED', 'YES', 'WORD4', 'WORD2', 'WORD1', 'WHOLESECTION', 'WAIT', 'UNSORTED', 'UNCHECK', 'TRUE', 'TILE',
             'TAB', 'STRING', 'STACK', 'SPC2NET', 'SORTED', 'SOK', 'SNET2PC', 'SINGLE', 'SHIFT', 'SERVER', 'SERRWINSOCK',
             'SERRVOICE', 'SERRSOCKET', 'SERRSERVICE', 'SERRSELECT', 'SERRPARAM', 'SERROUTOFMEM', 'SERRNOTFOUND', 'SERRNOCONN',
@@ -82,8 +82,8 @@ $language_data = array (
             'ATTR_CI', 'ATTR_A', 'ASCENDING', 'ARRANGE', 'AMC', 'ACC_WRITE', 'ACC_READ_NT', 'ACC_READ_95', 'ACC_READ', 'ACC_PRINT_NT',
             'ACC_PMANG_NT', 'ACC_PFULL_NT', 'ACC_LIST', 'ACC_FULL_NT', 'ACC_FULL_95', 'ACC_DELETE', 'ACC_CREATE', 'ACC_CONTROL',
             'ACC_CHNG_NT', 'ACC_ATTRIB', 'ABOVEICONS'
-            ),
-        3 => array(
+        ],
+        3 => [
             'Yields', 'Yield', 'WinZoom', 'WinWaitExist', 'WinWaitClose', 'WinWaitChild', 'WinVersion', 'WinTitle', 'WinSysInfo',
             'WinState', 'WinShow', 'WinResources', 'WinPositionChild', 'WinPosition', 'WinPlaceSet', 'WinPlaceGet', 'WinPlaceChild',
             'WinPlace', 'WinParmSet', 'WinParmGet', 'WinName', 'WinMetrics', 'WinItemProcId', 'WinItemNameId', 'WinItemizeEx',
@@ -142,8 +142,8 @@ $language_data = array (
             'AskFiletext', 'AskFilename', 'AskDirectory', 'AskColor', 'Asin', 'ArrInitialize', 'ArrInfo', 'ArrDimension',
             'Arrayize', 'ArrayFilePutCSV', 'ArrayFilePut', 'ArrayFileGetCSV', 'ArrayFileGet', 'AppWaitClose', 'AppExist', 'AddExtender',
             'Acos', 'Abs', 'About'
-            ),
-        4 => array(
+        ],
+        4 => [
             'zZipFiles', 'zVersionInfo', 'zVersion', 'zUnZipFiles', 'zSetPortBit', 'zRPortShift', 'zPortOut', 'zPortIn', 'zNotPortBit',
             'zLPortShift', 'zGetPortBit', 'zClrPortBit', 'xVerifyCCard', 'xSendMessage', 'xMessageBox', 'xMemCompact', 'xHex', 'xGetElapsed',
             'xGetChildHwnd', 'xExtenderInfo', 'xEnumStreams', 'xEjectMedia', 'xDriveReady', 'xDiskLabelGet', 'xCursorSet', 'xBaseConvert',
@@ -267,8 +267,8 @@ $language_data = array (
             'cCpuSupt', 'cCpuSpeed', 'cCpuIdExt', 'cCpuId', 'cCpuFeat', 'cCpuBenchmark', 'cCloneCheck', 'cClickToolbar', 'cClickButton',
             'cClearTvItem', 'cClearLvItem', 'cClearLbAll', 'cCheckbox', 'aVersion', 'aStatusbar', 'aShellFolder', 'aMsgTimeout', 'AllSPoll',
             'aGetLastError', 'aFileRename', 'aFileMove', 'aFileDelete', 'aFileCopy'
-            ),
-        5 => array(
+        ],
+        5 => [
             'wWordRight', 'wWordLeft', 'wWinTile', 'wWinRestore', 'wWinNext', 'wWinMinimize', 'wWinMaximize', 'wWinCloseAll', 'wWinClose',
             'wWinCascade', 'wWinArricons', 'wViewOutput', 'wViewOptions', 'wViewHtml', 'wUpperCase', 'wUpline', 'wUndo', 'wTopOfFile', 'wToggleIns',
             'wTab', 'wStatusMsg', 'wStartSel', 'wSpellcheck', 'wSetProject', 'wSetPrefs', 'wSetColblk', 'wSetBookmark', 'wSelWordRight',
@@ -297,73 +297,71 @@ $language_data = array (
             'edEditGoToBookmark', 'edEditGetCurrentWord', 'edEditEndSelection', 'edEditEndOfLine', 'edEditEndOfFile', 'edEditDownline', 'edEditDelete',
             'edEditCutline', 'edEditCut', 'edEditCopyline', 'edEditCopy', 'edEditClearSelection', 'edEditBeginningOfLine', 'edEditBeginningOfFile',
             'edEditBackTab', 'edEditBackspace', 'edDeleteButton', 'edAddButton'
-            )
-        ),
-    'SYMBOLS' => array(
+        ]
+    ],
+    'SYMBOLS' => [
         '(', ')', '[', ']', '{', '}', '!', '+', '-', '~', '$', '^', '?', '@', '%', '#', '&', '*', '|', '/', '<', '>'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => false,
         5 => false
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #800080;',
             2 => 'color: #0080FF; font-weight: bold;',
             3 => 'color: #0000FF;',
             4 => 'color: #FF00FF;',
             5 => 'color: #008000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #008000; font-style: italic;',
             2 => 'color: #FF1010; font-weight: bold;',
             'MULTI' => 'color: #808080; font-style: italic;'
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #000099; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #66cc66;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #ff0000;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #cc66cc;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             0 => 'color: #006600;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #66cc66;'
-            ),
-        'REGEXPS' => array(
+        ],
+        'REGEXPS' => [
             0 => 'color: #0000ff;'
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => '',
         5 => ''
-        ),
+    ],
     'OOLANG' => false,
-    'OBJECT_SPLITTERS' => array(),
-    'REGEXPS' => array(//Variable names
+    'OBJECT_SPLITTERS' => [],
+    'REGEXPS' => [//Variable names
         0 => "[\\$]{1,2}[a-zA-Z_][a-zA-Z0-9_]*"
-        ),
+    ],
     'STRICT_MODE_APPLIES' => GESHI_MAYBE,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];

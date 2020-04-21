@@ -37,15 +37,15 @@
  *
  ************************************************************************************/
 
-$language_data = array (
+$language_data = [
     'LANG_NAME' => 'Eiffel',
-    'COMMENT_SINGLE' => array(1 => '--'),
-    'COMMENT_MULTI' => array(),
+    'COMMENT_SINGLE' => [1 => '--'],
+    'COMMENT_MULTI' => [],
     'CASE_KEYWORDS' => GESHI_CAPS_NO_CHANGE,
-    'QUOTEMARKS' => array("'", '"'),
+    'QUOTEMARKS' => ["'", '"'],
     'ESCAPE_CHAR' => '%',
-    'KEYWORDS' => array(
-        1 => array(
+    'KEYWORDS' => [
+        1 => [
             'separate',
             'invariant',
             'inherit',
@@ -54,8 +54,8 @@ $language_data = array (
             'expanded',
             'deferred',
             'class'
-            ),
-        2 => array(
+        ],
+        2 => [
             'xor',
             'when',
             'variant',
@@ -102,16 +102,16 @@ $language_data = array (
             'and',
             'alias',
             'agent'
-            ),
-        3 => array(
+        ],
+        3 => [
             'Void',
             'True',
             'Result',
             'Precursor',
             'False',
             'Current'
-            ),
-        4 => array(
+        ],
+        4 => [
             'UNIX_SIGNALS',
             'UNIX_FILE_INFO',
             'UNBOUNDED',
@@ -287,8 +287,8 @@ $language_data = array (
             'ARGUMENTS',
             'ANY',
             'ACTIVE'
-            ),
-        5 => array(
+        ],
+        5 => [
             'yes',
             'visible',
             'trace',
@@ -322,74 +322,72 @@ $language_data = array (
             'array_optimization',
             'all',
             'address_expression'
-            ),
-        ),
-    'SYMBOLS' => array(
+        ],
+    ],
+    'SYMBOLS' => [
         '+', '-', '*', '?', '=', '/', '%', '&', '>', '<', '^', '!', '|', ':',
         '(', ')', '{', '}', '[', ']', '#'
-        ),
-    'CASE_SENSITIVE' => array(
+    ],
+    'CASE_SENSITIVE' => [
         GESHI_COMMENTS => false,
         1 => false,
         2 => false,
         3 => false,
         4 => true,
         5 => false,
-        ),
-    'STYLES' => array(
-        'KEYWORDS' => array(
+    ],
+    'STYLES' => [
+        'KEYWORDS' => [
             1 => 'color: #0600FF; font-weight: bold;',
             2 => 'color: #0600FF; font-weight: bold;',
             3 => 'color: #800080;',
             4 => 'color: #800000',
             5 => 'color: #603000;'
-            ),
-        'COMMENTS' => array(
+        ],
+        'COMMENTS' => [
             1 => 'color: #008000; font-style: italic;',
             'MULTI' => ''
-            ),
-        'ESCAPE_CHAR' => array(
+        ],
+        'ESCAPE_CHAR' => [
             0 => 'color: #005070; font-weight: bold;'
-            ),
-        'BRACKETS' => array(
+        ],
+        'BRACKETS' => [
             0 => 'color: #FF0000;'
-            ),
-        'STRINGS' => array(
+        ],
+        'STRINGS' => [
             0 => 'color: #0080A0;'
-            ),
-        'NUMBERS' => array(
+        ],
+        'NUMBERS' => [
             0 => 'color: #FF0000;'
-            ),
-        'METHODS' => array(
+        ],
+        'METHODS' => [
             1 => 'color: #000060;',
             2 => 'color: #000050;'
-            ),
-        'SYMBOLS' => array(
+        ],
+        'SYMBOLS' => [
             0 => 'color: #600000;'
-            ),
-        'REGEXPS' => array(
-            ),
-        'SCRIPT' => array(
-            )
-        ),
-    'URLS' => array(
+        ],
+        'REGEXPS' => [
+        ],
+        'SCRIPT' => [
+        ]
+    ],
+    'URLS' => [
         1 => '',
         2 => '',
         3 => '',
         4 => 'http://www.google.com/search?q=site%3Ahttp%3A%2F%2Fdocs.eiffel.com%2Feiffelstudio%2Flibraries+{FNAMEL}&amp;btnI=I%27m+Feeling+Lucky',
         5 => ''
-        ),
+    ],
     'OOLANG' => true,
-    'OBJECT_SPLITTERS' => array(
+    'OBJECT_SPLITTERS' => [
         1 => '.'
-        ),
-    'REGEXPS' => array(
-        ),
+    ],
+    'REGEXPS' => [
+    ],
     'STRICT_MODE_APPLIES' => GESHI_NEVER,
-    'SCRIPT_DELIMITERS' => array(
-        ),
-    'HIGHLIGHT_STRICT_BLOCK' => array(
-        )
-);
-
-?>
+    'SCRIPT_DELIMITERS' => [
+    ],
+    'HIGHLIGHT_STRICT_BLOCK' => [
+    ]
+];
