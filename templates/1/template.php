@@ -284,7 +284,8 @@ $htmlout .='
  function stdfoot($stdfoot = false)
 {
     global $CURUSER, $INSTALLER09, $start, $query_stat, $mc1, $querytime, $lang, $rc;
-    //$debug = (SQL_DEBUG && in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id']) ? 1 : 0);
+	$user_id = isset($CURUSER['id']) ? $CURUSER['id'] : '';
+    $debug = (SQL_DEBUG && in_array($user_id, $INSTALLER09['allowed_staff']['id']) ? 1 : 0);
     $cachetime = ($mc1->Time / 1000);
     $seconds = microtime(true) - $start;
     $r_seconds = round($seconds, 5);

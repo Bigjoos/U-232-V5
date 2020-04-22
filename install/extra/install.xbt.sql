@@ -2663,7 +2663,7 @@ CREATE TABLE IF NOT EXISTS `userhits` (
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(10) UNSIGNED NOT NULL,
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
-  `passhash` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
+  `passhash` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
   `secret` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
   `passkey` varchar(32) CHARACTER SET utf8 DEFAULT NULL,
   `email` varchar(180) CHARACTER SET utf8 DEFAULT NULL,
