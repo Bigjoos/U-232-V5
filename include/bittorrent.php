@@ -653,14 +653,14 @@ function userlogin()
 function charset()
 {
     global $CURUSER, $INSTALLER09;
-    $lang_charset = $CURUSER['language'];
+    $lang_charset = isset($CURUSER['language']) ? "{$CURUSER['language']}" : $INSTALLER09['language'];
     switch ($lang_charset) {
     case ($lang_charset == 2):
         return "UTF-8";
-//    case ($lang_charset == 3):
-//        return "ISO-8859-17";
-//    case ($lang_charset == 4):
-//		return "ISO-8859-15";
+	//case ($lang_charset == 3):
+      //return "ISO-8859-17";
+	//case ($lang_charset == 4):
+	//return "ISO-8859-15";
     default:
         return "UTF-8";
     }
@@ -997,7 +997,9 @@ function sqlerr($file = '', $line = '')
         $_error_string.= "\n IP Address: " . $_SERVER['REMOTE_ADDR'];
         $_error_string.= "\n in file " . $file . " on line " . $line;
         $_error_string.= "\n URL:" . $_SERVER['REQUEST_URI'];
-        $_error_string.= "\n Username: {$CURUSER['username']}[{$CURUSER['id']}]";
+		$error_username = isset($CURUSER['username']) ? $CURUSER['username'] : '';
+		$error_userid = isset($CURUSER['id']) ? $CURUSER['id'] : '';
+        $_error_string.= "\n Username: {$error_username}[{$error_userid}]";
         if ($FH = @fopen($INSTALLER09['sql_error_log'], 'a')) {
             @fwrite($FH, $_error_string);
             @fclose($FH);
