@@ -75,7 +75,7 @@ if (($top5torrents = $mc1->get_value('top5_tor_')) === false) {
     while ($top5torrent = mysqli_fetch_assoc($res)) $top5torrents[] = $top5torrent;
     $mc1->cache_value('top5_tor_', $top5torrents, $INSTALLER09['expires']['top5_torrents']);
 }
-if ($top5torrents && count($top5torrents) > 0) {
+if (!empty($top5torrents)) {
     $HTMLOUT.= "<div class='module'><div class='tbadge tbadge-top'></div>
      	    <table class='table table-bordered'>
             <thead><tr>
@@ -115,7 +115,7 @@ if (($last5torrents = $mc1->get_value('last5_tor_')) === false) {
     while ($last5torrent = mysqli_fetch_assoc($result)) $last5torrents[] = $last5torrent;
     $mc1->cache_value('last5_tor_', $last5torrents, $INSTALLER09['expires']['last5_torrents']);
 }
-if ($last5torrents && count($last5torrents) > 0) {
+if (!empty($last5torrents)) {
     $HTMLOUT.= "<div class='module'><div class='tbadge tbadge-new'></div>
     	        <table class='table table-bordered'>
                 <thead><tr>

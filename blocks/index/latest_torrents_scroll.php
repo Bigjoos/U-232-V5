@@ -84,7 +84,7 @@ if (($scroll_torrents = $mc1->get_value('scroll_tor_')) === false) {
     $mc1->cache_value('scroll_tor_', $scroll_torrents, $INSTALLER09['expires']['scroll_torrents']);
 }
 
-if (count($scroll_torrents) > 0) {
+if (!empty($scroll_torrents)) {
 $HTMLOUT.= "<div class='panel panel-default'>
   <div class='panel-heading'>
 <label class='text-left'>{$lang['index_latest']}</label>

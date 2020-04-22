@@ -28,7 +28,7 @@ if (($motw_cached = $mc1->get_value('top_movie_2')) === false) {
     while ($motw_cache = mysqli_fetch_assoc($motw)) $motw_cached[] = $motw_cache;
     $mc1->cache_value('top_movie_2', $motw_cached, 0);
 }
-if (count($motw_cached) > 0) {
+if (!empty($motw_cached)) {
     $HTMLOUT.= "<div class='panel panel-default'>
 	<div class='panel-heading'>
 		<label for='checkbox_4' class='text-left'>{$lang['index_mow_title']}</label>
