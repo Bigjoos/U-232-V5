@@ -25,7 +25,7 @@ require_once (INCL_DIR . 'add_functions.php');
 require_once (INCL_DIR . 'html_functions.php');
 require_once (INCL_DIR . 'function_rating.php');
 //require_once (INCL_DIR . 'tvrage_functions.php');
-require_once (INCL_DIR . 'tvmaze_functions.php');// uncomment to use tvmaze
+//require_once (INCL_DIR . 'tvmaze_functions.php');// uncomment to use tvmaze
 require_once (IMDB_DIR . 'imdb_class.php');
 require_once (INCL_DIR . 'getpre.php');
 dbconn(false);
