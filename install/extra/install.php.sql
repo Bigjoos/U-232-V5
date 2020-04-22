@@ -2739,7 +2739,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `total_donated` decimal(8,2) NOT NULL DEFAULT '0.00',
   `vipclass_before` int(10) NOT NULL DEFAULT '0',
   `parked` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
-  `passhint` int(10) UNSIGNED NOT NULL,
+  `passhint` int(10) UNSIGNED,
   `hintanswer` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `avatarpos` int(11) NOT NULL DEFAULT '1',
   `support` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
@@ -4284,4 +4284,4 @@ ALTER TABLE `xbt_scrape_log`
 
 ALTER TABLE `messages` ADD `staff_id` int(10) unsigned NOT NULL DEFAULT '0';
 ALTER TABLE `staffmessages` ADD `new`  enum('yes','no') NOT NULL default 'no';
-ALTER TABLE `users` ADD `pin_code` INT(4) NOT NULL;
+ALTER TABLE `users` ADD `pin_code` INT(4);

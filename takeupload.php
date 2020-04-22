@@ -236,79 +236,11 @@ $dict['comment'] = ("In using this torrent you are bound by the {$INSTALLER09['s
 $visible         = (XBT_TRACKER == true ? "yes" : "no");
 $torrent         = str_replace("_", " ", $torrent);
 $vip             = (isset($_POST["vip"]) ? "1" : "0");
-
-//IMDB if entered in the form
 $url = strip_tags(isset($_POST['url']) ? trim($_POST['url']) : '');
-//If no IMDB entered lets look in the description for one
-if (empty($url)) {
-    $text = $descr;
-    preg_match_all('/((http|https|ftp):\/\/|www)([a-z0-9\-\._]+)\/?[a-z0-9_\.\-\?\+\/~=&;,]*/si', $text, $match);
-    for ($i = 0; $i < sizeof($match[0]); $i++) {
-        $requestnftest = $match[0][$i];
-        $testurl       = "http://www.imdb.com/title/tt";
-        $testurl1      = "http://uk.imdb.com/title/tt";
-        $testurl2      = "http://imdb.com/title/tt";
-        $testurl3      = "http://us.imdb.com/title/tt";
-        $testurl4      = "http://us.imdb.com/Title?";
-        $test1         = (substr($testurl, 0, 28));
-        $test2         = (substr($testurl1, 0, 27));
-        $test3         = (substr($testurl2, 0, 24));
-        $test4         = (substr($testurl3, 0, 27));
-        $test5         = (substr($testurl4, 0, 25));
-        If (substr($requestnftest, 0, 25) == $test5) {
-            $requestnftest = str_replace("http://us.imdb.com/Title?", 'http://us.imdb.com/title/tt', $requestnftest);
-        }
-        if (substr($requestnftest, 0, 28) == $test1 or substr($requestnftest, 0, 27) == $test2 or substr($requestnftest, 0, 24) == $test3 or substr($requestnftest, 0, 27) == $test4) {
-            $url = trim($requestnftest);
-            $url = sqlesc($requestnftest);
-            $url = strip_tags($requestnftest);
-        }
-    }
-}
-//Last attempt at trying to find the IMDB link for this torrent.  Lets see if we can find it with a search on IMDB using the torrent name
-if (empty($url)) {
-    class IMDBSearch1
-    {
-        public static function _movieRedirect($movie, $year)
-        {
-            $movieName = str_replace(' ', '+', $movie);
-            $page = @file_get_contents('http://www.imdb.com/find?s=all&q=' . $movieName . ' (' . $year . ')');
-            if (@preg_match('~<p style="margin:0 0 0.5em 0;"><b>Media from .*?href="/title\/(.*?)".*?</p>~s', $page, $matches)) {
-                header('Location: http://www.imdb.com/title/' . $matches[1] . '');
-                exit();
-            } else if (@preg_match('~<td class="result_text">.*?href="/title\/(.*?)".*?</td>~s', $page, $matches)) {
-                $plorp = substr(strrchr($matches[1], '/'), 1);
-                
-                $matches[1] = substr($matches[1], 0, -strlen($plorp));
-                return "http://www.imdb.com/title/$matches[1]";
-                exit();
-            } else {
-                return false;
-                exit();
-            }
-        }
-    }
-    //Try and the get name, find the name upto the year (2014) and split it into an array Name and Year.  Lets avoid some stuff extra more 1080 and above values
-    preg_match("/(.*).((!720p|!1080p|!480p|!580p)|[1-2][0-9][0-9][0-9])/", "$fname", $movie_info, null, 0);
-    $url = IMDBSearch1::_movieRedirect("$movie_info[1]", "$movie_info[2]");
-}
-
-if (substr($url, -1) == '/') {
-    $url = substr($url, 0, -1);
-}
-
-//if (!$url)
-    //stderr($lang['takeupload_failed'], 'No IMDB Found');
-
-$imdb_info = get_imdb($url);
-$genre = $imdb_info['gen'];
-if (!empty($imdb_info['poster'])) {
-    $poster = $imdb_info['poster'];
-} else
-    $poster = strip_tags(isset($_POST['poster']) ? trim($_POST['poster']) : '');
-//END IMDB
-
-$ret = sql_query("INSERT INTO torrents (search_text, filename, owner, username, visible, vip, release_group, newgenre, poster, anonymous, allow_comments, info_hash, name, size, numfiles, type, offer, request, url, subs, descr, ori_descr, description, category, free, silver, save_as, youtube, tags, added, last_action, mtime, ctime, freetorrent, nfo, client_created_by) VALUES (" . implode(",", array_map("sqlesc", array(
+if (!$url)
+    stderr($lang['takeupload_failed'], 'No IMDB Found');
+$poster = strip_tags(isset($_POST['poster']) ? trim($_POST['poster']) : '');
+ret = sql_query("INSERT INTO torrents (search_text, filename, owner, username, visible, vip, release_group, newgenre, poster, anonymous, allow_comments, info_hash, name, size, numfiles, type, offer, request, url, subs, descr, ori_descr, description, category, free, silver, save_as, youtube, tags, added, last_action, mtime, ctime, freetorrent, nfo, client_created_by) VALUES (" . implode(",", array_map("sqlesc", array(
     searchfield("$shortfname $dname $torrent"),
     $fname,
     $CURUSER["id"],

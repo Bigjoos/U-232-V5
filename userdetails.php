@@ -1116,6 +1116,7 @@ $HTMLOUT .="<div class=\"col-sm-2\">Forum Moderator<br><input name=\"forum_mod\"
 $q = sql_query("SELECT o.id as oid, o.name as oname, f.id as fid, f.name as fname FROM `over_forums` as o LEFT JOIN forums as f ON f.forum_id = o.id ") or sqlerr(__FILE__, __LINE__);
 	while($a = mysqli_fetch_assoc($q))
 		$boo[$a['oname']][] = array($a['fid'],$a['fname']);
+	if(is_array($boo)){
 	$forum_list = "<ul id=\"browser\" class=\"filetree treeview-gray\" style=\"width:50%;text-align:left;\">";
 	foreach($boo as $fo=>$foo) {
 		$forum_list .="<li class=\"closed\"><span class=\"folder\">".$fo."</span>";
@@ -1125,7 +1126,7 @@ $q = sql_query("SELECT o.id as oid, o.name as oname, f.id as fid, f.name as fnam
 		$forum_list .= "</ul></li>";	
 	}
 	$forum_list .= "</ul>";
-  
+	}
 
 $HTMLOUT .="<div class=\"col-sm-8\">Forums List<br>".$forum_list."</div></div>";
    

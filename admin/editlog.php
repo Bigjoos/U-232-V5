@@ -83,7 +83,7 @@ $directories[] = './avatar/';
 $directories[] = './templates/';
 $directories[] = './include/settings/';
 $directories[] = './cache/';
-$directories[] = './logs/';
+$directories[] = './sqlerr_logs/';
 //$directories[] = './torrents/';  //== watch this fella if you have 1000's of torrents it will timeout
 $directories[] = './admin/';
 foreach ($directories AS $x) {

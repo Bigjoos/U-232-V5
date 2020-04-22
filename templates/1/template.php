@@ -283,13 +283,14 @@ $htmlout .='
  function stdfoot($stdfoot = false)
 {
     global $CURUSER, $INSTALLER09, $start, $query_stat, $mc1, $querytime, $lang, $rc;
-    $debug = (SQL_DEBUG && in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id']) ? 1 : 0);
+    $user_id = isset($CURUSER['id']) ? $CURUSER['id'] : '';
+    $debug = (SQL_DEBUG && in_array($user_id, $INSTALLER09['allowed_staff']['id']) ? 1 : 0);
     $cachetime = ($mc1->Time / 1000);
     $seconds = microtime(true) - $start;
     $r_seconds = round($seconds, 5);
     //$phptime = $seconds - $cachetime;
     $phptime = $seconds - $querytime - $cachetime;
-    $queries = count($query_stat); // sql query count by pdq
+    $queries = (!empty($query_stat)); // sql query count by pdq
     $percentphp = number_format(($phptime / $seconds) * 100, 2);
     //$percentsql  = number_format(($querytime / $seconds) * 100, 2);
     $percentmc = number_format(($cachetime / $seconds) * 100, 2);
