@@ -28,9 +28,10 @@ function stdhead($title = "", $msgalert = true, $stdhead = false)
         $INSTALLER09['categorie_icon'] = isset($CURUSER['categorie_icon']) ? "{$CURUSER['categorie_icon']}" : $INSTALLER09['categorie_icon'];
         $INSTALLER09['language'] = isset($CURUSER['language']) ? "{$CURUSER['language']}" : $INSTALLER09['language'];
     }
-    $torrent_pass = isset($CURUSER['torrent_pass']) ? "{$CURUSER['torrent_pass']}" : "";
-    $salty_username = isset($CURUSER['username']) ? "{$CURUSER['username']}" : '';
-    $salty = md5("Th15T3xtis5add3dto66uddy6he@water...". $salty_username . "");
+	$torrent_pass = isset($CURUSER['torrent_pass']) ? "{$CURUSER['torrent_pass']}" : $INSTALLER09['torrent_pass'];
+	$INSTALLER09['torrent_pass'] = isset($CURUSER['torrent_pass']) ? "{$CURUSER['torrent_pass']}" : $INSTALLER09['torrent_pass'];
+	$salty_username = isset($CURUSER['username']) ? "{$CURUSER['username']}" : $INSTALLER09['bot_username'];
+	$salty = md5("Th15T3xtis5add3dto66uddy6he@water...". $salty_username . "");
     /** ZZZZZZZZZZZZZZZZZZZZZZZZZZip it! */
 
 if (!isset($_NO_COMPRESS)) if (!ob_start('ob_gzhandler')) ob_start();
@@ -283,7 +284,8 @@ $htmlout .='
  function stdfoot($stdfoot = false)
 {
     global $CURUSER, $INSTALLER09, $start, $query_stat, $mc1, $querytime, $lang, $rc;
-    $debug = (SQL_DEBUG && in_array($CURUSER['id'], $INSTALLER09['allowed_staff']['id']) ? 1 : 0);
+	$user_id = isset($CURUSER['id']) ? $CURUSER['id'] : '';
+    $debug = (SQL_DEBUG && in_array($user_id, $INSTALLER09['allowed_staff']['id']) ? 1 : 0);
     $cachetime = ($mc1->Time / 1000);
     $seconds = microtime(true) - $start;
     $r_seconds = round($seconds, 5);
@@ -293,29 +295,9 @@ $htmlout .='
     $percentphp = number_format(($phptime / $seconds) * 100, 2);
     //$percentsql  = number_format(($querytime / $seconds) * 100, 2);
     $percentmc = number_format(($cachetime / $seconds) * 100, 2);
-    define('REQUIRED_PHP_VER', 7.0);
-    $MemStat = (PHP_VERSION_ID < REQUIRED_PHP_VER ? $mc1->getStats() : $mc1->getStats()["127.0.0.1:11211"]);
-    if (($MemStats = $mc1->get_value('mc_hits')) === false) {
-        $MemStats =  $MemStat;
-        if ($MemStats['cmd_get'] != 0) {
-            $MemStats['Hits'] = number_format(($MemStats['get_hits'] / $MemStats['cmd_get']) * 100, 3);
-        } else {
-            $MemStats['Hits'] = 0;
-        }
-        $mc1->cache_value('mc_hits', $MemStats, 10);
-    }
-    // load averages - pdq
-    if ($debug) {
-        if (($uptime = $mc1->get_value('uptime')) === false) {
-            $uptime = `uptime`;
-            $mc1->cache_value('uptime', $uptime, 25);
-        }
-        preg_match('/load average: (.*)$/i', $uptime, $load);
-    }
-
     //== end class
     $header = '';
-    $header = '' . $lang['gl_stdfoot_querys_mstat'] . ' ' . mksize(memory_get_peak_usage()) . ' ' . $lang['gl_stdfoot_querys_mstat1'] . ' ' . round($phptime, 2) . 's | ' . round($percentmc, 2) . '' . $lang['gl_stdfoot_querys_mstat2'] . '' . number_format($cachetime, 5) . 's ' . $lang['gl_stdfoot_querys_mstat3'] . '' . $MemStats['Hits'] . '' . $lang['gl_stdfoot_querys_mstat4'] . '' . (100 - $MemStats['Hits']) . '' . $lang['gl_stdfoot_querys_mstat5'] . '' . number_format($MemStats['curr_items']);
+    $header = '' . $lang['gl_stdfoot_querys_mstat'] . ' ' . mksize(memory_get_peak_usage()) . ' ' . $lang['gl_stdfoot_querys_mstat1'] . ' ' . round($phptime, 2) . 's | ' . round($percentmc, 2) . '' . $lang['gl_stdfoot_querys_mstat2'] . '' . number_format($cachetime, 5) . 's ' . $lang['gl_stdfoot_querys_mstat3'] . '' . $lang['gl_stdfoot_querys_mstat5'] . ''/* . number_format($MemStats['curr_items'])*/;
     $htmlfoot = '';
     //== query stats
     $htmlfoot.= '';
@@ -325,7 +307,7 @@ $htmlout .='
 		<script src="' . $INSTALLER09['baseurl'] . '/scripts/' . $JS . '.js"></script>';
     }
     $querytime = 0;
-    if ($CURUSER && $query_stat && $debug) {
+    if ($CURUSER ) {
         $htmlfoot.= "
 <div class='panel panel-default'>
 	<div class='panel-heading'>
@@ -364,13 +346,12 @@ $htmlout .='
 				<div class='pull-left'>
 				" . $INSTALLER09['site_name'] . " {$lang['gl_stdfoot_querys_page']}" . $r_seconds . " {$lang['gl_stdfoot_querys_seconds']}<br />" . "
 				{$lang['gl_stdfoot_querys_server']}" . $queries . " {$lang['gl_stdfoot_querys_time']} " . ($queries != 1 ? "{$lang['gl_stdfoot_querys_times']}" : "") . "
-				" . ($debug ? "<br />" . $header . "<br />{$lang['gl_stdfoot_uptime']} " . $uptime . "" : " ") . "
 				</div>
 				<div class='pull-right text-right'>
 				{$lang['gl_stdfoot_powered']}" . TBVERSION . "<br />
 				{$lang['gl_stdfoot_using']}{$lang['gl_stdfoot_using1']}<br />
 				{$lang['gl_stdfoot_support']}<a href='http://forum-u-232.servebeer.com/index.php'>{$lang['gl_stdfoot_here']}</a><br />
-				" . ($debug && $CURUSER['class'] === UC_MAX ? "<a title='{$lang['gl_stdfoot_sview']}' rel='external' href='/staffpanel.php?tool=system_view'>{$lang['gl_stdfoot_sview']}</a> | " . "<a rel='external' title='OPCache' href='/staffpanel.php?tool=op'>{$lang['gl_stdfoot_opc']}</a> | " . "<a rel='external' title='Memcache' href='/staffpanel.php?tool=memcache'>{$lang['gl_stdfoot_memcache']}</a>" : "") . "";
+				" . ($CURUSER['class'] === UC_MAX ? "<a title='{$lang['gl_stdfoot_sview']}' rel='external' href='/staffpanel.php?tool=system_view'>{$lang['gl_stdfoot_sview']}</a> | " . "<a rel='external' title='OPCache' href='/staffpanel.php?tool=op'>{$lang['gl_stdfoot_opc']}</a> | " . "<a rel='external' title='Memcache' href='/staffpanel.php?tool=memcache'>{$lang['gl_stdfoot_memcache']}</a>" : "") . "";
 			$htmlfoot.= "</div></div></div>";
     }
     $htmlfoot.='

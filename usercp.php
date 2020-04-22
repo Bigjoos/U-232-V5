@@ -293,7 +293,7 @@ elseif ($action == "security") {
                 <option value='2' " . ($CURUSER['ssluse'] == 2 ? 'selected=\'selected\'' : '') . ">{$lang['usercp_secu_site']}</option>
                 <option value='3' " . ($CURUSER['ssluse'] == 3 ? 'selected=\'selected\'' : '') . ">{$lang['usercp_secu_down']}</option>
         </select>
-    <br/><small>{$lang['usercp_secu_inf']}</small></fieldset>", 1);
+    <br/><small>{$lang['usercp_secu_info']}</small></fieldset>", 1);
     if (get_parked() == '1') $HTMLOUT.= tr($lang['usercp_acc_parked'], "<input type='radio' name='parked'".($CURUSER["parked"] == "yes" ? " checked='checked'" : "")." value='yes' />".$lang['usercp_av_yes1']."
     <input type='radio' name='parked'".($CURUSER["parked"] == "no" ? " checked='checked'" : "")." value='no' />".$lang['usercp_av_no1']."
     <br /><font class='small' size='1'>{$lang['usercp_acc_parked_message']}<br />{$lang['usercp_acc_parked_message1']}</font>", 1);
@@ -425,7 +425,7 @@ elseif ($action == "personal") {
     <div style='float:left;padding-left:5px;'><small style='font-weight:bold;'>{$lang['usercp_pers_nobb']}</small></div>
     <div style='float:right;font-size:12px;font-weight:bold;' id='status_count'>140</div>
     <div style='clear:both;'></div></div>";
-    if (count($CURUSER['archive'])) {
+    if ($CURUSER['archive'] && count($CURUSER['archive'])) {
         $HTMLOUT.= "<div style='width:390px'>
     <div style='float:left;padding-left:5px;'><small style='font-weight:bold;'>{$lang['usercp_pers_arcstat']}</small></div>
     <div style='float:right;cursor:pointer' id='status_archive_click' onclick='status_slide()'>+</div>

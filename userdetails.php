@@ -341,7 +341,8 @@ if (XBT_TRACKER == true) {
 if (!(isset($_GET["hit"])) && $CURUSER["id"] <> $user["id"]) {
     $res = sql_query("SELECT added FROM userhits WHERE userid =" . sqlesc($CURUSER['id']) . " AND hitid = " . sqlesc($id) . " LIMIT 1") or sqlerr(__FILE__, __LINE__);
     $row = mysqli_fetch_row($res);
-    if (!($row[0] > TIME_NOW - 3600)) {
+	$row = isset($row) ? $row : '1';
+    if (!($row[0]  > TIME_NOW - 3600)) {
         $hitnumber = $user['hits'] + 1;
         sql_query("UPDATE users SET hits = hits + 1 WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         // do update hits userdetails cache

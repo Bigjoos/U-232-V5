@@ -24,7 +24,7 @@ if (($users_friends = $mc1->get_value($keys['user_friends'])) === false) {
     while ($user_friends = mysqli_fetch_assoc($fr)) $users_friends[] = $user_friends;
     $mc1->cache_value($keys['user_friends'], $users_friends, 0);
 }
-if (count($users_friends) > 0) {
+if (!empty($users_friends)) {
     $user_friends = "<table width='100%' class='main' border='1' cellspacing='0' cellpadding='5'>\n" . "<tr><td class='colhead' width='20'>{$lang['userdetails_avatar']}</td><td class='colhead'>{$lang['userdetails_username']}" . ($CURUSER['class'] >= UC_STAFF ? $lang['userdetails_fip'] : "") . "</td><td class='colhead' align='center'>{$lang['userdetails_uploaded']}</td>" . ($INSTALLER09['ratio_free'] ? "" : "<td class='colhead' align='center'>{$lang['userdetails_downloaded']}</td>") . "<td class='colhead' align='center'>{$lang['userdetails_ratio']}</td><td class='colhead' align='center'>{$lang['userdetails_status']}</td></tr>\n";
     if ($users_friends) {
         foreach ($users_friends as $a) {
