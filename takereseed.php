@@ -27,9 +27,9 @@ $uploader = intval($_POST["uploader"]);
 $use_subject = true;
 $subject = "Request reseed!";
 $pm_msg = "User " . $CURUSER["username"] . " asked for a reseed on torrent " . $INSTALLER09['baseurl'] . "/details.php?id=" . $reseedid . " !\nThank You!";
-$What_id = (XBT_TRACKER == true ? 'fid' : 'torrentid');
+$What_id = (XBT_TRACKER == true ? 'tid' : 'torrentid');
 $What_user_id = (XBT_TRACKER == true ? 'uid' : 'userid');
-$What_Table = (XBT_TRACKER == true ? 'xbt_files_users' : 'snatched');
+$What_Table = (XBT_TRACKER == true ? 'xbt_peers' : 'snatched');
 $What_TF = (XBT_TRACKER == true ? "active='1'" : "seeder='yes'");
 $pms = array();
 if ($pm_what == "last10") {

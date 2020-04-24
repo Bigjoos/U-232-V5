@@ -263,7 +263,7 @@ if (isset($_GET['delete_hit_and_run']) && $CURUSER['class'] >= UC_STAFF) {
     if(XBT_TRACKER === false) {
     sql_query('UPDATE snatched SET hit_and_run = \'0\', mark_of_cain = \'no\' WHERE id = ' . sqlesc($delete_me)) or sqlerr(__FILE__, __LINE__);
     } else {
-    sql_query('UPDATE xbt_files_users SET hit_and_run = \'0\', mark_of_cain = \'no\' WHERE fid = ' . sqlesc($delete_me)) or sqlerr(__FILE__, __LINE__);
+    sql_query('UPDATE xbt_peers SET hit_and_run = \'0\', mark_of_cain = \'no\' WHERE tid = ' . sqlesc($delete_me)) or sqlerr(__FILE__, __LINE__);
     }
     if (@mysqli_affected_rows($GLOBALS["___mysqli_ston"]) === 0) {
         stderr($lang['userdetails_error'], $lang['userdetails_notdeleted']);
@@ -325,7 +325,7 @@ foreach ($countries as $cntry) if ($cntry['id'] == $user['country']) {
     break;
 }
 if (XBT_TRACKER == true) {
-    $res = sql_query("SELECT x.fid, x.uploaded, x.downloaded, x.active, x.left, t.added, t.name as torrentname, t.size, t.category, t.seeders, t.leechers, c.name as catname, c.image FROM xbt_files_users x LEFT JOIN torrents t ON x.fid = t.id LEFT JOIN categories c ON t.category = c.id WHERE x.uid=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
+    $res = sql_query("SELECT x.tid, x.uploaded, x.downloaded, x.active, x.left, t.added, t.name as torrentname, t.size, t.category, t.seeders, t.leechers, c.name as catname, c.image FROM xbt_peers x LEFT JOIN torrents t ON x.tid = t.id LEFT JOIN categories c ON t.category = c.id WHERE x.uid=" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
     while ($arr = mysqli_fetch_assoc($res)) {
         if ($arr['left'] == '0') $seeding[] = $arr;
         else $leeching[] = $arr;
@@ -1113,9 +1113,9 @@ $HTMLOUT.= "
 $HTMLOUT .="<div class=\"col-sm-2\">Forum Moderator<br><input name=\"forum_mod\" value=\"yes\" type=radio " . ($user["forum_mod"]=="yes" ? "checked=\"checked\"" : "") . ">Yes <input name=\"forum_mod\" value=\"no\" type=\"radio\" " . ($user["forum_mod"]=="no" ? "checked=\"checked\"" : "") . ">No</div>";
   
 
-$q = sql_query("SELECT o.id as oid, o.name as oname, f.id as fid, f.name as fname FROM `over_forums` as o LEFT JOIN forums as f ON f.forum_id = o.id ") or sqlerr(__FILE__, __LINE__);
+$q = sql_query("SELECT o.id as oid, o.name as oname, f.id as tid, f.name as fname FROM `over_forums` as o LEFT JOIN forums as f ON f.forum_id = o.id ") or sqlerr(__FILE__, __LINE__);
 	while($a = mysqli_fetch_assoc($q))
-		$boo[$a['oname']][] = array($a['fid'],$a['fname']);
+		$boo[$a['oname']][] = array($a['tid'],$a['fname']);
 	if(is_array($boo)){
 	$forum_list = "<ul id=\"browser\" class=\"filetree treeview-gray\" style=\"width:50%;text-align:left;\">";
 	foreach($boo as $fo=>$foo) {

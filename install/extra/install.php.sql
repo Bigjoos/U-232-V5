@@ -3017,10 +3017,10 @@ CREATE TABLE IF NOT EXISTS `xbt_files` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `xbt_files_users`
+-- Table structure for table `xbt_peers`
 --
 
-CREATE TABLE IF NOT EXISTS `xbt_files_users` (
+CREATE TABLE IF NOT EXISTS `xbt_peers` (
   `fid` int(11) NOT NULL DEFAULT '0',
   `uid` int(11) NOT NULL DEFAULT '0',
   `active` tinyint(4) NOT NULL DEFAULT '0',
@@ -3793,9 +3793,9 @@ ALTER TABLE `xbt_files`
   ADD PRIMARY KEY (`fid`);
 
 --
--- Indexes for table `xbt_files_users`
+-- Indexes for table `xbt_peers`
 --
-ALTER TABLE `xbt_files_users`
+ALTER TABLE `xbt_peers`
   ADD UNIQUE KEY `fid` (`fid`,`uid`),
   ADD KEY `uid` (`uid`);
 

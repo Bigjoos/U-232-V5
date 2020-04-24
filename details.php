@@ -721,11 +721,11 @@ $HTMLOUT.= "</div> <!-- closing tab pane -->";
 if ($CURUSER['class'] >= UC_POWER_USER) { 
 $HTMLOUT .="<div class='tab-pane fade' id='tab_d'>";
 //== Snatched Torrents mod
-$What_Table = (XBT_TRACKER == true ? 'xbt_files_users' : 'snatched');
+$What_Table = (XBT_TRACKER == true ? 'xbt_peers' : 'snatched');
 $What_cache = (XBT_TRACKER == true ? 'snatched_tor_xbt_' : 'snatched_tor_');
 $What_Value = (XBT_TRACKER == true ? 'WHERE completedtime != "0"' : 'WHERE complete_date != "0"');
-$Which_ID = (XBT_TRACKER == true ? 'fid' : 'id');
-$Which_T_ID = (XBT_TRACKER == true ? 'fid' : 'torrentid');
+$Which_ID = (XBT_TRACKER == true ? 'tid' : 'id');
+$Which_T_ID = (XBT_TRACKER == true ? 'tid' : 'torrentid');
 $Which_Key_ID = (XBT_TRACKER == true ? 'snatched_count_xbt_' : 'snatched_count_');
 $keys['Snatched_Count'] = $Which_Key_ID . $id;
 
@@ -743,7 +743,7 @@ $HTMLOUT.= "
 if (($Detail_Snatch = $mc1->get_value($What_cache . $id)) === false) {
     if (XBT_TRACKER == true) {
      //== \\0//
-      $Main_Q = sql_query("SELECT x.*, x.uid AS su, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, owner FROM xbt_files_users AS x INNER JOIN users ON x.uid = users.id INNER JOIN torrents ON x.fid = torrents.id WHERE completedtime !=0 AND fid = " . sqlesc($id) . " ORDER BY completedtime DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
+      $Main_Q = sql_query("SELECT x.*, x.uid AS su, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, owner FROM xbt_peers AS x INNER JOIN users ON x.uid = users.id INNER JOIN torrents ON x.tid = torrents.id WHERE completedtime !=0 AND tid = " . sqlesc($id) . " ORDER BY completedtime DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
 } else {
       $Main_Q = sql_query("SELECT s.*, s.userid AS su, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, timesann, owner FROM snatched AS s INNER JOIN users ON s.userid = users.id INNER JOIN torrents ON s.torrentid = torrents.id WHERE complete_date !=0 AND torrentid = " . sqlesc($id) . " ORDER BY complete_date DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
 }

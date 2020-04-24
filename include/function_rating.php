@@ -34,7 +34,7 @@ function getRate($id, $what)
     //== lets memcache $count fucker
     $keys['rating_count'] = 'rating_count_' . $what . '_' . $id . '_' . $CURUSER['id'];
     if (($completecount = $mc1->get_value($keys['rating_count'])) === false) {
-    $completeres = sql_query("SELECT * FROM " . (XBT_TRACKER == true ? "xbt_files_users" : "snatched") . " WHERE " . (XBT_TRACKER == true ? "completedtime !=0" : "complete_date !=0") . " AND " . (XBT_TRACKER == true ? "uid" : "userid") . " = " . $CURUSER['id'] . " AND " . (XBT_TRACKER == true ? "fid" : "torrentid") . " = " . $id);
+    $completeres = sql_query("SELECT * FROM " . (XBT_TRACKER == true ? "xbt_peers" : "snatched") . " WHERE " . (XBT_TRACKER == true ? "completedtime !=0" : "complete_date !=0") . " AND " . (XBT_TRACKER == true ? "uid" : "userid") . " = " . $CURUSER['id'] . " AND " . (XBT_TRACKER == true ? "tid" : "torrentid") . " = " . $id);
     $completecount = mysqli_num_rows($completeres);
     $mc1->cache_value($keys['rating_count'], $completecount, 180);
     }

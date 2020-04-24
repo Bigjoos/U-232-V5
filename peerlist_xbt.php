@@ -81,11 +81,11 @@ if (mysqli_num_rows($res) == 0) stderr("{$lang['peerslist_error']}", "{$lang['pe
 $row = mysqli_fetch_assoc($res);
 $downloaders = array();
 $seeders = array();
-$subres = sql_query("SELECT u.username, u.anonymous, u.paranoia, t.owner, t.anonymous as tanonymous, t.seeders, t.leechers, x.fid, x.uploaded, x.downloaded, x.left, x.active, x.mtime AS la, x.uid, x.leechtime, x.seedtime, x.peer_id, x.upspeed, x.downspeed, x.ipa
-    FROM xbt_files_users x
+$subres = sql_query("SELECT u.username, u.anonymous, u.paranoia, t.owner, t.anonymous as tanonymous, t.seeders, t.leechers, x.tid, x.uploaded, x.downloaded, x.left, x.active, x.mtime AS la, x.uid, x.leechtime, x.seedtime, x.peer_id, x.upspeed, x.downspeed, x.ipa
+    FROM xbt_peers x
     LEFT JOIN users u ON x.uid = u.id
-	LEFT JOIN torrents as t on t.id = x.fid
-    WHERE active='1' AND x.fid = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
+	LEFT JOIN torrents as t on t.id = x.tid
+    WHERE active='1' AND x.tid = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 if (mysqli_num_rows($subres) == 0) stderr("{$lang['peerslist_warning']}", "{$lang['peerslist_no_data']}");
 while ($subrow = mysqli_fetch_assoc($subres)) {
     if ($subrow["left"] == 0) $seeders[] = $subrow;

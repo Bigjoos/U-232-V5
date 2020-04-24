@@ -42,7 +42,7 @@ if (!is_valid_id($id)) stderr("Error", "It appears that you have entered an inva
 $res = sql_query("SELECT id, name FROM torrents WHERE id = " . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 $arr = mysqli_fetch_assoc($res);
 if (!$arr) stderr("Error", "It appears that there is no torrent with that id.");
-$res = sql_query("SELECT COUNT(fid) FROM xbt_files_users WHERE completedtime !=0 AND fid =" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
+$res = sql_query("SELECT COUNT(tid) FROM xbt_peers WHERE completedtime !=0 AND tid =" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
 $row = mysqli_fetch_row($res);
 $count = $row[0];
 $perpage = 15;
@@ -64,7 +64,7 @@ $HTMLOUT.= "<table class='table table-bordered'>
 <td class='colhead' align='center'>Active</td>
 <td class='colhead' align='right'>{$lang['snatches_completed']}</td>
 </tr>\n";
-$res = sql_query("SELECT x.*, x.uid AS xu, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, uid FROM xbt_files_users AS x INNER JOIN users ON x.uid = users.id INNER JOIN torrents ON x.fid = torrents.id WHERE fid = " . sqlesc($id) . " AND completedtime !=0 ORDER BY fid DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
+$res = sql_query("SELECT x.*, x.uid AS xu, torrents.username as username1, users.username as username2, users.paranoia, torrents.anonymous as anonymous1, users.anonymous as anonymous2, size, parked, warned, enabled, class, chatpost, leechwarn, donor, uid FROM xbt_peers AS x INNER JOIN users ON x.uid = users.id INNER JOIN torrents ON x.tid = torrents.id WHERE tid = " . sqlesc($id) . " AND completedtime !=0 ORDER BY tid DESC " . $pager['limit']) or sqlerr(__FILE__, __LINE__);
 while ($arr = mysqli_fetch_assoc($res)) {
     $ratio = ($arr["downloaded"] > 0 ? number_format($arr["uploaded"] / $arr["downloaded"], 3) : ($arr["uploaded"] > 0 ? "Inf." : "---"));
     $active = ($arr['active'] == 1 ? $active = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_tick.gif' alt='Yes' title='Yes' />" : $active = "<img src='" . $INSTALLER09['pic_base_url'] . "aff_cross.gif' alt='No' title='No' />");

@@ -25,7 +25,7 @@ function account_delete($userid)
 		"id" => array("users","usersachiev","likes"), // Do Not move this line
 		"userid" => array("blackjack","blocks","bookmarks","casino","coins","freeslots","friends","happyhour","happylog","ips","peers","pmboxes","reputation","shoutbox","snatched","uploadapp","user_blocks","ustatus","userhits","usercomments"
 			),
-                "uid" => array("xbt_files_users","thankyou"),
+                "uid" => array("xbt_peers","thankyou"),
                 "user_id" => array("poll_voters","posts","topics","subscriptions","read_posts"),
 		"friendid" => array(
 			"friends"

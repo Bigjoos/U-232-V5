@@ -26,9 +26,9 @@ function docleanup($data)
     //=== Using this option will work for multiple torrents UP TO 5!... change the 5 to whatever... 1 to give the karma for only 1 torrent at a time, or 100 to make it unlimited (almost) your choice :P /*if ($arr['tcount'] >= 5) $arr['tcount'] = 1;*/
     ///====== Seeding bonus per torrent
     if ($INSTALLER09['seedbonus_on'] == 1) {
-     $What_id = (XBT_TRACKER == true ? 'fid' : 'torrent');
+     $What_id = (XBT_TRACKER == true ? 'tid' : 'torrent');
      $What_user_id = (XBT_TRACKER == true ? 'uid' : 'userid');
-     $What_Table = (XBT_TRACKER == true ? 'xbt_files_users' : 'peers');
+     $What_Table = (XBT_TRACKER == true ? 'xbt_peers' : 'peers');
      $What_Where = (XBT_TRACKER == true ? "`left` = 0 AND `active` = 1" : "seeder = 'yes' AND connectable = 'yes'");
      $res = sql_query('SELECT COUNT('.$What_id.') As tcount, '.$What_user_id.', seedbonus, users.id As users_id FROM '.$What_Table.' LEFT JOIN users ON users.id = '.$What_user_id.' WHERE '.$What_Where.' GROUP BY '.$What_user_id) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($res) > 0) {

@@ -39,7 +39,7 @@ if (isset($_POST["form"]) != 1) {
         if (XBT_TRACKER === false) {
         $res = sql_query("SELECT connectable FROM peers WHERE userid=" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
         } else {
-        $res = sql_query("SELECT connectable FROM xbt_files_users WHERE uid=" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
+        $res = sql_query("SELECT connectable FROM xbt_peers WHERE uid=" . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
         }
         if ($row = mysqli_fetch_row($res)) {
         $Conn_Y = (XBT_TRACKER === true ? 1 : 'yes');

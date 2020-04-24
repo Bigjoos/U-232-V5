@@ -2993,7 +2993,7 @@ CREATE TABLE IF NOT EXISTS `xbt_deny_from_hosts` (
 --
 
 CREATE TABLE IF NOT EXISTS `xbt_files` (
-  `fid` int(11) NOT NULL,
+  `tid` int(11) NOT NULL,
   `info_hash` blob NOT NULL,
   `leechers` int(11) NOT NULL DEFAULT '0',
   `seeders` int(11) NOT NULL DEFAULT '0',
@@ -3016,11 +3016,11 @@ CREATE TABLE IF NOT EXISTS `xbt_files` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `xbt_files_users`
+-- Table structure for table `xbt_peers`
 --
 
-CREATE TABLE IF NOT EXISTS `xbt_files_users` (
-  `fid` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE IF NOT EXISTS `xbt_peers` (
+  `tid` int(11) NOT NULL DEFAULT '0',
   `uid` int(11) NOT NULL DEFAULT '0',
   `active` tinyint(4) NOT NULL DEFAULT '0',
   `announced` int(11) NOT NULL DEFAULT '0',
@@ -3792,10 +3792,10 @@ ALTER TABLE `xbt_files`
   ADD PRIMARY KEY (`fid`);
 
 --
--- Indexes for table `xbt_files_users`
+-- Indexes for table `xbt_peers`
 --
-ALTER TABLE `xbt_files_users`
-  ADD UNIQUE KEY `fid` (`fid`,`uid`),
+ALTER TABLE `xbt_peers`
+  ADD UNIQUE KEY `tid` (`tid`,`uid`),
   ADD KEY `uid` (`uid`);
 
 --

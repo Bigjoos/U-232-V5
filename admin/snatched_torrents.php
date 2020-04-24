@@ -99,14 +99,14 @@ function get_snatched_color($st)
     }
     return "<font color='red'><b>{$lang['ad_snatched_torrents_none']}<br />{$lang['ad_snatched_torrents_reported']}</b></font>";
 }
-$What_Table = (XBT_TRACKER == true ? 'xbt_files_users' : 'snatched');
+$What_Table = (XBT_TRACKER == true ? 'xbt_peers' : 'snatched');
 $What_Value = (XBT_TRACKER == true ? 'WHERE completedtime != "0"' : 'WHERE complete_date != "0"');
 $count = number_format(get_row_count($What_Table, $What_Value));
 $HTMLOUT.= "<h2 align='center'>{$lang['ad_snatched_torrents_allsnatched']}</h2>
 <font class='small'>{$lang['ad_snatched_torrents_currently']}&nbsp;" . htmlsafechars($count) . "&nbsp;{$lang['ad_snatched_torrents_snatchedtor']}</font>";
 $HTMLOUT .="<div class='row'><div class='col-md-12'>";
-$Which_ID = (XBT_TRACKER == true ? 'fid' : 'id');
-$Which_Table = (XBT_TRACKER == true ? 'xbt_files_users' : 'snatched');
+$Which_ID = (XBT_TRACKER == true ? 'tid' : 'id');
+$Which_Table = (XBT_TRACKER == true ? 'xbt_peers' : 'snatched');
 $res = sql_query("SELECT COUNT($Which_ID) FROM $Which_Table") or sqlerr(__FILE__, __LINE__);
 $row = mysqli_fetch_row($res);
 $count = $row[0];
@@ -114,7 +114,7 @@ $snatchedperpage = 15;
 $pager = pager($snatchedperpage, $count, "staffpanel.php?tool=snatched_torrents&amp;action=snatched_torrents&amp;");
 if ($count > $snatchedperpage) $HTMLOUT.= $pager['pagertop'];
 if (XBT_TRACKER == true) {
-    $sql = "SELECT x.uid, x.fid, x.announced, x.completedtime, x.leechtime, x.seedtime, x.uploaded, x.downloaded, x.started, u.username, t.seeders, t.name " . "FROM xbt_files_users AS x " . "LEFT JOIN users AS u ON u.id=x.uid " . "LEFT JOIN torrents AS t ON t.id=x.fid WHERE completedtime != '0'" . " ORDER BY x.completedtime DESC " . $pager['limit'];
+    $sql = "SELECT x.uid, x.tid, x.announced, x.completedtime, x.leechtime, x.seedtime, x.uploaded, x.downloaded, x.started, u.username, t.seeders, t.name " . "FROM xbt_peers AS x " . "LEFT JOIN users AS u ON u.id=x.uid " . "LEFT JOIN torrents AS t ON t.id=x.tid WHERE completedtime != '0'" . " ORDER BY x.completedtime DESC " . $pager['limit'];
 } else {
     $sql = "SELECT sn.userid, sn.id, sn.torrentid, sn.timesann, sn.hit_and_run, sn.mark_of_cain, sn.uploaded, sn.downloaded, sn.start_date, sn.complete_date, sn.seeder, sn.leechtime, sn.seedtime, u.username, t.name " . "FROM snatched AS sn " . "LEFT JOIN users AS u ON u.id=sn.userid " . "LEFT JOIN torrents AS t ON t.id=sn.torrentid WHERE complete_date != '0'" . "ORDER BY sn.complete_date DESC " . $pager['limit'];
 }
@@ -158,7 +158,7 @@ if (mysqli_num_rows($result) != 0) {
         }
         if (XBT_TRACKER == true) {
             $HTMLOUT.= "<tr><td><a href='/userdetails.php?id=" . (int)$row['uid'] . "'><b>" . htmlsafechars($row['username']) . "</b></a></td>
-<td align='center'><a href='/details.php?id=" . (int)$row['fid'] . "'><b>" . $smallname . "</b></a></td>
+<td align='center'><a href='/details.php?id=" . (int)$row['tid'] . "'><b>" . $smallname . "</b></a></td>
 <td align='center'><b>" . htmlsafechars($row['announced']) . "</b></td>
 <td align='center'><b>" . mksize($row['uploaded']) . "</b></td>
 " . ($INSTALLER09['ratio_free'] ? "" : "<td align='center'><b>" . mksize($row['downloaded']) . "</b></td>") . "

@@ -47,16 +47,16 @@ function deletetorrent_xbt($id)
 {
    global $INSTALLER09, $mc1, $CURUSER, $lang;
    sql_query("UPDATE torrents SET flags = 1 WHERE id = ".sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-   sql_query("DELETE files.*, comments.*, thankyou.*, thanks.*, thumbsup.*, bookmarks.*, coins.*, rating.*, xbt_files_users.* FROM xbt_files_users
-                                     LEFT JOIN files ON files.torrent = xbt_files_users.fid
-                                     LEFT JOIN comments ON comments.torrent = xbt_files_users.fid
-                                     LEFT JOIN thankyou ON thankyou.torid = xbt_files_users.fid
-                                     LEFT JOIN thanks ON thanks.torrentid = xbt_files_users.fid
-                                     LEFT JOIN bookmarks ON bookmarks.torrentid = xbt_files_users.fid
-                                     LEFT JOIN coins ON coins.torrentid = xbt_files_users.fid
-                                     LEFT JOIN rating ON rating.torrent = xbt_files_users.fid
-                                     LEFT JOIN thumbsup ON thumbsup.torrentid = xbt_files_users.fid
-                                     WHERE xbt_files_users.fid =" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
+   sql_query("DELETE files.*, comments.*, thankyou.*, thanks.*, thumbsup.*, bookmarks.*, coins.*, rating.*, xbt_peers.* FROM xbt_peers
+                                     LEFT JOIN files ON files.torrent = xbt_peers.tid
+                                     LEFT JOIN comments ON comments.torrent = xbt_peers.tid
+                                     LEFT JOIN thankyou ON thankyou.torid = xbt_peers.tid
+                                     LEFT JOIN thanks ON thanks.torrentid = xbt_peers.tid
+                                     LEFT JOIN bookmarks ON bookmarks.torrentid = xbt_peers.tid
+                                     LEFT JOIN coins ON coins.torrentid = xbt_peers.tid
+                                     LEFT JOIN rating ON rating.torrent = xbt_peers.tid
+                                     LEFT JOIN thumbsup ON thumbsup.torrentid = xbt_peers.tid
+                                     WHERE xbt_peers.tid =" . sqlesc($id)) or sqlerr(__FILE__, __LINE__);
         unlink("{$INSTALLER09['torrent_dir']}/$id.torrent");
         $mc1->delete_value('MyPeers_XBT_' . $CURUSER['id']);
     }

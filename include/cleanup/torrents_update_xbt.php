@@ -24,13 +24,13 @@ function docleanup($data)
     /** sync torrent counts - pdq **/
     $tsql = 'SELECT t.id, t.seeders, (
     SELECT COUNT(*)
-    FROM xbt_files_users
-    WHERE fid = t.id AND `left` = "0"
+    FROM xbt_peers
+    WHERE tid = t.id AND `left` = "0"
     ) AS seeders_num,
     t.leechers, (
     SELECT COUNT(*)
-    FROM xbt_files_users
-    WHERE fid = t.id AND `left` >= "1"
+    FROM xbt_peers
+    WHERE tid = t.id AND `left` >= "1"
     ) AS leechers_num,
     t.comments, (
     SELECT COUNT(*)

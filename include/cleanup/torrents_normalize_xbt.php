@@ -53,11 +53,11 @@ function docleanup($data)
         }
         if (count($delids)) {
             $ids = join(",", $delids);
-            sql_query("DELETE torrents t, xbt_files_users x, files f FROM torrents t
+            sql_query("DELETE torrents t, xbt_peers x, files f FROM torrents t
                   left join files f on f.torrent=t.id
-                  left join xbt_files_users x on x.fid=t.id
+                  left join xbt_peers x on x.tid=t.id
                   WHERE f.torrent IN ($ids) 
-                  OR x.fid IN ($ids) 
+                  OR x.tid IN ($ids) 
                   OR t.id IN ($ids)");
         }
     }

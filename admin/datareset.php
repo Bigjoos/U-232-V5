@@ -59,14 +59,14 @@ function deletetorrent_xbt($tid)
 {
     global $INSTALLER09, $mc1, $CURUSER, $lang;
     sql_query("UPDATE torrents SET flags = 1 WHERE id = ".sqlesc($id)) or sqlerr(__FILE__, __LINE__);
-    sql_query("DELETE files.*, comments.*, xbt_files_users.*, thanks.*, bookmarks.*, coins.*, rating.*, torrents.* FROM torrents 
+    sql_query("DELETE files.*, comments.*, xbt_peers.*, thanks.*, bookmarks.*, coins.*, rating.*, torrents.* FROM torrents 
 				 LEFT JOIN files ON files.torrent = torrents.id
 				 LEFT JOIN comments ON comments.torrent = torrents.id
 				 LEFT JOIN thanks ON thanks.torrentid = torrents.id
 				 LEFT JOIN bookmarks ON bookmarks.torrentid = torrents.id
 				 LEFT JOIN coins ON coins.torrentid = torrents.id
 				 LEFT JOIN rating ON rating.torrent = torrents.id
-				 LEFT JOIN xbt_files_users ON xbt_files_users.fid = torrents.id
+				 LEFT JOIN xbt_peers ON xbt_peers.tid = torrents.id
 				 WHERE torrents.id =" . sqlesc($tid) . " AND flags=1") or sqlerr(__FILE__, __LINE__);
     unlink("{$INSTALLER09['torrent_dir']}/$id.torrent");
     $mc1->delete_value('MyPeers_XBT_' . $CURUSER['id']);
