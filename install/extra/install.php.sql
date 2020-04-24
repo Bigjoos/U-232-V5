@@ -2585,7 +2585,7 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   `offer` int(10) UNSIGNED NOT NULL DEFAULT '0',
   `username` varchar(40) CHARACTER SET utf8 DEFAULT NULL,
   `thanks` int(10) NOT NULL DEFAULT '0',
-  `description` varchar(120) CHARACTER SET utf8 DEFAULT NULL,
+  `description` longtext CHARACTER SET utf8,
   `youtube` varchar(80) CHARACTER SET utf8 DEFAULT NULL,
   `tags` text CHARACTER SET utf8,
   `recommended` enum('yes','no') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'no',
@@ -2595,7 +2595,7 @@ CREATE TABLE IF NOT EXISTS `torrents` (
   `mtime` int(11) NOT NULL DEFAULT '0',
   `ctime` int(11) NOT NULL DEFAULT '0',
   `freetorrent` tinyint(4) NOT NULL DEFAULT '0',
-  `user_likes` text CHARACTER SET utf8 NOT NULL
+  `user_likes` text CHARACTER SET utf8
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

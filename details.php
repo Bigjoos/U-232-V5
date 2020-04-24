@@ -185,12 +185,13 @@ $torrent['doubleimg'] = '<img src="' . $INSTALLER09['pic_base_url'] . 'doublesee
 $torrent['free_color'] = 'danger';
 $torrent['silver_color'] = 'default';
 //==rep user query by pdq
-if (($torrent_cache['rep'] = $mc1->get_value('user_rep_' . $torrents['owner'])) === false) {
-    $torrent_cache['rep'] = array();
+$torrcache_rep = $torrent_cache['rep'] ?? '';
+if (($torrcache_rep = $mc1->get_value('user_rep_' . $torrents['owner'])) === false) {
+    $torrcache_rep = array();
     $us = sql_query("SELECT reputation FROM users WHERE id =" . sqlesc($torrents['owner'])) or sqlerr(__FILE__, __LINE__);
     if (mysqli_num_rows($us)) {
-        $torrent_cache['rep'] = mysqli_fetch_assoc($us);
-        $mc1->add_value('user_rep_' . $torrents['owner'], $torrent_cache['rep'], 14 * 86400);
+        $torrcache_rep = mysqli_fetch_assoc($us);
+        $mc1->add_value('user_rep_' . $torrents['owner'], $torrcache_rep, 14 * 86400);
     }
 }
 $HTMLOUT.= "<script type='text/javascript'>
@@ -515,7 +516,7 @@ if (($sim_torrents = $mc1->get_value('similiar_tor_' . $id)) === false) {
     while ($sim_torrent = mysqli_fetch_assoc($r)) $sim_torrents[] = $sim_torrent;
     $mc1->cache_value('similiar_tor_' . $id, $sim_torrents, 86400);
 }
-if (count($sim_torrents) > 0) {
+if (!empty($sim_torrents) > 0) {
     $sim_torrent = "<table class='table  table-bordered'>\n" . "
         <thead>
         <tr>
@@ -636,8 +637,9 @@ $HTMLOUT.= "</table></div><!-- closing col md 4 -->
 //==Report Torrent Link
 $HTMLOUT.= tr("{$lang['details_add_rprt1']}", "<form action='report.php?type=Torrent&amp;id=$id' method='post'><input class='btn btn-primary' type='submit' name='submit' value='".$lang['details_add_rprt2']."' />&nbsp;&nbsp;<strong><em class='label label-primary'>{$lang['details_add_rprt3']}<a href='rules.php'>{$lang['details_add_rprt4']}</a></em></strong></form>", 1);
 //== Tor Reputation by pdq
-if ($torrent_cache['rep'] && $INSTALLER09['rep_sys_on']) {
-    $torrents = array_merge($torrents, $torrent_cache['rep']);
+$torrcache_rep = $torrent_cache['rep'] ?? '';
+if ($torrcache_rep && $INSTALLER09['rep_sys_on']) {
+    $torrents = array_merge($torrents, $torrcache_rep);
     $member_reputation = get_reputation($torrents, 'torrents', $torrents['anonymous']);
     $HTMLOUT.= '<tr><td class="heading" valign="top" align="right" width="1%">'.$lang['details_add_reput1'].'</td>
         <td align="left" width="99%">' . $member_reputation . ''.$lang['details_add_reput2'].'<br /></td></tr>';
@@ -751,7 +753,7 @@ if (($Detail_Snatch = $mc1->get_value($What_cache . $id)) === false) {
     $mc1->cache_value($What_cache . $id, $Detail_Snatch, $INSTALLER09['expires']['details_snatchlist']);
 }
 
-if ((count($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
+if ((!empty($Detail_Snatch) > 0 && $CURUSER['class'] >= UC_STAFF)) {
     if ($Count > $perpage) $HTMLOUT.= $pager['pagertop'];
  //== \\0//
  if (XBT_TRACKER == true) {
