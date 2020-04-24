@@ -446,7 +446,7 @@ $max = 999;
     if (($MyPeersXbtCache = $mc1->get_value('MyPeers_XBT_'.$CURUSER['id'])) === false) {
         $seed['yes'] = $seed['no'] = 0;
         $seed['conn'] = 3;
-        $r = sql_query("SELECT COUNT(uid) AS `count`, `left`, `active`, `connectable` FROM `xbt_files_users` WHERE uid= " . sqlesc($CURUSER['id']) . " AND `left` = 0 AND `active` = 1") or sqlerr(__LINE__, __FILE__);
+        $r = sql_query("SELECT COUNT(uid) AS `count`, `left`, `active`, `connectable` FROM `xbt_peers` WHERE uid= " . sqlesc($CURUSER['id']) . " AND `left` = 0 AND `active` = 1") or sqlerr(__LINE__, __FILE__);
         while ($a = mysqli_fetch_assoc($r)) {
             $key = $a['left'] == 0 ? 'yes' : 'no';
             $seed[$key] = number_format(0 + $a['count']);
