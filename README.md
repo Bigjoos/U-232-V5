@@ -135,14 +135,14 @@ Use the following commands to install the C++ dependencies on Debian. The g++ ve
 
 
 ```bash
-apt-get install cmake g++ libboost-dev libmysqlclient-dev make zlib1g-dev
+apt install cmake default-libmysqlclient-dev g++ git libboost-dev make zlib1g-dev
 ```
 - Centos/RedHat
 
 Use the following commands to install some of the C++ dependencies on CentOS, Fedora Core and Red Hat. The g++ version should be at least 4.7.
 
 ```bash
-yum install boost-devel gcc-c++ mysql-devel
+yum install boost-devel cmake gcc-c++ git make mysql-devel
 ```
 
 Enter the following commands in a terminal. Be patient while g++ is running, it'll take a few minutes.
@@ -150,10 +150,11 @@ Enter the following commands in a terminal. Be patient while g++ is running, it'
 - Geting sources and compiling
 
 ```bash
-wget https://github.com/whocares-openscene/u-232-xbt/raw/master/xbt.tar.gz
-tar xfz xbt.tar.gz
+git clone https://github.com/OlafvdSpek/xbt
 cd xbt/Tracker
-./make.sh
+cmake .
+make
+cp xbt_tracker.conf.default xbt_tracker.conf
 ```
 
 > Remember to add your mysql connect details TO xbt_tracker.conf
