@@ -22,7 +22,7 @@ PimpMyLog - <http://pimpmylog.com/> - <https://github.com/potsky/PimpMyLog>
 
 The coders of gazelle for the `class.cache`, *sctbdev* for various replacement code.
 
-All other snippets, mods and contributions for this version from *CoLdFuSiOn*, *putyn, *pdq*, *djGrrr*, *Retro*, *elephant*, *ezero*, *Alex2005*, *system*, *sir_Snugglebunny*, *laffin*, *Wilba*, *Traffic*, *dokty*, *djlee*, *neptune*, *scars*, *Raw*, *soft*, *jaits*, *Melvinmeow*, *RogueSurfer*, *stoner*, *Stillapunk*, *swizzles*, *autotron*, *stonebreath*, *whocares*, *Tundracanine*. 
+All other snippets, mods and contributions for this version from *CoLdFuSiOn*, *putyn, *pdq*, *djGrrr*, *Retro*, *elephant*, *ezero*, *Alex2005*, *system*, *sir_Snugglebunny*, *laffin*, *Wilba*, *Traffic*, *dokty*, *djlee*, *neptune*, *scars*, *Raw*, *soft*, *jaits*, *Melvinmeow*, *RogueSurfer*, *stoner*, *Stillapunk*, *swizzles*, *autotron*, *stonebreath*, *whocares*, *Tundracanine*, *iseeyoucopy. 
 
 U-232 wants to thank everyone who helped make it what it is today; shaping and directing our project, all through the thick and thin. It wouldn't have been possible without you. This includes our users and especially Beta Testers - thanks for installing and using u-232 source code as well as providing valuable feedback, bug reports, and opinions.
 
@@ -82,7 +82,7 @@ Thank you for your efforts which make it possible for people all around the worl
 
 ##	Support Forum
 
-- <https://forum-u-232.servebeer.com>
+- <https://u-232forum.servebeer.com>
 
 ## Test site
 
@@ -98,23 +98,23 @@ Thank you for your efforts which make it possible for people all around the worl
 U-232 V5 requires the following :
 
 - Memcached
-- PHP7
-- PHP7-CURL
-- PHP7-IGBINARY
-- PHP7-JSON
-- PHP7-MEMCACHED
-- PHP7-MSGPACK
-- PHP7-MCRYPT
-- PHP7-MYSQL/MYSQLI
-- PHP7-MBSTRING
-- PHP7-GD
-- PHP7-GEOIP
-- PHP7-OPCACHE
-- PHP7-XML
-- PHP7-ZIP
-- LIBAPACHE2-MOD-PHP7
-- Apache/2.4.10
-- Mysql 5.5.50-0
+- PHP
+- PHP-CURL
+- PHP-IGBINARY
+- PHP-JSON
+- PHP-MEMCACHED
+- PHP-MSGPACK
+- PHP-MCRYPT
+- PHP-MYSQL/MYSQLI
+- PHP-MBSTRING
+- PHP-GD
+- PHP-GEOIP
+- PHP-OPCACHE
+- PHP-XML
+- PHP-ZIP
+- LIBAPACHE2-MOD-PHP
+- Apache
+- Mysql
 
 
 ### Set Up Instructions:
@@ -223,5 +223,3 @@ Install `memcached` and zend `opcode` cache before installing U-232 V5.
 5. `Sysop` is added automatically to the array in `cache/staff_settings.php` and `cache/staff_setting2.php`.
 
 6. `Staff` is automatically added to the same two files, but you have to make sure the member is offline before you promote them.
-
-Side note on Mysql 5.7: Mysql 5.7 And MariaDB 10.2 will not work with U-232, We recommend you use Mysql 5.5 or MariaDB 10.1 @ https://downloads.mariadb.org/mariadb/10.1.26/
