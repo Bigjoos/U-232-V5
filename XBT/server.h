@@ -98,7 +98,7 @@ struct t_torrent
 	int fid = 0;
 	int leechers = 0;
 	int seeders = 0;
-        int freetorrent = 0;
+    int freetorrent = 0;
 	bool dirty = true;
 };
 
