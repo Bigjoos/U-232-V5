@@ -24,7 +24,7 @@ function docleanup($data)
     ignore_user_abort(1);
     $torrent_seeds = $torrent_leeches = array();
     $deadtime = TIME_NOW - floor($INSTALLER09['announce_interval'] * 1.3);
-    $dead_peers = sql_query('SELECT tid, uid, peer_id, `left`, `active` FROM xbt_peers WHERE mtime < ' . $deadtime);
+    $dead_peers = sql_query('SELECT tid, uid, peer_id, `left`, active FROM xbt_peers WHERE mtime < ' . $deadtime)  or sqlerr(__FILE__, __LINE__);
     while ($dead_peer = mysqli_fetch_assoc($dead_peers)) {
         $torrentid = (int)$dead_peer['tid'];
         $userid = (int)$dead_peer['uid'];
@@ -38,7 +38,7 @@ function docleanup($data)
         $update = array();
         if ($torrent_seeds[$tid]) $update[] = 'seeders = (seeders - ' . $torrent_seeds[$tid] . ')';
         if ($torrent_leeches[$tid]) $update[] = 'leechers = (leechers - ' . $torrent_leeches[$tid] . ')';
-        sql_query('UPDATE torrents SET ' . implode(', ', $update) . ' WHERE id = ' . sqlesc($tid));
+        sql_query('UPDATE torrents SET ' . implode(', ', $update) . ' WHERE id = ' . sqlesc($tid)) or sqlerr(__FILE__, __LINE__);
     }
     if ($queries > 0) write_log("XBT Peers clean-------------------- XBT Peer cleanup Complete using $queries queries --------------------");
     if (false !== mysqli_affected_rows($GLOBALS["___mysqli_ston"])) {
