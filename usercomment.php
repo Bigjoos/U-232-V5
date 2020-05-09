@@ -98,7 +98,6 @@ if ($action == "add") {
     ".textbbcode('usercomment', 'body', $arr["text"])."
     <input type='submit' class='btn' value='{$lang['usercomment_do_it']}' /></form>";
     echo stdhead("Edit comment for \"" . htmlsafechars($arr["username"]) . "\"", true, $stdhead) . $HTMLOUT . stdfoot();
-    stdfoot();
     die;
 } elseif ($action == "delete") {
     $commentid = 0 + $_GET["cid"];
