@@ -98,7 +98,7 @@ Thank you for your efforts which make it possible for people all around the worl
 U-232 V5 requires the following :
 
 - Memcached
-- PHP
+- PHP 7.4
 - PHP-CURL
 - PHP-IGBINARY
 - PHP-JSON
@@ -150,7 +150,7 @@ Enter the following commands in a terminal. Be patient while g++ is running, it'
 - Geting sources and compiling
 
 ```bash
-git clone https://github.com/OlafvdSpek/xbt
+git clone git clone https://github.com/iseeyoucopy/xbt.git
 cd xbt/Tracker
 cmake .
 make
@@ -170,6 +170,12 @@ To stop XBT run
 ```bash
 killall xbt_tracker
 ```
+#### You need to disable strict_mode 
+add this line in your my.ini
+
+[mysqld]
+sql_mode=IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+
 
 #### Upgrade to U-232 V5
 
