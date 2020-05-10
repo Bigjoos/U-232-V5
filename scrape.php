@@ -133,7 +133,7 @@ if (!@($GLOBALS["___mysqli_ston"] = mysqli_connect($INSTALLER09['mysql_host'], $
     exit();
 }
 @((bool)mysqli_query($GLOBALS["___mysqli_ston"], "USE {$INSTALLER09['mysql_db']}")) or exit();
-$numhash = count($_GET['info_hash']);
+$numhash = $_GET['info_hash'] && count($_GET['info_hash']);
 $torrents = array();
 if ($numhash < 1) die("Scrape Error d5:filesdee");
 elseif ($numhash == 1) {
