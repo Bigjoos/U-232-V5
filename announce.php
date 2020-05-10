@@ -386,14 +386,18 @@ $res_snatch = ann_sql_query("SELECT seedtime, uploaded, downloaded, finished, st
 if (mysqli_num_rows($res_snatch) > 0) {
     $a = mysqli_fetch_assoc($res_snatch);
 }
-$finshed_chk = ($a["finished"] == "yes" ? "yes" : "no");
 if (!mysqli_affected_rows($GLOBALS["___mysqli_ston"]) && $seeder == "no") ann_sql_query("INSERT LOW_PRIORITY INTO snatched (torrentid, userid, peer_id, ip, port, connectable, uploaded, downloaded, to_go, start_date, last_action, seeder, agent) VALUES (" . ann_sqlesc($torrentid) . ", " . ann_sqlesc($userid) . ", " . ann_sqlesc($peer_id) . ", " . ann_sqlesc($realip) . ", " . ann_sqlesc($port) . ", " . ann_sqlesc($connectable) . ", " . ann_sqlesc($uploaded) . ", " . ($INSTALLER09['ratio_free'] ? "0" : "" . ann_sqlesc($downloaded) . "") . ", " . ann_sqlesc($left) . ", " . TIME_NOW . ", " . TIME_NOW . ", " . ann_sqlesc($seeder) . ", " . ann_sqlesc($agent) . ")") or ann_sqlerr(__FILE__, __LINE__);
 $torrent_updateset = $snatch_updateset = array();
 if (isset($self) && $event == "stopped") {
 $seeder = 'no';
     ann_sql_query("DELETE FROM peers WHERE $selfwhere") or ann_sqlerr(__FILE__, __LINE__);
     //=== only run the function if the ratio is below 1
-    if (($a['uploaded'] + $upthis) < ($a['downloaded'] + $downthis) && $a['finished'] == 'yes') {
+	$a_finishd = isset($a['finished']) ? $a['finished'] : 0;
+	$a_upload = isset($a['uploaded']) ? $a['uploaded'] : 0;
+	$a_downld = isset($a['downloaded']) ? $a['downloaded'] : 0;
+	$up_this = isset($upthis) ? (int)$upthis : 0;
+	$down_this = isset($downthis) ? (int)$downthis : '';
+    if (($a_upload + $up_this) < ($a_downld + $down_this) && $a_finishd == 'yes') {
         $HnR_time_seeded = ($a['seedtime'] + $self['announcetime']);
         //=== get times per class
         switch (true) {
