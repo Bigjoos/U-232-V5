@@ -439,8 +439,8 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
     }
     //== Add remove uploaded
     if ($CURUSER['class'] >= UC_ADMINISTRATOR) {
-        $uploadtoadd = 0 + $_POST["amountup"];
-        $downloadtoadd = 0 + $_POST["amountdown"];
+        $uploadtoadd = 0 + ((int)$_POST["amountup"] ?? '');
+        $downloadtoadd = 0 + ((int)$_POST["amountdown"] ?? '');
         $formatup = $_POST["formatup"];
         $formatdown = $_POST["formatdown"];
         $mpup = $_POST["upchange"];
@@ -1033,7 +1033,8 @@ if ((isset($_POST['action'])) && ($_POST['action'] == "edituser")) {
     if ((isset($_POST['class'])) && (($class = $_POST['class']) != $user['class'])) {
         write_staffs();
     }
-    if (sizeof($setbits) > 0 || sizeof($clrbits) > 0) sql_query('UPDATE users SET opt1 = ((opt1 | ' . $setbits . ') & ~' . $clrbits . '), opt2 = ((opt2 | ' . $setbits . ') & ~' . $clrbits . ') WHERE id = ' . sqlesc($userid)) or sqlerr(__file__, __line__);
+    if (is_array($setbits) && sizeof($setbits) > 0 || is_array($clrbits) && sizeof($clrbits) > 0) 
+		sql_query('UPDATE users SET opt1 = ((opt1 | ' . $setbits . ') & ~' . $clrbits . '), opt2 = ((opt2 | ' . $setbits . ') & ~' . $clrbits . ') WHERE id = ' . sqlesc($userid)) or sqlerr(__file__, __line__);
     // grab current data
     $res = sql_query('SELECT opt1, opt2 FROM users WHERE id = ' . sqlesc($userid) . ' LIMIT 1') or sqlerr(__file__, __line__);
     $row = mysqli_fetch_assoc($res);
