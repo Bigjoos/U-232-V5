@@ -28,7 +28,7 @@ function docleanup($data)
     $dt = (TIME_NOW - $secs);
     $maxclass = UC_STAFF;
     $res_in = mysqli_fetch_assoc(sql_query("SELECT id, parked, status, last_access FROM users WHERE parked='no' AND status='confirmed' AND class < $maxclass AND last_access < $dt"));
-    $userid = intval($res_in['id']);
+    $userid = isset($res_in['id']) ? intval($res_in['id']) : '';
     sql_query(account_delete($userid)) or sqlerr(__FILE__, __LINE__);
     if (mysqli_affected_rows($GLOBALS["___mysqli_ston"]) !== false) {
 	$mc1->delete_value('MyUser_' . $userid);
