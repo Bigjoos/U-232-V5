@@ -212,7 +212,7 @@ function get_user_from_torrent_pass($torrent_pass)
 function get_torrent_from_hash($info_hash)
 {
     global $mc1, $INSTALLER09;
-    $key = 'torrent::hash:::' . md5($info_hash);
+    $key = 'torrent::hash:::' . md5(is_array($info_hash));
     $ttll = 21600; // 21600;
     if (($torrent = $mc1->get_value($key)) === false) {
         $res = ann_sql_query('SELECT id, category, banned, free, silver, vip, seeders, leechers, times_completed, seeders + leechers AS numpeers, added AS ts, visible FROM torrents WHERE info_hash = ' . ann_sqlesc($info_hash)) or ann_sqlerr(__FILE__, __LINE__);
