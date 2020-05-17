@@ -31,20 +31,25 @@ $count = $row[0];
 $perpage = 100;
 $pager = pager($perpage, $count, "filelist.php?id=$id&amp;");
 $HTMLOUT = '';
-if ($count > $perpage) $HTMLOUT.= $pager['pagertop'];
+if ($count > $perpage) 
+	$HTMLOUT.= $pager['pagertop'];
 $HTMLOUT.= "<a name='top'></a><table class='table table-bordered'>\n";
 $subres = sql_query("SELECT * FROM files WHERE torrent = " . sqlesc($id) . " ORDER BY id " . $pager['limit']);
 $HTMLOUT.= "<tr><td class='colhead'>{$lang["filelist_type"]}</td><td class='colhead'>{$lang["filelist_path"]}</td><td class='colhead' align='right'>{$lang["filelist_size"]}</td></tr>\n";
 $counter = 0;
 while ($subrow = mysqli_fetch_assoc($subres)) {
     $ext = 'Unknown';
-    if (preg_match('/\\.([A-Za-z0-9]+)$/', $subrow["filename"], $ext)) $ext = strtolower($ext[1]);
-    if (!file_exists("pic/icons/" . $ext . ".png")) $ext = "Unknown";
-    if ($counter !== 0 && $counter % 10 == 0) $HTMLOUT.= "<tr><td colspan='2' align='right'><a href='#top'><img src='{$INSTALLER09['pic_base_url']}/top.gif' alt='' /></a></td></tr>";
+    if (preg_match('/\\.([A-Za-z0-9]+)$/', $subrow["filename"])) 
+		$ext = strtolower($ext[1]);
+    if (!file_exists("pic/icons/" . $ext . ".png")) 
+		$ext = "Unknown";
+    if ($counter !== 0 && $counter % 10 == 0) 
+		$HTMLOUT.= "<tr><td colspan='2' align='right'><a href='#top'><img src='{$INSTALLER09['pic_base_url']}/top.gif' alt='' /></a></td></tr>";
     $HTMLOUT.= "<tr><td><img src='pic/icons/" . htmlsafechars($ext) . ".png' alt='" . htmlsafechars($ext) . " file' title='" . htmlsafechars($ext) . " file' /></td><td>" . htmlsafechars($subrow["filename"]) . "</td><td align='right'>" . mksize($subrow["size"]) . "</td></tr>\n";
     $counter++;
 }
 $HTMLOUT.= "</table>\n";
-if ($count > $perpage) $HTMLOUT.= $pager['pagerbottom'];
+if ($count > $perpage) 
+	$HTMLOUT.= $pager['pagerbottom'];
 echo stdhead($lang["filelist_header"]) . $HTMLOUT . stdfoot();
 ?>
