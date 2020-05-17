@@ -210,6 +210,10 @@ $agentarray = array(
     "-AG"
 );
 foreach ($agentarray as $bannedclient) if (strpos($useragent, $bannedclient) !== false) err("Client is banned. Please use uTorrent 1.6 > or Azureus 2.5 >!");
+$announce_wait = 30;
+if (isset($self) && $self['prevts'] > ($self['nowts'] - $announce_wait)) {
+    err('There is a minimum announce time of ' . $announce_wait . ' seconds');
+}
 if ($torrent['vip'] == 1 && $user['class'] < UC_VIP) err('VIP Access Required, You must be a VIP In order to view details or download this torrent! You may become a Vip By Donating to our site. Donating ensures we stay online to provide you with more Vip-Only Torrents!');
 $user_updateset = array();
 if (!isset($self)) {
