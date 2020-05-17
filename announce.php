@@ -59,10 +59,10 @@ foreach (array(
 unset($x);
 $info_hash = $info_hash;
 $ip = $_SERVER['REMOTE_ADDR'];
-$port = 0 + $port;
-$downloaded = 0 + $downloaded;
-$uploaded = 0 + $uploaded;
-$left = 0 + $left;
+$port = (int)$port;
+$downloaded = (int)$downloaded;
+$uploaded = (int)$uploaded;
+$left = (int)$left;
 $rsize = 30;
 foreach (array(
     "num want",
@@ -74,10 +74,14 @@ foreach (array(
         break;
     }
 }
-if ($uploaded < 0) err('invalid uploaded (less than 0)');
-if ($downloaded < 0) err('invalid downloaded (less than 0)');
-if ($left < 0) err('invalid left (less than 0)');
-if (!$port || $port > 0xffff) err("invalid port");
+if ($uploaded < 0) 
+	err('invalid uploaded (less than 0)');
+if ($downloaded < 0) 
+	err('invalid downloaded (less than 0)');
+if ($left < 0) 
+	err('invalid left (less than 0)');
+if (!$port || $port > 0xffff) 
+	err("invalid port");
 if (!isset($event)) $event = "";
 $seeder = ($left == 0) ? "yes" : "no";
 if (!($db = @($GLOBALS["___mysqli_ston"] = mysqli_connect($INSTALLER09['mysql_host'], $INSTALLER09['mysql_user'], $INSTALLER09['mysql_pass'])) AND $select = @((bool)mysqli_query($db, "USE {$INSTALLER09['mysql_db']}")))) err('Please call back later');
@@ -108,7 +112,8 @@ if (ANN_IP_LOGGING == 1) {
 // End Ip logger
 $realip = $_SERVER['REMOTE_ADDR'];
 $torrent = get_torrent_from_hash($info_hash, $userid);
-if (!$torrent) err("torrent query error - contact site admin");
+if (!$torrent) 
+	err("torrent query error - contact site admin");
 $torrentid = (int)$torrent["id"];
 $torrent_modifier = get_slots($torrentid, $userid);
 $torrent['freeslot'] = $torrent_modifier['freeslot'];
@@ -205,9 +210,6 @@ $agentarray = array(
     "-AG"
 );
 foreach ($agentarray as $bannedclient) if (strpos($useragent, $bannedclient) !== false) err("Client is banned. Please use uTorrent 1.6 > or Azureus 2.5 >!");
-//== Anti flood by Retro
-$announce_wait = 30;
-if (isset($self) && ($self['prevts'] > ($self['nowts'] - $announce_wait))) err('There is a minimum announce time of ' . $announce_wait . ' seconds');
 if ($torrent['vip'] == 1 && $user['class'] < UC_VIP) err('VIP Access Required, You must be a VIP In order to view details or download this torrent! You may become a Vip By Donating to our site. Donating ensures we stay online to provide you with more Vip-Only Torrents!');
 $user_updateset = array();
 if (!isset($self)) {
@@ -393,11 +395,9 @@ $seeder = 'no';
     ann_sql_query("DELETE FROM peers WHERE $selfwhere") or ann_sqlerr(__FILE__, __LINE__);
     //=== only run the function if the ratio is below 1
 	$a_finishd = isset($a['finished']) ? $a['finished'] : 0;
-	$a_upload = isset($a['uploaded']) ? $a['uploaded'] : 0;
-	$a_downld = isset($a['downloaded']) ? $a['downloaded'] : 0;
-	$up_this = isset($upthis) ? (int)$upthis : 0;
-	$down_this = isset($downthis) ? (int)$downthis : '';
-    if (($a_upload + $up_this) < ($a_downld + $down_this) && $a_finishd == 'yes') {
+	$a_upload = isset($a['uploaded']) ? (float)$a['uploaded'] : 0;
+	$a_downld = isset($a['downloaded']) ? (float)$a['downloaded'] : 0;
+    if (($a_upload + $upthis) < ($a_downld + $downthis) && $a_finishd == 'yes') {
         $HnR_time_seeded = ($a['seedtime'] + $self['announcetime']);
         //=== get times per class
         switch (true) {
@@ -468,8 +468,10 @@ $seeder = 'no';
         if ($a) $snatch_updateset[] = "ip = " . ann_sqlesc($realip) . ", port = " . ann_sqlesc($port) . ", connectable = " . ann_sqlesc($connectable) . ", uploaded = uploaded + $upthis, " . ($INSTALLER09['ratio_free'] ? "downloaded = downloaded + 0" : "downloaded = downloaded + $downthis") . ", to_go = " . ann_sqlesc($left) . ", upspeed = " . ($upthis > 0 ? $upthis / $self["announcetime"] : 0) . ", downspeed = " . ($downthis > 0 ? $downthis / $self["announcetime"] : 0) . ", " . ($self["seeder"] == "yes" ? "seedtime = seedtime + {$self['announcetime']}" : "leechtime = leechtime + {$self['announcetime']}") . ", last_action = " . TIME_NOW . ", seeder = " . ann_sqlesc($seeder) . ", agent = " . ann_sqlesc($agent) . ", timesann = timesann + 1";
     }
 } else {
-    if ($user["parked"] == "yes") err("Your account is parked! (Read the FAQ)");
-    elseif ($user['downloadpos'] != 1 || $user['hnrwarn'] == 'yes' AND $seeder != 'yes') err("Your downloading privileges have been disabled! (Read the rules)");
+    if ($user["parked"] == "yes") 
+		err("Your account is parked! (Read the FAQ)");
+    elseif ($user['downloadpos'] != 1 || $user['hnrwarn'] == 'yes' AND $seeder != 'yes') 
+	err("Your downloading privileges have been disabled! (Read the rules)");
     ann_sql_query("INSERT LOW_PRIORITY INTO peers"
             ." (torrent, userid, peer_id, ip, port, connectable, uploaded, downloaded, "
 			." to_go, started, last_action, seeder, agent, downloadoffset, uploadoffset, torrent_pass"
@@ -501,10 +503,11 @@ $seeder = 'no';
     }
 }
 if ($seeder == 'yes') {
-    if ($torrent['banned'] != 'yes') $torrent_updateset[] = 'visible = \'yes\'';
-    $torrent_updateset[] = 'last_action = ' . TIME_NOW;
-    $mc1->begin_transaction('torrent_details_' . $torrentid);
-    $mc1->update_row(false, array(
+    if ($torrent['banned'] != 'yes') 
+		$torrent_updateset[] = 'visible = \'yes\'';
+	$torrent_updateset[] = 'last_action = ' . TIME_NOW;
+	$mc1->begin_transaction('torrent_details_' . $torrentid);
+	$mc1->update_row(false, array(
         'visible' => 'yes'
     ));
     $mc1->commit_transaction($INSTALLER09['expires']['torrent_details']);
@@ -514,9 +517,11 @@ if ($seeder == 'yes') {
     ));
     $mc1->commit_transaction(1800);
 }
-if (count($torrent_updateset)) ann_sql_query('UPDATE LOW_PRIORITY torrents SET ' . join(',', $torrent_updateset) . ' WHERE id = ' . ann_sqlesc($torrentid)) or ann_sqlerr(__FILE__, __LINE__);
-if (count($snatch_updateset)) ann_sql_query('UPDATE LOW_PRIORITY snatched SET ' . join(',', $snatch_updateset) . ' WHERE torrentid = ' . ann_sqlesc($torrentid) . ' AND userid = ' . ann_sqlesc($userid)) or ann_sqlerr(__FILE__, __LINE__);
-if (count($user_updateset)) {
+if (!empty($torrent_updateset)) 
+	ann_sql_query('UPDATE LOW_PRIORITY torrents SET ' . join(',', $torrent_updateset) . ' WHERE id = ' . ann_sqlesc($torrentid)) or ann_sqlerr(__FILE__, __LINE__);
+if (!empty($snatch_updateset)) 
+	ann_sql_query('UPDATE LOW_PRIORITY snatched SET ' . join(',', $snatch_updateset) . ' WHERE torrentid = ' . ann_sqlesc($torrentid) . ' AND userid = ' . ann_sqlesc($userid)) or ann_sqlerr(__FILE__, __LINE__);
+if (!empty($user_updateset)) {
     ann_sql_query('UPDATE LOW_PRIORITY users SET ' . join(',', $user_updateset) . ' WHERE id = ' . ann_sqlesc($userid)) or ann_sqlerr(__FILE__, __LINE__);
     $mc1->delete_value('userstats_' . $userid);
     $mc1->delete_value('user_stats_' . $userid);
