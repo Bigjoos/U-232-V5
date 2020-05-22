@@ -27,9 +27,10 @@ $HTMLOUT = '';
 if (isset($_POST["form"]) != 1) {
     $res = sql_query("SELECT status FROM uploadapp WHERE userid = " . sqlesc($CURUSER['id'])) or sqlerr(__FILE__, __LINE__);
     $arr = mysqli_fetch_assoc($res);
+	$status_arr = isset($arr['status']) ? int($arr['status']) : "";
     if ($CURUSER['class'] >= UC_UPLOADER) stderr($lang['uploadapp_user_error'], $lang['uploadapp_alreadyup']);
-    elseif ($arr['status'] == 'pending') stderr($lang['uploadapp_user_error'], $lang['uploadapp_pending']);
-    elseif ($arr['status'] == 'rejected') stderr($lang['uploadapp_user_error'], $lang['uploadapp_rejected']);
+    elseif ($status_arr == 'pending') stderr($lang['uploadapp_user_error'], $lang['uploadapp_pending']);
+    elseif ($status_arr == 'rejected') stderr($lang['uploadapp_user_error'], $lang['uploadapp_rejected']);
     else {
         $HTMLOUT.= "<h1 align='center'>{$lang['uploadapp_application']}</h1>
         <table class='table table-bordered'><tr><td>
