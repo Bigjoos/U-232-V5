@@ -42,7 +42,7 @@ if (($requests = $mc1->get_value('requests_')) === false) {
         $mc1->cache_value('requests_', $requests, $INSTALLER09['expires']['req_limit']);
     }
 }
-if (count($requests) > 0) {
+if (!empty($requests)) {
     $HTMLOUT.= "<table class='table table-striped table-bordered'>";
     $HTMLOUT.= " <thead><tr>
                 <th class='col-md-1 text-left'><b>{$lang['req_off_cat']}</b></th>
@@ -97,7 +97,7 @@ if (($offers = $mc1->get_value('offers_')) === false) {
         $mc1->cache_value('offers_', $offers, $INSTALLER09['expires']['off_limit']);
     }
 }
-if (count($offers) > 0) {
+if (!empty($offers)) {
     $HTMLOUT.= "<table class='table table-striped table-bordered'>";
     $HTMLOUT.= " <thead><tr>
                 <th class='col-md-1 text-left'><b>{$lang['req_off_cat']}</b></th>
