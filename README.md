@@ -83,14 +83,19 @@ Thank you for your efforts which make it possible for people all around the worl
 ##	Support Forum
 
 - <https://forum-u-232.servebeer.com>
+- <https://forums.u-232.info> or alternatively <https://forums.u-232.info>
 
 ## Test site
 
 - <https://u-232.servebeer.com>
+- <https://u-232.info> or alternatively <https://u-232.duckdns.org>
 
 ## IRC
 
 -	`irc.mibbit.com #09source`
+
+## DISCORD
+- <https://discord.gg/87jcnvVHQJ>
 
 ## Server set Up Instructions:
 
